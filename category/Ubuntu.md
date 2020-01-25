@@ -1,7 +1,8 @@
 ---
 layout: category
-title: Trouble Shooting & Tips/Ubuntu
-permalink: 'Trouble Shooting & Tips/Ubuntu'
+title: TS_Tips/Ubuntu
+permalink: 'TS_Tips/Ubuntu'
+feature-img: "assets/img/13.jpg"
 hide: true
 ---
 
