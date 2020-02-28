@@ -1,7 +1,7 @@
 ---
 layout: category
-title: CS/JavaScripts
-permalink: "CS/JavaScripts"
+title: LO/JavaScripts
+permalink: "LO/JavaScripts"
 feature-img: "assets/img/5.jpg"
 hide: true
 ---

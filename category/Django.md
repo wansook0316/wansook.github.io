@@ -1,8 +1,7 @@
 ---
 layout: category
-title: CS/Django
-permalink: 'CS/Django'
+title: FW/Django
+permalink: "FW/Django"
 feature-img: "assets/img/5.jpg"
 hide: true
 ---
-

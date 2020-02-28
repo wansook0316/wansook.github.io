@@ -1,8 +1,7 @@
 ---
 layout: category
-title: TS_Tips/Ubuntu
-permalink: 'TS_Tips/Ubuntu'
+title: LO/Ubuntu
+permalink: "LO/Ubuntu"
 feature-img: "assets/img/13.jpg"
 hide: true
 ---
-

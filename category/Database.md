@@ -1,8 +1,7 @@
 ---
 layout: category
-title: CS/Database
-permalink: 'CS/Database'
+title: FW/Database
+permalink: "FW/Database"
 feature-img: "assets/img/4.jpg"
 hide: true
 ---
-
