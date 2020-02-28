@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Git command 정리
-category: "TS&Tips/Python"
+category: "FW/Python"
 comments: true
 tags: [test, cate]
 feature-img: "assets/img/10.jpg"
-feature-title:
+feature-title: Git command 정리
 use_math: true
 ---
 

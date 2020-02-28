@@ -1,7 +1,7 @@
 ---
 layout: post
-title: [c++] cin으로 입력받는 것이 느릴 때.
-category: "CS/Algorithm"
+title: cin으로 입력받는 것이 느릴 때.
+category: "FW/Algorithm"
 comments: true
 tags: [test, cate]
 feature-img: "assets/img/19.jpg"
