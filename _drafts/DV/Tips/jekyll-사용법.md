@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Jykell 명령어 cheetsheet
-category: "CS/Algorithm"
+category: "DV/HTML"
 comments: true
 tags: [jekyll, blog, cheetsheet]
 feature-img: "assets/img/1.jpg"

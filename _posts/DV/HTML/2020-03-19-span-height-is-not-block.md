@@ -1,7 +1,7 @@
 ---
 layout: post
 title: span의 height는 block 속성이 아니다.
-category: "CS/Algorithm"
+category: "DV/HTML"
 comments: true
 tags: [css, span, height, block]
 feature-img: "assets/img/2.jpg"
