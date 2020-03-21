@@ -21,7 +21,9 @@ div안에 text를 넣으면 좋지 않다.
 span 태그는 기본적으로 inline 속성을 강하게 띈다.  
 그렇기 때문에 다음 그림과 같이 margin을 먹였음에도 불구하고 내가 원하는 모양대로 속성이 먹히지 않는다.
 
-<img width="301" alt="image" src="https://user-images.githubusercontent.com/37871541/77174622-b17caa80-6b04-11ea-909b-bb23189fff68.png">
+<center>
+<img width="700" alt="image" src="https://user-images.githubusercontent.com/37871541/77174622-b17caa80-6b04-11ea-909b-bb23189fff68.png">
+</center>
 
 ## div와 span의 가장 큰 차이는 display: block, inline
 

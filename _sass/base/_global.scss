@@ -27,8 +27,14 @@ body {
   font-size: $font-size;
   word-wrap: break-word;
 }
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-headings;
+  font-weight: 400;
   line-height: 1.5;
   margin: 0.67em 0;
   a {
@@ -37,61 +43,75 @@ h1, h2, h3, h4, h5, h6 {
     color: $text-color;
     font-size: $font-size;
   }
-  
+  a.post-link {
+    font-family: $font-family-headings;
+  }
 }
+
 h1 {
-  font-size: 2.5em;
+  font-size: 2.3em;
   @media (max-width: 800px) {
-      font-size: 1.7em;
+    font-size: 1.7em;
   }
   @media (max-width: 400px) {
-      font-size: 1.4em;
+    font-size: 1.4em;
+  }
+}
+h1.title {
+  line-height: 1.5;
+  font-family: $font-family-title;
+  font-size: 2.5em;
+  @media (max-width: 800px) {
+    font-size: 1.7em;
+  }
+  @media (max-width: 400px) {
+    font-size: 1.4em;
   }
 }
 h2 {
   font-size: 2em;
   @media (max-width: 800px) {
-      font-size: 1.4.5em;
+    font-size: 1.4.5em;
   }
   @media (max-width: 400px) {
-      font-size: 1.3em;
+    font-size: 1.3em;
   }
 }
 h3 {
   font-size: 1.5em;
   @media (max-width: 800px) {
-      font-size: 1.3em;
+    font-size: 1.3em;
   }
   @media (max-width: 400px) {
-      font-size: 1.2em;
+    font-size: 1.2em;
   }
 }
 h4 {
   font-size: 1.15em;
   @media (max-width: 800px) {
-      font-size: 1.15em;
+    font-size: 1.15em;
   }
   @media (max-width: 400px) {
-      font-size: 1.1em;
+    font-size: 1.1em;
   }
 }
 p {
   @media (max-width: 400px) {
-      font-size: 0.85em;
+    font-size: 0.85em;
   }
 }
 blockquote {
-    border-left: 2px solid;
-    padding: 1em 1em;
+  border-left: 2px solid;
+  padding: 1em 1em;
 }
 blockquote p:last-child,
 footer p:last-child {
   margin-bottom: 0;
 }
 table {
-  table-layout:fixed;
-  width:100%;
-  word-wrap:break-word;
+  table-layout: fixed;
+  width: 100%;
+  word-wrap: break-word;
 }
 td,
 th {
@@ -118,23 +138,40 @@ dt {
   font-weight: bold;
 }
 dd {
-    margin-left: 2em;
+  margin-left: 2em;
 }
-p, ol, ul, dl, .math-display {
+p,
+ol,
+ul,
+dl,
+.math-display {
   line-height: 1.5;
   margin-bottom: 1em;
 }
+
+// 본문 변경
+p {
+  font-family: $font-family-main;
+  line-height: 22pt;
+  letter-spacing: 0.8px;
+  font-size: 14pt;
+  font-weight: 300;
+  color: #333;
+}
+
 // KaTeX math display
 .math-display {
   display: inline-block;
   width: 100%;
 }
 // Lists within lists
-li > ul, li > ol {
-    margin-bottom: 0;
-    margin-left: 1em;
+li > ul,
+li > ol {
+  margin-bottom: 0;
+  margin-left: 1em;
 }
-ol, ul {
+ol,
+ul {
   list-style-position: inside;
 }
 hr {
@@ -153,12 +190,31 @@ a {
   padding: 0;
 }
 // Responsive media
-iframe, img, embed, object, video {
+iframe,
+img,
+embed,
+object,
+video {
   max-width: 100%;
 }
-img[align=left] {
+img[align="left"] {
   margin-right: 3%;
 }
-img[align=right] {
+img[align="right"] {
   margin-left: 3%;
+}
+
+// 코드 색 변경
+pre.highlight {
+  padding: 1em;
+}
+
+div.highlight {
+  background-color: antiquewhite;
+}
+// 메뉴 가독성 강화
+.site-category li a {
+  font-size: 1.1em;
+  letter-spacing: 0.5pt;
+  font-family: $font-family-headings;
 }

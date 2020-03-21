@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>Jykell 명령어 cheetsheet | 완숙의 에그머니🍳</title>
+	<title>position fixed에서 중앙 정렬하기 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="지킬을 사용하는 데 있어 필요한 명령어 모음">
+		content="position : fixed에서 중앙 정렬하는 방법">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/cs/algorithm/2020/03/20/jekyll-%EC%82%AC%EC%9A%A9%EB%B2%95.html">
+	<link rel="canonical" href="/cs/algorithm/2020/03/19/position-fixed-center-%EC%A0%95%EB%A0%AC.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -26,7 +26,7 @@
 
 	<!-- Google Fonts -->
 	
-	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic:400,700|Jua|Gothic+A1:300|Nanum+Gothic+Coding|Source+Code+Pro&display=swap" rel="stylesheet"
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Gothic+A1:300|Nanum+Gothic+Coding|Source+Code+Pro&display=swap|Nanum+Myeongjo:400|Noto+Sans+KR:300" rel="stylesheet"
 		type="text/css">
 	
 
@@ -84,8 +84,9 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 	  alert("Math Processing Error: "+message[1]);
 	});
 </script>
+
 <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
     
 </head>
@@ -167,6 +168,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
                         About Me
                     </a>
                 </li>
+                
+                
                 
                 
                 
@@ -326,7 +329,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       
         <li><a class="short" href="/">✖</a>
           <ul>
-              <li><a href="/Math/Mathematical Statistics">Mathematical Statistics</a></li>
+              <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
               <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
               <li><a href="/Math/Calculus">Calculus</a></li>
           </ul>
@@ -435,35 +438,46 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/1.jpg')">
-    <h1 class="title">내가 사용하려고 만든 jekyll 명령어 모음집</h1>
+  <header style="background-image: url('/assets/img/2.jpg')">
+    <h1 class="title">position fixed에서 중앙 정렬하기</h1>
     
     <p class="meta">
-      March 20, 2020
+      CS/Algorithm
+    </p>
+    <p class="meta">
+      March 19, 2020
       
     </p>
   </header>
-  <section class="post-content"><p>지킬을 사용하는 데 있어 필요한 명령어 모음</p>
+  <section class="post-content"><p>position : fixed에서 중앙 정렬하는 방법</p>
 
-<h2 id="실행">실행</h2>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve
-</code></pre></div></div>
-
-<h2 id="초안을-포함한-local-build">초안을 포함한 local build</h2>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--drafts</span>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.class</span> <span class="p">{</span>
+  <span class="nl">position</span><span class="p">:</span> <span class="nb">fixed</span><span class="p">;</span>
+  <span class="c">/* fixed를 쓸 때에는 width, height를 명시해줘야 한다. */</span>
+  <span class="nl">width</span><span class="p">:</span> <span class="m">80%</span><span class="p">;</span>
+  <span class="c">/* left, right는 해당 요소의 위치 시작점을 결정한다. 그런데, 이때, margin의 양 값을 auto로 줌으로써 마진을 주어 해당 요소의 양 끝 위치를 각각 0으로 만들어준다. */</span>
+  <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span> <span class="nb">auto</span><span class="p">;</span>
+  <span class="nl">left</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="nl">right</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="c">/* 다른 것들 */</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">flex</span><span class="p">;</span>
+  <span class="nl">background-color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+  <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="nl">border-radius</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
 </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#jekyll">#jekyll</a>
+    <a class="tag" href="/tags#css">#css</a>
     
-    <a class="tag" href="/tags#blog">#blog</a>
+    <a class="tag" href="/tags#center-arrangement">#center-arrangement</a>
     
-    <a class="tag" href="/tags#cheetsheet">#cheetsheet</a>
+    <a class="tag" href="/tags#position">#position</a>
+    
+    <a class="tag" href="/tags#fixed">#fixed</a>
     
   </div>
 </footer>
