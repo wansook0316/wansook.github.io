@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>프로그래머스 - 가장 큰 정사각형 찾기 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="level2 : 구현, 또는 동적 계획법을 사용하는 문제이다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/03/23/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EA%B0%80%EC%9E%A5-%ED%81%B0-%EC%A0%95%EC%82%AC%EA%B0%81%ED%98%95%EC%9D%98-%EB%84%93%EC%9D%B4.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1'>
+      <li><a class="short" href="/">📜</a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+        <li><a class="short" href="/">✖</a>
+          <ul>
+              <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+              <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+              <li><a href="/Math/Calculus">Calculus</a></li>
+          </ul>
+        </li>
+
+      <li><a class="short" href="/">📈</a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="short" href="/">💾</a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+        </ul>
+      </li>
+
+      
+
+
+      <li><a class="short" href="/">📱</a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/Cpp">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+        </ul>
+      </li>
+      <li><a class="short" href="/about/">😎</a></li>
+      
+      
+      
+      
+      <li><a class="long" href="/">CV</a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="long" href="/">Math</a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a class="long" href="/">Data Science</a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="long" href="/">Computer Science</a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+        </ul>
+      </li>
+
+
+      <li><a class="long" href="/">Development</a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/Cpp">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a class="long" href="/about/">About</a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/4.jpg')">
+    <h1 class="title">프로그래머스 - 가장 큰 정사각형 찾기</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+    </p>
+    <p class="meta">
+      March 23, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p><strong><em>level2</em></strong> : 구현, 또는 동적 계획법을 사용하는 문제이다.</p>
+
+<p><a href="https://programmers.co.kr/learn/courses/30/lessons/12905" target="\_blank">프로그래머스 - 가장 큰 정사각형 찾기</a></p>
+
+<p>처음 풀이로는 빠르게 풀기 위해서 그냥 단순히 구현을 했다. 입력이 1000 x 1000 이라, 완전 탐색을 수행하더라도 로직을 최대한 덜 쓰도록 짜야된다는 생각을 하면서 짰다. 그 결과 나는 최대 넓이를 구하는 것이 목표이므로, board가 가질 수 있는 최대 변의 길이로 부터 하나씩 줄이며 가능한 정사각형을 구했을 때 return 했다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="kt">bool</span> <span class="nf">go</span><span class="p">(</span><span class="kt">int</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">board</span><span class="p">){</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">+</span><span class="n">y</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">len</span><span class="o">+</span><span class="n">x</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">solution</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">board</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">size</span><span class="p">()),</span> <span class="kt">int</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">()));</span>
+    <span class="kt">int</span> <span class="n">sizeY</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">sizeX</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">());</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">now</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">sizeY</span><span class="o">-</span><span class="n">now</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">sizeX</span><span class="o">-</span><span class="n">now</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">go</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">board</span><span class="p">))</span> <span class="k">return</span> <span class="n">now</span><span class="o">*</span><span class="n">now</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">now</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">now</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>하지만 근본적으로 최악의 경우 연산 횟수가, n^4 이다. (완전한 n^4는 아니다. 하지만 연산이 중복되는 것이 너무 많다.)</p>
+
+<ol>
+  <li>정사각형 판단 (n^2)</li>
+  <li>가능한 시작 점의 개수 (n^2)</li>
+</ol>
+
+<p><strong><em>연산이 중복된다는 생각</em></strong>과, 또, <strong><em>정사각형의 모양을 보니 작은 정사각형이 만들어져야 다음 정사각형이 만들어진다는 생각</em></strong>을 했다. 두 생각은 다이나믹 프로그래밍의 핵심적인 발상이기 때문에 해당 문제를 다이나믹으로 다시 구상해보기 시작했다.</p>
+
+<h2 id="정의">정의</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">dp적용전</th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">dp적용후</th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">3</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>dp[y][x] = (y, x)의 위치를 포함하여 만들 수 있는 정사각형의 최대 변의 길이</p>
+</blockquote>
+
+<p>이렇게 정의를 하게 되면, 다음 정사각형의 변의 길이는, 상, 좌, 좌상향 대각 방향의 요소의 최소값+1에 해당하는 변의 길이로 밖에 만들 수 없다.</p>
+
+<blockquote>
+  <p>dp[y][x] = min(dp[y-1][x-1], dp[y][x-1], dp[y-1][x])</p>
+</blockquote>
+
+<p>dp는 항상 초기값을 세팅해주어야 하는데, <strong>이 경우 y = 0일 때, x = 0 일 때</strong> 값을 고정한 상태로 점화식을 적용하면 된다. 이 때, 초기값으로 부터 answer가 도출될 수 있다는 점을 주의하자. 예외에 걸릴 수 있다. (내가)</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="nf">solution</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">board</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sizeY</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">board</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">sizeX</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">());</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sizeY</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">ans</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sizeX</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">ans</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sizeY</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">sizeX</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">minNum</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+                <span class="n">minNum</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minNum</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">minNum</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">minNum</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                    <span class="n">ans</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">board</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ans</span><span class="o">*</span><span class="n">ans</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98">#피보나치</a>
+    
+    <a class="tag" href="/tags#%EB%8F%99%EC%A0%81%EA%B3%84%ED%9A%8D%EB%B2%95">#동적계획법</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
