@@ -549,6 +549,10 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p>이 길이보다 작은 숫자에 대해서는 그 차만큼 공백을 출력하여 문제가 원하는 답을 도출하자.</p>
 
+<p>입출력이 많으므로 <code class="language-plaintext highlighter-rouge">ios_base::sync_with_stdio(false);</code> 를 사용하자.</p>
+
+<p><a href="https://wansook0316.github.io/cs/algorithm/2020/03/24/cin-cout-%EB%B9%A0%EB%A5%B4%EA%B2%8C.html" target="\_blank">C++ - 입출력 빠르게 받는 방법</a></p>
+
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 골드4 : 백준 1022번 소용돌이 예쁘게 출력하기</span>
 <span class="cp">#include &lt;iostream&gt;
 #include &lt;string&gt;
@@ -562,8 +566,11 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 <span class="kt">int</span> <span class="n">dy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="n">dx</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">r1</span> <span class="o">&gt;&gt;</span> <span class="n">c1</span> <span class="o">&gt;&gt;</span> <span class="n">r2</span> <span class="o">&gt;&gt;</span> <span class="n">c2</span><span class="p">;</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
 
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">r1</span> <span class="o">&gt;&gt;</span> <span class="n">c1</span> <span class="o">&gt;&gt;</span> <span class="n">r2</span> <span class="o">&gt;&gt;</span> <span class="n">c2</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// 현재 위치가 원하는 위치인지 확인</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">r1</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">r2</span> <span class="o">&amp;&amp;</span> <span class="n">c1</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">c2</span><span class="p">)</span> <span class="p">{</span>
