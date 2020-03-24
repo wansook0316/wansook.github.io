@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>draft | 완숙의 에그머니🍳</title>
+	<title>백준(1012번) - 유기농 배추 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="실질적인 테스트를 해보자.">
+		content="실버1 : dfs를 사용하는 기초적인 문제이다.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/cs/algorithm/2020/03/21/a-draft.html">
+	<link rel="canonical" href="/cs/algorithm/2020/03/23/%EB%B0%B1%EC%A4%80-%EC%9C%A0%EA%B8%B0%EB%86%8D%EB%B0%B0%EC%B6%94.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -444,41 +444,91 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/2.jpg')">
-    <h1 class="title">draft</h1>
+  <header style="background-image: url('/assets/img/34.jpg')">
+    <h1 class="title">백준(1012번) - 유기농 배추</h1>
     
     <p class="meta">
       CS/Algorithm
     </p>
     <p class="meta">
-      March 21, 2020
+      March 23, 2020
       
     </p>
   </header>
-  <section class="post-content"><p>실질적인 테스트를 해보자.</p>
+  <section class="post-content"><p><strong><em>실버1</em></strong> : dfs를 사용하는 기초적인 문제이다.</p>
 
-<p>Nisi veniam magna exercitation consequat sint est aliqua amet adipisicing sit occaecat magna. Aute qui ad in reprehenderit eiusmod irure nisi enim ut reprehenderit cupidatat. Qui veniam elit officia enim tempor tempor ea duis do ex. Proident cupidatat culpa incididunt laboris elit et incididunt est minim sint. Fugiat aute minim et mollit sit dolor est commodo commodo est commodo elit. Amet duis anim consequat nulla.</p>
+<p><a href="https://www.acmicpc.net/problem/1012" target="\_blank">백준(1012번) - 유기농 배추</a></p>
 
-<p>Magna sint officia reprehenderit ipsum magna laboris aute voluptate laborum mollit enim minim. Cillum dolore ea labore cillum amet incididunt reprehenderit minim duis ullamco mollit quis duis. Laborum anim adipisicing magna Lorem laborum id do. Nisi anim quis consectetur ipsum ipsum amet velit ut labore qui. Excepteur velit et cupidatat mollit cillum tempor Lorem eu.</p>
+<p>이런 문제를 풀 때, 생각보다 실수를 많이하는 부분은, testcase가 있을 때, <strong>초기화를 하지 않는 것</strong>이다. 항상 testcase가 있는 문제는, 이 부분을 유념해야 한다. 또 초기화를 할 때, 연산이 수반되기 때문에, 어떠한 방식으로 초기화하는 것이 좋은지 생각하며 코드를 짜는 것이 바람직하다. 무조건적인 초기화는 안전성을 장담할 수 있지만 자칫하면 불필요한 연산을 수반할 수 있다.</p>
 
-<p>Nostrud irure laboris duis eiusmod sit eiusmod enim aliqua. Ipsum amet quis et cupidatat id. Mollit sunt nulla amet cupidatat esse esse ea minim sint et proident veniam. Elit reprehenderit non laboris deserunt nostrud cupidatat sit esse in.</p>
+<p>인접한 녀석들에 대해 1마리의 지렁이가 있으면 된다.
+1을 발견하면, dfs를 통해 인접한 것들의 값을 변경하고 globalAns의 값을 1증가시킨다.
+이 때, 정사각 지형을 다 탐색할 필요는 없다.
+나는 1이 있는 위치에서 시작해서 탐색만 하면 된다.
+따라서 입력 받을 때, 해당 위치만을 기억하는 배열을 하나 잡고, 이 것을 모두 확인하면 된다.</p>
 
-<p>Amet dolore ea laborum magna dolor aliquip in eu ipsum enim. Sit nostrud do cillum velit sint. Ipsum ad cillum fugiat laborum. Mollit magna et aliqua eiusmod quis. Ut cupidatat quis ad cupidatat laborum. Labore ut tempor non occaecat veniam eiusmod laborum elit. Fugiat ea dolore dolore occaecat duis et adipisicing nulla.</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 백준 1012번 유기농 배추</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<p>$x-1$Commodo labore eu in id aliqua velit et aliqua eiusmod consequat ea aliquip sit ut.</p>
 
-<p>$x=1$</p>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">baechuLoc</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">baechuNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="mi">51</span><span class="p">][</span><span class="mi">51</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">dy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="n">dx</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="k">new</span><span class="p">()</span> <span class="p">{}</span>
+<span class="kt">void</span> <span class="nf">go</span><span class="p">(</span><span class="kt">int</span> <span class="n">now_y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">now_x</span><span class="p">){</span>
+    <span class="n">map</span><span class="p">[</span><span class="n">now_y</span><span class="p">][</span><span class="n">now_x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">next_y</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">next_x</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">next_y</span><span class="p">][</span><span class="n">next_x</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">go</span><span class="p">(</span><span class="n">next_y</span><span class="p">,</span> <span class="n">next_x</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">tc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tc</span> <span class="o">&lt;</span> <span class="n">T</span><span class="p">;</span> <span class="n">tc</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="n">baechuNum</span><span class="p">;</span>
+        <span class="n">fill</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">map</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">baechuLoc</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">baechuNum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">tempY</span><span class="p">,</span> <span class="n">tempX</span><span class="p">;</span>
+            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">tempY</span> <span class="o">&gt;&gt;</span> <span class="n">tempX</span><span class="p">;</span>
+            <span class="n">map</span><span class="p">[</span><span class="n">tempY</span><span class="p">][</span><span class="n">tempX</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">baechuLoc</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">tempY</span><span class="p">,</span> <span class="n">tempX</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">baechuNum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">][</span><span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">go</span><span class="p">(</span><span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">,</span> <span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+                <span class="n">ans</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
 </code></pre></div></div>
 </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#JS">#JS</a>
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
     
-    <a class="tag" href="/tags#develop">#develop</a>
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%EC%9C%A0%EA%B8%B0%EB%86%8D+%EB%B0%B0%EC%B6%94">#유기농 배추</a>
+    
+    <a class="tag" href="/tags#%EA%B7%B8%EB%9E%98%ED%94%84">#그래프</a>
+    
+    <a class="tag" href="/tags#dfs">#dfs</a>
     
   </div>
 </footer>

@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>About Me | 완숙의 에그머니🍳</title>
+	<title>백준(1003번) - 피보나치 함수 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그">
+		content="실버3 : 동적 계획 법을 사용하는 문제이다.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/about/">
+	<link rel="canonical" href="/cs/algorithm/2020/03/23/%EB%B0%B1%EC%A4%80-%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98-%ED%95%A8%EC%88%98.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -32,6 +32,13 @@
 
 	<!-- KaTeX -->
     <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
 	
 
     -->
@@ -56,6 +63,31 @@
 </script>
 -->
   
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
     
 </head>
   <body>
@@ -412,27 +444,88 @@
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/background_minion3.jpg')">
-    <h1 class="title">About Me</h1>
+  <header style="background-image: url('/assets/img/2.jpg')">
+    <h1 class="title">백준(1003번) - 피보나치 함수</h1>
     
+    <p class="meta">
+      CS/Algorithm
+    </p>
+    <p class="meta">
+      March 23, 2020
+      
+    </p>
   </header>
-  <section class="post-content"><center><img width="250" alt="스크린샷 2019-03-18 오후 2 33 47" src="https://user-images.githubusercontent.com/37871541/54512897-0ee19700-4999-11e9-9731-563e68df3340.png" style="display: block;" /></center>
+  <section class="post-content"><p><strong><em>실버3</em></strong> : 동적 계획 법을 사용하는 문제이다.</p>
 
-<center style="margin-top: 2em; margin-bottom:1em;">게으르게 살기 위해 지금 부지런히 사는 반항아.</center>
+<p><a href="https://www.acmicpc.net/problem/1003" target="\_blank">백준(1003번) - 피보나치 함수</a></p>
 
-<center style="margin-bottom: 3em; margin-top: 0em;">제대로 된 Data Scientist가 되고 싶은 개발자.</center>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 백준 1003번 피보나치 함수</span>
+<span class="cp">#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="c1">// dp[n] = an 까지의 호출되는 1의 개수</span>
+<span class="c1">// dp[n] = dp[n-2] + dp[n-1];</span>
+<span class="c1">// 호출되는 0의 개수는, dp[n-1]과 동일하다.</span>
 
-<center style="margin: 1em;">개발, 수학, 데이터 공부를 좋아합니다.</center>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">41</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">tc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tc</span> <span class="o">&lt;</span> <span class="n">T</span><span class="p">;</span> <span class="n">tc</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+        <span class="k">else</span>        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-<center style="margin: 2em; line-height: 2em;">공부를 하는 도중에, 기억력이 좋지 않아(...😔) 조금만 지나면 까먹는 짓을 많이 했습니다. 그러던 도중, 남에게 가르쳐 준다는 생각으로 내 생각을 정리하면 어떨까.. 오픈 소스를 만들만한 실력은 되지 않지만 수학적으로 필요한 것들을 제공해 줄 수 있지 않을까 하는 생각에 만들었어요.</center>
-
-<center style="margin: 2em; line-height: 2em;">이전 블로그에서 이전하면서, 좀 더 양질의 글을 쓰고, 개발 지향적인 블로그를 운영하기 위해 Github Pages로 이전했습니다. 앞으로는 틈틈히 공부했던 Html, Css, js 개념을 기반으로 예쁘게 꾸미는 블로그를 만들려 합니다.</center>
-
+</code></pre></div></div>
 </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98">#피보나치</a>
+    
+    <a class="tag" href="/tags#%EB%8F%99%EC%A0%81%EA%B3%84%ED%9A%8D%EB%B2%95">#동적계획법</a>
+    
+  </div>
+</footer>
+
+
 </article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
 
     </div>
     
+<script src="/assets/js/katex_init.js"></script>
+
 
 
 <footer class="site-footer">

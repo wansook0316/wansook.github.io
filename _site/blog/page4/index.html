@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>백준(1003번) - 피보나치 함수 | 완숙의 에그머니🍳</title>
+	<title> 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="실버3 : 동적 계획 법을 사용하는 문제이다.">
+		content="개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/cs/algorithm/2020/03/23/baekjun-1003.html">
+	<link rel="canonical" href="/blog/page4/">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -32,13 +32,6 @@
 
 	<!-- KaTeX -->
     <!--
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
-		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
-
-	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
-		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
-		crossorigin="anonymous"></script>
 	
 
     -->
@@ -63,31 +56,6 @@
 </script>
 -->
   
-    
-        <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    TeX: {
-      equationNumbers: {
-        autoNumber: "AMS"
-      }
-    },
-    tex2jax: {
-    inlineMath: [ ['$', '$'] ],
-    displayMath: [ ['$$', '$$'] ],
-    processEscapes: true,
-  }
-});
-MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
-	  alert("Math Processing Error: "+message[1]);
-	});
-MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
-	  alert("Math Processing Error: "+message[1]);
-	});
-</script>
-
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
     
 </head>
   <body>
@@ -171,6 +139,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
                         About Me
                     </a>
                 </li>
+                
+                
                 
                 
                 
@@ -441,89 +411,114 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   </div>
 
     <div class="content">
-      <article class="feature-image">
-  <header style="background-image: url('/assets/img/2.jpg')">
-    <h1 class="title">백준(1003번) - 피보나치 함수</h1>
-    
-    <p class="meta">
-      CS/Algorithm
-    </p>
-    <p class="meta">
-      March 23, 2020
-      
-    </p>
-  </header>
-  <section class="post-content"><p><strong><em>실버3</em></strong> : 동적 계획 법을 사용하는 문제이다.</p>
-
-<p><a href="https://www.acmicpc.net/problem/1003" target="\_blank">백준(1003번) - 피보나치 함수</a></p>
-
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 백준 1003번 피보나치 함수</span>
-<span class="cp">#include &lt;iostream&gt;
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-<span class="c1">// dp[n] = an 까지의 호출되는 1의 개수</span>
-<span class="c1">// dp[n] = dp[n-2] + dp[n-1];</span>
-<span class="c1">// 호출되는 0의 개수는, dp[n-1]과 동일하다.</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">41</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">tc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tc</span> <span class="o">&lt;</span> <span class="n">T</span><span class="p">;</span> <span class="n">tc</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-        <span class="k">else</span>        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></div></div>
-</section>
+      <div class="home">
   
-<footer>
-  <div class="tags">
+  <article class="feature-image">
+    <header style="background-image: url('/assets/img/background_minion.jpg')">
+    <ul class="category-title">
+      <h1 class="title">
+        본격 삽질 정리 블로그.
+      </h1>
+      
+    </ul>
+    </header>
+  </article>
+  
+  
+  
+<!--  기존 header 이미지 띄우는 방법-->
+<!--
+  
+  <div class="call-out"
+  style="background-image: url('/assets/img/background_minion.jpg')">
+    본격 삽질 정리 블로그.
+  </div>
+  
+-->
+
+
+  <div class="posts">
     
-    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    <div class="post-teaser">
+      <header>
+        <h1>
+          <a class="post-link" href="/cs/algorithm/2020/03/19/position-fixed-center-%EC%A0%95%EB%A0%AC.html">
+            position fixed에서 중앙 정렬하기
+          </a>
+        </h1>
+        <p class="meta">
+          March 19, 2020
+        </p>
+      </header>
+      <div class="excerpt">
+        <p>position : fixed에서 중앙 정렬하는 방법</p>
+
+
+        <a class="button" href="/cs/algorithm/2020/03/19/position-fixed-center-%EC%A0%95%EB%A0%AC.html">
+          Continue reading
+        </a>
+      </div>
+    </div>
     
-    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    <div class="post-teaser">
+      <header>
+        <h1>
+          <a class="post-link" href="/dv/javascripts/2020/03/18/%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EC%84%B8%ED%8C%85.html">
+            Web - 개발 환경 초기 세팅
+          </a>
+        </h1>
+        <p class="meta">
+          March 18, 2020
+        </p>
+      </header>
+      <div class="excerpt">
+        <p>개발을 시작하기 전에 환경 설정해야 하는 것들을 적어둔다.</p>
+
+
+        <a class="button" href="/dv/javascripts/2020/03/18/%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EC%84%B8%ED%8C%85.html">
+          Continue reading
+        </a>
+      </div>
+    </div>
     
-    <a class="tag" href="/tags#%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98">#피보나치</a>
-    
-    <a class="tag" href="/tags#%EB%8F%99%EC%A0%81%EA%B3%84%ED%9A%8D%EB%B2%95">#동적계획법</a>
+    <div class="post-teaser">
+      <header>
+        <h1>
+          <a class="post-link" href="/dv/javascripts/2020/02/28/JS.html">
+            Web - 개발 시 고려해야 하는 점
+          </a>
+        </h1>
+        <p class="meta">
+          February 28, 2020
+        </p>
+      </header>
+      <div class="excerpt">
+        <p>개발 시작하기 전에 플로우를 기록해 둔다.</p>
+
+
+        <a class="button" href="/dv/javascripts/2020/02/28/JS.html">
+          Continue reading
+        </a>
+      </div>
+    </div>
     
   </div>
-</footer>
 
-
-</article>
-
-<!-- Disqus -->
-
-<div class="comments">
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-	var disqus_shortname = 'wansook0316';
-	(function() {
-		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
-</script>
-<noscript>Please enable JavaScript to view comments.</noscript>
-
+  
+  <div class="pagination">
+    
+    <a href="/blog/page3" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+  </div>
+  
 </div>
-
-
-<!-- Post navigation -->
-
 
     </div>
     
-<script src="/assets/js/katex_init.js"></script>
-
 
 
 <footer class="site-footer">

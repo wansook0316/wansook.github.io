@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>백준(1012번) - 유기농 배추 | 완숙의 에그머니🍳</title>
+	<title>C++ - 입출력 빠르게 받는 방법 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="실버1 : dfs를 사용하는 기초적인 문제이다.">
+		content="ios_base 라이브러리의 함수를 통해 입출력을 빠르게 받는 방법을 알아본다.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/cs/algorithm/2020/03/23/baekjun-%EC%9C%A0%EA%B8%B0%EB%86%8D%EB%B0%B0%EC%B6%94.html">
+	<link rel="canonical" href="/cs/algorithm/2020/03/24/cin-cout-%EB%B9%A0%EB%A5%B4%EA%B2%8C.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -171,6 +171,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
                         About Me
                     </a>
                 </li>
+                
+                
                 
                 
                 
@@ -442,91 +444,68 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/34.jpg')">
-    <h1 class="title">백준(1012번) - 유기농 배추</h1>
+  <header style="background-image: url('/assets/img/8.jpg')">
+    <h1 class="title">C++ - 입출력 빠르게 받는 방법</h1>
     
     <p class="meta">
       CS/Algorithm
     </p>
     <p class="meta">
-      March 23, 2020
+      March 24, 2020
       
     </p>
   </header>
-  <section class="post-content"><p><strong><em>실버1</em></strong> : dfs를 사용하는 기초적인 문제이다.</p>
+  <section class="post-content"><p>ios_base 라이브러리의 함수를 통해 입출력을 빠르게 받는 방법을 알아본다.</p>
 
-<p><a href="https://www.acmicpc.net/problem/1012" target="\_blank">백준(1012번) - 유기농 배추</a></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2Fb1JQxK%2FbtqyAbHnybT%2FAR800lD5yXLMSPR3tUiCc0%2Fimg.png" alt="언어와 입력 방식에 따른 입출력 속도" />
+<em><a href="https://coding-insider.tistory.com/entry/cin-cout-%EC%9E%85%EC%B6%9C%EB%A0%A5-%EC%86%8D%EB%8F%84-%EB%B9%A0%EB%A5%B4%EA%B2%8C%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95">출처 : https://coding-insider.tistory.com</a></em></p>
 
-<p>이런 문제를 풀 때, 생각보다 실수를 많이하는 부분은, testcase가 있을 때, <strong>초기화를 하지 않는 것</strong>이다. 항상 testcase가 있는 문제는, 이 부분을 유념해야 한다. 또 초기화를 할 때, 연산이 수반되기 때문에, 어떠한 방식으로 초기화하는 것이 좋은지 생각하며 코드를 짜는 것이 바람직하다. 무조건적인 초기화는 안전성을 장담할 수 있지만 자칫하면 불필요한 연산을 수반할 수 있다.</p>
+<p>확연하게 cin, cout이 느리다는 것을 알 수 있다.</p>
 
-<p>인접한 녀석들에 대해 1마리의 지렁이가 있으면 된다.
-1을 발견하면, dfs를 통해 인접한 것들의 값을 변경하고 globalAns의 값을 1증가시킨다.
-이 때, 정사각 지형을 다 탐색할 필요는 없다.
-나는 1이 있는 위치에서 시작해서 탐색만 하면 된다.
-따라서 입력 받을 때, 해당 위치만을 기억하는 배열을 하나 잡고, 이 것을 모두 확인하면 된다.</p>
+<h2 id="적용">적용</h2>
 
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 백준 1012번 유기농 배추</span>
-<span class="cp">#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-
-<span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">baechuLoc</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">baechuNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="mi">51</span><span class="p">][</span><span class="mi">51</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">dy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="n">dx</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">};</span>
-
-<span class="kt">void</span> <span class="nf">go</span><span class="p">(</span><span class="kt">int</span> <span class="n">now_y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">now_x</span><span class="p">){</span>
-    <span class="n">map</span><span class="p">[</span><span class="n">now_y</span><span class="p">][</span><span class="n">now_x</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">next_y</span> <span class="o">=</span> <span class="n">now_y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">next_x</span> <span class="o">=</span> <span class="n">now_x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">next_y</span><span class="p">][</span><span class="n">next_x</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">go</span><span class="p">(</span><span class="n">next_y</span><span class="p">,</span> <span class="n">next_x</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">T</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">tc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">tc</span> <span class="o">&lt;</span> <span class="n">T</span><span class="p">;</span> <span class="n">tc</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">M</span> <span class="o">&gt;&gt;</span> <span class="n">baechuNum</span><span class="p">;</span>
-        <span class="n">fill</span><span class="p">(</span><span class="o">&amp;</span><span class="n">map</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">map</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="n">baechuLoc</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">baechuNum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">tempY</span><span class="p">,</span> <span class="n">tempX</span><span class="p">;</span>
-            <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">tempY</span> <span class="o">&gt;&gt;</span> <span class="n">tempX</span><span class="p">;</span>
-            <span class="n">map</span><span class="p">[</span><span class="n">tempY</span><span class="p">][</span><span class="n">tempX</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">baechuLoc</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">tempY</span><span class="p">,</span> <span class="n">tempX</span><span class="p">));</span>
-        <span class="p">}</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">baechuNum</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">][</span><span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">go</span><span class="p">(</span><span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">,</span> <span class="n">baechuLoc</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
-                <span class="n">ans</span><span class="o">++</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
 </code></pre></div></div>
+
+<p>main 함수안에 위의 코드를 적어주면 빠른 입출력이 가능하다.</p>
+
+<h2 id="설명">설명</h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">ios_base::sync_with_stdio(false)</code></p>
+</blockquote>
+
+<p>C 입출력 함수와 C++ 입출력 스트림의 동기화를 해제하는 것이다. 이걸 쓰면 <strong><em>C, C++ 입출력 함수를 섞어 쓰면 안된다.</em></strong></p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">cin.tie(NULL);</code> <code class="language-plaintext highlighter-rouge">cout.tie(NULL);</code></p>
+</blockquote>
+
+<p>cin과 cout 의 tie를 해제하는 것이다. 자세한 설명을 모르겠다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">std::endl</code> -&gt; <code class="language-plaintext highlighter-rouge">'\n'</code>
+endl도 역시 불러오는 것이기 때문에 속도가 매우 느리다.</p>
+</blockquote>
+
+<h2 id="주의-사항">주의 사항</h2>
+
+<p>하지만 이 방법은 일종의 <strong><em>편법</em></strong>이기 때문에, 사용시 주의가 필요하다.</p>
+
+<ol>
+  <li>scanf, printf와 함께 사용하면 안된다.</li>
+  <li>싱글 쓰레드 환경에서만 사용 가능하다. (알고리즘 문제풀이시에 사용, 실무에서는 사용 X)</li>
+</ol>
 </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    <a class="tag" href="/tags#iostream">#iostream</a>
     
-    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
-    
-    <a class="tag" href="/tags#%EC%9C%A0%EA%B8%B0%EB%86%8D+%EB%B0%B0%EC%B6%94">#유기농 배추</a>
-    
-    <a class="tag" href="/tags#%EA%B7%B8%EB%9E%98%ED%94%84">#그래프</a>
-    
-    <a class="tag" href="/tags#dfs">#dfs</a>
+    <a class="tag" href="/tags#%EC%9E%85%EC%B6%9C%EB%A0%A5">#입출력</a>
     
   </div>
 </footer>
