@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>백준(2193번) - 이친수 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="실버3 : 동적계획법 문제이다.백준(2193번) - 이친수">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/03/25/%EB%B0%B1%EC%A4%80-%EC%9D%B4%EC%B9%9C%EC%88%98.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1'>
+      <li><a class="short" href="/">📜</a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+        <li><a class="short" href="/">✖</a>
+          <ul>
+              <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+              <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+              <li><a href="/Math/Calculus">Calculus</a></li>
+          </ul>
+        </li>
+
+      <li><a class="short" href="/">📈</a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="short" href="/">💾</a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Architecture">Architecture</a></li>
+        </ul>
+      </li>
+
+      
+
+
+      <li><a class="short" href="/">📱</a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/Cpp">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+        </ul>
+      </li>
+      <li><a class="short" href="/about/">😎</a></li>
+      
+      
+      
+      
+      <li><a class="long" href="/">CV</a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="long" href="/">Math</a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a class="long" href="/">Data Science</a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="long" href="/">Computer Science</a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Architecture">Architecture</a></li>
+        </ul>
+      </li>
+
+
+      <li><a class="long" href="/">Development</a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/Cpp">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a class="long" href="/about/">About</a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/7.jpg')">
+    <h1 class="title">백준(2193번) - 이친수</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+    </p>
+    <p class="meta">
+      March 25, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p><strong><em>실버3</em></strong> : 동적계획법 문제이다.<br />
+<a href="https://www.acmicpc.net/problem/2193">백준(2193번) - 이친수</a></p>
+
+<h1 id="생각">생각</h1>
+
+<p>이 문제의 핵심은, 최고자리 숫자가 0 또는 1일 때의 상황을 분리해서 생각해보는 것이다. 이유는 나열하면 금방 알아차릴 수 있다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">N=1</th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">N=2</th>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">N=3</th>
+      <th style="text-align: center"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">00</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">000</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">O</td>
+      <td style="text-align: center">01</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">001</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">O</td>
+      <td style="text-align: center">010</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">11</td>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">011</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">100</td>
+      <td style="text-align: center">O</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">101</td>
+      <td style="text-align: center">O</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">110</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">111</td>
+      <td style="text-align: center">X</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>여기서 N이 2 일 때를 생각해보면, 앞자리에 1이 있어야 하고, 그 뒤는 0으로 시작해야 한다. 0으로 시작한 이후에는 <strong>이친수가 와야한다.</strong> 그럴 경우에 새로운 이친수가 만들어진다. 따라서 N이 증가함에 따라 다음 자리수의 이친수를 만들기 위해서는 최고자리가 0인 상황에서 다음 숫자부터 가지는 이친수를 저장할 필요가 있다.</p>
+
+<h2 id="정의">정의</h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">dp[N][0] : N자리수의 최고자리가 0일 경우 이후 자리수에서 가질 수 있는 이친수의 개수</code></p>
+</blockquote>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">dp[N][1] : N자리수의 최고자리가 1일 경우 가질 수 있는 이친수의 개수</code></p>
+</blockquote>
+
+<h2 id="점화식">점화식</h2>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">dp[N][0] = dp[N-1][0] + dp[N-1][1];</code></p>
+</blockquote>
+
+<p>최고자리수가 0일 때, 위의 정의에 맞는 개수를 구하기 위해서는 그 다음 자리의 수가 1인 경우와, 0인 경우가 있다. 따라서 그 두 경우를 모두 더해주어야 내가 원하는 수를 구할 수 있다.</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">dp[N][1] = dp[N-1][0];</code></p>
+</blockquote>
+
+<p>1인 경우에는 무조건 다음 자리수가 0으로 시작하는 이친수를 구해야 하므로 위와 같다.</p>
+
+<h1 id="code">Code</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 실버3 : 백준 2193번 이친수</span>
+<span class="cp">#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">N</span><span class="p">;</span>
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">dp</span><span class="p">[</span><span class="mi">91</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h1 id="피보나치-수열">피보나치 수열</h1>
+
+<p>그런데 위의 점화식을 잘 정리하면 우리가 알고있는 피보나치 수열의 형태가 나온다.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{align}
+dp[N][0] + dp[N][1] & = (dp[N-1][0] + dp[N-1][1]) + dp[N][1] \\
+& =(dp[N-1][0] + dp[N-1][1]) + dp[N][0] \\
+&= (dp[N-1][0] + dp[N-1][1]) + (dp[N-2][0] + dp[N-2][1])
+\end{align} %]]></script>
+
+<p>다이나믹은 끝이 없다.</p>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%EB%8F%99%EC%A0%81%EA%B3%84%ED%9A%8D%EB%B2%95">#동적계획법</a>
+    
+    <a class="tag" href="/tags#%ED%94%BC%EB%B3%B4%EB%82%98%EC%B9%98">#피보나치</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

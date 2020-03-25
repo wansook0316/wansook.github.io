@@ -6,26 +6,52 @@ layout: default
   {% assign category = page.category | default: page.title %}
   <header style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')">
     
-    <ul class="category-title"><h1 class="title">
-      {{ page.title }} : {{ page.subtitle }}</h1></ul>
+    <ul class="category-title">
+      <h1 class="title">
+      {{ page.title }} : {{ page.subtitle }}
+      </h1>
+    </ul>
   </header>
+</article>
 
-  <ul class="posts-list">
+  <ul class="posts">
     {% assign category_name = page.title | append: '/' | append: page.subtitle %}
 
     {% for post in site.categories[category_name] %}
-    <li>
-      <h3>
+      <div class="post-teaser list-box">
+
+      <div style=" cursor: pointer;" onclick="location.href='{{ post.url | relative_url }}';">
+      <header>
+        <h2 class="categorized-post__title">
+          <a href="{{ site.baseurl }}{{ post.url }}">
+            {{ post.title }}
+          </a>
+        </h2>
+        <p class="meta">
+          {{ post.date | date: "%B %-d, %Y" }}
+        </p>
+      </header>
+      <div class="excerpt">
+        {{ post.excerpt }}
+      </div>
+      </div>
+    </div>
+
+
+
+    {% comment %} <li class="post-teaser categorized-post">
+      <h3 class="categorized-post__title">
         <a href="{{ site.baseurl }}{{ post.url }}">
           {{ post.title }}
         </a>
-        <small>{{ post.date | date_to_string }}</small>
       </h3>
-    </li>
+      <div class="meta">
+            {{ post.date | date: "%B %-d, %Y" }}
+      </div>
+
+    </li> {% endcomment %}
   {% endfor %}
   
 </ul>
-  
-</article>
 
 

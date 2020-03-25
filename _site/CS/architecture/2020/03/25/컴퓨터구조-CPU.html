@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>컴퓨터 구조 - CPU 작동 원리 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="CPU의 동작방법을 알아보자.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1'>
+      <li><a class="short" href="/">📜</a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+        <li><a class="short" href="/">✖</a>
+          <ul>
+              <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+              <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+              <li><a href="/Math/Calculus">Calculus</a></li>
+          </ul>
+        </li>
+
+      <li><a class="short" href="/">📈</a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="short" href="/">💾</a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Architecture">Architecture</a></li>
+        </ul>
+      </li>
+
+      
+
+
+      <li><a class="short" href="/">📱</a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/Cpp">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+        </ul>
+      </li>
+      <li><a class="short" href="/about/">😎</a></li>
+      
+      
+      
+      
+      <li><a class="long" href="/">CV</a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="long" href="/">Math</a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a class="long" href="/">Data Science</a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a class="long" href="/">Computer Science</a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Architecture">Architecture</a></li>
+        </ul>
+      </li>
+
+
+      <li><a class="long" href="/">Development</a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/Cpp">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a class="long" href="/about/">About</a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/12.jpg')">
+    <h1 class="title">컴퓨터 구조 - CPU 작동 원리</h1>
+    
+    <p class="meta">
+      CS/Architecture
+    </p>
+    <p class="meta">
+      March 25, 2020
+      
+    </p>
+  </header>
+  <section class="post-content"><p>CPU의 동작방법을 알아보자.</p>
+
+<h1 id="디지털-회로">디지털 회로</h1>
+
+<p>기본적으로 연산을 수행하도록 가능하게 하는 것은 이 디지털 회로가 있기 때문이다. 이 디지털 회로는 반도체의 특징을 이용하면 가능하다. 반도체는 조건에 따라 도체가 될 수도, 부도체가 될 수도 있다. 이 성격을 이용하여 우리는 연산을 가능하게 만들 수 있다.
+<img src="https://image.shutterstock.com/image-vector/digital-logic-gate-symbols-black-600w-449422498.jpg" alt="논리 게이트" class="center" /> <a href="https://www.shutterstock.com/ko/image-vector/digital-logic-gate-symbols-black-isolated-449422498" class="center-text">출처 : https://www.shutterstock.com</a></p>
+
+<h1 id="연산-방법">연산 방법</h1>
+
+<p>CPU의 핵심 기능인 연산은 어떻게 구현할까?</p>
+
+<h2 id="가산기">가산기</h2>
+
+<blockquote>
+  <p>2진수를 더하는 방법에 대한 방법이다.</p>
+</blockquote>
+
+<p>기본적으로 우리가 덧셈을 한다고 생각해보자. 그렇다면 우리가 덧셈을 하기 위해서 필요한 파라미터는 3개이다. 각 자리에 표현되는 a, b, 그리고 그 두 수를 더했을 때 자리올림이 발생하는지를 판단해줄 c이다.</p>
+
+<script type="math/tex; mode=display">\;\;\;\;\;\;1\\
+\;\;\;\;0010 \\
++0011\\
+\;\;\;\;0101</script>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/77505245-fb1f1980-6ea5-11ea-858c-6bfb716b7c5d.png" class="center" />
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/77505254-01ad9100-6ea6-11ea-97ca-548cbdfc1a0a.png" class="center" /></p>
+
+<p>3개의 input의 결과로 <strong><em>자리올림을 나타내는 변수, 더한 뒤 값을 나타내는 변수</em></strong> 이렇게 두개의 값을 뽑아낸다. 위의 4자리 2진수의 덧셈을 수행하기 위해서는 전가산기 4개가 필요하며, 각 연산을 수행한 결과는 다음 자리수의 input으로 들어가게 된다. $C_0$는 0이다.</p>
+
+<h2 id="뺄셈은">뺄셈은..?</h2>
+
+<blockquote>
+  <p>컴퓨터는 덧셈으로 끝난다.</p>
+</blockquote>
+
+<p>뺄셈은 보수의 덧셈 후 자리버림을 통해 구현이 가능하다.</p>
+
+<h4 id="일반-뺄셈">일반 뺄셈</h4>
+
+<script type="math/tex; mode=display">3 - 2 = 1</script>
+
+<h4 id="보수-덧셈-후-자리버림">보수 덧셈 후 자리버림</h4>
+
+<script type="math/tex; mode=display">3 + 8 = 11 => 1</script>
+
+<p>2진수에서 보수는 $0^c = 1$, $1^c=0$ 이다. 그런데 신기하게도 이 보수는 NOT연산으로 구현이 가능하다.</p>
+
+<h3 id="보수란">보수란</h3>
+
+<p>보수는 해당 숫자를 진법의 숫자에서 뺀 것을 말한다. 예를 들어 2의 보수는 $10-2=8$이다.</p>
+
+<h2 id="곱셈은">곱셈은..?</h2>
+
+<blockquote>
+  <p>곱셈은 더하기의 연속적인 과정이다.</p>
+</blockquote>
+
+<p>계속해서 더하면 곱셈구현이 가능하다. 혹은 비트 연산 중 왼쪽 shift를 사용하면 가능하다.</p>
+
+<h2 id="나눗셈은">나눗셈은?</h2>
+
+<blockquote>
+  <p>나눗셈은 뺄셈의 연속적 과정에서 나오는 결과이다.</p>
+</blockquote>
+
+<script type="math/tex; mode=display">10 /3 = 3 \\</script>
+
+<script type="math/tex; mode=display">10 -3 = 7 \\
+7-3 = 4\\
+4-3 = 1\\</script>
+
+<p>세번 수행했고, 뺄셈이 불가능할 경우에 정지하면 몫과 나머지를 구할 수 있다.</p>
+
+<p>혹은 오른쪽 shifting을 하면 가능하다.</p>
+
+<h3 id="0으로-나누기">0으로 나누기</h3>
+
+<p>이런 방법이기 때문에 0으로 나누는 경우 무한루프에 진입할 수 밖에 없다. <del>따라서 CPU가 과열되서 터진다….</del> <del><a href="https://www.youtube.com/watch?v=mZ7pUADoo58">펑!</a></del></p>
+
+<h1 id="결론">결론</h1>
+
+<blockquote>
+  <p>CPU는 연산이 핵심이다. 그리고 그 연산은 <strong>더하기</strong>만으로 구현이 가능하다.</p>
+</blockquote>
+</section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EC%BB%B4%ED%93%A8%ED%84%B0+%EA%B5%AC%EC%A1%B0">#컴퓨터 구조</a>
+    
+    <a class="tag" href="/tags#CPU">#CPU</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

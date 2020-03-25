@@ -17,6 +17,7 @@ layout: default
   {% endif %}
   
   
+  </div>
 <!--  기존 header 이미지 띄우는 방법-->
 <!--
   {% if site.theme_settings.header_text %}
@@ -30,24 +31,27 @@ layout: default
 
   <div class="posts">
     {% for post in paginator.posts %}
-    <div class="post-teaser">
-      <header>
-        <h1>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title }}
-          </a>
-        </h1>
-        <p class="meta">
-          {{ post.date | date: "%B %-d, %Y" }}
-        </p>
-      </header>
-      <div class="excerpt">
-        {{ post.excerpt }}
-        <a class="button" href="{{ post.url | relative_url }}">
-          {{ site.theme_settings.str_continue_reading }}
-        </a>
+      <div class="post-teaser list-box" >
+      
+        <div style=" cursor: pointer;" onclick="location.href='{{ post.url | relative_url }}';">
+        <header>
+          <h2 class="categorized-post__title">
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              {{ post.title }}
+            </a>
+          </h2>
+          <p class="meta">
+            {{ post.date | date: "%B %-d, %Y" }}
+          </p>
+        </header>
+        <div class="excerpt">
+          {{ post.excerpt }}
+          {% comment %} <a class="button" href="{{ post.url | relative_url }}">
+            {{ site.theme_settings.str_continue_reading }}
+          </a> {% endcomment %}
+        </div>
+        </div>
       </div>
-    </div>
     {% endfor %}
   </div>
 
@@ -67,4 +71,4 @@ layout: default
     {% endif %}
   </div>
   {% endif %}
-</div>
+{% comment %} </div> {% endcomment %}
