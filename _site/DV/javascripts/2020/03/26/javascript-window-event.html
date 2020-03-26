@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>LaTex - equation 예쁘게 맞추기 | 완숙의 에그머니🍳</title>
+	<title>javascript - window resize event | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="LaTex 에서 align을 사용하여 방정식을 예쁘게 맞춰보자.">
+		content="자바스크립트의 window 이벤트를 알아본다.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/dv/tips/2020/03/25/Latex-align.html">
+	<link rel="canonical" href="/dv/javascripts/2020/03/26/javascript-window-event.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -432,54 +432,63 @@ function changeContent(event){
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/14.jpg')">
-    <h1 class="title">LaTex - equation 예쁘게 맞추기</h1>
+  <header style="background-image: url('/assets/img/20.jpg')">
+    <h1 class="title">javascript - window resize event</h1>
     
     <p class="meta">
-      DV/Tips
+      DV/JavaScripts
     </p>
     <p class="meta">
-      March 25, 2020
+      March 26, 2020
       
     </p>
   </header>
-  <section class="post-content"><p>LaTex 에서 align을 사용하여 방정식을 예쁘게 맞춰보자.</p>
+  <section class="post-content"><p>자바스크립트의 window 이벤트를 알아본다.</p>
 
-<p>수식 전개를 하다보면, 계속해서 등호를 사용하여 수식의 변경요소를 보여줄 필요가 있다.</p>
+<h2 id="resize">resize</h2>
 
-<script type="math/tex; mode=display">A = B \\
-=C\\
-=D \\= \cdots = Z</script>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">resize</span><span class="dl">"</span><span class="p">,</span> <span class="nx">changeContent</span><span class="p">);</span>
 
-<p><del class="center-text">으으 못생겼다</del></p>
-
-<p>이런 경우 Latex 수식을 시작할 떄 align 속성을 걸어주면 예쁘게 사용할 수 있다.</p>
-
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align}
-A & = B \\
-& = C \\
-&= \cdots \\
-&= Z.
-\end{align} %]]></script>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\begin{align}
-A &amp; = B \\
-&amp; = C \\
-&amp;= \cdots \\
-&amp;= Z.
-\end{align}
+<span class="kd">function</span> <span class="nx">changeContent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">cat</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">js-cat</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">cv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">category-cv</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">math</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">category-math</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">ds</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">category-ds</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">cs</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">category-cs</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">dv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">category-dv</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">about</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">category-about</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">innerWidth</span> <span class="o">&lt;</span> <span class="mi">710</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">cv</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">📜</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">math</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">✖</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">ds</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">📈</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">cs</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">💾</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">dv</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">📱</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">about</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">😎</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">cat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">justifyContent</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">space-around</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">cv</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">CV</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">math</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Math</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">ds</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Data Science</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">cs</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Computer Science</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">dv</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Development</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">about</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">About</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">cat</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">justifyContent</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">center</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cat</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></div>
+
+<p>이 코드는 내 블로그 카테고리를 수정할 때 만든 코드이다.</p>
 </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#LaTex">#LaTex</a>
+    <a class="tag" href="/tags#development">#development</a>
     
-    <a class="tag" href="/tags#equation">#equation</a>
+    <a class="tag" href="/tags#javascript">#javascript</a>
     
-    <a class="tag" href="/tags#align">#align</a>
+    <a class="tag" href="/tags#resize">#resize</a>
     
   </div>
 </footer>

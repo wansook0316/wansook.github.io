@@ -1,8 +1,12 @@
 <script>
+console.log(window)
+
 window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
 
 function changeContent(event){
-  
+  const width = window.innerWidth;
+  console.log(event);
   const cat = document.getElementById("js-cat");
   const cv = document.getElementById("category-cv");
   const math = document.getElementById("category-math");
@@ -10,7 +14,35 @@ function changeContent(event){
   const cs = document.getElementById("category-cs");
   const dv = document.getElementById("category-dv");
   const about = document.getElementById("category-about");
-  if (event.target.innerWidth < 710) {
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+{% comment %} function changeContent2(event){
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (event.currentTarget.innerWidth < 710) {
     cv.innerText = "📜"
     math.innerText = "✖"
     ds.innerText = "📈"
@@ -28,6 +60,5 @@ function changeContent(event){
     cat.style.justifyContent = "center"
     console.log(cat);
   }
-  
-}
+} {% endcomment %}
 </script>
