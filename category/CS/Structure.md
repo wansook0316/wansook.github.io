@@ -1,8 +1,8 @@
 ---
 layout: category
 title: CS
-subtitle: Architecture
-permalink: "CS/Architecture"
+subtitle: Structure
+permalink: "CS/Structure"
 feature-img: "assets/img/10.jpg"
 hide: true
 ---

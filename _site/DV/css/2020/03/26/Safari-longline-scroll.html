@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>컴퓨터 구조 - 기억장치에 대한 이해 | 완숙의 에그머니🍳</title>
+	<title>Safari - long line scroll 작동 안함 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="기억 장치의 동작방법에 대해 이해해보자.">
+		content="사파리에서 code block을 담당하는 pre 태그에서 long line scroll이 안되는 문제를 해결한다.참고">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html">
+	<link rel="canonical" href="/dv/css/2020/03/26/Safari-longline-scroll.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -144,6 +144,8 @@ function changeContent(event){
     <nav class="site-nav">
             <ul>
 <!--
+                
+                
                 
                 
                 
@@ -398,7 +400,8 @@ function changeContent(event){
         <ul>
           <li><a href="/CS/Database">Database</a></li>
           <li><a href="/CS/Algorithm">Algorithm</a></li>
-          <li><a href="/CS/Architecture">Architecture</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
         </ul>
       </li>
 
@@ -432,97 +435,37 @@ function changeContent(event){
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/13.jpg')">
-    <h1 class="title">컴퓨터 구조 - 기억장치에 대한 이해</h1>
+  <header style="background-image: url('/assets/img/17.jpg')">
+    <h1 class="title">Safari - long line scroll 작동 안함</h1>
     
     <p class="meta">
-      CS/Architecture
+      DV/CSS
     </p>
     <p class="meta">
-      March 25, 2020
+      March 26, 2020
       
     </p>
   </header>
-  <section class="post-content"><p>기억 장치의 동작방법에 대해 이해해보자.</p>
+  <section class="post-content"><p>사파리에서 code block을 담당하는 pre 태그에서 long line scroll이 안되는 문제를 해결한다.<br />
+<a href="https://wordpress.org/support/topic/long-lines-do-not-scroll-in-code-block-when-using-macos-safari/">참고</a></p>
 
-<h1 id="memory-device">Memory Device</h1>
+<p>근본적인 문제는 Safari pre태그의 초기값 때문이다.
+이것을 해결하기 위해서는 다음의 코드를 추가하면 된다.</p>
 
-<h2 id="계층-구조">계층 구조</h2>
-
-<p><img src="https://t1.daumcdn.net/cfile/tistory/992DB8435AEF240E25" alt="기억장치의 계층 구조" />
-<a href="https://programmer-student.tistory.com/8" class="center-text">출처 : https://programmer-student.tistory.com</a></p>
-
-<h3 id="쉬운-이해를-위한-도표">쉬운 이해를 위한 도표</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">기억장치</th>
-      <th style="text-align: center">분류</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">캐시</td>
-      <td style="text-align: center">책상</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">RAM</td>
-      <td style="text-align: center">책꽂이</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">HDD</td>
-      <td style="text-align: center">도서관</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="컴퓨터가-관리하는-방법--관리-체계">컴퓨터가 관리하는 방법 : 관리 체계</h2>
-
-<blockquote>
-  <p>컴퓨터는 모든 것이 <strong>숫자</strong>이다.</p>
-</blockquote>
-
-<p>그래서 기억 공간도 번호를 붙여 관리한다. 이와 같은 관리 체계는 아파트 단지를 동, 호로 관리하는 것과 비슷하다.</p>
-
-<ol>
-  <li>RAM에 있는 n번 번호에 있는 정보를 가져와</li>
-  <li>그 정보를 CPU에서 사용할 연산 저장 공간에 저장해</li>
-  <li>연산을 수행해</li>
-  <li>RAM의 m번 공간에 저장해</li>
-</ol>
-
-<p>여기서 CPU에서 저장하는 공간의 명칭이 register이다.</p>
-
-<h3 id="레지스터">레지스터</h3>
-
-<blockquote>
-  <p>개별 기억 공간마다 <strong><em>고유 이름</em></strong>을 붙인다.</p>
-</blockquote>
-
-<p>기본적으로 레지스터는 많은 저장 공간을 갖고 있지 않다. 그래서 이 각각에 이름을 붙여 관리한다.</p>
-
-<h3 id="주기억장치ram">주기억장치(RAM)</h3>
-
-<blockquote>
-  <p>일련 번호를 붙인다.</p>
-</blockquote>
-
-<p>위에서 언급했던 번호에 해당하는 것이 보통 RAM에 대한 설명이다.</p>
-
-<h3 id="보조-기억장치hdd-sdd">보조 기억장치(HDD, SDD)</h3>
-
-<blockquote>
-  <p>트랙 번호와 섹터 번호를 붙여 관리한다.</p>
-</blockquote>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.site-content</span> <span class="nt">pre</span> <span class="p">{</span>
+  <span class="nl">overflow-wrap</span><span class="p">:</span> <span class="nb">normal</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#%EC%BB%B4%ED%93%A8%ED%84%B0+%EA%B5%AC%EC%A1%B0">#컴퓨터 구조</a>
+    <a class="tag" href="/tags#Browser">#Browser</a>
     
-    <a class="tag" href="/tags#%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98">#기억장치</a>
+    <a class="tag" href="/tags#Safari">#Safari</a>
+    
+    <a class="tag" href="/tags#css">#css</a>
     
   </div>
 </footer>

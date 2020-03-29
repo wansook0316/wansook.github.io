@@ -5,7 +5,450 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Thu, 26 Mar 2020 15:19:17 +0900</pubDate>
+    <pubDate>Sun, 29 Mar 2020 23:18:24 +0900</pubDate>
+    
+      <item>
+        <title>컴퓨터 구조 - 운영 체제가 하는 일</title>
+        <link>/cs/structure/2020/03/29/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/29/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html</guid>
+        <description>&lt;p&gt;운영 체제가 하는 일을 간단하게 알아보자.&lt;/p&gt;
+
+&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;h1 id=&quot;운영체제가-하는-일&quot;&gt;운영체제가 하는 일&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;접근 제어 + 동기화 + 관리&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;전산 자원을 관리한다. 대표적인 전산 자원은 CPU, RAM 등이 있다. &lt;del&gt;스타판 프로게이머&lt;/del&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;프로그램들-관리하기&quot;&gt;프로그램’들’ 관리하기&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Process를 관리&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;한정된 자원으로 많은 프로그램들이 동작해야 한다. 어쩔 수 없이 나눠서 사용해야 한다.&lt;/p&gt;
+
+&lt;p&gt;아래 단어들의 의미를 모른다면, 용어를 알고 다시 읽자.
+&lt;a href=&quot;https://wansook0316.github.io/cs/architecture/2020/03/25/컴퓨터구조-용어정리.html&quot;&gt;하드웨어, 운영체제, 프로세스, 스레드 용어 정리&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;scheduling&quot;&gt;Scheduling&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;멀티 프로세스 운영체제에서 하나의 CPU가 복수의 프로세스를 실행하기 위해 CPU를 사용하는 순서를 정해주는 작업&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img width=&quot;1210&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77846957-870daa00-71f4-11ea-85a8-4de42f067d62.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 다양한 프로세스를 동시에 작업하게 되면, 스레드가 CPU를 사용하고 있을 떄, 사용하고 있다고 알려주는 &lt;strong&gt;&lt;em&gt;동기화&lt;/em&gt;&lt;/strong&gt;가 매우 중요하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;virtual-memory-system&quot;&gt;Virtual Memory System&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;RAM과 HDD를 하나의 논리적 메모리로 추상화시킨 메모리 관리 방법&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;프로세스가 운영체제로 부터 메모리를 할당 받는 일은 시간이 많이 걸리는 일이다. 그렇기 때문에 최대한 RAM 공간에 할당 받은 채로 존재하는 것이 속도를 높일 수 있는 방법이다. 또한 여러개의 프로세스를 사용할 경우, RAM 공간을 초과하여 프로세스가 동작하지 않는다. 이런 부분들을 해결하기 위해 HDD 공간을 활용한 것이 가상 메모리 시스템이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;단위&quot;&gt;단위&lt;/h3&gt;
+
+&lt;p&gt;이 곳에서 모든 메모리는 &lt;strong&gt;Page&lt;/strong&gt;라는 단위로 관리된다. HDD와 RAM을 왔다갔다 하는 단위이다. 이 중에는 Paged 될 수 있는 &lt;strong&gt;페이징 풀&lt;/strong&gt; 영역과 절대로 Paged 되면 안되는 &lt;strong&gt;비 페이징 풀&lt;/strong&gt; 영역이 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;virtual-memory의-구성&quot;&gt;Virtual Memory의 구성&lt;/h3&gt;
+
+&lt;p&gt;집의 공간을 가족 구성원들이 나눠쓰듯이 프로세스의 가상 메모리 공간을 thread가 나눠서 사용한다. 이 나눠서 사용하는 공간을 &lt;strong&gt;Stack&lt;/strong&gt;이라 한다. 이 thread에 할당된 메모리 공간이 stack을 사용하여 관리되기 때문에 Stack이라 불린다.&lt;/p&gt;
+
+&lt;p&gt;프로세스는 Heap과 실행 코드 영역을 갖는다. &lt;strong&gt;&lt;em&gt;추가바람&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;동작-방법&quot;&gt;동작 방법&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;RAM이 꽉찼는 지 확인한다.&lt;/li&gt;
+  &lt;li&gt;꽉찼다면 현재 RAM 공간 중에 사용하지 않는 프로세스가 할당된 공간이 있다면 이것을 HDD 공간에 복사해둔다. &lt;strong&gt;Page Out&lt;/strong&gt;(&lt;em&gt;Swap Out&lt;/em&gt;)&lt;/li&gt;
+  &lt;li&gt;RAM 공간이 비게 될 경우 복사해 둔 공간을 다시 RAM으로 복사한다. &lt;strong&gt;Page in&lt;/strong&gt;(&lt;em&gt;Swap in&lt;/em&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;프로세스-별-가상-메모리의-크기&quot;&gt;프로세스 별 가상 메모리의 크기&lt;/h3&gt;
+
+&lt;p&gt;이러한 가상 메모리 시스템이 있기 때문에, 프로세스가 실행 되고 할당 받는 메모리 공간은 4GB로 할당한다. 이 크기는 현실적으로 RAM만 사용한다면 말이 안되는 소리지만, 가상 메모리를 사용하게 되면 문제없다.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 29 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>컴퓨터 구조 - 숫자로 모든 것을 다루는 방법</title>
+        <link>/cs/structure/2020/03/29/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%88%AB%EC%9E%90%EB%A1%9C-%EB%AA%A8%EB%93%A0%EA%B2%83%EC%9D%84-%EB%8B%A4%EB%A3%A8%EB%8A%94-%EB%B0%A9%EB%B2%95.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/29/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%88%AB%EC%9E%90%EB%A1%9C-%EB%AA%A8%EB%93%A0%EA%B2%83%EC%9D%84-%EB%8B%A4%EB%A3%A8%EB%8A%94-%EB%B0%A9%EB%B2%95.html</guid>
+        <description>&lt;p&gt;컴퓨터가 모든 것을 숫자로 다루는 방식을 알아보자.&lt;/p&gt;
+
+&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;h1 id=&quot;컴퓨터로-글자를-나타내는-방법&quot;&gt;컴퓨터로 글자를 나타내는 방법&lt;/h1&gt;
+
+&lt;h2 id=&quot;ascii-code&quot;&gt;ASCII Code&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;숫자와 글자에 대한 함수관계를 정의한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=http%3A%2F%2Fcfile5.uf.tistory.com%2Fimage%2F216CE84C52694FF02054D4&quot; alt=&quot;아스키 코드표&quot; class=&quot;center&quot; /&gt;
+&lt;a href=&quot;https://shaeod.tistory.com/&quot; class=&quot;center-text&quot;&gt;출처&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;바이너리-코드binary-code&quot;&gt;바이너리 코드(binary Code)&lt;/h3&gt;
+
+&lt;p&gt;실제로 담고 있는 정보를 Text 형태로 보여주면 ASCII Code 형태가 되고, 이것을 컴퓨터가 이해하는 방식인 숫자(보통 16진수)로 표현해 놓으면 이것을 바이너리 코드라 한다.
+결과적으로 사람이 읽을 수 있는 텍스트 파일 이외에 &lt;strong&gt;컴퓨터 저장이나 처리 목적을 위해 코드를 숫자로 변경해 놓은(인코딩) 데이터를 말한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;컴퓨터가-사진을-다루는-방법&quot;&gt;컴퓨터가 사진을 다루는 방법&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;특정 화소 하나를 숫자로 표시하고 이를 모아 사진으로 그린다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;이미지-파일-형식&quot;&gt;이미지 파일 형식&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;해당 화소를 표현하는 방식(규칙)에 대한 것.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;rendering&quot;&gt;Rendering&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;숫자&lt;/strong&gt;로 되어 있는 것을 &lt;strong&gt;글자와 사진&lt;/strong&gt;으로 그려내는 것!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 속도가 중요하다! &lt;del&gt;렌더링이라는 것이 정확히 무엇인지 몰랐는데… 휴우&lt;/del&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 29 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>컴퓨터 구조 - 기억장치에 대한 이해</title>
+        <link>/cs/structure/2020/03/29/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/29/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html</guid>
+        <description>&lt;p&gt;기억 장치의 동작방법에 대해 이해해보자.&lt;/p&gt;
+
+&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;h1 id=&quot;memory-device&quot;&gt;Memory Device&lt;/h1&gt;
+
+&lt;h2 id=&quot;계층-구조&quot;&gt;계층 구조&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/992DB8435AEF240E25&quot; alt=&quot;기억장치의 계층 구조&quot; /&gt;
+&lt;a href=&quot;https://programmer-student.tistory.com/8&quot; class=&quot;center-text&quot;&gt;출처 : https://programmer-student.tistory.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;쉬운-이해를-위한-도표&quot;&gt;쉬운 이해를 위한 도표&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;기억장치&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;분류&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;캐시&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;책상&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;RAM&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;책꽂이&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;HDD&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;도서관&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;컴퓨터가-관리하는-방법---관리-체계&quot;&gt;컴퓨터가 관리하는 방법 - 관리 체계&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;컴퓨터는 모든 것이 &lt;strong&gt;숫자&lt;/strong&gt;이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그래서 기억 공간도 번호를 붙여 관리한다. 이와 같은 관리 체계는 아파트 단지를 동, 호로 관리하는 것과 비슷하다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;RAM에 있는 n번 번호에 있는 정보를 가져와&lt;/li&gt;
+  &lt;li&gt;그 정보를 CPU에서 사용할 연산 저장 공간에 저장해&lt;/li&gt;
+  &lt;li&gt;연산을 수행해&lt;/li&gt;
+  &lt;li&gt;RAM의 m번 공간에 저장해&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;여기서 CPU에서 저장하는 공간의 명칭이 register이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;레지스터&quot;&gt;레지스터&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;개별 기억 공간마다 &lt;strong&gt;&lt;em&gt;고유 이름&lt;/em&gt;&lt;/strong&gt;을 붙인다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;기본적으로 레지스터는 많은 저장 공간을 갖고 있지 않다. 그래서 이 각각에 이름을 붙여 관리한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;주기억장치ram&quot;&gt;주기억장치(RAM)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;일련 번호를 붙인다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;위에서 언급했던 번호에 해당하는 것이 보통 RAM에 대한 설명이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;763&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77840905-287e0700-71c7-11ea-8293-6a7e9082c6f1.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;신발장 번호 : 주소&lt;br /&gt;
+신발 : 정보&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이 신발장을 컴퓨터는 약 43억 개 갖고 있는데, 이 숫자는 $2^32$ 가지에 해당하는 숫자이다. 저 숫자를 표시하기 위해서 32비트가 필요하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;보조-기억장치hdd-sdd&quot;&gt;보조 기억장치(HDD, SDD)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;트랙 번호와 섹터 번호를 붙여 관리한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img width=&quot;1177&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77840491-17cb9200-71c3-11ea-995f-e12caab4c6ff.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;track&quot;&gt;Track&lt;/h4&gt;
+
+&lt;p&gt;중심부로 부터 밖으로 나가는 원들 중 하나를 말한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;sector&quot;&gt;Sector&lt;/h4&gt;
+
+&lt;p&gt;원을 균등하게 부채꼴 모양으로 나눈 것들중 하나를 섹터라 말한다.&lt;/p&gt;
+
+&lt;h4 id=&quot;format-이란&quot;&gt;Format 이란?&lt;/h4&gt;
+
+&lt;p&gt;하드디스크의 섹터와 트랙을 구성하는 작업을 말한다. Format을 하면 데이터가 다 날아가는 이유는, 하드디스크에 정보를 저장하는 체계인 트랙과 섹터를 &lt;strong&gt;재구성&lt;/strong&gt;하기 때문이다.&lt;/p&gt;
+
+&lt;h4 id=&quot;파일-시스템&quot;&gt;파일 시스템&lt;/h4&gt;
+
+&lt;p&gt;하드 디스크에 내가 가진 파일의 위치를 Track, Sector로 나타낸 표&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;파일이름&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Track&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Sector&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;a.mp3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이런 파일 시스템은 File Allocation Table (FAT), NTFS.. 등등 엄청 많다. 내가 파일을 삭제하면, 이 파일 시스템의 Delete Field에 True로 체크가 되고, 이 공간은 운영체제에서 쓰기 가능한 공간으로 바뀐다. 그래서 디스크 복구같은 것이 가능한 것.&lt;/p&gt;
+
+&lt;h4 id=&quot;디스크-조각-모음&quot;&gt;디스크 조각 모음&lt;/h4&gt;
+
+&lt;p&gt;하드디스크는 기본적으로 원의 형태를 띈 모양으로 구성되어 있고, 이것을 Arm을 사용해 읽는다. 그래서 갖는 특징이 있는데, 같은 track에 내가 사용하는 데이터가 모여있는 경우 입출력 속도가 빠르다. 하지만 만약에 데이터가 다른 트랙, 다른 섹터에 분산되어 있다면 이 파일을 읽기 위해서 Arm이 여러번 움직어야 한다. 관성 때문에 Arm의 속도가 느려지고 결과적으로 입출력 속도의 감소가 이루어진다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 흩어져 있는 파일을 같은 track이나 그 근처로 모으는 작업을 디스크 조각 모음이라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;전체-흐름&quot;&gt;전체 흐름&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;HDD에 몇번 트랙, 몇번 섹터에서 정보를 읽어와&lt;/li&gt;
+  &lt;li&gt;그걸 RAM의 몇번 주소에 저장해라&lt;/li&gt;
+  &lt;li&gt;그리고 그걸 다시가져와서 CPU에 EAX라는 이름을 가진 레지스터에 저장해라&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;컴퓨터가-연산하는-과정&quot;&gt;컴퓨터가 연산하는 과정&lt;/h1&gt;
+
+&lt;p&gt;이제 메모리가 어떻게 구성되어 있는 지를 대충 알았다면, 실제 연산과정을 들여다 보자.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;캐시 메모리는 CPU 그 자체다.&lt;br /&gt;
+RAM은 CPU의 연산을 돕기위한 &lt;strong&gt;연습장&lt;/strong&gt;이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img width=&quot;1218&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77840990-151f6b80-71c8-11ea-8414-bcbb03c2a359.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;맨 위에서 보았듯이 메모리가 정보를 불러오는 데에는 속도가 존재한다. 전체적인 과정은 HDD, RAM, Resister 순으로 입출력이 일어나는데, 이 때 속도차이가 나므로 CPU가 빠르게 연산을 처리하는데 문제가 생긴다.&lt;/p&gt;
+
+&lt;p&gt;그래서 이 병목구조를 탈피하기 위해서 CPU, RAM 등에 캐시 메모리를 두어 이 부분을 해소한다. 캐시 메모리는 CPU가 연산을 수행하는 동안 다음에 필요한 정보를 RAM에서 미리 가져와 저장하는 역을 한다. 그 결과 CPU는 RAM에서 정보를 가져올 때 걸리는 시간을 캐시에서 가져오므로써 시간적 이득을 가질 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;cpu-alu&quot;&gt;CPU ALU&lt;/h2&gt;
+
+&lt;p&gt;ALU는 가산기를 뜻한다. CPU에 대해서 배울 때, 이는 연산 처리 장치이고 모든 연산은 가산기 하나로 가능하다고 배웠다. 결과적으로 Core 하나에는 ALU하나가 들어있다고 생각하면 된다. 쿼드코어 컴퓨터는 가산기가 4개 존재한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;64bit-컴퓨터&quot;&gt;64bit 컴퓨터&lt;/h2&gt;
+
+&lt;p&gt;CPU가 연산을 처리할 때 발생하는 input, output의 단위가 64bit 만큼의 정보를 단위로 연산을 수행한다는 의미이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;전체-과정&quot;&gt;전체 과정&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;RAM에서 정보를 가져온다&lt;/li&gt;
+  &lt;li&gt;캐시 메모리에서 정보를 읽는다.&lt;/li&gt;
+  &lt;li&gt;레지스터로 해당 값을 옮긴다.&lt;/li&gt;
+  &lt;li&gt;ALU에서 연산을 수행한다.&lt;/li&gt;
+  &lt;li&gt;결과를 레지스터로 복사한다.&lt;/li&gt;
+  &lt;li&gt;그 값을 RAM으로 옮긴다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이런 작업을 &lt;strong&gt;&lt;em&gt;코드&lt;/em&gt;&lt;/strong&gt;라 한다. 그런데 CPU(기계)에게 명령하는 코드이므로 &lt;strong&gt;기계어 코드&lt;/strong&gt;라 한다.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 29 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>컴퓨터 구조 - 자료구조와 알고리즘</title>
+        <link>/cs/structure/2020/03/29/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/29/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html</guid>
+        <description>&lt;p&gt;컴퓨터에서 사용하는 자료구조와 알고리즘을 알아보자.&lt;/p&gt;
+
+&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;h1 id=&quot;자료를-정리해야-하는-이유&quot;&gt;자료를 정리해야 하는 이유&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;정리를 잘 해둬야 필요할 때 빨리 꺼내 쓸 수 있다!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;del&gt;처음엔 몰랐지만.. 갈 수록 유지 보수를 위해 정리하는 것이 중요함을 느낀다.. ㅠㅠ&lt;/del&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;어떻게-정리할까&quot;&gt;어떻게 정리할까?&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&lt;em&gt;정리&lt;/em&gt;&lt;/strong&gt; 는 상황에 맞는 적절한 규칙이 존재한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;일련번호도 아무런 규칙이 없어보이지만, 그 숫자들에 규칙이 존재한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;자료구조&quot;&gt;자료구조&lt;/h1&gt;
+
+&lt;h2 id=&quot;선형-구조&quot;&gt;선형 구조&lt;/h2&gt;
+
+&lt;h3 id=&quot;배열&quot;&gt;배열&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;물리적으로 순차적인 자료구조&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;장점&quot;&gt;장점&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;단순하다.&lt;/li&gt;
+  &lt;li&gt;한 자료에서 다음 자료 넘어갈 때 생각할 것이 없다. 인덱스가 단순 증가한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;단점&quot;&gt;단점&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;크기를 늘리거나 줄이려면 구조를 변경해야 한다.&lt;/li&gt;
+  &lt;li&gt;중간에 새로운 자료를 넣거나 빼는 경우 문제가 발생한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;linked-list&quot;&gt;Linked List&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;화살표룰 가지고 원하는 요소를 가리키는 구조&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;장점-1&quot;&gt;장점&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;순서를 바꾸기 매우 쉽다.&lt;/li&gt;
+  &lt;li&gt;중간에 새로운 자료를 넣거나 뺴기가 쉽다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;단점-1&quot;&gt;단점&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;한 자료 접근 후 다음으로 넘어가기 위해서 &lt;strong&gt;위치정보&lt;/strong&gt;를 활용해 찾아가야한다.&lt;/li&gt;
+  &lt;li&gt;찾아간다는 점에서 배열에 비해 복잡하다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;stack&quot;&gt;Stack&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;뚜껑식 김치 냉장고 : 출입구가 하나다!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;사용처&quot;&gt;사용처&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;되돌아 가기 위한 구조&lt;br /&gt;
+한 스텝 전진하고, 전으로 가기 위해서는 pop 한다.&lt;/li&gt;
+  &lt;li&gt;가장 최근 값을 가져온다&lt;/li&gt;
+  &lt;li&gt;대칭 구조&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;queue&quot;&gt;Queue&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;줄을 선다!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;버스에서 줄을 서는 것이나 은행의 대기열을 생각하면 된다. 이 때 버스는 &lt;strong&gt;순차&lt;/strong&gt;적으로 처리가 진행이 되고, 은행은 &lt;strong&gt;병렬&lt;/strong&gt;적으로 처리된다. 각각을 &lt;strong&gt;&lt;em&gt;순차 처리, 병렬 처리&lt;/em&gt;&lt;/strong&gt;라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;비선형-구조&quot;&gt;비선형 구조&lt;/h2&gt;
+
+&lt;h3 id=&quot;binary-tree&quot;&gt;Binary Tree&lt;/h3&gt;
+
+&lt;p&gt;선형 구조, 정렬이 안된 상황에서 특정 값을 찾는다고 생각해보자. 이런 경우 해당 배열의 크기만큼 탐색을 진행해야 한다. 결과적으로 선형 구조에서 값을 찾는 것은 상대적으로 효과적이지 않다.&lt;/p&gt;
+
+&lt;p&gt;그래서 새로운 구조가 필요했는데 그 중 가장 효과적으로 사용한 구조가 이진 트리이다.
+&lt;a href=&quot;https://ratsgo.github.io/data%20structure&amp;amp;algorithm/2017/10/21/tree/&quot; class=&quot;center&quot;&gt;이진 트리에 대한 내용 정리&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;선형-구조-비선형-구조-비교&quot;&gt;선형 구조, 비선형 구조 비교&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;비선형&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;선형&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;구조&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;복잡&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;간단&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;접근효율&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;좋다&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;나쁘다&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;물론 데이터 개수에 따라 판단을 달라질 수 있다. 상황 판단을 잘해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;알고리즘&quot;&gt;알고리즘&lt;/h1&gt;
+
+&lt;h2 id=&quot;sort&quot;&gt;Sort&lt;/h2&gt;
+
+&lt;p&gt;선형 구조에서 정렬하는 방법에 대해 생각해본다. 이 부분은 나열만 해두겠다.
+&lt;a href=&quot;https://ratsgo.github.io/data%20structure&amp;amp;algorithm/2017/10/19/sort/&quot; class=&quot;center&quot;&gt;정렬에 대한 기초적 내용 정리&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;선형-구조에서의-정렬-알고리즘&quot;&gt;선형 구조에서의 정렬 알고리즘&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bubble&lt;/li&gt;
+  &lt;li&gt;Quick&lt;/li&gt;
+  &lt;li&gt;Merge&lt;/li&gt;
+  &lt;li&gt;Selection&lt;/li&gt;
+  &lt;li&gt;Insertion&lt;/li&gt;
+  &lt;li&gt;Heap&lt;/li&gt;
+  &lt;li&gt;Radix&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 29 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>javascript - window resize event</title>
@@ -52,6 +495,24 @@
       </item>
     
       <item>
+        <title>Safari - long line scroll 작동 안함</title>
+        <link>/dv/css/2020/03/26/Safari-longline-scroll.html</link>
+        <guid isPermaLink="true">/dv/css/2020/03/26/Safari-longline-scroll.html</guid>
+        <description>&lt;p&gt;사파리에서 code block을 담당하는 pre 태그에서 long line scroll이 안되는 문제를 해결한다.&lt;br /&gt;
+&lt;a href=&quot;https://wordpress.org/support/topic/long-lines-do-not-scroll-in-code-block-when-using-macos-safari/&quot;&gt;참고&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;근본적인 문제는 Safari pre태그의 초기값 때문이다.
+이것을 해결하기 위해서는 다음의 코드를 추가하면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.site-content&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;pre&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;overflow-wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;normal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Thu, 26 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
         <title>LaTex - equation 예쁘게 맞추기</title>
         <link>/dv/tips/2020/03/25/Latex-align.html</link>
         <guid isPermaLink="true">/dv/tips/2020/03/25/Latex-align.html</guid>
@@ -82,6 +543,321 @@ A &amp;amp; = B \\
 &amp;amp;= Z.
 \end{align}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>컴퓨터 구조 - 용어 정리</title>
+        <link>/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html</guid>
+        <description>&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=p0ZXcw_5S8o&amp;amp;list=PLXvgR_grOs1BQCziQ_MpM877BdBxwbMzA&amp;amp;index=3&quot;&gt;PC 조립 과정 보며 구조 이해하기&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://www.youtube.com/watch?v=BylAwbVlTxA&amp;amp;list=PLXvgR_grOs1BQCziQ_MpM877BdBxwbMzA&amp;amp;index=4&quot;&gt;컴퓨터 하드웨어 구성 요약&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;다나와&quot;&gt;다나와&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.danawa.com&quot;&gt;다나와&lt;/a&gt;&lt;br /&gt;
+이곳에 가면 컴퓨터 용어에 대한 간단한 설명들을 쉽게 알 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;컴퓨터란&quot;&gt;컴퓨터란?&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;CPU&lt;/em&gt;&lt;/strong&gt;가 가장 중요하다. 컴퓨터의 기본 정체성은 연산을 하는 기계이기 때문에, 이 연산을 담당하는 CPU가 컴퓨터를 거의 대표한다고 볼 수 있다. 요리에 비유한다면 좋은 칼, 좋은 도구 등이 될 수 있겠다.&lt;/p&gt;
+
+&lt;p&gt;하지만 재료가 없으면 요리를 할 수 없다. 따라서 우리는 CPU가 연산을 수행할 수 있도록 재료에 해당하는 &lt;strong&gt;&lt;em&gt;메모리&lt;/em&gt;&lt;/strong&gt;를 주어야 한다. 그 과정에서 보조 기억 장치인 &lt;strong&gt;&lt;em&gt;RAM, HDD, SDD&lt;/em&gt;&lt;/strong&gt; 등이 필요하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;interface&quot;&gt;Interface&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;주변기기와 연결되는 지점&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;기본적으로 컴퓨터는 &lt;strong&gt;&lt;em&gt;CPU, RAM&lt;/em&gt;&lt;/strong&gt;으로 동작한다. 이 때 추가적인 기억 장치인 HDD, SDD들이 이 컴퓨터에 연결할 때 사용하는 것이 interface이다. 현재는 SATA라는 interface를 사용한다. SATA는 interface 중 하나이며, 어떤 장치를 연결하느냐에 따라 필요한 interface는 달라질 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;운영체제에서-사용하는-용어&quot;&gt;운영체제에서 사용하는 용어&lt;/h1&gt;
+
+&lt;h2 id=&quot;동시성&quot;&gt;동시성&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;여러 일을 여러 사람이 각자 동시에 하는 것&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;행위도 여러개, 주체도 여러개&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;병렬성&quot;&gt;병렬성&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;같은 일을 여러 사람이 동시에 하는 것&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;군대 삽질 분대가 다같이&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;행위는 하나, 주체는 여러개&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+병렬성은 동시성에 포함된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;원자성&quot;&gt;원자성&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;쪼개어 나눌 수 없는 연속된 일&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;어떤 일을 최대한 쪼갰을 때의 &lt;strong&gt;&lt;em&gt;가장 작은 단위의 행위&lt;/em&gt;&lt;/strong&gt;&lt;br /&gt;
+원자성은 병렬성을 가지는 상태에서 &lt;strong&gt;&lt;em&gt;동기화&lt;/em&gt;&lt;/strong&gt; 라는 작업이 중요하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;의존성&quot;&gt;의존성&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;전제조건&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;행위에 대한 의존, 존립에 대한 의존&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;출근행위&quot;&gt;출근(행위)&lt;/h3&gt;
+
+&lt;p&gt;출근 하기 위한 방법이 버스를 타야 가능하다고 생각해보자. 그렇다면 출근이라는 행위는 버스에 의존적이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;자동차-부품존립&quot;&gt;자동차 부품(존립)&lt;/h3&gt;
+
+&lt;p&gt;자동차를 구성하는 다양한 부품은 자동차라는 객체가 사라지면 그 부품들의 존재도 사라진다. 그렇다면 부품이라는 존립은 자동차에대해 의존성을 가진다.&lt;/p&gt;
+
+&lt;h2 id=&quot;동기화&quot;&gt;동기화&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;원자성을 가지는 행위에 대해 시작과 끝을 알리는 행위&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;화장실 들어갈 때 문잠구는 거&lt;/em&gt;&lt;/strong&gt;
+&lt;strong&gt;&lt;em&gt;규칙 준수의 개념과도 비슷하다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 100개의 인형에 눈을 다는 작업이 있다고 하자. 그렇다면 이 작업은 동시성을 가진다. 그리고 같은 작업을 여럿이 달려들어 수행할 수 있기 때문에 &lt;strong&gt;병렬성&lt;/strong&gt;도 가진다. 이 때, 하나의 인형에 눈을 다는 작업은 &lt;strong&gt;원자성&lt;/strong&gt;을 가진다고 가정하자. 즉, 눈을 다는 작업은 한 사람만이 수행할 수 있고 눈을 다는 작업은 연속적이기 때문에 방해받을 수 없다. 이런 경우에 사람이 1000명이 있더라도 작업에 투입될 수 있는 최대 인원은 100명이다. 그런데 만약 하나의 작업을 수행하고 있는 인원에게 일이 없는 다른 사람이 방해한다면, 해당 작업은 &lt;strong&gt;충돌&lt;/strong&gt;이 발생한다. 이런 과정을 막기 위해서 작업을 수행하는 인원은, 작업을 수행하기 전에 &lt;strong&gt;&lt;em&gt;나 작업시작한다!&lt;/em&gt;&lt;/strong&gt; 처럼 알려주는 행위가 필수적으로 요구된다. 이러한 알림을 &lt;strong&gt;&lt;em&gt;동기화&lt;/em&gt;&lt;/strong&gt; 라고 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;교착상태deadlock&quot;&gt;교착상태(Deadlock)&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이러지도 저러지도 못하는 상태&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;화장실에 휴지 없어서 못나오는 상태&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;원자성을 보장 받는 행위에 대해서 행위가 끝나야 다음 처리가 이루어지는 상황에서 특정 조건 때문에 행위가 끝나지 않아 멈춰버리는 상태를 말한다. &lt;strong&gt;&lt;em&gt;심각한 논리적 오류&lt;/em&gt;&lt;/strong&gt; 때문에 발생한다.&lt;br /&gt;
+&lt;del&gt;예외처리 잘해라&lt;/del&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;하드웨어-운영체제-프로세스-스레드&quot;&gt;하드웨어, 운영체제, 프로세스, 스레드&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;컴퓨터가 ‘영토’라면 운영체제는 ‘정부조직’&lt;br /&gt;
+스레드는 ‘국민’이고 프로세스는 ‘가족’&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img width=&quot;1213&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77845680-be2b8d80-71eb-11ea-9173-139767c57ad4.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1210&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77845828-c46e3980-71ec-11ea-9345-5cee260271f6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;컴퓨터라는 하드웨어를 가지고 System software인 운영체제와, User software인 프로세스가 돌아가게 된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;kernel&quot;&gt;Kernel&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;운영체제의 근간을 이루는 핵심 코드&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;어떠한 방식으로 자원을 나눠주고, 프로세스를 관리하는지, 프로그램이 요구하는 시스템 콜 같은 중요한 작업을 수행하는 코드를 말한다. 그렇기에 어떤 커널을 사용하느냐에 따라 OS의 정체성이 규정된다. 이 부분이 손상될 경우 OS가 사용 불가능해 진다.&lt;/p&gt;
+
+&lt;h3 id=&quot;virtual-memory&quot;&gt;Virtual Memory&lt;/h3&gt;
+
+&lt;p&gt;가족들은 보통 집에서 생활한다. 이 집은 컴퓨터에 대응해서 생각하면, 메모리 공간이다. 각각의 프로세스는 이러한 전용 공간, 즉 &lt;strong&gt;가상 메모리&lt;/strong&gt;를 갖는다.&lt;/p&gt;
+
+&lt;h3 id=&quot;thread&quot;&gt;Thread&lt;/h3&gt;
+
+&lt;p&gt;가족 안에 구성원들이 있고, 이 구성원들은 각자 자유로이 활동하듯이 프로세스 내에서 작동하는 &lt;strong&gt;개별 흐름(thread)&lt;/strong&gt;이다. 해당 스레드는 속한 프로세스에 할당된 &lt;strong&gt;자원을 공유&lt;/strong&gt;한다.&lt;/p&gt;
+
+&lt;p&gt;스레드는 프로그램의 흐름(연산의 흐름)에 있어서 가장 작은 단위를 뜻한다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>컴퓨터 구조 - bit, 진법 변환</title>
+        <link>/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html</guid>
+        <description>&lt;p&gt;bit와 진법 변환에 대해 알아본다.&lt;/p&gt;
+
+&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;h2 id=&quot;bit&quot;&gt;bit&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;1bit는 전기 스위치 1개이고, ON/OFF 두가지 상태를 표시할 수 있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;1bit는 2진수 한자리 숫자를 표현할 수 있다.
+결국 두가지 상태의 조합으로 우리는 숫자를 표시할 수 있다. 이 조합을 표현하는데 있어 가장 작은 단위를 bit라 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;4bit&quot;&gt;4bit&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;4bit로는 16진수 한자리를 표현할 수 있다.
+16진수는 0~F(0~15) 까지 한 자리에 쓴다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2진수(4bit)&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;16진수&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1010&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;A(10)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1011&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;B(11)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1100&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;C(12)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1101&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;D(13)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1110&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;E(14)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1111&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;F(15)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;byte&quot;&gt;byte&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;8bit : 영문자 한 글자를 저장할 수 있는 &lt;strong&gt;기억 공간의 최소단위&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;가장 작은 단위가 bit라면, 기억공간을 관리하는데 가장 작은 단위는 1byte이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;연습&quot;&gt;연습&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;16진수&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2진수&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;10진수&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;용량&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0x73&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0111 0011&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$16^1\times7+16^0\times3=115$&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1byte&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>컴퓨터 구조 - CPU 작동 원리</title>
+        <link>/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html</link>
+        <guid isPermaLink="true">/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html</guid>
+        <description>&lt;p&gt;CPU의 동작방법을 알아보자.&lt;/p&gt;
+
+&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
+
+&lt;h1 id=&quot;디지털-회로&quot;&gt;디지털 회로&lt;/h1&gt;
+
+&lt;p&gt;기본적으로 연산을 수행하도록 가능하게 하는 것은 이 디지털 회로가 있기 때문이다. 이 디지털 회로는 반도체의 특징을 이용하면 가능하다. 반도체는 조건에 따라 도체가 될 수도, 부도체가 될 수도 있다. 이 성격을 이용하여 우리는 연산을 가능하게 만들 수 있다.
+&lt;img src=&quot;https://image.shutterstock.com/image-vector/digital-logic-gate-symbols-black-600w-449422498.jpg&quot; alt=&quot;논리 게이트&quot; class=&quot;center&quot; /&gt; &lt;a href=&quot;https://www.shutterstock.com/ko/image-vector/digital-logic-gate-symbols-black-isolated-449422498&quot; class=&quot;center-text&quot;&gt;출처 : https://www.shutterstock.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;연산-방법&quot;&gt;연산 방법&lt;/h1&gt;
+
+&lt;p&gt;CPU의 핵심 기능인 연산은 어떻게 구현할까?&lt;/p&gt;
+
+&lt;h2 id=&quot;가산기&quot;&gt;가산기&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;2진수를 더하는 방법에 대한 방법이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;기본적으로 우리가 덧셈을 한다고 생각해보자. 그렇다면 우리가 덧셈을 하기 위해서 필요한 파라미터는 3개이다. 각 자리에 표현되는 a, b, 그리고 그 두 수를 더했을 때 자리올림이 발생하는지를 판단해줄 c이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\;\;\;\;\;\;1\\
+\;\;\;\;0010 \\
++0011\\
+\;\;\;\;0101&lt;/script&gt;
+
+&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77505245-fb1f1980-6ea5-11ea-858c-6bfb716b7c5d.png&quot; class=&quot;center&quot; /&gt;
+&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77505254-01ad9100-6ea6-11ea-97ca-548cbdfc1a0a.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;3개의 input의 결과로 &lt;strong&gt;&lt;em&gt;자리올림을 나타내는 변수, 더한 뒤 값을 나타내는 변수&lt;/em&gt;&lt;/strong&gt; 이렇게 두개의 값을 뽑아낸다. 위의 4자리 2진수의 덧셈을 수행하기 위해서는 전가산기 4개가 필요하며, 각 연산을 수행한 결과는 다음 자리수의 input으로 들어가게 된다. $C_0$는 0이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;뺄셈은&quot;&gt;뺄셈은..?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;컴퓨터는 덧셈으로 끝난다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;뺄셈은 보수의 덧셈 후 자리버림을 통해 구현이 가능하다.&lt;/p&gt;
+
+&lt;h4 id=&quot;일반-뺄셈&quot;&gt;일반 뺄셈&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;3 - 2 = 1&lt;/script&gt;
+
+&lt;h4 id=&quot;보수-덧셈-후-자리버림&quot;&gt;보수 덧셈 후 자리버림&lt;/h4&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;3 + 8 = 11 =&gt; 1&lt;/script&gt;
+
+&lt;p&gt;2진수에서 보수는 $0^c = 1$, $1^c=0$ 이다. 그런데 신기하게도 이 보수는 NOT연산으로 구현이 가능하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;보수란&quot;&gt;보수란&lt;/h3&gt;
+
+&lt;p&gt;보수는 해당 숫자를 진법의 숫자에서 뺀 것을 말한다. 예를 들어 2의 보수는 $10-2=8$이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;곱셈은&quot;&gt;곱셈은..?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;곱셈은 더하기의 연속적인 과정이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;계속해서 더하면 곱셈구현이 가능하다. 혹은 비트 연산 중 왼쪽 shift를 사용하면 가능하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;나눗셈은&quot;&gt;나눗셈은?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;나눗셈은 뺄셈의 연속적 과정에서 나오는 결과이다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;10 /3 = 3 \\&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;10 -3 = 7 \\
+7-3 = 4\\
+4-3 = 1\\&lt;/script&gt;
+
+&lt;p&gt;세번 수행했고, 뺄셈이 불가능할 경우에 정지하면 몫과 나머지를 구할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;혹은 오른쪽 shifting을 하면 가능하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;0으로-나누기&quot;&gt;0으로 나누기&lt;/h3&gt;
+
+&lt;p&gt;이런 방법이기 때문에 0으로 나누는 경우 무한루프에 진입할 수 밖에 없다. &lt;del&gt;따라서 CPU가 과열되서 터진다….&lt;/del&gt; &lt;del&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=mZ7pUADoo58&quot;&gt;펑!&lt;/a&gt;&lt;/del&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;결론&quot;&gt;결론&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CPU는 연산이 핵심이다. 그리고 그 연산은 &lt;strong&gt;더하기&lt;/strong&gt;만으로 구현이 가능하다.&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
       </item>
@@ -441,297 +1217,6 @@ dp[N][0] + dp[N][1] &amp; = (dp[N-1][0] + dp[N-1][1]) + dp[N][1] \\
       </item>
     
       <item>
-        <title>컴퓨터 구조 - 용어 정리</title>
-        <link>/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html</link>
-        <guid isPermaLink="true">/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html</guid>
-        <description>&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;br /&gt;
-&lt;a href=&quot;https://www.youtube.com/watch?v=p0ZXcw_5S8o&amp;amp;list=PLXvgR_grOs1BQCziQ_MpM877BdBxwbMzA&amp;amp;index=3&quot;&gt;PC 조립 과정 보며 구조 이해하기&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://www.youtube.com/watch?v=BylAwbVlTxA&amp;amp;list=PLXvgR_grOs1BQCziQ_MpM877BdBxwbMzA&amp;amp;index=4&quot;&gt;컴퓨터 하드웨어 구성 요약&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;다나와&quot;&gt;다나와&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.danawa.com&quot;&gt;다나와&lt;/a&gt;&lt;br /&gt;
-이곳에 가면 컴퓨터 용어에 대한 간단한 설명들을 쉽게 알 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;컴퓨터란&quot;&gt;컴퓨터란?&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;CPU&lt;/em&gt;&lt;/strong&gt;가 가장 중요하다. 컴퓨터의 기본 정체성은 연산을 하는 기계이기 때문에, 이 연산을 담당하는 CPU가 컴퓨터를 거의 대표한다고 볼 수 있다. 요리에 비유한다면 좋은 칼, 좋은 도구 등이 될 수 있겠다.&lt;/p&gt;
-
-&lt;p&gt;하지만 재료가 없으면 요리를 할 수 없다. 따라서 우리는 CPU가 연산을 수행할 수 있도록 재료에 해당하는 &lt;strong&gt;&lt;em&gt;메모리&lt;/em&gt;&lt;/strong&gt;를 주어야 한다. 그 과정에서 보조 기억 장치인 &lt;strong&gt;&lt;em&gt;RAM, HDD, SDD&lt;/em&gt;&lt;/strong&gt; 등이 필요하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;interface&quot;&gt;Interface&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;주변기기와 연결되는 지점&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기본적으로 컴퓨터는 &lt;strong&gt;&lt;em&gt;CPU, RAM&lt;/em&gt;&lt;/strong&gt;으로 동작한다. 이 때 추가적인 기억 장치인 HDD, SDD들이 이 컴퓨터에 연결할 때 사용하는 것이 interface이다. 현재는 SATA라는 interface를 사용한다. SATA는 interface 중 하나이며, 어떤 장치를 연결하느냐에 따라 필요한 interface는 달라질 수 있다.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>컴퓨터 구조 - 기억장치에 대한 이해</title>
-        <link>/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html</link>
-        <guid isPermaLink="true">/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html</guid>
-        <description>&lt;p&gt;기억 장치의 동작방법에 대해 이해해보자.&lt;/p&gt;
-
-&lt;h1 id=&quot;memory-device&quot;&gt;Memory Device&lt;/h1&gt;
-
-&lt;h2 id=&quot;계층-구조&quot;&gt;계층 구조&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/992DB8435AEF240E25&quot; alt=&quot;기억장치의 계층 구조&quot; /&gt;
-&lt;a href=&quot;https://programmer-student.tistory.com/8&quot; class=&quot;center-text&quot;&gt;출처 : https://programmer-student.tistory.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;쉬운-이해를-위한-도표&quot;&gt;쉬운 이해를 위한 도표&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;기억장치&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;분류&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;캐시&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;책상&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;RAM&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;책꽂이&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;HDD&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;도서관&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;컴퓨터가-관리하는-방법--관리-체계&quot;&gt;컴퓨터가 관리하는 방법 : 관리 체계&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;컴퓨터는 모든 것이 &lt;strong&gt;숫자&lt;/strong&gt;이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;그래서 기억 공간도 번호를 붙여 관리한다. 이와 같은 관리 체계는 아파트 단지를 동, 호로 관리하는 것과 비슷하다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;RAM에 있는 n번 번호에 있는 정보를 가져와&lt;/li&gt;
-  &lt;li&gt;그 정보를 CPU에서 사용할 연산 저장 공간에 저장해&lt;/li&gt;
-  &lt;li&gt;연산을 수행해&lt;/li&gt;
-  &lt;li&gt;RAM의 m번 공간에 저장해&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;여기서 CPU에서 저장하는 공간의 명칭이 register이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;레지스터&quot;&gt;레지스터&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;개별 기억 공간마다 &lt;strong&gt;&lt;em&gt;고유 이름&lt;/em&gt;&lt;/strong&gt;을 붙인다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기본적으로 레지스터는 많은 저장 공간을 갖고 있지 않다. 그래서 이 각각에 이름을 붙여 관리한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;주기억장치ram&quot;&gt;주기억장치(RAM)&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;일련 번호를 붙인다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;위에서 언급했던 번호에 해당하는 것이 보통 RAM에 대한 설명이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;보조-기억장치hdd-sdd&quot;&gt;보조 기억장치(HDD, SDD)&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;트랙 번호와 섹터 번호를 붙여 관리한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>컴퓨터 구조 - bit, 진법 변환</title>
-        <link>/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html</link>
-        <guid isPermaLink="true">/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html</guid>
-        <description>&lt;p&gt;bit와 진법 변환에 대해 알아본다.&lt;/p&gt;
-
-&lt;h2 id=&quot;bit&quot;&gt;bit&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;1bit는 전기 스위치 1개이고, ON/OFF 두가지 상태를 표시할 수 있다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;1bit는 2진수 한자리 숫자를 표현할 수 있다.
-결국 두가지 상태의 조합으로 우리는 숫자를 표시할 수 있다. 이 조합을 표현하는데 있어 가장 작은 단위를 bit라 한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;4bit&quot;&gt;4bit&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;4bit로는 16진수 한자리를 표현할 수 있다.
-16진수는 0~F(0~15) 까지 한 자리에 쓴다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2진수(4bit)&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;16진수&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1010&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;A(10)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1011&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B(11)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1100&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;C(12)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1101&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;D(13)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1110&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;E(14)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1111&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;F(15)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;byte&quot;&gt;byte&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;8bit : 영문자 한 글자를 저장할 수 있는 &lt;strong&gt;기억 공간의 최소단위&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;가장 작은 단위가 bit라면, 기억공간을 관리하는데 가장 작은 단위는 1byte이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;연습&quot;&gt;연습&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;16진수&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2진수&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;10진수&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;용량&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0x73&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0111 0011&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$16^1\times7+16^0\times3=115$&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1byte&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-</description>
-        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>컴퓨터 구조 - CPU 작동 원리</title>
-        <link>/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html</link>
-        <guid isPermaLink="true">/cs/architecture/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html</guid>
-        <description>&lt;p&gt;CPU의 동작방법을 알아보자.&lt;/p&gt;
-
-&lt;h1 id=&quot;디지털-회로&quot;&gt;디지털 회로&lt;/h1&gt;
-
-&lt;p&gt;기본적으로 연산을 수행하도록 가능하게 하는 것은 이 디지털 회로가 있기 때문이다. 이 디지털 회로는 반도체의 특징을 이용하면 가능하다. 반도체는 조건에 따라 도체가 될 수도, 부도체가 될 수도 있다. 이 성격을 이용하여 우리는 연산을 가능하게 만들 수 있다.
-&lt;img src=&quot;https://image.shutterstock.com/image-vector/digital-logic-gate-symbols-black-600w-449422498.jpg&quot; alt=&quot;논리 게이트&quot; class=&quot;center&quot; /&gt; &lt;a href=&quot;https://www.shutterstock.com/ko/image-vector/digital-logic-gate-symbols-black-isolated-449422498&quot; class=&quot;center-text&quot;&gt;출처 : https://www.shutterstock.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;연산-방법&quot;&gt;연산 방법&lt;/h1&gt;
-
-&lt;p&gt;CPU의 핵심 기능인 연산은 어떻게 구현할까?&lt;/p&gt;
-
-&lt;h2 id=&quot;가산기&quot;&gt;가산기&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;2진수를 더하는 방법에 대한 방법이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기본적으로 우리가 덧셈을 한다고 생각해보자. 그렇다면 우리가 덧셈을 하기 위해서 필요한 파라미터는 3개이다. 각 자리에 표현되는 a, b, 그리고 그 두 수를 더했을 때 자리올림이 발생하는지를 판단해줄 c이다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\;\;\;\;\;\;1\\
-\;\;\;\;0010 \\
-+0011\\
-\;\;\;\;0101&lt;/script&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77505245-fb1f1980-6ea5-11ea-858c-6bfb716b7c5d.png&quot; class=&quot;center&quot; /&gt;
-&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77505254-01ad9100-6ea6-11ea-97ca-548cbdfc1a0a.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;3개의 input의 결과로 &lt;strong&gt;&lt;em&gt;자리올림을 나타내는 변수, 더한 뒤 값을 나타내는 변수&lt;/em&gt;&lt;/strong&gt; 이렇게 두개의 값을 뽑아낸다. 위의 4자리 2진수의 덧셈을 수행하기 위해서는 전가산기 4개가 필요하며, 각 연산을 수행한 결과는 다음 자리수의 input으로 들어가게 된다. $C_0$는 0이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;뺄셈은&quot;&gt;뺄셈은..?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;컴퓨터는 덧셈으로 끝난다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;뺄셈은 보수의 덧셈 후 자리버림을 통해 구현이 가능하다.&lt;/p&gt;
-
-&lt;h4 id=&quot;일반-뺄셈&quot;&gt;일반 뺄셈&lt;/h4&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;3 - 2 = 1&lt;/script&gt;
-
-&lt;h4 id=&quot;보수-덧셈-후-자리버림&quot;&gt;보수 덧셈 후 자리버림&lt;/h4&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;3 + 8 = 11 =&gt; 1&lt;/script&gt;
-
-&lt;p&gt;2진수에서 보수는 $0^c = 1$, $1^c=0$ 이다. 그런데 신기하게도 이 보수는 NOT연산으로 구현이 가능하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;보수란&quot;&gt;보수란&lt;/h3&gt;
-
-&lt;p&gt;보수는 해당 숫자를 진법의 숫자에서 뺀 것을 말한다. 예를 들어 2의 보수는 $10-2=8$이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;곱셈은&quot;&gt;곱셈은..?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;곱셈은 더하기의 연속적인 과정이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;계속해서 더하면 곱셈구현이 가능하다. 혹은 비트 연산 중 왼쪽 shift를 사용하면 가능하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;나눗셈은&quot;&gt;나눗셈은?&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;나눗셈은 뺄셈의 연속적 과정에서 나오는 결과이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;10 /3 = 3 \\&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;10 -3 = 7 \\
-7-3 = 4\\
-4-3 = 1\\&lt;/script&gt;
-
-&lt;p&gt;세번 수행했고, 뺄셈이 불가능할 경우에 정지하면 몫과 나머지를 구할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;혹은 오른쪽 shifting을 하면 가능하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;0으로-나누기&quot;&gt;0으로 나누기&lt;/h3&gt;
-
-&lt;p&gt;이런 방법이기 때문에 0으로 나누는 경우 무한루프에 진입할 수 밖에 없다. &lt;del&gt;따라서 CPU가 과열되서 터진다….&lt;/del&gt; &lt;del&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=mZ7pUADoo58&quot;&gt;펑!&lt;/a&gt;&lt;/del&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;결론&quot;&gt;결론&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;CPU는 연산이 핵심이다. 그리고 그 연산은 &lt;strong&gt;더하기&lt;/strong&gt;만으로 구현이 가능하다.&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Wed, 25 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
         <title>백준(1018번) - 체스판 다시 칠하기</title>
         <link>/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%B2%B4%EC%8A%A4%ED%8C%90-%EB%8B%A4%EC%8B%9C-%EC%B9%A0%ED%95%98%EA%B8%B0.html</link>
         <guid isPermaLink="true">/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%B2%B4%EC%8A%A4%ED%8C%90-%EB%8B%A4%EC%8B%9C-%EC%B9%A0%ED%95%98%EA%B8%B0.html</guid>
@@ -971,319 +1456,6 @@ dp[N][0] + dp[N][1] &amp; = (dp[N-1][0] + dp[N-1][1]) + dp[N][1] \\
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>백준(1022번) - 소용돌이 예쁘게 출력하기</title>
-        <link>/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%9A%A9%EB%8F%8C%EC%9D%B4-%EC%98%88%EC%81%98%EA%B2%8C-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%9A%A9%EB%8F%8C%EC%9D%B4-%EC%98%88%EC%81%98%EA%B2%8C-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드4&lt;/em&gt;&lt;/strong&gt; : 구현 문제이다.&lt;br /&gt;
-&lt;a href=&quot;https://www.acmicpc.net/problem/1022&quot; target=&quot;\_blank&quot;&gt;백준(1022번) - 소용돌이 예쁘게 출력하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;상당히 갑갑했다. 일단 무한개의 소용돌이가 생길 수 있다는 점에서 기존의 달팽이 문제처럼 생각하면 안된다라는 판단이 들었다. 발생하는 모든 숫자를 저장한다면 메모리 초과가 날 것이 분명했기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;그래서 이 부분을 꼭 저장해야 하나?&lt;/strong&gt; 하는 생각이 들었고, 문제에서 제시하는 규칙에 따라 소용돌이 를 만들어가면서 제시하는 좌표 내에 위치했을 때, 이를 저장해주는 방식으로 문제를 해결하기로 했다.&lt;/p&gt;
-
-&lt;p&gt;이 과정에서 생각해야 하는 중요 문제는 다음과 같았다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;소용돌이를 만드는 규칙&lt;/li&gt;
-  &lt;li&gt;들어왔을 때, 저장하는 배열과의 관계&lt;/li&gt;
-  &lt;li&gt;출력시 공백 처리&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;소용돌이-규칙&quot;&gt;소용돌이 규칙&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;num&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;direction&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;linecount&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;➡&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;⬆&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;⬅&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;⬇&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;➡&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;⬆&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;⬅&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;⬇&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;➡&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/9986F33C5CCBF4642D&quot; alt=&quot;소용돌이 규칙&quot; class=&quot;center&quot; /&gt;
-&lt;a href=&quot;https://jksk0115.tistory.com/159&quot; class=&quot;center-text&quot;&gt;출처 : https://jksk0115.tistory.com/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;총 4번의 방향전환 속에 고려해야 하는 점은 &lt;strong&gt;몇 칸 전진?&lt;/strong&gt; 이다. 잘 보게 되면, 방향과 방향에 따른 count와 방향과의 관계가 나온다.&lt;/p&gt;
-
-&lt;h2 id=&quot;배열과의-관계&quot;&gt;배열과의 관계&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;map[y-r1][x-c1] = num;&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;현재 좌표는 음수를 갖고 있는 상태이다. index는 음수일 수 없으므로 우리는 이것을 평행이동 하여 (0,0) 의 상태에 저장해야 한다. 이 때, r1, c1 만큼 평행이동 한다면 정확하게 원하는 위치에 저장할 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;출력시-공백-처리&quot;&gt;출력시 공백 처리&lt;/h2&gt;
-
-&lt;p&gt;내가 원하는 위치에 있는 것들을 배열에 넣을 때, 가장 긴 숫자가 무엇인지 알아야 한다. 이 때, C++에 integer의 길이는 알아내기 어려우므로 string으로 바꾸어 길이를 알아내는 방법을 사용하도록 하자.&lt;/p&gt;
-
-&lt;p&gt;이 길이보다 작은 숫자에 대해서는 그 차만큼 공백을 출력하여 문제가 원하는 답을 도출하자.&lt;/p&gt;
-
-&lt;p&gt;입출력이 많으므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ios_base::sync_with_stdio(false);&lt;/code&gt; 를 사용하자.&lt;br /&gt;
-&lt;a href=&quot;https://wansook0316.github.io/cs/algorithm/2020/03/24/cin-cout-%EB%B9%A0%EB%A5%B4%EA%B2%8C.html&quot; target=&quot;\_blank&quot;&gt;C++ - 입출력 빠르게 받는 방법&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 골드4 : 백준 1022번 소용돌이 예쁘게 출력하기&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linecount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxLength&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 현재 위치가 원하는 위치인지 확인&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;max_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;map_count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 소용돌이 좌표 등 속성 갱신&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 방향 갱신&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linecount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;dir_count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;step&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;dir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dir_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;dir_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;linecount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// map 안에서 갖는 최고 길이&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;maxLength&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stringOut&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stringOut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxLength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxLength&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stringOut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stringOut&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>백준(6603번) - 로또</title>
-        <link>/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EB%A1%9C%EB%98%90.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EB%A1%9C%EB%98%90.html</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버2&lt;/em&gt;&lt;/strong&gt; : 재귀를 통한 완전탐색 문제이다.&lt;br /&gt;
-&lt;a href=&quot;https://www.acmicpc.net/problem/6603&quot; target=&quot;\_blank&quot;&gt;백준(6603번) - 로또&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;단순한 문제였다. 재귀를 통해 만들 수 있는 모든 경우를 출력하면 되는 문제였다. 나 같은 경우 재귀를 통해 들어갈 때, 탐색하지 않아도 되는 부분을 거르는 코드를 작성했다. 아마 다른 분들도 작성했을 것이다.&lt;/p&gt;
-
-&lt;p&gt;이 문제에서 고려해야 되는 점은 다음과 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;어떻게 출력하게 만들 것인가?&lt;/li&gt;
-  &lt;li&gt;어느 상황에서 탐색을 하지 않게 가지를 칠 것인가?&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;출력-방법&quot;&gt;출력 방법&lt;/h2&gt;
-
-&lt;p&gt;checkbox라는 배열을 만들어 깊이가 6이 되었을 때 모두 출력하였다.&lt;/p&gt;
-
-&lt;h2 id=&quot;백트래킹&quot;&gt;백트래킹&lt;/h2&gt;
-
-&lt;p&gt;이 문제는 간단한 백트레킹이지만, 써보면, 현재 위치에서 나머지 공을 선택할 수 있는 가지수와 지금 부터 선택해야 하는 가지수를 비교했다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;현재 위치로 부터 남은 공의 개수 &amp;lt; 앞으로 선택해야 하는 공의 개수&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이와 같은 경우는 탐색이 불가능 하므로 함수를 콜하지 않았다.&lt;/p&gt;
-
-&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 실버2 : 백준 6603번 로또&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;checkbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restOfBallFromStart&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;checkbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;restOfBallFromStart&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;checkbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;checkbox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>C++ - 입출력 빠르게 받는 방법</title>
-        <link>/cs/algorithm/2020/03/24/cin-cout-%EB%B9%A0%EB%A5%B4%EA%B2%8C.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/24/cin-cout-%EB%B9%A0%EB%A5%B4%EA%B2%8C.html</guid>
-        <description>&lt;p&gt;ios_base 라이브러리의 함수를 통해 입출력을 빠르게 받는 방법을 알아본다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2Fb1JQxK%2FbtqyAbHnybT%2FAR800lD5yXLMSPR3tUiCc0%2Fimg.png&quot; alt=&quot;언어와 입력 방식에 따른 입출력 속도&quot; /&gt; &lt;em&gt;&lt;a href=&quot;https://coding-insider.tistory.com/entry/cin-cout-%EC%9E%85%EC%B6%9C%EB%A0%A5-%EC%86%8D%EB%8F%84-%EB%B9%A0%EB%A5%B4%EA%B2%8C%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95&quot;&gt;출처 : https://coding-insider.tistory.com&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;확연하게 cin, cout이 느리다는 것을 알 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;적용&quot;&gt;적용&lt;/h2&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;main 함수안에 위의 코드를 적어주면 빠른 입출력이 가능하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;설명&quot;&gt;설명&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ios_base::sync_with_stdio(false)&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;C 입출력 함수와 C++ 입출력 스트림의 동기화를 해제하는 것이다. 이걸 쓰면 &lt;strong&gt;&lt;em&gt;C, C++ 입출력 함수를 섞어 쓰면 안된다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cin.tie(NULL);&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cout.tie(NULL);&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;cin과 cout 의 tie를 해제하는 것이다. 자세한 설명을 모르겠다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;std::endl&lt;/code&gt; -&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'\n'&lt;/code&gt;
-endl도 역시 불러오는 것이기 때문에 속도가 매우 느리다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;주의-사항&quot;&gt;주의 사항&lt;/h2&gt;
-
-&lt;p&gt;하지만 이 방법은 일종의 &lt;strong&gt;&lt;em&gt;편법&lt;/em&gt;&lt;/strong&gt;이기 때문에, 사용시 주의가 필요하다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;scanf, printf와 함께 사용하면 안된다.&lt;/li&gt;
-  &lt;li&gt;싱글 쓰레드 환경에서만 사용 가능하다. (알고리즘 문제풀이시에 사용, 실무에서는 사용 X)&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>Markdown Tips</title>
-        <link>/dv/tips/2020/03/23/markdown-usage-update.html</link>
-        <guid isPermaLink="true">/dv/tips/2020/03/23/markdown-usage-update.html</guid>
-        <description>&lt;p&gt;내가 사용하는 마크다운 명령어를 모아보았다.&lt;/p&gt;
-
-&lt;h2 id=&quot;새창-링크-열기&quot;&gt;새창 링크 열기&lt;/h2&gt;
-
-&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;링크 제목&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;링크&lt;/span&gt; 주소){: target=&quot;&lt;span class=&quot;se&quot;&gt;\_&lt;/span&gt;blank&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Mon, 23 Mar 2020 22:01:20 +0900</pubDate>
       </item>
     
   </channel>
