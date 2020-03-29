@@ -1,0 +1,44 @@
+{% if page.series %}
+    {% assign count = '0' %}
+    {% assign idx = '0' %}
+    {% for post in site.posts reversed %}
+         {% if post.series == page.series %}
+                {% capture count %}{{ count | plus: '1' }}{% endcapture %}
+            {% if post.url == page.url %}
+                {% capture idx %}{{count}}{% endcapture %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div class="series-nav">
+      <p>
+      이 포스팅은 <b><em>{{page.series}}</em></b> 시리즈 <b><em>{{count}}</em></b> 편 중 <b><em>{{ idx }}</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav">
+      {% assign count = '0' %}
+      {% for post in site.posts reversed %}
+      {% if post.series == page.series %}
+          {% capture count %}{{ count | plus: '1' }}{% endcapture %}
+          {% if page.url == post.url %}
+            <li class="current">
+                <span>Part {{ count }} - This Post</span>
+            </li>
+          {% else %}
+            <li onclick="location.href='{{post.url}}'">
+                <span>Part {{ count }} - {{post.title}}</span>
+            </li>
+          {% endif %}
+          {% comment %} <li onclick="location.href='{{post.url}}'">
+
+          Part {{ count }} - 
+          {% if page.url == post.url %}
+              <span>This Article</span>
+          {% else %}
+              <a href="{{post.url}}" style="display: inline">{{post.title}}</a>
+          {% endif %}
+          </li> {% endcomment %}
+      {% endif %}
+      {% endfor %}
+      </ul>
+  </div>
