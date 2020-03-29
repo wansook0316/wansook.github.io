@@ -31,13 +31,12 @@ layout: default
 
   <div class="posts">
     {% for post in paginator.posts %}
-      <div class="post-teaser list-box" >
+      <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='{{ post.url | relative_url }}';" >
       
-        <div style=" cursor: pointer;" onclick="location.href='{{ post.url | relative_url }}';">
         <header>
           <h2 class="categorized-post__title">
             <a class="post-link" href="{{ post.url | relative_url }}">
-              {{ post.title }}
+              [{{post.category}}] {{ post.title }}
             </a>
           </h2>
           <p class="meta">
@@ -49,7 +48,6 @@ layout: default
           {% comment %} <a class="button" href="{{ post.url | relative_url }}">
             {{ site.theme_settings.str_continue_reading }}
           </a> {% endcomment %}
-        </div>
         </div>
       </div>
     {% endfor %}
