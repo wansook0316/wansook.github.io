@@ -5,22 +5,206 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Mon, 30 Mar 2020 15:26:34 +0900</pubDate>
+    <pubDate>Mon, 30 Mar 2020 18:03:44 +0900</pubDate>
     
       <item>
-        <title>02: 운영체제의 역사</title>
-        <link>/cs/os/2020/03/30/test-2.html</link>
-        <guid isPermaLink="true">/cs/os/2020/03/30/test-2.html</guid>
-        <description>&lt;p&gt;test 2&lt;/p&gt;
+        <title>01: 운영체제란 무엇인가?</title>
+        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</link>
+        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</guid>
+        <description>&lt;p&gt;운영체제에 대한 정의, 목적, 역할에 대해 알아본다.&lt;/p&gt;
+
+&lt;p&gt;운영체제는 사용자가 컴퓨터를 사용하기 위해 필요한 소프트웨어이다. 일반적으로 사용하는 모든 프로그램은 운영체제에서 그 자원을 관리한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;목적&quot;&gt;목적&lt;/h1&gt;
+&lt;p&gt;운영체제를 사용하는 가장 큰 목적은 하드웨어의 관리이다. 컴퓨터를 나타내는 가장 상징적인 장치는 CPU이지만, 추가적으로 많은 장치와 상호작용하며 동작한다. 그렇기에 이러한 하드웨어를 관리하는 소프트웨어가 있어야 효율적으로 컴퓨터를 사용할 수 있다. 하드웨어를 직접적으로 사용하는 것이 아니기 때문에, 이를 효율적으로 사용하기 위해서는 운영체제의 성능이 좋아야 한다.&lt;/p&gt;
+
+&lt;p&gt;두번째로는 사용자에게 편의를 제공하는 것이다. 운영체제가 없을 경우, 우리는 하드웨어 단에서 하드 코딩으로 원하는 작업을 실행해야 한다. 이는 매우 생산성이 떨어지는 방법이다. 그렇기 때문에 이런 자원 관리 측면을 자동으로 해주는 소프트웨어를 통해, 원하는 작업에만 몰두할 수 있는 환경을 제공한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
+&lt;p&gt;운영체제는 컴퓨터의 성능을 높히고(&lt;strong&gt;performance&lt;/strong&gt;), 사용자에게 편의성을 제공(&lt;strong&gt;Convenience&lt;/strong&gt;)을 목적으로 하는 컴퓨터 하드웨어 관리 프로그램이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;부팅-booting&quot;&gt;부팅 (Booting)&lt;/h1&gt;
+
+&lt;p&gt;컴퓨터를 사용하기 위해서 가장 먼저하는 행동은 전원버튼을 누르는 것이다. 그렇다면, 전원을 눌렀을 때, 시작해야 하는 작업들이 있을 것이다. 우리가 실제로 사용할 수 있는 운영체제가 실행되기 이전에 다양한 작업을 해야하는데, 이 작업을 부팅 이라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;어떻게-실행할-수-있을까&quot;&gt;어떻게 실행할 수 있을까?&lt;/h2&gt;
+
+&lt;p&gt;&lt;img width=&quot;1106&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77884826-c72a6680-72a0-11ea-995c-7e6c612ac194.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기본적인 컴퓨터 구조는 위와 같다. 이 상황에서 부팅을 한다고 생각해보자. 컴퓨터는 원하는 작업을 실행할 때, Disk, RAM, CPU, RAM, Disk 순의 과정을 거치며 작동하게 된다. 그런데, 부팅을 하는 경우에는 어떻게 해야할까? 사실 Disk는 컴퓨터 입장에서는 보조 장치이다. 컴퓨터라고 부를 수 있는 실질적인 부분은 CPU, RAM이 전부이기 때문에 처음 부팅을 시작하면 CPU 에 부팅시 필요한 작업을 넘겨줄 수 없다.&lt;/p&gt;
+
+&lt;p&gt;따라서 우리는 일반적으로 프로그램이 동작하는 방식인 Disk, RAM, CPU 과정을 거칠 수 없기 때문에, 부팅에 한해서 RAM에 항상 저장된 공간을 필요로하게 되었는데, 그것이 ROM이다.&lt;/p&gt;
+
+&lt;p&gt;RAM과 ROM을 함께 Main Memory라 부른다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ROM: 비휘발성 으로 메모리에서 극히 일부를 차지한다.(수 KB)&lt;/li&gt;
+  &lt;li&gt;RAM: 휘발성 으로 메모리의 대부분을 차지하며 실제 프로그램이 할당되는 곳이다.(수 MB ~ 수 GB)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;부팅시-하는-작업엄밀한-정의의-부팅&quot;&gt;부팅시 하는 작업(엄밀한 정의의 부팅)&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;ROM의 정보를 읽는다.&lt;/li&gt;
+  &lt;li&gt;ROM안에 있는 POST(Power-On-Self-Test), 부트 로더(Boot-Loader)를 실행한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;POST는 전원이 켜지면 가장 처음에 실행되는 프로그램으로, 현재 컴퓨터의 상태를 검사한다. 이 것에는 장치가 연결되어 있는지, 멀쩡한 지 등의 상태를 뜻한다.&lt;/p&gt;
+
+&lt;p&gt;부트 로더는 하드디스크에 저장되어 있는 운영체제를 찾아서 메인 메모리(RAM)에 가지고 온다. 이러한 부트 로더의 과정을 부팅이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1121&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77885825-b24ed280-72a2-11ea-99b4-aaf7e15f367e.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 메모리에 올라온 OS는 컴퓨터를 종료하기 전까지 계속 메모리에 상주한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;구조&quot;&gt;구조&lt;/h1&gt;
+&lt;p&gt;운영체제는 크게 커널(Kernel)과 명령어 해석기(Command interpreter, shell)로 나뉜다.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887017-cf84a080-72a4-11ea-8810-b0918da5327c.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;커널(Kernel)은 운영체제의 핵심인 하드웨어를 다루는 코드를 말한다. 이 부분이 핵심이 때문에, Kernel에 따라 운영체제가 달라진다. 예를 들어 페도라, 우분투 등이 리눅스 운영체제라 부르는 것은, 이 운영체제가 리눅스 커널을 사용하기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;명령어 해석기(Command interpreter, shell)는 이 커널로 만들어진 코드를 동작하기 위해 만들어진 부분이다. Interface라고 볼 수 있다. GUI(Graphical User Interface)나 CLI(Command Line Interface) 같은 방식으로 운영체제에 명령을 요청할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;위치&quot;&gt;위치&lt;/h1&gt;
+&lt;p&gt;사용자 프로그램(Application)은 특정 운영체제에 맞춰서 만든다. 그러므로 한 애플리케이션은 서로 다른 운영체제에서 수행할 수 없다. (하드웨어가 같은 것은 전혀 상관이 없다.) 예를 들면 Windows에서 수행하는 프로그램을 그대로 Linux에 옮기면 수행되지 않는다. 이전 글에서 보았듯이 &lt;strong&gt;사용자 프로그램은 자원을 OS를 통해 요청&lt;/strong&gt;한다. 그렇기 때문에 해당 운영체제의 Interface를 따라야 하고, 그렇기 때문에 운영체제가 다를 경우 동작할 수 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;947&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887354-63ef0300-72a5-11ea-9231-1c571b962db6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;추가적으로 국가에 비유하여 생각해 볼 수도 있다.&lt;br /&gt;
+&lt;a href=&quot;https://wansook0316.github.io/cs/structure/2020/03/21/컴퓨터구조-용어정리.html&quot;&gt;영토, 정부, 가족, 개인 비유&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
       </item>
     
       <item>
-        <title>01: 운영체제란 무엇인가?</title>
-        <link>/cs/os/2020/03/30/test-1.html</link>
-        <guid isPermaLink="true">/cs/os/2020/03/30/test-1.html</guid>
-        <description>&lt;p&gt;test 1&lt;/p&gt;
+        <title>02: 운영체제의 역사</title>
+        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-copy.html</link>
+        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-copy.html</guid>
+        <description>&lt;p&gt;운영체제에 역사에 대해 알아본다.&lt;/p&gt;
+
+&lt;h1 id=&quot;1-초기-컴퓨터&quot;&gt;1. 초기 컴퓨터&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;노가다, 사람 손도 많이가, 장치도 엄청커, 비싸기도 비싸&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;운영체제는 컴퓨터가 발전하면서 같이 발전하게 되었다. 초기 컴퓨터는 크게 3가지로 구성되었다. 카드 리더, 프로세서, 프린터이다. 카드 리더는 입력기이다. 입력은 종이에 입력할 코드에 맞는 구멍을 뚫어서 넣어주는 방식이었다. 프로세서는 현재와 비슷한 계산하는 역할이었고, 프린터는 입력에 대한 결과를 종이에 찍어서 보여주었다. 이 시기에는 운영체제도 존재하지 않았으므로, 오퍼레이터(operator)라는 컴퓨터를 사용하는 직업이 따로 있었고, 컴퓨터의 크기 또한 너무 커서 건물 전체를 사용해야할 정도였다.&lt;/p&gt;
+
+&lt;h1 id=&quot;2-batch-processing-system일괄-처리-시스템&quot;&gt;2. Batch processing system(일괄 처리 시스템)&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;코드로 반복되는 거 좀 자동화 하자!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;위에서 초기 컴퓨터의 상황을 살펴보았는데, 프로그램을 수행할 때마다 컴파일-&amp;gt;링크-&amp;gt;로딩 순서를 오퍼레이터가 직접 입력해주었다. 이러한 과정을 자동화한 것이 batch processing system 이다. 위 과정을 하나의 프로그램으로 작성하여 프로세서의 메모리안에 할당해주었는데, 이 프로그램을 resident monitor라고 불렀다.&lt;/p&gt;
+
+&lt;p&gt;resident는 “거주” 라는 의미로 이 프로그램이 항상 프로세서안에서 거주한다는 의미로 이러한 이름을 사용하였다. 그리고 이것이 &lt;strong&gt;최초의 운영체제&lt;/strong&gt;로 알려져 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;3-multiprogramming-system다중-프로그래밍&quot;&gt;3. Multiprogramming system(다중 프로그래밍)&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;CPU가 노는 시간이 너무 많은데? 쉴 동안 다른일을 시켜버리자.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;과거에는 컴퓨터가 매우 비싼 장비였다. 그리고 초창기 메모리의 상태는 resident monitor를 제외하고 &lt;strong&gt;단 하나의 애플리케이션만을 할당하여 사용&lt;/strong&gt;하였다. 하지만 이는 매우 비효율적인 방법이었다.&lt;/p&gt;
+
+&lt;p&gt;프로그램을 수행하는 도중에는 계산을 하는 CPU 외에도 입출력을 담당하는 I/O장치가 수행한다. 즉, &lt;strong&gt;CPU와 I/O장치가 교대로 동작&lt;/strong&gt;하는데 I/O장치가 수행하는 동안에는 &lt;strong&gt;CPU가 아무것도 할 일이 없었다.&lt;/strong&gt; CPU가 아무일도 안하는 상태를 &lt;strong&gt;&lt;em&gt;idle&lt;/em&gt;&lt;/strong&gt; 상태라고 말한다. 그리고 I/O장치는 CPU에 비해 매우 느리기때문에 idle 상태의 비율이 너무 높았다. 이러한 비효율적인 수행을 해결하기 위해 multiprogramming system이 나왔다. &lt;del&gt;즉 CPU를 못놀게 하자&lt;/del&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;방법&quot;&gt;방법&lt;/h2&gt;
+&lt;p&gt;Multiprogramming system은 메모리에 여러 애플리케이션(프로그램)을 올리는 시스템이다. 예를 들어 a, b 두 개의 애플리케이션이 있을 떄, 처음에는 a에서 CPU 수행을 하다가 I/O장치 수행으로 넘어간다. 이 순간 CPU는 idle 상태에 있지 않고 b가 있다는 것을 보고 b의 CPU 수행을 시작한다. 이렇게 &lt;strong&gt;idle상태의 시간을 최대한 줄이고자 하였다.&lt;/strong&gt; 이런 동작을 가능하게 하려면 앞서 말했듯, 메모리에 여러 어플리케이션을 올린 상태여야만 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;한계-및-문제&quot;&gt;한계 및 문제&lt;/h2&gt;
+&lt;p&gt;하지만 메모리에 여러 프로그램을 올리면서 많은 문제점이 발생했다. 가장 큰 문제점은 CPU가 &lt;strong&gt;어느 프로그램을 수행해야하는지 선택&lt;/strong&gt;하는 것이다. 이러한 작업을 &lt;strong&gt;&lt;em&gt;CPU 스케줄링&lt;/em&gt;&lt;/strong&gt;이라고 하며, 이는 운영체제의 중요한 역할 중 하나이다. 그리고 여러 어플리케이션의 공간을 할당한다는 전제 조건 때문에, 새롭데 들어온 어플리케이션에 대해 &lt;strong&gt;어느 메모리 공간에 할당&lt;/strong&gt;해야하는지도 큰 문제였다. 이러한 문제도 운영체제가 다뤄야 하는 중요한 과제로 남았다.&lt;/p&gt;
+
+&lt;h1 id=&quot;4-time-sharing-system시분할-시스템&quot;&gt;4. Time-sharing system(시분할 시스템)&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;하나 다 끝날 때까지 기다리지 말고 Interval을 주자!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;시간이 지나 모니터와 키보드를 사용하면서 사용자와 컴퓨터 사이에 대화 형식이 가능해졌다. 하지만 여전히 컴퓨터 자체가 너무 비쌌기 때문에 아래와 같이 단말기(terminal) 형태로 사용하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1026&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77890996-43c24280-72ab-11ea-9987-b9384ebb4975.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;각 사용자(User)들은 모니터와 키보드만을 가지고, 실제 프로세서는 하나의 단말기에 존재하여 이를 공유하여 사용하였다. 멀티 프로그래밍에서는 이와 같은 단말기 형태에서 문제가 생긴다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 단말기 메모리에 User1 프로그램, User2 프로그램, User3 프로그램이 할당되어 있고 User1이 먼저 CPU를 사용한다고 하자. &lt;strong&gt;멀티프로그래밍에서는 User1이 CPU를 수행하고 있는 도중에는 다른 사용자는 CPU자체를 사용할 수 없다.&lt;/strong&gt; (CPU가 하나인 환경) 그러므로 다른 사용자들은 User1이 CPU수행을 모두 마칠 때까지(또는 I/O를 만날 때까지) 기다려야한다. 하지만 이는 매우 비효율적이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
+&lt;p&gt;이를 해결하기 위해 나온 것이 time-sharing system이다. 시분할 시스템은 CPU가 하나의 프로그램을 수행하는 &lt;strong&gt;시간을 제한&lt;/strong&gt;하는 것이다. 예를 들어, User1 프로그램을 일정 시간 수행하면 반드시 다음 프로그램으로 넘어가서(스위칭, switching) 또 다시 일정 시간을 수행한다. 이렇게 일정 시간을 두어 프로그램들을 번갈아 수행하면서 모든 프로그램이 공평하게 수행이 되도록 한다. 그리고 이 일정 시간은 매우 짧은 시간(ms)이므로 CPU가 하나인 환경에서도 여러 사용자가 동시에 사용하는 듯한 효과를 가져온다. 가장 대표적인 시분할 시스템은 Unix가 있었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;한계-및-문제-1&quot;&gt;한계 및 문제&lt;/h2&gt;
+&lt;p&gt;시분할 시스템을 사용하면서 여러 사용자(프로세스)간에 통신이 가능해졌다. 하지만 여기서도 여전히 멀티프로그래밍에서와 같은 스케줄링과 메모리 문제가 있었다. 이를 해결하기 위해 동기화 기술, 가상 메모리 등이 이후에 나왔다.&lt;/p&gt;
+
+&lt;h1 id=&quot;5-고등-운영체제&quot;&gt;5. 고등 운영체제&lt;/h1&gt;
+&lt;h2 id=&quot;51-다중-프로세서-시스템-multiprocessor-system&quot;&gt;5.1 다중 프로세서 시스템 (Multiprocessor system)&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;CPU가 여러개&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;병렬 시스템 (parallel system)
+    &lt;ul&gt;
+      &lt;li&gt;여러개의 CPU가 동시에 처리할 수 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;강결합 시스템 (tightly-coupled system)
+    &lt;ul&gt;
+      &lt;li&gt;메모리에 여러 CPU가 연결되어 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3가지 장점: performance, cost, reliability
+    &lt;ul&gt;
+      &lt;li&gt;여러 일꾼을 쓰니 빠르다.&lt;/li&gt;
+      &lt;li&gt;싸지만 여러개를 사용하는게 같은 성능대비 가격이 싸다.&lt;/li&gt;
+      &lt;li&gt;하나가 망가져도 작동할 수 있다. 신뢰도가 높다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;다중 프로세서 운영체제 (Multiprocessor OS)
+    &lt;ul&gt;
+      &lt;li&gt;CPU가 늘어났기 때문에, 다른 처리 방법이 필요하다.
+        &lt;h2 id=&quot;52-분산-시스템-distributed-system&quot;&gt;5.2 분산 시스템 (Distributed system)]&lt;/h2&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;컴퓨터가 여러대, 근데 묶여있다.&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;다중 컴퓨터 시스템 (multi-computer system)
+  여러대의 컴퓨터로 만든 시스템이다.&lt;/li&gt;
+  &lt;li&gt;소결합 시스템 (loosely-coupled system)
+    &lt;ul&gt;
+      &lt;li&gt;메모리가 느슨하게 연결되어 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3가지 장점: performance, cost, reliability
+    &lt;ul&gt;
+      &lt;li&gt;여러 일꾼을 쓰니 빠르다.&lt;/li&gt;
+      &lt;li&gt;싸지만 여러개를 사용하는게 같은 성능대비 가격이 싸다.&lt;/li&gt;
+      &lt;li&gt;하나가 망가져도 작동할 수 있다. 신뢰도가 높다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;분산 운영체제 (Distributed OS)
+    &lt;ul&gt;
+      &lt;li&gt;다른 컴퓨터들을 관리해야 하기 때문에 새로운 처리 방법이 필요하다.
+        &lt;h2 id=&quot;53-실시간-시스템-real-time-system&quot;&gt;5.3 실시간 시스템 (Real-time system)&lt;/h2&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;시간 제약: Deadline&lt;/li&gt;
+  &lt;li&gt;공장 자동화 (FA), 군사, 항공, 우주&lt;/li&gt;
+  &lt;li&gt;실시간 운영체제 (Real-time OS = RTOS)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;6-인터럽트-기반-시스템interrupt-based-system&quot;&gt;6. 인터럽트 기반 시스템(Interrupt based system)&lt;/h1&gt;
+&lt;p&gt;현대 운영체제는 인터럽트 기반 시스템이다. 그렇다면 인터럽트는 무엇인가?&lt;/p&gt;
+&lt;h2 id=&quot;61-인터럽트&quot;&gt;6.1 인터럽트&lt;/h2&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
       </item>

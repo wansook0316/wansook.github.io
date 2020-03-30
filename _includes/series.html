@@ -1,7 +1,8 @@
 {% if page.series %}
     {% assign count = '0' %}
     {% assign idx = '0' %}
-    {% for post in site.posts reversed %}
+    {% assign sortedPosts = site.posts | sort: 'title' %}
+    {% for post in sortedPosts %}
          {% if post.series == page.series %}
                 {% capture count %}{{ count | plus: '1' }}{% endcapture %}
             {% if post.url == page.url %}
@@ -12,29 +13,15 @@
 
 
 <div class="series-nav">
+    
       <p>
       이 포스팅은 <b><em>{{page.series}}</em></b> 시리즈 <b><em>{{count}}</em></b> 편 중 <b><em>{{ idx }}</em></b> 번째 글 입니다.
       </p>
       <ul class="side-nav">
-      {% comment %} {% assign count = '0' %} {% endcomment %}
-    
-    
-    {% comment %} {% assign count = '-1' %}
-    {% for post in sortedposts %}
-        {% capture count %}{{ count | plus: '1' }}{% endcapture %}
-        
-        {% if count != '0'%}
-        {% assign postitems = post | split: '#' %}
-        <p>{{postitems[0]}}    {{postitems[1]}}</p>
-        <li onclick="location.href='{{postitems[1]}}'">
-                <span>Part {{ count }} - {{postitems[0]}}</span>
-            </li>
-        {% endif %}
-        
-    {% endfor%} {% endcomment %}
 
     {% assign count = '0' %}
-     {% for post in site.posts reversed %}
+    {% assign sortedPosts = site.posts | sort: 'title' %}
+     {% for post in sortedPosts %}
       {% if post.series == page.series %}
           {% capture count %}{{ count | plus: '1' }}{% endcapture %}
           {% if page.url == post.url %}
