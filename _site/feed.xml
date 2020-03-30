@@ -5,86 +5,152 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Mon, 30 Mar 2020 18:03:44 +0900</pubDate>
+    <pubDate>Mon, 30 Mar 2020 23:30:39 +0900</pubDate>
     
       <item>
-        <title>01: 운영체제란 무엇인가?</title>
-        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</link>
-        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</guid>
-        <description>&lt;p&gt;운영체제에 대한 정의, 목적, 역할에 대해 알아본다.&lt;/p&gt;
-
-&lt;p&gt;운영체제는 사용자가 컴퓨터를 사용하기 위해 필요한 소프트웨어이다. 일반적으로 사용하는 모든 프로그램은 운영체제에서 그 자원을 관리한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;목적&quot;&gt;목적&lt;/h1&gt;
-&lt;p&gt;운영체제를 사용하는 가장 큰 목적은 하드웨어의 관리이다. 컴퓨터를 나타내는 가장 상징적인 장치는 CPU이지만, 추가적으로 많은 장치와 상호작용하며 동작한다. 그렇기에 이러한 하드웨어를 관리하는 소프트웨어가 있어야 효율적으로 컴퓨터를 사용할 수 있다. 하드웨어를 직접적으로 사용하는 것이 아니기 때문에, 이를 효율적으로 사용하기 위해서는 운영체제의 성능이 좋아야 한다.&lt;/p&gt;
-
-&lt;p&gt;두번째로는 사용자에게 편의를 제공하는 것이다. 운영체제가 없을 경우, 우리는 하드웨어 단에서 하드 코딩으로 원하는 작업을 실행해야 한다. 이는 매우 생산성이 떨어지는 방법이다. 그렇기 때문에 이런 자원 관리 측면을 자동으로 해주는 소프트웨어를 통해, 원하는 작업에만 몰두할 수 있는 환경을 제공한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
-&lt;p&gt;운영체제는 컴퓨터의 성능을 높히고(&lt;strong&gt;performance&lt;/strong&gt;), 사용자에게 편의성을 제공(&lt;strong&gt;Convenience&lt;/strong&gt;)을 목적으로 하는 컴퓨터 하드웨어 관리 프로그램이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;부팅-booting&quot;&gt;부팅 (Booting)&lt;/h1&gt;
-
-&lt;p&gt;컴퓨터를 사용하기 위해서 가장 먼저하는 행동은 전원버튼을 누르는 것이다. 그렇다면, 전원을 눌렀을 때, 시작해야 하는 작업들이 있을 것이다. 우리가 실제로 사용할 수 있는 운영체제가 실행되기 이전에 다양한 작업을 해야하는데, 이 작업을 부팅 이라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;어떻게-실행할-수-있을까&quot;&gt;어떻게 실행할 수 있을까?&lt;/h2&gt;
-
-&lt;p&gt;&lt;img width=&quot;1106&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77884826-c72a6680-72a0-11ea-995c-7e6c612ac194.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;기본적인 컴퓨터 구조는 위와 같다. 이 상황에서 부팅을 한다고 생각해보자. 컴퓨터는 원하는 작업을 실행할 때, Disk, RAM, CPU, RAM, Disk 순의 과정을 거치며 작동하게 된다. 그런데, 부팅을 하는 경우에는 어떻게 해야할까? 사실 Disk는 컴퓨터 입장에서는 보조 장치이다. 컴퓨터라고 부를 수 있는 실질적인 부분은 CPU, RAM이 전부이기 때문에 처음 부팅을 시작하면 CPU 에 부팅시 필요한 작업을 넘겨줄 수 없다.&lt;/p&gt;
-
-&lt;p&gt;따라서 우리는 일반적으로 프로그램이 동작하는 방식인 Disk, RAM, CPU 과정을 거칠 수 없기 때문에, 부팅에 한해서 RAM에 항상 저장된 공간을 필요로하게 되었는데, 그것이 ROM이다.&lt;/p&gt;
-
-&lt;p&gt;RAM과 ROM을 함께 Main Memory라 부른다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ROM: 비휘발성 으로 메모리에서 극히 일부를 차지한다.(수 KB)&lt;/li&gt;
-  &lt;li&gt;RAM: 휘발성 으로 메모리의 대부분을 차지하며 실제 프로그램이 할당되는 곳이다.(수 MB ~ 수 GB)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;부팅시-하는-작업엄밀한-정의의-부팅&quot;&gt;부팅시 하는 작업(엄밀한 정의의 부팅)&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;ROM의 정보를 읽는다.&lt;/li&gt;
-  &lt;li&gt;ROM안에 있는 POST(Power-On-Self-Test), 부트 로더(Boot-Loader)를 실행한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;POST는 전원이 켜지면 가장 처음에 실행되는 프로그램으로, 현재 컴퓨터의 상태를 검사한다. 이 것에는 장치가 연결되어 있는지, 멀쩡한 지 등의 상태를 뜻한다.&lt;/p&gt;
-
-&lt;p&gt;부트 로더는 하드디스크에 저장되어 있는 운영체제를 찾아서 메인 메모리(RAM)에 가지고 온다. 이러한 부트 로더의 과정을 부팅이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;1121&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77885825-b24ed280-72a2-11ea-99b4-aaf7e15f367e.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이렇게 메모리에 올라온 OS는 컴퓨터를 종료하기 전까지 계속 메모리에 상주한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;구조&quot;&gt;구조&lt;/h1&gt;
-&lt;p&gt;운영체제는 크게 커널(Kernel)과 명령어 해석기(Command interpreter, shell)로 나뉜다.&lt;/p&gt;
-
-&lt;p class=&quot;center&quot;&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887017-cf84a080-72a4-11ea-8810-b0918da5327c.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;커널(Kernel)은 운영체제의 핵심인 하드웨어를 다루는 코드를 말한다. 이 부분이 핵심이 때문에, Kernel에 따라 운영체제가 달라진다. 예를 들어 페도라, 우분투 등이 리눅스 운영체제라 부르는 것은, 이 운영체제가 리눅스 커널을 사용하기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;명령어 해석기(Command interpreter, shell)는 이 커널로 만들어진 코드를 동작하기 위해 만들어진 부분이다. Interface라고 볼 수 있다. GUI(Graphical User Interface)나 CLI(Command Line Interface) 같은 방식으로 운영체제에 명령을 요청할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;위치&quot;&gt;위치&lt;/h1&gt;
-&lt;p&gt;사용자 프로그램(Application)은 특정 운영체제에 맞춰서 만든다. 그러므로 한 애플리케이션은 서로 다른 운영체제에서 수행할 수 없다. (하드웨어가 같은 것은 전혀 상관이 없다.) 예를 들면 Windows에서 수행하는 프로그램을 그대로 Linux에 옮기면 수행되지 않는다. 이전 글에서 보았듯이 &lt;strong&gt;사용자 프로그램은 자원을 OS를 통해 요청&lt;/strong&gt;한다. 그렇기 때문에 해당 운영체제의 Interface를 따라야 하고, 그렇기 때문에 운영체제가 다를 경우 동작할 수 없다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;947&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887354-63ef0300-72a5-11ea-9231-1c571b962db6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;추가적으로 국가에 비유하여 생각해 볼 수도 있다.&lt;br /&gt;
-&lt;a href=&quot;https://wansook0316.github.io/cs/structure/2020/03/21/컴퓨터구조-용어정리.html&quot;&gt;영토, 정부, 가족, 개인 비유&lt;/a&gt;&lt;/p&gt;
+        <title>04: 운영체제 서비스</title>
+        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html</link>
+        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html</guid>
+        <description>&lt;p&gt;운영체제에서 제공하는 서비스를 알아본다.&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;
+Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
+</description>
+        <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>03: 이중모드와 보호</title>
+        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html</link>
+        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html</guid>
+        <description>&lt;p&gt;운영체제의 이중모드와 보호에 관해서 알아본다.&lt;/p&gt;
+
+&lt;h1 id=&quot;1-이중-모드-dual-mode&quot;&gt;1. 이중 모드 (Dual mode)&lt;/h1&gt;
+&lt;p&gt;현재 컴퓨터 환경은 여러 사람이 동시에 한 컴퓨터를 사용하는 경우가 많다.(서버 컴퓨터) 그리고 그 외에도 하나의 컴퓨터 내에서 여러 프로그램을 수행하는 것이 일반적이다. 이 때 특정 컴퓨터나 프로그램에서 잘못된 동작으로 인해 다른 컴퓨터(프로그램)가 영향을 받는다면 이는 매우 위험하다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 어셈블리어에서 사용하는 명령어 중  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;STOP&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HALT&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RESET&lt;/code&gt;과 같은 명령어는 CPU의 동작과 관계된 명령어이다. 이런 명령어를
+한 프로그램에서 고의 또는 실수로 입력하여 전체 컴퓨터의 동작이 멈추거나 꺼진다면 이 컴퓨터의 정상적인 동작을 위해서는 재부팅을 할 수 밖에 없다. 이러한 결함을 매우 치명적이다.&lt;/p&gt;
+
+&lt;p&gt;이런 문제점을 해결하기 위해 일반 사용자가 위와 같은 명령어들을 요청하는 것을 막을 필요가 생겼다. 여기서 &lt;strong&gt;이중 모드&lt;/strong&gt; 라는 것이 나왔다.&lt;/p&gt;
+
+&lt;h2 id=&quot;설명&quot;&gt;설명&lt;/h2&gt;
+&lt;p&gt;이중 모드는 말 그대로 모드를 아래와 같이 둘로 나누는 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;사용자(User) 모드&lt;/li&gt;
+  &lt;li&gt;관리자(Supervisor) 모드
+    &lt;ul&gt;
+      &lt;li&gt;= 시스템(system) 모드&lt;/li&gt;
+      &lt;li&gt;= 모니터(monitor) 모드&lt;/li&gt;
+      &lt;li&gt;= 특권(privileged) 모드&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;특권 모드에서만 내릴 수 있는 명령을 &lt;strong&gt;특권 명령(privileged instruction)&lt;/strong&gt; 이라고 하며, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;STOP&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HALT&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RESET&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SET_TIMER&lt;/code&gt; 등이 있다. 만약 사용자 모드에서 특권 명령을 사용하려고 하면 CPU에서 내부 인터럽트를 발생시켜 해당 명령어를 요청한 프로그램을 강제로 종료시킨다.&lt;/p&gt;
+
+&lt;p&gt;이중 모드는 CPU 내부의 레지스터(register)의 비트(bit)를 활용하여 &lt;strong&gt;플래그(flag)&lt;/strong&gt;로 나타낸다. 예를 들어 특권 모드일 때는 &lt;strong&gt;비트 값이 0&lt;/strong&gt; 이고, 사용자 모드일 때는 &lt;strong&gt;비트 값을 1&lt;/strong&gt; 로 설정하여 구분한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;상태-레지스터-플레그-레지스터&quot;&gt;상태 레지스터 (플레그 레지스터)&lt;/h3&gt;
+&lt;p&gt;CPU에서 다양한 산술 연산의 결과의 상태를 알려주는 플래그 비트들이 모인 레지스터이다. flag라는 이름의 어원은 경주할 때, 시작, 정지와 같은 상태를 깃발의 색, 들어올림과 같은 것으로 알렸기 때문이다. CPU에서는 연산을 수행하는데, 제약사항을 갖고 (자리수의 제한 같은) 수행하기 때문에 이를 나타낼 다양한 코드가 필요하다. 이 상태는 비트를 통해 정의되어 있으며 다양한 플래그가 존재한다.&lt;br /&gt;
+&lt;a href=&quot;https://ko.wikipedia.org/wiki/상태_레지스터&quot;&gt;상태 레지스터의 종류&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mode의-변경-과정&quot;&gt;Mode의 변경 과정&lt;/h2&gt;
+&lt;p&gt;컴퓨터가 켜진 뒤에 한 사용자 애플리케이션을 실행시키는 동안 모드가 어떻게 변하는지 살펴보자.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;컴퓨터 부팅 과정 - 관리자 모드&lt;/li&gt;
+  &lt;li&gt;애플리케이션 실행 과정 - 관리자 모드&lt;/li&gt;
+  &lt;li&gt;애플리케이션 실행중 - 사용자 모드&lt;/li&gt;
+  &lt;li&gt;인터럽트 발생 후 처리 과정 - 관리자 모드&lt;/li&gt;
+  &lt;li&gt;인터럽트 처리 후 - 사용자 모드&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;사용자가 하드웨어의 자원에 접근하는 것은 매우 위험한 동작이다. 그러므로 이러한 경우에는 모두 &lt;strong&gt;관리자 모드로 운영체제에서 처리하도록 한다.&lt;/strong&gt; (프로그램에서 소프트웨어 인터럽트를 발생시켜 운영체제에 위임한다.)&lt;/p&gt;
+
+&lt;p&gt;위의 4번 과정을 하드웨어 인터럽트로 가정하고 자세히 살펴보면 아래와 같다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;하드웨어 인터럽트 발생 후 CPU로 인터럽트 신호 요청 (사용자 모드)&lt;/li&gt;
+  &lt;li&gt;CPU에서 모드 플래그를 관리자 모드값으로 설정&lt;/li&gt;
+  &lt;li&gt;해당 하드웨어 인터럽트 서비스 루틴(ISR)으로 이동 (관리자 모드)&lt;/li&gt;
+  &lt;li&gt;인터럽트 처리 (관리자 모드)&lt;/li&gt;
+  &lt;li&gt;인터럽트 처리 완료 후 CPU의 모드 플래그를 다시 6. 사용자 모드값으로 설정&lt;/li&gt;
+  &lt;li&gt;원래의 애플리케이션 위치로 복귀 (사용자 모드)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://miro.medium.com/max/1400/1*J3LbfnG88ysmltH48VhU6w.png&quot; alt=&quot;Mode bit 변경&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;만약 사용자 모드인 상태에서 치명적인 명령어를 사용자 프로그램이 Call했을 경우에 CPU는 모드 비트를 확인하고 관리자 모드가 아닐 경우, &lt;strong&gt;내부 인터럽트&lt;/strong&gt;를 발생시킨다. (잘못된 명령을 내렸을 때 발생하는 인터럽트) 그 결과, 메모리에 올라와있는 사용자 프로그램을 종료시켜버린다.&lt;/p&gt;
+
+&lt;p&gt;애플리케이션이 실행하는 동안에는 위와 같은 모드 변경이 반복적으로 일어나는 것을 볼 수 있다. 대부분의 CPU는 이중 모드를 지원한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;2-하드웨어-보호&quot;&gt;2. 하드웨어 보호&lt;/h1&gt;
+&lt;p&gt;이중 모드는 사용자의 접근을 제한하여 치명적인 문제가 발생하지 않도록 방지하는 보호 기능에 해당한다. 이러한 보호 기능에 대해 추가적으로 알아본다.&lt;/p&gt;
+
+&lt;h2 id=&quot;21-입출력-장치-보호&quot;&gt;2.1 입출력 장치 보호&lt;/h2&gt;
+&lt;p&gt;여러 정보들은 입출력 장치를 통해 컴퓨터로 입력되고, 외부 장치로 출력이 된다. 여기서 크게 두 가지의 문제점이 발생한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;여러 입출력 장치의 사용으로 인한 혼선&lt;/li&gt;
+  &lt;li&gt;사용자가 자신의 데이터가 아닌 다른 사용자의 데이터에 입출력을 하는 일
+    &lt;ul&gt;
+      &lt;li&gt;위와 같이 입출력 장치에 여러 사용자의 데이터가 뒤엉켜서 들어오거나 다른 사용자의 데이터에 접근하려는 경우를 막아야 한다.
+이를 해결하기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;in&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;out&lt;/code&gt; 과 같은 입출력 명령을 &lt;strong&gt;특권 명령&lt;/strong&gt;으로 설정하는 것이다. 즉, 사용자 애플리케이션에서 입출력을 사용하려면 운영체제를 통해서 수행해야한다.(소프트웨어 인터럽트) 여러 프로그램이 동시에 입출력을 사용하려고 하면 운영체제 내부에서 순서를 정하여 혼선을 막아줄 수 있다.
+&lt;strong&gt;즉, 컴퓨터의 하드웨어를 사용하는 과정에서는 모두 운영체제를 거치도록 한다!&lt;/strong&gt; 라는 대원칙이 사실 숨어있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;만약 A, B 사용자가 있는 상황에서 A가 B의 데이터를 읽기 위해 운영체제에게 소프트웨어 인터럽트를 발생하였다고 하자. 이 때, A의 데이터와 B의 데이터는 각각 A, B만이 읽기가 가능하다고 가정하자. 그러면 인터럽트가 발생하고, CPU는 RAM에 있는 운영체제 내부의 해당 ISR로 이동하게 된다. ISR은 현재 사용자 A가 해당 데이터 B에 접근할 수 없으므로 해당 요청을 거부한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;947&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887354-63ef0300-72a5-11ea-9231-1c571b962db6.png&quot; class=&quot;center&quot; /&gt;
+&lt;del class=&quot;center-text&quot;&gt;다시보는 이 그림..&lt;/del&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;22-메모리-보호&quot;&gt;2.2 메모리 보호&lt;/h2&gt;
+
+&lt;p&gt;메모리에는 운영체제뿐만 아니라 여러 개의 사용자 애플리케이션이 존재한다. 한 애플리케이션이 자신의 메모리 영역이 아닌 운영체제나 다른 애플리케이션의 메모리 영역에 침범하려하면 매우 위험하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1252&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77922369-e8f50f00-72db-11ea-8a4c-0c8bb7a09c3d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;메모리는 일반적으로 위와 같이 구성되어 있을 것이다. 여기서 user1이 OS나 user2, user3에 접근하는 것을 막아야 한다. CPU는 address bus를 통해 메모리 주소에 접근하게 되는데, user1 프로그램이 실행되는 동안에는 user1이 할당되어 있는 메모리 주소 범위 안인 경우에만 접근하면 될 것이다. 이를 &lt;strong&gt;address bus에서 검사&lt;/strong&gt;하는 것이 가장 효율적일 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;970&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77922593-35d8e580-72dc-11ea-80dd-d2ca33d48f9f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 생각으로 나온 것이 &lt;strong&gt;MMU(Memory Management Unit)&lt;/strong&gt; 이다. MMU는 위의 그림처럼 address bus 중간에 설치된 하드웨어 칩으로서 두 개의 레지스터를 통해 해당 프로그램의 주소 범위를 저장한다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, User1의 시작 주소는 1024, 끝 주소는 4048이라고 하자. User1이 수행되는 동안 운영체제는 해당 프로그램의 주소 범위를 MMU에 설정(특권 명령)하는데, base는 1024, limit는 4048이 될 것이다. 결과적으로 user1이 수행되는 동안에는 이 범위 안의 주소값인 경우에만 address bus를 통과시킨다.&lt;/p&gt;
+
+&lt;p&gt;만약 해당 프로그램의 주소 범위 밖의 주소값이 MMU에 들어온다면, MMU에서 내부 인터럽트 를 발생시켜 CPU에 신호를 준다. 그러면 CPU는 그에 맞는 ISR로 이동하여 해당 프로그램을 강제로 종료시킨다. 이과 같은 잘못된 메모리 접근을 Segment violation 이라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;23-cpu-보호&quot;&gt;2.3 CPU 보호&lt;/h2&gt;
+&lt;p&gt;CPU 보호는 사용자의 실수 또는 고의로 인한 CPU 독점을 방지해야 한다. 하나의 프로그램이 CPU를 독점하게 되면 다른 프로그램은 수행되지 못한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;CPU를 독점하는 가장 대표적인 예는 &lt;strong&gt;무한 반복&lt;/strong&gt;이다. 위의 코드를 보면 while문의 조건문이 잘못된 것을 볼 수 있다. 비교 연산자가 아닌 대입 연산자를 사용하여 n값이 1이 되므로 while문의 조건은 TRUE가 된다. 이는 n값이 변하지 않는 이상 무한으로 반복된다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하는 방법은 Timer를 두어 일정 시간이 지나면 &lt;strong&gt;타이머 인터럽트&lt;/strong&gt;를 발생시킨다. 인터럽트가 발생하면 반드시 운영체제 내의 ISR로 이동하므로, 해당 ISR에서 각 프로그램의 CPU 점유 시간을 측정하여 적절히 분배되도록 조정한다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 한 프로그램의 CPU 점유 시간이 비정상적으로 오래 걸리는 경우, 강제로 다른 프로그램으로 CPU를 전환시켜 줄 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;
+Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
       </item>
     
       <item>
         <title>02: 운영체제의 역사</title>
-        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-copy.html</link>
-        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80-copy.html</guid>
+        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html</link>
+        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html</guid>
         <description>&lt;p&gt;운영체제에 역사에 대해 알아본다.&lt;/p&gt;
 
 &lt;h1 id=&quot;1-초기-컴퓨터&quot;&gt;1. 초기 컴퓨터&lt;/h1&gt;
@@ -200,6 +266,80 @@
 &lt;h1 id=&quot;6-인터럽트-기반-시스템interrupt-based-system&quot;&gt;6. 인터럽트 기반 시스템(Interrupt based system)&lt;/h1&gt;
 &lt;p&gt;현대 운영체제는 인터럽트 기반 시스템이다. 그렇다면 인터럽트는 무엇인가?&lt;/p&gt;
 &lt;h2 id=&quot;61-인터럽트&quot;&gt;6.1 인터럽트&lt;/h2&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>01: 운영체제란 무엇인가?</title>
+        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</link>
+        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</guid>
+        <description>&lt;p&gt;운영체제에 대한 정의, 목적, 역할에 대해 알아본다.&lt;/p&gt;
+
+&lt;p&gt;운영체제는 사용자가 컴퓨터를 사용하기 위해 필요한 소프트웨어이다. 일반적으로 사용하는 모든 프로그램은 운영체제에서 그 자원을 관리한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;목적&quot;&gt;목적&lt;/h1&gt;
+&lt;p&gt;운영체제를 사용하는 가장 큰 목적은 하드웨어의 관리이다. 컴퓨터를 나타내는 가장 상징적인 장치는 CPU이지만, 추가적으로 많은 장치와 상호작용하며 동작한다. 그렇기에 이러한 하드웨어를 관리하는 소프트웨어가 있어야 효율적으로 컴퓨터를 사용할 수 있다. 하드웨어를 직접적으로 사용하는 것이 아니기 때문에, 이를 효율적으로 사용하기 위해서는 운영체제의 성능이 좋아야 한다.&lt;/p&gt;
+
+&lt;p&gt;두번째로는 사용자에게 편의를 제공하는 것이다. 운영체제가 없을 경우, 우리는 하드웨어 단에서 하드 코딩으로 원하는 작업을 실행해야 한다. 이는 매우 생산성이 떨어지는 방법이다. 그렇기 때문에 이런 자원 관리 측면을 자동으로 해주는 소프트웨어를 통해, 원하는 작업에만 몰두할 수 있는 환경을 제공한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
+&lt;p&gt;운영체제는 컴퓨터의 성능을 높히고(&lt;strong&gt;performance&lt;/strong&gt;), 사용자에게 편의성을 제공(&lt;strong&gt;Convenience&lt;/strong&gt;)을 목적으로 하는 컴퓨터 하드웨어 관리 프로그램이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;부팅-booting&quot;&gt;부팅 (Booting)&lt;/h1&gt;
+
+&lt;p&gt;컴퓨터를 사용하기 위해서 가장 먼저하는 행동은 전원버튼을 누르는 것이다. 그렇다면, 전원을 눌렀을 때, 시작해야 하는 작업들이 있을 것이다. 우리가 실제로 사용할 수 있는 운영체제가 실행되기 이전에 다양한 작업을 해야하는데, 이 작업을 부팅 이라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;어떻게-실행할-수-있을까&quot;&gt;어떻게 실행할 수 있을까?&lt;/h2&gt;
+
+&lt;p&gt;&lt;img width=&quot;1106&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77884826-c72a6680-72a0-11ea-995c-7e6c612ac194.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기본적인 컴퓨터 구조는 위와 같다. 이 상황에서 부팅을 한다고 생각해보자. 컴퓨터는 원하는 작업을 실행할 때, Disk, RAM, CPU, RAM, Disk 순의 과정을 거치며 작동하게 된다. 그런데, 부팅을 하는 경우에는 어떻게 해야할까? 사실 Disk는 컴퓨터 입장에서는 보조 장치이다. 컴퓨터라고 부를 수 있는 실질적인 부분은 CPU, RAM이 전부이기 때문에 처음 부팅을 시작하면 CPU 에 부팅시 필요한 작업을 넘겨줄 수 없다.&lt;/p&gt;
+
+&lt;p&gt;따라서 우리는 일반적으로 프로그램이 동작하는 방식인 Disk, RAM, CPU 과정을 거칠 수 없기 때문에, 부팅에 한해서 RAM에 항상 저장된 공간을 필요로하게 되었는데, 그것이 ROM이다.&lt;/p&gt;
+
+&lt;p&gt;RAM과 ROM을 함께 Main Memory라 부른다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ROM: 비휘발성 으로 메모리에서 극히 일부를 차지한다.(수 KB)&lt;/li&gt;
+  &lt;li&gt;RAM: 휘발성 으로 메모리의 대부분을 차지하며 실제 프로그램이 할당되는 곳이다.(수 MB ~ 수 GB)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;부팅시-하는-작업엄밀한-정의의-부팅&quot;&gt;부팅시 하는 작업(엄밀한 정의의 부팅)&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;ROM의 정보를 읽는다.&lt;/li&gt;
+  &lt;li&gt;ROM안에 있는 POST(Power-On-Self-Test), 부트 로더(Boot-Loader)를 실행한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;POST는 전원이 켜지면 가장 처음에 실행되는 프로그램으로, 현재 컴퓨터의 상태를 검사한다. 이 것에는 장치가 연결되어 있는지, 멀쩡한 지 등의 상태를 뜻한다.&lt;/p&gt;
+
+&lt;p&gt;부트 로더는 하드디스크에 저장되어 있는 운영체제를 찾아서 메인 메모리(RAM)에 가지고 온다. 이러한 부트 로더의 과정을 부팅이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1121&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77885825-b24ed280-72a2-11ea-99b4-aaf7e15f367e.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 메모리에 올라온 OS는 컴퓨터를 종료하기 전까지 계속 메모리에 상주한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;구조&quot;&gt;구조&lt;/h1&gt;
+&lt;p&gt;운영체제는 크게 커널(Kernel)과 명령어 해석기(Command interpreter, shell)로 나뉜다.&lt;/p&gt;
+
+&lt;p class=&quot;center&quot;&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887017-cf84a080-72a4-11ea-8810-b0918da5327c.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;커널(Kernel)은 운영체제의 핵심인 하드웨어를 다루는 코드를 말한다. 이 부분이 핵심이 때문에, Kernel에 따라 운영체제가 달라진다. 예를 들어 페도라, 우분투 등이 리눅스 운영체제라 부르는 것은, 이 운영체제가 리눅스 커널을 사용하기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;명령어 해석기(Command interpreter, shell)는 이 커널로 만들어진 코드를 동작하기 위해 만들어진 부분이다. Interface라고 볼 수 있다. GUI(Graphical User Interface)나 CLI(Command Line Interface) 같은 방식으로 운영체제에 명령을 요청할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;위치&quot;&gt;위치&lt;/h1&gt;
+&lt;p&gt;사용자 프로그램(Application)은 특정 운영체제에 맞춰서 만든다. 그러므로 한 애플리케이션은 서로 다른 운영체제에서 수행할 수 없다. (하드웨어가 같은 것은 전혀 상관이 없다.) 예를 들면 Windows에서 수행하는 프로그램을 그대로 Linux에 옮기면 수행되지 않는다. 이전 글에서 보았듯이 &lt;strong&gt;사용자 프로그램은 자원을 OS를 통해 요청&lt;/strong&gt;한다. 그렇기 때문에 해당 운영체제의 Interface를 따라야 하고, 그렇기 때문에 운영체제가 다를 경우 동작할 수 없다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;947&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887354-63ef0300-72a5-11ea-9231-1c571b962db6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;추가적으로 국가에 비유하여 생각해 볼 수도 있다.&lt;br /&gt;
+&lt;a href=&quot;https://wansook0316.github.io/cs/structure/2020/03/21/컴퓨터구조-용어정리.html&quot;&gt;영토, 정부, 가족, 개인 비유&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
@@ -1149,248 +1289,6 @@ RAM은 CPU의 연산을 돕기위한 &lt;strong&gt;연습장&lt;/strong&gt;이�
 &lt;/ol&gt;
 
 &lt;p&gt;이런 작업을 &lt;strong&gt;&lt;em&gt;코드&lt;/em&gt;&lt;/strong&gt;라 한다. 그런데 CPU(기계)에게 명령하는 코드이므로 &lt;strong&gt;기계어 코드&lt;/strong&gt;라 한다.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>백준(1018번): 체스판 다시 칠하기</title>
-        <link>/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%B2%B4%EC%8A%A4%ED%8C%90-%EB%8B%A4%EC%8B%9C-%EC%B9%A0%ED%95%98%EA%B8%B0.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%B2%B4%EC%8A%A4%ED%8C%90-%EB%8B%A4%EC%8B%9C-%EC%B9%A0%ED%95%98%EA%B8%B0.html</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버5&lt;/em&gt;&lt;/strong&gt; : 완전 탐색 문제이다.&lt;br /&gt;
-&lt;a href=&quot;https://www.acmicpc.net/problem/1018&quot; target=&quot;\_blank&quot;&gt;백준(1018번) - 체스판 다시 칠하기&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;대표적인 완전 탐색 문제이다.
-체스판이 될 수 있는 모든 경우에 대해서 몇번의 flip을 해야하는지 세고, 이를 갱신해주면 풀린다.
-이 때, 체스판의 규칙을 잘 파악하는 것이 중요하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt; &lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;8&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;color: #30A9DE&quot;&gt;&lt;strong&gt;&lt;em&gt;B&lt;/em&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;span style=&quot;color: #30A9DE&quot;&gt;&lt;strong&gt;&lt;em&gt;B&lt;/em&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;B&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;W&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;1행에서, 맨 마지막인 8열은 B이고, 그 다음 행의 첫번째는 B이다. 계속해서 엇갈려서 발생하는 것이 아니고, 행이 끝날 때, 마지막 요소가 다음 요소가 된다. 또한 추가적으로 체스판은 시작 위치의 표식이 어떤 것이냐에 따라 모양이 정해진다. 이 부분에서 생각할 수 있는 것은, &lt;strong&gt;&lt;em&gt;같은 모양이나 시작 위치의 표식만 바뀐다.&lt;/em&gt;&lt;/strong&gt; 라는 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;구현&quot;&gt;구현&lt;/h2&gt;
-
-&lt;p&gt;이 것을 구현하기 위한 단계를 생각해보자.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;우리는 체스판의 크기에 따라 몇 개의 작은 체스판을 조사해야 하는지 정해야 한다.&lt;/li&gt;
-  &lt;li&gt;그 안에 들어갔을 때, 시작 위치의 표식을 설정해 주어야 한다.&lt;/li&gt;
-  &lt;li&gt;체스판을 만들 수 있는 방법을 진행하며 다른 부분을 체크하고 count 해야한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 실버5 : 백준 1018번 체스판 다시 칠하기&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2000000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 각각의 작은 체스판에서 시작 위치의 표식을 W, B으로 설정한다.&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// bool으로 잡았기 때문에 0 또는 1로 모델링이 가능하다.&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localAns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// 이 부분이 행이 끝났을 떄 표식을&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// 다음행에 가져가도록 하는 코드이다.&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;localAns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// 각각에 대해 ans를 업데이트 해준다.&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localAns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 1, 0으로 바꿔서 넣어주었다. W = 1, B = 0&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'W'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 체스판 모양에 따라 발생할 수 있는&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// 작은 체스판의 시작 위치를 결정한다.&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>백준(1697번): 숨바꼭질</title>
-        <link>/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88.html</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버2&lt;/em&gt;&lt;/strong&gt; : 그래프 문제이다.&lt;br /&gt;
-&lt;a href=&quot;https://www.acmicpc.net/problem/1697&quot;&gt;백준(1697번) - 숨바꼭질&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;이 문제의 핵심은, 해당 위치에서 3가지의 선택을 할 수 있다는 점이다. 이 3가지의 선택 각각에 해당하는 위치에서 또 3가지의 선택을 할 수 있다. 그 선택을 연이어한 결과 문제의 답이 있다.&lt;/p&gt;
-
-&lt;p&gt;하지만 이 문제는 DFS로 접근할 수 없는데, 그 이유는, 각각의 선택을 깊이 기준으로 탐색했을 때, 답에 다다르지 못하는 상황이 있을 수 있기 때문이다. 따라서 무한 루프에 빠지거나, 혹은 이 부분을 거르는 코드를 작성해야 하는데 상당히 번거롭다.&lt;/p&gt;
-
-&lt;p&gt;이런 경우 오히려 BFS로 생각했을 때, 문제가 확 와닿는 경우가 많다. BFS로 탐색할 경우, 시간의 기준으로 완전 탐색하기 때문에 이 문제의 의도와 정확히 맞아 떨어진다. 최대한 짧은 시간에 답과 일치할 경우 반복문을 빠져나오면 되기 때문이다. 따라서 &lt;strong&gt;위치에 따른 시간을 저장할 필요&lt;/strong&gt;가 있다.&lt;/p&gt;
-
-&lt;p&gt;이 때, 선택지에 $+1, -1$이 있고 중간중간 $\times2$ 도 있어 중복되는 위치에 방문할 가능성이 있다. 이 부분의 시간 복잡도를 줄이기 위해 메모리를 사용하여 코드를 짰다.&lt;/p&gt;
-
-&lt;h2 id=&quot;code&quot;&gt;Code&lt;/h2&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 실버1 : 백준 1697번 숨바꼭질&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;queue&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_pair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_pair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_pair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_pair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
       </item>
