@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>04: 기억장치에 대한 이해 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="기억 장치의 동작방법에 대해 이해해보자.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/30.jpg')">
+    <h1 class="title">04: 기억장치에 대한 이해</h1>
+    
+    <p class="meta">
+      CS/Structure
+      
+        : 가볍게 이해하는 컴퓨터
+      
+    </p>
+
+    <p class="meta">
+      March 24, 2020
+      
+    </p>
+  </header>
+
+  
+
+  <section class="post-content">
+  
+    
+    
+    
+
+
+<div class="series-nav">
+      <p>
+      이 포스팅은 <b><em>가볍게 이해하는 컴퓨터</em></b> 시리즈 <b><em>7</em></b> 편 중 <b><em>4</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav">
+      
+    
+    
+    
+
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/structure/2020/03/21/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html'">
+                <span>Part 1 - 01: 용어 정리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/structure/2020/03/22/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html'">
+                <span>Part 2 - 02: bit, 진법 변환</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/structure/2020/03/23/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html'">
+                <span>Part 3 - 03: CPU 작동 원리</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 4 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/structure/2020/03/25/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%88%AB%EC%9E%90%EB%A1%9C-%EB%AA%A8%EB%93%A0%EA%B2%83%EC%9D%84-%EB%8B%A4%EB%A3%A8%EB%8A%94-%EB%B0%A9%EB%B2%95.html'">
+                <span>Part 5 - 05: 숫자로 모든 것을 다루는 방법</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/structure/2020/03/26/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
+                <span>Part 6 - 06: 자료구조와 알고리즘</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/structure/2020/03/27/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html'">
+                <span>Part 7 - 07: 운영 체제가 하는 일</span>
+            </li>
+          
+      
+      
+      
+      
+      
+       
+      </ul>
+  </div>
+
+
+  <p>기억 장치의 동작방법에 대해 이해해보자.</p>
+
+<p>최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.</p>
+
+<h1 id="memory-device">Memory Device</h1>
+
+<h2 id="계층-구조">계층 구조</h2>
+
+<p><img src="https://t1.daumcdn.net/cfile/tistory/992DB8435AEF240E25" alt="기억장치의 계층 구조" />
+<a href="https://programmer-student.tistory.com/8" class="center-text">출처 : https://programmer-student.tistory.com</a></p>
+
+<h3 id="쉬운-이해를-위한-도표">쉬운 이해를 위한 도표</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">기억장치</th>
+      <th style="text-align: center">분류</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">캐시</td>
+      <td style="text-align: center">책상</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">RAM</td>
+      <td style="text-align: center">책꽂이</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">HDD</td>
+      <td style="text-align: center">도서관</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="컴퓨터가-관리하는-방법---관리-체계">컴퓨터가 관리하는 방법 - 관리 체계</h2>
+
+<blockquote>
+  <p>컴퓨터는 모든 것이 <strong>숫자</strong>이다.</p>
+</blockquote>
+
+<p>그래서 기억 공간도 번호를 붙여 관리한다. 이와 같은 관리 체계는 아파트 단지를 동, 호로 관리하는 것과 비슷하다.</p>
+
+<ol>
+  <li>RAM에 있는 n번 번호에 있는 정보를 가져와</li>
+  <li>그 정보를 CPU에서 사용할 연산 저장 공간에 저장해</li>
+  <li>연산을 수행해</li>
+  <li>RAM의 m번 공간에 저장해</li>
+</ol>
+
+<p>여기서 CPU에서 저장하는 공간의 명칭이 register이다.</p>
+
+<h3 id="레지스터">레지스터</h3>
+
+<blockquote>
+  <p>개별 기억 공간마다 <strong><em>고유 이름</em></strong>을 붙인다.</p>
+</blockquote>
+
+<p>기본적으로 레지스터는 많은 저장 공간을 갖고 있지 않다. 그래서 이 각각에 이름을 붙여 관리한다.</p>
+
+<h3 id="주기억장치ram">주기억장치(RAM)</h3>
+
+<blockquote>
+  <p>일련 번호를 붙인다.</p>
+</blockquote>
+
+<p>위에서 언급했던 번호에 해당하는 것이 보통 RAM에 대한 설명이다.</p>
+
+<p><img width="763" alt="image" src="https://user-images.githubusercontent.com/37871541/77840905-287e0700-71c7-11ea-8293-6a7e9082c6f1.png" class="center" /></p>
+
+<blockquote>
+  <p>신발장 번호 : 주소<br />
+신발 : 정보</p>
+</blockquote>
+
+<p>이 신발장을 컴퓨터는 약 43억 개 갖고 있는데, 이 숫자는 $2^32$ 가지에 해당하는 숫자이다. 저 숫자를 표시하기 위해서 32비트가 필요하다.</p>
+
+<h3 id="보조-기억장치hdd-sdd">보조 기억장치(HDD, SDD)</h3>
+
+<blockquote>
+  <p>트랙 번호와 섹터 번호를 붙여 관리한다.</p>
+</blockquote>
+
+<p><img width="1177" alt="image" src="https://user-images.githubusercontent.com/37871541/77840491-17cb9200-71c3-11ea-995f-e12caab4c6ff.png" class="center" /></p>
+
+<h4 id="track">Track</h4>
+
+<p>중심부로 부터 밖으로 나가는 원들 중 하나를 말한다.</p>
+
+<h4 id="sector">Sector</h4>
+
+<p>원을 균등하게 부채꼴 모양으로 나눈 것들중 하나를 섹터라 말한다.</p>
+
+<h4 id="format-이란">Format 이란?</h4>
+
+<p>하드디스크의 섹터와 트랙을 구성하는 작업을 말한다. Format을 하면 데이터가 다 날아가는 이유는, 하드디스크에 정보를 저장하는 체계인 트랙과 섹터를 <strong>재구성</strong>하기 때문이다.</p>
+
+<h4 id="파일-시스템">파일 시스템</h4>
+
+<p>하드 디스크에 내가 가진 파일의 위치를 Track, Sector로 나타낸 표</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">파일이름</th>
+      <th style="text-align: center">Track</th>
+      <th style="text-align: center">Sector</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">a.mp3</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이런 파일 시스템은 File Allocation Table (FAT), NTFS.. 등등 엄청 많다. 내가 파일을 삭제하면, 이 파일 시스템의 Delete Field에 True로 체크가 되고, 이 공간은 운영체제에서 쓰기 가능한 공간으로 바뀐다. 그래서 디스크 복구같은 것이 가능한 것.</p>
+
+<h4 id="디스크-조각-모음">디스크 조각 모음</h4>
+
+<p>하드디스크는 기본적으로 원의 형태를 띈 모양으로 구성되어 있고, 이것을 Arm을 사용해 읽는다. 그래서 갖는 특징이 있는데, 같은 track에 내가 사용하는 데이터가 모여있는 경우 입출력 속도가 빠르다. 하지만 만약에 데이터가 다른 트랙, 다른 섹터에 분산되어 있다면 이 파일을 읽기 위해서 Arm이 여러번 움직어야 한다. 관성 때문에 Arm의 속도가 느려지고 결과적으로 입출력 속도의 감소가 이루어진다.</p>
+
+<p>이렇게 흩어져 있는 파일을 같은 track이나 그 근처로 모으는 작업을 디스크 조각 모음이라 한다.</p>
+
+<h2 id="전체-흐름">전체 흐름</h2>
+
+<ol>
+  <li>HDD에 몇번 트랙, 몇번 섹터에서 정보를 읽어와</li>
+  <li>그걸 RAM의 몇번 주소에 저장해라</li>
+  <li>그리고 그걸 다시가져와서 CPU에 EAX라는 이름을 가진 레지스터에 저장해라</li>
+</ol>
+
+<h1 id="컴퓨터가-연산하는-과정">컴퓨터가 연산하는 과정</h1>
+
+<p>이제 메모리가 어떻게 구성되어 있는 지를 대충 알았다면, 실제 연산과정을 들여다 보자.</p>
+
+<blockquote>
+  <p>캐시 메모리는 CPU 그 자체다.<br />
+RAM은 CPU의 연산을 돕기위한 <strong>연습장</strong>이다.</p>
+</blockquote>
+
+<p class="center"><img width="1218" alt="image" src="https://user-images.githubusercontent.com/37871541/77840990-151f6b80-71c8-11ea-8414-bcbb03c2a359.png" /></p>
+
+<p>맨 위에서 보았듯이 메모리가 정보를 불러오는 데에는 속도가 존재한다. 전체적인 과정은 HDD, RAM, Resister 순으로 입출력이 일어나는데, 이 때 속도차이가 나므로 CPU가 빠르게 연산을 처리하는데 문제가 생긴다.</p>
+
+<p>그래서 이 병목구조를 탈피하기 위해서 CPU, RAM 등에 캐시 메모리를 두어 이 부분을 해소한다. 캐시 메모리는 CPU가 연산을 수행하는 동안 다음에 필요한 정보를 RAM에서 미리 가져와 저장하는 역을 한다. 그 결과 CPU는 RAM에서 정보를 가져올 때 걸리는 시간을 캐시에서 가져오므로써 시간적 이득을 가질 수 있다.</p>
+
+<h2 id="cpu-alu">CPU ALU</h2>
+
+<p>ALU는 가산기를 뜻한다. CPU에 대해서 배울 때, 이는 연산 처리 장치이고 모든 연산은 가산기 하나로 가능하다고 배웠다. 결과적으로 Core 하나에는 ALU하나가 들어있다고 생각하면 된다. 쿼드코어 컴퓨터는 가산기가 4개 존재한다.</p>
+
+<h2 id="64bit-컴퓨터">64bit 컴퓨터</h2>
+
+<p>CPU가 연산을 처리할 때 발생하는 input, output의 단위가 64bit 만큼의 정보를 단위로 연산을 수행한다는 의미이다.</p>
+
+<h2 id="전체-과정">전체 과정</h2>
+
+<ol>
+  <li>RAM에서 정보를 가져온다</li>
+  <li>캐시 메모리에서 정보를 읽는다.</li>
+  <li>레지스터로 해당 값을 옮긴다.</li>
+  <li>ALU에서 연산을 수행한다.</li>
+  <li>결과를 레지스터로 복사한다.</li>
+  <li>그 값을 RAM으로 옮긴다.</li>
+</ol>
+
+<p>이런 작업을 <strong><em>코드</em></strong>라 한다. 그런데 CPU(기계)에게 명령하는 코드이므로 <strong>기계어 코드</strong>라 한다.</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EC%BB%B4%ED%93%A8%ED%84%B0+%EA%B5%AC%EC%A1%B0">#컴퓨터 구조</a>
+    
+    <a class="tag" href="/tags#%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98">#기억장치</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

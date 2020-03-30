@@ -1,7 +1,8 @@
 ---
 layout: category
 title: CS
-subtitle: Operating System
+subtitle: OS
+alt-subtitle: Operating system
 permalink: "CS/OS"
 feature-img: "assets/img/34.jpg"
 hide: true

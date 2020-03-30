@@ -4,7 +4,7 @@ title: navbar, footer 고정하기
 category: "DV/CSS"
 comments: true
 tags: [css, position, fixed]
-feature-img: "assets/img/7.jpg"
+feature-img: "assets/img/20.jpg"
 feature-title:
 use_math: true
 ---

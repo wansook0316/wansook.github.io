@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Safari - long line scroll 작동 안함
+title: "Safari: long line scroll 작동 안함"
 category: "DV/CSS"
 comments: true
 tags: [Browser, Safari, css]
-feature-img: "assets/img/17.jpg"
+feature-img: "assets/img/20.jpg"
 feature-title:
 use_math: true
 ---

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: LaTex - equation 예쁘게 맞추기
+title: Latex equation 예쁘게 맞추기
 category: "DV/Tips"
 comments: true
 tags: [LaTex, equation, align]
-feature-img: "assets/img/14.jpg"
+feature-img: "assets/img/31.jpg"
 feature-title:
 use_math: true
 ---

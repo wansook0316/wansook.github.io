@@ -1,6 +1,6 @@
 ---
 layout: post
-title: javascript - window resize event
+title: window resize event
 category: "DV/JavaScripts"
 comments: true
 tags: [development, javascript, resize]

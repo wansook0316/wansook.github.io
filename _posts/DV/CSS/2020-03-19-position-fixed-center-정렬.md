@@ -1,10 +1,10 @@
 ---
 layout: post
 title: position fixed에서 중앙 정렬하기
-category: "CS/Algorithm"
+category: "CS/CSS"
 comments: true
 tags: [css, center-arrangement, position, fixed]
-feature-img: "assets/img/2.jpg"
+feature-img: "assets/img/20.jpg"
 feature-title:
 use_math: true
 ---

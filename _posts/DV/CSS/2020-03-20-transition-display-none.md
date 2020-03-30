@@ -4,7 +4,7 @@ title: opacity를 사용하여 display none animation 만들기
 category: "DV/CSS"
 comments: true
 tags: [css, transition, opacity]
-feature-img: "assets/img/7.jpg"
+feature-img: "assets/img/20.jpg"
 feature-title:
 use_math: true
 ---

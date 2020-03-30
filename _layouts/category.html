@@ -8,7 +8,11 @@ layout: default
     
     {% comment %} <ul class="category-title"> {% endcomment %}
     {% comment %} {% assign category_title = page.title | append: ' : ' | append: page.subtitle %} {% endcomment %}
+    {% if page.alt-subtitle %}
+      <h1 class="title">{{page.alt-subtitle}}</h1>
+    {% else %}
       <h1 class="title">{{page.subtitle}}</h1>
+    {% endif %}
       {% comment %} <h1 class="title">{{page.title}}:{{page.subtitle}}</h1> {% endcomment %}
     {% comment %} </ul> {% endcomment %}
   </header>
@@ -24,6 +28,9 @@ layout: default
       <header>
         <h2 class="categorized-post__title">
           <a href="{{ site.baseurl }}{{ post.url }}">
+            {% if post.series %}
+                {{ post.series }}: 
+            {% endif %}
             {{ post.title }}
           </a>
         </h2>
