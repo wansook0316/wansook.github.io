@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title> 완숙의 에그머니🍳</title>
+	<title>margin 겹침 현상 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그">
+		content="css를 먹일 때 요소들이 붙어있는 경우 margin을 주었지만 먹히지 않을 때 해결방법을 알아본다.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/blog/page4/">
+	<link rel="canonical" href="/dv/css/2020/03/30/margin-%EA%B2%B9%EC%B9%A8.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -32,6 +32,13 @@
 
 	<!-- KaTeX -->
     <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
 	
 
     -->
@@ -56,6 +63,31 @@
 </script>
 -->
   
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
     
 	<script>
 console.log(window)
@@ -407,179 +439,76 @@ function changeContent(event){
   </div>
 
     <div class="content">
-      <div class="home">
-  
-  <article class="feature-image">
-    <header style="background-image: url('/assets/img/background_minion.jpg')">
-    <ul class="category-title">
-      <h1 class="title">
-        본격 삽질 정리 블로그.
-      </h1>
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/25.jpg')">
+    <h1 class="title">margin 겹침 현상</h1>
+    
+    <p class="meta">
+      DV/CSS
       
-    </ul>
-    </header>
-  </article>
+    </p>
+
+    <p class="meta">
+      March 30, 2020
+      
+    </p>
+  </header>
+
   
+
+  <section class="post-content">
   
+  <p>css를 먹일 때 요소들이 붙어있는 경우 margin을 주었지만 먹히지 않을 때 해결방법을 알아본다.</p>
+
+<p>이 문제는 margin이 겹칠 경우 작은 값을 가지는 요소의 margin을 무시하는 것이다.</p>
+
+<p>요소에 <code class="language-plaintext highlighter-rouge">display: inline-block;</code>을 걸어주면 된다.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.class</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
   
-  </div>
-<!--  기존 header 이미지 띄우는 방법-->
-<!--
-  
-  <div class="call-out"
-  style="background-image: url('/assets/img/background_minion.jpg')">
-    본격 삽질 정리 블로그.
-  </div>
-  
--->
-
-
-  <div class="posts">
+<footer>
+  <div class="tags">
     
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html">
-
-            
-              [Structure]
-              
-                가볍게 이해하는 컴퓨터
-              
-               04: 기억장치에 대한 이해
-            </a>
-          </h2>
-          <p class="meta">
-            March 24, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          <p>기억 장치의 동작방법에 대해 이해해보자.</p>
-
-
-          
-        </div>
-      </div>
+    <a class="tag" href="/tags#css">#css</a>
     
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%B2%B4%EC%8A%A4%ED%8C%90-%EB%8B%A4%EC%8B%9C-%EC%B9%A0%ED%95%98%EA%B8%B0.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%B2%B4%EC%8A%A4%ED%8C%90-%EB%8B%A4%EC%8B%9C-%EC%B9%A0%ED%95%98%EA%B8%B0.html">
-
-            
-              [Algorithm]
-              
-               백준(1018번): 체스판 다시 칠하기
-            </a>
-          </h2>
-          <p class="meta">
-            March 24, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          <p><strong><em>실버5</em></strong> : 완전 탐색 문제이다.<br />
-<a href="https://www.acmicpc.net/problem/1018" target="\_blank">백준(1018번) - 체스판 다시 칠하기</a></p>
-
-
-          
-        </div>
-      </div>
-    
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%88%A8%EB%B0%94%EA%BC%AD%EC%A7%88.html">
-
-            
-              [Algorithm]
-              
-               백준(1697번): 숨바꼭질
-            </a>
-          </h2>
-          <p class="meta">
-            March 24, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          <p><strong><em>실버2</em></strong> : 그래프 문제이다.<br />
-<a href="https://www.acmicpc.net/problem/1697">백준(1697번) - 숨바꼭질</a></p>
-
-
-          
-        </div>
-      </div>
-    
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%9A%A9%EB%8F%8C%EC%9D%B4-%EC%98%88%EC%81%98%EA%B2%8C-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%9A%A9%EB%8F%8C%EC%9D%B4-%EC%98%88%EC%81%98%EA%B2%8C-%EC%B6%9C%EB%A0%A5%ED%95%98%EA%B8%B0.html">
-
-            
-              [Algorithm]
-              
-               백준(1022번): 소용돌이 예쁘게 출력하기
-            </a>
-          </h2>
-          <p class="meta">
-            March 24, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          <p><strong><em>골드4</em></strong> : 구현 문제이다.<br />
-<a href="https://www.acmicpc.net/problem/1022" target="\_blank">백준(1022번) - 소용돌이 예쁘게 출력하기</a></p>
-
-
-          
-        </div>
-      </div>
-    
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EB%A1%9C%EB%98%90.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/cs/algorithm/2020/03/24/%EB%B0%B1%EC%A4%80-%EB%A1%9C%EB%98%90.html">
-
-            
-              [Algorithm]
-              
-               백준(6603번): 로또
-            </a>
-          </h2>
-          <p class="meta">
-            March 24, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          <p><strong><em>실버2</em></strong> : 재귀를 통한 완전탐색 문제이다.<br />
-<a href="https://www.acmicpc.net/problem/6603" target="\_blank">백준(6603번) - 로또</a></p>
-
-
-          
-        </div>
-      </div>
+    <a class="tag" href="/tags#margin">#margin</a>
     
   </div>
+</footer>
 
-  
-  <div class="pagination">
-    
-    <a href="/blog/page3" class="button" >
-      <i class="fa fa-chevron-left"></i>
-      Prev
-    </a>
-    
-    
-    <a href="/blog/page5" class="button" >
-      Next
-      <i class="fa fa-chevron-right"></i>
-    </a>
-    
-  </div>
-  
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
 
 
     </div>
     
     
+<script src="/assets/js/katex_init.js"></script>
+
 
 
 <footer class="site-footer">

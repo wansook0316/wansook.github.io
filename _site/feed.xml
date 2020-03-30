@@ -5,13 +5,122 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Mon, 30 Mar 2020 23:30:39 +0900</pubDate>
+    <pubDate>Tue, 31 Mar 2020 00:20:09 +0900</pubDate>
+    
+      <item>
+        <title>margin 겹침 현상</title>
+        <link>/dv/css/2020/03/30/margin-%EA%B2%B9%EC%B9%A8.html</link>
+        <guid isPermaLink="true">/dv/css/2020/03/30/margin-%EA%B2%B9%EC%B9%A8.html</guid>
+        <description>&lt;p&gt;css를 먹일 때 요소들이 붙어있는 경우 margin을 주었지만 먹히지 않을 때 해결방법을 알아본다.&lt;/p&gt;
+
+&lt;p&gt;이 문제는 margin이 겹칠 경우 작은 값을 가지는 요소의 margin을 무시하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;요소에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;display: inline-block;&lt;/code&gt;을 걸어주면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.class&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inline-block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>04: 운영체제 서비스</title>
         <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html</link>
         <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html</guid>
-        <description>&lt;p&gt;운영체제에서 제공하는 서비스를 알아본다.&lt;/p&gt;
+        <description>&lt;p&gt;운영체제의 주요 서비스: 프로세스, 메모리, 파일관리, 시스템 호출에 대해 알아본다.&lt;/p&gt;
+
+&lt;p&gt;운영체제의 주요 서비스는 하드웨어 자원을 각 사용자 애플리케이션에 적절히 분배해주는 것이다. 하드웨어 자원은 CPU, 메인 메모리, 하드디스크, 키보드, 마우스, 프린터 등이 존재한다. 이러한 하드웨어 자원을 사용자 애플리케이션이 요구하거나 운영체제 내의 규칙에 의해 적절히 분배하여 컴퓨터의 성능을 최대한 효율적으로 사용해야 한다.&lt;/p&gt;
+
+&lt;p&gt;이를 실현하기 위해 운영체제 내에서는 각 하드웨어를 관리하는 기능을 다음과 같이 나눈다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1135&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77925334-b5b47f00-72df-11ea-8677-5a8827511f84.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로세스 관리&lt;/li&gt;
+  &lt;li&gt;주기억장치 관리&lt;/li&gt;
+  &lt;li&gt;파일 관리&lt;/li&gt;
+  &lt;li&gt;보조기억장치 관리&lt;/li&gt;
+  &lt;li&gt;입출력 장치 관리&lt;/li&gt;
+  &lt;li&gt;네트워킹&lt;/li&gt;
+  &lt;li&gt;보호&lt;/li&gt;
+  &lt;li&gt;기타…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;1-프로세스-관리process-management&quot;&gt;1. 프로세스 관리(Process management)&lt;/h1&gt;
+&lt;p&gt;프로세스 관리는 운영체제 기능 중 가장 중요한 기능 중 하나이다. 프로세스와 프로그램은 기본적으로 구분된다. &lt;strong&gt;프로세스&lt;/strong&gt;는 실제 메인 메모리에서 &lt;strong&gt;실행 중인 프로그램(program in execution)&lt;/strong&gt;을 말한다. &lt;strong&gt;프로그램&lt;/strong&gt;은 하드디스크와 같은 보조기억장치에서 &lt;strong&gt;아무런 동작을 하지 않는 상태&lt;/strong&gt;이다. 이를 어떠한 요청에 의해 메인 메모리에 할당하여 CPU를 사용하면서 실행하게 되는데 이를 프로세스라 부른다.&lt;/p&gt;
+
+&lt;p&gt;프로세스 관리의 주요 기능은 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로세스의 생성과 소멸(creation, deletion)&lt;/li&gt;
+  &lt;li&gt;프로세스 활동 일시 중지, 활동 재게(suspend, resume)&lt;/li&gt;
+  &lt;li&gt;프로세스간 통신(interprocess communication: IPC)&lt;/li&gt;
+  &lt;li&gt;프로세스간 동기화(synchronization)&lt;/li&gt;
+  &lt;li&gt;교착상태 처리(deadlock handling)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;2-주기억장치-관리main-memory-management&quot;&gt;2. 주기억장치 관리(Main memory management)&lt;/h1&gt;
+
+&lt;p&gt;주기억장치 즉, 메인 메모리는 프로그램이 실행되기 위한 공간이다. CPU는 오직 메인 메모리에 있는 프로그램(프로세스)하고만 소통할 수 있다. 주기억장치 관리에서는 메인 메모리를 효율적으로 사용하도록 관리한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로세스에게 메모리 공간 할당(allocation)&lt;/li&gt;
+  &lt;li&gt;메모리의 어느 부분이 어느 프로세스에게 할당되었는가 추적 및 감시&lt;/li&gt;
+  &lt;li&gt;프로세스 종료 시 메모리 회수(deallocation)&lt;/li&gt;
+  &lt;li&gt;메모리의 효과적 사용&lt;/li&gt;
+  &lt;li&gt;가상 메모리: 물리적 실제 메모리보다 큰 용량을 사용할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;3-파일-관리file-management&quot;&gt;3. 파일 관리(File management)&lt;/h1&gt;
+
+&lt;p&gt;디스크는 물리적으로 Track과 sector로 구성되어 있으며, 여기서 파일이라는 논리적 관점으로 데이터를 바라보고 관리하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;파일은 OS가 실행되는 컴퓨터에서 자주 볼 수 있는데, 이는 복잡한 과정으로 하드디스크에 저장되어 있는 것을 사용자가 편리하게 사용할 수 있도록 파일이라는 논리적 형태로 운영체제에서 관리하여 보여준다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;파일의 생성과 삭제(file creation, deletion)&lt;/li&gt;
+  &lt;li&gt;디렉토리(Directory)의 생성과 삭제&lt;/li&gt;
+  &lt;li&gt;기본 동작 지원: open, close, read, write, create, delete&lt;/li&gt;
+  &lt;li&gt;Track/sector - file 간의 매핑(mapping)&lt;/li&gt;
+  &lt;li&gt;백업(Backup)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;4-보조기억장치-관리secondary-storage-management&quot;&gt;4. 보조기억장치 관리(Secondary storage management)&lt;/h1&gt;
+
+&lt;p&gt;보조기억장치는 대표적으로 하드 디스크, 플래시 메모리(주로 스마트폰에 사용)가 있다. 하드 디스크를 예로 들면, 하드 디스크에서 아무 것도 저장되어 있지 않는 공간을 block이라 하는데, 보조기억장치 관리는 이를 관리하는 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;빈 공간 관리(Free space management)&lt;/li&gt;
+  &lt;li&gt;저장공간 할당(Storage allocation)&lt;/li&gt;
+  &lt;li&gt;디스크 스케줄링(Disk scheduling)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;5-입출력-장치-관리io-device-management&quot;&gt;5. 입출력 장치 관리(I/O device management)&lt;/h1&gt;
+
+&lt;p&gt;입출력 장치에는 키보드, 마우스, 프린터, 스피커, 마이크 등이 있다. 입출력 장치 관리는 이와 같은 여러 입출력 장치를 사용하기 위해 존재한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;장치 드라이브(Device drivers)&lt;/li&gt;
+  &lt;li&gt;입출력 장치의 성능향상: buffering, caching, spooling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;6-시스템-콜system-call&quot;&gt;6. 시스템 콜(System call)&lt;/h1&gt;
+
+&lt;p&gt;시스템 콜은 유저 프로세스에서 운영체제 서비스를 필요로 할 때 이를 받기 위해 사용하는 호출이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1000&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77928781-cd8e0200-72e3-11ea-941a-143a9f60d88f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;61-주요-시스템-콜&quot;&gt;6.1 주요 시스템 콜&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Process&lt;/strong&gt;: end(정상 종료), abort(강제 종료), load, execute, create, terminate, get/set, attributes, wait event, signal event&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Memory&lt;/strong&gt;: allocate, free&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;File&lt;/strong&gt;: create, delete, open, close, read, write, get/set attributes&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Device&lt;/strong&gt;: request, release, read, write, get/set attributes, attach/detach devices&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Information&lt;/strong&gt;: get/set time, get/set system data&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Communication&lt;/strong&gt;: socket, send, receive&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
@@ -26,7 +135,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
         <title>03: 이중모드와 보호</title>
         <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html</link>
         <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html</guid>
-        <description>&lt;p&gt;운영체제의 이중모드와 보호에 관해서 알아본다.&lt;/p&gt;
+        <description>&lt;p&gt;운영체제의 사용자모드와 관리자모드, 하드웨어 보호 관해서 알아본다.&lt;/p&gt;
 
 &lt;h1 id=&quot;1-이중-모드-dual-mode&quot;&gt;1. 이중 모드 (Dual mode)&lt;/h1&gt;
 &lt;p&gt;현재 컴퓨터 환경은 여러 사람이 동시에 한 컴퓨터를 사용하는 경우가 많다.(서버 컴퓨터) 그리고 그 외에도 하나의 컴퓨터 내에서 여러 프로그램을 수행하는 것이 일반적이다. 이 때 특정 컴퓨터나 프로그램에서 잘못된 동작으로 인해 다른 컴퓨터(프로그램)가 영향을 받는다면 이는 매우 위험하다.&lt;/p&gt;
@@ -151,7 +260,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
         <title>02: 운영체제의 역사</title>
         <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html</link>
         <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html</guid>
-        <description>&lt;p&gt;운영체제에 역사에 대해 알아본다.&lt;/p&gt;
+        <description>&lt;p&gt;일괄처리부터 시분할시스템, 최근의 고급운영체제, 인터럽트에 기반한 현대 운영체제까지 변천 역사를 알아본다.&lt;/p&gt;
 
 &lt;h1 id=&quot;1-초기-컴퓨터&quot;&gt;1. 초기 컴퓨터&lt;/h1&gt;
 &lt;blockquote&gt;
@@ -165,7 +274,8 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
   &lt;p&gt;코드로 반복되는 거 좀 자동화 하자!&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;위에서 초기 컴퓨터의 상황을 살펴보았는데, 프로그램을 수행할 때마다 컴파일-&amp;gt;링크-&amp;gt;로딩 순서를 오퍼레이터가 직접 입력해주었다. 이러한 과정을 자동화한 것이 batch processing system 이다. 위 과정을 하나의 프로그램으로 작성하여 프로세서의 메모리안에 할당해주었는데, 이 프로그램을 resident monitor라고 불렀다.&lt;/p&gt;
+&lt;p&gt;&lt;img width=&quot;634&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77924633-ddefae00-72de-11ea-8d68-976a20051552.png&quot; class=&quot;center&quot; /&gt;
+위에서 초기 컴퓨터의 상황을 살펴보았는데, 프로그램을 수행할 때마다 컴파일-&amp;gt;링크-&amp;gt;로딩 순서를 오퍼레이터가 직접 입력해주었다. 이러한 과정을 자동화한 것이 batch processing system 이다. 위 과정을 하나의 프로그램으로 작성하여 프로세서의 메모리안에 할당해주었는데, 이 프로그램을 resident monitor라고 불렀다.&lt;/p&gt;
 
 &lt;p&gt;resident는 “거주” 라는 의미로 이 프로그램이 항상 프로세서안에서 거주한다는 의미로 이러한 이름을 사용하였다. 그리고 이것이 &lt;strong&gt;최초의 운영체제&lt;/strong&gt;로 알려져 있다.&lt;/p&gt;
 
@@ -209,6 +319,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
   &lt;p&gt;CPU가 여러개&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;&lt;img width=&quot;1123&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77924855-2f983880-72df-11ea-858c-e0b5edd81195.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;병렬 시스템 (parallel system)
     &lt;ul&gt;
@@ -229,14 +340,19 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;다중 프로세서 운영체제 (Multiprocessor OS)
     &lt;ul&gt;
-      &lt;li&gt;CPU가 늘어났기 때문에, 다른 처리 방법이 필요하다.
-        &lt;h2 id=&quot;52-분산-시스템-distributed-system&quot;&gt;5.2 분산 시스템 (Distributed system)]&lt;/h2&gt;
-        &lt;blockquote&gt;
-          &lt;p&gt;컴퓨터가 여러대, 근데 묶여있다.&lt;/p&gt;
-        &lt;/blockquote&gt;
-      &lt;/li&gt;
+      &lt;li&gt;CPU가 늘어났기 때문에, 다른 처리 방법이 필요하다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;52-분산-시스템-distributed-system&quot;&gt;5.2 분산 시스템 (Distributed system)]&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;컴퓨터가 여러대, 근데 묶여있다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img width=&quot;1074&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77925028-56ef0580-72df-11ea-9300-1c34d22eeb67.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;다중 컴퓨터 시스템 (multi-computer system)
   여러대의 컴퓨터로 만든 시스템이다.&lt;/li&gt;
   &lt;li&gt;소결합 시스템 (loosely-coupled system)
@@ -253,11 +369,13 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;분산 운영체제 (Distributed OS)
     &lt;ul&gt;
-      &lt;li&gt;다른 컴퓨터들을 관리해야 하기 때문에 새로운 처리 방법이 필요하다.
-        &lt;h2 id=&quot;53-실시간-시스템-real-time-system&quot;&gt;5.3 실시간 시스템 (Real-time system)&lt;/h2&gt;
-      &lt;/li&gt;
+      &lt;li&gt;다른 컴퓨터들을 관리해야 하기 때문에 새로운 처리 방법이 필요하다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;53-실시간-시스템-real-time-system&quot;&gt;5.3 실시간 시스템 (Real-time system)&lt;/h2&gt;
+&lt;ul&gt;
   &lt;li&gt;시간 제약: Deadline&lt;/li&gt;
   &lt;li&gt;공장 자동화 (FA), 군사, 항공, 우주&lt;/li&gt;
   &lt;li&gt;실시간 운영체제 (Real-time OS = RTOS)&lt;/li&gt;
@@ -266,11 +384,31 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 &lt;h1 id=&quot;6-인터럽트-기반-시스템interrupt-based-system&quot;&gt;6. 인터럽트 기반 시스템(Interrupt based system)&lt;/h1&gt;
 &lt;p&gt;현대 운영체제는 인터럽트 기반 시스템이다. 그렇다면 인터럽트는 무엇인가?&lt;/p&gt;
 &lt;h2 id=&quot;61-인터럽트&quot;&gt;6.1 인터럽트&lt;/h2&gt;
+&lt;p&gt;컴퓨터에 전원이 들어오면 위에서 말했듯이 부팅이 시작된다. 먼저, POST과정이 시작되고 그 후에 부트 로더가 하드 디스크에 있는 운영체제 프로그램을 RAM에 가져와 할당한다. 할당된 운영체제는 컴퓨터의 전원이 꺼질 때까지 상주(resident)한다.&lt;/p&gt;
+
+&lt;p&gt;부팅이 끝나고 운영체제가 동작하는 동안 수 많은 인터럽트가 발생할 수 있다. 예를 들어, 사용자가 마우스를 움직인다고 가정하자. 이 동작을 컴퓨터는 어떻게 알 수 있을까? 바로 &lt;strong&gt;인터럽트&lt;/strong&gt;를 통해 알 수 있다. 마우스를 움직이는 순간, 마우스에서 인터럽트 전기 신호가 발생하여 이를 CPU에게 보낸다. CPU는 이를 감지하고, 자신이 하던 일을 멈춘 후에 이 인터럽트 신호를 처리하기 위해 운영체제 내부에 있는 &lt;strong&gt;인터럽트를 처리하는 코드(interrupt service routine, ISR)&lt;/strong&gt;로 이동한다. 이 곳에 마우스가 움직일 때 어떻게 동작해야하는지가 내포되어 있어 이를 수행한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;62-인터럽트의-종류와-동작방법&quot;&gt;6.2 인터럽트의 종류와 동작방법&lt;/h2&gt;
+&lt;p&gt;이러한 하드웨어에서 발생한 인터럽트를 &lt;strong&gt;하드웨어 인터럽트(Hardwore Interrupt)&lt;/strong&gt; 라고 한다. 인터럽트라고 하면 기본적으로 하드웨어 인터럽트를 말하지만, 소프트웨어에서도 인터럽트를 요청을 할 수 있다. 이를 &lt;strong&gt;소프트웨어 인터럽트(Software Interrupt)&lt;/strong&gt; 라고 한다. 소프트웨어 인터럽트는 명령어로 직접 인터럽트 전기 신호를 CPU에게 보낼 수 있다. 즉, 프로그램에서 swi, int 와 같은 어셈블리어 명령어를 수행하는 것이다. (명령어는 운영체제마다 다르다. 위의 명령어는 CPU에서 어셈블리어 코드 중 일종으로, interupt를 처리하라는 명령어이다.)&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 마우스로 워드 작성 프로그램을 실행시킨다고 하자. 워드 작성 프로그램을 실행시키는 것까지는 &lt;strong&gt;하드웨어 인터럽트&lt;/strong&gt;가 수행된다.(마우스가 이동하여 더블 클릭으로 실행하는 경우이다.) 이 프로그램에서 사용자가 하드디스크에 있는 다른 워드 파일을 읽고 싶은 경우, &lt;strong&gt;소프트웨어 인터럽트&lt;/strong&gt;를 발생시킨다. 소프트웨어 인터럽트 역시 하드웨어 인터럽트와 동일하게 운영체제 내부에 해당 인터럽트를 처리하는 코드(ISR)가 존재하여 이 곳으로 이동한다. 여기서 하드디스크에서 읽을 파일을 찾아서 반환해주는 수행을 처리하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;마지막으로 &lt;strong&gt;내부 인터럽트(Internal Interrupt)&lt;/strong&gt;가 있다. 내부 인터럽트는 프로그램을 수행하는 도중에 발생하는 예외 상황을 처리한다. 대표적인 예로 0으로 나누는 동작이다. 프로그램의 내부에 result = a / 0; 이와 같은 코드가 있을 때, CPU는 내부 인터럽트를 발생시켜 운영체제안에 있는 ISR로 이동한다. 이 경우에는 DividedByZero 라는 ISR로 이동한다. 여기서 잘못된 동작을 수행한 프로그램을 강제로 종료시킨다.&lt;/p&gt;
+
+&lt;p&gt;운영체제는 평소에는 대기 상태에 있으면서 인터럽트가 발생하는 순간 작업을 수행한다. 그 인터럽트의 종류에 따라 운영체제 내부에 위치한 ISR로 이동하여 그에 맞는 처리를 한다. 위에서 설명한 하드웨어 인터럽트 과정을 그림으로 간단히 표현하면 아래와 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1158&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77916530-281f6200-72d4-11ea-8c3e-1a9211cce460.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 사용자 애플리케이션을 실행하기 위해 하드웨어를 사용하는 모습이다. 애플리케이션이 실행하는 중에도 계속해서 인터럽트는 발생한다. 워드 작성 프로그램을 예를 들면 키보드로 글을 작성하는 경우, 하드디스크에 있는 파일을 불러오는 경우 모두 인터럽트가 발생한다. 그러므로 CPU는 애플리케이션과 운영체제 내부를 교대로 수행하는 모습을 볼 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
+&lt;p&gt;정리하면, 인터럽트는 CPU에게 보내는 전기 신호로서 인터럽트가 발생하면 CPU는 하던 일을 중지하고 해당 인터럽트를 처리하기 위해 운영체제 내부에 있는 ISR로 이동하여 수행한다. 그리고 수행이 끝나면 원래 위치로 돌아간다. 인터럽트는 하드웨어 인터럽트, 소프트웨어 인터럽트, 내부 인터럽트로 총 세 가지가 존재한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;
+Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
       </item>
@@ -279,7 +417,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
         <title>01: 운영체제란 무엇인가?</title>
         <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</link>
         <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</guid>
-        <description>&lt;p&gt;운영체제에 대한 정의, 목적, 역할에 대해 알아본다.&lt;/p&gt;
+        <description>&lt;p&gt;운영체제에 대한 정의, 역할에 대해 알아본다.&lt;/p&gt;
 
 &lt;p&gt;운영체제는 사용자가 컴퓨터를 사용하기 위해 필요한 소프트웨어이다. 일반적으로 사용하는 모든 프로그램은 운영체제에서 그 자원을 관리한다.&lt;/p&gt;
 
@@ -344,7 +482,8 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;
+Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
       </item>
@@ -1111,184 +1250,6 @@ endl도 역시 불러오는 것이기 때문에 속도가 매우 느리다.&lt;/
   &lt;li&gt;scanf, printf와 함께 사용하면 안된다.&lt;/li&gt;
   &lt;li&gt;싱글 쓰레드 환경에서만 사용 가능하다. (알고리즘 문제풀이시에 사용, 실무에서는 사용 X)&lt;/li&gt;
 &lt;/ol&gt;
-</description>
-        <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>04: 기억장치에 대한 이해</title>
-        <link>/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html</link>
-        <guid isPermaLink="true">/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html</guid>
-        <description>&lt;p&gt;기억 장치의 동작방법에 대해 이해해보자.&lt;/p&gt;
-
-&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
-
-&lt;h1 id=&quot;memory-device&quot;&gt;Memory Device&lt;/h1&gt;
-
-&lt;h2 id=&quot;계층-구조&quot;&gt;계층 구조&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/992DB8435AEF240E25&quot; alt=&quot;기억장치의 계층 구조&quot; /&gt;
-&lt;a href=&quot;https://programmer-student.tistory.com/8&quot; class=&quot;center-text&quot;&gt;출처 : https://programmer-student.tistory.com&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;쉬운-이해를-위한-도표&quot;&gt;쉬운 이해를 위한 도표&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;기억장치&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;분류&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;캐시&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;책상&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;RAM&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;책꽂이&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;HDD&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;도서관&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;컴퓨터가-관리하는-방법---관리-체계&quot;&gt;컴퓨터가 관리하는 방법 - 관리 체계&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;컴퓨터는 모든 것이 &lt;strong&gt;숫자&lt;/strong&gt;이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;그래서 기억 공간도 번호를 붙여 관리한다. 이와 같은 관리 체계는 아파트 단지를 동, 호로 관리하는 것과 비슷하다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;RAM에 있는 n번 번호에 있는 정보를 가져와&lt;/li&gt;
-  &lt;li&gt;그 정보를 CPU에서 사용할 연산 저장 공간에 저장해&lt;/li&gt;
-  &lt;li&gt;연산을 수행해&lt;/li&gt;
-  &lt;li&gt;RAM의 m번 공간에 저장해&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;여기서 CPU에서 저장하는 공간의 명칭이 register이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;레지스터&quot;&gt;레지스터&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;개별 기억 공간마다 &lt;strong&gt;&lt;em&gt;고유 이름&lt;/em&gt;&lt;/strong&gt;을 붙인다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기본적으로 레지스터는 많은 저장 공간을 갖고 있지 않다. 그래서 이 각각에 이름을 붙여 관리한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;주기억장치ram&quot;&gt;주기억장치(RAM)&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;일련 번호를 붙인다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;위에서 언급했던 번호에 해당하는 것이 보통 RAM에 대한 설명이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;763&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77840905-287e0700-71c7-11ea-8293-6a7e9082c6f1.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;신발장 번호 : 주소&lt;br /&gt;
-신발 : 정보&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이 신발장을 컴퓨터는 약 43억 개 갖고 있는데, 이 숫자는 $2^32$ 가지에 해당하는 숫자이다. 저 숫자를 표시하기 위해서 32비트가 필요하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;보조-기억장치hdd-sdd&quot;&gt;보조 기억장치(HDD, SDD)&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;트랙 번호와 섹터 번호를 붙여 관리한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img width=&quot;1177&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77840491-17cb9200-71c3-11ea-995f-e12caab4c6ff.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;track&quot;&gt;Track&lt;/h4&gt;
-
-&lt;p&gt;중심부로 부터 밖으로 나가는 원들 중 하나를 말한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;sector&quot;&gt;Sector&lt;/h4&gt;
-
-&lt;p&gt;원을 균등하게 부채꼴 모양으로 나눈 것들중 하나를 섹터라 말한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;format-이란&quot;&gt;Format 이란?&lt;/h4&gt;
-
-&lt;p&gt;하드디스크의 섹터와 트랙을 구성하는 작업을 말한다. Format을 하면 데이터가 다 날아가는 이유는, 하드디스크에 정보를 저장하는 체계인 트랙과 섹터를 &lt;strong&gt;재구성&lt;/strong&gt;하기 때문이다.&lt;/p&gt;
-
-&lt;h4 id=&quot;파일-시스템&quot;&gt;파일 시스템&lt;/h4&gt;
-
-&lt;p&gt;하드 디스크에 내가 가진 파일의 위치를 Track, Sector로 나타낸 표&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;파일이름&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Track&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Sector&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;a.mp3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;이런 파일 시스템은 File Allocation Table (FAT), NTFS.. 등등 엄청 많다. 내가 파일을 삭제하면, 이 파일 시스템의 Delete Field에 True로 체크가 되고, 이 공간은 운영체제에서 쓰기 가능한 공간으로 바뀐다. 그래서 디스크 복구같은 것이 가능한 것.&lt;/p&gt;
-
-&lt;h4 id=&quot;디스크-조각-모음&quot;&gt;디스크 조각 모음&lt;/h4&gt;
-
-&lt;p&gt;하드디스크는 기본적으로 원의 형태를 띈 모양으로 구성되어 있고, 이것을 Arm을 사용해 읽는다. 그래서 갖는 특징이 있는데, 같은 track에 내가 사용하는 데이터가 모여있는 경우 입출력 속도가 빠르다. 하지만 만약에 데이터가 다른 트랙, 다른 섹터에 분산되어 있다면 이 파일을 읽기 위해서 Arm이 여러번 움직어야 한다. 관성 때문에 Arm의 속도가 느려지고 결과적으로 입출력 속도의 감소가 이루어진다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 흩어져 있는 파일을 같은 track이나 그 근처로 모으는 작업을 디스크 조각 모음이라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;전체-흐름&quot;&gt;전체 흐름&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;HDD에 몇번 트랙, 몇번 섹터에서 정보를 읽어와&lt;/li&gt;
-  &lt;li&gt;그걸 RAM의 몇번 주소에 저장해라&lt;/li&gt;
-  &lt;li&gt;그리고 그걸 다시가져와서 CPU에 EAX라는 이름을 가진 레지스터에 저장해라&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;컴퓨터가-연산하는-과정&quot;&gt;컴퓨터가 연산하는 과정&lt;/h1&gt;
-
-&lt;p&gt;이제 메모리가 어떻게 구성되어 있는 지를 대충 알았다면, 실제 연산과정을 들여다 보자.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;캐시 메모리는 CPU 그 자체다.&lt;br /&gt;
-RAM은 CPU의 연산을 돕기위한 &lt;strong&gt;연습장&lt;/strong&gt;이다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p class=&quot;center&quot;&gt;&lt;img width=&quot;1218&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77840990-151f6b80-71c8-11ea-8414-bcbb03c2a359.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;맨 위에서 보았듯이 메모리가 정보를 불러오는 데에는 속도가 존재한다. 전체적인 과정은 HDD, RAM, Resister 순으로 입출력이 일어나는데, 이 때 속도차이가 나므로 CPU가 빠르게 연산을 처리하는데 문제가 생긴다.&lt;/p&gt;
-
-&lt;p&gt;그래서 이 병목구조를 탈피하기 위해서 CPU, RAM 등에 캐시 메모리를 두어 이 부분을 해소한다. 캐시 메모리는 CPU가 연산을 수행하는 동안 다음에 필요한 정보를 RAM에서 미리 가져와 저장하는 역을 한다. 그 결과 CPU는 RAM에서 정보를 가져올 때 걸리는 시간을 캐시에서 가져오므로써 시간적 이득을 가질 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;cpu-alu&quot;&gt;CPU ALU&lt;/h2&gt;
-
-&lt;p&gt;ALU는 가산기를 뜻한다. CPU에 대해서 배울 때, 이는 연산 처리 장치이고 모든 연산은 가산기 하나로 가능하다고 배웠다. 결과적으로 Core 하나에는 ALU하나가 들어있다고 생각하면 된다. 쿼드코어 컴퓨터는 가산기가 4개 존재한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;64bit-컴퓨터&quot;&gt;64bit 컴퓨터&lt;/h2&gt;
-
-&lt;p&gt;CPU가 연산을 처리할 때 발생하는 input, output의 단위가 64bit 만큼의 정보를 단위로 연산을 수행한다는 의미이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;전체-과정&quot;&gt;전체 과정&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;RAM에서 정보를 가져온다&lt;/li&gt;
-  &lt;li&gt;캐시 메모리에서 정보를 읽는다.&lt;/li&gt;
-  &lt;li&gt;레지스터로 해당 값을 옮긴다.&lt;/li&gt;
-  &lt;li&gt;ALU에서 연산을 수행한다.&lt;/li&gt;
-  &lt;li&gt;결과를 레지스터로 복사한다.&lt;/li&gt;
-  &lt;li&gt;그 값을 RAM으로 옮긴다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이런 작업을 &lt;strong&gt;&lt;em&gt;코드&lt;/em&gt;&lt;/strong&gt;라 한다. 그런데 CPU(기계)에게 명령하는 코드이므로 &lt;strong&gt;기계어 코드&lt;/strong&gt;라 한다.&lt;/p&gt;
 </description>
         <pubDate>Tue, 24 Mar 2020 00:00:00 +0900</pubDate>
       </item>
