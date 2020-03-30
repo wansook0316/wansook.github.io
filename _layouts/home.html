@@ -34,13 +34,14 @@ layout: default
       <div class="post-teaser list-box" style="cursor: pointer;" onclick="location.href='{{ post.url | relative_url }}';" >
         <header>
           <h2 class="categorized-post__title">
-
+            <a class="post-link" href="{{ post.url | relative_url }}">
             {% assign subtitle = post.category | split: "/" %}
               [{{subtitle.last}}]
               {% if post.series %}
                 {{ post.series }}
               {% endif %}
                {{ post.title }}
+               </a>
           </h2>
           <p class="meta">
             {{ post.date | date: "%B %-d, %Y" }}
