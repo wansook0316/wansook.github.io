@@ -240,6 +240,10 @@ function changeContent(event){
                 
                 
                 
+                
+                
+                
+                
 -->
                 <!-- Social icons from Font Awesome, if enabled  -->
 <!--                
@@ -440,7 +444,7 @@ function changeContent(event){
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/1.jpg')">
+  <header style="background-image: url('/assets/img/11.jpg')">
     <h1 class="title">03: 이중모드와 보호</h1>
     
     <p class="meta">
@@ -469,7 +473,7 @@ function changeContent(event){
 <div class="series-nav">
     
       <p>
-      이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>4</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
+      이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>9</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
       </p>
       <ul class="side-nav">
 
@@ -516,6 +520,57 @@ function changeContent(event){
           
             <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html'">
                 <span>Part 4 - 04: 운영체제 서비스</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html'">
+                <span>Part 5 - 05: 프로세스 관리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html'">
+                <span>Part 6 - 06: CPU 스케쥴링</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html'">
+                <span>Part 7 - 07: 쓰레드(Thread)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html'">
+                <span>Part 8 - 08: 프로세스 동기화 <1. 발생 이유와 목적></span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html'">
+                <span>Part 9 - 09: 프로세스 동기화 <2. ></span>
             </li>
           
       
@@ -581,14 +636,16 @@ function changeContent(event){
   <p>운영체제의 사용자모드와 관리자모드, 하드웨어 보호 관해서 알아본다.</p>
 
 <h1 id="1-이중-모드-dual-mode">1. 이중 모드 (Dual mode)</h1>
+
 <p>현재 컴퓨터 환경은 여러 사람이 동시에 한 컴퓨터를 사용하는 경우가 많다.(서버 컴퓨터) 그리고 그 외에도 하나의 컴퓨터 내에서 여러 프로그램을 수행하는 것이 일반적이다. 이 때 특정 컴퓨터나 프로그램에서 잘못된 동작으로 인해 다른 컴퓨터(프로그램)가 영향을 받는다면 이는 매우 위험하다.</p>
 
-<p>예를 들어, 어셈블리어에서 사용하는 명령어 중  <code class="language-plaintext highlighter-rouge">STOP</code>, <code class="language-plaintext highlighter-rouge">HALT</code>, <code class="language-plaintext highlighter-rouge">RESET</code>과 같은 명령어는 CPU의 동작과 관계된 명령어이다. 이런 명령어를
+<p>예를 들어, 어셈블리어에서 사용하는 명령어 중 <code class="language-plaintext highlighter-rouge">STOP</code>, <code class="language-plaintext highlighter-rouge">HALT</code>, <code class="language-plaintext highlighter-rouge">RESET</code>과 같은 명령어는 CPU의 동작과 관계된 명령어이다. 이런 명령어를
 한 프로그램에서 고의 또는 실수로 입력하여 전체 컴퓨터의 동작이 멈추거나 꺼진다면 이 컴퓨터의 정상적인 동작을 위해서는 재부팅을 할 수 밖에 없다. 이러한 결함을 매우 치명적이다.</p>
 
 <p>이런 문제점을 해결하기 위해 일반 사용자가 위와 같은 명령어들을 요청하는 것을 막을 필요가 생겼다. 여기서 <strong>이중 모드</strong> 라는 것이 나왔다.</p>
 
 <h2 id="설명">설명</h2>
+
 <p>이중 모드는 말 그대로 모드를 아래와 같이 둘로 나누는 것이다.</p>
 
 <ul>
@@ -607,11 +664,14 @@ function changeContent(event){
 <p>이중 모드는 CPU 내부의 레지스터(register)의 비트(bit)를 활용하여 <strong>플래그(flag)</strong>로 나타낸다. 예를 들어 특권 모드일 때는 <strong>비트 값이 0</strong> 이고, 사용자 모드일 때는 <strong>비트 값을 1</strong> 로 설정하여 구분한다.</p>
 
 <h3 id="상태-레지스터-플레그-레지스터">상태 레지스터 (플레그 레지스터)</h3>
+
 <p>CPU에서 다양한 산술 연산의 결과의 상태를 알려주는 플래그 비트들이 모인 레지스터이다. flag라는 이름의 어원은 경주할 때, 시작, 정지와 같은 상태를 깃발의 색, 들어올림과 같은 것으로 알렸기 때문이다. CPU에서는 연산을 수행하는데, 제약사항을 갖고 (자리수의 제한 같은) 수행하기 때문에 이를 나타낼 다양한 코드가 필요하다. 이 상태는 비트를 통해 정의되어 있으며 다양한 플래그가 존재한다.<br />
 <a href="https://ko.wikipedia.org/wiki/상태_레지스터">상태 레지스터의 종류</a></p>
 
 <h2 id="mode의-변경-과정">Mode의 변경 과정</h2>
+
 <p>컴퓨터가 켜진 뒤에 한 사용자 애플리케이션을 실행시키는 동안 모드가 어떻게 변하는지 살펴보자.</p>
+
 <ol>
   <li>컴퓨터 부팅 과정 - 관리자 모드</li>
   <li>애플리케이션 실행 과정 - 관리자 모드</li>
@@ -640,9 +700,11 @@ function changeContent(event){
 <p>애플리케이션이 실행하는 동안에는 위와 같은 모드 변경이 반복적으로 일어나는 것을 볼 수 있다. 대부분의 CPU는 이중 모드를 지원한다.</p>
 
 <h1 id="2-하드웨어-보호">2. 하드웨어 보호</h1>
+
 <p>이중 모드는 사용자의 접근을 제한하여 치명적인 문제가 발생하지 않도록 방지하는 보호 기능에 해당한다. 이러한 보호 기능에 대해 추가적으로 알아본다.</p>
 
 <h2 id="21-입출력-장치-보호">2.1 입출력 장치 보호</h2>
+
 <p>여러 정보들은 입출력 장치를 통해 컴퓨터로 입력되고, 외부 장치로 출력이 된다. 여기서 크게 두 가지의 문제점이 발생한다.</p>
 
 <ul>
@@ -678,12 +740,14 @@ function changeContent(event){
 <p>만약 해당 프로그램의 주소 범위 밖의 주소값이 MMU에 들어온다면, MMU에서 내부 인터럽트 를 발생시켜 CPU에 신호를 준다. 그러면 CPU는 그에 맞는 ISR로 이동하여 해당 프로그램을 강제로 종료시킨다. 이과 같은 잘못된 메모리 접근을 Segment violation 이라 한다.</p>
 
 <h2 id="23-cpu-보호">2.3 CPU 보호</h2>
+
 <p>CPU 보호는 사용자의 실수 또는 고의로 인한 CPU 독점을 방지해야 한다. 하나의 프로그램이 CPU를 독점하게 되면 다른 프로그램은 수행되지 못한다.</p>
 
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
 
 <span class="p">}</span>
 </code></pre></div></div>
+
 <p>CPU를 독점하는 가장 대표적인 예는 <strong>무한 반복</strong>이다. 위의 코드를 보면 while문의 조건문이 잘못된 것을 볼 수 있다. 비교 연산자가 아닌 대입 연산자를 사용하여 n값이 1이 되므로 while문의 조건은 TRUE가 된다. 이는 n값이 변하지 않는 이상 무한으로 반복된다.</p>
 
 <p>이를 해결하는 방법은 Timer를 두어 일정 시간이 지나면 <strong>타이머 인터럽트</strong>를 발생시킨다. 인터럽트가 발생하면 반드시 운영체제 내의 ISR로 이동하므로, 해당 ISR에서 각 프로그램의 CPU 점유 시간을 측정하여 적절히 분배되도록 조정한다.</p>
@@ -691,9 +755,10 @@ function changeContent(event){
 <p>예를 들어, 한 프로그램의 CPU 점유 시간이 비정상적으로 오래 걸리는 경우, 강제로 다른 프로그램으로 CPU를 전환시켜 줄 수 있다.</p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
 <a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a>
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>

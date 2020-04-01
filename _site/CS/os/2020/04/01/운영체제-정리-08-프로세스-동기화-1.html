@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>08: 프로세스 동기화 <1. 발생 이유와 목적> | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="프로세스 동기화가 발생하는 예시와 목적, 그리고 그것을 해결하기 위한 원칙에 대해 알아본다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/11.jpg')">
+    <h1 class="title">08: 프로세스 동기화 <1. 발생 이유와 목적></h1>
+    
+    <p class="meta">
+      CS/OS
+      
+        : 운영체제 정리
+      
+    </p>
+
+    <p class="meta">
+      April 1, 2020
+      
+    </p>
+  </header>
+
+  
+
+  <section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>9</em></b> 편 중 <b><em>8</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav">
+
+    
+    
+     
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
+                <span>Part 1 - 01: 운영체제란 무엇인가?</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
+                <span>Part 2 - 02: 운영체제의 역사</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
+                <span>Part 3 - 03: 이중모드와 보호</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html'">
+                <span>Part 4 - 04: 운영체제 서비스</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html'">
+                <span>Part 5 - 05: 프로세스 관리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html'">
+                <span>Part 6 - 06: CPU 스케쥴링</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html'">
+                <span>Part 7 - 07: 쓰레드(Thread)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 8 - This Post</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html'">
+                <span>Part 9 - 09: 프로세스 동기화 <2. ></span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+  </div>
+
+
+  <p>프로세스 동기화가 발생하는 예시와 목적, 그리고 그것을 해결하기 위한 원칙에 대해 알아본다.</p>
+
+<h1 id="1-프로세스-동기화란">1. 프로세스 동기화란?</h1>
+
+<h2 id="11-배경">1.1 배경</h2>
+
+<p>현대 컴퓨터의 메모리에는 여러 프로세스가 존재하는데, 이러한 프로세스들이 하나의 공유 메모리나 또 다른 프로세스에 접근할 때는 매우 신중해야 한다. 이처럼 한 프로세스가 다른 프로세스에게 영향을 받거나 주는 프로세스를 <strong>Cooperating process</strong>라고 한다. 반대로 아무런 영향을 미치지 않는 독립적인 프로세스는 <strong>Independent process</strong>이다.</p>
+
+<p>현대 컴퓨터 환경에는 cooperating process가 훨씬 많이 존재하고, 이들은 서로 영향을 미치기 때문에 데이터나 흐름에 대한 <strong>동기화</strong>가 매우 중요하다. 프로세스 사이에 동기화를 하는 것을 <strong>프로세스 동기화(Process Synchronization)</strong> 라고 한다.(현재에는 대부분 쓰레드 기준으로 스위칭을 하므로, <strong>Thread synchronization</strong>으로 많이 불린다.)</p>
+
+<h2 id="12-필요성">1.2 필요성</h2>
+
+<p>대표적인 예로 기차표 예매가 있다. 어느 시간에 한 좌석의 기차표는 반드시 하나만 존재해야한다. 그런데 이를 예매하려는 사용자(프로세스)는 여러 명이다. 이 사용자들이 동시에 하나의 좌석 기차표를 구매하려고 하면 어떠한 일이 발생할까? 실제 환경에서는 당연하게도 동기화 문제를 해결한 시스템이므로 한 사람만이 기차표를 예매할 수 있을 것이다. 만약 동기화에 문제가 발생한다면 한 기차표를 여러 사람이 예매하는 불상사가 발생할 수 있다.</p>
+
+<h2 id="13-목표">1.3 목표</h2>
+
+<p>프로세스 동기화는 여러 프로세스가 공유하는 <strong>자원의 일관성을 유지</strong>하는 것이다. 가령 여러 프로세스가 동시에 하나의 공유된 자원에 접근하려고 할 때 이 프로세스들의 순서를 정하여 데이터의 일관성을 유지시켜주어야 한다. 이 부분에 대한 자세한 목적은 아래의 예를 파악하며 문제를 인지한 후에 명확하게 재정의하겠다.</p>
+
+<h1 id="2-bank-account-problem은행-계좌-문제">2. Bank Account Problem(은행 계좌 문제)</h1>
+
+<h2 id="21-문제-설명">2.1 문제 설명</h2>
+
+<p>동기화 문제 중에서 대표적인 은행 계좌 문제를 살펴보자. 은행에는 하나의 계좌에 입금, 출금을 할 수 있다. 여기서 계좌는 <strong>공유하는 자원</strong>이고, 입금과 출금은 각각 프로세스라고 볼 수 있다. 부모님이 자식에게 입금을 하고, 자식은 출금을 하는 상황을 자바로 구현한 코드는 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 계좌</span>
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>입금, 출금, 잔액조회 함수를 멤버함수로 갖는 클래스를 구현한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 입금 프로세스</span>
+<span class="kd">class</span> <span class="nc">Parent</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+	<span class="nc">BankAccount</span> <span class="n">b</span><span class="o">;</span>
+  <span class="c1">// 생성자는 공유하는 계좌를 초기값으로 가진다.</span>
+	<span class="nc">Parent</span><span class="o">(</span><span class="nc">BankAccount</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>   <span class="c1">// run(): 쓰레드가 실제로 동작하는 부분(치환)</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+		  <span class="n">b</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>멤버 변수로 계좌를 가지고, 이것을 생성할 때 인자로 받는 클래스이다. 해당 클래스에서 run()은 입금을 100번 수행한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 출금 프로세스</span>
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+	<span class="nc">BankAccount</span> <span class="n">b</span><span class="o">;</span>
+  <span class="c1">// 생성자는 공유하는 계좌를 초기값으로 가진다.</span>
+	<span class="nc">Child</span><span class="o">(</span><span class="nc">BankAccount</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+		  <span class="n">b</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>멤버 변수로 계좌를 가지고, 이것을 생성할 때 인자로 받는 클래스이다. 해당 클래스에서 run()은 출금을 100번 수행한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test.java</span>
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+		<span class="nc">BankAccount</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BankAccount</span><span class="o">();</span>
+		<span class="nc">Parent</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Parent</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+		<span class="nc">Child</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Child</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+		<span class="n">p</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>   <span class="c1">// start(): 쓰레드를 실행하는 메서드</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+		<span class="n">p</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>    <span class="c1">// join(): 쓰레드가 끝나기를 기다리는 메서드</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"balance = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>main 함수에서는 위에서 만든 클래스들을 사용하여, 계좌를 공유하는 두 개의 쓰레드를 만든다. 그리고 부모, 자식 클래스에서 각각 입금과 출금을 100번씩 수행하고, 결과적으로 남은 잔액을 조회한다. 잔액은 <strong>0</strong>이 나와야 할 것이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Result</span>
+<span class="n">balance</span> <span class="o">=</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<p>이 결과는 정상적이다. 100번 1,000원을 입금하고, 100번 1,000원을 출금하면 잔액은 0원이 남는다. 위 코드는 2개의 쓰레드가 동작하고 있음에도 불구하고 동기화 문제가 발생할 확률은 매우 낮다. 반복이 100번 밖에 안 일어나는 매우 간단한 코드 이기 때문이다.</p>
+
+<h2 id="22-동기화-문제-발생">2.2 동기화 문제 발생</h2>
+
+<p>실제 상황에서는, 입금, 출금 명령을 내리고 이 명령이 전달되는데 까지 시간이 소요된다. 그런 상황을 만들기 위해 출금하는 과정에서 <code class="language-plaintext highlighter-rouge">temp</code>라는 필요없는 변수를 추가하고, <code class="language-plaintext highlighter-rouge">+,-</code>를 출력하고, 반복 횟수를 1000번으로 늘렸다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 계좌</span>
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"+"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Result</span>
+<span class="o">++++++++++++++++++++++++++++++++++----------------------------------------------</span>
+<span class="o">--------------------------------------------------------------------------++++++</span>
+<span class="o">+++----------------------------------------------+++++++++++++++++++++++++++++++</span>
+<span class="o">+----+++++++-+++++----+++-------------------------------------------------------</span>
+<span class="o">-+++++++-++++-+++++++++-------++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++---------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">+-++++++++++++-------------------++++++++++++++++++++-++++++++++++++++++++++++++</span>
+<span class="o">++++++-+------------------------------------------------------------------------</span>
+<span class="o">-+++++++++++-+++++++----------------------------------------+-------+-----------</span>
+<span class="o">-+------+-----------------------------------------------------------------------</span>
+<span class="o">-+------------------------------------------------------------------------------</span>
+<span class="o">-+------------------------------------------------------------------------------</span>
+<span class="o">-------------------+-------+----------------------------------------------------</span>
+<span class="o">------------------------------+-------------------------------------------------</span>
+<span class="o">------------------------------------------------------+-------------------------</span>
+<span class="o">-+------------------------------------------------------------------------------</span>
+<span class="o">-++---------------------------------------++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+<span class="o">++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</span>
+
+<span class="n">balance</span> <span class="o">=</span> <span class="mi">1000000</span>
+</code></pre></div></div>
+
+<p>+는 입금을 한 경우, -는 출금을 한 경우이고, 주목할 점은 balance값이 0이 아닌 1000000이라는 알 수 없는 값이 출력되었다. 또한 여러번 실행할 경우 100000이라는 값이 고정되어 출력되는 것도 아니다. <strong>결과가 불일치하며, 비일관적이다.</strong> (비일관적인 이유는 운영체제에서 쓰레드를 스위칭하는 패턴이 매번 다르기 때문이다.)</p>
+
+<p>약간의 시간 지연을 준 것만으로도 여러 쓰레드가 하나의 공유 자원을 사용하는 프로그램은 망가지게 된다.</p>
+
+<h2 id="23-왜-발생할까">2.3 왜 발생할까?</h2>
+
+<p>이러한 문제가 발생하는 원인은 <strong>공통변수(common variable)에 대한 동시 업데이트(concurrent update)</strong> 때문이다.</p>
+
+<p>위 예제에서 공통 변수는 계좌의 잔액이다. 이에 접근하는 프로세스의 코드를 보면 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>   <span class="c1">// 입금</span>
+<span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>   <span class="c1">// 출금</span>
+</code></pre></div></div>
+
+<p>이는 자바 문법에서는 한 줄이라 문제가 없어 보이지만, 로우 레벨(어셈블리어)로 내려가면 <strong>여러 줄로 구현</strong>된다. 예를 들어, <code class="language-plaintext highlighter-rouge">balance</code>를 업데이트 하는 하이 레벨 코드 1줄이 로우 레벨에서 3줄로 구현된다고 하자.</p>
+
+<ol>
+  <li>공유 변수인 현재 잔액을 복사한다.</li>
+  <li>현재 잔액에서 명령을 수행한다.</li>
+  <li>나온 결과를 가지고 잔액을 갱신한다.</li>
+</ol>
+
+<p>그런데, <code class="language-plaintext highlighter-rouge">parent</code>가 수행하던 도중에 1000번을 다 수행하지 못한 상황에서 interrupt(이 경우에는 시간 지연을 걸었으므로 timer interrupt가 되겠다.)가 걸려 2번 라인에서 멈췄다고 생각해보자. <code class="language-plaintext highlighter-rouge">parent</code>가 1000원을 입금했지만, 업데이트가 되지 않아 여전히 현재 잔액은 0이다.</p>
+
+<p>이번에는 <code class="language-plaintext highlighter-rouge">child</code>가 부모님이 용돈을 넣은 줄 알고 신나서 돈을 뽑는 상황을 생각해보자. 잔액을 확인했더니, 아직 0이다. 그래서 <code class="language-plaintext highlighter-rouge">child</code>는 마이너스 통장을 통해 돈은 인출하고 현재 잔액은 -1000이 된다.</p>
+
+<p>따라서 이 경우, 입금과 인출이라는 행위는 프로세스 입장에서 원자성을 갖는 행위이므로 동기화가 필수적이다. 기억이 안난다면 이 글을 보자.
+<a href="http://127.0.0.1:4000/cs/structure/2020/03/21/컴퓨터구조-용어정리.html">가볍게 이해하는 컴퓨터 01: 용어 정리</a></p>
+
+<h1 id="3-임계구역critical-section-문제">3. 임계구역(Critical section) 문제</h1>
+
+<p>위의 예에서 보았던 문제를 임계구역 문제라 한다. 임계구역은 여러 개의 쓰레드가 수행되는 시스템에서 각 쓰레드들이 <strong>공유하는 데이터(변수, 테이블, 파일 등)를 변경하는 코드 영역</strong>을 말한다. 이는 동기화에서 중요한 문제 중 하나이다. 은행계좌 문제에서의 임계구역은 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="31-해결-방법">3.1 해결 방법</h2>
+
+<p>임계구역을 해결하기 위해서는 3가지 조건이 만족해야한다.</p>
+
+<ul>
+  <li>Mutual exclusion(상호배타)
+    <ul>
+      <li><strong>오직 한 쓰레드만이 진입 가능</strong>하다. 한 쓰레드가 임계구역에서 수행 중인 상태에서는 다른 쓰레드는 절대 이 구역에 접근할 수 없다.</li>
+    </ul>
+  </li>
+  <li>Progress(진행)
+    <ul>
+      <li>한 임계구역에 접근하는 쓰레드를 결정하는 것은 유한 시간 이내에 이루어져야한다.</li>
+      <li><strong>누가 먼저 들어갈 것인지 빠르게 결정</strong>해라</li>
+    </ul>
+  </li>
+  <li>Bounded waiting(유한대기)
+    <ul>
+      <li>임계구역으로 진입하기 위해 대기하는 모든 쓰레드는 유한 시간 이내에 해당 임계구역으로 진입할 수 있어야 한다.</li>
+      <li><strong>기다리는 모든 쓰레드가 진입가능하도록 만들어라.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="4-프로세스쓰레드-동기화의-목적">4. 프로세스/쓰레드 동기화의 목적</h1>
+
+<ul>
+  <li>원하는 결과값을 도출하도록 임계구역 문제를 해결한다.</li>
+  <li>프로세스의 실행 순서를 원하는대로 제어한다.</li>
+  <li>Busy wait 등과 같은 비효율성을 제거한다.</li>
+</ul>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#OS">#OS</a>
+    
+    <a class="tag" href="/tags#Synchronization">#Synchronization</a>
+    
+    <a class="tag" href="/tags#Critical+Section+Problem">#Critical Section Problem</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
