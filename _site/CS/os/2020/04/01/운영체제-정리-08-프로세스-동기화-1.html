@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>08: 프로세스 동기화 <1. 발생 이유와 목적> | 완숙의 에그머니🍳</title>
+	<title>08: 프로세스 동기화 Part 1 | 완숙의 에그머니🍳</title>
 	<meta name="description"
 		content="프로세스 동기화가 발생하는 예시와 목적, 그리고 그것을 해결하기 위한 원칙에 대해 알아본다.">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -445,7 +445,7 @@ function changeContent(event){
     <div class="content">
       <article class="feature-image">
   <header style="background-image: url('/assets/img/11.jpg')">
-    <h1 class="title">08: 프로세스 동기화 <1. 발생 이유와 목적></h1>
+    <h1 class="title">08: 동기화의 발생 이유와 목적</h1>
     
     <p class="meta">
       CS/OS
@@ -570,7 +570,7 @@ function changeContent(event){
           
           
             <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html'">
-                <span>Part 9 - 09: 프로세스 동기화 <2. ></span>
+                <span>Part 9 - 09: 프로세스 동기화 Part 2</span>
             </li>
           
       
@@ -637,6 +637,10 @@ function changeContent(event){
 
 <h1 id="1-프로세스-동기화란">1. 프로세스 동기화란?</h1>
 
+<blockquote>
+  <p>하나의 자원을 한 순간에 하나의 프로세스(쓰레드)만이 이용하도록 제어하는 것</p>
+</blockquote>
+
 <h2 id="11-배경">1.1 배경</h2>
 
 <p>현대 컴퓨터의 메모리에는 여러 프로세스가 존재하는데, 이러한 프로세스들이 하나의 공유 메모리나 또 다른 프로세스에 접근할 때는 매우 신중해야 한다. 이처럼 한 프로세스가 다른 프로세스에게 영향을 받거나 주는 프로세스를 <strong>Cooperating process</strong>라고 한다. 반대로 아무런 영향을 미치지 않는 독립적인 프로세스는 <strong>Independent process</strong>이다.</p>
@@ -652,6 +656,8 @@ function changeContent(event){
 <p>프로세스 동기화는 여러 프로세스가 공유하는 <strong>자원의 일관성을 유지</strong>하는 것이다. 가령 여러 프로세스가 동시에 하나의 공유된 자원에 접근하려고 할 때 이 프로세스들의 순서를 정하여 데이터의 일관성을 유지시켜주어야 한다. 이 부분에 대한 자세한 목적은 아래의 예를 파악하며 문제를 인지한 후에 명확하게 재정의하겠다.</p>
 
 <h1 id="2-bank-account-problem은행-계좌-문제">2. Bank Account Problem(은행 계좌 문제)</h1>
+
+<p>동기화의 필요성을 가장 잘 느낄 수 있는 은행 계좌 문제에 대해 알아본다.</p>
 
 <h2 id="21-문제-설명">2.1 문제 설명</h2>
 
