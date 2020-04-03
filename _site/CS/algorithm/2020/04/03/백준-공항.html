@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>백준(10775번): 공항 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="골드2 : 유니언 파인드 문제이다.백준(10775번) - 공항">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EA%B3%B5%ED%95%AD.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/34.jpg')">
+    <h1 class="title">백준(10775번): 공항</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+      
+    </p>
+
+    <p class="meta">
+      April 3, 2020
+      
+    </p>
+  </header>
+
+  
+
+  <section class="post-content">
+  
+  <p><strong><em>골드2</em></strong> : 유니언 파인드 문제이다.<br />
+<a href="https://www.acmicpc.net/problem/10775">백준(10775번) - 공항</a></p>
+
+<h1 id="생각">생각</h1>
+
+<p>이런 문제는 정말 비행기가 온다고 생각하고 푸는 것이 가장 좋은 것 같다. 그러니까 모든 문제는 시뮬레이션을 제대로 하는 것이 중요.. 총 5개의 게이트가 있다고 하자. 그 때, 4번으로 비행기가 들어온다. 그럼 4번에 배정하는 것이 맞다. 그런데 또 4번으로 들어온다. 이 문제는 4번 보다 작은 게이트에만 비행기가 들어올 수 있으므로 들어갈 수 있는 게이트는 1, 2, 3이다. 그런데, 문제 특징 상 원하는 게이트보다 작은 부분에만 들어갈 수 있으므로 가장 많은 비행기를 넣기 위해서는 원하는 게이트에서 작은 숫자를 가진 게이트 중, 숫자가 가장 큰 게이트에 들어가는 것이 최선이다.(<del>응?</del>) 이해를 위해 표를 그려보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">gate</th>
+      <th style="text-align: center">1</th>
+      <th style="text-align: center">2</th>
+      <th style="text-align: center">3</th>
+      <th style="text-align: center">4</th>
+      <th style="text-align: center">5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이 상황에서 3번 게이트로 들어올 경우 두가지 그림이 가능하다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">gate</th>
+      <th style="text-align: center">1</th>
+      <th style="text-align: center">2</th>
+      <th style="text-align: center">3</th>
+      <th style="text-align: center">4</th>
+      <th style="text-align: center">5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">gate</th>
+      <th style="text-align: center">1</th>
+      <th style="text-align: center">2</th>
+      <th style="text-align: center">3</th>
+      <th style="text-align: center">4</th>
+      <th style="text-align: center">5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>1번 표의 경우, 만약 1번으로 들어오는 비행기가 있다고 하면, 이 비행기는 이미 게이트가 차 있으므로 들어가지 못한다. 그래서 총 숫자는 2이다. 2번 표에서는 1번 게이트가 비어있으므로 비행기를 댈 수 있다. 그 결과 정답은 3이다. 이렇게, 비행기가 들어오는 방법은 <strong>원하는 게이트보다 작거나 같은 게이트 중 비어있는 게이트에서 가장 큰 숫자를 가진 게이트 순서로 도킹</strong>해야한다.</p>
+
+<h2 id="유니온-파인드">유니온 파인드</h2>
+
+<p>위에서 생각한 것은, 대안 게이트를 찾는 방법이다. 그런데 생각해보면, 이 대안 게이트는 그래프로 볼 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gate     : 1, 2, 3, 4, 5
+airplain : 4, 4, 3, 1
+</code></pre></div></div>
+
+<p>위와 같은 순서로 비행기가 들어온다고 했을 때의 그림을 보자.</p>
+
+<h3 id="airplain-4">airplain 4</h3>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78362200-ac375980-75f4-11ea-9338-3816e55036d4.png" class="center" /></p>
+
+<h3 id="airplain-4-1">airplain 4</h3>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78362212-b194a400-75f4-11ea-9966-31006e966398.png" class="center" /></p>
+
+<h3 id="airplain-3">airplain 3</h3>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78362228-b9544880-75f4-11ea-9b9b-2f95acb48d88.png" class="center" /></p>
+
+<h3 id="airplain-1">airplain 1</h3>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78362243-bf4a2980-75f4-11ea-845f-8bd233ce6ed7.png" class="center" /></p>
+
+<p>이 과정에서, 신경써주어야 하는 것은, 해당 게이트의 <strong>대안 게이트의 번호가 무엇</strong>인지이다! 무조건 처음에는 비행기가 왔을 때, 자신의 게이트에 넣는 것은 확정이므로, 처음 도킹 위치의 초기값은 자기 자신의 게이트 이다. 이제 비행기가 들어오면서, 어떠한 방법으로 이것을 업데이트 해줄지 고민하면 된다.</p>
+
+<h2 id="대안-게이트-합치기">대안 게이트 합치기</h2>
+
+<p>기본적으로 대안 게이트의 위치는 나보다 하나 작은 녀석의 게이트이다. 하지만 그 위치에도 이미 도킹이 되어 있다면, 그 녀석의 대안 게이트를 또 찾아야 한다. 그러므로 대안 게이트를 찾아서 업데이트 할 때는 나보다 작은 녀석을 기반으로 하되, 그녀석의 최종적인 대안 게이트를 찾아야 한다. 유니온 파인드 알고리즘에서 이 대안 게이트는 조상에 치환되는 개념으로 볼 수 있다. 결국은 조상을 찾아서, 그 조상으로 업데이트를 진행해야 한다.</p>
+
+<p>종료조건은 간단하다. 문제에서 보여주듯 원하는 게이트보다 작은 게이트들이 다 도킹이 된 상태면 종료한다. 이 조건은, 알고리즘 상에서 대안 게이트의 번호가 0이 되는 것과 동치이다. 0번 게이트는 없으므로 도킹할 수 없다.</p>
+
+<h2 id="알고리즘">알고리즘</h2>
+
+<ol>
+  <li>초기 게이트의 위치를 대안 게이트의 번호를 자기자신의 게이트를 가리키도록 한다.</li>
+  <li>비행기가 들어올 때, 대안 게이트를 찾는다.</li>
+  <li>대안 게이트를 찾으면, 대안 게이트에 비행기가 도킹했다고 생각하고 도킹한 비행기의 숫자를 늘린다.</li>
+  <li>대안 게이트에 비행기가 들어왔으므로, 방금 도킹한 비행기의 대안 게이트를 찾는다.</li>
+  <li>만약, 대안 게이트의 번호가 0인 경우 현재까지 도킹한 비행기를 출력하고 종료한다.</li>
+</ol>
+
+<h1 id="code">Code</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">parent</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">gate</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">gate</span> <span class="o">==</span> <span class="n">parent</span><span class="p">[</span><span class="n">gate</span><span class="p">]){</span>
+        <span class="k">return</span> <span class="n">gate</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">parent</span><span class="p">[</span><span class="n">gate</span><span class="p">]</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">gate</span><span class="p">]);</span>
+     <span class="c1">// 탐색하는 과정에서 있었던 대안 게이트를 최종 값으로 업데이트한다.</span>
+<span class="p">}</span>
+
+<span class="c1">// 게이트의 최종 대안 게이트로 업데이트 한다.</span>
+<span class="kt">void</span> <span class="nf">unite</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+    <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">command</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">command</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">empty_gate</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">empty_gate</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">ans</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">unite</span><span class="p">(</span><span class="n">empty_gate</span><span class="p">,</span> <span class="n">empty_gate</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 기본적으로 나보다 하나 작은 게이트와 합친다.</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%EC%9C%A0%EB%8B%88%EC%98%A8%ED%8C%8C%EC%9D%B8%EB%93%9C">#유니온파인드</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

@@ -5,12 +5,381 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Fri, 03 Apr 2020 13:44:00 +0900</pubDate>
+    <pubDate>Fri, 03 Apr 2020 21:58:36 +0900</pubDate>
+    
+      <item>
+        <title>백준(10868번): 최소값</title>
+        <link>/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EC%B5%9C%EC%86%8C%EA%B0%92.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EC%B5%9C%EC%86%8C%EA%B0%92.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;플래티넘5&lt;/em&gt;&lt;/strong&gt; : 세그먼트 트리 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/10868&quot;&gt;백준(10868번) - 최소값&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;입력값이 이렇게 주어진다고 생각해보자. 이 상태에서 3~6까지의 최소값을 구하는 것은, 단순한 방법으로 구해도 $O(n^2)$으로 풀 수 있다. 하지만 이러한 확인(쿼리)가 많아진다면, 급격하게 시간 복잡도가 올라간다. 따라서 이 문제에서 제시하는 m(100000) 개에 대해서 n(100000)을 모두 확인하는 방법으로 간다면 문제를 풀 수 없다.(O(n^2))&lt;/p&gt;
+
+&lt;h2 id=&quot;문제의-원인&quot;&gt;문제의 원인&lt;/h2&gt;
+
+&lt;p&gt;그렇다면 어느 부분에서 연산이 많이 걸리는 지 생각해보자. 가장 큰 부분을 판단을 중복으로 한다는 것이다. 0~3까지의 최소값을 구하는 것과, 1~4까지의 최소값을 구하는 과정에는 1~3까지의 최소값을 비교하는 과정이 중복된다. &lt;strong&gt;그렇다면, 처음에 주어진 index를 나누어, 그 나눈 구간에 대해 최소값을 구해놓으면 어떨까?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;어떻게-나눌까&quot;&gt;어떻게 나눌까?&lt;/h2&gt;
+
+&lt;p&gt;나누겠다는 생각이 들고 난 후에는, 어떻게 하면 잘 나눌 수 있을 지에 대해 고민했다. 이 부분은 트리가 가장 용이하다. 정보를 저장하는 자료구조 중, 탐색에 있어 시간복잡도가 log이다. 나누는 방법은 생각 보다 간단하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;tree-구조&quot;&gt;Tree 구조&lt;/h2&gt;
+
+&lt;p&gt;트리의 구조는 모양의 변화를 가지는 것이다. 우리가 보통 가지는 선형 리스트를 조금 바꾸어 생각하면 쉽게 트리 구조를 만들 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78343020-31127b00-75d5-11ea-9101-90d66c732c56.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78343047-3a9be300-75d5-11ea-9e8d-15a83f519ca4.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 2의 제곱수만큼의 개수를 아래쪽으로 옮기면서 쌓으면 트리 구조가 된다. 이 때, 중요한 것은 가장 위층으로 부터 아래로 내려오는데 그 &lt;strong&gt;index들의 관계&lt;/strong&gt;를 아는 것이다. 잘 보면, 1에서 2, 3은 $2\times 1$, $2\times 1 + 1$ 과 같다. 왼쪽 트리, 오른쪽 트리로 가는 관계는 계속 일관성을 가진다.&lt;/p&gt;
+
+&lt;h2 id=&quot;segment-tree&quot;&gt;Segment Tree&lt;/h2&gt;
+
+&lt;p&gt;그렇다면 이번에는 이 트리 구조를 이 문제에 맞는 모양으로 바꾸어 보자. 우리는 최소값을 미리 저장하기 위해 트리구조를 사용하기로 했는데, 그 구조를 아래와 같이 만들어서 생각해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78342850-eabd1c00-75d4-11ea-8852-6372f21d6443.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;기본적인 트리구조는 같지만 추가된 변수가 있다. 그것은 index의 시작과 끝을 나타내는 start~end 변수이다. 이렇게 나누었다고 가정하고, 2~5까지의 최소값을 얻기위해 조사해야 하는 Node의 개수를 파악해보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78343659-24daed80-75d6-11ea-8b12-9fe8f87d383d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 3개의 값만 조사하면 최소값을 얻을 수 있다! 이 때 발생하는 시간 복잡도는 $log(N)$ 이다. depth가 내려갈 수록 반씩 조사를 덜 할 수 있기 때문이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;tree에-필요한-node-수&quot;&gt;tree에 필요한 node 수&lt;/h3&gt;
+
+&lt;p&gt;위 예시에서 총 7개의 원소를 넣기 위해 필요한 node의 개수는 총 13개 이다. 이 13개를 다 넣기 위해 필요한 트리의 깊이는 총 4이다. 이 값을 얻기 위한 수식은 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;depth = ceil(log_2(n)) + 1\\
+treeSize = 2^{depth}&lt;/script&gt;
+
+&lt;p&gt;보통의 tree는 input으로 들어오는 요소의 개수와 트리의 node번호가 일치하지만, 이 경우는 depth가 1개 추가되므로 1을 더해주어야 한다. 이것을 코드로 구현하면 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ceil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;treeSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;&amp;lt;&lt;/code&gt;은 shift 연산자로, 2진 연산을 할 때, 자리수를 올려주는 역할을 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;init-초기화&quot;&gt;init (초기화)&lt;/h2&gt;
+
+&lt;p&gt;처음에 input을 받고서, 가장 먼저 해야하는 일은, input을 tree안에 넣는 것이다. 그런데 우리가 설계한 세그먼트 트리를 생각해보면, 이 친구는 아래 node가 결정된 뒤에 상위 노드가 결정될 수 있다. 재귀로 짜면 해결될 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;init 함수의 argument로는 input 벡터, tree 벡터, 내가 기록할 node의 index, 처음 node가 커버하게 될 index의 시작과 끝이 필요하다. 그 뒤로는 아까 트리 구조에서 본 왼쪽, 오른쪽 노드로 가는 함수 관계에 따라 init함수를 계속 수행하면 된다. 종료조건은, 그림에서 보았듯이 start와 end과 같아지는 지점에서 input에 start 해당하는 index의 값을 넣어준다.&lt;/p&gt;
+
+&lt;h2 id=&quot;find&quot;&gt;find&lt;/h2&gt;
+
+&lt;p&gt;저장된 자료구조에서 찾는 과정이다. 내가 찾으려고 하는 범위을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt; 라 하고, 내가 처음에 탐색을 시작할 노드의 번호를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node&lt;/code&gt;, 그 노드가 커버하는 index의 범위를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;start&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;end&lt;/code&gt;라 하자. tree의 가장 위부터 탐색을 시작할 때, 범위에 걸리는 녀석들만 비교의 대상이 되어야 한다. 이런 범위를 따져보면 총 3가지로 나눌 수 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt; 사이에 현재 노드의 커버범위가 들어온다.
+    &lt;ul&gt;
+      &lt;li&gt;후보로 선정한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;left&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;right&lt;/code&gt; 와 현재 노드의 커버범위가 전혀 겹치지 않는다.
+    &lt;ul&gt;
+      &lt;li&gt;버린다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;애매하게 걸친다.
+    &lt;ul&gt;
+      &lt;li&gt;더 깊이 들어가서 조사한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이 과정을 구현하면 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;vector&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1111111111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ceil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;treeSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;treeSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 03 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>백준(10775번): 공항</title>
+        <link>/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EA%B3%B5%ED%95%AD.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EA%B3%B5%ED%95%AD.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드2&lt;/em&gt;&lt;/strong&gt; : 유니언 파인드 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/10775&quot;&gt;백준(10775번) - 공항&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;이런 문제는 정말 비행기가 온다고 생각하고 푸는 것이 가장 좋은 것 같다. 그러니까 모든 문제는 시뮬레이션을 제대로 하는 것이 중요.. 총 5개의 게이트가 있다고 하자. 그 때, 4번으로 비행기가 들어온다. 그럼 4번에 배정하는 것이 맞다. 그런데 또 4번으로 들어온다. 이 문제는 4번 보다 작은 게이트에만 비행기가 들어올 수 있으므로 들어갈 수 있는 게이트는 1, 2, 3이다. 그런데, 문제 특징 상 원하는 게이트보다 작은 부분에만 들어갈 수 있으므로 가장 많은 비행기를 넣기 위해서는 원하는 게이트에서 작은 숫자를 가진 게이트 중, 숫자가 가장 큰 게이트에 들어가는 것이 최선이다.(&lt;del&gt;응?&lt;/del&gt;) 이해를 위해 표를 그려보자.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;gate&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이 상황에서 3번 게이트로 들어올 경우 두가지 그림이 가능하다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;gate&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;gate&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;1번 표의 경우, 만약 1번으로 들어오는 비행기가 있다고 하면, 이 비행기는 이미 게이트가 차 있으므로 들어가지 못한다. 그래서 총 숫자는 2이다. 2번 표에서는 1번 게이트가 비어있으므로 비행기를 댈 수 있다. 그 결과 정답은 3이다. 이렇게, 비행기가 들어오는 방법은 &lt;strong&gt;원하는 게이트보다 작거나 같은 게이트 중 비어있는 게이트에서 가장 큰 숫자를 가진 게이트 순서로 도킹&lt;/strong&gt;해야한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;유니온-파인드&quot;&gt;유니온 파인드&lt;/h2&gt;
+
+&lt;p&gt;위에서 생각한 것은, 대안 게이트를 찾는 방법이다. 그런데 생각해보면, 이 대안 게이트는 그래프로 볼 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gate     : 1, 2, 3, 4, 5
+airplain : 4, 4, 3, 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위와 같은 순서로 비행기가 들어온다고 했을 때의 그림을 보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;airplain-4&quot;&gt;airplain 4&lt;/h3&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78362200-ac375980-75f4-11ea-9338-3816e55036d4.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;airplain-4-1&quot;&gt;airplain 4&lt;/h3&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78362212-b194a400-75f4-11ea-9966-31006e966398.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;airplain-3&quot;&gt;airplain 3&lt;/h3&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78362228-b9544880-75f4-11ea-9b9b-2f95acb48d88.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;airplain-1&quot;&gt;airplain 1&lt;/h3&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78362243-bf4a2980-75f4-11ea-845f-8bd233ce6ed7.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 과정에서, 신경써주어야 하는 것은, 해당 게이트의 &lt;strong&gt;대안 게이트의 번호가 무엇&lt;/strong&gt;인지이다! 무조건 처음에는 비행기가 왔을 때, 자신의 게이트에 넣는 것은 확정이므로, 처음 도킹 위치의 초기값은 자기 자신의 게이트 이다. 이제 비행기가 들어오면서, 어떠한 방법으로 이것을 업데이트 해줄지 고민하면 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;대안-게이트-합치기&quot;&gt;대안 게이트 합치기&lt;/h2&gt;
+
+&lt;p&gt;기본적으로 대안 게이트의 위치는 나보다 하나 작은 녀석의 게이트이다. 하지만 그 위치에도 이미 도킹이 되어 있다면, 그 녀석의 대안 게이트를 또 찾아야 한다. 그러므로 대안 게이트를 찾아서 업데이트 할 때는 나보다 작은 녀석을 기반으로 하되, 그녀석의 최종적인 대안 게이트를 찾아야 한다. 유니온 파인드 알고리즘에서 이 대안 게이트는 조상에 치환되는 개념으로 볼 수 있다. 결국은 조상을 찾아서, 그 조상으로 업데이트를 진행해야 한다.&lt;/p&gt;
+
+&lt;p&gt;종료조건은 간단하다. 문제에서 보여주듯 원하는 게이트보다 작은 게이트들이 다 도킹이 된 상태면 종료한다. 이 조건은, 알고리즘 상에서 대안 게이트의 번호가 0이 되는 것과 동치이다. 0번 게이트는 없으므로 도킹할 수 없다.&lt;/p&gt;
+
+&lt;h2 id=&quot;알고리즘&quot;&gt;알고리즘&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;초기 게이트의 위치를 대안 게이트의 번호를 자기자신의 게이트를 가리키도록 한다.&lt;/li&gt;
+  &lt;li&gt;비행기가 들어올 때, 대안 게이트를 찾는다.&lt;/li&gt;
+  &lt;li&gt;대안 게이트를 찾으면, 대안 게이트에 비행기가 도킹했다고 생각하고 도킹한 비행기의 숫자를 늘린다.&lt;/li&gt;
+  &lt;li&gt;대안 게이트에 비행기가 들어왔으므로, 방금 도킹한 비행기의 대안 게이트를 찾는다.&lt;/li&gt;
+  &lt;li&gt;만약, 대안 게이트의 번호가 0인 경우 현재까지 도킹한 비행기를 출력하고 종료한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;// 탐색하는 과정에서 있었던 대안 게이트를 최종 값으로 업데이트한다.&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// 게이트의 최종 대안 게이트로 업데이트 한다.&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;unite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty_gate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty_gate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;unite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty_gate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty_gate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 기본적으로 나보다 하나 작은 게이트와 합친다.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 03 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>백준(1717번): 집합의 표현</title>
-        <link>/cs/algorithm/2020/04/02/%EC%A7%91%ED%95%A9%EC%9D%98-%ED%91%9C%ED%98%84.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/04/02/%EC%A7%91%ED%95%A9%EC%9D%98-%ED%91%9C%ED%98%84.html</guid>
+        <link>/cs/algorithm/2020/04/02/%EB%B0%B1%EC%A4%80-%EC%A7%91%ED%95%A9%EC%9D%98-%ED%91%9C%ED%98%84.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/02/%EB%B0%B1%EC%A4%80-%EC%A7%91%ED%95%A9%EC%9D%98-%ED%91%9C%ED%98%84.html</guid>
         <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드4&lt;/em&gt;&lt;/strong&gt; : 유니온 파인드 문제이다.&lt;br /&gt;
 &lt;a href=&quot;https://www.acmicpc.net/problem/1717&quot;&gt;백준(1717번) - 집합의 표현&lt;/a&gt;&lt;/p&gt;
 
@@ -18,17 +387,18 @@
 
 &lt;p&gt;문제를 이해해보자. 먼저 처음에 아무일도 하지 않을 경우에 입력된 n에 대해서 0 ~ n까지의 바구니가 생긴다. 그 다음, m개의 명령이 들어온다. 명령은 해당 원소가 들어있는 바구니를 합치는 것, 그리고 해당 원소가 같은 바구니에 들어있는 지 확인하는 것이다.&lt;/p&gt;
 
-&lt;p&gt;그렇다면 핵심은, 현재 어떻게 내가 들어가 있는 바구니를 찾을 것인가? 그리고 찾았다면 어떤식으로 합쳐서 가지고 있을 것인가? 이다. &lt;strong&gt;결국 집합을 만들고, 서로소 인지를 확인하는 문제이다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;그렇다면 핵심은, 현재 어떻게 내가 들어가 있는 바구니를 찾을 것인가? 그리고 찾았다면 어떤식으로 합쳐서 가지고 있을 것인가? 이다. &lt;strong&gt;&lt;em&gt;결국 집합을 만들고, 서로소 인지를 확인하는 문제이다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;가장 단순하게 생각해보자. 처음에 모든 바구니는 자기자신만을 원소로 갖는 바구니를 가진다. 이 상태에서 1번 바구니와 3번 바구니를 합치라는 명령이 내려올 때, 우리는 일반 적으로 이것을 동등하게 생각하고 연결하려 한다. 하지만 이렇게 생각할 경우에 해당 바구니에 대한 번호를 재정의 해야 한다. 예를 들어 (1, 2)가 들어있는 바구니는 몇번 바구니라 정의해야 할까? 또 추가적으로 3이 들어온 경우 (1, 2, 3)은 몇번 바구니 일까? 바구니에 원소가 추가될 경우 계속하여 바구니의 이름을 재정의 해야 한다.&lt;/p&gt;
+&lt;p&gt;가장 단순하게 생각해보자. 처음에 모든 바구니는 자기자신만을 원소로 갖는 바구니를 가진다. 이 상태에서 1번 바구니와 3번 바구니를 합치라는 명령이 내려올 때, 우리는 일반적으로 &lt;strong&gt;&lt;em&gt;이것을 동등하게 생각하고 연결&lt;/em&gt;&lt;/strong&gt;하려 한다. 하지만 이렇게 생각할 경우에 해당 바구니에 대한 번호를 재정의 해야 한다. 예를 들어, (1, 2)가 들어있는 바구니는 몇번 바구니라 정의해야 할까? 또 추가적으로 3이 들어온 경우 (1, 2, 3)은 몇번 바구니 일까? &lt;strong&gt;&lt;em&gt;바구니에 원소가 추가될 경우 계속하여 바구니의 이름을 재정의&lt;/em&gt;&lt;/strong&gt; 해야 한다.&lt;/p&gt;
 
-&lt;p&gt;그러니 위계 질서를 줘보자. 1번 바구니와 2번 바구니를 합친다는 명령이 내려왔을 때 2번 바구니는 1번을 따른다. (2-&amp;gt;1) 그리고 3번 바구니는 2번을 따른다고 하면 (3-&amp;gt;2-&amp;gt;1)로 준다. 그리고 이렇게 생성된 바구니의 번호를 1이라 하면, 합치는 과정을 통한다하더라도 합쳐진 집합의 번호는 가장 먼저 합쳐진 원소의 번호라 지칭할 수 있다. 즉, 위의 바구니는 1번 바구니라 할 수 있고, 다른 합쳐진 집합이 있다하더라도 이 집합의 &lt;strong&gt;조상&lt;/strong&gt;은 독립적으로 유지된다.&lt;/p&gt;
+&lt;p&gt;그러니 &lt;strong&gt;위계 질서&lt;/strong&gt;를 줘보자. 1번 바구니와 2번 바구니를 합친다는 명령이 내려왔을 때 2번 바구니는 1번을 따른다. (2-&amp;gt;1) 그리고 3번 바구니는 2번을 따른다고 하면 (3-&amp;gt;2-&amp;gt;1)로 준다. 그리고 이렇게 생성된 바구니의 번호를 1이라 하면, 합치는 과정을 통한다하더라도 합쳐진 집합의 번호는 가장 먼저 합쳐진, 즉 &lt;strong&gt;조상 원소의 번호&lt;/strong&gt;라 지칭할 수 있다. 즉, 위의 바구니는 1번 바구니라 할 수 있고, 다른 합쳐진 집합이 있다하더라도 이 집합의 &lt;strong&gt;조상&lt;/strong&gt;은 독립적으로 유지된다.&lt;/p&gt;
 
-&lt;p&gt;(3-&amp;gt;2-&amp;gt;1) = 1번 바구니
-(4-&amp;gt;5) = 5번 바구니&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(3-&amp;gt;2-&amp;gt;1) = 1번 바구니
+(4-&amp;gt;5) = 5번 바구니
 
-&lt;p&gt;5번 바구니와 3번 바구니를 합해라.
-=&amp;gt; (4-&amp;gt;5-&amp;gt;3-&amp;gt;2-&amp;gt;1) = 1번 바구니&lt;/p&gt;
+5번 바구니와 3번 바구니를 합해라.
+=&amp;gt; (4-&amp;gt;5-&amp;gt;3-&amp;gt;2-&amp;gt;1) = 1번 바구니
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;문제-발생&quot;&gt;문제 발생&lt;/h2&gt;
 
@@ -40,18 +410,20 @@
 
 &lt;p&gt;아까 조상을 만들고, 추가된 집합에 대한 바구니 번호를 가장 위에 있는 &lt;strong&gt;조상&lt;/strong&gt;의 번호를 따르기로 했다. 위에서 발생한 문제에 대해 해당 번호가 어떤 바구니(조상)에 있는지 확인하고 그 바구니끼리 연결한다면 해당 문제는 해결된다.&lt;/p&gt;
 
-&lt;p&gt;(2-&amp;gt;1) = 1번 바구니
-(5-&amp;gt;4) = 4번 바구니&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(2-&amp;gt;1) = 1번 바구니
+(5-&amp;gt;4) = 4번 바구니
 
-&lt;p&gt;5번 바구니와 2번 바구니를 합쳐라.&lt;/p&gt;
+5번 바구니와 2번 바구니를 합쳐라.
 
-&lt;p&gt;5번의 조상 : 4번
-2번의 조상 : 1번&lt;/p&gt;
+5번의 조상 : 4번
+2번의 조상 : 1번
 
-&lt;p&gt;(4-&amp;gt;1)로 바꿔버린다.&lt;/p&gt;
+(4-&amp;gt;1)로 바꿔버린다.
 
-&lt;p&gt;=&amp;gt; (2-&amp;gt;1), (5-&amp;gt;4-&amp;gt;1)
-이렇게 된 경우 1번 바구니에 해당한 번호는 2, 4, 5로 원하는 결론이다.&lt;/p&gt;
+=&amp;gt; (2-&amp;gt;1), (5-&amp;gt;4-&amp;gt;1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 된 경우 1번 바구니에 해당한 번호는 2, 4, 5로 원하는 결론이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;구현&quot;&gt;구현&lt;/h2&gt;
 
@@ -60,7 +432,7 @@
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -73,7 +445,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -97,12 +469,10 @@
 1 1 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;line-1&quot;&gt;line 1&lt;/h4&gt;
+&lt;h3 id=&quot;line-1&quot;&gt;line 1&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 1 3
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 1 3 // 1번과 3번을 합쳐라.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;1번과 3번을 합쳐라.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -120,7 +490,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -133,15 +503,14 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;1의 조상 번호 : 1
-3의 조상 번호 : 3&lt;/p&gt;
-
-&lt;p&gt;3번이 따르는 바구니를 1로 바꾼다.&lt;/p&gt;
+&lt;p&gt;1의 조상 번호 : 1&lt;br /&gt;
+3의 조상 번호 : 3&lt;br /&gt;
+3번이 따르는 바구니를 1로 바꾼다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -154,7 +523,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -167,17 +536,15 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;line-2&quot;&gt;line 2&lt;/h4&gt;
+&lt;h3 id=&quot;line-2&quot;&gt;line 2&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 1 7
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 1 7 // 1번과 7번은 같은 바구니이니?
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;1번과 7번은 같은 바구니이니?&lt;/p&gt;
-
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -190,7 +557,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -203,23 +570,21 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;7의 조상 번호 : 7
+&lt;p&gt;7의 조상 번호 : 7&lt;br /&gt;
 1의 조상 번호 : 1&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;No
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;line-3&quot;&gt;line 3&lt;/h4&gt;
+&lt;h3 id=&quot;line-3&quot;&gt;line 3&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 7 6
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 7 6 // 7번과 6번을 합쳐라.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;7번과 6번을 합쳐라.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -232,7 +597,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -245,15 +610,14 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;7의 조상 번호 : 7
-6의 조상 번호 : 6&lt;/p&gt;
-
-&lt;p&gt;6번은 7번을 따른다.&lt;/p&gt;
+&lt;p&gt;7의 조상 번호 : 7&lt;br /&gt;
+6의 조상 번호 : 6&lt;br /&gt;
+6번은 7번을 따른다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -266,7 +630,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -279,17 +643,15 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;line-4&quot;&gt;line 4&lt;/h4&gt;
+&lt;h3 id=&quot;line-4&quot;&gt;line 4&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 7 1
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 7 1 // 7번과 1번은 같은 바구니이니?
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;7번과 1번은 같은 바구니이니?&lt;/p&gt;
-
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -302,7 +664,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -315,23 +677,21 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;7의 조상 번호 : 7
+&lt;p&gt;7의 조상 번호 : 7&lt;br /&gt;
 1의 조상 번호 : 1&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;No
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;line-5&quot;&gt;line 5&lt;/h4&gt;
+&lt;h3 id=&quot;line-5&quot;&gt;line 5&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 3 7
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 3 7 // 3번과 7번을 합쳐라.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;3번과 7번을 합쳐라.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -344,7 +704,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -357,15 +717,14 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;3의 조상 번호 : 1
-7의 조상 번호 : 7&lt;/p&gt;
-
-&lt;p&gt;7번은 3번을 따른다.&lt;/p&gt;
+&lt;p&gt;3의 조상 번호 : 1&lt;br /&gt;
+7의 조상 번호 : 7&lt;br /&gt;
+7번은 3번을 따른다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -378,7 +737,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
@@ -391,17 +750,15 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;line-6&quot;&gt;line 6&lt;/h4&gt;
+&lt;h3 id=&quot;line-6&quot;&gt;line 6&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 4 2
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 4 2 // 4번과 2번을 합쳐라.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;4번과 2번을 합쳐라.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -414,28 +771,27 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;*&lt;em&gt;7&lt;/em&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;4의 조상 번호 : 4
-2의 조상 번호 : 2&lt;/p&gt;
-
-&lt;p&gt;2번은 4번을 따른다.&lt;/p&gt;
+&lt;p&gt;4의 조상 번호 : 4&lt;br /&gt;
+2의 조상 번호 : 2&lt;br /&gt;
+2번은 4번을 따른다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -448,7 +804,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
@@ -461,17 +817,15 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;line-7&quot;&gt;line 7&lt;/h4&gt;
+&lt;h3 id=&quot;line-7&quot;&gt;line 7&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 1 1
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 1 1 // 1번과 1번을 합쳐라.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;1번과 1번을 합쳐라.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -484,28 +838,27 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;*&lt;em&gt;7&lt;/em&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;1의 조상 번호 : 1
-1의 조상 번호 : 1&lt;/p&gt;
-
-&lt;p&gt;1번은 1번을 따른다.&lt;/p&gt;
+&lt;p&gt;1의 조상 번호 : 1&lt;br /&gt;
+1의 조상 번호 : 1&lt;br /&gt;
+1번은 1번을 따른다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -518,7 +871,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
@@ -531,17 +884,15 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;line-8&quot;&gt;line 8&lt;/h4&gt;
+&lt;h3 id=&quot;line-8&quot;&gt;line 8&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 1 1
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 1 1 // 1번과 1번은 같은 바구니이니?
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;1번과 1번은 같은 바구니이니?&lt;/p&gt;
-
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
       &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
@@ -554,7 +905,7 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
@@ -567,13 +918,23 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;1의 조상 번호 : 1
+&lt;p&gt;1의 조상 번호 : 1&lt;br /&gt;
 1의 조상 번호 : 1&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Yes
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+&lt;h2 id=&quot;결론&quot;&gt;결론&lt;/h2&gt;
+
+&lt;p&gt;이런 방식으로 업데이트 하는 과정을 거치면, 묶인 집합을 효과적으로 찾을 수 있다. 결론적으로 구현해야 하는 함수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;union&lt;/code&gt; 함수이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;find&quot;&gt;find&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; 함수같은 경우에는, 특정 원소에 대해 물었을 때, 그 녀석이 속한 바구니를 끝까지 찾아 어떤 바구니인지 반환한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;union&quot;&gt;union&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;union&lt;/code&gt; 함수는 명령이 들어왔을 때, 각각이 속해있는 바구니를 찾고 그 바구니를 연결한다. 이 때, 중요한 것은 해당 원소의 바구니 번호를 찾아야 한다는 것이다.&lt;/p&gt;
 
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
 #include &amp;lt;algorithm&amp;gt;
@@ -618,13 +979,44 @@
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;이렇게 하면 시간 초과난다..!&lt;/p&gt;
+&lt;h1 id=&quot;시간-복잡도-문제&quot;&gt;시간 복잡도 문제&lt;/h1&gt;
 
-&lt;h2 id=&quot;시간-복잡도-해결&quot;&gt;시간 복잡도 해결&lt;/h2&gt;
+&lt;p&gt;하지만 위의 코드대로 한다면 문제가 발생한다. 그 이유는 원소의 개수가 많아짐에 따라 어떤 바구니에 들어있는지 탐색하는 시간이 오래걸리기 때문이다. 예제 입력에 대한 마지막 상황을 보자.&lt;/p&gt;
 
-&lt;p&gt;써라&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;h1 id=&quot;수정된-code&quot;&gt;수정된 Code&lt;/h1&gt;
+&lt;p&gt;이 상황에서, 6은 어느 바구니에 있을까? (6-&amp;gt;7-&amp;gt;3-&amp;gt;1) 로, 1번 바구니에 있다. 만약, 6번을 0번이 속한 바구니와 합치라는 명령이 들어온다면 4번의 연산을 수행해야 한다. 그렇다면, 극단적인 경우에, n개의 원소가 순차적으로 얽혀있고 (n-&amp;gt;n-1-&amp;gt;n-2-&amp;gt;…) n이라는 원소를 특정 바구니에 합치라는 명령이 들어올 경우, $O(n)$ 의 시간 복잡도를 갖는다. 이 때, 수행하는 명령의 개수가 m일 경우 $O(nm)$ 의 시간 복잡도를 갖는다. 현재 문제에서 n = 100000, m = 1000000이므로 시간 초과가 난다.&lt;/p&gt;
+
+&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
+
+&lt;p&gt;이 문제는 해결이 간단한데, find 함수에 찾는 과정에서, 최종 조상의 번호를 아예 해당 원소의 바구니라고 저장해버리는 것이다. 이 상황에서는 원소가 속해있는 바구니 번호가 중요한 것이지, 그 과정에서 발생하는 &lt;strong&gt;그래프&lt;/strong&gt;가 중요한 것이 아니기 때문이다.&lt;/p&gt;
 
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
 #include &amp;lt;algorithm&amp;gt;
@@ -1848,8 +2240,8 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
     
       <item>
         <title>백준(1325번): 효율적인 해킹</title>
-        <link>/cs/algorithm/2020/03/31/%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%ED%95%B4%ED%82%B9.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/31/%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%ED%95%B4%ED%82%B9.html</guid>
+        <link>/cs/algorithm/2020/03/31/%EB%B0%B1%EC%A4%80-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%ED%95%B4%ED%82%B9.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/03/31/%EB%B0%B1%EC%A4%80-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%ED%95%B4%ED%82%B9.html</guid>
         <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버2&lt;/em&gt;&lt;/strong&gt; : 그래프 문제이다.&lt;br /&gt;
 &lt;a href=&quot;https://www.acmicpc.net/problem/1325&quot;&gt;백준(1325번) - 효율적인 해킹&lt;/a&gt;&lt;/p&gt;
 
@@ -1973,10 +2365,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
     
       <item>
         <title>백준(10830번): 행렬 곱셈</title>
-        <link>/cs/algorithm/2020/03/31/%ED%96%89%EB%A0%AC-%EA%B3%B1%EC%85%88.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/31/%ED%96%89%EB%A0%AC-%EA%B3%B1%EC%85%88.html</guid>
+        <link>/cs/algorithm/2020/03/31/%EB%B0%B1%EC%A4%80-%ED%96%89%EB%A0%AC-%EA%B3%B1%EC%85%88.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/03/31/%EB%B0%B1%EC%A4%80-%ED%96%89%EB%A0%AC-%EA%B3%B1%EC%85%88.html</guid>
         <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 분할 정복 문제이다.&lt;br /&gt;
 &lt;a href=&quot;https://www.acmicpc.net/problem/10830&quot;&gt;백준(10830번) - 행렬 곱셈&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;특정 행렬을 10번 곱하라는 의미는, 곧 이렇게 해석 된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{align}
+A^10 &amp; = A^2 \times A^5 \\
+&amp;= A^2 \times A^2 \times A^3 \\
+&amp;= A^2 \times A^2 \times A^2 \times A \\
+\end{align} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;결국, 10이라는 숫자가 들어왔을 때, 2로 나누어지면 A를 제곱하고 ans에 업데이트, 나누어지지 않으면 A를 한번 곱하고, A제곱을 곱하여 업데이트 한다.&lt;/p&gt;
 
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -1994,7 +2399,6 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
 &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
@@ -2003,9 +2407,6 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-
-
 &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -2023,13 +2424,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
             &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-
-
-
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 31 Mar 2020 00:00:00 +0900</pubDate>
@@ -2037,8 +2432,8 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
     
       <item>
         <title>백준(1149번): RGB 거리</title>
-        <link>/cs/algorithm/2020/03/31/RGB%EA%B1%B0%EB%A6%AC.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/03/31/RGB%EA%B1%B0%EB%A6%AC.html</guid>
+        <link>/cs/algorithm/2020/03/31/%EB%B0%B1%EC%A4%80-RGB%EA%B1%B0%EB%A6%AC.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/03/31/%EB%B0%B1%EC%A4%80-RGB%EA%B1%B0%EB%A6%AC.html</guid>
         <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 동적계획법 문제이다.&lt;br /&gt;
 &lt;a href=&quot;https://www.acmicpc.net/problem/1149&quot;&gt;백준(1149번) - 이친수&lt;/a&gt;&lt;/p&gt;
 
@@ -2580,158 +2975,6 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: 운영체제란 무엇인가?</title>
-        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</link>
-        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html</guid>
-        <description>&lt;p&gt;운영체제에 대한 정의, 역할에 대해 알아본다.&lt;/p&gt;
-
-&lt;p&gt;운영체제는 사용자가 컴퓨터를 사용하기 위해 필요한 소프트웨어이다. 일반적으로 사용하는 모든 프로그램은 운영체제에서 그 자원을 관리한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;목적&quot;&gt;목적&lt;/h1&gt;
-
-&lt;p&gt;운영체제를 사용하는 가장 큰 목적은 하드웨어의 관리이다. 컴퓨터를 나타내는 가장 상징적인 장치는 CPU이지만, 추가적으로 많은 장치와 상호작용하며 동작한다. 그렇기에 이러한 하드웨어를 관리하는 소프트웨어가 있어야 효율적으로 컴퓨터를 사용할 수 있다. 하드웨어를 직접적으로 사용하는 것이 아니기 때문에, 이를 효율적으로 사용하기 위해서는 운영체제의 성능이 좋아야 한다.&lt;/p&gt;
-
-&lt;p&gt;두번째로는 사용자에게 편의를 제공하는 것이다. 운영체제가 없을 경우, 우리는 하드웨어 단에서 하드 코딩으로 원하는 작업을 실행해야 한다. 이는 매우 생산성이 떨어지는 방법이다. 그렇기 때문에 이런 자원 관리 측면을 자동으로 해주는 소프트웨어를 통해, 원하는 작업에만 몰두할 수 있는 환경을 제공한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
-
-&lt;p&gt;운영체제는 컴퓨터의 성능을 높히고(&lt;strong&gt;performance&lt;/strong&gt;), 사용자에게 편의성을 제공(&lt;strong&gt;Convenience&lt;/strong&gt;)을 목적으로 하는 컴퓨터 하드웨어 관리 프로그램이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;부팅-booting&quot;&gt;부팅 (Booting)&lt;/h1&gt;
-
-&lt;p&gt;컴퓨터를 사용하기 위해서 가장 먼저하는 행동은 전원버튼을 누르는 것이다. 그렇다면, 전원을 눌렀을 때, 시작해야 하는 작업들이 있을 것이다. 우리가 실제로 사용할 수 있는 운영체제가 실행되기 이전에 다양한 작업을 해야하는데, 이 작업을 부팅 이라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;어떻게-실행할-수-있을까&quot;&gt;어떻게 실행할 수 있을까?&lt;/h2&gt;
-
-&lt;p&gt;&lt;img width=&quot;1106&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77884826-c72a6680-72a0-11ea-995c-7e6c612ac194.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;기본적인 컴퓨터 구조는 위와 같다. 이 상황에서 부팅을 한다고 생각해보자. 컴퓨터는 원하는 작업을 실행할 때, Disk, RAM, CPU, RAM, Disk 순의 과정을 거치며 작동하게 된다. 그런데, 부팅을 하는 경우에는 어떻게 해야할까? 사실 Disk는 컴퓨터 입장에서는 보조 장치이다. 컴퓨터라고 부를 수 있는 실질적인 부분은 CPU, RAM이 전부이기 때문에 처음 부팅을 시작하면 CPU 에 부팅시 필요한 작업을 넘겨줄 수 없다.&lt;/p&gt;
-
-&lt;p&gt;따라서 우리는 일반적으로 프로그램이 동작하는 방식인 Disk, RAM, CPU 과정을 거칠 수 없기 때문에, 부팅에 한해서 RAM에 항상 저장된 공간을 필요로하게 되었는데, 그것이 ROM이다.&lt;/p&gt;
-
-&lt;p&gt;RAM과 ROM을 함께 Main Memory라 부른다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ROM: 비휘발성 으로 메모리에서 극히 일부를 차지한다.(수 KB)&lt;/li&gt;
-  &lt;li&gt;RAM: 휘발성 으로 메모리의 대부분을 차지하며 실제 프로그램이 할당되는 곳이다.(수 MB ~ 수 GB)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;부팅시-하는-작업엄밀한-정의의-부팅&quot;&gt;부팅시 하는 작업(엄밀한 정의의 부팅)&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;ROM의 정보를 읽는다.&lt;/li&gt;
-  &lt;li&gt;ROM안에 있는 POST(Power-On-Self-Test), 부트 로더(Boot-Loader)를 실행한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;POST는 전원이 켜지면 가장 처음에 실행되는 프로그램으로, 현재 컴퓨터의 상태를 검사한다. 이 것에는 장치가 연결되어 있는지, 멀쩡한 지 등의 상태를 뜻한다.&lt;/p&gt;
-
-&lt;p&gt;부트 로더는 하드디스크에 저장되어 있는 운영체제를 찾아서 메인 메모리(RAM)에 가지고 온다. 이러한 부트 로더의 과정을 부팅이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;1121&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77885825-b24ed280-72a2-11ea-99b4-aaf7e15f367e.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이렇게 메모리에 올라온 OS는 컴퓨터를 종료하기 전까지 계속 메모리에 상주한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;구조&quot;&gt;구조&lt;/h1&gt;
-
-&lt;p&gt;운영체제는 크게 커널(Kernel)과 명령어 해석기(Command interpreter, shell)로 나뉜다.&lt;/p&gt;
-
-&lt;p class=&quot;center&quot;&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887017-cf84a080-72a4-11ea-8810-b0918da5327c.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;커널(Kernel)은 운영체제의 핵심인 하드웨어를 다루는 코드를 말한다. 이 부분이 핵심이 때문에, Kernel에 따라 운영체제가 달라진다. 예를 들어 페도라, 우분투 등이 리눅스 운영체제라 부르는 것은, 이 운영체제가 리눅스 커널을 사용하기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;명령어 해석기(Command interpreter, shell)는 이 커널로 만들어진 코드를 동작하기 위해 만들어진 부분이다. Interface라고 볼 수 있다. GUI(Graphical User Interface)나 CLI(Command Line Interface) 같은 방식으로 운영체제에 명령을 요청할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;위치&quot;&gt;위치&lt;/h1&gt;
-
-&lt;p&gt;사용자 프로그램(Application)은 특정 운영체제에 맞춰서 만든다. 그러므로 한 애플리케이션은 서로 다른 운영체제에서 수행할 수 없다. (하드웨어가 같은 것은 전혀 상관이 없다.) 예를 들면 Windows에서 수행하는 프로그램을 그대로 Linux에 옮기면 수행되지 않는다. 이전 글에서 보았듯이 &lt;strong&gt;사용자 프로그램은 자원을 OS를 통해 요청&lt;/strong&gt;한다. 그렇기 때문에 해당 운영체제의 Interface를 따라야 하고, 그렇기 때문에 운영체제가 다를 경우 동작할 수 없다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;947&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77887354-63ef0300-72a5-11ea-9231-1c571b962db6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;추가적으로 국가에 비유하여 생각해 볼 수도 있다.&lt;br /&gt;
-&lt;a href=&quot;https://wansook0316.github.io/cs/structure/2020/03/21/컴퓨터구조-용어정리.html&quot;&gt;영토, 정부, 가족, 개인 비유&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
-Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
-</description>
-        <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>07: 운영 체제가 하는 일</title>
-        <link>/cs/structure/2020/03/27/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html</link>
-        <guid isPermaLink="true">/cs/structure/2020/03/27/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html</guid>
-        <description>&lt;p&gt;운영 체제가 하는 일을 간단하게 알아보자.&lt;/p&gt;
-
-&lt;p&gt;최호성님의 유튜브 강의를 보며 기본적인 컴퓨터 구조를 이해하고 정리하자.&lt;/p&gt;
-
-&lt;h1 id=&quot;운영체제가-하는-일&quot;&gt;운영체제가 하는 일&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;접근 제어 + 동기화 + 관리&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;전산 자원을 관리한다. 대표적인 전산 자원은 CPU, RAM 등이 있다. &lt;del&gt;스타판 프로게이머&lt;/del&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;프로그램들-관리하기&quot;&gt;프로그램’들’ 관리하기&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Process를 관리&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;한정된 자원으로 많은 프로그램들이 동작해야 한다. 어쩔 수 없이 나눠서 사용해야 한다.&lt;/p&gt;
-
-&lt;p&gt;아래 단어들의 의미를 모른다면, 용어를 알고 다시 읽자.
-&lt;a href=&quot;https://wansook0316.github.io/cs/architecture/2020/03/25/컴퓨터구조-용어정리.html&quot;&gt;하드웨어, 운영체제, 프로세스, 스레드 용어 정리&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;scheduling&quot;&gt;Scheduling&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;멀티 프로세스 운영체제에서 하나의 CPU가 복수의 프로세스를 실행하기 위해 CPU를 사용하는 순서를 정해주는 작업&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img width=&quot;1210&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77846957-870daa00-71f4-11ea-85a8-4de42f067d62.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이렇게 다양한 프로세스를 동시에 작업하게 되면, 스레드가 CPU를 사용하고 있을 떄, 사용하고 있다고 알려주는 &lt;strong&gt;&lt;em&gt;동기화&lt;/em&gt;&lt;/strong&gt;가 매우 중요하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;virtual-memory-system&quot;&gt;Virtual Memory System&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;RAM과 HDD를 하나의 논리적 메모리로 추상화시킨 메모리 관리 방법&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;프로세스가 운영체제로 부터 메모리를 할당 받는 일은 시간이 많이 걸리는 일이다. 그렇기 때문에 최대한 RAM 공간에 할당 받은 채로 존재하는 것이 속도를 높일 수 있는 방법이다. 또한 여러개의 프로세스를 사용할 경우, RAM 공간을 초과하여 프로세스가 동작하지 않는다. 이런 부분들을 해결하기 위해 HDD 공간을 활용한 것이 가상 메모리 시스템이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;단위&quot;&gt;단위&lt;/h3&gt;
-
-&lt;p&gt;이 곳에서 모든 메모리는 &lt;strong&gt;Page&lt;/strong&gt;라는 단위로 관리된다. HDD와 RAM을 왔다갔다 하는 단위이다. 이 중에는 Paged 될 수 있는 &lt;strong&gt;페이징 풀&lt;/strong&gt; 영역과 절대로 Paged 되면 안되는 &lt;strong&gt;비 페이징 풀&lt;/strong&gt; 영역이 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;virtual-memory의-구성&quot;&gt;Virtual Memory의 구성&lt;/h3&gt;
-
-&lt;p&gt;집의 공간을 가족 구성원들이 나눠쓰듯이 프로세스의 가상 메모리 공간을 thread가 나눠서 사용한다. 이 나눠서 사용하는 공간을 &lt;strong&gt;Stack&lt;/strong&gt;이라 한다. 이 thread에 할당된 메모리 공간이 stack을 사용하여 관리되기 때문에 Stack이라 불린다.&lt;/p&gt;
-
-&lt;p&gt;프로세스는 Heap과 실행 코드 영역을 갖는다.&lt;br /&gt;
-&lt;a href=&quot;http://127.0.0.1:4000/cs/os/2020/04/01/운영체제-정리-05-운영체제-프로세스-관리.html&quot;&gt;운영체제 정리 05: 프로세스 관리&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;동작-방법&quot;&gt;동작 방법&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;RAM이 꽉찼는 지 확인한다.&lt;/li&gt;
-  &lt;li&gt;꽉찼다면 현재 RAM 공간 중에 사용하지 않는 프로세스가 할당된 공간이 있다면 이것을 HDD 공간에 복사해둔다. &lt;strong&gt;Page Out&lt;/strong&gt;(&lt;em&gt;Swap Out&lt;/em&gt;)&lt;/li&gt;
-  &lt;li&gt;RAM 공간이 비게 될 경우 복사해 둔 공간을 다시 RAM으로 복사한다. &lt;strong&gt;Page in&lt;/strong&gt;(&lt;em&gt;Swap in&lt;/em&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;프로세스-별-가상-메모리의-크기&quot;&gt;프로세스 별 가상 메모리의 크기&lt;/h3&gt;
-
-&lt;p&gt;이러한 가상 메모리 시스템이 있기 때문에, 프로세스가 실행 되고 할당 받는 메모리 공간은 4GB로 할당한다. 이 크기는 현실적으로 RAM만 사용한다면 말이 안되는 소리지만, 가상 메모리를 사용하게 되면 문제없다.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 27 Mar 2020 00:00:00 +0900</pubDate>
       </item>
     
   </channel>

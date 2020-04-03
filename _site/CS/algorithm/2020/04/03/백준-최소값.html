@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>백준(10868번): 최소값 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="플래티넘5 : 세그먼트 트리 문제이다.백준(10868번) - 최소값">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EC%B5%9C%EC%86%8C%EA%B0%92.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/34.jpg')">
+    <h1 class="title">백준(10868번): 최소값</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+      
+    </p>
+
+    <p class="meta">
+      April 3, 2020
+      
+    </p>
+  </header>
+
+  
+
+  <section class="post-content">
+  
+  <p><strong><em>플래티넘5</em></strong> : 세그먼트 트리 문제이다.<br />
+<a href="https://www.acmicpc.net/problem/10868">백준(10868번) - 최소값</a></p>
+
+<h1 id="생각">생각</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">0</th>
+      <th style="text-align: center">1</th>
+      <th style="text-align: center">2</th>
+      <th style="text-align: center">3</th>
+      <th style="text-align: center">4</th>
+      <th style="text-align: center">5</th>
+      <th style="text-align: center">6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">7</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">9</td>
+      <td style="text-align: center">8</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>입력값이 이렇게 주어진다고 생각해보자. 이 상태에서 3~6까지의 최소값을 구하는 것은, 단순한 방법으로 구해도 $O(n^2)$으로 풀 수 있다. 하지만 이러한 확인(쿼리)가 많아진다면, 급격하게 시간 복잡도가 올라간다. 따라서 이 문제에서 제시하는 m(100000) 개에 대해서 n(100000)을 모두 확인하는 방법으로 간다면 문제를 풀 수 없다.(O(n^2))</p>
+
+<h2 id="문제의-원인">문제의 원인</h2>
+
+<p>그렇다면 어느 부분에서 연산이 많이 걸리는 지 생각해보자. 가장 큰 부분을 판단을 중복으로 한다는 것이다. 0~3까지의 최소값을 구하는 것과, 1~4까지의 최소값을 구하는 과정에는 1~3까지의 최소값을 비교하는 과정이 중복된다. <strong>그렇다면, 처음에 주어진 index를 나누어, 그 나눈 구간에 대해 최소값을 구해놓으면 어떨까?</strong></p>
+
+<h2 id="어떻게-나눌까">어떻게 나눌까?</h2>
+
+<p>나누겠다는 생각이 들고 난 후에는, 어떻게 하면 잘 나눌 수 있을 지에 대해 고민했다. 이 부분은 트리가 가장 용이하다. 정보를 저장하는 자료구조 중, 탐색에 있어 시간복잡도가 log이다. 나누는 방법은 생각 보다 간단하다.</p>
+
+<h2 id="tree-구조">Tree 구조</h2>
+
+<p>트리의 구조는 모양의 변화를 가지는 것이다. 우리가 보통 가지는 선형 리스트를 조금 바꾸어 생각하면 쉽게 트리 구조를 만들 수 있다.</p>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78343020-31127b00-75d5-11ea-9101-90d66c732c56.png" class="center" /></p>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78343047-3a9be300-75d5-11ea-9e8d-15a83f519ca4.png" class="center" /></p>
+
+<p>이렇게 2의 제곱수만큼의 개수를 아래쪽으로 옮기면서 쌓으면 트리 구조가 된다. 이 때, 중요한 것은 가장 위층으로 부터 아래로 내려오는데 그 <strong>index들의 관계</strong>를 아는 것이다. 잘 보면, 1에서 2, 3은 $2\times 1$, $2\times 1 + 1$ 과 같다. 왼쪽 트리, 오른쪽 트리로 가는 관계는 계속 일관성을 가진다.</p>
+
+<h2 id="segment-tree">Segment Tree</h2>
+
+<p>그렇다면 이번에는 이 트리 구조를 이 문제에 맞는 모양으로 바꾸어 보자. 우리는 최소값을 미리 저장하기 위해 트리구조를 사용하기로 했는데, 그 구조를 아래와 같이 만들어서 생각해보자.</p>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78342850-eabd1c00-75d4-11ea-8852-6372f21d6443.png" class="center" /></p>
+
+<p>기본적인 트리구조는 같지만 추가된 변수가 있다. 그것은 index의 시작과 끝을 나타내는 start~end 변수이다. 이렇게 나누었다고 가정하고, 2~5까지의 최소값을 얻기위해 조사해야 하는 Node의 개수를 파악해보자.</p>
+
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78343659-24daed80-75d6-11ea-8b12-9fe8f87d383d.png" class="center" /></p>
+
+<p>이렇게 3개의 값만 조사하면 최소값을 얻을 수 있다! 이 때 발생하는 시간 복잡도는 $log(N)$ 이다. depth가 내려갈 수록 반씩 조사를 덜 할 수 있기 때문이다.</p>
+
+<h3 id="tree에-필요한-node-수">tree에 필요한 node 수</h3>
+
+<p>위 예시에서 총 7개의 원소를 넣기 위해 필요한 node의 개수는 총 13개 이다. 이 13개를 다 넣기 위해 필요한 트리의 깊이는 총 4이다. 이 값을 얻기 위한 수식은 다음과 같다.</p>
+
+<script type="math/tex; mode=display">depth = ceil(log_2(n)) + 1\\
+treeSize = 2^{depth}</script>
+
+<p>보통의 tree는 input으로 들어오는 요소의 개수와 트리의 node번호가 일치하지만, 이 경우는 depth가 1개 추가되므로 1을 더해주어야 한다. 이것을 코드로 구현하면 다음과 같다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">h</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="n">treeSize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">h</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;&lt;</code>은 shift 연산자로, 2진 연산을 할 때, 자리수를 올려주는 역할을 한다.</p>
+
+<h2 id="init-초기화">init (초기화)</h2>
+
+<p>처음에 input을 받고서, 가장 먼저 해야하는 일은, input을 tree안에 넣는 것이다. 그런데 우리가 설계한 세그먼트 트리를 생각해보면, 이 친구는 아래 node가 결정된 뒤에 상위 노드가 결정될 수 있다. 재귀로 짜면 해결될 것이다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">input</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">start</span><span class="p">];</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">init</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">init</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+    <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">],</span> <span class="n">tree</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>init 함수의 argument로는 input 벡터, tree 벡터, 내가 기록할 node의 index, 처음 node가 커버하게 될 index의 시작과 끝이 필요하다. 그 뒤로는 아까 트리 구조에서 본 왼쪽, 오른쪽 노드로 가는 함수 관계에 따라 init함수를 계속 수행하면 된다. 종료조건은, 그림에서 보았듯이 start와 end과 같아지는 지점에서 input에 start 해당하는 index의 값을 넣어준다.</p>
+
+<h2 id="find">find</h2>
+
+<p>저장된 자료구조에서 찾는 과정이다. 내가 찾으려고 하는 범위을 <code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code> 라 하고, 내가 처음에 탐색을 시작할 노드의 번호를 <code class="language-plaintext highlighter-rouge">node</code>, 그 노드가 커버하는 index의 범위를 <code class="language-plaintext highlighter-rouge">start</code>, <code class="language-plaintext highlighter-rouge">end</code>라 하자. tree의 가장 위부터 탐색을 시작할 때, 범위에 걸리는 녀석들만 비교의 대상이 되어야 한다. 이런 범위를 따져보면 총 3가지로 나눌 수 있다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code> 사이에 현재 노드의 커버범위가 들어온다.
+    <ul>
+      <li>후보로 선정한다.</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">left</code>, <code class="language-plaintext highlighter-rouge">right</code> 와 현재 노드의 커버범위가 전혀 겹치지 않는다.
+    <ul>
+      <li>버린다.</li>
+    </ul>
+  </li>
+  <li>애매하게 걸친다.
+    <ul>
+      <li>더 깊이 들어가서 조사한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>이 과정을 구현하면 다음과 같다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">findMin</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">,</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="n">end</span> <span class="o">||</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">INF</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">start</span> <span class="o">&amp;&amp;</span> <span class="n">end</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">findMin</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">findMin</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="code">Code</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;vector&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mi">1111111111</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">input</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">input</span><span class="p">[</span><span class="n">start</span><span class="p">];</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">init</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">init</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+    <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">tree</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">],</span> <span class="n">tree</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">findMin</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">node</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">,</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="n">end</span> <span class="o">||</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">start</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">INF</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">start</span> <span class="o">&amp;&amp;</span> <span class="n">end</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">tree</span><span class="p">[</span><span class="n">node</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">findMin</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">findMin</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">node</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span> <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">treeSize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">h</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">tree</span><span class="p">(</span><span class="n">treeSize</span><span class="p">,</span> <span class="n">INF</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+       <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">init</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">left</span> <span class="o">&gt;&gt;</span> <span class="n">right</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">findMin</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">left</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%8A%B8%ED%8A%B8%EB%A6%AC">#세그먼트트리</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
