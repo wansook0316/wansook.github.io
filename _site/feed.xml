@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Sat, 04 Apr 2020 01:15:53 +0900</pubDate>
+    <pubDate>Sat, 04 Apr 2020 02:00:56 +0900</pubDate>
     
       <item>
         <title>백준(10868번): 최소값</title>
@@ -41,7 +41,7 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;입력값이 이렇게 주어진다고 생각해보자. 이 상태에서 3~6까지의 최소값을 구하는 것은, 단순한 방법으로 구해도 $O(n^2)$으로 풀 수 있다. 하지만 이러한 확인(쿼리)가 많아진다면, 급격하게 시간 복잡도가 올라간다. 따라서 이 문제에서 제시하는 m(100000) 개에 대해서 n(100000)을 모두 확인하는 방법으로 간다면 문제를 풀 수 없다.(O(n^2))&lt;/p&gt;
+&lt;p&gt;입력값이 이렇게 주어진다고 생각해보자. 이 상태에서 3~6까지의 최소값을 구하는 것은, 단순한 방법으로 구해도 $O(n^2)$으로 풀 수 있다. 하지만 이러한 확인(쿼리)가 많아진다면, 급격하게 시간 복잡도가 올라간다. 따라서 이 문제에서 제시하는 m(100000) 개에 대해서 n(100000)을 모두 확인하는 방법으로 간다면 문제를 풀 수 없다.($O(n^2)$)&lt;/p&gt;
 
 &lt;h2 id=&quot;문제의-원인&quot;&gt;문제의 원인&lt;/h2&gt;
 
@@ -196,6 +196,144 @@ treeSize = 2^{depth}&lt;/script&gt;
         &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findMin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 03 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>백준(2042번): 구간 합 구하기</title>
+        <link>/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EA%B5%AC%EA%B0%84-%ED%95%A9-%EA%B5%AC%ED%95%98%EA%B8%B0.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EA%B5%AC%EA%B0%84-%ED%95%A9-%EA%B5%AC%ED%95%98%EA%B8%B0.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;플래티넘5&lt;/em&gt;&lt;/strong&gt; : 세그먼트 트리 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/2042&quot;&gt;백준(2042번) - 구간 합 구하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;전형적인 세그먼트 트리 문제이다. 구간에 대한 합을 연속된 쿼리로 물어보는 경우인데, 이런 경우 단순하게 짜면 그냥 펑!이다. 이 문제 같은 경우는 추가적으로 수가 변형되는데, 이전 &lt;a href=&quot;https://wansook0316.github.io/cs/algorithm/2020/04/03/%EB%B0%B1%EC%A4%80-%EC%B5%9C%EC%86%8C%EA%B0%92.html&quot;&gt;백준(10868번): 최소값&lt;/a&gt;에서 한 단계 업그레이드 되었다고 보면된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;update&quot;&gt;update&lt;/h2&gt;
+
+&lt;p&gt;업데이트는 별 것 없다. 내가 바꾸고 싶은 녀석의 트리 하위 노드에 접속하여, 그 노드가 영향을 주는 노드만 쏙쏙 업데이트 해주면 된다. 만약 2번 값을 바꾸고 싶다면 2번이 영향을 주는 노드는 파란색 노드들 이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78384158-a2255300-7614-11ea-8421-cdfc33947414.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;del&gt;사실 이 부분을 생각할 때, 위 방법 말고, 차이를 다 더해주는 방법을 생각했는데 좋지 않아 적지 않는다.&lt;/del&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;p&gt;이번에는 클래스로 구현했다. 그런데, 클래스로 구현하면 속도가 매우 느리다고 한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;private&lt;/code&gt; 키워드도 느리니 쓰지 말라한다. &lt;del&gt;흥.&lt;/del&gt; 구조체로 구현하라고 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;vector&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SegmentTree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;private:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;public:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;SegmentTree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ceil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;treeSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;treeSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SegmentTree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;changed_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;SegmentTree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changeCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;changeCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;printCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;changeCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;printCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
@@ -2788,184 +2926,6 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
 &lt;p&gt;이를 해결하는 방법은 Timer를 두어 일정 시간이 지나면 &lt;strong&gt;타이머 인터럽트&lt;/strong&gt;를 발생시킨다. 인터럽트가 발생하면 반드시 운영체제 내의 ISR로 이동하므로, 해당 ISR에서 각 프로그램의 CPU 점유 시간을 측정하여 적절히 분배되도록 조정한다.&lt;/p&gt;
 
 &lt;p&gt;예를 들어, 한 프로그램의 CPU 점유 시간이 비정상적으로 오래 걸리는 경우, 강제로 다른 프로그램으로 CPU를 전환시켜 줄 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
-Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
-</description>
-        <pubDate>Mon, 30 Mar 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>02: 운영체제의 역사</title>
-        <link>/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html</link>
-        <guid isPermaLink="true">/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html</guid>
-        <description>&lt;p&gt;일괄처리부터 시분할시스템, 최근의 고급운영체제, 인터럽트에 기반한 현대 운영체제까지 변천 역사를 알아본다.&lt;/p&gt;
-
-&lt;h1 id=&quot;1-초기-컴퓨터&quot;&gt;1. 초기 컴퓨터&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;노가다, 사람 손도 많이가, 장치도 엄청커, 비싸기도 비싸&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;운영체제는 컴퓨터가 발전하면서 같이 발전하게 되었다. 초기 컴퓨터는 크게 3가지로 구성되었다. 카드 리더, 프로세서, 프린터이다. 카드 리더는 입력기이다. 입력은 종이에 입력할 코드에 맞는 구멍을 뚫어서 넣어주는 방식이었다. 프로세서는 현재와 비슷한 계산하는 역할이었고, 프린터는 입력에 대한 결과를 종이에 찍어서 보여주었다. 이 시기에는 운영체제도 존재하지 않았으므로, 오퍼레이터(operator)라는 컴퓨터를 사용하는 직업이 따로 있었고, 컴퓨터의 크기 또한 너무 커서 건물 전체를 사용해야할 정도였다.&lt;/p&gt;
-
-&lt;h1 id=&quot;2-batch-processing-system일괄-처리-시스템&quot;&gt;2. Batch processing system(일괄 처리 시스템)&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;코드로 반복되는 거 좀 자동화 하자!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img width=&quot;634&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77924633-ddefae00-72de-11ea-8d68-976a20051552.png&quot; class=&quot;center&quot; /&gt;
-위에서 초기 컴퓨터의 상황을 살펴보았는데, 프로그램을 수행할 때마다 컴파일-&amp;gt;링크-&amp;gt;로딩 순서를 오퍼레이터가 직접 입력해주었다. 이러한 과정을 자동화한 것이 batch processing system 이다. 위 과정을 하나의 프로그램으로 작성하여 프로세서의 메모리안에 할당해주었는데, 이 프로그램을 resident monitor라고 불렀다.&lt;/p&gt;
-
-&lt;p&gt;resident는 “거주” 라는 의미로 이 프로그램이 항상 프로세서안에서 거주한다는 의미로 이러한 이름을 사용하였다. 그리고 이것이 &lt;strong&gt;최초의 운영체제&lt;/strong&gt;로 알려져 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;3-multiprogramming-system다중-프로그래밍&quot;&gt;3. Multiprogramming system(다중 프로그래밍)&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;CPU가 노는 시간이 너무 많은데? 쉴 동안 다른일을 시켜버리자.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;과거에는 컴퓨터가 매우 비싼 장비였다. 그리고 초창기 메모리의 상태는 resident monitor를 제외하고 &lt;strong&gt;단 하나의 애플리케이션만을 할당하여 사용&lt;/strong&gt;하였다. 하지만 이는 매우 비효율적인 방법이었다.&lt;/p&gt;
-
-&lt;p&gt;프로그램을 수행하는 도중에는 계산을 하는 CPU 외에도 입출력을 담당하는 I/O장치가 수행한다. 즉, &lt;strong&gt;CPU와 I/O장치가 교대로 동작&lt;/strong&gt;하는데 I/O장치가 수행하는 동안에는 &lt;strong&gt;CPU가 아무것도 할 일이 없었다.&lt;/strong&gt; CPU가 아무일도 안하는 상태를 &lt;strong&gt;&lt;em&gt;idle&lt;/em&gt;&lt;/strong&gt; 상태라고 말한다. 그리고 I/O장치는 CPU에 비해 매우 느리기때문에 idle 상태의 비율이 너무 높았다. 이러한 비효율적인 수행을 해결하기 위해 multiprogramming system이 나왔다. &lt;del&gt;즉 CPU를 못놀게 하자&lt;/del&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;방법&quot;&gt;방법&lt;/h2&gt;
-
-&lt;p&gt;Multiprogramming system은 메모리에 여러 애플리케이션(프로그램)을 올리는 시스템이다. 예를 들어 a, b 두 개의 애플리케이션이 있을 떄, 처음에는 a에서 CPU 수행을 하다가 I/O장치 수행으로 넘어간다. 이 순간 CPU는 idle 상태에 있지 않고 b가 있다는 것을 보고 b의 CPU 수행을 시작한다. 이렇게 &lt;strong&gt;idle상태의 시간을 최대한 줄이고자 하였다.&lt;/strong&gt; 이런 동작을 가능하게 하려면 앞서 말했듯, 메모리에 여러 어플리케이션을 올린 상태여야만 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;한계-및-문제&quot;&gt;한계 및 문제&lt;/h2&gt;
-
-&lt;p&gt;하지만 메모리에 여러 프로그램을 올리면서 많은 문제점이 발생했다. 가장 큰 문제점은 CPU가 &lt;strong&gt;어느 프로그램을 수행해야하는지 선택&lt;/strong&gt;하는 것이다. 이러한 작업을 &lt;strong&gt;&lt;em&gt;CPU 스케줄링&lt;/em&gt;&lt;/strong&gt;이라고 하며, 이는 운영체제의 중요한 역할 중 하나이다. 그리고 여러 어플리케이션의 공간을 할당한다는 전제 조건 때문에, 새롭데 들어온 어플리케이션에 대해 &lt;strong&gt;어느 메모리 공간에 할당&lt;/strong&gt;해야하는지도 큰 문제였다. 이러한 문제도 운영체제가 다뤄야 하는 중요한 과제로 남았다.&lt;/p&gt;
-
-&lt;h1 id=&quot;4-time-sharing-system시분할-시스템&quot;&gt;4. Time-sharing system(시분할 시스템)&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;하나 다 끝날 때까지 기다리지 말고 Interval을 주자!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;시간이 지나 모니터와 키보드를 사용하면서 사용자와 컴퓨터 사이에 대화 형식이 가능해졌다. 하지만 여전히 컴퓨터 자체가 너무 비쌌기 때문에 아래와 같이 단말기(terminal) 형태로 사용하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;1026&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77890996-43c24280-72ab-11ea-9987-b9384ebb4975.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;각 사용자(User)들은 모니터와 키보드만을 가지고, 실제 프로세서는 하나의 단말기에 존재하여 이를 공유하여 사용하였다. 멀티 프로그래밍에서는 이와 같은 단말기 형태에서 문제가 생긴다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 단말기 메모리에 User1 프로그램, User2 프로그램, User3 프로그램이 할당되어 있고 User1이 먼저 CPU를 사용한다고 하자. &lt;strong&gt;멀티프로그래밍에서는 User1이 CPU를 수행하고 있는 도중에는 다른 사용자는 CPU자체를 사용할 수 없다.&lt;/strong&gt; (CPU가 하나인 환경) 그러므로 다른 사용자들은 User1이 CPU수행을 모두 마칠 때까지(또는 I/O를 만날 때까지) 기다려야한다. 하지만 이는 매우 비효율적이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
-
-&lt;p&gt;이를 해결하기 위해 나온 것이 time-sharing system이다. 시분할 시스템은 CPU가 하나의 프로그램을 수행하는 &lt;strong&gt;시간을 제한&lt;/strong&gt;하는 것이다. 예를 들어, User1 프로그램을 일정 시간 수행하면 반드시 다음 프로그램으로 넘어가서(스위칭, switching) 또 다시 일정 시간을 수행한다. 이렇게 일정 시간을 두어 프로그램들을 번갈아 수행하면서 모든 프로그램이 공평하게 수행이 되도록 한다. 그리고 이 일정 시간은 매우 짧은 시간(ms)이므로 CPU가 하나인 환경에서도 여러 사용자가 동시에 사용하는 듯한 효과를 가져온다. 가장 대표적인 시분할 시스템은 Unix가 있었다.&lt;/p&gt;
-
-&lt;h2 id=&quot;한계-및-문제-1&quot;&gt;한계 및 문제&lt;/h2&gt;
-
-&lt;p&gt;시분할 시스템을 사용하면서 여러 사용자(프로세스)간에 통신이 가능해졌다. 하지만 여기서도 여전히 멀티프로그래밍에서와 같은 스케줄링과 메모리 문제가 있었다. 이를 해결하기 위해 동기화 기술, 가상 메모리 등이 이후에 나왔다.&lt;/p&gt;
-
-&lt;h1 id=&quot;5-고등-운영체제&quot;&gt;5. 고등 운영체제&lt;/h1&gt;
-
-&lt;h2 id=&quot;51-다중-프로세서-시스템-multiprocessor-system&quot;&gt;5.1 다중 프로세서 시스템 (Multiprocessor system)&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;CPU가 여러개&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img width=&quot;1123&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77924855-2f983880-72df-11ea-858c-e0b5edd81195.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;병렬 시스템 (parallel system)
-    &lt;ul&gt;
-      &lt;li&gt;여러개의 CPU가 동시에 처리할 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;강결합 시스템 (tightly-coupled system)
-    &lt;ul&gt;
-      &lt;li&gt;메모리에 여러 CPU가 연결되어 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3가지 장점: performance, cost, reliability
-    &lt;ul&gt;
-      &lt;li&gt;여러 일꾼을 쓰니 빠르다.&lt;/li&gt;
-      &lt;li&gt;싸지만 여러개를 사용하는게 같은 성능대비 가격이 싸다.&lt;/li&gt;
-      &lt;li&gt;하나가 망가져도 작동할 수 있다. 신뢰도가 높다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;다중 프로세서 운영체제 (Multiprocessor OS)
-    &lt;ul&gt;
-      &lt;li&gt;CPU가 늘어났기 때문에, 다른 처리 방법이 필요하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;52-분산-시스템-distributed-system&quot;&gt;5.2 분산 시스템 (Distributed system)]&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;컴퓨터가 여러대, 근데 묶여있다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img width=&quot;1074&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77925028-56ef0580-72df-11ea-9300-1c34d22eeb67.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;다중 컴퓨터 시스템 (multi-computer system)
-여러대의 컴퓨터로 만든 시스템이다.&lt;/li&gt;
-  &lt;li&gt;소결합 시스템 (loosely-coupled system)
-    &lt;ul&gt;
-      &lt;li&gt;메모리가 느슨하게 연결되어 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;3가지 장점: performance, cost, reliability
-    &lt;ul&gt;
-      &lt;li&gt;여러 일꾼을 쓰니 빠르다.&lt;/li&gt;
-      &lt;li&gt;싸지만 여러개를 사용하는게 같은 성능대비 가격이 싸다.&lt;/li&gt;
-      &lt;li&gt;하나가 망가져도 작동할 수 있다. 신뢰도가 높다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;분산 운영체제 (Distributed OS)&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;다른 컴퓨터들을 관리해야 하기 때문에 새로운 처리 방법이 필요하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;53-실시간-시스템-real-time-system&quot;&gt;5.3 실시간 시스템 (Real-time system)&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;시간 제약: Deadline&lt;/li&gt;
-  &lt;li&gt;공장 자동화 (FA), 군사, 항공, 우주&lt;/li&gt;
-  &lt;li&gt;실시간 운영체제 (Real-time OS = RTOS)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;6-인터럽트-기반-시스템interrupt-based-system&quot;&gt;6. 인터럽트 기반 시스템(Interrupt based system)&lt;/h1&gt;
-
-&lt;p&gt;현대 운영체제는 인터럽트 기반 시스템이다. 그렇다면 인터럽트는 무엇인가?&lt;/p&gt;
-
-&lt;h2 id=&quot;61-인터럽트&quot;&gt;6.1 인터럽트&lt;/h2&gt;
-
-&lt;p&gt;컴퓨터에 전원이 들어오면 위에서 말했듯이 부팅이 시작된다. 먼저, POST과정이 시작되고 그 후에 부트 로더가 하드 디스크에 있는 운영체제 프로그램을 RAM에 가져와 할당한다. 할당된 운영체제는 컴퓨터의 전원이 꺼질 때까지 상주(resident)한다.&lt;/p&gt;
-
-&lt;p&gt;부팅이 끝나고 운영체제가 동작하는 동안 수 많은 인터럽트가 발생할 수 있다. 예를 들어, 사용자가 마우스를 움직인다고 가정하자. 이 동작을 컴퓨터는 어떻게 알 수 있을까? 바로 &lt;strong&gt;인터럽트&lt;/strong&gt;를 통해 알 수 있다. 마우스를 움직이는 순간, 마우스에서 인터럽트 전기 신호가 발생하여 이를 CPU에게 보낸다. CPU는 이를 감지하고, 자신이 하던 일을 멈춘 후에 이 인터럽트 신호를 처리하기 위해 운영체제 내부에 있는 &lt;strong&gt;인터럽트를 처리하는 코드(interrupt service routine, ISR)&lt;/strong&gt;로 이동한다. 이 곳에 마우스가 움직일 때 어떻게 동작해야하는지가 내포되어 있어 이를 수행한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;62-인터럽트의-종류와-동작방법&quot;&gt;6.2 인터럽트의 종류와 동작방법&lt;/h2&gt;
-
-&lt;p&gt;이러한 하드웨어에서 발생한 인터럽트를 &lt;strong&gt;하드웨어 인터럽트(Hardwore Interrupt)&lt;/strong&gt; 라고 한다. 인터럽트라고 하면 기본적으로 하드웨어 인터럽트를 말하지만, 소프트웨어에서도 인터럽트를 요청을 할 수 있다. 이를 &lt;strong&gt;소프트웨어 인터럽트(Software Interrupt)&lt;/strong&gt; 라고 한다. 소프트웨어 인터럽트는 명령어로 직접 인터럽트 전기 신호를 CPU에게 보낼 수 있다. 즉, 프로그램에서 swi, int 와 같은 어셈블리어 명령어를 수행하는 것이다. (명령어는 운영체제마다 다르다. 위의 명령어는 CPU에서 어셈블리어 코드 중 일종으로, interupt를 처리하라는 명령어이다.)&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 마우스로 워드 작성 프로그램을 실행시킨다고 하자. 워드 작성 프로그램을 실행시키는 것까지는 &lt;strong&gt;하드웨어 인터럽트&lt;/strong&gt;가 수행된다.(마우스가 이동하여 더블 클릭으로 실행하는 경우이다.) 이 프로그램에서 사용자가 하드디스크에 있는 다른 워드 파일을 읽고 싶은 경우, &lt;strong&gt;소프트웨어 인터럽트&lt;/strong&gt;를 발생시킨다. 소프트웨어 인터럽트 역시 하드웨어 인터럽트와 동일하게 운영체제 내부에 해당 인터럽트를 처리하는 코드(ISR)가 존재하여 이 곳으로 이동한다. 여기서 하드디스크에서 읽을 파일을 찾아서 반환해주는 수행을 처리하는 것이다.&lt;/p&gt;
-
-&lt;p&gt;마지막으로 &lt;strong&gt;내부 인터럽트(Internal Interrupt)&lt;/strong&gt;가 있다. 내부 인터럽트는 프로그램을 수행하는 도중에 발생하는 예외 상황을 처리한다. 대표적인 예로 0으로 나누는 동작이다. 프로그램의 내부에 result = a / 0; 이와 같은 코드가 있을 때, CPU는 내부 인터럽트를 발생시켜 운영체제안에 있는 ISR로 이동한다. 이 경우에는 DividedByZero 라는 ISR로 이동한다. 여기서 잘못된 동작을 수행한 프로그램을 강제로 종료시킨다.&lt;/p&gt;
-
-&lt;p&gt;운영체제는 평소에는 대기 상태에 있으면서 인터럽트가 발생하는 순간 작업을 수행한다. 그 인터럽트의 종류에 따라 운영체제 내부에 위치한 ISR로 이동하여 그에 맞는 처리를 한다. 위에서 설명한 하드웨어 인터럽트 과정을 그림으로 간단히 표현하면 아래와 같다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;1158&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/77916530-281f6200-72d4-11ea-8c3e-1a9211cce460.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 사용자 애플리케이션을 실행하기 위해 하드웨어를 사용하는 모습이다. 애플리케이션이 실행하는 중에도 계속해서 인터럽트는 발생한다. 워드 작성 프로그램을 예를 들면 키보드로 글을 작성하는 경우, 하드디스크에 있는 파일을 불러오는 경우 모두 인터럽트가 발생한다. 그러므로 CPU는 애플리케이션과 운영체제 내부를 교대로 수행하는 모습을 볼 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
-
-&lt;p&gt;정리하면, 인터럽트는 CPU에게 보내는 전기 신호로서 인터럽트가 발생하면 CPU는 하던 일을 중지하고 해당 인터럽트를 처리하기 위해 운영체제 내부에 있는 ISR로 이동하여 수행한다. 그리고 수행이 끝나면 원래 위치로 돌아간다. 인터럽트는 하드웨어 인터럽트, 소프트웨어 인터럽트, 내부 인터럽트로 총 세 가지가 존재한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 
