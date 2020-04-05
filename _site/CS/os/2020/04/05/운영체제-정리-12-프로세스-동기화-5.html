@@ -126,6 +126,24 @@ function changeContent(event){
 }
 
 </script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
 </head>
   <body>
     <header class="site-header">
@@ -479,7 +497,7 @@ function changeContent(event){
       <p>
       이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>12</em></b> 편 중 <b><em>12</em></b> 번째 글 입니다.
       </p>
-      <ul class="side-nav">
+      <ul class="side-nav" id="js-side_nav">
 
     
     
@@ -671,7 +689,11 @@ function changeContent(event){
       
        
       </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
   </div>
+
 
 
   <p>현재 사용하는 동기화 도구인 모니터(Monitor)에 대해서 알아본다.</p>
@@ -939,10 +961,11 @@ balance = 0
 
 <h2 id="32-전통적-동기화-문제">3.2 전통적 동기화 문제</h2>
 
+<p><a href="https://wansook0316.github.io/cs/os/2020/04/05/운영체제-정리-10-프로세스-동기화-3.html">10: 전통적인 동기화 문제들</a>을 수정해본다!</p>
+
 <h3 id="21-producer-consumer-problem">2.1 Producer-Consumer Problem</h3>
 
-<p><a href=""></a>
-Semaphore를 사용하면 상호 배제 sem, 가득 차있을 때 block하는 sem, 비어있을 때 block하는 sem 총 3개를 사용했어야 했다. 하지만 이번에는 코드가 간단해진다!</p>
+<p>Semaphore를 사용하면 상호 배제 sem, 가득 차있을 때 block하는 sem, 비어있을 때 block하는 sem 총 3개를 사용했어야 했다. 하지만 이번에는 코드가 간단해진다!</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Buffer</span> <span class="o">{</span>
     <span class="kt">int</span><span class="o">[]</span> <span class="n">buf</span><span class="o">;</span>
@@ -976,7 +999,116 @@ Semaphore를 사용하면 상호 배제 sem, 가득 차있을 때 block하는 se
         <span class="k">return</span> <span class="n">item</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Producer</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+    <span class="nc">Buffer</span> <span class="n">b</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="no">N</span><span class="o">;</span>
+    <span class="nc">Producer</span><span class="o">(</span><span class="nc">Buffer</span> <span class="n">b</span><span class="o">,</span> <span class="kt">int</span> <span class="no">N</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">N</span> <span class="o">=</span> <span class="no">N</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="no">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">b</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Consumer</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+    <span class="nc">Buffer</span> <span class="n">b</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="no">N</span><span class="o">;</span>
+    <span class="nc">Consumer</span><span class="o">(</span><span class="nc">Buffer</span> <span class="n">b</span><span class="o">,</span> <span class="kt">int</span> <span class="no">N</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">N</span> <span class="o">=</span> <span class="no">N</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">item</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="no">N</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="na">remove</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">arg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Buffer</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Buffer</span><span class="o">(</span><span class="mi">100</span><span class="o">);</span>
+        <span class="nc">Producer</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Producer</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="mi">10000</span><span class="o">);</span>
+        <span class="nc">Consumer</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Consumer</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="mi">10000</span><span class="o">);</span>
+        <span class="n">p</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">p</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+            <span class="n">c</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Number of items in the buf is "</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="na">count</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Number of items in the buf is 0
+</code></pre></div></div>
+
+<h3 id="22-the-dining-philosopher-problem">2.2 The Dining Philosopher Problem</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Philosopher</span> <span class="kd">extends</span> <span class="nc">Thread</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="o">;</span> <span class="c1">// philosopher id</span>
+	<span class="nc">Chopstick</span> <span class="n">lstick</span><span class="o">,</span> <span class="n">rstick</span><span class="o">;</span>
+    <span class="nc">Philosopher</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="nc">Chopstick</span> <span class="n">lstick</span><span class="o">,</span> <span class="nc">Chopstick</span> <span class="n">rstick</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lstick</span> <span class="o">=</span> <span class="n">lstick</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rstick</span> <span class="o">=</span> <span class="n">rstick</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">lstick</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+                <span class="n">rstick</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+                <span class="n">eating</span><span class="o">();</span>
+                <span class="n">lstick</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+                <span class="n">rstick</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+                <span class="n">thinking</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">eating</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">"] eating"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">void</span> <span class="nf">thinking</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"["</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">"] thinking"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Chopstick</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">inUse</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">acquire</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">inUse</span><span class="o">)</span>
+            <span class="n">wait</span><span class="o">();</span>
+        <span class="n">inUse</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">release</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">inUse</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="n">notify</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span> <span class="c1">// number of philosphers &amp; chopsticks</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="o">;</span>
+        <span class="cm">/* chopsticks */</span>
+        <span class="nc">Chopstick</span><span class="o">[]</span> <span class="n">stick</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Chopstick</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">stick</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Chopstick</span><span class="o">();</span>
+        <span class="cm">/* philosophers */</span>
+        <span class="nc">Philosopher</span><span class="o">[]</span> <span class="n">phil</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Philosopher</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">phil</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Philosopher</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">stick</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">stick</span><span class="o">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">)%</span><span class="n">num</span><span class="o">]);</span>
+        <span class="cm">/* let philosophers eat and think */</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+            <span class="n">phil</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이 코드는 교착상태를 해결하지 않은 상태이다. 해결 하기 위해서는 <code class="language-plaintext highlighter-rouge">circular wait</code> 조건을 불만족하도록 만들면 된다. 이 부분에서는 쉽게 동기화 문제를 해결할 수 있음을 보고가면 된다.</p>
 
 <h3 id="reference">Reference</h3>
 
@@ -1021,6 +1153,8 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
 
 <!-- Post navigation -->
+
+
 
 
     </div>

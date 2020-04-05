@@ -126,6 +126,24 @@ function changeContent(event){
 }
 
 </script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
 </head>
   <body>
     <header class="site-header">
@@ -479,7 +497,7 @@ function changeContent(event){
       <p>
       이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>12</em></b> 편 중 <b><em>6</em></b> 번째 글 입니다.
       </p>
-      <ul class="side-nav">
+      <ul class="side-nav" id="js-side_nav">
 
     
     
@@ -671,7 +689,11 @@ function changeContent(event){
       
        
       </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
   </div>
+
 
 
   <p>CPU 스케쥴링에 대해 알아본다.</p>
@@ -1159,6 +1181,8 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
 
 <!-- Post navigation -->
+
+
 
 
     </div>
