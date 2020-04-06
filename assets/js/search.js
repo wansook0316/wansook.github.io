@@ -28,7 +28,7 @@
   <div class="post-teaser" style="cursor: pointer;" onclick= "location.href='${
     postItem.url
   }';" >
-    <h2>
+    <h2 class="categorized-post__title">
       <a class='search-link' href='${postItem.url}'>${postItem.title}</a>
     </h2>
 
@@ -44,6 +44,7 @@
       ${postItem.content.substring(0, 150)}...
     </p>
   </div>
+
   `;
 
   const displaySearchResults = results => {

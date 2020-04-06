@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>16: 가상 메모리 (Virtual Memory) | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="가상 메모리(Virtual Memory)에 대해 알아본다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/11.jpg')">
+    <h1 class="title">16: 가상 메모리 (Virtual Memory)</h1>
+    
+    <p class="meta">
+      CS/OS
+      
+        : 운영체제 정리
+      
+    </p>
+
+    <p class="meta">
+      April 6, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>18</em></b> 편 중 <b><em>16</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
+                <span>Part 1 - 01: 운영체제란 무엇인가?</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
+                <span>Part 2 - 02: 운영체제의 역사</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
+                <span>Part 3 - 03: 이중모드와 보호</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html'">
+                <span>Part 4 - 04: 운영체제 서비스</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html'">
+                <span>Part 5 - 05: 프로세스와 관리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html'">
+                <span>Part 6 - 06: CPU 스케쥴링</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html'">
+                <span>Part 7 - 07: 쓰레드(Thread)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html'">
+                <span>Part 8 - 08: 프로세스 동기화 Part 1</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html'">
+                <span>Part 9 - 09: 프로세스 동기화 Part 2</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html'">
+                <span>Part 10 - 10: 프로세스 동기화 Part 3</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html'">
+                <span>Part 11 - 11: 프로세스 동기화 Part 4</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-12-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-5.html'">
+                <span>Part 12 - 12: 프로세스 동기화 Part 5</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-13-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC.html'">
+                <span>Part 13 - 13: 주기억 장치 관리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-14-%ED%8E%98%EC%9D%B4%EC%A7%95.html'">
+                <span>Part 14 - 14: 페이징 (Paging)</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
+                <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 16 - This Post</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
+                <span>Part 17 - 17: 페이지 교체 알고리즘</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html'">
+                <span>Part 18 - 18: 프레임 할당 (Allocation of frame)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>가상 메모리(Virtual Memory)에 대해 알아본다.</p>
+
+<p>가상 메모리는 물리 메모리 크기의 한계를 극복하기 위해 나온 기술이다. 즉, 물리 메모리보다 큰 프로세스를 수행하기 위해 가상 메모리를 사용한다. 예를 들어, 100MB 메모리 크기에서 200MB 크기의 프로세스를 수행할 수 있도록 하는 것이다.</p>
+
+<h1 id="1-demanding-paging">1. Demanding Paging</h1>
+
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78536382-b80b6180-7828-11ea-9117-f86dfd77f2e1.png" class="center" /></p>
+
+<p>이러한 방식이 어떻게 가능할까? 앞서 메모리 낭비 방지의 동적 할당에서도 봤듯이, <strong>필요한 부분만 메모리에 적재</strong>하는 것이다. 프로세스를 실행할 때, 실행에 필요한 부분만 메모리에 올리는 것이다. 이러한 프로세스의 일부분은 페이지 단위일 수도 있고, 세그먼트 단위일 수도 있지만 현재 대부분은 페이지 단위를 사용한다.</p>
+
+<p>이처럼 현재 필요한(요구되어지는) 페이지만 메모리에 올리는 것을 <strong>Demanding Paging(요구 페이징)</strong> 이라고 한다.</p>
+
+<h2 id="11-동작">1.1 동작</h2>
+
+<p><img width="700" alt="image" src="https://user-images.githubusercontent.com/37871541/78536519-f012a480-7828-11ea-9b4e-1fd1c7e3c7c4.png" class="center" /></p>
+
+<ol>
+  <li>CPU가 page table에 가서 해당 page에 접근한다.</li>
+  <li>이 때, Memory에 올라온 상태가 아니면(invaild), Interupt를 발생한다.</li>
+  <li>OS 내부의 ISR에서 이 인터럽트를 처리하러 Disk에서 page를 찾는다.</li>
+  <li>찾은 Page를 Memory에 올려 Frame화 한다.</li>
+  <li>page table을 업데이트 한다.</li>
+  <li>CPU에게 다시 수행하라고 명령한다.</li>
+</ol>
+
+<p>가상 메모리를 만드는 방법은 대표적으로 두 가지가 존재하지만, 대부분 요구 페이징을 사용하므로 가상 메모리와 요구 페이징을 같은 용어로 사용하는 경우가 많다.</p>
+
+<h2 id="12-page-fault페이지-부재">1.2 Page Fault(페이지 부재)</h2>
+
+<p>페이지 부재는 위에서 살펴본 CPU가 접근하려는 페이지가 메모리에 없는 경우이다. 즉, 페이지 테이블의 valid bit값이 0인 경우이다.</p>
+
+<p>위에서 이러한 경우를 처리하는 방법을 알아보았다. 실질적으로 이 부분이 가상 메모리의 핵심적인 기능이라 할 수 있다.</p>
+
+<h3 id="121-pure-demanding-paging">1.2.1 Pure Demanding Paging</h3>
+
+<p>Pure Demanding Paging은 프로세스가 최초로 실행될 때는 어떤 페이지가 필요한지 알 수 없으므로, 아무 페이지도 올리지 않는다. 그러므로 프로그램을 실행하자마자 page fault가 발생한다. 즉, 순수하게 필요한 페이지만 올리는 것을 말한다. Pure Demanding Paging의 장점은 메모리를 <strong>최대한 효율적으로 사용</strong>할 수 있다. 하지만 시작부터 page fault가 발생하므로 <strong>속도면에서 느리다</strong>.</p>
+
+<h3 id="122-prepaging">1.2.2 Prepaging</h3>
+
+<p>Prepaging은 pure demanding paging과 반대대는 개념이다. 프로그램을 실행할 때 필요할 것이라 판단되는 <strong>페이지를 미리 올리는 것</strong>이다. 이것의 장점은 page fault가 발생할 확률이 적으므로 <strong>속도</strong>면에서 빠르지만, 단점으로 미리 올라간 페이지를 사용하지 않는다면 <strong>메모리가 낭비</strong>된다.</p>
+
+<h3 id="123-swapping-vs-demanding-paging">1.2.3 Swapping VS Demanding Paging</h3>
+
+<p>Swapping와 Demanding Paging의 공통점은 둘 다 메모리와 backing store 사이를 서로 오고 가는 기능을 수행하지만, Swapping은 <strong>프로세스 단위</strong>로 이동하고 Demanding Paging은 <strong>페이지 단위</strong>로 이동하는 차이점이 있다.</p>
+
+<h3 id="124-유효-접근-시간effective-access-time">1.2.4 유효 접근 시간(Effective Access Time)</h3>
+
+<p>Demending Paging은 페이지 테이블에 해당 페이지가 없으면 backing store에서 메모리로 가져오는 과정이 있다. 그렇기 때문에 페이지 테이블에 해당 페이지가 있을 때와 없을 때 시간 차이가 발생한다. 이러한 시간 차이를 고려하여 평균적으로 어느정도 소요되는지 계산하는 것을 유효 접근 시간이라 한다.</p>
+
+<ul>
+  <li>p
+    <ul>
+      <li>페이지 부재 확률(probability of a page fault = page fault rate)</li>
+    </ul>
+  </li>
+  <li>Tm
+    <ul>
+      <li>메모리를 읽는 시간(DRAM)</li>
+    </ul>
+  </li>
+  <li>Tp
+    <ul>
+      <li>Page fault가 발생했을 때 소요되는 시간(대부분 backing store(하드디스크)를 읽는 시간이 차지한다. (seek time + rotational delay + transfer time)</li>
+    </ul>
+  </li>
+</ul>
+
+<script type="math/tex; mode=display">T = (1-p)Tm + p \cdot Tp</script>
+
+<h4 id="p--11000">p = 1/1,000</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">용어</th>
+      <th style="text-align: center">정의</th>
+      <th style="text-align: center">값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">p</td>
+      <td style="text-align: center">페이지 부재 확률</td>
+      <td style="text-align: center">1/1000</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Tm</td>
+      <td style="text-align: center">메모리를 읽는 시간</td>
+      <td style="text-align: center">200nsec</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Tp</td>
+      <td style="text-align: center">Disk 탐색 시간</td>
+      <td style="text-align: center">8msec</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="math/tex; mode=display">T = 8200usec</script>
+
+<p>메모리를 읽는 시간에 비해 40배 정도 느리다.</p>
+
+<h4 id="p--1399990">p = 1/399,990</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">용어</th>
+      <th style="text-align: center">정의</th>
+      <th style="text-align: center">값</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">p</td>
+      <td style="text-align: center">페이지 부재 확률</td>
+      <td style="text-align: center">1/399,990</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Tm</td>
+      <td style="text-align: center">메모리를 읽는 시간</td>
+      <td style="text-align: center">200nsec</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Tp</td>
+      <td style="text-align: center">Disk 탐색 시간</td>
+      <td style="text-align: center">8msec</td>
+    </tr>
+  </tbody>
+</table>
+
+<script type="math/tex; mode=display">T = 220nsec</script>
+
+<p>메모리를 읽는 시간에 비해 10% 느리다.</p>
+
+<h4 id="지역성의-원리locality-of-reference">지역성의 원리(Locality of reference)</h4>
+
+<p>위의 예제를 보았을 때, page fault는 매우 적은 확률로 발생해야 효율적이다. 그러면 현실적으로 페이지 부재는 어느정도로 발생할까? 이는 <strong>지역성의 원리(Locality of reference)</strong>로 인해 페이지 부재 확률은 매우 낮다. 지역성의 원리는 ‘<strong>메모리 접근은 시간적 지역성과 공간적 지역성을 가진다</strong>‘는 의미이다.</p>
+
+<ul>
+  <li>시간적 지역성
+    <ul>
+      <li>CPU는 어느 메모리 공간을 읽은 후, 시간이 지나도 그 공간을 다시 읽을 확률이 매우 높다는 것을 말한다.</li>
+      <li>대표적인 예로 반복문이 있다. 반복문은 하나의 코드 공간을 여러 번 읽는다.</li>
+    </ul>
+  </li>
+  <li>공간적 지역성
+    <ul>
+      <li>CPU가 메모리 공간을 읽을 때는 인접한 범위 내에서 읽는다는 의미이다.</li>
+      <li>프로그램은 대부분 절차적인 순서로 구현되어 있어 순서대로 읽는 경우가 빈번하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>이와 같이 페이지 부재가 현실적으로 발생할 확률은 매우 낮으므로 예제와 같이 40배로 느려지는 일을 거의 없다. 여기서 더 효율적으로 사용하기 위해서는 페이지 부재일 때 소요되는 시간을 줄일 수 있는데, backing store로 HDD를 사용하기 보다는 더욱 빠르게 동작하는 SSD나 저가 DRAM과 같은 것을 사용하는 방법이 있다.</p>
+
+<h2 id="13-페이지-교체page-replacement">1.3 페이지 교체(Page Replacement)</h2>
+
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78538479-066e2f80-782c-11ea-97e6-94ed4e8ee699.png" class="center" /></p>
+
+<p>Demanding Paging은 요구되어지는 페이지만 backing store에서 가져온다. 하지만 프로그램들이 계속 실행함에 따라 요구 페이지도 계속 늘어나고, 언젠가는 메모리가 가득 차게 될 것이다.(memory full) 여기서 다른 프로그램이 새로 실행되거나 실행중인 프로세스가 다른 페이지를 요구한다면 <strong>이미 메모리에 있는 페이지 중 하나를 다시 backing store에 보내고(page-out), 새로운 페이지를 메모리에 올려야한다.(page-in)</strong> 이를 페이지 교체라고 한다. 여기서 backing store로 page-out이 된 페이지를 <strong>victim page</strong> 라고 한다.</p>
+
+<h3 id="121-victim-page희생양-페이지">1.2.1 Victim Page(희생양 페이지)</h3>
+
+<p>희생양 페이지는 어떤 페이지로 하는 것이 좋을까? 먼저 생각할 수 있는 것은 메모리에 올라가 있는 페이지 중 CPU에 수정(modify)되지 않는 페이지를 고르는 것이 효율적으로 보인다. 즉, 읽기만 수행하는 페이지를 고르는 것이 이상적이다. 수정되지 않은 페이지는 page-out이 될 때 backing store에 쓰기(write) 연산을 할 필요가 없기 때문이다. backing store는 읽는 시간도 느리지만, 거기에 더해 쓰기 작업까지 한다면 더욱 비효율적일 것이다.</p>
+
+<p>그러면 해당 페이지가 수정되었는지 안되었는지를 판단할 수 있어야 하는데, 이를 위해 페이지 테이블에 <strong>modified bit(=dirty bit)</strong>를 추가하여 이를 검사한다. 해당 페이지가 수정되었다면 이 비트를 1로 두고, 수정되지 않으면 0으로 둔다. 이를 이용해서 victim page는 최대한 수정되지 않은 페이지를 선택한다.</p>
+
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78538693-5c42d780-782c-11ea-9f59-09c204d9de90.png" class="center" /></p>
+
+<p>위 그림은 modified bit를 추가한 페이지 테이블의 모습이다. 여기서 수정되지 않은 페이지는 0, 2, 3번 3개의 페이지가 존재하는데 이 중에서는 어떤 페이지를 선택해야 할까?</p>
+
+<p>제일 간단한 방법은 랜덤하게 선택하는 것이지만, 이는 성능을 보장할 수 없다. 그 다음은 가장 먼저 메모리에 올라온 페이지를 희생양 페이지로 선택하는 것이다. 이는 아주 유명한 FIFO(First-In First-Out) 방식이다. 이 외에도 여러가지 방법이 존재한다.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
+Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#OS">#OS</a>
+    
+    <a class="tag" href="/tags#Memory">#Memory</a>
+    
+    <a class="tag" href="/tags#Virtual+Memory">#Virtual Memory</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html">
+                  15: 세그멘테이션 (Segmentation)
+                </a>
+            </div>
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';">
+              <p>NEXT SERIES</p>
+              <a href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html">
+                17: 페이지 교체 알고리즘
+              </a>
+            </div>
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>18: 프레임 할당 (Allocation of frame) | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="page를 메모리에 할당하는 프레임 할당에 대해 알아본다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/11.jpg')">
+    <h1 class="title">18: 프레임 할당 (Allocation of frame)</h1>
+    
+    <p class="meta">
+      CS/OS
+      
+        : 운영체제 정리
+      
+    </p>
+
+    <p class="meta">
+      April 6, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>운영체제 정리</em></b> 시리즈 <b><em>18</em></b> 편 중 <b><em>18</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
+                <span>Part 1 - 01: 운영체제란 무엇인가?</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
+                <span>Part 2 - 02: 운영체제의 역사</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
+                <span>Part 3 - 03: 이중모드와 보호</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html'">
+                <span>Part 4 - 04: 운영체제 서비스</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html'">
+                <span>Part 5 - 05: 프로세스와 관리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html'">
+                <span>Part 6 - 06: CPU 스케쥴링</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html'">
+                <span>Part 7 - 07: 쓰레드(Thread)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html'">
+                <span>Part 8 - 08: 프로세스 동기화 Part 1</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html'">
+                <span>Part 9 - 09: 프로세스 동기화 Part 2</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html'">
+                <span>Part 10 - 10: 프로세스 동기화 Part 3</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html'">
+                <span>Part 11 - 11: 프로세스 동기화 Part 4</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-12-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-5.html'">
+                <span>Part 12 - 12: 프로세스 동기화 Part 5</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-13-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC.html'">
+                <span>Part 13 - 13: 주기억 장치 관리</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-14-%ED%8E%98%EC%9D%B4%EC%A7%95.html'">
+                <span>Part 14 - 14: 페이징 (Paging)</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
+                <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
+                <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
+                <span>Part 17 - 17: 페이지 교체 알고리즘</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 18 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>page를 메모리에 할당하는 프레임 할당에 대해 알아본다.</p>
+
+<h1 id="1-global-vs-local-replacement">1. Global VS Local Replacement</h1>
+
+<ul>
+  <li>Global Replacement
+    <ul>
+      <li>메모리 상의 모든 프로세스 페이지에 대한 교체 작업을 수행한다.</li>
+      <li>앞에서 배운 FIFO, OPT, LRU 등은 Victim을 정할 때, 모든 메모리에 올려져 있는 frame을 다 확인 후에 교체를 수행했다.</li>
+    </ul>
+  </li>
+  <li>Local Replacement
+    <ul>
+      <li>메모리 상의 자기 자신의 프로세스 페이지에 대해서만 교체 작업을 수행한다.</li>
+      <li>지금 요청이 들어온 page가 p1이라면, 메모리상에 올라가 있는 frame 중 p1 frame만 교체의 대상으로 간주한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>메모리 사용 효율은 일반적으로 Global Replacement가 좋다.</p>
+
+<h1 id="2-프레임-할당allocation-of-frames">2. 프레임 할당(Allocation of Frames)</h1>
+
+<p>어떻게 할당하는 것이 좋은지에 대한 고민을 해본다.</p>
+
+<h2 id="21-쓰레싱thrashing">2.1. 쓰레싱(Thrashing)</h2>
+
+<p>일반적으로 메모리에 올라가는 프로세스 개수가 증가할수록 CPU의 이용률은 올라갈 것이라 예상한다. 왜냐하면 프로세스가 많을 수록 CPU의 할 일 역시 증가하기때문이다. 이는 일정 범위까지는 맞는 예상이지만, 그 범위를 넘어서면 오히려 CPU 이용률이 감소하는 현상이 나타난다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78570069-6cc07580-785f-11ea-9baf-9b31b77dc452.png" class="center" /></p>
+
+<p>위 그림은 이러한 현상을 그래프로 나타낸 것이다. 이와 같은 현상이 발생하는 이유는 프로세스가 증가할수록 메인 메모리의 비어있는 프레임 개수는 줄어들게 되고 결국 모든 프레임이 가득 차게 된다. 그 후에도 계속 프로세스가 증가한다면 <strong>메모리와 backing store 사이에 page in/out 작업이 발생</strong>하는데, 프로세스가 많아질수록 이 작업 역시 증가한다. p<strong>age in/out은 디스크 I/O 작업</strong>으로 CPU를 사용하지 않는 작업이다. 그러므로 이 작업이 많아질수록 CPU는 그동안 아무것도 하지 않게 된다.</p>
+
+<p>위 그래프에서도 나와있듯이, I/O 작업이 증가하여 CPU 이용률이 떨어지는 현상을 Thrashing 이라 한다.</p>
+
+<h3 id="211-해결-방법">2.1.1 해결 방법</h3>
+
+<p>쓰레싱을 해결하는 방법은 크게 두 가지가 있다.</p>
+
+<ol>
+  <li>Global Replacement보다 Local Replacement를 사용하는 것이다.
+    <ul>
+      <li>하지만 이 경우에는 메모리 사용 효율이 떨어지는 단점이 있다.</li>
+    </ul>
+  </li>
+  <li>프로세스당 <strong>충분한/적절한 수의 프레임(메모리)을 할당</strong>한다.</li>
+</ol>
+
+<p>그렇다면, 적절한 프레임의 수는 어떻게 정하는 것일까?</p>
+
+<h2 id="22-프레임-할당의-방법">2.2 프레임 할당의 방법</h2>
+
+<p>프레임 할당은 크게 정적 할당과 동적 할당으로 나뉜다.</p>
+
+<h3 id="221-정적-할당static-allocation">2.2.1 정적 할당(Static Allocation)</h3>
+
+<ul>
+  <li>동일 할당(Equal Allocation)
+    <ul>
+      <li>모든 프로세스에게 똑같은 수의 프레임을 할당한다. 이 방식은 프로세스의 크기에 따라 매우 비효율적이다.</li>
+    </ul>
+  </li>
+  <li>비례 할당(Proportional Allocation)
+    <ul>
+      <li>프로세스의 크기에 따라 프레임을 할당한다. 이 방식 역시 단점이 있다. 프로세스 크기가 크더라도 모든 기능을 사용하지 않기 때문에 이 방식 또한 비효율적이다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>이처럼 정적 할당은 한계가 뚜렷하다. 따라서 동적 할당의 방법을 사용하는 것이 좋다.</p>
+
+<h3 id="222-동적-할당dynamic-allocation">2.2.2 동적 할당(Dynamic Allocation)</h3>
+
+<h4 id="2221-working-set-model">2.2.2.1 Working Set Model</h4>
+
+<p>프로세스가 실행 중일 때 어느 페이지를 사용하는지 실험한 결과에서 Locality 성질이 성립한다는 것을 발견할 수 있었다. 즉, 특정 시간 대에 참고하는 부분은 일부분이다.</p>
+
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78571424-2409bc00-7861-11ea-9385-e411e0c69f4f.png" class="center" /></p>
+
+<p>위 그래프는 프로세스가 실행 중에 어떤 프로세스를 사용하는지 표시한 것으로, 특정 시간에는 일정 범위의 페이지를 주로 참조하는 것을 알 수 있다. 이러한 성질은 캐시에서도 볼 수 있다. 이를 통해 <strong>특정 시간에 따라 사용하는 페이지의 개수만큼 프레임을 할당</strong>해줄 수 있다.</p>
+
+<p>그런데 어떻게 locality를 조사할 수 있을까? 여기서 치명적인 단점이 있다. 바로 프로세스를 미리 수행해봐야 할 수 있다는 것이다. 그리고 프로세스를 수행할 때마다 사용하는 기능이 달라질 수 있으므로, Locality를 이용하는 방법은 비현실적이다.</p>
+
+<p>이를 해결하기 위해 나온 것이 <strong>working set</strong> 이다. working set은 위의 locality의 방식과 유사한데, 미래가 아닌 과거를 보는 것이다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78572017-e48f9f80-7861-11ea-8ef0-df1a62f20411.png" class="center" /></p>
+
+<p>위 그림은 working set을 사용하는 모습이다. working set은 현재 시간에서 일정 시간($\Delta$) 이전동안 사용되었던 페이지의 집합이다. $\Delta$(델타)는 운영체제 내부에서 정하는 기준에 따라 다르며, 이를 working set window 라 한다. 마지막으로 working set의 개수만큼 프레임을 할당한다.</p>
+
+<p>만약 현재 시간이 t1이라면 working set = {1, 2, 5, 6, 7}이다. 이 때 working set의 개수는 총 5개이므로 프레임 역시 5개를 할당해주면 된다.</p>
+
+<h4 id="2222-page-fault-frequencypff">2.2.2.2 Page-Fault Frequency(PFF)</h4>
+
+<p>페이지 부재의 비율은 프로세스에 할당된 프레임의 수에 반비례한다. 즉, 할당된 프레임의 수가 적을수록 페이지 부재 비율은 늘어난다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78572483-7dbeb600-7862-11ea-9bbd-1b5afdcf91eb.png" class="center" /></p>
+
+<p>위 그림은 이와 같은 현상을 그래프로 나타낸 것이다. 세로축은 페이지 부재 비율이고, 가로축은 할당된 프레임의 수이다. 여기서 운영체제 내부에서 해당 프로세스의 페이지 부재 횟수를 계속 검사한다. 그러면 위와 같은 그래프처럼 나오는데, 여기서 <strong>상한선(upper bound)과 하한선(lower bound)</strong>를 설정한다.</p>
+
+<p>만약 상한선보다 많은 페이지 부재가 발생하면 프레임을 더 많이 할당해주고, 하한선보다 적게 페이지 부재가 발생하면 할당된 프레임 개수를 줄여준다.</p>
+
+<h1 id="3-페이지-크기page-size">3. 페이지 크기(Page Size)</h1>
+
+<p>현재 페이지의 일반적인 크기는 4KB ~ 4MB 이다. 이는 과거에서부터 점점 커져왔고, 현재에도 메모리 크기가 증가하면서 커지고 있다.</p>
+
+<p>페이지 크기에 따라 성능에는 어떤 영향을 미치는지 알아보자.</p>
+
+<h2 id="31-페이지-크기에-따른-성능">3.1 페이지 크기에 따른 성능</h2>
+
+<ul>
+  <li>내부단편화
+    <ul>
+      <li>내부단편화를 줄이려면 페이지 크기는 작은 것이 좋다.</li>
+    </ul>
+  </li>
+  <li>Page-in, page-out 시간
+    <ul>
+      <li>페이지의 in/out 시간을 결정하는 가장 큰 요인은 하드디스크 기준으로 하드디스크의 헤더가 움직이는 시간이다.(seek time) 페이지 크기가 크면 클수록 한 번의 seek time마다 큰 페이지를 읽을 수 있으므로, 페이지 부재 빈도가 줄어든다.(데이터를 읽는 시간은 크기에 따라 차이가 매우 적다.)</li>
+    </ul>
+  </li>
+  <li>페이지 테이블 크기
+    <ul>
+      <li>페이지 크기가 클수록 페이지 개수가 줄어들기 때문에 그만큼 페이지 테이블 크기도 줄일 수 있다.</li>
+    </ul>
+  </li>
+  <li>Memory resolution(해상도)
+    <ul>
+      <li>Memory resolution은 <strong>해당 메모리에 필요한 데이터가 있는 확률</strong>이다. 이는 페이지 크기가 작을수록 resolution을 높일 수 있다. 만약 페이지 크기가 크면 다른 필요없는 부분이 있을 확률이 크기 때문이다.</li>
+    </ul>
+  </li>
+  <li>Page fault 발생 확률
+    <ul>
+      <li>Page fault 발생 확률을 줄이려면 페이지 크기가 큰 것이 좋다. 이는 locality 성질과도 관련이 있는데, 대부분 프로세스는 필요한 부분이 일정 범위 이내인 경우가 많으므로 <strong>페이지 크기가 클수록 필요한 부분이 있을 확률이 크다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">big</th>
+      <th style="text-align: center">small</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Page fault 발생 확률 ▼</td>
+      <td style="text-align: center">내부 단편화 ▼</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">페이지 테이블 크기 ▼</td>
+      <td style="text-align: center">Page-in, page-out 시간 ▼</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">Memory resolution(해상도) ▲</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="32-페이지-테이블">3.2 페이지 테이블</h2>
+
+<p>반도체 기술의 발달로 TLB 역시 CPU의 내장 칩 형태로 만들어져있다.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
+Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#OS">#OS</a>
+    
+    <a class="tag" href="/tags#Memory">#Memory</a>
+    
+    <a class="tag" href="/tags#frame+allocation">#frame allocation</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html">
+                  17: 페이지 교체 알고리즘
+                </a>
+            </div>
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
