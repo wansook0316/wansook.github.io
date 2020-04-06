@@ -5,7 +5,384 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>개발, 데이터, 통계, 수학를 좋아하는 반항아의 블로그</description>
-    <pubDate>Tue, 07 Apr 2020 00:07:13 +0900</pubDate>
+    <pubDate>Tue, 07 Apr 2020 01:05:39 +0900</pubDate>
+    
+      <item>
+        <title>20: 디스크 스케쥴링 알고리즘</title>
+        <link>/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html</link>
+        <guid isPermaLink="true">/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html</guid>
+        <description>&lt;p&gt;하드 디스크의 구조를 바탕으로 스케쥴링을 하는 방법에 대해 알아본다.&lt;/p&gt;
+
+&lt;h1 id=&quot;1-디스크-스케줄링&quot;&gt;1. 디스크 스케줄링&lt;/h1&gt;
+
+&lt;p&gt;보조기억장치는 현재 여러 가지 존재하지만 아직까지는 하드 디스크가 주로 사용된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574512-0d656400-7865-11ea-9b48-ccb8e23b1d65.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;하드 디스크의 구조는 앞서 살펴봤듯이 위 그림과 같다. 디스크에 접근하는 시간은 &lt;strong&gt;Seek time(탐색 시간)&lt;/strong&gt; + rotational delay + transfer time 으로 계산할 수 있는데, 이 중에서 seek time(head를 움직이는 시간)이 가장 크다.&lt;/p&gt;
+
+&lt;p&gt;현재 컴퓨터 환경은 대부분 다중 프로그래밍 환경이다. 그러므로 여러 프로세스가 메인 메모리에서 실행 중에 있는데, 이러한 여러 프로세스가 동시에 디스크를 읽으려는 요청이 올 수 있다. 이와 같은 요청이 오면 디스크 역시 CPU와 같이 &lt;strong&gt;디스크 큐(dist queue)&lt;/strong&gt;에서 요청을 저장해두고 이를 처리해야 한다.&lt;/p&gt;
+
+&lt;p&gt;여기서 컴퓨터의 성능을 위해 여러 요청들을 효율적으로 처리해야 한다. 디스크를 읽는 시간은 매우 오래 걸리는 작업이고 특히 탐색 시간이 오래걸리므로 최대한 이 시간을 줄이는 것이 중요하다. 이러한 방법들을 &lt;strong&gt;디스크 스케줄링 알고리즘&lt;/strong&gt;이라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;11-fcfsfirst-come-first-served&quot;&gt;1.1 FCFS(First-Come First-Served)&lt;/h2&gt;
+
+&lt;p&gt;이 방법은 어느 스케줄링 알고리즘에서도 존재하는 가장 간단하고 가장 공평한 방법이다. 바로 예제를 살펴보자.&lt;/p&gt;
+
+&lt;h3 id=&quot;111-예제&quot;&gt;1.1.1 예제&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200 cylinder dist: 0, 1, 2, ..., 199
+Disk queue: 98, 183, 37, 122, 14, 124, 65, 67
+현재 헤드가 가리키는 실린더(cylinder) 위치: 53
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78577820-9c747b00-7869-11ea-9777-c784b57730e8.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;예제를 그림으로 나타내면 위 그림과 같다. 가로축은 0번부터 199번까지 실린더의 위치를 나타낸다. 여기서 파란색 선이 dist queue를 FCFS 방법으로 처리한 결과이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;헤드가 움직인 총 거리
+    &lt;ul&gt;
+      &lt;li&gt;= (98 - 53) + (183 - 98) + (183 - 37) + (122 - 37) + (122 - 14) + (124 - 14) + (124 - 65) + (67 - 65) = &lt;strong&gt;640 cylinders&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위 그림의 결과를 본 것처럼 큐에 들어온 순서가 큰 값, 작은 값이 반복한다면 헤드가 움직이는 거리가 매우 커짐을 알 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;12-sstfshortest-seek-time-first&quot;&gt;1.2 SSTF(Shortest-Seek-Time-First)&lt;/h2&gt;
+
+&lt;p&gt;SSTF 스케줄링 알고리즘은 가장 짧은 탐색 시간을 먼저 선택하는 것이다. 다시 말하면 현재 헤드가 다음 요청을 처리하기 위해 움직여야 하는 거리가 가장 짧은 것을 선택하는 것이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;121-예제&quot;&gt;1.2.1 예제&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200 cylinder dist: 0, 1, 2, ..., 199
+Disk queue: 98, 183, 37, 122, 14, 124, 65, 67
+현재 헤드가 가리키는 실린더(cylinder) 위치: 53
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예제는 FCFS 스케줄링에서 본 예제와 같은 것이다. 처음 헤드 위치 53을 시작으로 dist queue에 있는 실린더 번호 중 53과 가장 가까운 65번 실린더를 선택한다. 65번에서는 가장 가까운 67번을 선택하고 같은 과정을 반복한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;헤드가 움직인 총 거리
+    &lt;ul&gt;
+      &lt;li&gt;= (65 - 53) + (67 - 65) + (67 - 37) + (37 - 14) + (98 - 14) + (122 - 98) + (124 - 122) + (183 - 124) = &lt;strong&gt;236 cylinders&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;SSTF 스케줄링 알고리즘의 결과는 위 예제에서 FCFS 스케줄링보다 훨씬 적은 수의 실린더를 움직이는 것을 볼 수 있다. 하지만 SSTF 스케줄링의 큰 단점은 &lt;strong&gt;기아(starvation)가 발생&lt;/strong&gt;할 수 있다. dist queue에는 지속적으로 새로운 프로세스의 요청이 들어오기 때문에 헤드와 멀리 떨어져 있는 실린더는 끝내 수행하지 못하는 현상이 발생하는데, 이를 starvation이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;그리고 SSTF 스케줄링이 현재와 가장 가까운 실린더를 선택한다고 해서 &lt;strong&gt;최적의 알고리즘은 아니다.&lt;/strong&gt; 위 예제에서도 가장 처음 위치인 53번 실린더에서 65번이 아닌 37번으로 이동한 후에 SSTF 알고리즘을 수행하면 208 cylinders 가 나온다.&lt;del&gt;그리디가 아니다&lt;/del&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;13-scan&quot;&gt;1.3 Scan&lt;/h2&gt;
+
+&lt;p&gt;Scan 스케줄링은 말그대로 헤드가 지속적으로 디스크를 앞뒤로 검사하는 것이다. 그래서 헤드가 앞으로 스캔할 때(번호가 작은 실린더 방향)와 뒤로 스캔할 때(번호가 큰 실린더 방향) 선택하는 실린더가 서로 다르다. &lt;strong&gt;즉 관성을 고려하여 한방향으로 쭉 가다가 끝이면 반대 방향으로 돈다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;131-예제&quot;&gt;1.3.1 예제&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200 cylinder dist: 0, 1, 2, ..., 199
+Disk queue: 98, 183, 37, 122, 14, 124, 65, 67
+현재 헤드가 가리키는 실린더(cylinder) 위치: 53
+스캔 방향: 0번 방향으로 움직임(번호가 작은 실린더 방향)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 결과에서 볼 수 있듯이 스캔 방향이 0번 실린더 방향이므로 53번에서 작은 번호의 실린더로 향한 후에 큰 번호 실린더로 움직인 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;헤드가 움직인 총 거리
+    &lt;ul&gt;
+      &lt;li&gt;= (53 - 37) + (37 - 14) + (14 - 0) + (65 - 0) + (67 - 65) + (98 - 67) + (122 - 98) + (124 - 122) + (183 - 124) = &lt;strong&gt;236 cylinders&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;여기서 한 가지 생각해 볼 점은 일반적으로 프로세스들이 디스크에 요청할 때 그 위치를 종합해보면 실린더에 &lt;strong&gt;골고루 퍼져있다&lt;/strong&gt;. 그러므로 Scan 스케줄링 알고리즘처럼 앞뒤로 움직이는 것이아니라 처음부터 한 방향으로 끝까지 움직이고 다시 처음으로 되돌아가서 같은 방향으로 끝까지 움직이는 것이 더욱 효과적이다.&lt;/p&gt;
+
+&lt;p&gt;이러한 아이디어에서 나온 것이 &lt;strong&gt;Circular Scan&lt;/strong&gt; 스케줄링 알고리즘이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;14-c-scan&quot;&gt;1.4 C-Scan&lt;/h2&gt;
+
+&lt;p&gt;&lt;img width=&quot;681&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78578737-e14ce180-786a-11ea-8b53-3e8438b21bf6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 방식은 위에서 말한 Circular Scan 스케줄링 알고리즘이다. 즉 한 방향으로 계속 움직이는 것이다. Scan 방식은 끝에 다다랐을 때 반대방향으로 가는데, 굳이 그럴 필요가 없다. 물론 오른쪽에서 왼쪽 끝으로 갈 때 한바퀴를 돌기 때문에 움직이는 거리는 더 길어질 수 있지만 다시 처음 위치로 되돌아갈 때는 &lt;strong&gt;데이터를 읽지 않으므로 더 빠른 속도&lt;/strong&gt;로 움직일 수 있다. (그냥 모터로 슝 긁으면 된다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;15-look&quot;&gt;1.5 Look&lt;/h2&gt;
+
+&lt;p&gt;이 알고리즘은 위 Scan 스케줄링 예제에서 0번 실린더가 존재하지 않지만 0번까지 가는 모습을 보았다. (찍턴하기 위해서) 이러한 비효율적인 움직임을 없애기 위해 존재하는 실린더의 최소와 최대 범위만 움직이는 알고리즘을 Look 스케줄링 알고리즘이라고 한다. 하지만 이 범위를 알기 위해서 미리 큐를 검사해야한다. (어디가 가장 근접한 끝인지 알아야 하기 때문)&lt;/p&gt;
+
+&lt;h2 id=&quot;16-c-look&quot;&gt;1.6 C-Look&lt;/h2&gt;
+
+&lt;p&gt;C-Look은 Circular Look 을 말한다. Look은 위에서 Scan 스케줄링이 0번 부터 끝 실린더까지 움직이지 않고 존재하는 실린더의 최소에서 최대 범위를 움직인다고 하였는데, C-Look은 이 범위에서 C-Scan과 같이 한 방향으로만 움직이는 것을 말한다. 즉, 최대 실린더에서 최소 실린더 방향으로 움직인다고 할 때 최소 범위에 도달하면 다시 최대 범위로 되돌아가서 같은 방향으로 움직인다.&lt;/p&gt;
+
+&lt;h2 id=&quot;17-elevator-algorithm&quot;&gt;1.7 Elevator Algorithm&lt;/h2&gt;
+
+&lt;p&gt;Elevator Algorithm은 Scan과 파생되어 나온 알고리즘(C-scan, Look, C-Look)을 부르는 다른 용어이다. 위 Scan 스케줄링 알고리즘 예제 그림을 90도로 회전하면 엘리베이터의 모습과 유사하여 붙여진 이름이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/wndrlf2003/220011819891&quot;&gt;세마포 사진&lt;/a&gt;&lt;br /&gt;
+Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
+</description>
+        <pubDate>Mon, 06 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>19: 파일 할당 (Allocation of file)</title>
+        <link>/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html</link>
+        <guid isPermaLink="true">/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html</guid>
+        <description>&lt;p&gt;보조 기억 장치에 저장되는 파일의 할당에 대해 알아본다.&lt;/p&gt;
+
+&lt;p&gt;컴퓨터 시스템 자원 중 가장 중요한 것은 CPU이다. CPU 자원 관리에 대해서는 맨 처음 부분에서 다루었으며 CPU 스케줄링, 프로세스 동기화 등에 대해서 배웠다. CPU 다음으로 중요한 자원은 메인 메모리와 같은 주기억장치이다. 메인 메모리 관리에 대한 주요 이슈는 페이징, 가상 메모리(요구 페이징) 등이 있었다.&lt;/p&gt;
+
+&lt;p&gt;CPU, 주기억장치 다음 중요한 컴퓨터 시스템 자원은 하드디스크와 같은 보조기억장치이다. 하드디스크가 데이터를 관리하는 방식은 &lt;strong&gt;파일 시스템&lt;/strong&gt;이다. 파일은 컴퓨터에서 운영체제를 사용해본 사용자라면 매우 익숙한 단어일 것이다. 대표적인 windows 운영체제를 보면 폴더(디렉토리) 내부에 또 다른 폴더 또는 어떠한 파일이 존재한다. 이러한 폴더 및 파일은 트리 구조로 관리할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이번 장에서는 보조기억장치 중 컴퓨터에서 주로 사용하는 하드디스크의 파일이 할당되는 방법에 대해서 살펴볼 것이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;1-hdd-구조&quot;&gt;1. HDD 구조&lt;/h1&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574512-0d656400-7865-11ea-9b48-ccb8e23b1d65.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 하드디스크의 구조이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;platter
+    &lt;ul&gt;
+      &lt;li&gt;실제 데이터를 기록하는 자성을 가진 원판이다. platter는 그림과 같이 여러 개가 존재하고 앞뒤로 사용할 수 있다. 한 platter는 여러 개의 track으로 이루어져 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;track
+    &lt;ul&gt;
+      &lt;li&gt;platter의 동심원을 이루는 하나의 영역이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;sector
+    &lt;ul&gt;
+      &lt;li&gt;하나의 track을 여러 개로 나눈 영역을 sector라 한다. sector size는 일반적으로 512 bytes이며 주로 여러 개를 묶어서 사용한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;cylinder
+    &lt;ul&gt;
+      &lt;li&gt;한 cylinder는 모든 platter에서 같은 track 위치의 집합을 말한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;앞서 sector는 여러 개로 묶어서 사용한다고 했는데, 이를 &lt;strong&gt;블록(block)&lt;/strong&gt;이라 한다. 하드디스크는 블록 단위로 읽고 쓰기 때문에 &lt;strong&gt;block device&lt;/strong&gt; 라고 불리기도 한다.&lt;/p&gt;
+
+&lt;p&gt;하드디스크가 블록 단위로 읽고 쓰는 것을 확인할 수 있는 간단한 방법은 메모장 프로그램에서 알파벳 a만을 적고 저장해보자. a는 character로 1byte 크기를 갖는데, 실제 저장된 텍스트 파일의 속성을 확인하면 디스크에 &lt;strong&gt;4KB(하나의 block size)&lt;/strong&gt; 가 할당되는 것을 확인할 수 있다.(실제 디스크 할당 크기는 운영체제마다 다르다.)&lt;/p&gt;
+
+&lt;p&gt;따라서 디스크는 비어있는 블록들의 집합이라고 볼 수 있다.(pool of free blocks) 그렇다면 운영체제는 각각의 파일에 대해 &lt;strong&gt;free block&lt;/strong&gt;을 어떻게 할당할까?&lt;/p&gt;
+
+&lt;h1 id=&quot;2-파일-할당&quot;&gt;2. 파일 할당&lt;/h1&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574790-79e06300-7865-11ea-8871-317826c3f865.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 pool of free blocks를 논리적인 그림으로 나타낸 모습이고 블록마다 인덱스 번호를 설정하였다. 블록들이 위와 같이 있을 때 파일을 할당하는 방법은 크게 연속 할당, 연결 할당, 색인 할당 세 가지가 존재한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;21-연속-할당-contiguous-allocation&quot;&gt;2.1 연속 할당 (Contiguous Allocation)&lt;/h2&gt;
+
+&lt;p&gt;연속 할당은 말그대로 &lt;strong&gt;연속된 블록에 파일을 할당&lt;/strong&gt; 하는 것이다. 예를 들어, 블록 크기가 1KB이고, 할당할 파일은 f1, f2, f3 3개가 있고 각각의 크기는 5KB, 3KB, 4KB이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574911-a3998a00-7865-11ea-82bb-0354d4700b7d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;앞선 예제로 연속 할당을 수행하면 위의 그림과 같은 모습이 나온다.&lt;/p&gt;
+
+&lt;h3 id=&quot;211-연속할당의-장점&quot;&gt;2.1.1 연속할당의 장점&lt;/h3&gt;
+
+&lt;p&gt;연속 할당에는 세 가지 특징이 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;연속 할당의 장점은 디스크 헤더의 이동을 최소화 할 수 있다.
+    &lt;ul&gt;
+      &lt;li&gt;I/O 성능을 높일 수 있다. 이 방식은 예전의 IBM에서 사용하던 방법이며 주로 동영상, 음악, VOD 등에 적합하다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;순차 접근(Sequential Access)이 가능하다.
+    &lt;ul&gt;
+      &lt;li&gt;이는 말그대로 순서대로 파일을 읽을 수 있다는 의미이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;직접 접근(Direct Access)이 가능하다.
+    &lt;ul&gt;
+      &lt;li&gt;운영체제는 파일의 정보를 디렉토리(directory) 라는 테이블에 저장한다. 디렉토리에서 사용자가 접근가능한 정보는 파일의 이름, 크기, 날짜 등이 있고, 운영체제 내부에서 접근하는 정보는 해당 파일의 시작 블록 번호와 같은 것이 있다. 예를 들어, 위 예제의 f1 파일의 디렉토리 정보는 아래와 같다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
+file size: 5 bytes
+...
+-----------------
+block number: 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;연속 할당은 순차적으로 저장되어 있으므로 운영체제는 디렉토리에서 얻은 시작 블록 번호로 원하는 블록에 바로 접근할 수 있다. 예를 들어, 위 예제에서 f1 파일의 3번째 블록에 접근하고 싶다고 가정하자. 운영체제는 f1의 시작 블록 번호가 0번인 것을 알고 있기 때문에 2번 블록에 접근하면 f1의 3번째 블록이라는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;212-연속할당의-단점&quot;&gt;2.1.2 연속할당의 단점&lt;/h3&gt;
+
+&lt;p&gt;연속 할당은 현재에는 거의 사용하지 않는 방식인데, 이 방법에는 큰 단점이 존재하기 때문이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;외부 단편화 문제가 발생한다.
+    &lt;ul&gt;
+      &lt;li&gt;파일을 할당하고 지우고를 반복하다보면 중간 중간에 빈 공간(hole)이 생기는데 연속 할당은 연속된 공간을 찾아야 하기 때문에 이전 메인 메모리 할당에서 살펴본 것과 같이 외부 단편화 문제가 발생한다.&lt;/li&gt;
+      &lt;li&gt;외부 단편화로 인해 디스크 공간의 낭비가 매우 심해진다. 이전 메모리 할당에서 외부 단편화로 인해 메모리의 약 1/3을 낭비한다고 하였는데, 디스크의 연속 할당도 같은 낭비가 발생한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;파일을 저장할 때 실제 크기를 알 수 없다.
+    &lt;ul&gt;
+      &lt;li&gt;특히, 계속해서 사용하는 파일의 경우 &lt;strong&gt;크기가 계속 증가&lt;/strong&gt; 할 수 있기 때문에 이를 지속해서 연속적으로 할당하기에는 매우 부적절하다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;22-연결-할당-linked-allocation&quot;&gt;2.2 연결 할당 (Linked Allocation)&lt;/h2&gt;
+
+&lt;p&gt;연결 할당은 연속 할당의 문제점을 해결하기 위해 나온 방법으로, 연속적으로 할당하는 것이 아니라 링크드 리스트(linked list) 와 같은 방식으로 파일을 할당한다&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574943-abf1c500-7865-11ea-925b-b56f70ec6dd5.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 block 크기가 1 byte, 파일 f1의 크기가 5 bytes 일 때 연결 할당을 수행한 모습이다. 각 블록의 마지막에 &lt;strong&gt;주소를 저장하는 포인터 공간(4bytes)&lt;/strong&gt;이 존재하며, 여기서 다음 블록을 가리키고 있다. 마지막 블록의 포인터 공간에는 끝임을 나타내는 값이 저장되어 있다.&lt;/p&gt;
+
+&lt;p&gt;이러한 파일을 &lt;strong&gt;linked list of data blocks&lt;/strong&gt; 라고 하며, f1의 파일 디렉토리 정보는 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
+file size: 5 bytes
+...
+-----------------
+block number: 6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;221-연결할당의-장점&quot;&gt;2.2.1 연결할당의 장점&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위치와 상관없이 할당이 가능하므로 외부 단편화 문제가 없다. (= 디스크 낭비가 없다.)
+    &lt;ul&gt;
+      &lt;li&gt;연결 할당을 사용해서 새로운 파일을 할당할 때는 비어있는 임의의 블록을 첫 블록으로 선택하며, 만약 파일이 커지는 경우 다른 블록을 할당해서 기존의 블록과 연결만 해주면 된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;222-연결할당의-단점&quot;&gt;2.2.2 연결할당의 단점&lt;/h3&gt;
+
+&lt;p&gt;하지만, 연결 할당 역시 여러 문제점을 가지고 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;순차 접근은 가능하지만 직접 접근은 불가능하다.
+    &lt;ul&gt;
+      &lt;li&gt;파일의 블록들은 모두 흩어져 있으므로 시작 블록 번호를 가지고는 원하는 위치의 블록에 바로 접근할 수는 없다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;포인터를 저장하는 4 bytes 이상의 손해가 발생한다.&lt;/li&gt;
+  &lt;li&gt;낮은 신뢰성
+    &lt;ul&gt;
+      &lt;li&gt;중간 블록의 포인터가 끊어지면 그 이후의 모든 블록에 접근하지 못한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;느린 속도
+    &lt;ul&gt;
+      &lt;li&gt;블록이 모두 흩어져 있으므로 디스크 헤더의 움직임이 그 만큼 많이 발생한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;223-fatfile-allocation-table-시스템&quot;&gt;2.2.3 FAT(File Allocation Table) 시스템&lt;/h3&gt;
+
+&lt;p&gt;위 문제점을 개선하기 위해 나온 것이 같은 연결 할당 방식인 FAT(File Allocation Table) 시스템이다. FAT 시스템은 다음 블록으르 가리키는 포인터들만 모아서 하나의 테이블(FAT)을 만들어 한 블록에 저장한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574974-b3b16980-7865-11ea-8889-b32c54adfd52.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 앞선 예제의 f1 파일을 FAT 파일 시스템 방식으로 저장한 모습이다. 0번 블록에 저장된 FAT를 보면 테이블의 인덱스는 전체 디스크의 블록 번호이며, 각 &lt;strong&gt;인덱스마다 다음 블록 번호를 저장&lt;/strong&gt;하고 있다.&lt;/p&gt;
+
+&lt;p&gt;FAT 시스템을 사용하면 기존의 연결 할당의 문제점 대부분을 해결할 수 있다. FAT를 한 번만 읽으면 &lt;strong&gt;직접 접근이 가능&lt;/strong&gt;하고, FAT만 문제가 없다면 중간 블록에 문제가 생겨도 FAT를 통해 그 다음 블록은 여전히 읽을 수 있다. 그리고 FAT는 일반적으로 메모리 캐싱을 사용하여 블록 위치를 찾는데는 빠르지만 실제 디스크 헤더가 움직는 것은 블록이 흩어져 있으므로 여전히 느리다고 볼 수 있다. 마지막으로 FAT는 매우 중요한 정보이므로 &lt;strong&gt;손실 시 복구를 위해 이중 저장&lt;/strong&gt;을 한다.&lt;/p&gt;
+
+&lt;p&gt;FAT의 각 인덱스 크기는 전체 블록의 개수를 저장할 만큼의 크기를 가지고 있어야 하는데, 현재는 일반적으로 32bit 크기를 사용($2^{32}$)한다. 이를 FAT32라고 부른다.(이전에는 FAT16, FAT12 등이 있었다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;23-색인-할당-indexed-allocation&quot;&gt;2.3 색인 할당 (Indexed Allocation)&lt;/h2&gt;
+
+&lt;p&gt;색인 할당 역시 연결 할당과 같이 데이터를 랜덤한 블록 번호에 할당하지만 할당된 블록 번호(포인터)를 하나의 블록에 따로 저장한다. 이러한 블록을 &lt;strong&gt;인덱스 블록&lt;/strong&gt;이라고 부르며, 파일 당 하나의 인덱스 블록이 존재한다. 색인 할당은 디렉토리 정보가 다른 할당과 다른데, 시작 블록 번호를 저장하는 것이 아니라 &lt;strong&gt;인덱스 블록 번호를 저장&lt;/strong&gt;한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;231-예제&quot;&gt;2.3.1 예제&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;block size&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;f1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;f2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1byte&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5byte&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2byte&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78575000-bc09a480-7865-11ea-9c93-3287ea0e764f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
+file size: 5 bytes
+...
+-----------------
+index block number: 11
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f2
+file size: 2 bytes
+...
+-----------------
+index block number: 27
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그림을 보면, 블록 하나를 지정하여, 파일의 인덱스를 저장하는 인덱스 블록으로 사용한다.&lt;/p&gt;
+
+&lt;p&gt;색인 할당은 인덱스 블록에 할당된 블록을 순서대로 저장하기 때문에 직접 접근이 가능하다. 그리고 연속적으로 할당할 필요가 없으므로 외부 단편화 문제 또한 발생하지 않는다. 색인 할당은 Unix/Linux에서 주로 사용한다.&lt;/p&gt;
+
+&lt;p&gt;색인 할당의 단점은 작은 크기의 파일인 경우에도 하나의 블록을 인덱스 블록으로 사용하기 때문에 저장 공간이 손실된다. 그리고 &lt;strong&gt;하나의 인덱스 블록을 가지고는 크기가 큰 파일을 저장할 수 없다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 하나의 블록 크기가 512 bytes인 블록은 최대 저장할 수 있는 블록의 인덱스 개수가 512 / 4 bytes(포인터 크기) = 128개이다. 즉 파일의 최대 크기는,&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;128(인덱스 블록에서 저장할 수 있는 블록의 포인터 개수의 최대값) x 512bytes(블록 하나의 크기) = 64KB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;로 아주 작은 크기이다. 블록 크기가 1KB이라 하더라도 최대 인덱스 개수는 256개(1000/4)이고 최대 파일의 크기는 256KB이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;232-해결-방법&quot;&gt;2.3.2 해결 방법&lt;/h3&gt;
+
+&lt;p&gt;이를 해결하기 위한 여러 가지 방법이 있다.&lt;/p&gt;
+
+&lt;h4 id=&quot;2321-linked&quot;&gt;2.3.2.1 Linked&lt;/h4&gt;
+
+&lt;p&gt;이 방식은 인덱스 블록을 여러 개 만들어 연결 할당을 하는 것과 같다. 즉, 각 인덱스 블록의 마지막은 다음 인덱스 블록을 가리키는 포인터가 저장되어 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78577110-8dd99400-7868-11ea-8731-7e6acf48c817.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;2322-multilevel-index&quot;&gt;2.3.2.2 Multilevel index&lt;/h4&gt;
+
+&lt;p&gt;이 방식은 계층을 두는 방법으로 하나의 인덱스 블록의 모든 포인터가 다른 인덱스 블록을 가리킨다. 만약 이것으로 부족하면 계층을 더 만들어 간다.
+&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78577132-97fb9280-7868-11ea-968e-43c95f7d7ccb.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;2323-combined&quot;&gt;2.3.2.3 Combined&lt;/h4&gt;
+
+&lt;p&gt;이 방식은 Linked와 Multilevel index를 합친 방법으로 한 인덱스 블록의 포인터들은 데이터 블록과 또 다른 인덱스 블록 둘 다 가리킬 수 있다.(리눅스는 combined 방식을 사용한다.)&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;
+&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://m.blog.naver.com/wndrlf2003/220011819891&quot;&gt;세마포 사진&lt;/a&gt;&lt;br /&gt;
+Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
+</description>
+        <pubDate>Mon, 06 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>18: 프레임 할당 (Allocation of frame)</title>
@@ -3386,950 +3763,6 @@ airplain : 4, 4, 3, 1
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 03 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>백준(1717번): 집합의 표현</title>
-        <link>/cs/algorithm/2020/04/02/%EB%B0%B1%EC%A4%80-%EC%A7%91%ED%95%A9%EC%9D%98-%ED%91%9C%ED%98%84.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/04/02/%EB%B0%B1%EC%A4%80-%EC%A7%91%ED%95%A9%EC%9D%98-%ED%91%9C%ED%98%84.html</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드4&lt;/em&gt;&lt;/strong&gt; : 유니온 파인드 문제이다.&lt;br /&gt;
-&lt;a href=&quot;https://www.acmicpc.net/problem/1717&quot;&gt;백준(1717번) - 집합의 표현&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
-
-&lt;p&gt;문제를 이해해보자. 먼저 처음에 아무일도 하지 않을 경우에 입력된 n에 대해서 0 ~ n까지의 바구니가 생긴다. 그 다음, m개의 명령이 들어온다. 명령은 해당 원소가 들어있는 바구니를 합치는 것, 그리고 해당 원소가 같은 바구니에 들어있는 지 확인하는 것이다.&lt;/p&gt;
-
-&lt;p&gt;그렇다면 핵심은, 현재 어떻게 내가 들어가 있는 바구니를 찾을 것인가? 그리고 찾았다면 어떤식으로 합쳐서 가지고 있을 것인가? 이다. &lt;strong&gt;&lt;em&gt;결국 집합을 만들고, 서로소 인지를 확인하는 문제이다.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;가장 단순하게 생각해보자. 처음에 모든 바구니는 자기자신만을 원소로 갖는 바구니를 가진다. 이 상태에서 1번 바구니와 3번 바구니를 합치라는 명령이 내려올 때, 우리는 일반적으로 &lt;strong&gt;&lt;em&gt;이것을 동등하게 생각하고 연결&lt;/em&gt;&lt;/strong&gt;하려 한다. 하지만 이렇게 생각할 경우에 해당 바구니에 대한 번호를 재정의 해야 한다. 예를 들어, (1, 2)가 들어있는 바구니는 몇번 바구니라 정의해야 할까? 또 추가적으로 3이 들어온 경우 (1, 2, 3)은 몇번 바구니 일까? &lt;strong&gt;&lt;em&gt;바구니에 원소가 추가될 경우 계속하여 바구니의 이름을 재정의&lt;/em&gt;&lt;/strong&gt; 해야 한다.&lt;/p&gt;
-
-&lt;p&gt;그러니 &lt;strong&gt;위계 질서&lt;/strong&gt;를 줘보자. 1번 바구니와 2번 바구니를 합친다는 명령이 내려왔을 때 2번 바구니는 1번을 따른다. (2-&amp;gt;1) 그리고 3번 바구니는 2번을 따른다고 하면 (3-&amp;gt;2-&amp;gt;1)로 준다. 그리고 이렇게 생성된 바구니의 번호를 1이라 하면, 합치는 과정을 통한다하더라도 합쳐진 집합의 번호는 가장 먼저 합쳐진, 즉 &lt;strong&gt;조상 원소의 번호&lt;/strong&gt;라 지칭할 수 있다. 즉, 위의 바구니는 1번 바구니라 할 수 있고, 다른 합쳐진 집합이 있다하더라도 이 집합의 &lt;strong&gt;조상&lt;/strong&gt;은 독립적으로 유지된다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(3-&amp;gt;2-&amp;gt;1) = 1번 바구니
-(4-&amp;gt;5) = 5번 바구니
-
-5번 바구니와 3번 바구니를 합해라.
-=&amp;gt; (4-&amp;gt;5-&amp;gt;3-&amp;gt;2-&amp;gt;1) = 1번 바구니
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;문제-발생&quot;&gt;문제 발생&lt;/h2&gt;
-
-&lt;p&gt;하지만 이 경우에는 문제가 발생하는데, (2-&amp;gt;1), (5-&amp;gt;4) 인 경우가 있다고 하자. 이 때 5번이 2번 바구니에 속한다고 할 경우 이 논리대로라면 (5-&amp;gt;2-&amp;gt;1)이 된다. 그런데 사실은 4번도 1번 바구니에 속해야 한다. 논리적 오류가 발생한다.&lt;/p&gt;
-
-&lt;p&gt;이 문제는 바구니가 속하는 기준이 &lt;strong&gt;한 방향&lt;/strong&gt;이기 때문이다. 하지만 속하는 기준을 여러개로 만들지 않아도 해결이 가능하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
-
-&lt;p&gt;아까 조상을 만들고, 추가된 집합에 대한 바구니 번호를 가장 위에 있는 &lt;strong&gt;조상&lt;/strong&gt;의 번호를 따르기로 했다. 위에서 발생한 문제에 대해 해당 번호가 어떤 바구니(조상)에 있는지 확인하고 그 바구니끼리 연결한다면 해당 문제는 해결된다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(2-&amp;gt;1) = 1번 바구니
-(5-&amp;gt;4) = 4번 바구니
-
-5번 바구니와 2번 바구니를 합쳐라.
-
-5번의 조상 : 4번
-2번의 조상 : 1번
-
-(4-&amp;gt;1)로 바꿔버린다.
-
-=&amp;gt; (2-&amp;gt;1), (5-&amp;gt;4-&amp;gt;1)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이렇게 된 경우 1번 바구니에 해당한 번호는 2, 4, 5로 원하는 결론이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;구현&quot;&gt;구현&lt;/h2&gt;
-
-&lt;p&gt;이것을 구현하는 것이 어려워 보이지만, 단순하다. 위에서 결국 필요한 것은 내 원소의 번호, 그리고 그 원소가 따르는 번호이다. 그리고 그 따르는 것들의 바구니 번호는 가장 위에 기초가 되는 &lt;strong&gt;조상 번호&lt;/strong&gt;가 대표한다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;7 8
-0 1 3
-1 1 7
-0 7 6
-1 7 1
-0 3 7
-0 4 2
-0 1 1
-1 1 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;line-1&quot;&gt;line 1&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 1 3 // 1번과 3번을 합쳐라.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;1의 조상 번호 : 1&lt;br /&gt;
-3의 조상 번호 : 3&lt;br /&gt;
-3번이 따르는 바구니를 1로 바꾼다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;line-2&quot;&gt;line 2&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 1 7 // 1번과 7번은 같은 바구니이니?
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;7의 조상 번호 : 7&lt;br /&gt;
-1의 조상 번호 : 1&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;No
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;line-3&quot;&gt;line 3&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 7 6 // 7번과 6번을 합쳐라.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;7의 조상 번호 : 7&lt;br /&gt;
-6의 조상 번호 : 6&lt;br /&gt;
-6번은 7번을 따른다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;line-4&quot;&gt;line 4&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 7 1 // 7번과 1번은 같은 바구니이니?
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;7의 조상 번호 : 7&lt;br /&gt;
-1의 조상 번호 : 1&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;No
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;line-5&quot;&gt;line 5&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 3 7 // 3번과 7번을 합쳐라.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;3의 조상 번호 : 1&lt;br /&gt;
-7의 조상 번호 : 7&lt;br /&gt;
-7번은 3번을 따른다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;line-6&quot;&gt;line 6&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 4 2 // 4번과 2번을 합쳐라.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;4의 조상 번호 : 4&lt;br /&gt;
-2의 조상 번호 : 2&lt;br /&gt;
-2번은 4번을 따른다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;line-7&quot;&gt;line 7&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 1 1 // 1번과 1번을 합쳐라.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;1의 조상 번호 : 1&lt;br /&gt;
-1의 조상 번호 : 1&lt;br /&gt;
-1번은 1번을 따른다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;line-8&quot;&gt;line 8&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 1 1 // 1번과 1번은 같은 바구니이니?
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;1의 조상 번호 : 1&lt;br /&gt;
-1의 조상 번호 : 1&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Yes
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;결론&quot;&gt;결론&lt;/h2&gt;
-
-&lt;p&gt;이런 방식으로 업데이트 하는 과정을 거치면, 묶인 집합을 효과적으로 찾을 수 있다. 결론적으로 구현해야 하는 함수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;union&lt;/code&gt; 함수이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;find&quot;&gt;find&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; 함수같은 경우에는, 특정 원소에 대해 물었을 때, 그 녀석이 속한 바구니를 끝까지 찾아 어떤 바구니인지 반환한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;union&quot;&gt;union&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;union&lt;/code&gt; 함수는 명령이 들어왔을 때, 각각이 속해있는 바구니를 찾고 그 바구니를 연결한다. 이 때, 중요한 것은 해당 원소의 바구니 번호를 찾아야 한다는 것이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;vector&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;YES&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;NO&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;시간-복잡도-문제&quot;&gt;시간 복잡도 문제&lt;/h1&gt;
-
-&lt;p&gt;하지만 위의 코드대로 한다면 문제가 발생한다. 그 이유는 원소의 개수가 많아짐에 따라 어떤 바구니에 들어있는지 탐색하는 시간이 오래걸리기 때문이다. 예제 입력에 대한 마지막 상황을 보자.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;바구니번호&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;0&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;7&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;따르는 번호&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;1&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;3&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;이 상황에서, 6은 어느 바구니에 있을까? (6-&amp;gt;7-&amp;gt;3-&amp;gt;1) 로, 1번 바구니에 있다. 만약, 6번을 0번이 속한 바구니와 합치라는 명령이 들어온다면 4번의 연산을 수행해야 한다. 그렇다면, 극단적인 경우에, n개의 원소가 순차적으로 얽혀있고 (n-&amp;gt;n-1-&amp;gt;n-2-&amp;gt;…) n이라는 원소를 특정 바구니에 합치라는 명령이 들어올 경우, $O(n)$ 의 시간 복잡도를 갖는다. 이 때, 수행하는 명령의 개수가 m일 경우 $O(nm)$ 의 시간 복잡도를 갖는다. 현재 문제에서 n = 100000, m = 1000000이므로 시간 초과가 난다.&lt;/p&gt;
-
-&lt;h2 id=&quot;해결&quot;&gt;해결&lt;/h2&gt;
-
-&lt;p&gt;이 문제는 해결이 간단한데, find 함수에 찾는 과정에서, 최종 조상의 번호를 아예 해당 원소의 바구니라고 저장해버리는 것이다. 이 상황에서는 원소가 속해있는 바구니 번호가 중요한 것이지, 그 과정에서 발생하는 &lt;strong&gt;그래프&lt;/strong&gt;가 중요한 것이 아니기 때문이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-#include &amp;lt;string&amp;gt;
-#include &amp;lt;vector&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ios_base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sync_with_stdio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;YES&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;NO&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;elem1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elem2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Thu, 02 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>09: 프로세스 동기화 Part 2</title>
-        <link>/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html</link>
-        <guid isPermaLink="true">/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html</guid>
-        <description>&lt;p&gt;프로세스 동기화 도구에 대해 알아본다.&lt;/p&gt;
-
-&lt;h1 id=&quot;semaphore세마포&quot;&gt;Semaphore(세마포)&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;801&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78143768-a95c2d80-7469-11ea-81b6-5ff62292d1f0.png&quot; class=&quot;center&quot; /&gt;
-Semaphoresms 깃발이라는 네덜란드 단어이다. 옛날에는 기찻길에서 공유하는 길이 있을 때, 깃발 표식으로 오고감의 신호를 주고 받았다. 이러한 맥락에서, Critical section을 사용하는 쓰레드에 사용하는 방법의 이름으로 붙게 되었다.&lt;/p&gt;
-
-&lt;p&gt;위의 그림을 보면 공유하는 기찻길이 하나이다. 이 경우 공유 자원이 1이라 볼 수 있다. 하나의 기차가 지나갈 때 1을 감소시키고, 다 지나간 뒤에 1을 증가시키는 일을 반복한다. 그리고 다른 기차가 지나가려고 할 때, Semaphore가 0인 경우에는 정지하고 1인 경우에 순차적으로 지나가게 하면 해결된다. 이렇게 Semaphore가 0, 1인 경우를 Binary Semaphore라 한다.&lt;/p&gt;
-
-&lt;p&gt;공유 자원이 꼭 1개일 필요는 없다. 여러개의 자원인 상황도 존재한다. 가령 위의 기차 그림에서 통과해서 갈 수 있는 공유 기찻길이 5개라면, 공유자원은 5이다. 이런 경우를 counting semaphore라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;1-구현&quot;&gt;1. 구현&lt;/h2&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78479060-1cbeb180-7780-11ea-9d5b-6d9350b51d67.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 예시에서 보듯, 깃발은 총 두가지가 필요하다. 지나가는 경우에는 감소, 지나간 뒤에는 증가이다. 초기에는 P, V로 불렸다.(네덜란드에서 만들어져 네덜란드어의 약자이다.) 현재에는 P는 test를 의미하며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acquire()&lt;/code&gt; 로 사용하고, V는 increment를 의미하며 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release()&lt;/code&gt; 로 사용한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acquire()&lt;/code&gt;는 자원이 사용가능한지 확인하고, 사용가능하다면 사용하고 그렇지 않다면 대기한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release()&lt;/code&gt;는 자원을 내놓고, 다음 자원을 실행시킨다.&lt;/p&gt;
-
-&lt;p&gt;자바를 통해 세마포 구조를 간단히 살펴보면 아래와 같다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;// number of permits&lt;/span&gt;
-  &lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// add this process/thread to list&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// block&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// remove a process P from list&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// wakeup P&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://mblogthumb-phinf.pstatic.net/20140527_265/wndrlf2003_1401125270012DhChu_PNG/1.png?type=w2&quot; alt=&quot;세마포 간단한 그림&quot; class=&quot;center-text&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 코드에서 acquire() 는 value값을 감소시키고 만약 &lt;strong&gt;value값이 0보다 작으면(가용자원을 모두 사용함) 이미 해당 임계구역에 어느 프로세스가 존재&lt;/strong&gt;한다는 의미이므로 현재 프로세스는 접근하지 못하도록 막아야한다. 이를 list라는 기다리는 줄에 추가한 뒤 block을 걸어준다.(list는 일반적으로 큐로 되어있다.)&lt;/p&gt;
-
-&lt;p&gt;release() 는 value값을 증가시키고, 만약 &lt;strong&gt;value값이 0보다 같거나 작으면 임계구역에 진입하려고 대기하는 프로세스가 list에 남아있다는 의미&lt;/strong&gt;이므로 그 중에서 하나를 꺼내어 임계구역을 수행할 수 있도록 해주어야 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78147073-f8a45d00-746d-11ea-923c-9767bbb82cb5.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;세마포를 그림으로 나타내면 위와 같다. list는 실제로 큐로 볼 수 있다. acquire()에 의해 block되는 프로세스는 세마포 내부에 있는 큐에 삽입된 후, 다른 프로세스가 임계구역을 나오면서 release()를 호출하여 &lt;strong&gt;세마포 큐에 있는 프로세스를 깨워야 한다.&lt;/strong&gt;(다시 ready queue로 보낸다.)&lt;/p&gt;
-
-&lt;p&gt;위에서 살펴본 것처럼 세마포는 일반적으로 &lt;strong&gt;Mutual exclusion&lt;/strong&gt;을 위해 사용된다.&lt;br /&gt;
-&lt;a href=&quot;https://wansook0316.github.io/cs/os/2020/04/01/운영체제-정리-08-프로세스-동기화-1.html&quot;&gt;운영체제 정리 08: 프로세스 동기화 &amp;lt;1. 발생 이유와 목적&amp;gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;bank-account-problem은행-계좌-문제-해결&quot;&gt;Bank Account Problem(은행 계좌 문제) 해결&lt;/h3&gt;
-
-&lt;p&gt;이전 글에서 보았던 은행 계좌 문제에 세마포를 적용해보자. 위에서 임계구역은 BankAccount 클래스 내부의 입출력하는 부분인 것을 보았다. 여기에 세마포를 적용해보면 아래와 같다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.concurrent.Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 세마포를 사용하기 위해 파일 가장 위에 추가해야 한다.&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// BankAccount 클래스의 생성자가 호출되면 세마포를 만든다.&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// value 값을 1로 초기화한다.&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 임계구역에 들어가기를 요청한다.&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-	    &lt;span class=&quot;cm&quot;&gt;/* 임계 구역 */&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 임계구역에서 나간다.&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-	    &lt;span class=&quot;cm&quot;&gt;/* 임계 구역 */&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;value 값은 임계구역에 몇 개의 프로세스를 접근할 것인지 정하는 것과 같다. 지금은 임계 구역에 하나의 프로세스만 접근가능하기 때문에 1 로 초기화 한다. (위 코드를 제외한 부분은 동일하다.) 이 코드를 수행하면 아래와 같은 결과가 나온다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// +,- 출력 생략&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;정상적으로 잔액이 0원이 나온 것을 확인할 수 있다. 이 코드는 임계구역의 문제를 해결하였으므로 몇 번을 수행하여도 같은 결과값이 출력된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;2-ordering&quot;&gt;2. Ordering&lt;/h2&gt;
-
-&lt;p&gt;세마포는 mutual exclusion뿐 아니라 ordering을 하기 위해서도 사용한다. 즉, 프로세스의 실행 순서를 원하는 순서로 설정 할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 프로세스가 P1, P2 두 개가 있다고 가정하자. 원하는 순서는 P1, P2 순으로 실행하기를 원한다. 그러면 아래와 같이 설정해줄 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 초기 semaphore 값 = 0
-sem value = 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;P1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;P2&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;sem.acquire()&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;section 1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;section 2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;sem.release()&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;p1이-먼저-실행된-경우&quot;&gt;P1이 먼저 실행된 경우&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Section 1 이전에 아무런 동작이 없으므로 바로 수행한다.&lt;/li&gt;
-  &lt;li&gt;sem.release() 를 만나면 value값을 1 증가시키고, 세마포 큐에 있는 프로세스를 깨워주는데 현재에는 큐에 프로세스가 없으므로 아무 동작도 하지 않는다.&lt;/li&gt;
-  &lt;li&gt;P2가 실행된다.&lt;/li&gt;
-  &lt;li&gt;P2의 sem.acquire() 를 만나면 현재 value값은 1이고 이를 1감소시키면 0이 된다. value = 0이면 block을 하지 않으므로, 무사히 Section 2가 수행된다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;p2가-먼저-실행된-경우&quot;&gt;P2가 먼저 실행된 경우&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Section 2 이전에 sem.acquire() 가 있으므로 이를 수행하는데, 현재 value값은 0이고 이를 1 감소 시키면 -1 이 된다. value값이 음수면 해당 프로세스를 block시킨다.(세마포 큐에 삽입한다.)&lt;/li&gt;
-  &lt;li&gt;P1이 실행되면 Section 1이 바로 수행된다.&lt;/li&gt;
-  &lt;li&gt;sem.release() 를 만나면 value값을 1 증가시키고, 세마포 큐에 있는 P2 프로세스를 깨워준다.(현재 value = 0)&lt;/li&gt;
-  &lt;li&gt;P2의 Section 2가 수행된다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;위에서 두 가지 경우를 살펴보았듯이, P1, P2 둘 중 어느 것을 먼저 실행하여도 결과적으로 &lt;strong&gt;P1 -&amp;gt; P2 순서&lt;/strong&gt;로 수행하는 것을 알 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;입금-출금-순서로-은행계좌-문제-해결하기&quot;&gt;입금 출금 순서로 은행계좌 문제 해결하기&lt;/h3&gt;
-
-&lt;p&gt;위에서 계속 살펴봤던 은행계좌 문제에서 ordering을 적용해보자. 프로세스의 실행 순서는 반드시 입금, 출금 순서로 수행해야한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-	&lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// Ordeing을 위한 세마포&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// block된 출금 프로세스가 있다면 깨워준다.&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 출금을 먼저하려고 하면 block한다.&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위처럼 코드를 수정할 수 있다. Ordering을 위한 semOrder 세마포 변수를 선언하고, 출금하는 동작 앞에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acquire()&lt;/code&gt;, 입금하는 동작 뒤에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release()&lt;/code&gt; 를 추가하였다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+++++++++++++++++++++++++------------+++++-----++++++++++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++++------------------------------------------
-----------------------------------------
-balance = 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;실행 결과는 위와 같다. &lt;strong&gt;+(입금)가 맨 앞에서 실행&lt;/strong&gt;한 모습을 볼 수 있다.(입금, 출금 횟수는 100번으로 줄였다.)&lt;/p&gt;
-
-&lt;p&gt;만약, 입금, 출금, 입금, 출금, … 교대로 출력하도록 하려면 세마포를 두 개 사용하여 아래와 같이 구현할 수 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;semWithraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;semDeposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 입금후에는 반드시 출금을 해야 하므로 자신을 block한다.&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;semWithraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 입금보다 먼저 수행하는 것을 막는다.&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;semDeposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 출금 수행이 완료되면 block되었던 입금 프로세스를 깨워준다.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-balance = 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/wndrlf2003/220011819891&quot;&gt;세마포 사진&lt;/a&gt;&lt;br /&gt;
-Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
-</description>
-        <pubDate>Wed, 01 Apr 2020 00:00:00 +0900</pubDate>
       </item>
     
   </channel>
