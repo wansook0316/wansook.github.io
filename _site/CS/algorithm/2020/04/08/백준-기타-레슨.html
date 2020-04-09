@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>백준(2343번): 기타 레슨 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="실버1 : 이분 탐색, Parametric Search 문제이다.백준(2343번) - 기타 레슨">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/04/08/%EB%B0%B1%EC%A4%80-%EA%B8%B0%ED%83%80-%EB%A0%88%EC%8A%A8.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/34.jpg')">
+    <h1 class="title">백준(2343번): 기타 레슨</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+      
+    </p>
+
+    <p class="meta">
+      April 8, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+
+  <p><strong><em>실버1</em></strong> : 이분 탐색, Parametric Search 문제이다.<br />
+<a href="https://www.acmicpc.net/problem/2343">백준(2343번) - 기타 레슨</a></p>
+
+<h1 id="생각">생각</h1>
+
+<p>처음에 이 문제를 풀 때, 세그먼트 트리로 풀려고 했다. 그런데, 문제가 생겼다. 그렇게 구현하려면, 100000개 를 50000개의 블루레이에 담으려고 한다면 계속해서 재귀 함수를 타고 들어가며 구해야 한다. 시간 제한이 2초이고, 또한 재귀함수의 depth가 너무 깊어져 이 방향으로 문제를 해결하면 안된다고 판단했다.</p>
+
+<p>고민을 하던 중, 답을 먼저 제안하고, 이 답을 기반으로 역으로 추적하면 어떨까하는 생각이 들었다. 이 방법을 파라메트릭 서치(parametric Search)라 한다.</p>
+
+<h2 id="parametric-search">Parametric Search</h2>
+
+<blockquote>
+  <p>최적화 문제를 결정 문제로 바꾸어 해결한다.</p>
+</blockquote>
+
+<p>이진 탐색과 비슷한 방법이다. 그런데 어떤 상황에서 사용하는지 알아야 한다. 위의 문제는 결국, N개의 입력이 들어왔을 때, 이걸 M개로 나누고, M개로 나눈 각각의 뭉텅이들 사이에서 최댓값들을 뽑아 그것의 최솟값을 구하는 문제이다. (<del>응?</del>)</p>
+
+<ol>
+  <li>입력 N을 M개의 집합으로 자른다. 다양한 가지수로 자를 수 있다. 이 가지수를 K라 하자.</li>
+  <li>그 집합들의 합을 갖고 있는다.</li>
+  <li>그 요소들을 가지는 집합 L를 만든다. (K의 요소 개수는 M개, 발생하는 집합 L의 개수는 K개)</li>
+  <li>발생한 모든 L 집합에 대해 요소들의 최댓값을 구한다. 그 최댓값을 모은 집합을 P라 하자. (P의 요소 개수는 K개)</li>
+  <li>P집합의 요소들 중 최소값을 구한다.</li>
+</ol>
+
+<p>완전 탐색을 한다면 위와 같이 할 수 있을 것이다. 그런데, 결국 이 문제는 최적의 디스크 크기를 구하는 문제이다. 이런 문제에서 새로운 발상을 할 수 있는데, <strong>답은 제안하는 것이다.</strong></p>
+
+<h3 id="방법">방법</h3>
+
+<p>이 문제에서 내가 원하는 것은 disk 크기를 구하는 것이다. 이 disk 크기가 될 수 있는 최솟값과 최댓값을 계산해보자. N = 100000 이고, 각각의 동영상 용량은 10000이 최대이므로, 이 동영상 모두를 한 disk에 넣는다면 1000000000크기가 최대이다. 일단 이해를 하는 과정이기에 최댓값을 100이라 가정하겠다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78757524-97bddd00-79b7-11ea-80a7-55be7dfe0702.png" class="center" /></p>
+
+<p>과정은 이분 탐색과 비슷하다. 답이 될 수 있는 최소, 최대에서 반이 답이 되는지 되지 않는지 판단한다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78757533-9db3be00-79b7-11ea-94cb-f5f388927caa.png" class="center" /></p>
+
+<p>너무 디스크 크기가 작다면 오른쪽을 탐색한다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78757558-a4dacc00-79b7-11ea-906e-afbf9571fe5d.png" class="center" /></p>
+
+<p>너무 디스크 크기가 크다면 왼쪽을 탐색한다.</p>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78757569-aad0ad00-79b7-11ea-8fc0-84a902def739.png" class="center" /></p>
+
+<p>위의 과정을 반복하여 답을 도출한다.</p>
+
+<p>결국 위 방법의 핵심은, <strong>원하는 답의 범위를 설정하고 이 값이 되는지 안되는지를 파악한다.</strong> 이다. 이러한 방법을 사용하기로 마음 먹었다면, 어떠한 조건에서 탐색의 방향을 바꿀 수 있는지, 해당 문제의 특징은 무엇인지 확인해야 한다.</p>
+
+<h2 id="문제의-특징">문제의 특징</h2>
+
+<blockquote>
+  <p>M개의 disk를 사용했을 때, disk 크기가 가장 줄어들 수 있다.</p>
+</blockquote>
+
+<ul>
+  <li>만약 10개의 disk를 사용할 수 있다고 하자. 그렇다면 답은 N을 10개로 나누었을 때 가장 작게 나눌 수 있다.</li>
+  <li>물론 10개보다 적은 수의 disk를 사용해서 나누었을 때 10개를 사용했을 때의 답과 같게 나올 수는 있다.</li>
+  <li>따라서 10개보다 적은 수의 disk를 사용할 경우에도 답을 업데이트 해주는 대상이 된다.</li>
+  <li>또한 <strong>M개의 disk를 사용할 수 있는 모든 경우의 수를 비교</strong>해야 한다. <del>처음에 M개로만 나뉘면 답이라 해서 틀렸다. ㅠ</del></li>
+</ul>
+
+<h3 id="탐색-조건">탐색 조건</h3>
+
+<blockquote>
+  <p>제시한 블루레이 Size를 가지고 만들었을 때 나온 값이 M보다 크면 Size를 키운다.</p>
+</blockquote>
+
+<p>제시한 Size를 가지고 N를 최대한 나눈 결과 가지고 있는 블루레이 갯수(M)보다 disk가 더 필요하다는 결론이 나오면, 현재 disk 사이즈가 너무 작아 더 필요로 한다는 결론이다. 따라서 disk 크기를 키워야 한다.</p>
+
+<blockquote>
+  <p>제시한 블루레이 Size를 가지고 만들었을 때 나온 값이 M보다 작으면 지금 제시한 값을 업데이트 한다.</p>
+</blockquote>
+
+<p>나온 값과 이전에 탐색한 답 중 최솟값으로 업데이트 한다.</p>
+
+<blockquote>
+  <p>제시하는 답은 video의 값보다는 항상 같거나 커야한다.</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">1 2 3 4 5</code> 라는 video가 들어온다고 가정하자. 이 때, 내가 제시하는 답은 5보다 항상 같거나 커야 한다. 만약 3이라는 답을 제시한다면 4와 5는 disk에 들어갈 수도 없으므로 논리에서 벗어난다.</p>
+
+<h1 id="code">Code</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">video</span><span class="p">[</span><span class="mi">100000</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">ans</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="nf">isOk</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">video</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sum</span> <span class="o">+</span> <span class="n">video</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="n">video</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">video</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="n">M</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">M</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">video</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="mf">1e9</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="o">+</span><span class="n">right</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isOk</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%8A%B8%EB%A6%AD+%EC%84%9C%EC%B9%98">#파라메트릭 서치</a>
+    
+    <a class="tag" href="/tags#%EC%9D%B4%EB%B6%84+%ED%83%90%EC%83%89">#이분 탐색</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+    
+    <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';">
+        <p>Previous post</p>
+        <a href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html">
+          20: 디스크 스케쥴링 알고리즘
+        </a>
+    </div>
+    
+    
+    <div id="next-post" class="post-nav-post" onclick="location.href='/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html';">
+        <p>Next post</p>
+        <a href="/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html">
+          01: 네트워크 넓게 보기 Part 1
+        </a>
+    </div>
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

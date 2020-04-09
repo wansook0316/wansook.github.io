@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>02: 네트워크 넓게 보기 Part 2 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="네트워크에 대해 깊게 알아보기 전에 큰 그림을 보고, 용어를 정리한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-02-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-2.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/27.jpg')">
+    <h1 class="title">02: 네트워크, TCP, HTTP</h1>
+    
+    <p class="meta">
+      CS/Network
+      
+        : 컴퓨터 네트워크
+      
+    </p>
+
+    <p class="meta">
+      April 9, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>컴퓨터 네트워크</em></b> 시리즈 <b><em>3</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+          
+          
+            <li onclick="location.href='/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html'">
+                <span>Part 1 - 01: 네트워크 넓게 보기 Part 1</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 2 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-03-HTTP.html'">
+                <span>Part 3 - 03: HTTP</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>네트워크에 대해 깊게 알아보기 전에 큰 그림을 보고, 용어를 정리한다.</p>
+
+<h2 id="기본-용어-정리">기본 용어 정리</h2>
+
+<h3 id="프로토콜">프로토콜</h3>
+
+<blockquote>
+  <p>서로 다른 개체들이 서로 간의 의사소통을 하기 위해 만들어놓은 규약</p>
+</blockquote>
+
+<h3 id="패킷">패킷</h3>
+
+<blockquote>
+  <p>한번에 전송할 데이터의 크기</p>
+</blockquote>
+
+<p>편지를 내가 썼다. 그 편지를 누군가한테 보내는데, 글자하나하나를 보내지 않는다. 이 때 편지는 우체부 아저씨가 누군가한테 배달하는 단위가 된다. 이와 같은 개념이 패킷이다. 패킷은 데이터를 보내는 데 있어 발생하는 단위이다. 이 패킷의 구조에 대해서는 나중에 알아보자.</p>
+
+<h3 id="대역폭">대역폭</h3>
+
+<blockquote>
+  <p>수도관의 크기</p>
+</blockquote>
+
+<p>결국 데이터는 흐름이다. 그렇기 때문에 어떤 관을 따라간다고 생각할 수 있다. 이 때 관의 지름이 대역폭이다. 한번에 보낼 수 있는 데이터의 양이라 생각하면 된다. 이 크기가 클수록 많은 데이터를 초 당 전송할 수 있는 양이 늘어난다. 인터넷 속도와 직결된다.</p>
+
+<h3 id="트래픽">트래픽</h3>
+
+<blockquote>
+  <p>어떤 통신장치나 시스템에 걸리는 부하(전송량)</p>
+</blockquote>
+
+<p>요청에 대해 전송해주는 시간 대비 데이터의 총량을 말한다.</p>
+
+<h2 id="네트워크-구조">네트워크 구조</h2>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78849399-57aa3900-7a4f-11ea-9002-7c36366b34cb.png" class="center" /></p>
+
+<h3 id="네트워크-엣지network-edge">네트워크 엣지(Network Edge)</h3>
+
+<blockquote>
+  <p>말단 device, 우리가 사용하는 대부분의 기기에 해당한다.</p>
+</blockquote>
+
+<h3 id="네트워크-코어network-core">네트워크 코어(Network Core)</h3>
+
+<blockquote>
+  <p>엔드 시스템을 연결하기 위한 중간의 매개들을 말한다.</p>
+</blockquote>
+
+<h3 id="물리적-링크">물리적 링크</h3>
+
+<blockquote>
+  <p>코어와 엣지 사이에 존재하는 데이터 전송 선과 같은 것들을 의미한다.</p>
+</blockquote>
+
+<h2 id="네트워크의-내부">네트워크의 내부</h2>
+
+<h3 id="라우터">라우터</h3>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78850080-39453d00-7a51-11ea-9c62-fb505b277520.png" class="center" /></p>
+
+<p>네트워크 내부에 존재하는 장치(네트워크 코어)들로써, 라우터는 사용자들이 보낸 메세지를 목적지까지 전달하는 역할을 가지고 있다. 결국 라우터는 데이터를 전달하는 장치이다.</p>
+
+<h3 id="라우터의-데이터-전달방식">라우터의 데이터 전달방식</h3>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78850098-46622c00-7a51-11ea-9a96-ee16e706412f.png" class="center" /></p>
+
+<ol>
+  <li>
+    <p>Circuit Switching</p>
+
+    <ul>
+      <li>출발지부터 목적지까지의 대역폭을 예약해놓은 상태로써, 한번에 데이터를 전달하는 것이다. 하나의 회선을 할당받아 (회선을 독점하여) 데이터를 전달하기 때문에 아무런 방해없이 한번에 전달할 수 있다. 예시로 전화망이 있다. 전화를 걸게되면 전화를 건 송신자로부터 수신자의 전화기에 이르기까지의 경로를 찾아내고, 한번 설정된 송신자와 수신자의 경로는 데이터(음성) 이 전송되는 동안 계속 유지되는 것이다. 이 예로 부터 Circuit Switching은 언제든지 계속 사용하는 시스템에 적합하다는 것을 알 수 있다.</li>
+    </ul>
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">장점</th>
+      <th style="text-align: center">단점</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">대역폭이 결정되므로, delay가 발생할 수 없다.</td>
+      <td style="text-align: center">일정 사용자에게 할당해주므로 낭비가 발생한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78850098-46622c00-7a51-11ea-9a96-ee16e706412f.png" class="center" /></p>
+
+<ol>
+  <li>
+    <p>Packet Switching</p>
+
+    <ul>
+      <li>사용자가 보내는 데이터가 패킷단위로 잘게 나뉘어서 전달되는 것이다. 패킷은 출발지에서 다음 라우터로 전송하기 이전에 저장하고 어느 경로로 갈지 결정하는 Store and Forward 방식을 취한다. 패킷의 헤더에는 출발지(source) 와 목적지(destination) 에 대한 정보가 들어있다. 대부분의 경우는 이 사용법을 택한다. 인터넷을 사용하는 패턴이 Packet Switching 에 적합하기 때문이다. 연속된 요청이 필요없기 때문에 대역폭을 할당할 필요가 없다.</li>
+    </ul>
+  </li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">장점</th>
+      <th style="text-align: center">단점</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">짧게 사용하는 다수의 사용자도 커버가 가능하다.</td>
+      <td style="text-align: center">짧은 시간에 많은 요청이 들어올 경우 delay가 발생한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="packet-delay">Packet Delay</h2>
+
+<p>패킷스위칭을 시 라우터는 패킷단위의 데이터를 전달받고 목적지로 전달하는 역할을 수행한다. 이 과정에서 라우터가 보낼 수 있는 대역폭보다 더 많은 유저가 더 빠른 속도로 데이터를 보낸다면 딜레이가 생길 수 밖에 없다. 톨게이트에 사람이 마구 몰리는 상황을 상상해보자.</p>
+
+<h3 id="delay의-구분">Delay의 구분</h3>
+
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78851120-fafd4d00-7a53-11ea-816a-e8a55610944a.png" class="center" />
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78851127-00f32e00-7a54-11ea-8e6a-b73f35bb50be.png" class="center" /></p>
+
+<h4 id="processing-delay">Processing Delay</h4>
+
+<blockquote>
+  <p>패킷 자체를 평가한다.</p>
+</blockquote>
+
+<p>필연적인 딜레이 중 하나로써, 목적지에 따른 어느 라우터로 전송할 지 결정하는 것에 대한 지연이다. 이 과정에서는 패킷의 형식을 검사하고, 목적지를 판단하는 과정을 수행한다.</p>
+
+<h4 id="queueing-delay">Queueing Delay</h4>
+
+<blockquote>
+  <p>들어온 패킷들을 줄세운다.</p>
+</blockquote>
+
+<p>데이터를 전달하는 라우터의 큐에 들어가서 앞서서 도착해 큐에 대기중인 패킷들이 모두 나갈때까지 걸리는 지연이다. (큐에 얼마나 많이 들어가있는지에 따라서 큐잉 딜레이는 가변적)</p>
+
+<h4 id="transmission-delay">Transmission Delay</h4>
+
+<blockquote>
+  <p>패킷하나가 모두 전송되기 까지 걸리는 시간</p>
+</blockquote>
+
+<p>라우터의 큐 제일 앞에 배치되어서 패킷 하나가 온전하게 마지막 비트까지 최종 목적지로 가는데까지의 지연이다. 패킷은 전송의 한 단위이기 때문에, 하나의 패킷이 모두 전송이 되어야 sender는 전송이 되었다고 판단한다. 예를 들면 패킷의 bit가 100bits이고 대역폭이 1bps 이면 1초당 1bit만 전송할 수 있기 때문에 100초 후에 이 패킷은 전송되었다고 판단할 수 있다.</p>
+
+<h4 id="propagation-delay">Propagation Delay</h4>
+
+<blockquote>
+  <p>실제로 비트가 선을 따라 전송되는데 걸리는 시간</p>
+</blockquote>
+
+<p>마지막 비트까지 대역폭에 올라오고, 이후에 마지막 비트가 최종 목적지까지 도달하는 물리적 시간이다. 이 속도는 전자기파의 속도라 사실 많은 영향을 주지는 않는다. ( 가까우면 빨리, 거리가 멀면 오래 걸림)</p>
+
+<p>결과적으로 라우터에서 패킷을 받을 때 걸리는 nodal delay 는 위 4가지의 지연의 합으로 표현된다.</p>
+
+<script type="math/tex; mode=display">nodal = proc + queue + trans + prop</script>
+
+<h3 id="delay-줄이기">Delay 줄이기</h3>
+
+<h4 id="processing-delay-1">Processing Delay</h4>
+
+<p>라우터에 좋은 처리장치를 달아서 패킷에 대해 판단하는 속도를 향상시킨다.</p>
+
+<h4 id="queueing-delay-1">Queueing Delay</h4>
+
+<p>사용자의 패턴에 의존하기 때문에 불가능하다. 통계적 기법을 사용해야 한다.</p>
+
+<h4 id="transmission-delay-1">Transmission Delay</h4>
+
+<p>패킷하나가 빠져나가는 시간을 줄인다. 초당 선송할 수 있는 양을 늘리면 된다. 마치 톨게이트에서 5차선이었던 것을 10차선으로 바꾸면 한번에 빠져나갈 수 있는 차량의 수가 증가한다. 이 때, 이 차선에 대응되는 개념이 <strong>대역폭</strong>이다.</p>
+
+<h4 id="propagation-delay-1">Propagation Delay</h4>
+
+<p>빛의 속도는 세상에서 가장 빠르다.. 불가능하다.</p>
+
+<h2 id="packet-loss">Packet Loss</h2>
+
+<blockquote>
+  <p>큐에 패킷이 가득차있는 경우 버려진다.
+라우터의 큐에 삽입되기 이전에 큐에 패킷이 가득차있는 경우 큐의 저장공간이 없기 때문에 Packet Loss 가 발생하며, 패킷은 버려진다.</p>
+</blockquote>
+
+<h3 id="tcp-작동">TCP 작동</h3>
+
+<p>이런 경우 안전한 전송을 담당하는 Client 쪽의 TransportLayer 계층의 TCP 프로토콜이 해당 패킷을 재전송한다. 잘 몰라도 된다. 나중에 배운다.</p>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=1169634">KOCW 이석복 교수님 - 컴퓨터네트워크</a></p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Network">#Network</a>
+    
+    <a class="tag" href="/tags#TCP">#TCP</a>
+    
+    <a class="tag" href="/tags#HTTP">#HTTP</a>
+    
+    <a class="tag" href="/tags#overview">#overview</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html">
+                  01: 네트워크 넓게 보기 Part 1
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-03-HTTP.html';">
+              <p>NEXT SERIES</p>
+              <a href="/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-03-HTTP.html">
+                03: HTTP
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
