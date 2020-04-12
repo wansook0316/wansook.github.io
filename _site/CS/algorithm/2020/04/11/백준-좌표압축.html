@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>백준(18870번): 좌표 압축 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="실버2 : 파라메트릭 서치 문제이다.백준(18870번) - 좌표 압축">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/04/11/%EB%B0%B1%EC%A4%80-%EC%A2%8C%ED%91%9C%EC%95%95%EC%B6%95.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/34.jpg')">
+    <h1 class="title">백준(18870번): 좌표 압축</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+      
+    </p>
+
+    <p class="meta">
+      April 11, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+
+  <p><strong><em>실버2</em></strong> : 파라메트릭 서치 문제이다.
+<a href="https://www.acmicpc.net/problem/18870">백준(18870번) - 좌표 압축</a></p>
+
+<h1 id="root-찾기">Root 찾기</h1>
+
+<p>처음에 또다시 해시로 풀려고 하다가, 중간에 입력값의 범위가 후덜덜한 것을 보고 풀이 방법을 바꾸었다. 이 문제를 그냥 linear하게 풀려고 하면 100000번을 linear하게 탐색해야 하기 때문에 터져버린다.</p>
+
+<p>그래서! 이 문제는 파라메트릭 서치로 풀이한다. 하나의 질문에 대해 몇번이 필요한지 사실 결정되어 있다. 입력되는 것들을 집합화 하고, 이것들을 정렬하면, index가 곧 해당 입력의 압축된 좌표이다.</p>
+
+<ul>
+  <li>입력</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
+2 4 -10 4 -9
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">집합화</th>
+      <th style="text-align: center">2</th>
+      <th style="text-align: center">4</th>
+      <th style="text-align: center">-10</th>
+      <th style="text-align: center">-9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">정렬</td>
+      <td style="text-align: center">-10</td>
+      <td style="text-align: center">-9</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">index</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>잘 보면, 집합화 한 원소를 정렬한 뒤, 이것들을 배열에 넣었을 때, index가 곧 해당 원소의 압축된 좌표이다.</p>
+
+<p>따라서, 이제는 입력된 순서대로 이 index를 찾아주기만 하면 된다. 이 때, 찾는 방법으로 이진 탐색을 사용하면 된다.</p>
+
+<h1 id="code">Code</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;set&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">N</span><span class="p">;</span>
+<span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">1000001</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">net</span><span class="p">[</span><span class="mi">1000001</span><span class="p">];</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">s</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">iter</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">idx</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">net</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="o">*</span><span class="n">iter</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">net</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">now</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">net</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">now</span><span class="p">){</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mid</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%EC%A0%95%EB%A0%AC">#정렬</a>
+    
+    <a class="tag" href="/tags#%EC%A7%91%ED%95%A9">#집합</a>
+    
+    <a class="tag" href="/tags#%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%8A%B8%EB%A6%AD+%EC%84%9C%EC%B9%98">#파라메트릭 서치</a>
+    
+    <a class="tag" href="/tags#%EC%9D%B4%EC%A7%84+%ED%83%90%EC%83%89">#이진 탐색</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+    
+    <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/04/11/%EB%B0%B1%EC%A4%80-%EB%B0%B0.html';">
+        <p>Previous post</p>
+        <a href="/cs/algorithm/2020/04/11/%EB%B0%B1%EC%A4%80-%EB%B0%B0.html">
+          백준(1092번): 배
+        </a>
+    </div>
+    
+    
+    <div id="next-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/04/11/%EB%B0%B1%EC%A4%80-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EB%86%92%EC%9D%B4%EC%99%80-%EB%84%88%EB%B9%84.html';">
+        <p>Next post</p>
+        <a href="/cs/algorithm/2020/04/11/%EB%B0%B1%EC%A4%80-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EB%86%92%EC%9D%B4%EC%99%80-%EB%84%88%EB%B9%84.html">
+          백준(2250번): 트리의 높이와 너비
+        </a>
+    </div>
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
