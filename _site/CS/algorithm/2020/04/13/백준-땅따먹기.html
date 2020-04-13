@@ -127,6 +127,22 @@ function changeContent(event){
 
 </script>
 
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
 	 
 </head>
   <body>
@@ -474,10 +490,12 @@ function changeContent(event){
     <div class="content">
       <article class="feature-image">
   <header style="background-image: url('/assets/img/34.jpg')">
-    <h1 class="title">다시 풀어볼 문제들</h1>
+    <h1 class="title">백준(6171번): 땅따먹기</h1>
     
     <p class="meta">
       CS/Algorithm
+      
+        : 다시 풀어볼 문제들
       
     </p>
 
@@ -491,8 +509,189 @@ function changeContent(event){
 
 <section class="post-content">
   
+    
+    
+    
+    
 
-  <p><strong><em>플레티넘1</em></strong> : 동적 계획법, Convex Hull 문제이다.
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>다시 풀어볼 문제들</em></b> 시리즈 <b><em>2</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/cs/algorithm/2020/04/12/%EB%B0%B1%EC%A4%80-%ED%81%90%EB%B9%99.html'">
+                <span>Part 1 - 백준(5373번): 큐빙</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 2 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p><strong><em>플레티넘1</em></strong> : 동적 계획법, Convex Hull 문제이다.<br />
 <a href="https://www.acmicpc.net/problem/6171">백준(6171번) - 땅따먹기</a></p>
 
 <h1 id="생각">생각</h1>
@@ -564,7 +763,8 @@ function changeContent(event){
 <h2 id="점화식">점화식</h2>
 
 <blockquote>
-  <p><code class="language-plaintext highlighter-rouge">dp[i] = min(dp[j-1] + (ground[j].w * ground[i].h)) (단, i &gt;= j &gt;= 1)</code></p>
+  <p><code class="language-plaintext highlighter-rouge">dp[i] = min(dp[j-1] + (ground[j].w * ground[i].h))</code>
+<code class="language-plaintext highlighter-rouge">(단, i &gt;= j &gt;= 1)</code></p>
 </blockquote>
 
 <h1 id="code">Code</h1>
@@ -624,93 +824,6 @@ function changeContent(event){
 
 <p>하지만.. 플레티넘의 위엄이 있다. 이렇게 풀면 시간초과가 난다. 당연히 입력이 1000000이기 때문에 최악의 경우 $O(n^2)$ 이다. 그래서 여기서는 추가적인 최적화가 필요하다.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center"> </th>
-      <th style="text-align: center">0</th>
-      <th style="text-align: center">1</th>
-      <th style="text-align: center">2</th>
-      <th style="text-align: center">3</th>
-      <th style="text-align: center">4</th>
-      <th style="text-align: center">5</th>
-      <th style="text-align: center">6</th>
-      <th style="text-align: center">7</th>
-      <th style="text-align: center">8</th>
-      <th style="text-align: center">9</th>
-      <th style="text-align: center">10</th>
-      <th style="text-align: center">11</th>
-      <th style="text-align: center">12</th>
-      <th style="text-align: center">13</th>
-      <th style="text-align: center">14</th>
-      <th style="text-align: center">15</th>
-      <th style="text-align: center">16</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">1</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">INF</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">1</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">2</td>
-      <td style="text-align: center">3</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">1</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">0</td>
-      <td style="text-align: center">1</td>
-    </tr>
-  </tbody>
-</table>
-
   </section>
   
 <footer>
@@ -733,21 +846,176 @@ function changeContent(event){
 <!-- Post navigation -->
 <div id="post-nav">
   
-    
-    <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/04/12/%EB%B0%B1%EC%A4%80-%ED%81%90%EB%B9%99.html';">
-        <p>Previous post</p>
-        <a href="/cs/algorithm/2020/04/12/%EB%B0%B1%EC%A4%80-%ED%81%90%EB%B9%99.html">
-          백준(5373번): 큐빙
-        </a>
-    </div>
+  
     
     
-    <div id="next-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/04/14/%EB%B0%B1%EC%A4%80-Four-Squares.html';">
-        <p>Next post</p>
-        <a href="/cs/algorithm/2020/04/14/%EB%B0%B1%EC%A4%80-Four-Squares.html">
-          백준(17626번): Four Squares
-        </a>
-    </div>
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/04/12/%EB%B0%B1%EC%A4%80-%ED%81%90%EB%B9%99.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/cs/algorithm/2020/04/12/%EB%B0%B1%EC%A4%80-%ED%81%90%EB%B9%99.html">
+                  백준(5373번): 큐빙
+                </a>
+            </div>
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
     
   
 

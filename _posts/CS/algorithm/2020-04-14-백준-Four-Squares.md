@@ -9,7 +9,7 @@ feature-title:
 use_math: true
 ---
 
-**_실버5_** : 동적 계획법 문제이다.
+**_실버5_** : 동적 계획법 문제이다.  
 [백준(17626번) - Four Squares](https://www.acmicpc.net/problem/17626)
 
 # 생각
