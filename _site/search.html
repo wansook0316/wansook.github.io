@@ -483,6 +483,18 @@ function changeContent(event){
       }
       ,
     
+      "cs-algorithm-2020-04-15-eb-b0-b1-ec-a4-80-ec-8a-a4-ed-83-80-ed-8a-b8-ec-99-80-eb-a7-81-ed-81-ac-html": {
+        "title": "백준(14889번): 스타트와 링크",
+        "tags": "백준, 알고리즘, dfs, 재귀",
+        "date": "April 15, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버3 : dfs 문제이다.백준(14889번) - 스타트와 링크생각기본적인 dfs 문제이다. 반으로 나눈 팀에 대한 점수를 더하는 것이므로, true false를 통해 구현할 수 있다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;using namespace std;int N;int map[21][21];bool check[21];int ans = 987654321;void go(int count, int start){    if (count == N/2) {        int start, link;        start = link = 0;        for (int i = 1; i &lt;= N; i++) {            for (int j = 1; j &lt;= N; j++) {                if (check[i] &amp;&amp; check[j]) start += map[i][j];                if (!check[i] &amp;&amp; !check[j]) link += map[i][j];            }        }        ans = min(ans, abs(start-link));        return;    }    for (int i = start; i &lt;= N-(N/2)+count+1; i++) {        check[i] = true;        go(count+1, i+1);        check[i] = false;    }}int main(){    cin &gt;&gt; N;    for (int i = 1; i &lt;= N; i++) {        for (int j = 1; j &lt;= N; j++) {            cin &gt;&gt; map[i][j];        }    }    go(0, 1);    cout &lt;&lt; ans &lt;&lt; '\\n';}",
+        
+        "url": "/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EC%8A%A4%ED%83%80%ED%8A%B8%EC%99%80-%EB%A7%81%ED%81%AC.html"
+      }
+      ,
+    
       "cs-algorithm-2020-04-15-eb-b0-b1-ec-a4-80-eb-b0-9c-ec-a0-84-ec-86-8c-html": {
         "title": "백준(1102번): 발전소",
         "tags": "백준, 알고리즘, 동적 계획법",
