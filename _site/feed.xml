@@ -4,8 +4,482 @@
     <title>완숙의 에그머니🍳</title>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
-    <description>개발하다가 얼떨결에 들어왔으니 이것도 인연</description>
-    <pubDate>Tue, 14 Apr 2020 02:14:23 +0900</pubDate>
+    <description>얼떨결에 들어왔으니 이것도 인연😌</description>
+    <pubDate>Wed, 15 Apr 2020 17:16:32 +0900</pubDate>
+    
+      <item>
+        <title>백준(1890번): 점프</title>
+        <link>/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EC%A0%90%ED%94%84.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EC%A0%90%ED%94%84.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버2&lt;/em&gt;&lt;/strong&gt; : 동적 계획법 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/1890&quot;&gt;백준(1890번) - 점프&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;앞으로 보내는 dp문제이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;p&gt;이 문제는 위치에 따라 개수가 결정되므로 dp의 인자를 좌표의 위치로 잡는 것이 수월하다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dp[y][x] = (y,x) 위치까지 도착하는 경로의 개수&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;점화식&quot;&gt;점화식&lt;/h2&gt;
+
+&lt;p&gt;해당 위치까지 도착하는 개수는 이전 위치에서 올 수 있느냐를 판단해야 한다. 이 경우 과거로 부터 현재를 갖고오는 것이 무리가 있으니 오히려 현재 위치에서 다음 위치로 갈 수 있는 경로를 업데이트 하는 것이 옳다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[y+d][x] += dp[y][x]&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[y][x+d] += dp[y][x]&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;d는 (y,x)위치에서 점프할 수 있는 크기이다. 이 때 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[y][x]&lt;/code&gt;로 업데이트 해주는 이유는, 해당 (y, x) 위치에 도착할 수 있는 경로가 2개라면, 이 지점까지 도달한 경로 모두는 다음 위치로 이동할 수 있기 때문에 그 숫자로 업데이트하는 것이 맞다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4
+2 3 2 1
+1 2 1 3
+2 2 1 1
+3 1 1 0
+
+=========(1,1 )=========
+=========y 방향=========
+1 0 0 0
+0 0 0 0
+1 0 0 0
+0 0 0 0
+
+=========(1,1 )=========
+=========x 방향=========
+1 0 1 0
+0 0 0 0
+1 0 0 0
+0 0 0 0
+
+=========(1,3 )=========
+=========y 방향=========
+1 0 1 0
+0 0 0 0
+1 0 1 0
+0 0 0 0
+
+=========(1,3 )=========
+=========x 방향=========
+1 0 1 0
+0 0 0 0
+1 0 1 0
+0 0 0 0
+
+=========(3,1 )=========
+=========y 방향=========
+1 0 1 0
+0 0 0 0
+1 0 1 0
+0 0 0 0
+
+=========(3,1 )=========
+=========x 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 0
+0 0 0 0
+
+=========(3,3 )=========
+=========y 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 0
+0 0 2 0
+
+=========(3,3 )=========
+=========x 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 2
+0 0 2 0
+
+=========(3,4 )=========
+=========y 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 2
+0 0 2 2
+
+=========(3,4 )=========
+=========x 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 2
+0 0 2 2
+
+=========(4,3 )=========
+=========y 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 2
+0 0 2 2
+
+=========(4,3 )=========
+=========x 방향=========
+1 0 1 0
+0 0 0 0
+1 0 2 2
+0 0 2 4
+
+4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;vector&amp;gt;
+#include&amp;lt;string&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;cmath&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;memset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>백준(11048번): 이동하기</title>
+        <link>/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 동적 계획법 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/11048&quot;&gt;백준(11048번) - 이동하기&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;DFS나 BFS로는 depth가 깊어져 시간초과가 난다. 이 문제는 동적계획법으로 풀어야 한다. 그저 최대 사탕의 개수만 출력하면 되기 때문이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;p&gt;이 문제는 위치에 따라 개수가 결정되므로 dp의 인자를 좌표의 위치로 잡는 것이 수월하다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dp[y][x] = (y,x)위치에서 가질 수 있는 사탕 개수의 최댓값&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;점화식&quot;&gt;점화식&lt;/h2&gt;
+
+&lt;p&gt;이 정의에 부합하는 점화식은 어떤식으로 짤 수 있을까? 점화식은 임의의 좌표 위치에서 이 좌표가 만들어지기 위해 어떤 좌표와의 연관성이 있는지를 확인하면 된다. 문제에서 특정 위치에서 갈 수 있는 방향은 우, 좌, 대각이다. 그렇다면 특정 위치에서의 사탕의 최댓값은 좌, 우, 10시방향 대각선 세 방향의 값으로 부터 도출될 수 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[y][x] = max(dp[y-1][x], dp[y][x-1], dp[y-1][x-1]) + input[y][x]&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;주의할-점&quot;&gt;주의할 점&lt;/h2&gt;
+
+&lt;p&gt;(1, 1)에서 시작하므로 (1, 1), (1행, 1), (1, 1열)의 위치에서는 3방향에서 업데이트를 할 수 없다. 이 점을 고려하여 분기를 만들어 코드를 짜는 것이 좋다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;vector&amp;gt;
+#include&amp;lt;string&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;cmath&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+   &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+           &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+           &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>백준(1102번): 발전소</title>
+        <link>/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EB%B0%9C%EC%A0%84%EC%86%8C.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EB%B0%9C%EC%A0%84%EC%86%8C.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드1&lt;/em&gt;&lt;/strong&gt; : 동적 계획법 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/1102&quot;&gt;백준(1102번) - 발전소&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;dp의 정의는 간단하게 생각할 수 있다. 특정한 상태의 발전소로 오는 방법은 몇가지로 정해지기 때문이다. 그래서 정의를 잡으면 다음과 같다.&lt;/p&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[상태]&lt;/code&gt; = 발전소의 상태에서의 발전소를 고치는데 발생하는 비용의 최솟값&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;그렇다면 상태는 어떻게 정의할 수 있을까?&lt;/p&gt;
+
+&lt;h2 id=&quot;비트마스크&quot;&gt;비트마스크&lt;/h2&gt;
+
+&lt;p&gt;YNN은 100으로 생각할 수 있다. 그렇다면 이 상태에서 다음상태로는 어떻게 갈 수 있을까?&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;켜져있는 발전소를 확인한다.&lt;/li&gt;
+  &lt;li&gt;해당 발전소에서 꺼져있는 발전소를 확인한다.&lt;/li&gt;
+  &lt;li&gt;꺼져있는 발전소를 킨다.&lt;/li&gt;
+  &lt;li&gt;다른 상태에서 또 같은 상태로 올 때, 최소값으로 업데이트 한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;주의할-점&quot;&gt;주의할 점&lt;/h2&gt;
+
+&lt;p&gt;초기값을 모두 -1로 만든 상태에서 값을 출력하는 것이 좋다. 만들지 못하는 경우를 출력하기 위함이다. 또한 0개의 발전소를 키라는 조건에서 -1을 리턴하면 안되고 0을 리턴해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;vector&amp;gt;
+#include&amp;lt;string&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;cmath&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'Y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// YNN -&amp;gt; 001로 저장한다. 이진수의 shift연산 중에는 이게 편하다.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 기본 dp의 값을 -1로 해둔다.&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 일단 다 못 만든다고 가정하는 것&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;memset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;//  start에서 dp값은 0이다. 최소값이 0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 상태에 대한 최소값이 없다면 진행할 수 없다.&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 발전소를 순차적으로 체크하며 다음 상태를 만든다.&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)){&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// 현재 발전소의 상태중 j번째 발전소가 있다면&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 현재 발전소의 상태에서 j번째 발전소를 가지고 k위치의 발전소를 키려고 할때 k위치 발전소가 꺼져있다면&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// ans를 -1로 했기 때문에 처음에 scope들어오기 위해 조건 추가&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>백준(11054번): 가장 긴 바이토닉 부분 수열</title>
+        <link>/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드3&lt;/em&gt;&lt;/strong&gt; : 동적 계획법 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/11054&quot;&gt;백준(11054번) - 가장 긴 바이토닉 부분 수열&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;dp의 정의는 간단하게 생각할 수 있다. 이 문제는 가장 긴 감소하는 부분 수열, 가장 긴 증가하는 부분 수열을 합한 문제이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp1[i]&lt;/code&gt; = i번째 원소를 포함했을 때 발생하는 가장 감소하는 부분 수열의 길이&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp2[i]&lt;/code&gt; = i번째 원소를 포함했을 때 발생하는 가장 증가하는 부분 수열의 길이&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;점화식&quot;&gt;점화식&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dp1[i] = dp1[j]+1 단, a[i] &amp;lt; a[j]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dp2[i] = dp2[j]+1 단, a[i] &amp;gt; a[j]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ans = max(ans, dp1[i]+dp2[i]-1)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;vector&amp;gt;
+#include&amp;lt;string&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;cmath&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>백준(11722번): 가장 감소하는 부분 수열</title>
+        <link>/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EA%B0%80%EC%9E%A5-%EA%B0%90%EC%86%8C%ED%95%98%EB%8A%94-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4.html</link>
+        <guid isPermaLink="true">/cs/algorithm/2020/04/15/%EB%B0%B1%EC%A4%80-%EA%B0%80%EC%9E%A5-%EA%B0%90%EC%86%8C%ED%95%98%EB%8A%94-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4.html</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버2&lt;/em&gt;&lt;/strong&gt; : 동적 계획법 문제이다.&lt;br /&gt;
+&lt;a href=&quot;https://www.acmicpc.net/problem/11722&quot;&gt;백준(11722번) - 가장 감소하는 부분 수열&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;dp의 정의는 간단하게 생각할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;정의&quot;&gt;정의&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[i]&lt;/code&gt; = i번째 원소를 포함했을 때 발생하는 가장 감소하는 부분 수열의 길이&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;점화식&quot;&gt;점화식&lt;/h2&gt;
+
+&lt;p&gt;현재 상태의 가장 감소하는 부분 수열의 길이는, 이전의 원소들이 가지고 있는 가장 감소하는 부분 수열의 길이에 종속적이다. 이 때, 업데이트하는 규칙이 필요한데, 내가 현재 가지고 있는 원소가 이전 원소의 크기보다 작다면 업데이트 하면 된다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dp[i] = dp[j]+1 단, a[i] &amp;lt; a[j]&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include&amp;lt;iostream&amp;gt;
+#include&amp;lt;vector&amp;gt;
+#include&amp;lt;string&amp;gt;
+#include&amp;lt;cstring&amp;gt;
+#include&amp;lt;cmath&amp;gt;
+#include&amp;lt;algorithm&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Wed, 15 Apr 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>백준(17626번): Four Squares</title>
@@ -64,20 +538,20 @@
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
@@ -136,6 +610,7 @@
     &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -146,6 +621,7 @@
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 14 Apr 2020 00:00:00 +0900</pubDate>
@@ -1136,846 +1612,6 @@
 &lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=1169634&quot;&gt;KOCW 이석복 교수님 - 컴퓨터네트워크&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 09 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>02: 네트워크 넓게 보기 Part 2</title>
-        <link>/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-02-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-2.html</link>
-        <guid isPermaLink="true">/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-02-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-2.html</guid>
-        <description>&lt;p&gt;네트워크에 대해 깊게 알아보기 전에 큰 그림을 보고, 용어를 정리한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;기본-용어-정리&quot;&gt;기본 용어 정리&lt;/h2&gt;
-
-&lt;h3 id=&quot;네트워크&quot;&gt;네트워크&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;프로그램을 동작시키는 프로세스의 일종, 메시지 교환, 송수신&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Net + Work 의 합성어이다. 메세지를 교환하며 송수신을 한다. 좀 더 추가하자면 두 대 이상의 디바이스가 논리적 혹은 물리적으로 연결되어 통신이 가능한 상태임을 말한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;ipcinter-process-communication&quot;&gt;IPC(Inter Process Communication)&lt;/h3&gt;
-
-&lt;p&gt;프로세스는 완전히 독립된 실행객체이다. 서로 독립되어 있다는 것은 다른 프로세스의 영향을 받지 않는다는 장점이 있다. 그러나 독립되어 있기 때문에 별도의 설비가 없이는 서로 간에 통신이 어렵다는 문제가 있으며, 이를 위해 커널 영역에서는 IPC라는 내부 프로세스간 통신(Inter Process Communication)을 제공한다. 이 기능을 사용하여 프로세스는 프로세스간 통신이 가능케 한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;socket&quot;&gt;Socket&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;프로세스간 통신 interface&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78852976-b627e500-7a58-11ea-9b40-c8e2a7a35877.png&quot; class=&quot;center&quot; /&gt;
-IPC를 가능케하는 interface이다. 서로 다른 process에서 접속을 하려 할 때, 이 socket을 사용하여 접근하게 되고, 해당 socket은 접속하는 process가 제대로 왔는 지와 같은 검사를 수행하게 된다. 은행에서 창구를 생각하면 된다.&lt;/p&gt;
-
-&lt;h4 id=&quot;사용자-입장에서-소켓을-통해-메시지를-내려받을-때-원하는-요구사항&quot;&gt;사용자 입장에서 소켓을 통해 메시지를 내려받을 때, 원하는 요구사항&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;timing
-    &lt;ul&gt;
-      &lt;li&gt;빠른 시간내에 데이터가 도착했으면 좋겠다. (음성)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;security
-    &lt;ul&gt;
-      &lt;li&gt;안전하게 나한테만 왔으면 좋겠다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;data integrity
-    &lt;ul&gt;
-      &lt;li&gt;모든 데이터가 순서에 맞게 제대로 왔으면 좋겠다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Throughput
-    &lt;ul&gt;
-      &lt;li&gt;특정 시간안에 도착하는 데이터의 양이 많았으면 좋겠다. (영화 다운로드)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;등이 있지만, 실질적으로 TCP를 사용한다고 가정했을 때 제공받을 수 있는 것은 3번 뿐이다. UDP를 사용할 경우 3번도 지켜지지 않는다. 결과적으로 내가 위의 3가지에 해당하는 기능을 원한다면, &lt;strong&gt;애플리케이션 계층에서 구현하여야 한다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;ip&quot;&gt;IP&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;인터넷 공간 상에서 해당 단말기의 고유 주소&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Socket을 통해 통신한다는 것은 알았다. 근데 우리가 전화를 걸더라도, 어디에 전화를 걸것인지 알아야 한다. 그걸 대표하는 것이 전화번호이다. 마찬가지로 통신을 하려면, 어디에 통신할 것인지 알려주는 과정이 필요하다. 그 &lt;strong&gt;어디&lt;/strong&gt;에 해당하는 것이 IP 주소 이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;port&quot;&gt;Port&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;IP 주소를 갖고 있는 컴퓨터에서 Process에 접근하기 위한 번호&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;해당 컴퓨터에 들어가더라도, 어떤 process에 접근하는지를 알아야 한다. 그걸 대표하는 것이 포트 번호이다. 특정 프로토콜은 특정한 포트번호로 설정되어 있다.예를 들어 웹 서버의 포트 번호는 기본적으로 80번 포트로 약속되어 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;dns&quot;&gt;DNS&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;도메인이름을 치면 IP주소로 바꿔주는 서비스&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;naver.com -&amp;gt; 192.168.03.2 OR 192.168.03.2:80&lt;/p&gt;
-
-&lt;h2 id=&quot;tcp-특징-간략&quot;&gt;TCP 특징 (간략)&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Transmission Control Protocol&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Reliable Transport&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;신뢰성 있는 전송 (패킷 유실없이 감 : 패킷이 유실되지 않는다는 것이 아니다.)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Flow Control&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;수신 호스트의 데이터 처리속도를 고려하여 속도를 조절&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Congestion Control&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;네트워크 상황에 맞게 속도 조절&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;udp-특징-간략&quot;&gt;UDP 특징 (간략)&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;User Datagram Protocol&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;TCP와 완전 반대이다. 어떠한 규약없이 server가 그냥 보낸다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=1169634&quot;&gt;KOCW 이석복 교수님 - 컴퓨터네트워크&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 09 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: 네트워크 넓게 보기 Part 1</title>
-        <link>/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html</link>
-        <guid isPermaLink="true">/cs/network/2020/04/09/%EC%BB%B4%ED%93%A8%ED%84%B0-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-01-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%84%93%EA%B2%8C-%EB%B3%B4%EA%B8%B0-1.html</guid>
-        <description>&lt;p&gt;네트워크에 대해 깊게 알아보기 전에 큰 그림을 보고, 용어를 정리한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;기본-용어-정리&quot;&gt;기본 용어 정리&lt;/h2&gt;
-
-&lt;h3 id=&quot;프로토콜&quot;&gt;프로토콜&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;서로 다른 개체들이 서로 간의 의사소통을 하기 위해 만들어놓은 규약&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;사람이 대화를 하는 과정에도 일정한 흐름과 규약이 존재한다. 어떠한 객체가 소통하기 위해서는 서로의 방식을 맞추어야 한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;패킷&quot;&gt;패킷&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;한번에 전송할 데이터의 크기&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;편지를 내가 썼다. 그 편지를 누군가한테 보내는데, 글자하나하나를 보내지 않는다. 이 때 편지는 우체부 아저씨가 누군가한테 배달하는 단위가 된다. 이와 같은 개념이 패킷이다. 패킷은 데이터를 보내는 데 있어 발생하는 단위이다. 이 패킷의 구조에 대해서는 나중에 알아보자.&lt;/p&gt;
-
-&lt;h3 id=&quot;대역폭&quot;&gt;대역폭&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;수도관의 크기&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;결국 데이터는 흐름이다. 그렇기 때문에 어떤 관을 따라간다고 생각할 수 있다. 이 때 관의 지름이 대역폭이다. 한번에 보낼 수 있는 데이터의 양이라 생각하면 된다. 이 크기가 클수록 많은 데이터를 초 당 전송할 수 있는 양이 늘어난다. 인터넷 속도와 직결된다.&lt;/p&gt;
-
-&lt;h3 id=&quot;트래픽&quot;&gt;트래픽&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;어떤 통신장치나 시스템에 걸리는 부하(전송량)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;요청에 대해 전송해주는 시간 대비 데이터의 총량을 말한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;네트워크-구조&quot;&gt;네트워크 구조&lt;/h2&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78849399-57aa3900-7a4f-11ea-9002-7c36366b34cb.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;네트워크-엣지network-edge&quot;&gt;네트워크 엣지(Network Edge)&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;말단 device, 우리가 사용하는 대부분의 기기에 해당한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;네트워크-코어network-core&quot;&gt;네트워크 코어(Network Core)&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;엔드 시스템을 연결하기 위한 중간의 매개들을 말한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;물리적-링크&quot;&gt;물리적 링크&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;코어와 엣지 사이에 존재하는 데이터 전송 선과 같은 것들을 의미한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;네트워크의-내부&quot;&gt;네트워크의 내부&lt;/h2&gt;
-
-&lt;h3 id=&quot;라우터&quot;&gt;라우터&lt;/h3&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78850080-39453d00-7a51-11ea-9c62-fb505b277520.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;네트워크 내부에 존재하는 장치(네트워크 코어)들로써, 라우터는 사용자들이 보낸 메세지를 목적지까지 전달하는 역할을 가지고 있다. 결국 라우터는 데이터를 전달하는 장치이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;라우터의-데이터-전달방식&quot;&gt;라우터의 데이터 전달방식&lt;/h3&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78850098-46622c00-7a51-11ea-9a96-ee16e706412f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Circuit Switching&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;출발지부터 목적지까지의 대역폭을 예약해놓은 상태로써, 한번에 데이터를 전달하는 것이다. 하나의 회선을 할당받아 (회선을 독점하여) 데이터를 전달하기 때문에 아무런 방해없이 한번에 전달할 수 있다. 예시로 전화망이 있다. 전화를 걸게되면 전화를 건 송신자로부터 수신자의 전화기에 이르기까지의 경로를 찾아내고, 한번 설정된 송신자와 수신자의 경로는 데이터(음성) 이 전송되는 동안 계속 유지되는 것이다. 이 예로 부터 Circuit Switching은 언제든지 계속 사용하는 시스템에 적합하다는 것을 알 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;장점&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;단점&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;대역폭이 결정되므로, delay가 발생할 수 없다.&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;일정 사용자에게 할당해주므로 낭비가 발생한다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78850098-46622c00-7a51-11ea-9a96-ee16e706412f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Packet Switching&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;사용자가 보내는 데이터가 패킷단위로 잘게 나뉘어서 전달되는 것이다. 패킷은 출발지에서 다음 라우터로 전송하기 이전에 저장하고 어느 경로로 갈지 결정하는 Store and Forward 방식을 취한다. 패킷의 헤더에는 출발지(source) 와 목적지(destination) 에 대한 정보가 들어있다. 대부분의 경우는 이 사용법을 택한다. 인터넷을 사용하는 패턴이 Packet Switching 에 적합하기 때문이다. 연속된 요청이 필요없기 때문에 대역폭을 할당할 필요가 없다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;장점&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;단점&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;짧게 사용하는 다수의 사용자도 커버가 가능하다.&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;짧은 시간에 많은 요청이 들어올 경우 delay가 발생한다.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;packet-delay&quot;&gt;Packet Delay&lt;/h2&gt;
-
-&lt;p&gt;패킷스위칭을 시 라우터는 패킷단위의 데이터를 전달받고 목적지로 전달하는 역할을 수행한다. 이 과정에서 라우터가 보낼 수 있는 대역폭보다 더 많은 유저가 더 빠른 속도로 데이터를 보낸다면 딜레이가 생길 수 밖에 없다. 톨게이트에 사람이 마구 몰리는 상황을 상상해보자.&lt;/p&gt;
-
-&lt;h3 id=&quot;delay의-구분&quot;&gt;Delay의 구분&lt;/h3&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78851120-fafd4d00-7a53-11ea-816a-e8a55610944a.png&quot; class=&quot;center&quot; /&gt;
-&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78851127-00f32e00-7a54-11ea-8e6a-b73f35bb50be.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;processing-delay&quot;&gt;Processing Delay&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;패킷 자체를 평가한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;필연적인 딜레이 중 하나로써, 목적지에 따른 어느 라우터로 전송할 지 결정하는 것에 대한 지연이다. 이 과정에서는 패킷의 형식을 검사하고, 목적지를 판단하는 과정을 수행한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;queueing-delay&quot;&gt;Queueing Delay&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;들어온 패킷들을 줄세운다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;데이터를 전달하는 라우터의 큐에 들어가서 앞서서 도착해 큐에 대기중인 패킷들이 모두 나갈때까지 걸리는 지연이다. (큐에 얼마나 많이 들어가있는지에 따라서 큐잉 딜레이는 가변적)&lt;/p&gt;
-
-&lt;h4 id=&quot;transmission-delay&quot;&gt;Transmission Delay&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;패킷하나가 모두 전송되기 까지 걸리는 시간&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;라우터의 큐 제일 앞에 배치되어서 패킷 하나가 온전하게 마지막 비트까지 최종 목적지로 가는데까지의 지연이다. 패킷은 전송의 한 단위이기 때문에, 하나의 패킷이 모두 전송이 되어야 sender는 전송이 되었다고 판단한다. 예를 들면 패킷의 bit가 100bits이고 대역폭이 1bps 이면 1초당 1bit만 전송할 수 있기 때문에 100초 후에 이 패킷은 전송되었다고 판단할 수 있다.&lt;/p&gt;
-
-&lt;h4 id=&quot;propagation-delay&quot;&gt;Propagation Delay&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;실제로 비트가 선을 따라 전송되는데 걸리는 시간&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;마지막 비트까지 대역폭에 올라오고, 이후에 마지막 비트가 최종 목적지까지 도달하는 물리적 시간이다. 이 속도는 전자기파의 속도라 사실 많은 영향을 주지는 않는다. ( 가까우면 빨리, 거리가 멀면 오래 걸림)&lt;/p&gt;
-
-&lt;p&gt;결과적으로 라우터에서 패킷을 받을 때 걸리는 nodal delay 는 위 4가지의 지연의 합으로 표현된다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;nodal = proc + queue + trans + prop&lt;/script&gt;
-
-&lt;h3 id=&quot;delay-줄이기&quot;&gt;Delay 줄이기&lt;/h3&gt;
-
-&lt;h4 id=&quot;processing-delay-1&quot;&gt;Processing Delay&lt;/h4&gt;
-
-&lt;p&gt;라우터에 좋은 처리장치를 달아서 패킷에 대해 판단하는 속도를 향상시킨다.&lt;/p&gt;
-
-&lt;h4 id=&quot;queueing-delay-1&quot;&gt;Queueing Delay&lt;/h4&gt;
-
-&lt;p&gt;사용자의 패턴에 의존하기 때문에 불가능하다. 통계적 기법을 사용해야 한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;transmission-delay-1&quot;&gt;Transmission Delay&lt;/h4&gt;
-
-&lt;p&gt;패킷하나가 빠져나가는 시간을 줄인다. 초당 선송할 수 있는 양을 늘리면 된다. 마치 톨게이트에서 5차선이었던 것을 10차선으로 바꾸면 한번에 빠져나갈 수 있는 차량의 수가 증가한다. 이 때, 이 차선에 대응되는 개념이 &lt;strong&gt;대역폭&lt;/strong&gt;이다.&lt;/p&gt;
-
-&lt;h4 id=&quot;propagation-delay-1&quot;&gt;Propagation Delay&lt;/h4&gt;
-
-&lt;p&gt;빛의 속도는 세상에서 가장 빠르다.. 불가능하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;packet-loss&quot;&gt;Packet Loss&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;큐에 패킷이 가득차있는 경우 버려진다.
-라우터의 큐에 삽입되기 이전에 큐에 패킷이 가득차있는 경우 큐의 저장공간이 없기 때문에 Packet Loss 가 발생하며, 패킷은 버려진다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;tcp-작동&quot;&gt;TCP 작동&lt;/h3&gt;
-
-&lt;p&gt;이런 경우 안전한 전송을 담당하는 Client 쪽의 TransportLayer 계층의 TCP 프로토콜이 해당 패킷을 재전송한다. 잘 몰라도 된다. 나중에 배운다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=1169634&quot;&gt;KOCW 이석복 교수님 - 컴퓨터네트워크&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 09 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>백준(2343번): 기타 레슨</title>
-        <link>/cs/algorithm/2020/04/08/%EB%B0%B1%EC%A4%80-%EA%B8%B0%ED%83%80-%EB%A0%88%EC%8A%A8.html</link>
-        <guid isPermaLink="true">/cs/algorithm/2020/04/08/%EB%B0%B1%EC%A4%80-%EA%B8%B0%ED%83%80-%EB%A0%88%EC%8A%A8.html</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 이분 탐색, Parametric Search 문제이다.&lt;br /&gt;
-&lt;a href=&quot;https://www.acmicpc.net/problem/2343&quot;&gt;백준(2343번) - 기타 레슨&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
-
-&lt;p&gt;처음에 이 문제를 풀 때, 세그먼트 트리로 풀려고 했다. 그런데, 문제가 생겼다. 그렇게 구현하려면, 100000개 를 50000개의 블루레이에 담으려고 한다면 계속해서 재귀 함수를 타고 들어가며 구해야 한다. 시간 제한이 2초이고, 또한 재귀함수의 depth가 너무 깊어져 이 방향으로 문제를 해결하면 안된다고 판단했다.&lt;/p&gt;
-
-&lt;p&gt;고민을 하던 중, 답을 먼저 제안하고, 이 답을 기반으로 역으로 추적하면 어떨까하는 생각이 들었다. 이 방법을 파라메트릭 서치(parametric Search)라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;parametric-search&quot;&gt;Parametric Search&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;최적화 문제를 결정 문제로 바꾸어 해결한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;이진 탐색과 비슷한 방법이다. 그런데 어떤 상황에서 사용하는지 알아야 한다. 위의 문제는 결국, N개의 입력이 들어왔을 때, 이걸 M개로 나누고, M개로 나눈 각각의 뭉텅이들 사이에서 최댓값들을 뽑아 그것의 최솟값을 구하는 문제이다. (&lt;del&gt;응?&lt;/del&gt;)&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;입력 N을 M개의 집합으로 자른다. 다양한 가지수로 자를 수 있다. 이 가지수를 K라 하자.&lt;/li&gt;
-  &lt;li&gt;그 집합들의 합을 갖고 있는다.&lt;/li&gt;
-  &lt;li&gt;그 요소들을 가지는 집합 L를 만든다. (K의 요소 개수는 M개, 발생하는 집합 L의 개수는 K개)&lt;/li&gt;
-  &lt;li&gt;발생한 모든 L 집합에 대해 요소들의 최댓값을 구한다. 그 최댓값을 모은 집합을 P라 하자. (P의 요소 개수는 K개)&lt;/li&gt;
-  &lt;li&gt;P집합의 요소들 중 최소값을 구한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;완전 탐색을 한다면 위와 같이 할 수 있을 것이다. 그런데, 결국 이 문제는 최적의 디스크 크기를 구하는 문제이다. 이런 문제에서 새로운 발상을 할 수 있는데, &lt;strong&gt;답은 제안하는 것이다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;방법&quot;&gt;방법&lt;/h3&gt;
-
-&lt;p&gt;이 문제에서 내가 원하는 것은 disk 크기를 구하는 것이다. 이 disk 크기가 될 수 있는 최솟값과 최댓값을 계산해보자. N = 100000 이고, 각각의 동영상 용량은 10000이 최대이므로, 이 동영상 모두를 한 disk에 넣는다면 1000000000크기가 최대이다. 일단 이해를 하는 과정이기에 최댓값을 100이라 가정하겠다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78757524-97bddd00-79b7-11ea-80a7-55be7dfe0702.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;과정은 이분 탐색과 비슷하다. 답이 될 수 있는 최소, 최대에서 반이 답이 되는지 되지 않는지 판단한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78757533-9db3be00-79b7-11ea-94cb-f5f388927caa.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;너무 디스크 크기가 작다면 오른쪽을 탐색한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78757558-a4dacc00-79b7-11ea-906e-afbf9571fe5d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;너무 디스크 크기가 크다면 왼쪽을 탐색한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78757569-aad0ad00-79b7-11ea-8fc0-84a902def739.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 과정을 반복하여 답을 도출한다.&lt;/p&gt;
-
-&lt;p&gt;결국 위 방법의 핵심은, &lt;strong&gt;원하는 답의 범위를 설정하고 이 값이 되는지 안되는지를 파악한다.&lt;/strong&gt; 이다. 이러한 방법을 사용하기로 마음 먹었다면, 어떠한 조건에서 탐색의 방향을 바꿀 수 있는지, 해당 문제의 특징은 무엇인지 확인해야 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문제의-특징&quot;&gt;문제의 특징&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;M개의 disk를 사용했을 때, disk 크기가 가장 줄어들 수 있다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;만약 10개의 disk를 사용할 수 있다고 하자. 그렇다면 답은 N을 10개로 나누었을 때 가장 작게 나눌 수 있다.&lt;/li&gt;
-  &lt;li&gt;물론 10개보다 적은 수의 disk를 사용해서 나누었을 때 10개를 사용했을 때의 답과 같게 나올 수는 있다.&lt;/li&gt;
-  &lt;li&gt;따라서 10개보다 적은 수의 disk를 사용할 경우에도 답을 업데이트 해주는 대상이 된다.&lt;/li&gt;
-  &lt;li&gt;또한 &lt;strong&gt;M개의 disk를 사용할 수 있는 모든 경우의 수를 비교&lt;/strong&gt;해야 한다. &lt;del&gt;처음에 M개로만 나뉘면 답이라 해서 틀렸다. ㅠ&lt;/del&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;탐색-조건&quot;&gt;탐색 조건&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;제시한 블루레이 Size를 가지고 만들었을 때 나온 값이 M보다 크면 Size를 키운다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;제시한 Size를 가지고 N를 최대한 나눈 결과 가지고 있는 블루레이 갯수(M)보다 disk가 더 필요하다는 결론이 나오면, 현재 disk 사이즈가 너무 작아 더 필요로 한다는 결론이다. 따라서 disk 크기를 키워야 한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;제시한 블루레이 Size를 가지고 만들었을 때 나온 값이 M보다 작으면 지금 제시한 값을 업데이트 한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;나온 값과 이전에 탐색한 답 중 최솟값으로 업데이트 한다.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;제시하는 답은 video의 값보다는 항상 같거나 커야한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 2 3 4 5&lt;/code&gt; 라는 video가 들어온다고 가정하자. 이 때, 내가 제시하는 답은 5보다 항상 같거나 커야 한다. 만약 3이라는 답을 제시한다면 4와 5는 disk에 들어갈 수도 없으므로 논리에서 벗어난다.&lt;/p&gt;
-
-&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;cmath&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isOk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;video&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isOk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Wed, 08 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>20: 디스크 스케쥴링 알고리즘</title>
-        <link>/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html</link>
-        <guid isPermaLink="true">/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html</guid>
-        <description>&lt;p&gt;하드 디스크의 구조를 바탕으로 스케쥴링을 하는 방법에 대해 알아본다.&lt;/p&gt;
-
-&lt;h1 id=&quot;1-디스크-스케줄링&quot;&gt;1. 디스크 스케줄링&lt;/h1&gt;
-
-&lt;p&gt;보조기억장치는 현재 여러 가지 존재하지만 아직까지는 하드 디스크가 주로 사용된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574512-0d656400-7865-11ea-9b48-ccb8e23b1d65.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;하드 디스크의 구조는 앞서 살펴봤듯이 위 그림과 같다. 디스크에 접근하는 시간은 &lt;strong&gt;Seek time(탐색 시간)&lt;/strong&gt; + rotational delay + transfer time 으로 계산할 수 있는데, 이 중에서 seek time(head를 움직이는 시간)이 가장 크다.&lt;/p&gt;
-
-&lt;p&gt;현재 컴퓨터 환경은 대부분 다중 프로그래밍 환경이다. 그러므로 여러 프로세스가 메인 메모리에서 실행 중에 있는데, 이러한 여러 프로세스가 동시에 디스크를 읽으려는 요청이 올 수 있다. 이와 같은 요청이 오면 디스크 역시 CPU와 같이 &lt;strong&gt;디스크 큐(dist queue)&lt;/strong&gt;에서 요청을 저장해두고 이를 처리해야 한다.&lt;/p&gt;
-
-&lt;p&gt;여기서 컴퓨터의 성능을 위해 여러 요청들을 효율적으로 처리해야 한다. 디스크를 읽는 시간은 매우 오래 걸리는 작업이고 특히 탐색 시간이 오래걸리므로 최대한 이 시간을 줄이는 것이 중요하다. 이러한 방법들을 &lt;strong&gt;디스크 스케줄링 알고리즘&lt;/strong&gt;이라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;11-fcfsfirst-come-first-served&quot;&gt;1.1 FCFS(First-Come First-Served)&lt;/h2&gt;
-
-&lt;p&gt;이 방법은 어느 스케줄링 알고리즘에서도 존재하는 가장 간단하고 가장 공평한 방법이다. 바로 예제를 살펴보자.&lt;/p&gt;
-
-&lt;h3 id=&quot;111-예제&quot;&gt;1.1.1 예제&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200 cylinder dist: 0, 1, 2, ..., 199
-Disk queue: 98, 183, 37, 122, 14, 124, 65, 67
-현재 헤드가 가리키는 실린더(cylinder) 위치: 53
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78577820-9c747b00-7869-11ea-9777-c784b57730e8.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;예제를 그림으로 나타내면 위 그림과 같다. 가로축은 0번부터 199번까지 실린더의 위치를 나타낸다. 여기서 파란색 선이 dist queue를 FCFS 방법으로 처리한 결과이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;헤드가 움직인 총 거리
-    &lt;ul&gt;
-      &lt;li&gt;= (98 - 53) + (183 - 98) + (183 - 37) + (122 - 37) + (122 - 14) + (124 - 14) + (124 - 65) + (67 - 65) = &lt;strong&gt;640 cylinders&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위 그림의 결과를 본 것처럼 큐에 들어온 순서가 큰 값, 작은 값이 반복한다면 헤드가 움직이는 거리가 매우 커짐을 알 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;12-sstfshortest-seek-time-first&quot;&gt;1.2 SSTF(Shortest-Seek-Time-First)&lt;/h2&gt;
-
-&lt;p&gt;SSTF 스케줄링 알고리즘은 가장 짧은 탐색 시간을 먼저 선택하는 것이다. 다시 말하면 현재 헤드가 다음 요청을 처리하기 위해 움직여야 하는 거리가 가장 짧은 것을 선택하는 것이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;121-예제&quot;&gt;1.2.1 예제&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200 cylinder dist: 0, 1, 2, ..., 199
-Disk queue: 98, 183, 37, 122, 14, 124, 65, 67
-현재 헤드가 가리키는 실린더(cylinder) 위치: 53
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위 예제는 FCFS 스케줄링에서 본 예제와 같은 것이다. 처음 헤드 위치 53을 시작으로 dist queue에 있는 실린더 번호 중 53과 가장 가까운 65번 실린더를 선택한다. 65번에서는 가장 가까운 67번을 선택하고 같은 과정을 반복한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;헤드가 움직인 총 거리
-    &lt;ul&gt;
-      &lt;li&gt;= (65 - 53) + (67 - 65) + (67 - 37) + (37 - 14) + (98 - 14) + (122 - 98) + (124 - 122) + (183 - 124) = &lt;strong&gt;236 cylinders&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;SSTF 스케줄링 알고리즘의 결과는 위 예제에서 FCFS 스케줄링보다 훨씬 적은 수의 실린더를 움직이는 것을 볼 수 있다. 하지만 SSTF 스케줄링의 큰 단점은 &lt;strong&gt;기아(starvation)가 발생&lt;/strong&gt;할 수 있다. dist queue에는 지속적으로 새로운 프로세스의 요청이 들어오기 때문에 헤드와 멀리 떨어져 있는 실린더는 끝내 수행하지 못하는 현상이 발생하는데, 이를 starvation이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;그리고 SSTF 스케줄링이 현재와 가장 가까운 실린더를 선택한다고 해서 &lt;strong&gt;최적의 알고리즘은 아니다.&lt;/strong&gt; 위 예제에서도 가장 처음 위치인 53번 실린더에서 65번이 아닌 37번으로 이동한 후에 SSTF 알고리즘을 수행하면 208 cylinders 가 나온다.&lt;del&gt;그리디가 아니다&lt;/del&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;13-scan&quot;&gt;1.3 Scan&lt;/h2&gt;
-
-&lt;p&gt;Scan 스케줄링은 말그대로 헤드가 지속적으로 디스크를 앞뒤로 검사하는 것이다. 그래서 헤드가 앞으로 스캔할 때(번호가 작은 실린더 방향)와 뒤로 스캔할 때(번호가 큰 실린더 방향) 선택하는 실린더가 서로 다르다. &lt;strong&gt;즉 관성을 고려하여 한방향으로 쭉 가다가 끝이면 반대 방향으로 돈다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;131-예제&quot;&gt;1.3.1 예제&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;200 cylinder dist: 0, 1, 2, ..., 199
-Disk queue: 98, 183, 37, 122, 14, 124, 65, 67
-현재 헤드가 가리키는 실린더(cylinder) 위치: 53
-스캔 방향: 0번 방향으로 움직임(번호가 작은 실린더 방향)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위 결과에서 볼 수 있듯이 스캔 방향이 0번 실린더 방향이므로 53번에서 작은 번호의 실린더로 향한 후에 큰 번호 실린더로 움직인 것을 볼 수 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;헤드가 움직인 총 거리
-    &lt;ul&gt;
-      &lt;li&gt;= (53 - 37) + (37 - 14) + (14 - 0) + (65 - 0) + (67 - 65) + (98 - 67) + (122 - 98) + (124 - 122) + (183 - 124) = &lt;strong&gt;236 cylinders&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;여기서 한 가지 생각해 볼 점은 일반적으로 프로세스들이 디스크에 요청할 때 그 위치를 종합해보면 실린더에 &lt;strong&gt;골고루 퍼져있다&lt;/strong&gt;. 그러므로 Scan 스케줄링 알고리즘처럼 앞뒤로 움직이는 것이아니라 처음부터 한 방향으로 끝까지 움직이고 다시 처음으로 되돌아가서 같은 방향으로 끝까지 움직이는 것이 더욱 효과적이다.&lt;/p&gt;
-
-&lt;p&gt;이러한 아이디어에서 나온 것이 &lt;strong&gt;Circular Scan&lt;/strong&gt; 스케줄링 알고리즘이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;14-c-scan&quot;&gt;1.4 C-Scan&lt;/h2&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78578737-e14ce180-786a-11ea-8b53-3e8438b21bf6.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이 방식은 위에서 말한 Circular Scan 스케줄링 알고리즘이다. 즉 한 방향으로 계속 움직이는 것이다. Scan 방식은 끝에 다다랐을 때 반대방향으로 가는데, 굳이 그럴 필요가 없다. 물론 오른쪽에서 왼쪽 끝으로 갈 때 한바퀴를 돌기 때문에 움직이는 거리는 더 길어질 수 있지만 다시 처음 위치로 되돌아갈 때는 &lt;strong&gt;데이터를 읽지 않으므로 더 빠른 속도&lt;/strong&gt;로 움직일 수 있다. (그냥 모터로 슝 긁으면 된다.)&lt;/p&gt;
-
-&lt;h2 id=&quot;15-look&quot;&gt;1.5 Look&lt;/h2&gt;
-
-&lt;p&gt;이 알고리즘은 위 Scan 스케줄링 예제에서 0번 실린더가 존재하지 않지만 0번까지 가는 모습을 보았다. (찍턴하기 위해서) 이러한 비효율적인 움직임을 없애기 위해 존재하는 실린더의 최소와 최대 범위만 움직이는 알고리즘을 Look 스케줄링 알고리즘이라고 한다. 하지만 이 범위를 알기 위해서 미리 큐를 검사해야한다. (어디가 가장 근접한 끝인지 알아야 하기 때문)&lt;/p&gt;
-
-&lt;h2 id=&quot;16-c-look&quot;&gt;1.6 C-Look&lt;/h2&gt;
-
-&lt;p&gt;C-Look은 Circular Look 을 말한다. Look은 위에서 Scan 스케줄링이 0번 부터 끝 실린더까지 움직이지 않고 존재하는 실린더의 최소에서 최대 범위를 움직인다고 하였는데, C-Look은 이 범위에서 C-Scan과 같이 한 방향으로만 움직이는 것을 말한다. 즉, 최대 실린더에서 최소 실린더 방향으로 움직인다고 할 때 최소 범위에 도달하면 다시 최대 범위로 되돌아가서 같은 방향으로 움직인다.&lt;/p&gt;
-
-&lt;h2 id=&quot;17-elevator-algorithm&quot;&gt;1.7 Elevator Algorithm&lt;/h2&gt;
-
-&lt;p&gt;Elevator Algorithm은 Scan과 파생되어 나온 알고리즘(C-scan, Look, C-Look)을 부르는 다른 용어이다. 위 Scan 스케줄링 알고리즘 예제 그림을 90도로 회전하면 엘리베이터의 모습과 유사하여 붙여진 이름이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;
-&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/wndrlf2003/220011819891&quot;&gt;세마포 사진&lt;/a&gt;&lt;br /&gt;
-Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
-</description>
-        <pubDate>Mon, 06 Apr 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>19: 파일 할당 (Allocation of file)</title>
-        <link>/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html</link>
-        <guid isPermaLink="true">/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html</guid>
-        <description>&lt;p&gt;보조 기억 장치에 저장되는 파일의 할당에 대해 알아본다.&lt;/p&gt;
-
-&lt;p&gt;컴퓨터 시스템 자원 중 가장 중요한 것은 CPU이다. CPU 자원 관리에 대해서는 맨 처음 부분에서 다루었으며 CPU 스케줄링, 프로세스 동기화 등에 대해서 배웠다. CPU 다음으로 중요한 자원은 메인 메모리와 같은 주기억장치이다. 메인 메모리 관리에 대한 주요 이슈는 페이징, 가상 메모리(요구 페이징) 등이 있었다.&lt;/p&gt;
-
-&lt;p&gt;CPU, 주기억장치 다음 중요한 컴퓨터 시스템 자원은 하드디스크와 같은 보조기억장치이다. 하드디스크가 데이터를 관리하는 방식은 &lt;strong&gt;파일 시스템&lt;/strong&gt;이다. 파일은 컴퓨터에서 운영체제를 사용해본 사용자라면 매우 익숙한 단어일 것이다. 대표적인 windows 운영체제를 보면 폴더(디렉토리) 내부에 또 다른 폴더 또는 어떠한 파일이 존재한다. 이러한 폴더 및 파일은 트리 구조로 관리할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;이번 장에서는 보조기억장치 중 컴퓨터에서 주로 사용하는 하드디스크의 파일이 할당되는 방법에 대해서 살펴볼 것이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;1-hdd-구조&quot;&gt;1. HDD 구조&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574512-0d656400-7865-11ea-9b48-ccb8e23b1d65.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 하드디스크의 구조이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;platter
-    &lt;ul&gt;
-      &lt;li&gt;실제 데이터를 기록하는 자성을 가진 원판이다. platter는 그림과 같이 여러 개가 존재하고 앞뒤로 사용할 수 있다. 한 platter는 여러 개의 track으로 이루어져 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;track
-    &lt;ul&gt;
-      &lt;li&gt;platter의 동심원을 이루는 하나의 영역이다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;sector
-    &lt;ul&gt;
-      &lt;li&gt;하나의 track을 여러 개로 나눈 영역을 sector라 한다. sector size는 일반적으로 512 bytes이며 주로 여러 개를 묶어서 사용한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;cylinder
-    &lt;ul&gt;
-      &lt;li&gt;한 cylinder는 모든 platter에서 같은 track 위치의 집합을 말한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;앞서 sector는 여러 개로 묶어서 사용한다고 했는데, 이를 &lt;strong&gt;블록(block)&lt;/strong&gt;이라 한다. 하드디스크는 블록 단위로 읽고 쓰기 때문에 &lt;strong&gt;block device&lt;/strong&gt; 라고 불리기도 한다.&lt;/p&gt;
-
-&lt;p&gt;하드디스크가 블록 단위로 읽고 쓰는 것을 확인할 수 있는 간단한 방법은 메모장 프로그램에서 알파벳 a만을 적고 저장해보자. a는 character로 1byte 크기를 갖는데, 실제 저장된 텍스트 파일의 속성을 확인하면 디스크에 &lt;strong&gt;4KB(하나의 block size)&lt;/strong&gt; 가 할당되는 것을 확인할 수 있다.(실제 디스크 할당 크기는 운영체제마다 다르다.)&lt;/p&gt;
-
-&lt;p&gt;따라서 디스크는 비어있는 블록들의 집합이라고 볼 수 있다.(pool of free blocks) 그렇다면 운영체제는 각각의 파일에 대해 &lt;strong&gt;free block&lt;/strong&gt;을 어떻게 할당할까?&lt;/p&gt;
-
-&lt;h1 id=&quot;2-파일-할당&quot;&gt;2. 파일 할당&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574790-79e06300-7865-11ea-8871-317826c3f865.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 pool of free blocks를 논리적인 그림으로 나타낸 모습이고 블록마다 인덱스 번호를 설정하였다. 블록들이 위와 같이 있을 때 파일을 할당하는 방법은 크게 연속 할당, 연결 할당, 색인 할당 세 가지가 존재한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;21-연속-할당-contiguous-allocation&quot;&gt;2.1 연속 할당 (Contiguous Allocation)&lt;/h2&gt;
-
-&lt;p&gt;연속 할당은 말그대로 &lt;strong&gt;연속된 블록에 파일을 할당&lt;/strong&gt; 하는 것이다. 예를 들어, 블록 크기가 1KB이고, 할당할 파일은 f1, f2, f3 3개가 있고 각각의 크기는 5KB, 3KB, 4KB이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574911-a3998a00-7865-11ea-82bb-0354d4700b7d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;앞선 예제로 연속 할당을 수행하면 위의 그림과 같은 모습이 나온다.&lt;/p&gt;
-
-&lt;h3 id=&quot;211-연속할당의-장점&quot;&gt;2.1.1 연속할당의 장점&lt;/h3&gt;
-
-&lt;p&gt;연속 할당에는 세 가지 특징이 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;연속 할당의 장점은 디스크 헤더의 이동을 최소화 할 수 있다.
-    &lt;ul&gt;
-      &lt;li&gt;I/O 성능을 높일 수 있다. 이 방식은 예전의 IBM에서 사용하던 방법이며 주로 동영상, 음악, VOD 등에 적합하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;순차 접근(Sequential Access)이 가능하다.
-    &lt;ul&gt;
-      &lt;li&gt;이는 말그대로 순서대로 파일을 읽을 수 있다는 의미이다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;직접 접근(Direct Access)이 가능하다.
-    &lt;ul&gt;
-      &lt;li&gt;운영체제는 파일의 정보를 디렉토리(directory) 라는 테이블에 저장한다. 디렉토리에서 사용자가 접근가능한 정보는 파일의 이름, 크기, 날짜 등이 있고, 운영체제 내부에서 접근하는 정보는 해당 파일의 시작 블록 번호와 같은 것이 있다. 예를 들어, 위 예제의 f1 파일의 디렉토리 정보는 아래와 같다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
-file size: 5 bytes
-...
------------------
-block number: 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;연속 할당은 순차적으로 저장되어 있으므로 운영체제는 디렉토리에서 얻은 시작 블록 번호로 원하는 블록에 바로 접근할 수 있다. 예를 들어, 위 예제에서 f1 파일의 3번째 블록에 접근하고 싶다고 가정하자. 운영체제는 f1의 시작 블록 번호가 0번인 것을 알고 있기 때문에 2번 블록에 접근하면 f1의 3번째 블록이라는 것을 알 수 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;212-연속할당의-단점&quot;&gt;2.1.2 연속할당의 단점&lt;/h3&gt;
-
-&lt;p&gt;연속 할당은 현재에는 거의 사용하지 않는 방식인데, 이 방법에는 큰 단점이 존재하기 때문이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;외부 단편화 문제가 발생한다.
-    &lt;ul&gt;
-      &lt;li&gt;파일을 할당하고 지우고를 반복하다보면 중간 중간에 빈 공간(hole)이 생기는데 연속 할당은 연속된 공간을 찾아야 하기 때문에 이전 메인 메모리 할당에서 살펴본 것과 같이 외부 단편화 문제가 발생한다.&lt;/li&gt;
-      &lt;li&gt;외부 단편화로 인해 디스크 공간의 낭비가 매우 심해진다. 이전 메모리 할당에서 외부 단편화로 인해 메모리의 약 1/3을 낭비한다고 하였는데, 디스크의 연속 할당도 같은 낭비가 발생한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;파일을 저장할 때 실제 크기를 알 수 없다.
-    &lt;ul&gt;
-      &lt;li&gt;특히, 계속해서 사용하는 파일의 경우 &lt;strong&gt;크기가 계속 증가&lt;/strong&gt; 할 수 있기 때문에 이를 지속해서 연속적으로 할당하기에는 매우 부적절하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;22-연결-할당-linked-allocation&quot;&gt;2.2 연결 할당 (Linked Allocation)&lt;/h2&gt;
-
-&lt;p&gt;연결 할당은 연속 할당의 문제점을 해결하기 위해 나온 방법으로, 연속적으로 할당하는 것이 아니라 링크드 리스트(linked list) 와 같은 방식으로 파일을 할당한다&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574943-abf1c500-7865-11ea-925b-b56f70ec6dd5.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 block 크기가 1 byte, 파일 f1의 크기가 5 bytes 일 때 연결 할당을 수행한 모습이다. 각 블록의 마지막에 &lt;strong&gt;주소를 저장하는 포인터 공간(4bytes)&lt;/strong&gt;이 존재하며, 여기서 다음 블록을 가리키고 있다. 마지막 블록의 포인터 공간에는 끝임을 나타내는 값이 저장되어 있다.&lt;/p&gt;
-
-&lt;p&gt;이러한 파일을 &lt;strong&gt;linked list of data blocks&lt;/strong&gt; 라고 하며, f1의 파일 디렉토리 정보는 아래와 같다.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
-file size: 5 bytes
-...
------------------
-block number: 6
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;221-연결할당의-장점&quot;&gt;2.2.1 연결할당의 장점&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;위치와 상관없이 할당이 가능하므로 외부 단편화 문제가 없다. (= 디스크 낭비가 없다.)
-    &lt;ul&gt;
-      &lt;li&gt;연결 할당을 사용해서 새로운 파일을 할당할 때는 비어있는 임의의 블록을 첫 블록으로 선택하며, 만약 파일이 커지는 경우 다른 블록을 할당해서 기존의 블록과 연결만 해주면 된다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;222-연결할당의-단점&quot;&gt;2.2.2 연결할당의 단점&lt;/h3&gt;
-
-&lt;p&gt;하지만, 연결 할당 역시 여러 문제점을 가지고 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;순차 접근은 가능하지만 직접 접근은 불가능하다.
-    &lt;ul&gt;
-      &lt;li&gt;파일의 블록들은 모두 흩어져 있으므로 시작 블록 번호를 가지고는 원하는 위치의 블록에 바로 접근할 수는 없다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;포인터를 저장하는 4 bytes 이상의 손해가 발생한다.&lt;/li&gt;
-  &lt;li&gt;낮은 신뢰성
-    &lt;ul&gt;
-      &lt;li&gt;중간 블록의 포인터가 끊어지면 그 이후의 모든 블록에 접근하지 못한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;느린 속도
-    &lt;ul&gt;
-      &lt;li&gt;블록이 모두 흩어져 있으므로 디스크 헤더의 움직임이 그 만큼 많이 발생한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;223-fatfile-allocation-table-시스템&quot;&gt;2.2.3 FAT(File Allocation Table) 시스템&lt;/h3&gt;
-
-&lt;p&gt;위 문제점을 개선하기 위해 나온 것이 같은 연결 할당 방식인 FAT(File Allocation Table) 시스템이다. FAT 시스템은 다음 블록으르 가리키는 포인터들만 모아서 하나의 테이블(FAT)을 만들어 한 블록에 저장한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78574974-b3b16980-7865-11ea-8889-b32c54adfd52.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 앞선 예제의 f1 파일을 FAT 파일 시스템 방식으로 저장한 모습이다. 0번 블록에 저장된 FAT를 보면 테이블의 인덱스는 전체 디스크의 블록 번호이며, 각 &lt;strong&gt;인덱스마다 다음 블록 번호를 저장&lt;/strong&gt;하고 있다.&lt;/p&gt;
-
-&lt;p&gt;FAT 시스템을 사용하면 기존의 연결 할당의 문제점 대부분을 해결할 수 있다. FAT를 한 번만 읽으면 &lt;strong&gt;직접 접근이 가능&lt;/strong&gt;하고, FAT만 문제가 없다면 중간 블록에 문제가 생겨도 FAT를 통해 그 다음 블록은 여전히 읽을 수 있다. 그리고 FAT는 일반적으로 메모리 캐싱을 사용하여 블록 위치를 찾는데는 빠르지만 실제 디스크 헤더가 움직는 것은 블록이 흩어져 있으므로 여전히 느리다고 볼 수 있다. 마지막으로 FAT는 매우 중요한 정보이므로 &lt;strong&gt;손실 시 복구를 위해 이중 저장&lt;/strong&gt;을 한다.&lt;/p&gt;
-
-&lt;p&gt;FAT의 각 인덱스 크기는 전체 블록의 개수를 저장할 만큼의 크기를 가지고 있어야 하는데, 현재는 일반적으로 32bit 크기를 사용($2^{32}$)한다. 이를 FAT32라고 부른다.(이전에는 FAT16, FAT12 등이 있었다.)&lt;/p&gt;
-
-&lt;h2 id=&quot;23-색인-할당-indexed-allocation&quot;&gt;2.3 색인 할당 (Indexed Allocation)&lt;/h2&gt;
-
-&lt;p&gt;색인 할당 역시 연결 할당과 같이 데이터를 랜덤한 블록 번호에 할당하지만 할당된 블록 번호(포인터)를 하나의 블록에 따로 저장한다. 이러한 블록을 &lt;strong&gt;인덱스 블록&lt;/strong&gt;이라고 부르며, 파일 당 하나의 인덱스 블록이 존재한다. 색인 할당은 디렉토리 정보가 다른 할당과 다른데, 시작 블록 번호를 저장하는 것이 아니라 &lt;strong&gt;인덱스 블록 번호를 저장&lt;/strong&gt;한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;231-예제&quot;&gt;2.3.1 예제&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;block size&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;f1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;f2&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1byte&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5byte&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2byte&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;img width=&quot;500&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78575000-bc09a480-7865-11ea-9c93-3287ea0e764f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
-file size: 5 bytes
-...
------------------
-index block number: 11
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f2
-file size: 2 bytes
-...
------------------
-index block number: 27
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;그림을 보면, 블록 하나를 지정하여, 파일의 인덱스를 저장하는 인덱스 블록으로 사용한다.&lt;/p&gt;
-
-&lt;p&gt;색인 할당은 인덱스 블록에 할당된 블록을 순서대로 저장하기 때문에 직접 접근이 가능하다. 그리고 연속적으로 할당할 필요가 없으므로 외부 단편화 문제 또한 발생하지 않는다. 색인 할당은 Unix/Linux에서 주로 사용한다.&lt;/p&gt;
-
-&lt;p&gt;색인 할당의 단점은 작은 크기의 파일인 경우에도 하나의 블록을 인덱스 블록으로 사용하기 때문에 저장 공간이 손실된다. 그리고 &lt;strong&gt;하나의 인덱스 블록을 가지고는 크기가 큰 파일을 저장할 수 없다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 하나의 블록 크기가 512 bytes인 블록은 최대 저장할 수 있는 블록의 인덱스 개수가 512 / 4 bytes(포인터 크기) = 128개이다. 즉 파일의 최대 크기는,&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;128(인덱스 블록에서 저장할 수 있는 블록의 포인터 개수의 최대값) x 512bytes(블록 하나의 크기) = 64KB
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;로 아주 작은 크기이다. 블록 크기가 1KB이라 하더라도 최대 인덱스 개수는 256개(1000/4)이고 최대 파일의 크기는 256KB이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;232-해결-방법&quot;&gt;2.3.2 해결 방법&lt;/h3&gt;
-
-&lt;p&gt;이를 해결하기 위한 여러 가지 방법이 있다.&lt;/p&gt;
-
-&lt;h4 id=&quot;2321-linked&quot;&gt;2.3.2.1 Linked&lt;/h4&gt;
-
-&lt;p&gt;이 방식은 인덱스 블록을 여러 개 만들어 연결 할당을 하는 것과 같다. 즉, 각 인덱스 블록의 마지막은 다음 인덱스 블록을 가리키는 포인터가 저장되어 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78577110-8dd99400-7868-11ea-8731-7e6acf48c817.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;2322-multilevel-index&quot;&gt;2.3.2.2 Multilevel index&lt;/h4&gt;
-
-&lt;p&gt;이 방식은 계층을 두는 방법으로 하나의 인덱스 블록의 모든 포인터가 다른 인덱스 블록을 가리킨다. 만약 이것으로 부족하면 계층을 더 만들어 간다.
-&lt;img width=&quot;600&quot; alt=&quot;image&quot; src=&quot;https://user-images.githubusercontent.com/37871541/78577132-97fb9280-7868-11ea-968e-43c95f7d7ccb.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;2323-combined&quot;&gt;2.3.2.3 Combined&lt;/h4&gt;
-
-&lt;p&gt;이 방식은 Linked와 Multilevel index를 합친 방법으로 한 인덱스 블록의 포인터들은 데이터 블록과 또 다른 인덱스 블록 둘 다 가리킬 수 있다.(리눅스는 combined 방식을 사용한다.)&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.kocw.net/home/search/kemView.do?kemId=978503&quot;&gt;KOCW 양희재 교수님 - 운영체제&lt;/a&gt;
-&lt;a href=&quot;https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;amp;categoryNo=13&quot;&gt;양희재 교수님 블로그(시험 기출 문제)&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://velog.io/@codemcd/&quot;&gt;codemcd 님의 정리글&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;https://m.blog.naver.com/wndrlf2003/220011819891&quot;&gt;세마포 사진&lt;/a&gt;&lt;br /&gt;
-Operating System Concepts, 9th Edition - Abraham Silberschatz&lt;/p&gt;
-</description>
-        <pubDate>Mon, 06 Apr 2020 00:00:00 +0900</pubDate>
       </item>
     
   </channel>
