@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>백준(12865번): 평범한 배낭 | 완숙의 에그머니🍳</title>
+	<title>백준(7579번): 앱 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="골드5 : 동적 계획법 문제이다.백준(12865번) - 평범한 배낭">
+		content="골드3 : 동적 계획법 문제이다.백준(7579번) - 평범한 배낭">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -480,7 +480,7 @@ function changeContent(event){
     <div class="content">
       <article class="feature-image">
   <header style="background-image: url('/assets/img/34.jpg')">
-    <h1 class="title">백준(12865번): 평범한 배낭</h1>
+    <h1 class="title">백준(7579번): 앱</h1>
     
     <p class="meta">
       CS/Algorithm
@@ -498,59 +498,56 @@ function changeContent(event){
 <section class="post-content">
   
 
-  <p><strong><em>골드5</em></strong> : 동적 계획법 문제이다.<br />
-<a href="https://www.acmicpc.net/problem/12865">백준(12865번) - 평범한 배낭</a></p>
+  <p><strong><em>골드3</em></strong> : 동적 계획법 문제이다.<br />
+<a href="https://www.acmicpc.net/problem/7579">백준(7579번) - 평범한 배낭</a></p>
 
 <h1 id="생각">생각</h1>
 
-<p>결국 무게 제약이 있는 문제이다. 나는 이 문제를 풀 때 감을 잡기 참어려웠는데, 무게에 제약이 있다는 점을 갖고 완전 탐색을 한다는 아이디어를 가지고 생각했다. 완전 탐색을 곧이곧대로 하려면 $O(n!)$ 의 시간 복잡도가 생겨 풀기 어렵다. 그렇기 때문에 이 문제는 다이나믹으로 접근한다.</p>
+<p>이 문제는, <a href="https://wansook0316.github.io/cs/algorithm/2020/04/17/백준-평범한-배낭.html">백준(12865번): 평범한 배낭</a>과 매우 비슷하다. 한번 푸는 것이 좋다.</p>
 
-<p>다이나믹으로 접근하면, 작은 문제를 정의하고 이것이 큰 문제에 어떠한 영향을 주는 지를 확인해야 한다.</p>
+<p>이 문제는 memory의 범위가 매우 크기 때문에, 이 것을 기준으로 로직을 짜면 메모리가 터진다. 그래서 반대로 cost를 어떤 기준으로 만들 수 있는 지를 고민하여 코드를 짰다.</p>
 
 <h2 id="정의">정의</h2>
 
 <blockquote>
-  <p>dp[i][j] = i번째 물건까지 포함했을 때 j의 무게를 포함하는 가치의 최댓값</p>
+  <p>dp[i][j] = i번째 앱까지 비활성화했을 때 j의 비용까지 만들 수 있을 때 메모리의 최댓값</p>
 </blockquote>
 
-<p>말이 좀 어렵다. 예시를 보자</p>
+<p>메모리의 최댓값이라 잡은 이유는, 최소 Cost로 최대 메모리를 지우는 것이 합리적이기 때문이다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 7
-6 13
-4 8
-3 6
-5 12
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5 60
+30 10 20 35 40
+3 0 3 5 4
 
-현재 무게 : 6 현재 가치 : 13
-  1   2   3   4   5   6   7
-  0   0   0   0   0  13  13
+현재 비용 : 3 현재 메모리 : 30
+  0   0   0  30  30  30  30  30  30  30  30  30  30  30  30  30
 
-현재 무게 : 4 현재 가치 : 8
-  1   2   3   4   5   6   7
-  0   0   0   8   8  13  13
+현재 비용 : 0 현재 메모리 : 10
+ 10  10  10  40  40  40  40  40  40  40  40  40  40  40  40  40
 
-현재 무게 : 3 현재 가치 : 6
-  1   2   3   4   5   6   7
-  0   0   6   8   8  13  14
+현재 비용 : 3 현재 메모리 : 20
+ 10  10  10  40  40  40  60  60  60  60  60  60  60  60  60  60
 
-현재 무게 : 5 현재 가치 : 12
-  1   2   3   4   5   6   7
-  0   0   6   8  12  13  14
+현재 비용 : 5 현재 메모리 : 35
+ 10  10  10  40  40  45  60  60  75  75  75  95  95  95  95  95
 
-14
+현재 비용 : 4 현재 메모리 : 40
+ 10  10  10  40  50  50  60  80  80  85 100 100 115 115 115 135
+
+6
 </code></pre></div></div>
 
-<p>새로운 아이템이 추가됨에 따라, 그 상태에서 가질 수 있는 가치의 최댓값을 가지고 있으면 문제는 해결된다.</p>
+<p>새로운 앱이 추가됨에 따라, 그 Cost에서 가질 수 있는 메모리의 최댓값을 가지고 있으면 문제는 해결된다.</p>
 
 <h2 id="점화식">점화식</h2>
 
 <blockquote>
-  <p>dp[i][j] = max(dp[i][j], dp[i-1]j-a[i][0]]] + a[i][1];</p>
+  <p>dp[j] = max(temp[j], temp[j-nowCost] + nowMem)</p>
 </blockquote>
 
-<p>위의 예시를 잘 보면, <code class="language-plaintext highlighter-rouge">dp[4][7]</code>을 업데이트 하기 위해서는 <code class="language-plaintext highlighter-rouge">dp[3번째 무게까지 포함][4의 무게] + 6(3의 가치)</code> 와 <code class="language-plaintext highlighter-rouge">dp[3번째 무게까지 포함][7의 무게]</code> 두개를 비교해야 한다. 즉, 8+6, 과 13을 비교한다.</p>
+<p>temp는 i-1개의 앱을 사용했을 때의 정보를 갖고 있는 dp이다. 이전 평범한 배낭 문제에서도 이전 depth의 정보만을 가져다가 사용하기 때문에 메모리가 낭비된다.</p>
 
-<p>잘 생각해보면, 이전 무게까지 포함했을 때 최댓값과, 새로 들어온 무게를 만들었을 때의 가치를 비교하면 되는 문제이다.</p>
+<p>이 문제는, 새로운 앱이 추가되었을 때, 현재 Cost에서 최대 메모리를 지우는 것을 목표로 코드를 짜면 된다.</p>
 
 <h1 id="code">Code</h1>
 
@@ -562,105 +559,53 @@ function changeContent(event){
 #include&lt;cmath&gt;
 #include&lt;algorithm&gt;
 #include&lt;queue&gt;
-</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">100001</span><span class="p">];</span>
+#define COSTMAX 10000
+#define APPMAX 100
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">costLimit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">dp</span><span class="p">[</span><span class="n">COSTMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">temp</span><span class="p">[</span><span class="n">COSTMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">mem</span><span class="p">[</span><span class="n">APPMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">cost</span><span class="p">[</span><span class="n">APPMAX</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+<span class="n">ll</span> <span class="n">ans</span><span class="p">;</span>
 
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"현재 무게 : "</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" 현재 가치 : "</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">K</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">j</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
-    <span class="p">}</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">K</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"현재 비용 : "</span> <span class="o">&lt;&lt;</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" 현재 메모리 : "</span> <span class="o">&lt;&lt;</span> <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">costLimit</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
     <span class="p">}</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
-    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">K</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">M</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">w</span> <span class="o">&gt;&gt;</span> <span class="n">v</span><span class="p">;</span>
-        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
-        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">K</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// 만들고 싶은 무게에 지금 넣고 싶은 무게를 넣지 못하는 경우</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// 이전 아이템까지 넣었던 최대 가치로 갖고 있는다</span>
-                <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
-                <span class="k">continue</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="c1">// 현재 만들고 싶은 무게에 지금 넣고 싶은 무게를 넣을 수 있다면</span>
-            <span class="c1">// 이전 아이템까지 넣었을 때 최대 가치를 가졌던 것과, 지금 넣고 싶은 무게를 넣었을 때</span>
-            <span class="c1">// 가치를 비교하여 최대 가치로 업데이트 해준다.</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="n">costLimit</span> <span class="o">+=</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">memcpy</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dp</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">nowCost</span> <span class="o">=</span> <span class="n">cost</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">nowMem</span> <span class="o">=</span> <span class="n">mem</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">nowCost</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">costLimit</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">nowCost</span><span class="p">]</span> <span class="o">+</span> <span class="n">nowMem</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="c1">// 최종적으로 N개의 짐까지 다 넣어보았을 때, 최대 가치가 얼마인지 찾는다.</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">max_element</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">dp</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="c1">//dp[i][j] = i번째 물건까지 포함했을 때 j의 무게를 만들었을 때 무게의 최댓값</span>
-    <span class="c1">// dp[i][j] = max(dp[i][j], dp[i-1][j-a[i].first] + a[i].second;</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<h1 id="공간-복잡도-감소">공간 복잡도 감소</h1>
-
-<p>그런데, 지금 dp의 크기를 보면 100*100000 = 10000000이라 많은 메모리를 낭비하고 있다. <code class="language-plaintext highlighter-rouge">dp[i]~dp[i+1]</code> 과의 관계에서 값이 도출이 되기 때문에 이전 depth의 dp는 필요가 없다. 따라서 temp라는 배열에 이를 저장하고 그 저장한 배열에서 값을 따오면 공간 복잡도를 줄일 수 있다.</p>
-
-<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
-#include&lt;vector&gt;
-#include&lt;string&gt;
-#include&lt;cstring&gt;
-#include&lt;iomanip&gt;
-#include&lt;cmath&gt;
-#include&lt;algorithm&gt;
-#include&lt;queue&gt;
-</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">101</span><span class="p">][</span><span class="mi">2</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-<span class="kt">int</span> <span class="n">temp</span><span class="p">[</span><span class="mi">100001</span><span class="p">];</span>
-
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"현재 무게 : "</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" 현재 가치 : "</span> <span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">K</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">j</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
-    <span class="p">}</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">K</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
-    <span class="p">}</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
-    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">cout</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
-    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">K</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span>
-        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">w</span> <span class="o">&gt;&gt;</span> <span class="n">v</span><span class="p">;</span>
-        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
-        <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">memcpy</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dp</span><span class="p">));</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">K</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
-            <span class="k">else</span> <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">costLimit</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">M</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">max_element</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="n">dp</span><span class="o">+</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
