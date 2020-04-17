@@ -230,6 +230,10 @@ function changeContent(event){
                 
                 
                 
+                
+                
+                
+                
 -->
                 <!-- Social icons from Font Awesome, if enabled  -->
 <!--                
@@ -459,6 +463,90 @@ function changeContent(event){
 <script>
   window.store = {
     
+      "cs-algorithm-2020-04-17-eb-b0-b1-ec-a4-80-ed-8f-89-eb-b2-94-ed-95-9c-eb-b0-b0-eb-82-ad-html": {
+        "title": "백준(12865번): 평범한 배낭",
+        "tags": "백준, 알고리즘, 동적 계획법",
+        "date": "April 17, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "골드5 : 동적 계획법 문제이다.백준(12865번) - 평범한 배낭생각결국 무게 제약이 있는 문제이다. 나는 이 문제를 풀 때 감을 잡기 참어려웠는데, 무게에 제약이 있다는 점을 갖고 완전 탐색을 한다는 아이디어를 가지고 생각했다. 완전 탐색을 곧이곧대로 하려면 $O(n!)$ 의 시간 복잡도가 생겨 풀기 어렵다. 그렇기 때문에 이 문제는 다이나믹으로 접근한다.다이나믹으로 접근하면, 작은 문제를 정의하고 이것이 큰 문제에 어떠한 영향을 주는 지를 확인해야 한다.정의  dp[i][j] = i번째 물건까지 포함했을 때 j의 무게를 포함하는 가치의 최댓값말이 좀 어렵다. 예시를 보자4 76 134 83 65 12현재 무게 : 6 현재 가치 : 13  1   2   3   4   5   6   7  0   0   0   0   0  13  13현재 무게 : 4 현재 가치 : 8  1   2   3   4   5   6   7  0   0   0   8   8  13  13현재 무게 : 3 현재 가치 : 6  1   2   3   4   5   6   7  0   0   6   8   8  13  14현재 무게 : 5 현재 가치 : 12  1   2   3   4   5   6   7  0   0   6   8  12  13  1414새로운 아이템이 추가됨에 따라, 그 상태에서 가질 수 있는 가치의 최댓값을 가지고 있으면 문제는 해결된다.점화식  dp[i][j] = max(dp[i][j], dp[i-1]j-a[i][0]]] + a[i][1];위의 예시를 잘 보면, dp[4][7]을 업데이트 하기 위해서는 dp[3번째 무게까지 포함][4의 무게] + 6(3의 가치) 와 dp[3번째 무게까지 포함][7의 무게] 두개를 비교해야 한다. 즉, 8+6, 과 13을 비교한다.잘 생각해보면, 이전 무게까지 포함했을 때 최댓값과, 새로 들어온 무게를 만들었을 때의 가치를 비교하면 되는 문제이다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;using namespace std;int N, K;int a[101][2];int dp[101][100001];void print(int i){    cout &lt;&lt; \"현재 무게 : \" &lt;&lt; a[i][0] &lt;&lt; \" 현재 가치 : \" &lt;&lt; a[i][1] &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; j &lt;&lt; \" \";    }cout &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; dp[i][j] &lt;&lt; \" \";    }cout &lt;&lt; '\\n' &lt;&lt; '\\n';}int main(){    ios_base::sync_with_stdio(false);    cin.tie(NULL);    cout.tie(NULL);    cin &gt;&gt; N &gt;&gt; K;    for (int i = 1; i &lt;= N; i++) {        int w, v;        cin &gt;&gt; w &gt;&gt; v;        a[i][0] = w;        a[i][1] = v;    }    for (int i = 1; i &lt;= N; i++) {        for (int j = 1; j &lt;= K; j++) {            // 만들고 싶은 무게에 지금 넣고 싶은 무게를 넣지 못하는 경우            if (j - a[i][0] &lt; 0) {                // 이전 아이템까지 넣었던 최대 가치로 갖고 있는다                dp[i][j] = max(dp[i][j], dp[i-1][j]);                continue;            }            // 현재 만들고 싶은 무게에 지금 넣고 싶은 무게를 넣을 수 있다면            // 이전 아이템까지 넣었을 때 최대 가치를 가졌던 것과, 지금 넣고 싶은 무게를 넣었을 때            // 가치를 비교하여 최대 가치로 업데이트 해준다.            dp[i][j] = max(dp[i-1][j], dp[i-1][j-a[i][0]] + a[i][1]);        }        print(i);    }    // 최종적으로 N개의 짐까지 다 넣어보았을 때, 최대 가치가 얼마인지 찾는다.    cout &lt;&lt; *max_element(dp[N], &amp;dp[N][K+1]) &lt;&lt; '\\n';    //dp[i][j] = i번째 물건까지 포함했을 때 j의 무게를 만들었을 때 무게의 최댓값    // dp[i][j] = max(dp[i][j], dp[i-1][j-a[i].first] + a[i].second;    return 0;}공간 복잡도 감소그런데, 지금 dp의 크기를 보면 100*100000 = 10000000이라 많은 메모리를 낭비하고 있다. dp[i]~dp[i+1] 과의 관계에서 값이 도출이 되기 때문에 이전 depth의 dp는 필요가 없다. 따라서 temp라는 배열에 이를 저장하고 그 저장한 배열에서 값을 따오면 공간 복잡도를 줄일 수 있다.#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;using namespace std;int N, K;int a[101][2];int dp[100001];int temp[100001];void print(int i){    cout &lt;&lt; \"현재 무게 : \" &lt;&lt; a[i][0] &lt;&lt; \" 현재 가치 : \" &lt;&lt; a[i][1] &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; j &lt;&lt; \" \";    }cout &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; dp[j] &lt;&lt; \" \";    }cout &lt;&lt; '\\n' &lt;&lt; '\\n';}int main(){    ios_base::sync_with_stdio(false);    cin.tie(NULL);    cout.tie(NULL);    cin &gt;&gt; N &gt;&gt; K;    for (int i = 1; i &lt;= N; i++) {        int w, v;        cin &gt;&gt; w &gt;&gt; v;        a[i][0] = w;        a[i][1] = v;    }    for (int i = 1; i &lt;= N; i++) {        memcpy(temp, dp, sizeof(dp));        for (int j = 1; j &lt;= K; j++) {            if (j - a[i][0] &lt; 0) dp[j] = max(dp[j], dp[j]);            else dp[j] = max(temp[j], temp[j-a[i][0]] + a[i][1]);        }    }    cout &lt;&lt; *max_element(dp, dp+K+1) &lt;&lt; '\\n';    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/17/%EB%B0%B1%EC%A4%80-%ED%8F%89%EB%B2%94%ED%95%9C-%EB%B0%B0%EB%82%AD.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-17-eb-b0-b1-ec-a4-80-ed-8c-8c-ec-8a-a4-ec-b9-bc-html": {
+        "title": "백준(2986번): 파스칼",
+        "tags": "백준, 알고리즘, 소수, 수학",
+        "date": "April 17, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버3 : 수학 문제이다.백준(2986번) - 파스칼생각일단 코드가 처음보는 거라 유심히 보았다. 결국 이런 것을 묻는 문제였다.  가장 큰 약수가 뒤에서 부터 몇번째에 나오니?그렇다면 가장 큰 약수를 구해야 하는데, 가장 큰 약수는 사실 $\\sqrt{n}$ 까지만 조사해도 풀 수 있다. 모든 수는 약수로 1을 가지므로 1을 초기값으로 두고, $\\sqrt{n}$까지 루프를 돌며 가장 큰 약수를 구한 뒤, 그 값까지 오는 count 개수를 출력하면 된다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;using namespace std;int main(){    int n, divisor = 1;    cin &gt;&gt; n;    for (int i = 2; i*i &lt;= n; i++) {        if (n%i == 0) {            divisor = n/i;            break;        }    }    cout &lt;&lt; n-divisor &lt;&lt; '\\n';}",
+        
+        "url": "/cs/algorithm/2020/04/17/%EB%B0%B1%EC%A4%80-%ED%8C%8C%EC%8A%A4%EC%B9%BC.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-17-eb-b0-b1-ec-a4-80-ec-9d-b4-eb-b6-84-ea-b7-b8-eb-9e-98-ed-94-84-html": {
+        "title": "백준(1707번): 이분 그래프(Bipartite Graph)",
+        "tags": "백준, 알고리즘, dfs, 그래프",
+        "date": "April 17, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "골드4 : 그래프 문제이다.백준(1707번) - 이분 그래프생각이분 그래프란 무엇인가? 문제를 읽고는 파악하는 게 힘들었다. 차라리 그림으로 보는 것이 좋다.왼쪽과 같은 그래프가 있을 이걸 오른쪽 그림처럼 바꿀 수 있느냐의 문제이다. 즉 저는 두 개의 집합으로 나눴을 때, 그 집합 내에 소속되는 정점과 인접하지 않는 (서로소 관계를 유지하는) 그래프 라 할 수 있다. 여기서 핵심은 나와 인접한 노드들의 색이 반대라는 것이다.풀이풀이 방법은 생각 보다 간단하다. 물론 처음에는 좀 삽질을 했지만.. 여전히 그래프 문제이기 때문에 탐색 방법론 부터 생각하는 것이 합리적이다.가장 생각하기 어려운 모양 부터 생각해 보겠다. 아래의 예는 그래프가 발생했을 때, 닫힌 그래프로 구성이 되어 정확하게 3개로 쪼개지는 경우에 대해 생각해 본 것이다.  닫힌 그래프는 여러개 존재할 수 있다. (그래프 입력 : a, b, c의 닫힌 그래프로 나뉜다고 가정해보자.)  각각의 닫힌 그래프에서 이분 그래프가 되기 위해서는 나와 인접한 노드의 색이 반대여야 한다. (a 그래프에서 이분 그래프인지 확인한다.)  이렇게 모든 닫힌 그래프에서 이분 그래프인지 확인했을 때 하나라도 이분 그래프가 아니라면 “No”를 출력한다.  모든 닫힌 그래프에서 이분 그래프라면, 이 세 닫힌 그래프를 합쳐도 이분 그래프이기 때문에 “YES”를 출력한다.이번에는 4개의 node에서 2개의 노드만 연결되었을 경우를 생각해 보자. 연결이 되지 않은 노드는 색을 어떻게 칠해주냐에 따라 다르므로, 결국 연결된 그래프에 대해서는 이분 그래프인지를 확인해 주면 된다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;#define MAX 20000#define RED 1#define BLUE 2using namespace std;vector&lt;int&gt; graph[MAX+1];int isVisited[MAX+1];int V, E;// 내 노드에서 부터 시작해서 연결된 친구들을 다른 색으로 바꾼다.// 이미 색이 칠해져 있으면 탐색하지 않는다.void dfs(int voltex, int color){    isVisited[voltex] = color;    for (int i = 0; i &lt; graph[voltex].size(); i++) {        int nextVoltex = graph[voltex][i];        if (!isVisited[nextVoltex]) dfs(nextVoltex, 3-color);    }}// 나랑 연결된 친구들은 다른 색이어야 한다.bool isBipartiteGraph(){    for (int i = 1; i &lt;= V; i++) {        for (int j = 0; j &lt; graph[i].size(); j++) {            int nextVoltex = graph[i][j];            if (isVisited[i] == isVisited[nextVoltex]) return false;        }    }    return true;}int main(){    ios_base::sync_with_stdio(false);    cin.tie(NULL);    cout.tie(NULL);    int T;    cin &gt;&gt; T;    for (int tc = 0; tc &lt; T; tc++) {        cin &gt;&gt; V &gt;&gt; E;        for (int i = 0; i &lt;= V; i++) graph[i].clear();        memset(isVisited, 0, sizeof(isVisited));        for (int i = 0; i &lt; E; i++) {            int v1, v2;            cin &gt;&gt; v1 &gt;&gt; v2;            graph[v1].push_back(v2);            graph[v2].push_back(v1);        }        for (int i = 1; i &lt;= V; i++) {            if (!isVisited[i]) dfs(i, RED); // 색을 배정 받지 않은 친구들 탐색        }        if (isBipartiteGraph()) cout &lt;&lt; \"YES\" &lt;&lt; '\\n';        else cout &lt;&lt; \"NO\" &lt;&lt; '\\n';    }    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/17/%EB%B0%B1%EC%A4%80-%EC%9D%B4%EB%B6%84-%EA%B7%B8%EB%9E%98%ED%94%84.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-17-eb-b0-b1-ec-a4-80-ec-95-b1-html": {
+        "title": "백준(12865번): 평범한 배낭",
+        "tags": "백준, 알고리즘, 동적 계획법",
+        "date": "April 17, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "골드5 : 동적 계획법 문제이다.백준(12865번) - 평범한 배낭생각결국 무게 제약이 있는 문제이다. 나는 이 문제를 풀 때 감을 잡기 참어려웠는데, 무게에 제약이 있다는 점을 갖고 완전 탐색을 한다는 아이디어를 가지고 생각했다. 완전 탐색을 곧이곧대로 하려면 $O(n!)$ 의 시간 복잡도가 생겨 풀기 어렵다. 그렇기 때문에 이 문제는 다이나믹으로 접근한다.다이나믹으로 접근하면, 작은 문제를 정의하고 이것이 큰 문제에 어떠한 영향을 주는 지를 확인해야 한다.정의  dp[i][j] = i번째 물건까지 포함했을 때 j의 무게를 포함하는 가치의 최댓값말이 좀 어렵다. 예시를 보자4 76 134 83 65 12현재 무게 : 6 현재 가치 : 13  1   2   3   4   5   6   7  0   0   0   0   0  13  13현재 무게 : 4 현재 가치 : 8  1   2   3   4   5   6   7  0   0   0   8   8  13  13현재 무게 : 3 현재 가치 : 6  1   2   3   4   5   6   7  0   0   6   8   8  13  14현재 무게 : 5 현재 가치 : 12  1   2   3   4   5   6   7  0   0   6   8  12  13  1414새로운 아이템이 추가됨에 따라, 그 상태에서 가질 수 있는 가치의 최댓값을 가지고 있으면 문제는 해결된다.점화식  dp[i][j] = max(dp[i][j], dp[i-1]j-a[i][0]]] + a[i][1];위의 예시를 잘 보면, dp[4][7]을 업데이트 하기 위해서는 dp[3번째 무게까지 포함][4의 무게] + 6(3의 가치) 와 dp[3번째 무게까지 포함][7의 무게] 두개를 비교해야 한다. 즉, 8+6, 과 13을 비교한다.잘 생각해보면, 이전 무게까지 포함했을 때 최댓값과, 새로 들어온 무게를 만들었을 때의 가치를 비교하면 되는 문제이다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;using namespace std;int N, K;int a[101][2];int dp[101][100001];void print(int i){    cout &lt;&lt; \"현재 무게 : \" &lt;&lt; a[i][0] &lt;&lt; \" 현재 가치 : \" &lt;&lt; a[i][1] &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; j &lt;&lt; \" \";    }cout &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; dp[i][j] &lt;&lt; \" \";    }cout &lt;&lt; '\\n' &lt;&lt; '\\n';}int main(){    ios_base::sync_with_stdio(false);    cin.tie(NULL);    cout.tie(NULL);    cin &gt;&gt; N &gt;&gt; K;    for (int i = 1; i &lt;= N; i++) {        int w, v;        cin &gt;&gt; w &gt;&gt; v;        a[i][0] = w;        a[i][1] = v;    }    for (int i = 1; i &lt;= N; i++) {        for (int j = 1; j &lt;= K; j++) {            // 만들고 싶은 무게에 지금 넣고 싶은 무게를 넣지 못하는 경우            if (j - a[i][0] &lt; 0) {                // 이전 아이템까지 넣었던 최대 가치로 갖고 있는다                dp[i][j] = max(dp[i][j], dp[i-1][j]);                continue;            }            // 현재 만들고 싶은 무게에 지금 넣고 싶은 무게를 넣을 수 있다면            // 이전 아이템까지 넣었을 때 최대 가치를 가졌던 것과, 지금 넣고 싶은 무게를 넣었을 때            // 가치를 비교하여 최대 가치로 업데이트 해준다.            dp[i][j] = max(dp[i-1][j], dp[i-1][j-a[i][0]] + a[i][1]);        }        print(i);    }    // 최종적으로 N개의 짐까지 다 넣어보았을 때, 최대 가치가 얼마인지 찾는다.    cout &lt;&lt; *max_element(dp[N], &amp;dp[N][K+1]) &lt;&lt; '\\n';    //dp[i][j] = i번째 물건까지 포함했을 때 j의 무게를 만들었을 때 무게의 최댓값    // dp[i][j] = max(dp[i][j], dp[i-1][j-a[i].first] + a[i].second;    return 0;}공간 복잡도 감소그런데, 지금 dp의 크기를 보면 100*100000 = 10000000이라 많은 메모리를 낭비하고 있다. dp[i]~dp[i+1] 과의 관계에서 값이 도출이 되기 때문에 이전 depth의 dp는 필요가 없다. 따라서 temp라는 배열에 이를 저장하고 그 저장한 배열에서 값을 따오면 공간 복잡도를 줄일 수 있다.#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;iomanip&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;using namespace std;int N, K;int a[101][2];int dp[100001];int temp[100001];void print(int i){    cout &lt;&lt; \"현재 무게 : \" &lt;&lt; a[i][0] &lt;&lt; \" 현재 가치 : \" &lt;&lt; a[i][1] &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; j &lt;&lt; \" \";    }cout &lt;&lt; '\\n';    for (int j = 1; j &lt;= K; j++) {        cout &lt;&lt; setw(3) &lt;&lt; dp[j] &lt;&lt; \" \";    }cout &lt;&lt; '\\n' &lt;&lt; '\\n';}int main(){    ios_base::sync_with_stdio(false);    cin.tie(NULL);    cout.tie(NULL);    cin &gt;&gt; N &gt;&gt; K;    for (int i = 1; i &lt;= N; i++) {        int w, v;        cin &gt;&gt; w &gt;&gt; v;        a[i][0] = w;        a[i][1] = v;    }    for (int i = 1; i &lt;= N; i++) {        memcpy(temp, dp, sizeof(dp));        for (int j = 1; j &lt;= K; j++) {            if (j - a[i][0] &lt; 0) dp[j] = max(dp[j], dp[j]);            else dp[j] = max(temp[j], temp[j-a[i][0]] + a[i][1]);        }    }    cout &lt;&lt; *max_element(dp, dp+K+1) &lt;&lt; '\\n';    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/17/%EB%B0%B1%EC%A4%80-%EC%95%B1.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-16-eb-b0-b1-ec-a4-80-ec-86-8c-ec-88-98-html": {
+        "title": "백준(2581번): 소수",
+        "tags": "백준, 알고리즘, 동적 계획법",
+        "date": "April 16, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버4 : 수학 문제이다.백준(2581번) - 소수생각소수 구하는 알고리즘인 에라토스테네스의 체를 사용하면 간단히 풀 수 있다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#define MAX 10000using namespace std;int N, M;bool isPrime[MAX+1];void SeiveofEratosThenes(){    fill(isPrime+2, isPrime+MAX+1, true);    for (int i = 2; i*i &lt;= M; i++) {        if (isPrime[i] == false) continue;        for (int j = i*i; j &lt;= M; j+=i) {            isPrime[j] = false;        }    }}int main(){    cin &gt;&gt; N &gt;&gt; M;    SeiveofEratosThenes();    vector&lt;int&gt; primeArr; int sum = 0;    for (int i = N; i &lt;= M; i++) {        if (isPrime[i]) {            primeArr.push_back(i);            sum += i;        }    }    if (primeArr.size() == 0) {        cout &lt;&lt; -1 &lt;&lt; '\\n';    } else cout &lt;&lt; sum &lt;&lt; '\\n' &lt;&lt; primeArr[0] &lt;&lt; '\\n';    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/16/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%88%98.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-16-eb-b0-b1-ec-a4-80-ec-86-8c-ec-88-98-ea-b5-ac-ed-95-98-ea-b8-b0-html": {
+        "title": "백준(1929번): 소수 구하기",
+        "tags": "백준, 알고리즘, 에라토스테네스의 체, 수학",
+        "date": "April 16, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버2 : 수학 문제이다.백준(1929번) - 소수 구하기생각소수 구하는 알고리즘인 에라토스테네스의 체를 사용하면 간단히 풀 수 있다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;#define MAX 1000000using namespace std;bool isPrime[MAX+1];int N, M;void SeiveofEratosThenes(){    fill(isPrime+2, isPrime+N+1, true);    for (int i = 2; i*i &lt;= N; i++) {        if (isPrime[i] == false) continue;        for (int j = i*i; j &lt;= N; j+=i) {            isPrime[j] = false;        }    }}int main(){    cin &gt;&gt; M &gt;&gt; N;    SeiveofEratosThenes();    for (int i = M; i &lt;= N; i++) {        if (isPrime[i] == true) cout &lt;&lt; i &lt;&lt; '\\n';    }    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/16/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%88%98-%EA%B5%AC%ED%95%98%EA%B8%B0.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-16-eb-b0-b1-ec-a4-80-eb-b2-a0-eb-a5-b4-ed-8a-b8-eb-9e-91-ea-b3-b5-ec-a4-80-html": {
+        "title": "백준(4948번): 베르트랑 공준",
+        "tags": "백준, 알고리즘, 에라토스테네스의 체, 수학",
+        "date": "April 16, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버2 : 수학 문제이다.백준(4948번) - 베르트랑 공준생각소수 구하는 알고리즘인 에라토스테네스의 체를 사용하면 간단히 풀 수 있다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;#define MAX 123456*2using namespace std;int N;bool isPrime[MAX+1];void SeiveofEratosThenes(){    fill(isPrime+2, isPrime+MAX+1, true);    for (int i = 2; i*i &lt;= MAX; i++) {        if (isPrime[i] == false) continue;        for (int j = i*i; j &lt;= MAX; j+=i) {            isPrime[j] = false;        }    }}int main(){    SeiveofEratosThenes();    while (1) {        int count = 0;        cin &gt;&gt; N;        if (N == 0) {            break;        }        for (int i = N+1; i &lt;= 2*N; i++) {            if (isPrime[i]) count++;        }        cout &lt;&lt; count &lt;&lt; '\\n';    }    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/16/%EB%B0%B1%EC%A4%80-%EB%B2%A0%EB%A5%B4%ED%8A%B8%EB%9E%91-%EA%B3%B5%EC%A4%80.html"
+      }
+      ,
+    
       "cs-algorithm-2020-04-16-eb-b0-b1-ec-a4-80-eb-8f-99-ec-a0-842-html": {
         "title": "백준(2294번): 동전 2",
         "tags": "백준, 알고리즘, 동적 계획법",
@@ -480,6 +568,30 @@ function changeContent(event){
         "content": "실버1 : 동적 계획법 문제이다.백준(2293번) - 동전 2생각다이나믹의 유형 중 중요한 유형이다. 대부분의 동전 문제의 방식과 비슷하다. 1차원 다이나믹이지만 2개의 반복문을 통해 2차원 처럼 생각하는 것이 필요하다.정의  dp[i] = n의 가치를 만들기 위해 필요한 경우의 수정의는 매우 간단하다. 하지만 이 것을 구현할 때는 2차원 처럼 생각해야 편하다.점화식  dp[j] += dp[j-a[i]];위의 점화식이 나오는 과정을 생각해보자.3 152510========동전의 값 : 2========1 0 1 0 1 0 1 0 1 0 1 0 1 0 1========동전의 값 : 5========1 0 1 0 1 1 1 1 1 1 2 1 2 1 2========동전의 값 : 10========1 0 1 0 1 1 1 1 1 1 3 1 3 1 3  2로써 만들 수 있는 것을 업데이트 한다.  5로써 만들 수 있는 것을 업데이트 한다.  10로써 만들 수 있는 것을 업데이트 한다.이 때, 해당 가치가 업데이트 되는 방향은 결정되어 있다. 5의 가치는 3의 가치에서 2의 동전을 더해서 만들 수 있다. 이런 관계를 잘 엮는다면 문제를 해결할 수 있다. 이 문제는 동전 2의 문제와 같다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;using namespace std;int N, M;int a[101];int dp[10001];void print(int coin){    cout &lt;&lt; \"========\" &lt;&lt; \"동전의 값 : \"&lt;&lt; coin &lt;&lt; \"========\" &lt;&lt; '\\n';    for (int i = 0; i &lt; M; i++) {        cout &lt;&lt; dp[i] &lt;&lt; \" \";    }cout &lt;&lt; '\\n' &lt;&lt; '\\n';}int main(){    cin &gt;&gt; N &gt;&gt; M;    for (int i = 1; i &lt;= N; i++) {        cin &gt;&gt; a[i];    }    dp[0] = 1;    for (int i = 1; i &lt;= N; i++) {        for (int j = a[i]; j &lt;= M; j++) {            dp[j] += dp[j-a[i]];        }        print(a[i]);    }    cout &lt;&lt; dp[M] &lt;&lt; '\\n';    return 0;}",
         
         "url": "/cs/algorithm/2020/04/16/%EB%B0%B1%EC%A4%80-%EB%8F%99%EC%A0%841.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-16-eb-b0-b1-ec-a4-80-eb-8b-a4-eb-a6-ac-eb-86-93-ea-b8-b0-html": {
+        "title": "백준(1010번): 다리놓기",
+        "tags": "백준, 알고리즘, 메모이제이션, 재귀",
+        "date": "April 16, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버4 : 메모이제이션 문제이다.백준(1010번) - 소수생각고등학교 때 많이 풀어본 함수의 개수 구하는 문제와 같다. 결국은 공역단에서 N개의 site를 고르게 되면 자동으로 순서가 결정되기 때문이다. M개의 원소 중에 N개의 원소를 고르면 되는 문제이기 때문에 이것은 결국 조합을 구현하는 문제와 같다. 그 과정에서 중복되는 조합 값이 존재하기 때문에 이것을 따로 저장하게 되면 시간이 매우 많이 단축된다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;using namespace std;typedef long long ll;ll memo[31][31];ll combination(int M, int N){    if (M == N || N == 0) return 1;    if (memo[M-1][N-1] == 0) memo[M-1][N-1] = combination(M-1, N-1);    if (memo[M-1][N] == 0) memo[M-1][N] = combination(M-1, N);    return memo[M-1][N-1] + memo[M-1][N];}int main(){    int T;    cin &gt;&gt; T;    for (int tc = 0; tc &lt; T; tc++) {        int N, M;        cin &gt;&gt; N &gt;&gt; M;        cout &lt;&lt; combination(M, N) &lt;&lt; '\\n';    }}",
+        
+        "url": "/cs/algorithm/2020/04/16/%EB%B0%B1%EC%A4%80-%EB%8B%A4%EB%A6%AC%EB%86%93%EA%B8%B0.html"
+      }
+      ,
+    
+      "cs-algorithm-2020-04-16-eb-b0-b1-ec-a4-80-ea-b3-a8-eb-93-9c-eb-b0-94-ed-9d-90-ec-9d-98-ec-b6-94-ec-b8-a1-html": {
+        "title": "백준(9020번): 골드바흐의 추측",
+        "tags": "백준, 알고리즘, 에라토스테네스의 체, 수학",
+        "date": "April 16, 2020",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버1 : 수학 문제이다.백준(9020번) - 골드바흐의 추측생각소수 구하는 알고리즘인 에라토스테네스의 체를 사용하면 간단히 풀 수 있다. 이 때, 시간제한 때문에 구한 소수를 담아두는 것이 좋다.Code#include&lt;iostream&gt;#include&lt;vector&gt;#include&lt;string&gt;#include&lt;cstring&gt;#include&lt;cmath&gt;#include&lt;algorithm&gt;#include&lt;queue&gt;#define MAX 10000using namespace std;bool isPrime[MAX+1];void SeiveofEratosThenes(){    fill(isPrime+2, isPrime+MAX+1, true);    for (int i = 2; i*i &lt;= MAX; i++) {        if (isPrime[i] == false) continue;        for (int j = i*i; j &lt;= MAX; j+=i) {            isPrime[j] = false;        }    }}void solve(int N){    vector&lt;int&gt; prime;    for (int i = 2; i &lt;= N; i++) {        if (isPrime[i]) prime.push_back(i);    }    int size = int(prime.size());    int a = -100000, b = 100000;    for (int i = 0; i &lt;= size; i++) {        for (int j = i; j &lt;= size; j++) {            if (prime[i]+prime[j] == N) {                if (prime[j]-prime[i] &lt; b-a) {                    a = prime[i]; b = prime[j];                }            }        }    }    cout &lt;&lt; a &lt;&lt; \" \" &lt;&lt; b &lt;&lt; '\\n';}int main(){    SeiveofEratosThenes();    int T;    cin &gt;&gt; T;    for (int tc = 0; tc &lt; T; tc++) {        int N;        cin &gt;&gt; N;        solve(N);    }    return 0;}",
+        
+        "url": "/cs/algorithm/2020/04/16/%EB%B0%B1%EC%A4%80-%EA%B3%A8%EB%93%9C%EB%B0%94%ED%9D%90%EC%9D%98-%EC%B6%94%EC%B8%A1.html"
       }
       ,
     
