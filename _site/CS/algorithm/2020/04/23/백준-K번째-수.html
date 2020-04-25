@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>백준(1300번): K번째 수 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="골드4 : 유니온 파인드 문제이다.백준(1300번) - 여행가자">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/cs/algorithm/2020/04/23/%EB%B0%B1%EC%A4%80-K%EB%B2%88%EC%A7%B8-%EC%88%98.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- naver web mater tool -->
+	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/Parallel">Parallel</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/34.jpg')">
+    <h1 class="title">백준(1300번): K번째 수</h1>
+    
+    <p class="meta">
+      CS/Algorithm
+      
+    </p>
+
+    <p class="meta">
+      April 23, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+
+  <p><strong><em>골드4</em></strong> : 유니온 파인드 문제이다.<br />
+<a href="https://www.acmicpc.net/problem/1300">백준(1300번) - 여행가자</a></p>
+
+<h1 id="생각">생각</h1>
+
+<p>어려웠다. 여러가지 배열이 섞이고, 계산하는 방법을 생각하지 못했다. 이 문제를 풀면서 배운 것은, 정말 컴퓨터처럼(센다..) 생각해야 된다는 것.. 그리고 예시를 놓고, 이것을 실제로 써보면서 이상적으로 풀 생각을 하지말고 try &amp; modify 하는 것이다. 너무 뼈저리게 느꼈다..</p>
+
+<p>그래서, 지금부터 써보겠다. 이 문제에서 고려해야 하는 점은 크게 2가지 이다.</p>
+
+<h2 id="센다">센다.</h2>
+
+<p>이분 탐색으로 풀린다는 것은 알았으나, K번째 수가 N이라고 제안한 이후에, 어떻게 K번째 수인지를 도출할 것인지에 대한 고민이 많았다. 즉, 제안한 숫자에 대해 이 숫자가 몇번째 수인지를 output으로 내놓을 함수를 짜야한다. 처음에 이것은, 제안한 숫자에 대한 제곱수를 찾아 필요없는 수를 제끼고..이런 방법으로 하려고 했는데, 컴퓨터는 정말 단순하게 생각하는 것이 핵심인 것 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   1   2   3   4   5   6   7   8   9  10
+   2   4   6   8  10  12  14  16  18  20
+   3   6   9  12  15  18  21  24  27  30
+   4   8  12  16  20  24  28  32  36  40
+   5  10  15  20  25  30  35  40  45  50
+   6  12  18  24  30  36  42  48  54  60
+   7  14  21  28  35  42  49  56  63  70
+   8  16  24  32  40  48  56  64  72  80
+   9  18  27  36  45  54  63  72  81  90
+  10  20  30  40  50  60  70  80  90 100
+</code></pre></div></div>
+
+<p>내가 만약, 25라는 숫자를 제안했다고 하자. 그렇다면, 1번째 행에서 부터, 이 숫자보다 작은 것이 몇개있는 지를 센다. 그렇다면 10이다. 3번째 열에서는 8이다. 이 숫자들은, i번째 행의 숫자로 제시한 숫자를 나눈 <strong>몫</strong>으로 가능하다. 이 문제가 쉬운 이유이다. 그렇기 때문에 내가 제안한 숫자의 번째 수를 계산하는 것은 $O(N)$에 가능하다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ll</span> <span class="nf">f</span><span class="p">(</span><span class="n">ll</span> <span class="n">num</span><span class="p">){</span>
+    <span class="n">ll</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">numbering</span><span class="p">,</span> <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">num</span><span class="o">/</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">numbering</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">N</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">numbering</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">i</span><span class="p">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="n">numbering</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이 과정을 N이 3일 때 정리해보면 다음과 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 1 2 3
+ 2 4 6
+ 3 6 9
+
+ 제시하는 숫자 : 1 2 3 4 5 6 7 8 9
+ count      : 1 3 5 6 6 8 8 8 9
+
+</code></pre></div></div>
+
+<h2 id="어떤-것이-답인가">어떤 것이 답인가?</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 1 2 3
+ 2 4 6
+ 3 6 9
+
+ 제시하는 숫자 : 1 2 3 4 5 6 7 8 9
+ count 함수  : 1 3 5 6 6 8 8 8 9
+
+ B[]        : 1 2 2 3 3 4 6 6 9
+ 번째 수      : 1 2 3 4 5 6 7 8 9
+
+</code></pre></div></div>
+
+<p>하지만 이렇게 되면 조금 문제가 발생한다. 원하는 K가 8, 즉 8번째 수라면 7을 제안해도 8, 6을 제안해도 8, 8을 제안해도 8이다. 그런데, 7을 제안하면 A배열에 없기 때문에 답이 아니다. 또한, K가 7일 경우, count함수를 통과시켜 나온 리턴 값에는 7이 없다. 하지만 7번째 수는 분명히 존재한다.</p>
+
+<p>이 문제는 숫자가 연속적으로 나열된 문제가 아니기 때문에, 특정 숫자에 대한 번째만이 존재한다. 다시 말하면 6이라는 숫자는 실제 B배열에서 7번째, 8번째 숫자이지만, 7이라는 숫자는 A배열에 없기 때문에 N번째 숫자라는 개념 자체가 불가능 하다. 즉, 7이라는 숫자를 제안했을 때, A배열에서 있다고 가정하고 숫자를 세면, 6을 세었을 때와 같은 count가 나오나, 7이라는 숫자가 없기 때문에 답이 아니다.</p>
+
+<p>숫자의 범위 때문에, 답을 제시하는 방법을 사용하긴 해야한다. 그렇다면 어떻게 <strong>A배열에 있으면서, 원하는 K번째가 있는 수를 제시</strong>할 수 있을까?</p>
+
+<h2 id="k보다-count가-큰-녀석은-답의-후보이다">K보다 count가 큰 녀석은 답의 후보이다.</h2>
+
+<p>이것을 알기 위해서, 일단 이분 탐색이 맞다하고 생각을 해보자.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3
+2 4 6
+3 6 9
+
+K = 7
+
+제시하는 숫자 : 1 2 3 4 5 6 7 8 9
+count 함수  : 1 3 5 6 6 8 8 8 9
+
+B[]        : 1 2 2 3 3 4 6 6 9
+번째 수      : 1 2 3 4 5 6 7 8 9
+
+start : 1  end : 9  제시 : 5
+start : 6  end : 9  제시 : 7
+start : 6  end : 6  제시 : 6
+</code></pre></div></div>
+
+<p>K = 7인 상황에서 생각해보자. 먼저 (1+9)/2 = 5를 제안한다. 이 때의 함수 통과 값은 6이므로, K보다 작다. 따라서 값을 올려 제안한다.</p>
+
+<p>이번엔 (6+9)/2 = 7을 제안한다. 이 경우 함수 통과 값은 8이다. K보다 작다. 따라서 제시하는 값을 낮춘다.</p>
+
+<p>마지막으로 (6+6)/2 = 6를 탐색한다. 이 경우 count는 8이다. 그리고 나서 L, R가 역전되므로 끝난다. 하지만 답은 찾았다. 6이다.</p>
+
+<p>즉, count가 굳이 K와 같지 않더라도 답을 구할 수 있다.</p>
+
+<p>이 부분을 잘 생각해보자.<br />
+7을 세었을 때와 6을 세었을 때, 같은 번째 수(8)라는 결론이 나오나, 우리는 8이라는 숫자가 처음 등장하는 숫자를 답으로 제안해야 한다. 7을 제안했을 때, 8이 나오는 이유는, <strong>7이라는 숫자가 A배열에 없기 때문</strong>이다. 실제로 있는 수는, count함수를 돌렸을 때, <strong>처음으로 8이라는 숫자가 나오는 경우, 해당 숫자를 A배열에 있는 수라고 생각할 수 있다.</strong> (잘 생각해보자.) 그렇기 때문에, 우리는 이분 탐색의 분기를 다음과 같이 정해야 한다.</p>
+
+<ol>
+  <li>count가 K보다 작다.
+    <ul>
+      <li>이 구간에는 답이 존재할 수 없으므로 더 큰 값을 탐색한다.</li>
+    </ul>
+  </li>
+  <li>count가 K보다 크다.
+    <ul>
+      <li>이 구간에는 답이 존재할 수 있다. 그렇기 때문에 이 때 제시한 값은 답의 <strong>후보</strong>로 채택한다.</li>
+      <li>그리고, count가 K와 같은 구간을 찾기 위해 더 작은 값을 탐색한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>이 과정을 거치게 되면서 우리가 하는 과정은, <strong>최대한 K와 같은 값을 찾는다</strong> 이다.
+이러한 방법은 곧, 같은 count값이 나오더라도, 그 같은 count값이 <strong>처음으로 등장하는 수</strong>를 답으로 채택한다. 라는 의미와 일치한다.</p>
+
+<h1 id="code">Code</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;algorithm&gt;
+#include&lt;list&gt;
+#include&lt;iomanip&gt;
+#include&lt;cmath&gt;
+#include&lt;cstring&gt;
+#include&lt;queue&gt;
+#include&lt;functional&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">MAX_NUM</span> <span class="o">=</span> <span class="mi">10000000000</span><span class="p">;</span>
+<span class="n">ll</span> <span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">;</span>
+
+<span class="n">ll</span> <span class="nf">f</span><span class="p">(</span><span class="n">ll</span> <span class="n">num</span><span class="p">){</span>
+    <span class="n">ll</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">numbering</span><span class="p">,</span> <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">num</span><span class="o">/</span><span class="n">i</span> <span class="o">&gt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">numbering</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">N</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">numbering</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">i</span><span class="p">;</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">num</span><span class="o">/</span><span class="n">i</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="n">numbering</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="n">K</span><span class="p">;</span>
+
+    <span class="n">ll</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">ll</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">MAX_NUM</span><span class="p">,</span> <span class="n">N</span><span class="o">*</span><span class="n">N</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ll</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+        <span class="n">ll</span> <span class="n">count</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">mid</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">K</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">ans</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
+    
+    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+    
+    <a class="tag" href="/tags#%ED%8C%8C%EB%9D%BC%EB%A9%94%ED%8A%B8%EB%A6%AD+%EC%84%9C%EC%B9%98">#파라메트릭 서치</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+    
+    <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/04/20/testcase%EC%97%90-%EC%A2%85%EB%A3%8C%EC%A1%B0%EA%B1%B4%EC%9D%B4-%EC%97%86%EB%8A%94-%EA%B2%BD%EC%9A%B0.html';">
+        <p>Previous post</p>
+        <a href="/dv/c++/2020/04/20/testcase%EC%97%90-%EC%A2%85%EB%A3%8C%EC%A1%B0%EA%B1%B4%EC%9D%B4-%EC%97%86%EB%8A%94-%EA%B2%BD%EC%9A%B0.html">
+          testcase에 종료 조건이 없는 경우
+        </a>
+    </div>
+    
+    
+    <div id="next-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/04/23/%EB%B0%B1%EC%A4%80-%EC%97%AC%ED%96%89%EA%B0%80%EC%9E%90.html';">
+        <p>Next post</p>
+        <a href="/cs/algorithm/2020/04/23/%EB%B0%B1%EC%A4%80-%EC%97%AC%ED%96%89%EA%B0%80%EC%9E%90.html">
+          백준(1976번): 여행가자
+        </a>
+    </div>
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
