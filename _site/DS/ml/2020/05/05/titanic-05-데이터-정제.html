@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>05: 데이터 정제 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="Kaggle에 있는 Titanic Prediction 문제의 데이터를 정제한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ds/ml/2020/05/05/titanic-05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%A0%9C.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- naver web mater tool -->
+	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+          <li><a href="/DS/Visualization">Visualization</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/Parallel">Parallel</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/36.jpg')">
+    <h1 class="title">05: 데이터 정제</h1>
+    
+    <p class="meta">
+      DS/ML
+      
+        : Titanic
+      
+    </p>
+
+    <p class="meta">
+      May 5, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>Titanic</em></b> 시리즈 <b><em>6</em></b> 편 중 <b><em>5</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98.html'">
+                <span>Part 1 - 01: 문제 정의</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91.html'">
+                <span>Part 2 - 02: 데이터 수집</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-03-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%A1%9C%EB%93%9C.html'">
+                <span>Part 3 - 03: 라이브러리 로드</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0.html'">
+                <span>Part 4 - 04: 데이터 미리보기</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 5 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html'">
+                <span>Part 6 - 06: EDA (Exploratory Data Analysis)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>Kaggle에 있는 Titanic Prediction 문제의 데이터를 정제한다.</p>
+
+<h1 id="데이터-정제">데이터 정제</h1>
+<p>이 단계에서 우리는 데이터를 정제한다.</p>
+
+<h2 id="방법론">방법론</h2>
+
+<ol>
+  <li>잘못된 값과 이상치를 수정한다.</li>
+  <li>결측치를 채워넣는다.</li>
+  <li>분석에 필요한 새로운 feature를 생성한다.</li>
+  <li>계산을 위해 변수의 data format을 변경한다.</li>
+</ol>
+
+<p>이 방법에 대해 하나씩 자세히 알아보자.</p>
+
+<ol>
+  <li><strong>Correcting</strong>
+    <ul>
+      <li>데이터를 다시 보면서 이상하거나 납득하기 어려운 데이터를 확인한다. 하지만 수정은 조심해야 한다. 잘못된 판단으로 원래 데이터를 수정할 경우 올바르지 않은 결과가 나올 수 있기 때문이다. 따라서 EDA를 수행한 후 어느정도의 지식을 얻은 후에 수행하기로 한다.</li>
+    </ul>
+  </li>
+  <li><strong>Completing</strong>
+    <ul>
+      <li>age, cabin, embarked field에는 결측치나 Null이 많다. Null은 상당히 위험한데, 알고리즘이 받아들일 수 없는 경우가 있기 때문이다. 예를 들어 결정 트리는 null을 받아들일 수 있지만, 다른 알고리즘은 그렇지 않다. 따라서 이 값을 변경하는 것은 매우 중요하다. 이 부분에 있어서는 두가지 접근이 사용된다.
+        <ul>
+          <li>값을 지운다.
+            <ul>
+              <li>추천하지는 않는 방법이다. 특히 많은 부분의 record(row)가 빈 값으로 생각되지 않는다면 수행하면 안된다.</li>
+            </ul>
+          </li>
+          <li>합리적인 값으로 대체한다.
+            <ul>
+              <li>지우기 보다는 이것이 나은 방법이다.</li>
+              <li>좋은 방법론으로는, 결측치를 평균, 중앙값, 평균+편차, 최빈값등을 사용하는 것이다.</li>
+              <li>중급의 방법론은 특정 기준을 사용하여 채워넣는 것이다. 클래스별 나이, 요금에 따른 적재 항구와 같은 것들이 그것이다.</li>
+              <li>복잡한 방법론이 있지만, 최종 모델을 선정하기 전에, 추가한 feature로 인한 복잡도가 가치가 있는지를 확인해야 한다. 이번에는 age의 빈값은 중앙값으로, cabin은 삭제하며, embark는 최빈값으로 대체된다. 추후 모델에서 이러한 결정을 수정하며 모델을 개선할 수 있다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Creating</strong>
+    <ul>
+      <li>Feature engineering은 이미 존재하는 feature를 가지고 새로운 feature를 제작하여 결과에 새로운 영향력을 주는지를 판단하는 과정이다. 예를 들어, 이번 문제에서는 title(master)이 생존에 있어 중요했는지를 판단할 수 있다.</li>
+    </ul>
+  </li>
+  <li><strong>Converting</strong>
+    <ul>
+      <li>마지막으로 데이터 포맷을 변경하는 것이다. 날짜나 통화와 같은 데이터 형식일 경우 이것을 변경해줘야 한다. 이번 문제에서는 이산, 연속, 범주형 등의 데이터 형식이 있다. 이런 부분을 계산이 가능하도록 dummy변수화 해준다.</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'Train columns with null values:</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">data1</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Test/Validation columns with null values:</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">data_val</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">data_raw</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span> <span class="o">=</span> <span class="s">'all'</span><span class="p">)</span> <span class="c1"># 통계적으로 한번에 결과를 볼 수 있다.
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Train columns with null values:
+ PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64
+----------
+Test/Validation columns with null values:
+ PassengerId      0
+Pclass           0
+Name             0
+Sex              0
+Age             86
+SibSp            0
+Parch            0
+Ticket           0
+Fare             1
+Cabin          327
+Embarked         0
+dtype: int64
+----------
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/81085836-b2419280-8f32-11ea-8b62-564b50a98293.png" alt="image" class="center" /></p>
+
+<h2 id="정제-시작">정제 시작</h2>
+
+<p>이제 어떻게 할 지 알았으니 실제로 시작해보자.</p>
+
+<p><strong>Developer Documentation:</strong><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html">pandas.DataFrame</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.info.html">pandas.DataFrame.info</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.describe.html">pandas.DataFrame.describe</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/indexing.html">Indexing and Selecting Data</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.isnull.html">pandas.isnull</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sum.html">pandas.DataFrame.sum</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.mode.html">pandas.DataFrame.mode</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.copy.html">pandas.DataFrame.copy</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.fillna.html">pandas.DataFrame.fillna</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html">pandas.DataFrame.drop</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.Series.value_counts.html">pandas.Series.value_counts</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.loc.html">pandas.DataFrame.loc</a></p>
+
+<h3 id="complete-채우기">Complete (채우기)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 결측치를 지운다.
+</span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">data_cleaner</span><span class="p">:</span>    
+    <span class="c1"># age를 중앙값으로 채운다.
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="c1"># 최빈값으로 대체
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'Embarked'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Embarked'</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="c1"># 중앙값으로 대체
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'Fare'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Fare'</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    
+<span class="c1"># 사용하지 않을 feature를 제거해준다.
+</span><span class="n">drop_column</span> <span class="o">=</span> <span class="p">[</span><span class="s">'PassengerId'</span><span class="p">,</span><span class="s">'Cabin'</span><span class="p">,</span> <span class="s">'Ticket'</span><span class="p">]</span>
+<span class="n">data1</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">data_val</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Survived    0
+Pclass      0
+Name        0
+Sex         0
+Age         0
+SibSp       0
+Parch       0
+Fare        0
+Embarked    0
+dtype: int64
+----------
+PassengerId      0
+Pclass           0
+Name             0
+Sex              0
+Age              0
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          327
+Embarked         0
+dtype: int64
+</code></pre></div></div>
+
+<h3 id="create-생성하기---feature-engineering">Create (생성하기) - feature engineering</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">data_cleaner</span><span class="p">:</span>    
+    <span class="c1"># Family Size 추가
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'FamilySize'</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span> <span class="p">[</span><span class="s">'SibSp'</span><span class="p">]</span> <span class="o">+</span> <span class="n">dataset</span><span class="p">[</span><span class="s">'Parch'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># 나까지 추가
+</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'IsAlone'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># 혼자라고 초기화
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'IsAlone'</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="s">'FamilySize'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 가족 크기가 1보다 클 경우 혼자가 아님
+</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'Title'</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s">'Name'</span><span class="p">]</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">", "</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">"."</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># expand가 True이면, 하나의 컬럼을 두개로 나눌 수 있다.
+</span>    <span class="c1"># df[['split_1', 'split_2']] = df['email'].str.split('@', expand=True)
+</span>
+
+
+
+    <span class="c1"># 실수 값을 범주형으로 바꾼 feature를 추가한다.
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'FareBin'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">qcut</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Fare'</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># 같은 갯수에 해당하는 범위로 쪼갠다. 리턴은 해당 범주
+</span>    <span class="n">dataset</span><span class="p">[</span><span class="s">'AgeBin'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># 등간격 5개로 쪼갠다. 리턴은 해당 범주
+</span>
+
+    
+<span class="c1"># cleanup rare title names
+</span><span class="k">print</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Title'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span> <span class="c1"># 만든 title의 개수를 생각해보자.
+</span><span class="n">stat_min</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># 작다는 것이 임의적이나, 만연하게 사용하는 작은 수는 10이다. http://nicholasjjackson.com/2012/03/08/sample-size-is-10-a-magic-number/
+</span><span class="n">title_names</span> <span class="o">=</span> <span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Title'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">stat_min</span><span class="p">)</span> <span class="c1"># 10보다 count가 작은 친구들을 true로 만든다.
+</span>
+
+<span class="c1">#apply and lambda functions are quick and dirty code to find and replace with fewer lines of code: https://community.modeanalytics.com/python/tutorial/pandas-groupby-and-python-lambda-functions/
+</span><span class="n">data1</span><span class="p">[</span><span class="s">'Title'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="s">'Title'</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">'Misc'</span> <span class="k">if</span> <span class="n">title_names</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># 잡다한 것들 Misc
+</span><span class="k">print</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Title'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+
+
+<span class="c1">#preview data again
+</span><span class="n">data1</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">data_val</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">data1</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mr              517
+Miss            182
+Mrs             125
+Master           40
+Dr                7
+Rev               6
+Col               2
+Major             2
+Mlle              2
+Lady              1
+Sir               1
+the Countess      1
+Jonkheer          1
+Don               1
+Capt              1
+Ms                1
+Mme               1
+Name: Title, dtype: int64
+Mr        517
+Miss      182
+Mrs       125
+Master     40
+Misc       27
+Name: Title, dtype: int64
+----------
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 14 columns):
+Survived      891 non-null int64
+Pclass        891 non-null int64
+Name          891 non-null object
+Sex           891 non-null object
+Age           891 non-null float64
+SibSp         891 non-null int64
+Parch         891 non-null int64
+Fare          891 non-null float64
+Embarked      891 non-null object
+FamilySize    891 non-null int64
+IsAlone       891 non-null int64
+Title         891 non-null object
+FareBin       891 non-null category
+AgeBin        891 non-null category
+dtypes: category(2), float64(2), int64(6), object(4)
+memory usage: 85.5+ KB
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 418 entries, 0 to 417
+Data columns (total 16 columns):
+PassengerId    418 non-null int64
+Pclass         418 non-null int64
+Name           418 non-null object
+Sex            418 non-null object
+Age            418 non-null float64
+SibSp          418 non-null int64
+Parch          418 non-null int64
+Ticket         418 non-null object
+Fare           418 non-null float64
+Cabin          91 non-null object
+Embarked       418 non-null object
+FamilySize     418 non-null int64
+IsAlone        418 non-null int64
+Title          418 non-null object
+FareBin        418 non-null category
+AgeBin         418 non-null category
+dtypes: category(2), float64(2), int64(6), object(6)
+memory usage: 46.8+ KB
+</code></pre></div></div>
+
+<p><a href="https://stackoverflow.com/questions/30211923/what-is-the-difference-between-pandas-qcut-and-pandas-cut">Continuous variable bins; qcut vs cut</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.qcut.html">Fare Bins/Buckets using qcut or frequency bins</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.cut.html">Age Bins/Buckets using cut or value bins</a><br />
+<a href="http://nicholasjjackson.com/2012/03/08/sample-size-is-10-a-magic-number/">qcut에서 사용하는 minimum sample size</a><br />
+<a href="https://blog.naver.com/wideeyed/221603778414">pandas 문자열 다루기</a></p>
+
+<h3 id="convert-변환하기---수치화">Convert (변환하기) - 수치화</h3>
+
+<p>수학적 계산을 위해 범주형 데이터를 더미 변수화 한다. 범주형 데이터를 encoding하는 다양한 방법이 있다. sklearn과 pandas 함수를 사용하겠다.</p>
+
+<p>이 단계에서 우리는 사용한 독립 변수 x(independent/features/explanatory/predictor/etc.)와 종속 변수 y(dependent/target/outcome/response/etc.)를 정의한다.</p>
+
+<p><strong>Developer Documentation</strong>
+<a href="http://pbpython.com/categorical-encoding.html">Categorical Encoding</a><br />
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html">Sklearn LabelEncoder</a><br />
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html">Sklearn OneHotEncoder</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/categorical.html">Pandas Categorical dtype</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html">pandas.get_dummies</a></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># code categorical data
+</span><span class="n">label</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">data_cleaner</span><span class="p">:</span>    
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'Sex_Code'</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Sex'</span><span class="p">])</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'Embarked_Code'</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Embarked'</span><span class="p">])</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'Title_Code'</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'Title'</span><span class="p">])</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'AgeBin_Code'</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'AgeBin'</span><span class="p">])</span>
+    <span class="n">dataset</span><span class="p">[</span><span class="s">'FareBin_Code'</span><span class="p">]</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s">'FareBin'</span><span class="p">])</span>
+
+
+<span class="c1">#define y variable aka target/outcome
+</span><span class="n">Target</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span>
+
+<span class="c1"># raw 데이터에서 사용할 변수를 선택한다.
+</span><span class="n">data1_x</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Sex'</span><span class="p">,</span><span class="s">'Pclass'</span><span class="p">,</span> <span class="s">'Embarked'</span><span class="p">,</span> <span class="s">'Title'</span><span class="p">,</span><span class="s">'SibSp'</span><span class="p">,</span> <span class="s">'Parch'</span><span class="p">,</span> <span class="s">'Age'</span><span class="p">,</span> <span class="s">'Fare'</span><span class="p">,</span> <span class="s">'FamilySize'</span><span class="p">,</span> <span class="s">'IsAlone'</span><span class="p">]</span> <span class="c1"># pretty name/values for charts
+</span><span class="n">data1_x_calc</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Sex_Code'</span><span class="p">,</span><span class="s">'Pclass'</span><span class="p">,</span> <span class="s">'Embarked_Code'</span><span class="p">,</span> <span class="s">'Title_Code'</span><span class="p">,</span><span class="s">'SibSp'</span><span class="p">,</span> <span class="s">'Parch'</span><span class="p">,</span> <span class="s">'Age'</span><span class="p">,</span> <span class="s">'Fare'</span><span class="p">]</span> <span class="c1">#coded for algorithm calculation
+</span><span class="n">data1_xy</span> <span class="o">=</span>  <span class="n">Target</span> <span class="o">+</span> <span class="n">data1_x</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Original X Y: '</span><span class="p">,</span> <span class="n">data1_xy</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+
+<span class="c1"># 구간으로 나눈 데이터를 가지고 있는다.
+</span><span class="n">data1_x_bin</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Sex_Code'</span><span class="p">,</span><span class="s">'Pclass'</span><span class="p">,</span> <span class="s">'Embarked_Code'</span><span class="p">,</span> <span class="s">'Title_Code'</span><span class="p">,</span> <span class="s">'FamilySize'</span><span class="p">,</span> <span class="s">'AgeBin_Code'</span><span class="p">,</span> <span class="s">'FareBin_Code'</span><span class="p">]</span>
+<span class="n">data1_xy_bin</span> <span class="o">=</span> <span class="n">Target</span> <span class="o">+</span> <span class="n">data1_x_bin</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Bin X Y: '</span><span class="p">,</span> <span class="n">data1_xy_bin</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+
+<span class="c1"># 모델의 입력으로 사용할 dummy data를 만든다.
+</span><span class="n">data1_dummy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x</span><span class="p">])</span>
+<span class="n">data1_x_dummy</span> <span class="o">=</span> <span class="n">data1_dummy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">data1_xy_dummy</span> <span class="o">=</span> <span class="n">Target</span> <span class="o">+</span> <span class="n">data1_x_dummy</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Dummy X Y: '</span><span class="p">,</span> <span class="n">data1_xy_dummy</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+
+<span class="n">data1_dummy</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Original X Y:  ['Survived', 'Sex', 'Pclass', 'Embarked', 'Title', 'SibSp', 'Parch', 'Age', 'Fare', 'FamilySize', 'IsAlone'] 
+
+Bin X Y:  ['Survived', 'Sex_Code', 'Pclass', 'Embarked_Code', 'Title_Code', 'FamilySize', 'AgeBin_Code', 'FareBin_Code'] 
+
+Dummy X Y:  ['Survived', 'Pclass', 'SibSp', 'Parch', 'Age', 'Fare', 'FamilySize', 'IsAlone', 'Sex_female', 'Sex_male', 'Embarked_C', 'Embarked_Q', 'Embarked_S', 'Title_Master', 'Title_Misc', 'Title_Miss', 'Title_Mr', 'Title_Mrs'] 
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/81147463-52400000-8fb5-11ea-84c0-a2ccacef6e01.png" alt="image" class="center" /></p>
+
+<h2 id="double-check">Double Check</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'Train columns with null values: </span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">data1</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Test/Validation columns with null values: </span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">data_val</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">data_val</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">data_raw</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span> <span class="o">=</span> <span class="s">'all'</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Train columns with null values: 
+ Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age              0
+SibSp            0
+Parch            0
+Fare             0
+Embarked         0
+FamilySize       0
+IsAlone          0
+Title            0
+FareBin          0
+AgeBin           0
+Sex_Code         0
+Embarked_Code    0
+Title_Code       0
+AgeBin_Code      0
+FareBin_Code     0
+dtype: int64
+----------
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 19 columns):
+Survived         891 non-null int64
+Pclass           891 non-null int64
+Name             891 non-null object
+Sex              891 non-null object
+Age              891 non-null float64
+SibSp            891 non-null int64
+Parch            891 non-null int64
+Fare             891 non-null float64
+Embarked         891 non-null object
+FamilySize       891 non-null int64
+IsAlone          891 non-null int64
+Title            891 non-null object
+FareBin          891 non-null category
+AgeBin           891 non-null category
+Sex_Code         891 non-null int64
+Embarked_Code    891 non-null int64
+Title_Code       891 non-null int64
+AgeBin_Code      891 non-null int64
+FareBin_Code     891 non-null int64
+dtypes: category(2), float64(2), int64(11), object(4)
+memory usage: 120.3+ KB
+None
+----------
+Test/Validation columns with null values: 
+ PassengerId        0
+Pclass             0
+Name               0
+Sex                0
+Age                0
+SibSp              0
+Parch              0
+Ticket             0
+Fare               0
+Cabin            327
+Embarked           0
+FamilySize         0
+IsAlone            0
+Title              0
+FareBin            0
+AgeBin             0
+Sex_Code           0
+Embarked_Code      0
+Title_Code         0
+AgeBin_Code        0
+FareBin_Code       0
+dtype: int64
+----------
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 418 entries, 0 to 417
+Data columns (total 21 columns):
+PassengerId      418 non-null int64
+Pclass           418 non-null int64
+Name             418 non-null object
+Sex              418 non-null object
+Age              418 non-null float64
+SibSp            418 non-null int64
+Parch            418 non-null int64
+Ticket           418 non-null object
+Fare             418 non-null float64
+Cabin            91 non-null object
+Embarked         418 non-null object
+FamilySize       418 non-null int64
+IsAlone          418 non-null int64
+Title            418 non-null object
+FareBin          418 non-null category
+AgeBin           418 non-null category
+Sex_Code         418 non-null int64
+Embarked_Code    418 non-null int64
+Title_Code       418 non-null int64
+AgeBin_Code      418 non-null int64
+FareBin_Code     418 non-null int64
+dtypes: category(2), float64(2), int64(11), object(6)
+memory usage: 63.1+ KB
+None
+----------
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">data1</code>과 <code class="language-plaintext highlighter-rouge">data_val</code> 모두에 구간 변수가 잘 추가되었다.</p>
+
+<h2 id="training-data와-testing-data를-나누자">Training data와 Testing data를 나누자.</h2>
+
+<h2 id="325-split-training-and-testing-data">3.25 Split Training and Testing Data</h2>
+
+<p>우리가 가진 train데이터를 잘 나누어, 훈련한 모델의 성능을 확인해야 한다. 여기서 우리는 
+<em>sklearn</em> 함수를 통해 데이터를 75/25로 나눌 것이다. 이 부분은 <a href="https://www.coursera.org/learn/python-machine-learning/lecture/fVStr/overfitting-and-underfitting">overfit our model</a>을 방지하기 위해 중요하다. <a href="http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html"><em>sklearn’s</em> train_test_split function</a>을 사용하여 데이터를 나눌 것이다. 이 단계 이후에는 <a href="http://scikit-learn.org/stable/modules/cross_validation.html#cross-validation"><em>sklearn’s</em> cross validation functions</a>을 사용하여 훈련된 모델을 비교할 것이다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#split train and test data with function defaults
+#random_state -&gt; seed or control random number generator: https://www.quora.com/What-is-seed-in-random-number-generation 랜덤 넘버를 주어서 원하는 랜덤을 정의할 수 있다.
+</span><span class="n">train1_x</span><span class="p">,</span> <span class="n">test1_x</span><span class="p">,</span> <span class="n">train1_y</span><span class="p">,</span> <span class="n">test1_y</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_calc</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">train1_x_bin</span><span class="p">,</span> <span class="n">test1_x_bin</span><span class="p">,</span> <span class="n">train1_y_bin</span><span class="p">,</span> <span class="n">test1_y_bin</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">]</span> <span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">train1_x_dummy</span><span class="p">,</span> <span class="n">test1_x_dummy</span><span class="p">,</span> <span class="n">train1_y_dummy</span><span class="p">,</span> <span class="n">test1_y_dummy</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">data1_dummy</span><span class="p">[</span><span class="n">data1_x_dummy</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Data1 Shape: {}"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Train1 Shape: {}"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">train1_x</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Test1 Shape: {}"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">test1_x</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+<span class="n">train1_x_bin</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1"># train1_x.head()
+# train1_x_dummy.head()
+</span></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Data1 Shape: (891, 19)
+Train1 Shape: (668, 8)
+Test1 Shape: (223, 8)
+</code></pre></div></div>
+
+<p>이 부분을 통해서, data1에서 구간으로 나눈 feature에 대해 split하고, dummy화 된 data에 대해서도 이를 수행했다.</p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a><br />
+<a href="https://blog.naver.com/wideeyed/221603778414">pandas 문자열 다루기</a></p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#DS">#DS</a>
+    
+    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    
+    <a class="tag" href="/tags#ML">#ML</a>
+    
+    <a class="tag" href="/tags#titanic">#titanic</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/ds/ml/2020/05/05/titanic-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0.html">
+                  04: 데이터 미리보기
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/ml/2020/05/05/titanic-06-EDA.html">
+                06: EDA (Exploratory Data Analysis)
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
