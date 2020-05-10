@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>07: 모델링 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="Kaggle에 있는 Titanic Prediction 문제의 모델링을 수행한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- naver web mater tool -->
+	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+          <li><a href="/DS/Visualization">Visualization</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/Parallel">Parallel</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/36.jpg')">
+    <h1 class="title">07: 모델링</h1>
+    
+    <p class="meta">
+      DS/ML
+      
+        : Titanic
+      
+    </p>
+
+    <p class="meta">
+      May 5, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>Titanic</em></b> 시리즈 <b><em>10</em></b> 편 중 <b><em>7</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98.html'">
+                <span>Part 1 - 01: 문제 정의</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91.html'">
+                <span>Part 2 - 02: 데이터 수집</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-03-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%A1%9C%EB%93%9C.html'">
+                <span>Part 3 - 03: 라이브러리 로드</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0.html'">
+                <span>Part 4 - 04: 데이터 미리보기</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%A0%9C.html'">
+                <span>Part 5 - 05: 데이터 정제</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html'">
+                <span>Part 6 - 06: EDA (Exploratory Data Analysis)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 7 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-08-%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%ED%95%98%EA%B8%B0.html'">
+                <span>Part 8 - 08: 모델링 평가하기</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-09-Hyper-parameter-tuning.html'">
+                <span>Part 9 - 09: Hyper Parameter Tuning</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-10-Ensemble.html'">
+                <span>Part 10 - 10: Ensemble</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>Kaggle에 있는 Titanic Prediction 문제의 모델링을 수행한다.</p>
+
+<h1 id="modeling">Modeling</h1>
+<p>데이터 사이언스는 수학, CS, 산업에 대한 이해 모두가 필요한 분야이다. 그렇기 때문에 이 세 부분을 모두 주의깊게 공부할 필요가 있다. 지금 부터 할 작업은 수학적 이해가 있으면 좋지만 구현하는데에는 크게 필요가 없다. 지금은 큰 그림을 이해하는 것을 우선으로 한다.</p>
+
+<p>기계학습이라는 단어 자체에는 기계에게 학습을 가르친다는 착각을 일으킬 수 있는 여지가 많다. 하지만, 실제로는 그렇지 않다. 다양한 사람들이 좋은 라이브러리를 사용하여 많은 문제를 해결할 수 있게 된 것은 좋으나, 이러한 문제 때문에 오히려 제대로 된 방법을 사용못하는 사람도 많아졌다. 데이터 과학자는 데이터라는 목재를 가지고, 목표에 대한 적절한 도구를 사용하여 문제를 해결해야 한다. 개집을 짓는다면 그에 맞는 적절한 도구로 충분하지만, 큰 목조 건물을 짓는다면, 더 효율적인 도구를 통하여 문제를 해결해야 할 것이다. 결과적으로 알고리즘에 대한 정확한 이해도와 그를 사용할 수 있는 능력을 키워야 할 것이다.</p>
+
+<p>기계학습의 목적은, 인간의 문제를 해결하는 것이다. 이 방법으로는 크게 지도학습, 비지도 학습, 강화 학습으로 구분된다. 지도학습은 정답을 포함한 데이터 세트를 가지고 분류하는 것, 비지도 학습은 정답이 없는 데이터 세트를 가지고 모델을 학습하는 것이다. 강화학습은 두 학습의 하이브리드 방식으로 볼 수 있다.</p>
+
+<p>타이타닉 문제는 연속적인 값을 예측하는 것이 아닌, 이진 분류 문제이다. 따라서 지금부터 sklearn 라이브러리의 분류 알고리즘을 사용하여 분석을 시작한다.</p>
+
+<p><img src="https://scikit-learn.org/stable/_static/ml_map.png" alt="sklearn Mindmap" class="center" /></p>
+
+<p><a href="http://scikit-learn.org/stable/user_guide.html">Sklearn Estimator Overview</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html">Sklearn Estimator Detail</a><br />
+<a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">Choosing Estimator Mind Map</a><br />
+<a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf">Choosing Estimator Cheat Sheet</a></p>
+
+<p>지도 학습 중, 분류 문제에 대한 알고리즘에 대해 알아보자.</p>
+
+<p><strong>Machine Learning Classification Algorithms:</strong><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.ensemble">Ensemble Methods</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.linear_model">Generalized Linear Models (GLM)</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.naive_bayes">Naive Bayes</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.neighbors">Nearest Neighbors</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.svm">Support Vector Machines (SVM)</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.tree">Decision Trees</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.discriminant_analysis">Discriminant Analysis</a></p>
+
+<h2 id="기계학습-알고리즘을-고르는-방법">기계학습 알고리즘을 고르는 방법</h2>
+<blockquote>
+  <p>최고의 알고리즘은 없다. NFLT (No Free Lunch Theorem)</p>
+</blockquote>
+
+<p>최고의 알고리즘은 존재하지 않는다. 다양한 알고리즘을 통해 검증하여 최고의 답안을 내는 것이 최선이다.</p>
+
+<h2 id="머신-러닝-알고리즘-선택-및-초기화">머신 러닝 알고리즘 선택 및 초기화</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Machine Learning Algorithm
+</span><span class="n">MLA</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1">#Ensemble Methods
+</span>    <span class="n">ensemble</span><span class="o">.</span><span class="n">AdaBoostClassifier</span><span class="p">(),</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">BaggingClassifier</span><span class="p">(),</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">ExtraTreesClassifier</span><span class="p">(),</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">GradientBoostingClassifier</span><span class="p">(),</span>
+    <span class="n">ensemble</span><span class="o">.</span><span class="n">RandomForestClassifier</span><span class="p">(),</span>
+
+    <span class="c1">#Gaussian Processes
+</span>    <span class="n">gaussian_process</span><span class="o">.</span><span class="n">GaussianProcessClassifier</span><span class="p">(),</span>
+    
+    <span class="c1">#GLM (Generalized Linear Model)
+</span>    <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">(),</span>
+    <span class="n">linear_model</span><span class="o">.</span><span class="n">PassiveAggressiveClassifier</span><span class="p">(),</span>
+    <span class="n">linear_model</span><span class="o">.</span><span class="n">RidgeClassifierCV</span><span class="p">(),</span>
+    <span class="n">linear_model</span><span class="o">.</span><span class="n">SGDClassifier</span><span class="p">(),</span>
+    <span class="n">linear_model</span><span class="o">.</span><span class="n">Perceptron</span><span class="p">(),</span>
+    
+    <span class="c1">#Navies Bayes
+</span>    <span class="n">naive_bayes</span><span class="o">.</span><span class="n">BernoulliNB</span><span class="p">(),</span>
+    <span class="n">naive_bayes</span><span class="o">.</span><span class="n">GaussianNB</span><span class="p">(),</span>
+    
+    <span class="c1">#Nearest Neighbor
+</span>    <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(),</span>
+    
+    <span class="c1">#SVM
+</span>    <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">svm</span><span class="o">.</span><span class="n">NuSVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">svm</span><span class="o">.</span><span class="n">LinearSVC</span><span class="p">(),</span>
+    
+    <span class="c1">#Trees    
+</span>    <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">ExtraTreeClassifier</span><span class="p">(),</span>
+    
+    <span class="c1">#Discriminant Analysis (판별 분석)
+</span>    <span class="n">discriminant_analysis</span><span class="o">.</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span>
+    <span class="n">discriminant_analysis</span><span class="o">.</span><span class="n">QuadraticDiscriminantAnalysis</span><span class="p">(),</span>
+
+    
+    <span class="c1">#xgboost: http://xgboost.readthedocs.io/en/latest/model.html
+</span>    <span class="n">XGBClassifier</span><span class="p">()</span>    
+    <span class="p">]</span>
+
+
+
+<span class="c1">#split dataset in cross-validation with this splitter class: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit
+#note: this is an alternative to train_test_split
+</span><span class="n">cv_split</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">,</span> <span class="n">train_size</span> <span class="o">=</span> <span class="mf">.6</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span> <span class="c1"># 60/30 으로 나눈다. 10%는 일부러 둔다. 그 작업을 10번 만든다.
+</span>
+<span class="c1"># 알고리즘을 비교하기 위한 표를 만든다.
+</span><span class="n">MLA_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'MLA Name'</span><span class="p">,</span> <span class="s">'MLA Parameters'</span><span class="p">,</span><span class="s">'MLA Train Accuracy Mean'</span><span class="p">,</span> <span class="s">'MLA Test Accuracy Mean'</span><span class="p">,</span> <span class="s">'MLA Test Accuracy 3*STD'</span> <span class="p">,</span><span class="s">'MLA Time'</span><span class="p">]</span>
+<span class="n">MLA_compare</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">MLA_columns</span><span class="p">)</span>
+
+<span class="c1"># 각각의 알고리즘이 예측한 값을 보여줄 테이블을 만든다.
+</span><span class="n">MLA_predict</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">]</span>
+
+<span class="c1"># row 하나에 하나의 알고리즘에 대한 결과를 적을 것이므로, row_index를 변수로 잡아준다.
+</span><span class="n">row_index</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="n">MLA</span><span class="p">:</span>
+
+    <span class="c1">#set name and parameters
+</span>    <span class="n">MLA_name</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">MLA_name</span>
+    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Parameters'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">alg</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
+    
+    <span class="c1">#score model with cross validation: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate
+</span>    <span class="c1"># 만들어진 10개의 split set에 대해 검증을 한다. 이 작업 이후에 결과는 10개가 나올 것이다.
+</span>    <span class="n">cv_results</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">alg</span><span class="p">,</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">cv</span>  <span class="o">=</span> <span class="n">cv_split</span><span class="p">)</span>
+
+    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'fit_time'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Train Accuracy Mean'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># 10개의 결과에 대해 평균치
+</span>    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Test Accuracy Mean'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>   
+    <span class="c1"># https://ko.wikipedia.org/wiki/68-95-99.7_규칙
+</span>    <span class="c1"># 제대로 된 random으로 sampling을 했다면, cross-validation으로 나온 결과는 3시그마 규칙을 만족할 것이다.(즉, 정규 분포로 나왔을 것이다.)
+</span>    <span class="c1"># 이 값을 얻는 이유는, 최악의 훈련 결과를 알아보기 위함이다. 편차가 작을 수록 일반화된 모델이라는 생각을 할 수 있다.
+</span>    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Test Accuracy 3*STD'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">*</span><span class="mi">3</span>   <span class="c1">#let's know the worst that can happen!
+</span>    
+
+    <span class="c1">#save MLA predictions - see section 6 for usage
+</span>    <span class="n">alg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
+    <span class="n">MLA_predict</span><span class="p">[</span><span class="n">MLA_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">])</span>
+    
+    <span class="n">row_index</span><span class="o">+=</span><span class="mi">1</span>
+
+    
+<span class="c1">#print and sort table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html
+# test 정확도가 높은 순서대로 sorting한다.
+</span><span class="n">MLA_compare</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s">'MLA Test Accuracy Mean'</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">MLA_compare</span>
+</code></pre></div></div>
+<p><img src="https://user-images.githubusercontent.com/37871541/81290326-d6bc7c80-90a2-11ea-9e43-7e898b23d80c.png" alt="image" class="center" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MLA_predict</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/81290468-171bfa80-90a3-11ea-9eee-35456da7b01c.png" alt="image" class="center" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html
+</span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'MLA Test Accuracy Mean'</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">'MLA Name'</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">MLA_compare</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'m'</span><span class="p">)</span>
+
+<span class="c1">#prettify using pyplot: https://matplotlib.org/api/pyplot_api.html
+</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Machine Learning Algorithm Accuracy Score </span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Accuracy Score (</span><span class="si">%</span><span class="s">)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Algorithm'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/81290877-c22cb400-90a3-11ea-92e6-01e0ada98c7c.png" alt="Unknown-12" class="center" /></p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#DS">#DS</a>
+    
+    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    
+    <a class="tag" href="/tags#ML">#ML</a>
+    
+    <a class="tag" href="/tags#titanic">#titanic</a>
+    
+    <a class="tag" href="/tags#modeling">#modeling</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/ds/ml/2020/05/05/titanic-06-EDA.html">
+                  06: EDA (Exploratory Data Analysis)
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-08-%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%ED%95%98%EA%B8%B0.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/ml/2020/05/05/titanic-08-%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%ED%95%98%EA%B8%B0.html">
+                08: 모델링 평가하기
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

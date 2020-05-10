@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>08: 모델링 평가하기 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="Kaggle에 있는 Titanic Prediction 문제를 모델링한 결과를 바탕으로 모델을 평가한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/ds/ml/2020/05/05/titanic-08-%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%ED%95%98%EA%B8%B0.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- naver web mater tool -->
+	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Mathematical Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+          <li><a href="/DS/Visualization">Visualization</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/Parallel">Parallel</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/36.jpg')">
+    <h1 class="title">08: 모델링 평가하기</h1>
+    
+    <p class="meta">
+      DS/ML
+      
+        : Titanic
+      
+    </p>
+
+    <p class="meta">
+      May 5, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>Titanic</em></b> 시리즈 <b><em>10</em></b> 편 중 <b><em>8</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98.html'">
+                <span>Part 1 - 01: 문제 정의</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91.html'">
+                <span>Part 2 - 02: 데이터 수집</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-03-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%A1%9C%EB%93%9C.html'">
+                <span>Part 3 - 03: 라이브러리 로드</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AF%B8%EB%A6%AC%EB%B3%B4%EA%B8%B0.html'">
+                <span>Part 4 - 04: 데이터 미리보기</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%A0%9C.html'">
+                <span>Part 5 - 05: 데이터 정제</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html'">
+                <span>Part 6 - 06: EDA (Exploratory Data Analysis)</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html'">
+                <span>Part 7 - 07: 모델링</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 8 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-09-Hyper-parameter-tuning.html'">
+                <span>Part 9 - 09: Hyper Parameter Tuning</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/ml/2020/05/05/titanic-10-Ensemble.html'">
+                <span>Part 10 - 10: Ensemble</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>Kaggle에 있는 Titanic Prediction 문제를 모델링한 결과를 바탕으로 모델을 평가한다.</p>
+
+<h1 id="모델-성능-평가">모델 성능 평가</h1>
+<p>현재까지의 상황을 보면, baseline 코드로 82%의 정확도를 가지는 모델을 만들었다. 여기서 중요한 것은, 데이터 과학자가 사업적 측면을 생각하고 만든다는 것에 있다. 즉, 투자대비 성능(ROI)를 고민하는 것이 좋다. 연구하는 사람이 아니라면 지나친 성능확대는 시간 낭비일 뿐이기 때문이다.</p>
+
+<h2 id="기준-정확도-결정">기준 정확도 결정</h2>
+<p>동전 뒤집기를 생각해보자. 우리가 맞춰야 하는 것은 특정 상황에서 이 동전이 앞면이 나올지 뒷면이 나올지를 예측해야 한다. 그 예측값을 위해, 바람, 힘의 크기와 같은 변수들이 주어졌다고 하자. 그런데, 내가 만든 모델이 50%확률로 동전의 앞, 뒤를 맞춘다면, 이만큼 쓸모없는 모델도 없을 것이다. 왜냐하면, 이 정보는 그저 동전을 던지면서 발생하는 빈도수로도 예측이 가능한 결과이기 때문이다.</p>
+
+<p>이번에는 타이타닉 문제에 적용해보자. 우리는 training data를 근간으로 1,502 / 2,224=67.5%(약 68%)의 확률로 생존, 사망을 알 수 있다. 그러므로 내가 만든 모델의 성능은 이보다는 높은 결과를 가져와야 의미있는 것이라 할 수 있다. 이러한 방법으로 내가 만든 모델의 최악의 성능 마지노선을 설정할 수 있다.</p>
+
+<h2 id="나만의-모델-만들기-handmade">나만의 모델 만들기 (Handmade)</h2>
+
+<p>어떻게 모델을 만들 수 있는 지 배워보는 입장에서 적어본다.</p>
+
+<h3 id="coin-flip-model">Coin flip model</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#coin flip model with random 1/survived 0/died
+</span>
+<span class="c1">#iterate over dataFrame rows as (index, Series) pairs: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.iterrows.html
+</span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data1</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> 
+    <span class="c1">#random number generator: https://docs.python.org/2/library/random.html
+</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">.5</span><span class="p">:</span>     <span class="c1"># Random float x, 0.0 &lt;= x &lt; 1.0    
+</span>        <span class="n">data1</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">'Random_Predict'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">#predict survived/1
+</span>    <span class="k">else</span><span class="p">:</span> 
+        <span class="n">data1</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">'Random_Predict'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">#predict died/0
+</span>    
+
+<span class="c1"># coin flip 모델의 성능을 검증해보자. 옳게 맞추면 1, 아니면 0이다.
+#the mean of the column will then equal the accuracy
+</span><span class="n">data1</span><span class="p">[</span><span class="s">'Random_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#assume prediction wrong 초기화
+</span><span class="n">data1</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span> <span class="o">==</span> <span class="n">data1</span><span class="p">[</span><span class="s">'Random_Predict'</span><span class="p">]),</span> <span class="s">'Random_Score'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#set to 1 for correct prediction
+</span><span class="k">print</span><span class="p">(</span><span class="s">'Coin Flip Model Accuracy: {:.2f}</span><span class="si">%</span><span class="s">'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Random_Score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> <span class="c1"># 평균치를 구한다.
+</span>
+<span class="c1"># 혹은 그냥 내장 함수를 사용하자.
+#http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score
+</span><span class="k">print</span><span class="p">(</span><span class="s">'Coin Flip Model Accuracy w/SciKit: {:.2f}</span><span class="si">%</span><span class="s">'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="s">'Random_Predict'</span><span class="p">])</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Coin Flip Model Accuracy: 47.14%
+Coin Flip Model Accuracy w/SciKit: 47.14%
+</code></pre></div></div>
+
+<h3 id="group화-후-판단하기">group화 후 판단하기</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#group by or pivot table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html
+</span><span class="n">pivot_female</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="o">.</span><span class="n">Sex</span><span class="o">==</span><span class="s">'female'</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Sex'</span><span class="p">,</span><span class="s">'Pclass'</span><span class="p">,</span> <span class="s">'Embarked'</span><span class="p">,</span><span class="s">'FareBin'</span><span class="p">])[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Survival Decision Tree w/Female Node: </span><span class="se">\n</span><span class="s">'</span><span class="p">,</span><span class="n">pivot_female</span><span class="p">)</span>
+
+<span class="n">pivot_male</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="o">.</span><span class="n">Sex</span><span class="o">==</span><span class="s">'male'</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Sex'</span><span class="p">,</span><span class="s">'Title'</span><span class="p">])[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\n\n</span><span class="s">Survival Decision Tree w/Male Node: </span><span class="se">\n</span><span class="s">'</span><span class="p">,</span><span class="n">pivot_male</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>여자만 다양한 지표로 구분한 이유는 위의 EDA를 해보았을 때, 남자는 놀랍게도 class나, embarked에 따라 생존률이 다르지 않았다. 하지만 title이라는 변수는 유의미했다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Survival Decision Tree w/Female Node: 
+ Sex     Pclass  Embarked  FareBin        
+female  1       C         (14.454, 31.0]     0.666667
+                          (31.0, 512.329]    1.000000
+                Q         (31.0, 512.329]    1.000000
+                S         (14.454, 31.0]     1.000000
+                          (31.0, 512.329]    0.955556
+        2       C         (7.91, 14.454]     1.000000
+                          (14.454, 31.0]     1.000000
+                          (31.0, 512.329]    1.000000
+                Q         (7.91, 14.454]     1.000000
+                S         (7.91, 14.454]     0.875000
+                          (14.454, 31.0]     0.916667
+                          (31.0, 512.329]    1.000000
+        3       C         (-0.001, 7.91]     1.000000
+                          (7.91, 14.454]     0.428571
+                          (14.454, 31.0]     0.666667
+                Q         (-0.001, 7.91]     0.750000
+                          (7.91, 14.454]     0.500000
+                          (14.454, 31.0]     0.714286
+                S         (-0.001, 7.91]     0.533333
+                          (7.91, 14.454]     0.448276
+                          (14.454, 31.0]     0.357143
+                          (31.0, 512.329]    0.125000
+Name: Survived, dtype: float64
+
+
+Survival Decision Tree w/Male Node: 
+ Sex   Title 
+male  Master    0.575000
+      Misc      0.250000
+      Mr        0.156673
+Name: Survived, dtype: float64
+</code></pre></div></div>
+
+<p>여기서 잘 관찰해 보면, 여자이면서 class가 3이며, S 항구에서 출항한 여성들의 요금 구간에 따라 생존율이 다른 것을 볼 수 있다. 이 부분은 tree 구조로 쪼개면 정확도가 상승할 것이다.
+남자의 경우는 title에 따라 생존율이 극명하게 다르다.</p>
+
+<h3 id="내가-만드는-tree">내가 만드는 tree</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#handmade data model using brain power (and Microsoft Excel Pivot Tables for quick calculations)
+</span><span class="k">def</span> <span class="nf">mytree</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    
+    <span class="c1">#initialize table to store predictions
+</span>    <span class="n">Model</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Predict'</span><span class="p">:[]})</span>
+    <span class="n">male_title</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Master'</span><span class="p">]</span> <span class="c1">#survived titles
+</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+
+        <span class="c1">#Question 1: Were you on the Titanic; majority died 타이타닉에 있으면 일단 죽었다고 가정
+</span>        <span class="n">Model</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Predict'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1">#Question 2: Are you female; majority survived : 여자는 살았다고 가정
+</span>        <span class="k">if</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Sex'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'female'</span><span class="p">):</span>
+                  <span class="n">Model</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Predict'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1">#Question 3A Female - Class and Question 4 Embarked gain minimum information
+</span>        <span class="c1">#클래스에 따라 나누는 것은 큰 정보이득이 없다. (즉, 클래스에 따른 생존률의 차이가 없다. 정보이득이 없다. 고르게 분포되어 있어 분기를 만드는 것이 의미가 없다.)
+</span>
+        <span class="c1">#Question 5B Female - FareBin; set anything less than .5 in female node decision tree back to 0       
+</span>        <span class="c1"># 여자이며 클래스가 3번, 출항 항구가 S 그리고 돈을 8보다 많이 낸 사람들은 생존했다. 아마 못사는 사람들이 돈을 더 많이 내지 않았을까..
+</span>        <span class="k">if</span> <span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Sex'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'female'</span><span class="p">)</span> <span class="o">&amp;</span> 
+            <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Pclass'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> 
+            <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Embarked'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'S'</span><span class="p">)</span>  <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Fare'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">)</span>
+
+           <span class="p">):</span>
+                  <span class="n">Model</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Predict'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1">#Question 3B Male: Title; set anything greater than .5 to 1 for majority survived
+</span>        <span class="c1"># master 지위를 가진 사람만 생존했다고 가정하자.그럼 남자중 57%는 생존했다고 할 수 있다.
+</span>        <span class="k">if</span> <span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Sex'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'male'</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Title'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">male_title</span><span class="p">)</span>
+            <span class="p">):</span>
+            <span class="n">Model</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Predict'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">Model</span>
+
+
+<span class="c1">#model data
+</span><span class="n">Tree_Predict</span> <span class="o">=</span> <span class="n">mytree</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Decision Tree Model Accuracy/Precision Score: {:.2f}</span><span class="si">%</span><span class="se">\n</span><span class="s">'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">],</span> <span class="n">Tree_Predict</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+
+
+<span class="c1">#Accuracy Summary Report with http://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html#sklearn.metrics.classification_report
+#Where recall score = (true positives)/(true positive + false negative) w/1 being best:http://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html#sklearn.metrics.recall_score
+#And F1 score = weighted average of precision and recall w/1 being best: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html#sklearn.metrics.f1_score
+</span><span class="k">print</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">classification_report</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">],</span> <span class="n">Tree_Predict</span><span class="p">))</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Decision Tree Model Accuracy/Precision Score: 82.04%
+
+             precision    recall  f1-score   support
+
+          0       0.82      0.91      0.86       549
+          1       0.82      0.68      0.75       342
+
+avg / total       0.82      0.82      0.82       891
+</code></pre></div></div>
+
+<h3 id="혼동-행렬confusion-matrix-만들기">혼동 행렬(Confusion Matrix) 만들기</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Plot Accuracy Summary
+#Credit: http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
+</span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="k">def</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span>
+                          <span class="n">normalize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                          <span class="n">title</span><span class="o">=</span><span class="s">'Confusion matrix'</span><span class="p">,</span>
+                          <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">):</span>
+    <span class="s">"""
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">'float'</span><span class="p">)</span> <span class="o">/</span> <span class="n">cm</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span> <span class="c1"># 차원을 하나 늘려 세로로 만들어주는 개념
+</span>        <span class="k">print</span><span class="p">(</span><span class="s">"Normalized confusion matrix"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Confusion matrix, without normalization'</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s">'nearest'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+    <span class="n">tick_marks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">tick_marks</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+    <span class="n">fmt</span> <span class="o">=</span> <span class="s">'.2f'</span> <span class="k">if</span> <span class="n">normalize</span> <span class="k">else</span> <span class="s">'d'</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="nb">max</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">range</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="nb">format</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">fmt</span><span class="p">),</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s">"center"</span><span class="p">,</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s">"white"</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">thresh</span> <span class="k">else</span> <span class="s">"black"</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'True label'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Predicted label'</span><span class="p">)</span>
+
+<span class="c1"># Compute confusion matrix
+</span><span class="n">cnf_matrix</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">],</span> <span class="n">Tree_Predict</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">class_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Dead'</span><span class="p">,</span> <span class="s">'Survived'</span><span class="p">]</span>
+<span class="c1"># Plot non-normalized confusion matrix
+</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cnf_matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="s">'Confusion matrix, without normalization'</span><span class="p">)</span>
+
+<span class="c1"># Plot normalized confusion matrix
+</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cnf_matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+                      <span class="n">title</span><span class="o">=</span><span class="s">'Normalized confusion matrix'</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Confusion matrix, without normalization
+[[497  52]
+ [108 234]]
+Normalized confusion matrix
+[[ 0.91  0.09]
+ [ 0.32  0.68]]
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/81373018-bd651000-9136-11ea-9ed4-109066547eb9.png" alt="Unknown-13" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/81373029-c0f89700-9136-11ea-99f9-1597a3a344ac.png" alt="Unknown-14" class="center" /></p>
+
+<h3 id="reference">Reference</h3>
+<p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#DS">#DS</a>
+    
+    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    
+    <a class="tag" href="/tags#ML">#ML</a>
+    
+    <a class="tag" href="/tags#titanic">#titanic</a>
+    
+    <a class="tag" href="/tags#evaluation">#evaluation</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html">
+                  07: 모델링
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-09-Hyper-parameter-tuning.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/ml/2020/05/05/titanic-09-Hyper-parameter-tuning.html">
+                09: Hyper Parameter Tuning
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
