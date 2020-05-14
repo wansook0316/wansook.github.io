@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>03: 버블 플롯 | 완숙의 에그머니🍳</title>
+	<title>04: Circling을 통한 버블 플롯 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="산점도 그래프를 그려보자.연습 kaggle notebook">
+		content="산점도 그래프의 응용인 버블 플롯을 그려보자.연습 kaggle notebook">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -305,6 +305,8 @@ function changeContent(event){
                 
                 
                 
+                
+                
 -->
                 <!-- Social icons from Font Awesome, if enabled  -->
 <!--                
@@ -521,7 +523,7 @@ function changeContent(event){
     <div class="content">
       <article class="feature-image">
   <header style="background-image: url('/assets/img/30.jpg')">
-    <h1 class="title">03: 버블 플롯</h1>
+    <h1 class="title">04: Circling을 통한 버블 플롯</h1>
     
     <p class="meta">
       DS/Visualization
@@ -549,7 +551,7 @@ function changeContent(event){
 <div class="series-nav">
     
       <p>
-      이 포스팅은 <b><em>시각화 정리</em></b> 시리즈 <b><em>4</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
+      이 포스팅은 <b><em>시각화 정리</em></b> 시리즈 <b><em>5</em></b> 편 중 <b><em>4</em></b> 번째 글 입니다.
       </p>
       <ul class="side-nav" id="js-side_nav">
 
@@ -599,17 +601,19 @@ function changeContent(event){
       
           
           
-            <li class="current">
-                <span>Part 3 - This Post</span>
-            </li>
-          
-      
-      
-      
-          
-          
             <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
-                <span>Part 4 - 03: 산점도</span>
+                <span>Part 3 - 03: 산점도</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 4 - This Post</span>
             </li>
           
       
@@ -618,6 +622,17 @@ function changeContent(event){
       
       
       
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
+                <span>Part 5 - 05: 선형회귀 선을 포함한 산점도</span>
+            </li>
+          
       
       
       
@@ -842,8 +857,16 @@ function changeContent(event){
 
 
 
-  <p>산점도 그래프를 그려보자.
+  <p>산점도 그래프의 응용인 버블 플롯을 그려보자.<br />
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
+
+<blockquote>
+  <p>산점도에서 추가적으로 내가 원하는 그룹에 대해 원으로 그룹을 지어, 크기를 알 수 있다.</p>
+</blockquote>
+
+<p>원래 bubble plot은 특정 집단의 boundary를 측정하는데 용이하다. 여기서는 산점도에서 추가적으로 circling을 통하여 그 boundary를 측정하는 방법을 사용해본다. 알고리즘으로는 컨벡스 헐을 사용한다.</p>
+
+<p><a href="https://python-graph-gallery.com/bubble-plot/">기본적인 bubble plot</a></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # Visualize the relationship between data.
@@ -888,7 +911,95 @@ function changeContent(event){
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><a href="https://www.kaggleusercontent.com/kf/33240044/eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..UQqAYYN5oAT5J_gwTYQuGQ.pagpxxkJjB7A3prEWksN-IZaKEkph9Q17zccLzut4m6hLKd0oH2SexJ2GvGvkMlhTHsJVLg87rAp_2MmG5BFFBChhvgcq26hggsaFTO2MxIMam1PE-mEH6-Uvvh4aGw-NUSQGTcBlAg40peBQAub-5aAaW-ziZYuQRaNs8xCrtvxQathcpkYRZaWN8nSiNvfkGlx7b4tCKYpaacNEOBr90fHv2XX29ZWAKpy-Vz_yzdrwv4W5UbwPjP280KbMvWw56wmFF8F0b6G95OaSpAL4AuEXv-sx7KtHT3SWttWWNhTs74nvhARkGm6b-16iKUwwaoEM7yah6L7ypygUNGBJ0Jv8HBF0W7pw2GNS37qJMXTRWNalFabC3K_D5ySundDZ4SEs_nXuQK8PYuKzp4jllBOoBFxLGnHGZPSeepUNRAemmudE3tZWNyPl5aeOzwXOF0SOk900eT6hEwB3G2RzKrLsxwe2MZKvfeBBq8kzYcqoYZGCiXrxlhQND8GVKF3BkUrdTtfl2abarscUM5v1J9d5-xxBRtBGHk6GoKa4UYUPCeKf2_46uJRKBoDk6moGnviPS8AqZPK1mr0zinBVmOyM6YoXtAEayGsHQEUvFeqIn1ck-ugl2cJboWyglDHHF9ahdL4DNGERe7JxBkGEXHcbLM5Vm6Vyv9g8M-j1Rx9mzMR62gFi5SWzBrZAFBKGOEb3puNUdsOHHXREgIXbQ.zqrlP0L_hTSZJsSQ1DOSqQ/__results___files/__results___40_0.png" class="center-text"></a></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81772169-1d392d80-9520-11ea-8268-fe3e6942f6bc.png" alt="__results___42_0" class="center-text" /></p>
+
+<h2 id="추가적인-bubble-plot">추가적인 bubble plot</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
+# Visualize the relationship between data but also helps us encircle a specific group we might want to draw the attention to.
+</span>
+<span class="c1"># More info: 
+# https://en.wikipedia.org/wiki/Scatter_plot
+</span>
+<span class="c1"># ----------------------------------------------------------------------------------------------------
+# get the data
+</span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/midwest_filter.csv'</span> 
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+
+<span class="c1"># ----------------------------------------------------------------------------------------------------
+# instanciate the figure
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,)</span>
+
+<span class="c1"># ----------------------------------------------------------------------------------------------------
+# prepare the data for plotting
+</span><span class="n">size_total</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"poptotal"</span><span class="p">]</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+<span class="c1"># we want every group to have a different marker
+</span><span class="n">markers</span> <span class="o">=</span> <span class="p">[</span><span class="s">"."</span><span class="p">,</span> <span class="s">","</span><span class="p">,</span> <span class="s">"o"</span><span class="p">,</span> <span class="s">"v"</span><span class="p">,</span> <span class="s">"^"</span><span class="p">,</span> <span class="s">"&lt;"</span><span class="p">,</span> <span class="s">"&gt;"</span><span class="p">,</span> <span class="s">"1"</span><span class="p">,</span> <span class="s">"2"</span><span class="p">,</span> <span class="s">"3"</span><span class="p">,</span> <span class="s">"4"</span><span class="p">,</span> <span class="s">"8"</span><span class="p">,</span> <span class="s">"s"</span><span class="p">,</span> <span class="s">"p"</span><span class="p">,</span> <span class="s">"P"</span><span class="p">,</span> <span class="s">"*"</span><span class="p">,</span> <span class="s">"h"</span><span class="p">,</span> <span class="s">"H"</span><span class="p">,</span> <span class="s">"+"</span><span class="p">,</span> <span class="s">"x"</span><span class="p">,</span> <span class="s">"X"</span><span class="p">,</span> <span class="s">"D"</span><span class="p">,</span> <span class="s">"d"</span><span class="p">]</span> 
+
+<span class="c1"># ----------------------------------------------------------------------------------------------------
+# create an encircle
+# based on this solution
+# https://stackoverflow.com/questions/44575681/how-do-i-encircle-different-data-sets-in-scatter-plot
+</span><span class="k">def</span> <span class="nf">encircle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="s">'''
+    Takes an axes and the x and y and draws a polygon on the axes.
+    This code separates the differents clusters
+    '''</span>
+    <span class="c1"># get the axis if not passed
+</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    
+    <span class="c1"># concatenate the x and y arrays
+</span>    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>
+    
+    <span class="c1"># to calculate the limits of the polygon
+</span>    <span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    
+    <span class="c1"># create a polygon from the hull vertices
+</span>    <span class="n">poly</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">,:],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    
+    <span class="c1"># add the patch to the axes
+</span>    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span> <span class="c1"># 내가 그린 그림을 위에 덧칠하게 해줌
+</span>
+<span class="c1"># ----------------------------------------------------------------------------------------------------
+# iterate over each category and plot the data. This way, every group has it's own color and marker.
+# on the iteration we will calculate our hull/polygon for each group and connect specific groups
+</span><span class="k">for</span> <span class="n">cat</span><span class="p">,</span> <span class="n">marker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())),</span> <span class="n">markers</span><span class="p">):</span>  <span class="c1"># 이런 스킬이 굉장히 중요해 보임
+</span>    <span class="c1"># filter x and the y for each category
+</span>    <span class="n">ar</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">][</span><span class="s">"area"</span><span class="p">]</span>
+    <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">][</span><span class="s">"poptotal"</span><span class="p">]</span>
+    
+    <span class="c1"># this will allow us to set a specific size for each group.
+</span>    <span class="c1"># 해당 population 값에 따라 marker의 크기를 다르게 해주기 위함
+</span>    <span class="n">size</span> <span class="o">=</span> <span class="n">pop</span><span class="o">/</span><span class="n">size_total</span>
+    
+    <span class="c1"># plot the data
+</span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">cat</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">size</span><span class="o">*</span><span class="mi">10000</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="n">marker</span><span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># try to add a patch
+</span>        <span class="n">encircle</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">ec</span> <span class="o">=</span> <span class="s">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="c1"># if we don't have enough poins to encircle just pass
+</span>        <span class="k">pass</span>
+
+<span class="c1"># ----------------------------------------------------------------------------------------------------
+# prettify the plot
+</span>
+<span class="c1"># eliminate 2/4 spines (lines that make the box/axes) to make it more pleasant
+</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+
+<span class="c1"># set a specific label for each axis
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Area"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Population"</span><span class="p">)</span>
+
+<span class="c1"># change the lower limit of the plot, this will allow us to see the legend on the left
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span> 
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Bubble plot with encircling"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/81772550-21197f80-9521-11ea-910c-9e07c5ff4298.png" alt="__results___43_0" class="center-text" /></p>
 
 <h3 id="reference">Reference</h3>
 <p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
@@ -903,6 +1014,10 @@ function changeContent(event){
     <a class="tag" href="/tags#python">#python</a>
     
     <a class="tag" href="/tags#matplotlib">#matplotlib</a>
+    
+    <a class="tag" href="/tags#scatter+plot">#scatter plot</a>
+    
+    <a class="tag" href="/tags#bubble+plot">#bubble plot</a>
     
   </div>
 </footer>
@@ -944,10 +1059,27 @@ function changeContent(event){
       
           
           
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-02-matplotlib-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.html';">
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
                 <p>PREVIOUS SERIES</p>
-                <a href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-02-matplotlib-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.html">
-                  02: matplotlib 알아보기
+                <a href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html">
+                  03: 산점도
                 </a>
             </div>
           
@@ -956,37 +1088,29 @@ function changeContent(event){
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
           
           
         
       
       
+      
+      
+      
+      
+      
+      
+      
+      
           
           
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
               <p>NEXT SERIES</p>
-              <a href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html">
-                03: 산점도
+              <a href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html">
+                05: 선형회귀 선을 포함한 산점도
               </a>
             </div>
           
         
-      
-      
-      
-      
-      
-      
       
       
       
