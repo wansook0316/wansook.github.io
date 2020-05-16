@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>02: 중심을 나타내는 방법 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="데이터의 중심을 나타내는 척도에 대해서 배워본다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-02-%EC%A4%91%EC%8B%AC%EC%9D%84-%EB%82%98%ED%83%80%EB%82%B4%EB%8A%94-%EB%B0%A9%EB%B2%95.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- naver web mater tool -->
+	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+          <li><a href="/DS/Visualization">Visualization</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/Parallel">Parallel</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/40.jpg')">
+    <h1 class="title">02: 중심을 나타내는 방법</h1>
+    
+    <p class="meta">
+      Math/Statistics
+      
+        : 통계 개념 정리
+      
+    </p>
+
+    <p class="meta">
+      May 15, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>통계 개념 정리</em></b> 시리즈 <b><em>7</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-01-%EC%84%9C%EB%A1%A0.html'">
+                <span>Part 1 - 01: 주요 개념</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 2 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-03-%EB%B3%80%EB%8F%99%EC%84%B1%EC%9D%98-%EC%B2%99%EB%8F%84.html'">
+                <span>Part 3 - 03: 변동성의 척도</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-04-%EC%83%81%EB%8C%80%EC%9C%84%EC%B9%98%EC%99%80-%EB%B0%95%EC%8A%A4%ED%94%8C%EB%A1%AF.html'">
+                <span>Part 4 - 04: 상대 위치와 boxplot</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%EA%B4%80%EA%B3%84%EC%9D%98-%EC%B2%99%EB%8F%84.html'">
+                <span>Part 5 - 05: 선형관계의 척도</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-06-%ED%91%9C%EB%B3%B8%EC%B6%94%EC%B6%9C%EB%B0%A9%EB%B2%95.html'">
+                <span>Part 6 - 05: 표본 추출 방법</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-07-%ED%99%95%EB%A5%A0.html'">
+                <span>Part 7 - 06: 확률</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>데이터의 중심을 나타내는 척도에 대해서 배워본다.</p>
+
+<h1 id="평균-mean">평균 (mean)</h1>
+
+<blockquote>
+  <p>평균은 대표적으로 집단의 중심위치를 나타내는 척도로 사용된다.</p>
+</blockquote>
+
+<p>이 평균에는 보통 3종류가 사용된다. 각각에는 어떤 기하적의미가 있으며, 데이터를 보고 어떠한 형태인지를 인지하고 그에 맞는 척도로 판단하는 것이 중요하다.</p>
+
+<h2 id="산술-평균">산술 평균</h2>
+<p><script type="math/tex">x = \frac {a+b} 2</script></p>
+
+<p>산술 평균은 보통 평균이라고 불리는 가장 대표적인 방법이다. 하지만 이 수식을 보면, 각각의 $x_i$에 대해 같은 가중치로 내분점을 구하는 식과 같다. 그렇다면 각각의 $x_i$에 대해 같은 가중치이기 때문에 $x_i$가 가지는 값에 민감하게 값이 변하게 된다.</p>
+
+<p>즉, 만약 $x_i$의 원소중 값이 튀는 아웃라이어가 포함되어 있는 경우, 평균은 집단의 중심을 대변하기 어렵게 된다. <strong>평균은 아웃라이어에 민감하다.</strong> 이점을 꼭 기억하자. <strong>다른 말로 하면, 큰 값에 가중치를 준다.</strong> 라고 생각해도 좋다.</p>
+
+<h2 id="기하-평균">기하 평균</h2>
+<p><script type="math/tex">x = \sqrt {a \cdot b}</script></p>
+
+<p>앞에서 얘기한 산술 평균은 각각의 $x_i$ 값이 개수, 값과 같은 column일 때 사용가능하다. 그 이유는, 값이나 개수는 더했을 때 어떠한 의미를 가지기 때문이다. 하지만, 만약 $x_i$ 가 상승률, 감소율과 같은 확률 값이면 어떻게 할까? 만약 첫째날 100%의 증가율, 둘째날 -50%의 증가율을 보였다면, $x<em>(1+1)</em>(1-0.5) = x$ 로 둘째날 까지의 증가율은 0이다. 당연히 평균도 0이다. 하지만 산술 평균으로 계산한다면 이 값은 0.25로 증가한다는 결론이 난다.</p>
+
+<p>이런 경우 우리는 첫째날, 둘째날의 확률을 곱하여 판단하는 것이 옳다는 것을 알고 있다. 이렇게 곱하는 연산이 어떤 중요한 의미를 가지는 경우 우리는 기하 평균으로 해당 분포의 중심을 잡는 것이 옳다.</p>
+
+<h2 id="조화-평균">조화 평균</h2>
+<p><script type="math/tex">x = \frac {2 \cdot a \cdot b} {a+b}</script></p>
+
+<p>역수의 산술평균의 역수. 수식적으로 의미를 뜯어보면, 역수를 취한다는 것은 결국 작은 수를 크게, 큰 수를 작게 만들겠다는 의미로 볼 수 있다. 그 다음에 산술평균을 취한다는 것은, 결국 작은 수에 가중치를 준 상태로 값을 구하겠다는 의미이고, 원래 차원을 맞춰주기 위해 다시 역수를 취한다.</p>
+
+<p>즉, 작은 수에 가중치를 준 평균으로 볼 수 있다.</p>
+
+<h3 id="세-평균-정리">세 평균 정리</h3>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/82111682-d185be80-9781-11ea-9a3f-e075e111d708.png" alt="image" class="center-text" /></p>
+
+<p>두개의 수를 막대기로 생각했을 때, 산술 평균은 두 막대기의 크기의 내분점을 구하는 것과 동일하다. 그렇기 때문에 큰 막대기가 엄청 커지면 그게 맞춰 값도 커지게 된다.</p>
+
+<p>조화 평균은 작은 수에 가중치를 주어 구하기 때문에, 항상 작은 수보다 작은 지점에서 평균이 구해지게 된다.</p>
+
+<p>기하 평균은, 두 막대기를 각각 한 변으로 잡았을 때 면적을 만족하는 정사각형의 한 변의 길이와 동일한 길이가 책정된다. 이 값은 산술, 기하, 조화 평균의 관계에 의해 산술 평균보다는 작고, 조화 평균보다는 큰 값을 가진다.</p>
+
+<h1 id="중앙값">중앙값</h1>
+
+<blockquote>
+  <p>순서 통계량으로, 순서대로 세었을 때 중앙에 있는 값을 의미한다.</p>
+</blockquote>
+
+<p>중앙값의 핵심은 아웃라이어에 민감하지 않다는 것이다. 따라서 사용하기 편리하다. 하지만, 계산 상 거리를 기반으로 한다는 점에서 (절댓값) 추가적인 무언가를 도출할 때 수학적으로 어려운 점이 있다. 따라서 아웃라이어를 제거한 평균을 사용하는 것이 좀더 옳지 않을까 생각한다.</p>
+
+<h1 id="최빈값">최빈값</h1>
+
+<blockquote>
+  <p>가장 많이 나온 숫자</p>
+</blockquote>
+
+<p>정의에서 알 수 있듯, 이 값은 범주형에서 의미가 있다.</p>
+
+<h2 id="분포에-따른-평균-중앙값-최빈값의-위치">분포에 따른 평균, 중앙값, 최빈값의 위치</h2>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/82112223-ee23f580-9785-11ea-9c75-5c580089fddd.jpeg" alt="다운로드" class="center-text" /></p>
+
+<p>분포가 대칭일 경우에는 세값이 동일하다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/82112225-f4b26d00-9785-11ea-85f2-ef9ef93d036f.jpeg" alt="다운로드 (1)" class="center-text" /></p>
+
+<p>하지만 비대칭일 경우, 중앙값은 평균보다 오른쪽에 있을 수 밖에 없다. 숫자를 세는 행위이기 때문이다.</p>
+
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Math">#Math</a>
+    
+    <a class="tag" href="/tags#Statistics">#Statistics</a>
+    
+    <a class="tag" href="/tags#mean">#mean</a>
+    
+    <a class="tag" href="/tags#median">#median</a>
+    
+    <a class="tag" href="/tags#mode">#mode</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-01-%EC%84%9C%EB%A1%A0.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-01-%EC%84%9C%EB%A1%A0.html">
+                  01: 주요 개념
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-03-%EB%B3%80%EB%8F%99%EC%84%B1%EC%9D%98-%EC%B2%99%EB%8F%84.html';">
+              <p>NEXT SERIES</p>
+              <a href="/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-03-%EB%B3%80%EB%8F%99%EC%84%B1%EC%9D%98-%EC%B2%99%EB%8F%84.html">
+                03: 변동성의 척도
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
