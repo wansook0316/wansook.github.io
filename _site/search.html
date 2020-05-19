@@ -263,6 +263,8 @@ function changeContent(event){
                 
                 
                 
+                
+                
 -->
                 <!-- Social icons from Font Awesome, if enabled  -->
 <!--                
@@ -494,6 +496,42 @@ function changeContent(event){
 <script>
   window.store = {
     
+      "ds-visualization-2020-05-19-ec-8b-9c-ea-b0-81-ed-99-94-ec-a0-95-eb-a6-ac-11-diverging-bars-html": {
+        "title": "11: Diverging Bars",
+        "tags": "DS, python, matplotlib, Diverging Bars",
+        "date": "May 19, 2020",
+        "author": "",
+        "category": "DS/Visualization",
+        "content": "각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars을 알아본다.연습 kaggle notebook# Useful for:# Based on a metric to compare, this plot helps you to see the divergence of the a value # to that metric (it could be mean, median or others).# More info: # https://blog.datawrapper.de/divergingbars/# ----------------------------------------------------------------------------------------------------# get the dataPATH = \"/kaggle/input/the-50-plot-challenge/mtcars.csv\"df = pd.read_csv(PATH)# ----------------------------------------------------------------------------------------------------# prepare the data for plotting# here we standarize the data# More info:# https://statisticsbyjim.com/glossary/standardization/df[\"x_plot\"] = (df[\"mpg\"] - df[\"mpg\"].mean())/df[\"mpg\"].std()# sort value and reset the index# sort를 하게되면 index가 제멋대로 배열된다.# 우리는 배열된 이후의 index를 다시 갖고 싶은 것이기 때문에 index를 정렬후 새로 만들어준다.# 이 때, drop = True, inplace = True가 있는데 drop은 재생성한 후 이전 것을 버리는 것을 의미한다.# inplace는 원본 데이터를 대체할 것인지, 아니면 변경된 객체를 반환할 것인지를 결정한다.df.sort_values(\"x_plot\", inplace = True)df.reset_index(inplace = True)# create a color list, where if value is above &gt; 0 it's green otherwise redcolors = [\"red\" if x &lt; 0 else \"green\" for x in df[\"x_plot\"]]# ----------------------------------------------------------------------------------------------------# instanciate the figurefig = plt.figure(figsize = (10, 8))ax = fig.add_subplot()# plot using horizontal lines and make it look like a column by changing the linewidth# 가로선을 그음으로써 원하는 그래프와 비슷한 모양을 만든다.ax.hlines(y = df.index, xmin = 0 , xmax = df[\"x_plot\"],  color = colors, linewidth = 5)# ----------------------------------------------------------------------------------------------------# prettify the plot# set x and y axisax.set_xlabel(\"Mileage\")ax.set_ylabel(\"Car Name\")# set a titleax.set_title(\"Diverging plot in matplotlib\")# make a grid to help separate the linesax.grid(linestyle='--', alpha=0.5)# change the y ticks# first you set the yticks# 먼저 y에 index를 박고,ax.set_yticks(df.index)# then you change them using the car names# same can be achived using plt.yticks(df.index, df.cars)# 그 index에 맞는 차를 넣어준다.# 이 때, ;를 추가하여 output이 나오지 않게 만들어준다.ax.set_yticklabels(df.cars);ReferencePlotting with Python: learn 80 plots STEP by STEP",
+        
+        "url": "/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-11-Diverging-Bars.html"
+      }
+      ,
+    
+      "ds-visualization-2020-05-19-ec-8b-9c-ea-b0-81-ed-99-94-ec-a0-95-eb-a6-ac-10-pair-plot-html": {
+        "title": "10: Pair plot",
+        "tags": "DS, python, matplotlib, Pair plot",
+        "date": "May 19, 2020",
+        "author": "",
+        "category": "DS/Visualization",
+        "content": "두 변수간의 관계를 한눈에 파악할 수 있는 Pair plot을 알아본다.연습 kaggle notebook# Useful for:# Plot pairwise relationships in a dataset. # Helps you to see in a glance of an eye all distribution and correlation of variables.# More info: # https://seaborn.pydata.org/generated/seaborn.pairplot.html# ----------------------------------------------------------------------------------------------------# get the datadf = sns.load_dataset('iris')# plot the data using seaborn# hue = 색조, 이 변수에 내가 원하는 그룹의 변수를 적어주면 된다.# 이 부분을 안하면, 대각원소에는 히스토그램이 그려진다.sns.pairplot(df,              hue = \"species\" # helps to separate the values by specios            );각각의 산점도에 종마다 회귀선을 그려보자.# Useful for:# Plot pairwise relationships in a dataset. # Helps you to see in a glance of an eye all distribution and correlation of variables.# This plot also plots a regression line to fit each of the data# More info: # https://seaborn.pydata.org/generated/seaborn.pairplot.html# ----------------------------------------------------------------------------------------------------# get the datadf = sns.load_dataset('iris')# plot the data using seabornsns.pairplot(df,              kind = \"reg\", # make a regression line for eac hue and each variables             hue = \"species\"            );ReferencePlotting with Python: learn 80 plots STEP by STEP",
+        
+        "url": "/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-10-Pair-Plot.html"
+      }
+      ,
+    
+      "ds-visualization-2020-05-19-ec-8b-9c-ea-b0-81-ed-99-94-ec-a0-95-eb-a6-ac-09-correlation-plot-html": {
+        "title": "09: Correlation plot",
+        "tags": "DS, python, matplotlib, Correlation plot",
+        "date": "May 19, 2020",
+        "author": "",
+        "category": "DS/Visualization",
+        "content": "변수들의 상관관계를 한눈에 파악할 수 있는 Correlation plot을 알아본다.연습 kaggle notebook# Useful for:# The correlation plot helps us to comparte how correlated are 2 variables between them# More info: # https://en.wikipedia.org/wiki/Covariance_matrix#Correlation_matrix# ----------------------------------------------------------------------------------------------------# get the dataPATH = '/kaggle/input/the-50-plot-challenge/mtcars.csv'df = pd.read_csv(PATH)# ----------------------------------------------------------------------------------------------------# instanciate the figurefig = plt.figure(figsize = (10, 5))ax = fig.add_subplot()# plot using matplotlib# https://matplotlib.org/3.2.1/api/_as_gen/matplotlib.axes.Axes.imshow.htmlax.imshow(df.corr(), cmap = 'viridis', interpolation = 'nearest')# set the title for the figureax.set_title(\"Heatmap using matplotlib\");단순히 이렇게만 plot하면 알아보는 것이 어려우니, x, y축에 변수이름을 적어 나타내어 보자.# Useful for:# The correlation plot helps us to comparte how correlated are 2 variables between them# More info: # https://en.wikipedia.org/wiki/Covariance_matrix#Correlation_matrix# ----------------------------------------------------------------------------------------------------# get the dataPATH = '/kaggle/input/the-50-plot-challenge/mtcars.csv'df = pd.read_csv(PATH)# ----------------------------------------------------------------------------------------------------# prepare the data for plotting# calculate the correlation between all variablescorr = df.corr()# create a mask to pass it to seaborn and only show half of the cells # because corr between x and y is the same as the y and x# it's only for estetic reasonsmask = np.zeros_like(corr) # 0행렬을 만든다.mask[np.triu_indices_from(mask)] = True # upper triangle 부분을 true로 바꾼다.# ----------------------------------------------------------------------------------------------------# instanciate the figurefig = plt.figure(figsize = (10, 5))# plot the data using seabornax = sns.heatmap(corr,                  mask = mask,                  vmax = 0.3,                  square = True,                   cmap = \"viridis\")# set the title for the figureax.set_title(\"Heatmap using seaborn\");ReferencePlotting with Python: learn 80 plots STEP by STEP",
+        
+        "url": "/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-09-Correlation-plot.html"
+      }
+      ,
+    
       "ds-visualization-2020-05-16-ec-8b-9c-ea-b0-81-ed-99-94-ec-a0-95-eb-a6-ac-08-marginal-histogram-html": {
         "title": "08: Marginal Histogram",
         "tags": "DS, python, matplotlib, Marginal Histogram",
@@ -548,7 +586,7 @@ function changeContent(event){
         "date": "May 15, 2020",
         "author": "",
         "category": "Math/Statistics",
-        "content": "데이터의 두 변수간 선형관계를 나타내는 척도에 대해서 알아본다.선형관계두 변수의 관계를 알아보는 것은 매우 중요하다. 어떠한 연관성을 통하여 유의미한 정보를 이끌어 낼 수 있기 때문이다. 이러한 선형관계를 알아내는 척도는 3가지 정도가 알려져 있다.공분산(Covarience)공분산을 직관적으로 이해하면 다음과 같다. 식을 보면, 결국 X에서 X의 평균을 빼고, Y에서 Y의 평균을 뺀뒤 곱한 것들을 모두 더한뒤 데이터의 개수로 나누는 것이다. 그렇다면 안에 있는 $(X-\\mu)(Y-\\nu)$ 만 확인해보자.위와 같은 그림이 된다.이러한 특징 때문에, 결과적으로 양의 상관관계를 가지는 경우는 +, 음의 상관관계는 -가 된다.0이 나오는 경우결론부터 말하자면 x, y축에 대해 평행한 직선에 대해 대칭이면 모두 0이 나온다. 실제로 그림을 그려보고 위의 작업을 해보도록 하자.상관계수(Coefficient of correlation)상관 계수는 위의 값을 정규화했다고 보면 된다. 결과적으로 -1~+1의 값으로 만들어 보다 수치적으로 정확히 판단할 수 있다. 이는 벡터의 내적과 동일한 연산이다.#",
+        "content": "데이터의 두 변수간 선형관계를 나타내는 척도에 대해서 알아본다.선형관계두 변수의 관계를 알아보는 것은 매우 중요하다. 어떠한 연관성을 통하여 유의미한 정보를 이끌어 낼 수 있기 때문이다. 이러한 선형관계를 알아내는 척도는 3가지 정도가 알려져 있다.공분산(Covarience)공분산을 직관적으로 이해하면 다음과 같다. 식을 보면, 결국 X에서 X의 평균을 빼고, Y에서 Y의 평균을 뺀뒤 곱한 것들을 모두 더한뒤 데이터의 개수로 나누는 것이다. 그렇다면 안에 있는 $(X-\\mu)(Y-\\nu)$ 만 확인해보자.위와 같은 그림이 된다.이러한 특징 때문에, 결과적으로 양의 상관관계를 가지는 경우는 +, 음의 상관관계는 -가 된다.0이 나오는 경우결론부터 말하자면 x, y축에 대해 평행한 직선에 대해 대칭이면 모두 0이 나온다. 실제로 그림을 그려보고 위의 작업을 해보도록 하자.상관계수(Coefficient of correlation)상관 계수는 위의 값을 정규화했다고 보면 된다. 결과적으로 -1~+1의 값으로 만들어 보다 수치적으로 정확히 판단할 수 있다. 이는 벡터의 내적과 동일한 연산이다.",
         
         "url": "/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%EA%B4%80%EA%B3%84%EC%9D%98-%EC%B2%99%EB%8F%84.html"
       }
