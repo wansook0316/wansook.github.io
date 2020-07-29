@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>백준(3015번): 오아시스 재결합 | 완숙의 에그머니🍳</title>
+	<title> 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="골드1 : stack 문제이다.백준(3015번) - 오아시스 재결합">
+		content="얼떨결에 들어왔으니 이것도 인연😌">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/cs/algorithm/2020/07/09/%EB%B0%B1%EC%A4%80-%EC%98%A4%EC%95%84%EC%8B%9C%EC%8A%A4%EC%9E%AC%EA%B2%B0%ED%95%A9.html">
+	<link rel="canonical" href="/blog/page33/">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -35,13 +35,6 @@
 
 	<!-- KaTeX -->
     <!--
-	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
-		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
-
-	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
-		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
-		crossorigin="anonymous"></script>
 	
 
     -->
@@ -66,31 +59,6 @@
 </script>
 -->
   
-    
-        <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    TeX: {
-      equationNumbers: {
-        autoNumber: "AMS"
-      }
-    },
-    tex2jax: {
-    inlineMath: [ ['$', '$'] ],
-    displayMath: [ ['$$', '$$'] ],
-    processEscapes: true,
-  }
-});
-MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
-	  alert("Math Processing Error: "+message[1]);
-	});
-MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
-	  alert("Math Processing Error: "+message[1]);
-	});
-</script>
-
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
     
 	<script>
 console.log(window)
@@ -525,201 +493,80 @@ function changeContent(event){
   </div>
 
     <div class="content">
-      <article class="feature-image">
-  <header style="background-image: url('/assets/img/34.jpg')">
-    <h1 class="title">백준(3015번): 오아시스 재결합</h1>
-    
-    <p class="meta">
-      CS/Algorithm
-      
-    </p>
-
-    <p class="meta">
-      July 9, 2020
-      
-    </p>
-  </header>
-
-
-
-<section class="post-content">
+      <div class="home">
   
-
-  <p><strong><em>골드1</em></strong> : stack 문제이다.<br />
-<a href="https://www.acmicpc.net/problem/3015" target="\_blank">백준(3015번) - 오아시스 재결합</a></p>
-
-<h1 id="생각">생각</h1>
-<p>아, 어려웠다.. 처음에 dp로 풀생각을 했더니, $O(n^2)$ 이라 500,000인 input에 맞지 않는다. 또한 그 과정에서 세그먼트 트리 혹은 우선 순위 큐를 사용하려 했지만 구현 난이도가 올라가 고민했다.</p>
-
-<p>역시 알고리즘 문제는 약간은 컴퓨터 처럼 순차적으로 규칙을 찾는 것이 가장 중요하다는 생각을 한다. 또한, 어떠한 자료구조를 사용하여 문제의 input을 어떠한 규칙을 갖는 무언가를 만드는 것이 매우 중요하다.</p>
-
-<p>해당 문제에서 핵심은, i번째 사람의 입장에서 앞을 보았을 때, 보이는 모습을 상상해보는 것이 중요하다. 이를 상상해보면 그 사람은 계속 사람의 키가 올라가는 모양으로 보인다. 이는 index 0에서 부터 생각해 볼때, i까지의 위치까지 감소하는 수열을 갖고 있는다고 생각할 수 있다. 이런 감소하는 수열을 갖고 있다면, i+1 번째의 감소하는 수열을 만드는 과정에서 답안을 도출할 수 있다.</p>
-
-<p>물론, 이 문제는 키가 같을 수 있다는 점에서 이를 처리하는 방법이 필요하다. 이를 해결하는 방법은 역시나 i번째 사람의 입장에서 앞을 보았을 때, 어떤 식으로 pair가 구성되는지 시뮬레이션 하는 것이 도움이 된다.</p>
-
-<h1 id="code">Code</h1>
-<pre><code class="language-C++">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-#include &lt;cmath&gt;
-#include &lt;map&gt;
-#include &lt;stack&gt;
-#include &lt;queue&gt;
-#include &lt;string.h&gt;
-using namespace std;
-
-int N;
-vector&lt;pair&lt;int, int&gt;&gt; line;
-long long ans = 0;  // 답의 개수가 무지하게 많이 나오니 이거 꼭 체크!
-
-void print(){
-    for (int i = 0; i &lt; int(line.size()); i++) {
-        cout &lt;&lt; line[i].first &lt;&lt; " ";
-    }cout &lt;&lt; '\n';
-    for (int i = 0; i &lt; int(line.size()); i++) {
-        cout &lt;&lt; line[i].second &lt;&lt; " ";
-    }cout &lt;&lt; '\n' &lt;&lt; '\n';
-}
+  <article class="feature-image main-category-feature ">
+  
+    <header style="background-image: url('/assets/img/background_minion.jpg')">
+    <div class="category-title">
+      <h1 class="title">
+        얼떨결에 들어왔으니 이것도 인연
+      </h1>
+      
+    </div>
+    </header>
+  </article>
+  
+  
+  
+  </div>
+<!--  기존 header 이미지 띄우는 방법-->
+<!--
+  
+  <div class="call-out"
+  style="background-image: url('/assets/img/background_minion.jpg')">
+    얼떨결에 들어왔으니 이것도 인연
+  </div>
+  
+-->
 
 
-int main(){
-    cin &gt;&gt; N;
+  <div class="posts">
     
-    for (int i = 0; i &lt; N; i++) {
-        int nowH;
-        cin &gt;&gt; nowH;
-        
-        bool same = false;
-        // 감소하는 수열을 만들며 규칙에 따라 답을 업데이트한다.
-        while(!line.empty()){
-            pair&lt;int, int&gt; near = line.back();
+      <div class="post-teaser list-box" style="cursor: pointer;" onclick= "location.href='/dv/javascripts/2020/02/28/JS.html';" >
+        <header>
+          <h2 class="categorized-post__title">
+            <a class="post-link" href="/dv/javascripts/2020/02/28/JS.html">
             
-            // 현재 키가 가장 근방에 있는 사람보다 클 경우
-            if (nowH &gt; near.first) {
-                // 감소하는 수열을 만들어 놓은 상태이기 때문에
-                // 이 사람은 나와 쌍이 될 수 있다.
-                ans += near.second;
-                line.pop_back(); // 답을 추가했으니 뺀다.
-                
-            } // 현재 키가 가장 근방에 있는 사람보다 작을 경우
-            else if (nowH &lt; near.first) {
-                // 이 사람까지 답에 추가할 수 있다. 같은 키를 다 넣을 수는 없고
-                // 딱 마지막 사람만 가능하다!!!
-                // 추가하고 나서는 while문을 탈출한다.
-                ans += 1;
-                break;
-                
-            } // 현재 키가 가장 근방에 있는 사람과 같을 경우
-            else {
-                // 같은 키를 가진 사람은 답에 추가가능하다.
-                ans += near.second;
-                
-                // 현재 가장 뒤에 있는 사람을 빼온다.
-                int count = near.second;
-                line.pop_back();
-                
-                // 뺀뒤에도 비어있지 않다는 얘기는 현재 같은 키 말고 큰 키를 가진 사람이 앞에 있다는 얘기이다. 
-                // 가장 근방에 있는 사람까지 pair가 가능하다.
-                if (!line.empty()) {
-                    ans += 1;
-                }
-                
-                // 지금 있는 사람의 count 정보에 +1 하여 다시 넣어준다.
-                line.push_back(make_pair(nowH, count+1));
+              
+               개발 시 고려해야 하는 점
+               </a>
+          </h2>
+          <p class="meta">
+            DV/JavaScripts 
+            
+          </p>
+          <p class="meta">
+            
+            February 28, 2020
+          </p>
+        </header>
+        <div class="excerpt">
+          <p>개발 시작하기 전에 플로우를 기록해 둔다.</p>
 
-                // 이미 내 현재 높이가 앞 높이와 같으므로 이것보다 작은 키는 나올 수 없다.
-                same = true;
-                break;
-            }
-        }
-        
-        // 기존의 line을 업데이트한 후에, 현재 사람의 정보를 추가한다.
-        if (!same) {
-            line.push_back(make_pair(nowH, 1));
-        }
-        
-//        cout &lt;&lt; ans &lt;&lt; '\n';
-//        print();
-        
-        
-    }
-    
-    cout &lt;&lt; ans;
-    return 0;
-}
 
-</code></pre>
-
-  </section>
-  
-<footer>
-  <div class="tags">
-    
-    <a class="tag" href="/tags#%EB%B0%B1%EC%A4%80">#백준</a>
-    
-    <a class="tag" href="/tags#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
-    
-    <a class="tag" href="/tags#stack">#stack</a>
+          
+        </div>
+      </div>
     
   </div>
-</footer>
-
-
-</article>
-
-<!-- Post navigation -->
-<div id="post-nav">
-  
-    
-    <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/algorithm/2020/07/09/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%88%98_%EA%B2%BD%EB%A1%9C.html';">
-        <p>Previous post</p>
-        <a href="/cs/algorithm/2020/07/09/%EB%B0%B1%EC%A4%80-%EC%86%8C%EC%88%98_%EA%B2%BD%EB%A1%9C.html">
-          백준(1963번): 소수 경로
-        </a>
-    </div>
-    
-    
-    <div id="next-post" class="post-nav-post" onclick="location.href='/math/finance/2020/07/29/%EA%B8%88%EC%9C%B5-%EA%B3%B5%EB%B6%80-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html';">
-        <p>Next post</p>
-        <a href="/math/finance/2020/07/29/%EA%B8%88%EC%9C%B5-%EA%B3%B5%EB%B6%80-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html">
-          01: 용어 정리
-        </a>
-    </div>
-    
-  
 
   
-</div>
-
-
-<!-- Disqus -->
-
-<div class="comments">
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-	var disqus_shortname = 'wansook0316';
-	(function() {
-		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
-</script>
-<noscript>Please enable JavaScript to view comments.</noscript>
-
-</div>
-
-
-<!-- Post navigation -->
-
-
+  <div class="pagination">
+    
+    <a href="/blog/page32" class="button" >
+      <i class="fa fa-chevron-left"></i>
+      Prev
+    </a>
+    
+    
+  </div>
+  
 
 
     </div>
     
     
-<script src="/assets/js/katex_init.js"></script>
-
 
 
 <footer class="site-footer">
