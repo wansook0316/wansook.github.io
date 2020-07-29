@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+	<meta charset="utf-8">
+	<title>09: 다양한 확률 분포 | 완숙의 에그머니🍳</title>
+	<meta name="description"
+		content="다양한 확률분포에 대해 이해한다.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/assets/css/main.css">
+
+	<!--Favicon-->
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+	<!-- Canonical -->
+	<link rel="canonical" href="/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-09-%EB%8B%A4%EC%96%91%ED%95%9C-%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
+		href="/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400|Noto+Sans+KR:100,300" rel="stylesheet"
+		type="text/css">
+	
+
+	<!-- naver web mater tool -->
+	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+
+	<!-- KaTeX -->
+    <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+	<!-- Google Analytics -->
+	
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-156961472-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	
+  
+  <!-- Latex -->
+<!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+  
+    
+        <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+	<script>
+console.log(window)
+
+window.addEventListener("resize", changeContent);
+window.addEventListener("load", changeContent);
+
+function changeContent(event){
+  const width = window.innerWidth;
+  console.log(event);
+  const cat = document.getElementById("js-cat");
+  const cv = document.getElementById("category-cv");
+  const math = document.getElementById("category-math");
+  const ds = document.getElementById("category-ds");
+  const cs = document.getElementById("category-cs");
+  const dv = document.getElementById("category-dv");
+  const about = document.getElementById("category-about");
+  if (width < 710) {
+    cv.innerText = "📜"
+    math.innerText = "✖"
+    ds.innerText = "📈"
+    cs.innerText = "💾"
+    dv.innerText = "📱"
+    about.innerText = "😎"
+    cat.style.justifyContent = "space-around"
+  } else {
+    cv.innerText = "CV"
+    math.innerText = "Math"
+    ds.innerText = "Data Science"
+    cs.innerText = "Computer Science"
+    dv.innerText = "Development"
+    about.innerText = "About"
+    cat.style.justifyContent = "center"
+  }
+  
+}
+
+</script>
+
+	
+	<script>
+  function handleNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-btn-content");
+
+    if (side_nav.style.display == "block") {
+        side_nav.style.display = "none";
+        side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+        side_nav.style.display = "block";
+        side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+	 
+</head>
+  <body>
+    <header class="site-header">
+    <div class="site-title-nav">
+        <div class="branding">
+            
+            <a href="/">
+                <img class="avatar" src="/assets/img/avatar.png" alt=""/>
+            </a>
+            
+            <h1 class="site-title">
+                <a href="/">완숙의 에그머니🍳</a>
+            </h1>
+        </div>
+    </div>
+    <nav class="site-nav">
+            <ul>
+<!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+                <!-- Social icons from Font Awesome, if enabled  -->
+<!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+                <!-- Search bar -->
+                <li>
+                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </li>
+                
+                <li>
+                <form action="/search.html" method="get">
+                    <input type="text" id="search-box" name="query" placeholder="Search" class="">
+                    <button type="submit" class="">
+                        <i class="fa fa-fw fa-search"></i>
+                    </button>
+                </form>
+                </li>
+                
+                
+            </ul>
+        </nav>
+  
+  
+  
+  
+  
+
+</header>
+
+<div class="site-category">
+    <ul class='cat1' id="js-cat">
+
+      
+      <li><a id="category-cv"href="/"> </a>
+        <ul>
+            <li><a href="/CV/Projects">Projects</a></li>
+            <li><a href="/CV/Awards">Awards</a></li>
+            <li><a href="/CV/Papers">Papers</a></li>
+            <li><a href="/CV/ExtraCurricular Act">ExtraCurricular Act</a></li>
+            <li><a href="/CV/InternShip">InternShip</a></li>
+            <li><a href="/CV/Language">Language</a></li>
+            <li><a href="/CV/Education">Education</a></li>
+            <li><a href="/CV/Cources">Cources</a></li>
+        </ul>
+      </li>
+      
+      <li><a id="category-math"href="/"> </a>
+        <ul>
+            <li><a href="/Math/Statistics">Statistics</a></li>
+            <li><a href="/Math/Linear Algebra">Linear Algebra</a></li>
+            <li><a href="/Math/Calculus">Calculus</a></li>
+            <li><a href="/Math/Finance">Finance</a></li>
+        </ul>
+      </li>
+
+      <li><a id="category-ds" href="/"> </a>
+        <ul>
+          <li><a href="/DS/R">R</a></li>
+          <li><a href="/DS/ESL">ESL</a></li>
+          <li><a href="/DS/DL">Deep Learning</a></li>
+          <li><a href="/DS/ML">Machine Learning</a></li>
+          <li><a href="/DS/Visualization">Visualization</a></li>
+        </ul>
+      </li>
+      
+      <li><a id = "category-cs" href="/"> </a>
+        <ul>
+          <li><a href="/CS/Network">Network</a></li>
+          <li><a href="/CS/Database">Database</a></li>
+          <li><a href="/CS/Algorithm">Algorithm</a></li>
+          <li><a href="/CS/Structure">Structure</a></li>
+          <li><a href="/CS/Parallel">Parallel</a></li>
+          <li><a href="/CS/OS">OS</a></li>
+        </ul>
+      </li>
+
+
+      <li><a id="category-dv" href="/"> </a>
+        <ul>
+          <li><a href="/DV/Ubuntu">Ubuntu</a></li>
+          <li><a href="/DV/Python">Python</a></li>
+          <li><a href="/DV/C++">C++</a></li>
+          <li><a href="/DV/HTML">HTML</a></li>
+          <li><a href="/DV/CSS">CSS</a></li>
+          <li><a href="/DV/JavaScript">JavaScript</a></li>
+          <li><a href="/DV/React">React</a></li>
+          <li><a href="/DV/Django">Django</a></li>
+          <li><a href="/DV/Git">Git</a></li>
+          <li><a href="/DV/Tips">Tips</a></li>
+          <li><a href="/DV/SP">Side Project</a></li>
+        </ul>
+      </li>
+
+      
+      <li><a id="category-about" href="/about/"> </a></li>
+      
+    
+  
+<!--    <ul class="cat2">-->
+      
+<!--  </ul>-->
+    </ul>
+  
+  </div>
+
+    <div class="content">
+      <article class="feature-image">
+  <header style="background-image: url('/assets/img/40.jpg')">
+    <h1 class="title">09: 다양한 확률 분포</h1>
+    
+    <p class="meta">
+      Math/Statistics
+      
+        : 통계 개념 정리
+      
+    </p>
+
+    <p class="meta">
+      May 15, 2020
+      
+    </p>
+  </header>
+
+
+
+<section class="post-content">
+  
+    
+    
+    
+    
+
+
+<div class="series-nav">
+    
+      <p>
+      이 포스팅은 <b><em>통계 개념 정리</em></b> 시리즈 <b><em>13</em></b> 편 중 <b><em>9</em></b> 번째 글 입니다.
+      </p>
+      <ul class="side-nav" id="js-side_nav">
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-01-%EC%84%9C%EB%A1%A0.html'">
+                <span>Part 1 - 01: 주요 개념</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-02-%EC%A4%91%EC%8B%AC%EC%9D%84-%EB%82%98%ED%83%80%EB%82%B4%EB%8A%94-%EB%B0%A9%EB%B2%95.html'">
+                <span>Part 2 - 02: 중심을 나타내는 방법</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-03-%EB%B3%80%EB%8F%99%EC%84%B1%EC%9D%98-%EC%B2%99%EB%8F%84.html'">
+                <span>Part 3 - 03: 변동성의 척도</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-04-%EC%83%81%EB%8C%80%EC%9C%84%EC%B9%98%EC%99%80-%EB%B0%95%EC%8A%A4%ED%94%8C%EB%A1%AF.html'">
+                <span>Part 4 - 04: 상대 위치와 boxplot</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%EA%B4%80%EA%B3%84%EC%9D%98-%EC%B2%99%EB%8F%84.html'">
+                <span>Part 5 - 05: 선형관계의 척도</span>
+            </li>
+          
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-06-%ED%91%9C%EB%B3%B8%EC%B6%94%EC%B6%9C%EB%B0%A9%EB%B2%95.html'">
+                <span>Part 6 - 05: 표본 추출 방법</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-07-%ED%99%95%EB%A5%A0.html'">
+                <span>Part 7 - 06: 확률</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-08-%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html'">
+                <span>Part 8 - 08: 확률 변수</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li class="current">
+                <span>Part 9 - This Post</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/06/03/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-10-%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC.html'">
+                <span>Part 10 - 10: 정규 분포</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/06/03/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-12-%EC%B6%94%EB%A1%A0.html'">
+                <span>Part 11 - 11: 통계적 추론</span>
+            </li>
+          
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/06/03/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-11-%ED%91%9C%EB%B3%B8%EB%B6%84%ED%8F%AC.html'">
+                <span>Part 12 - 11: 표본 분포</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/math/statistics/2020/06/03/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-13-%EA%B0%80%EC%84%A4-%EA%B2%80%EC%A0%95.html'">
+                <span>Part 13 - 12: 가설 검정</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      </ul>
+      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
+        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
+      </div>
+  </div>
+
+
+
+  <p>다양한 확률분포에 대해 이해한다.</p>
+
+<h1 id="이산-확률-변수의-분포">이산 확률 변수의 분포</h1>
+<p>대표적으로 사용하는 이산 확률 변수에 대한 분포를 알아본다. 의미적으로 이해하는 것을 우선으로 한다.</p>
+
+<h2 id="베르누이-분포">베르누이 분포</h2>
+<blockquote>
+  <p>확률 변수의 값이 성공 혹은 실패로 나타나는 경우에 따른 분포</p>
+</blockquote>
+
+<p>동전을 던졌을 때, 앞면이 나오는 사건에 대한 값을 확률 변수로 잡는 경우가 해당된다. 해당 사건이 나오는 확률을 정의해야 분포가 정의된다.
+$$
+P(X=0)=p <br />
+P(X=1)=q \</p>
+
+<p>0 \le p \le 1, q=1-p
+$$</p>
+
+<h2 id="초기하-분포">초기하 분포</h2>
+<blockquote>
+  <p>n번의 시행에서 k번 성공할 확률, 그런데 독립시행이 아닐 경우의 분포</p>
+</blockquote>
+
+<p>주머니에 10개의 공이 있다. 이 때 파란공이 3개, 빨간공이 7개 이다. 이런 상황에서의 확률 실험이 공을 5번 꺼내는 실험이다. 공은 다시 넣지 않는다.(비복원 추출) 이 떄 확률 변수 X를 빨간 공이 나오는 횟수라고 할 경우, 발생하는 확률 분포이다. 이 초기하 분포를 설명하기 위해서는 총 공이 몇개가 있는지(N), 몇개를 뽑을 것인지(n), 그 때 빨간공이 나오는 개수(k) 세가지 파라미터가 필요하다.</p>
+
+<p>초기하 분포의 상황에서 n이 특정수 이상으로 큰 경우 이항 분포로 가정하고 풀이한다.</p>
+
+<script type="math/tex; mode=display">p_X(k) = \Pr(X = k) 
+= \frac{\binom{K}{k} \binom{N - K}{n-k}}{\binom{N}{n}}</script>
+
+<h2 id="이항-분포">이항 분포</h2>
+<blockquote>
+  <p>확률 변수의 값이 독립 시행의 성공 횟수로 표시되는 경우에 따른 분포</p>
+</blockquote>
+
+<p>동전을 5번 던졌을 때, 앞면이 나오는 횟수를 확률 변수로 잡는 경우이다. 문제에서 알 수 있듯 해당 분포를 설명하기 위해서는 몇번 던지는지(n), 그리고 한번의 시행에서 나오는 확률 얼마인지(p)를 정의해야 한다. 두개의 파라미터를 가진다.</p>
+
+<p>이항 분포는 베르누이 확률 변수의 합으로 정의되는 랜덤 변수의 분포로 정의된다.</p>
+
+<script type="math/tex; mode=display">\Pr(K = k) = f(k;n,p)={n\choose k}p^k(1-p)^{n-k}</script>
+
+<h2 id="기하-분포">기하 분포</h2>
+<blockquote>
+  <p>처음으로 성공하는 횟수를 확률 변수로 잡을 경우 나오는 분포</p>
+</blockquote>
+
+<p>동전을 던지는데, 처음으로 앞면이 나오는 시행 횟수를 확률 변수로 잡을 경우 나타나는 분포이다.</p>
+
+<script type="math/tex; mode=display">\Pr(X = k) = (1-p)^{k-1}\,p\,</script>
+
+<h2 id="음이항-분포">음이항 분포</h2>
+<blockquote>
+  <p>특정 횟수를 성공하기 위한 시행 횟수에 대한 분포</p>
+</blockquote>
+
+<p>동전의 앞면이 10번 나오기 위해 던져야 하는 횟수를 확률 변수로 정의했을 때 나타나는 분포이다. 해당 분포를 설명하기 위해서는 몇번 성공할 것인지(k) 그리고 그 독립 시행의 확률이 얼마인지(p)를 주어진 상태에서 x를 정의하고 그에 대한 확률을 정의한다.</p>
+
+<p>음이항 분포의 랜덤 변수는 기하 분포의 랜덤 변수의 합으로 정의된다.</p>
+
+<script type="math/tex; mode=display">b^{-1}(x;k,p) = \begin{pmatrix}x-1\\k-1\end{pmatrix}p^k(1-p)^{x-k}</script>
+
+<h2 id="포아송-분포">포아송 분포</h2>
+<blockquote>
+  <p>단위 시간 안에 사건이 몇 번 발생할 것인지에 대한 분포</p>
+</blockquote>
+
+<p>버스정류장에 버스가 도착한다고 하자. 이 때, 단위 시간을 10분으로 설정했을 때, 10분안에 도착하는 버스의 수를 랜덤 변수로 정의했을 때 정의되는 분포이다. 포아송 분포를 정의하기 위해 필요한 인자는, 정해진 시간 안에 사건이 일어날 횟수에 대한 기댓값($\lambda$)가 필요하다.</p>
+
+<script type="math/tex; mode=display">f(n; \lambda)=\frac{\lambda^n e^{-\lambda}}{n!},\,\!</script>
+
+<h1 id="연속-확률-변수의-분포">연속 확률 변수의 분포</h1>
+
+<p>대표적으로 사용하는 연속 확률 변수에 대한 분포를 알아본다. 의미적으로 이해하는 것을 우선으로 한다.</p>
+
+<h2 id="지수-분포">지수 분포</h2>
+<blockquote>
+  <p>한번의 사건이 발생하는데 까지 걸리는 시간에 대한 분포</p>
+</blockquote>
+
+<p>포아송 분포에서는 단위 시간에 발생하는 횟수에 대해 궁금했다면, 이번에는 하나의 사건이 발생하는데 까지 걸리는 시간을 확률 변수로 잡는다. 이 때 발생하는 분포가 지수 분포이다. 지수 분포를 정의하기 위해서는 해당 사건이 발생하는 확률(p)가 필요하다.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+f(x; \lambda) = \begin{cases}
+\lambda e^{-\lambda x} & {where } \;x \ge 0 \\
+0 & {where } \;x < 0
+\end{cases} %]]></script>
+
+<h2 id="감마-분포">감마 분포</h2>
+<blockquote>
+  <p>a번째 사건이 발생할 때까지 걸리는 시간에 대한 분포</p>
+</blockquote>
+
+<p>음이항 분포와 매우 비슷하다. 음이항 분포가 기하 분포의 결합으로 설명되었던 것처럼, 감마 분포도 지수 분포의 결합으로 설명되는 확률 변수에 대해 표현된다.</p>
+
+<script type="math/tex; mode=display">x^{k-1} \frac{\exp\left(-x/\theta\right)}{\Gamma(k)\,\theta^k}</script>
+
+<h2 id="스튜던츠-t-분포">스튜던츠 t 분포</h2>
+<blockquote>
+  <p>모분산을 모를 때, 표본에 대한 분포를 사용할 때 사용한다.</p>
+</blockquote>
+
+<p>사실 t분포는 추정에서 보다 정확히 사용처를 알 수 있다. 일단은, 모평균이 $\mu$이고, 모분산이 $\sigma^2$인 경우, 우리는 Z를 사용하여 이것이 표준 정규 분포를 따른다고 알고 있다.</p>
+
+<p>그런데, 우리가 하는 행위는 표본을 통하여 모집단을 예측하는 행위를 하는 것이고, 그렇기 때문에 현실에서 하는 모든 행위는 모집단을 알 수 없다. 그렇기 때문에 평균은 알 수 있을 지라도 모분산을 모르기 때문에 내가 뽑은 표본의 분포가 정규 분포라 가정하고 추정을 수행할 수 없다.</p>
+
+<p>이러한 문제에 대해 해결하기 위한 방법으로 모분산 대신 표본 분산을 사용하여 분포를 만들었다. 이것을 t 분포라 한다. 표본 분산을 구하는데에 있어서는 자유도가 필요하므로, t 분포를 사용하기 위해서는 자유도라는 매개변수가 필요하다.</p>
+
+<p>자세한 내용은 <a href="https://ko.wikipedia.org/w/index.php?title=%EC%8A%A4%ED%8A%9C%EB%8D%98%ED%8A%B8_t_%EB%B6%84%ED%8F%AC&amp;action=edit&amp;section=1">스튜던트 t 분포</a> 를 확인하자.</p>
+
+<script type="math/tex; mode=display">\frac{Z}{\sqrt{V/\nu}}</script>
+
+<h2 id="카이제곱-분포">카이제곱 분포</h2>
+<blockquote>
+  <p>정규 분포 랜덤 변수의 제곱의 합으로 표현되는 랜덤 변수에 관한 분포</p>
+</blockquote>
+
+<p>왜 카이제곱 분포가 필요할까? 기본적으로 카이제곱 분포는 표본의 분산에 관련된 무언가를 만들기 위해 탄생한 분포이다. 실제로 표준 정규 분포의 랜덤 변수를 제곱하여 자유도 만큼 더한 것으로 카이 제곱 분포의 랜덤 변수가 정의된다. 해당 분포는 분산의 특징을 대변한다는 특징이 있다.</p>
+
+<script type="math/tex; mode=display">Q = \sum_{i=1}^{k} X_i^2</script>
+
+<h2 id="f-분포">F 분포</h2>
+<blockquote>
+  <p>두 확률 변수가 독립인 카이제곱 분포를 따른다고 할 때 다음의 랜덤 변수가 따르는 분포</p>
+</blockquote>
+
+<script type="math/tex; mode=display">F=\frac{V_1/k_1}{V_2/k_2} \sim F(k_1,k_2)</script>
+
+<h2 id="가우시안-분포">가우시안 분포</h2>
+<blockquote>
+  <p>이항 분포의 n이 늘어났을 때 근사하는 분포</p>
+</blockquote>
+
+<p>가장 중요한 분포이며, 평균과 표준편차를 매개변수로 갖는 분포이다.</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#Math">#Math</a>
+    
+    <a class="tag" href="/tags#Statistics">#Statistics</a>
+    
+    <a class="tag" href="/tags#probability+distribution">#probability distribution</a>
+    
+    <a class="tag" href="/tags#parameter">#parameter</a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-08-%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/math/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-08-%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html">
+                  08: 확률 변수
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/math/statistics/2020/06/03/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-10-%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC.html';">
+              <p>NEXT SERIES</p>
+              <a href="/math/statistics/2020/06/03/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-10-%EC%A0%95%EA%B7%9C%EB%B6%84%ED%8F%AC.html">
+                10: 정규 분포
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+
+
+
+    </div>
+    
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">완숙의 에그머니</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

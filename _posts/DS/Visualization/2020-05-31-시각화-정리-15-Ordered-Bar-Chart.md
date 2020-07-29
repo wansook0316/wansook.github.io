@@ -11,7 +11,6 @@ series: "시각화 정리"
 ---
 
 feature를 정리한 후 히스토그램을 그려보자.      
-[연습 kaggle notebook](https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit)
 
 
 ```python
