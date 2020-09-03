@@ -8,9 +8,8 @@ feature-img: "assets/img/30.jpg"
 feature-title: ""
 use_math: true
 series: "Docker"
+summary: "Custom한 docker image를 생성하고 업로드해보자."
 ---
-
-Custom한 docker image를 생성하고 업로드해보자.
 
 ### Reference
 

@@ -8,9 +8,8 @@ feature-img: "assets/img/30.jpg"
 feature-title: ""
 use_math: true
 series: "배포"
+summary: "Nginx에 대해서 알아본다."
 ---
-
-Nginx에 대해서 알아본다.
 
 # nginx란?
 

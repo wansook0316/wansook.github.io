@@ -7,9 +7,8 @@ tags: [css, transition, opacity]
 feature-img: "assets/img/20.jpg"
 feature-title:
 use_math: true
+summary: "css를 사용하여 애니메이션 효과를 주는 법을 알아보자."
 ---
-
-css를 사용하여 애니메이션 효과를 주는 법을 알아보자.
 
 ### Html
 

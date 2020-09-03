@@ -8,6 +8,5 @@ feature-img: "assets/img/41.jpg"
 feature-title:
 use_math: true
 series: "OpenCV"
+summary: "ㅎㅇㅎㅇ"
 ---
-
-ㅎㅇㅎㅇ

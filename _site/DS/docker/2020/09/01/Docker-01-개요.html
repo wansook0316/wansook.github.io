@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>01: 개요 | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="Docker에 대해서 기초적인 것을 알아보자.">
+		content="도커란? (되게 귀엽다)">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -253,6 +253,8 @@ function changeContent(event){
                         About Me
                     </a>
                 </li>
+                
+                
                 
                 
                 
@@ -598,6 +600,8 @@ function changeContent(event){
       
       
       
+      
+      
           
           
             <li class="current">
@@ -629,18 +633,22 @@ function changeContent(event){
       
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
           
           
-            <li onclick="location.href='/ds/docker/2020/09/01/Docker-02-Jupeter-Notebook-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html'">
-                <span>Part 2 - 02: Jupeter Notebook 사용하기 및 명령어 모음</span>
+            <li onclick="location.href='/ds/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html'">
+                <span>Part 2 - 02: 명령어 모음</span>
             </li>
           
-      
-      
-      
-      
-      
-      
       
       
       
@@ -972,6 +980,8 @@ function changeContent(event){
       
       
       
+      
+      
        
       </ul>
       <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
@@ -981,9 +991,7 @@ function changeContent(event){
 
 
 
-  <p>Docker에 대해서 기초적인 것을 알아보자.</p>
-
-<p><img src="https://subicura.com/assets/article_images/2017-01-19-docker-guide-for-beginners-1/docker-works.png" alt="도커란?" /><em>도커란? (되게 귀엽다)</em></p>
+  <p><img src="https://subicura.com/assets/article_images/2017-01-19-docker-guide-for-beginners-1/docker-works.png" alt="도커란?" class="center" width="80%" /><em>도커란? (되게 귀엽다)</em></p>
 
 <h1 id="개념">개념</h1>
 
@@ -1004,35 +1012,32 @@ function changeContent(event){
   <li>스택화 (Stackable) : 서비스들에 대한 수직적 또는 수평적 디자인이 매우 용이하다.</li>
 </ol>
 
-<p><img src="https://i1.wp.com/www.docker.com/blog/wp-content/uploads/2020/07/Mainstream-and-Growing.png?resize=1110%2C740&amp;ssl=1" alt="Docker 사용량" /><em>어마무시한 도커 사용량</em></p>
+<p><img src="https://i1.wp.com/www.docker.com/blog/wp-content/uploads/2020/07/Mainstream-and-Growing.png?resize=1110%2C740&amp;ssl=1" alt="Docker 사용량" class="center" width="80%" /><em>어마무시한 도커 사용량</em></p>
 
 <hr />
 
 <h2 id="이미지와-컨테이너">이미지와 컨테이너</h2>
 
-<p><img src="https://www.docker.com/sites/default/files/social/docker_facebook_share.png" alt="" /><em>docker contatiner</em></p>
+<p><img src="https://www.docker.com/sites/default/files/social/docker_facebook_share.png" alt="" class="center" width="40%" /><em>docker contatiner</em></p>
 
 <ul>
-  <li>이미지</li>
+  <li>이미지
+    <ul>
+      <li>코드, 런타임, 라이브러리, 환경 변수 및 구성 파일 등 응용프로그램을 실행하는 데 필요한 모든 것을 포함하는 실행가능 패키지</li>
+    </ul>
+  </li>
+  <li>컨테이너
+    <ul>
+      <li>이미지의 런타임 인스턴스</li>
+    </ul>
+  </li>
 </ul>
-
-<blockquote>
-  <p>코드, 런타임, 라이브러리, 환경 변수 및 구성 파일 등 응용프로그램을 실행하는 데 필요한 모든 것을 포함하는 실행가능 패키지</p>
-</blockquote>
-
-<ul>
-  <li>컨테이너</li>
-</ul>
-
-<blockquote>
-  <p>이미지의 런타임 인스턴스</p>
-</blockquote>
 
 <p>이 두개의 개념은 도커를 이해하는 데 매우 중요하다. class는 instance의 설계도이다. 마찬가지로 이 class에 해당하는 것이 바로 image이며, 이를 메모리단에 올린 것을 container라 한다.</p>
 
 <h2 id="컨테이너의-동작-방식">컨테이너의 동작 방식</h2>
 
-<p><img src="https://subicura.com/assets/article_images/2017-01-19-docker-guide-for-beginners-1/vm-vs-docker.png" alt="" /><em>가상 머신과 도커의 차이점</em></p>
+<p><img src="https://subicura.com/assets/article_images/2017-01-19-docker-guide-for-beginners-1/vm-vs-docker.png" alt="" class="center" width="80%" /><em>가상 머신과 도커의 차이점</em></p>
 
 <p>기존에 사용하던 가상 머신은, Host OS위에 Guest OS를 얹어 사용하는 방식이다. 사용법은 간단하지만 <strong>느리다</strong>라는 치명적인 단점을 갖고 있다.
 이러한 상황을 개선하기 위해 CPU 가상화 기술을 사용한 KVM(Kernel-based Virtual Machine)이 등장했다. 하지만 여전히 성능 문제가 있었다. 이를 해결한 것이 Docker contatiner이다. 이는 바로 Host OS위에서 격리만하여 프로세스를 처리하는 방식이다.</p>
@@ -1040,8 +1045,6 @@ function changeContent(event){
 <h3 id="reference">Reference</h3>
 
 <p><a href="https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html">초보를 위한 도커 안내서 - 도커란 무엇인가?</a></p>
-
-<p>https://hub.docker.com/editions/community/docker-ce-desktop-mac</p>
 
   </section>
   
@@ -1085,6 +1088,8 @@ function changeContent(event){
       
       
       
+      
+      
           
           
         
@@ -1112,12 +1117,22 @@ function changeContent(event){
       
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
           
           
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/docker/2020/09/01/Docker-02-Jupeter-Notebook-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html';">
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html';">
               <p>NEXT SERIES</p>
-              <a href="/ds/docker/2020/09/01/Docker-02-Jupeter-Notebook-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
-                02: Jupeter Notebook 사용하기 및 명령어 모음
+              <a href="/ds/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html">
+                02: 명령어 모음
               </a>
             </div>
           
@@ -1138,12 +1153,6 @@ function changeContent(event){
       
       
       
-      
-      
-      
-      
-      
-      
           
           
         
@@ -1152,6 +1161,8 @@ function changeContent(event){
           
           
         
+      
+      
       
       
       

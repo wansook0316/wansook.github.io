@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>02: Jupeter Notebook 사용하기 및 명령어 모음 | 완숙의 에그머니🍳</title>
+	<title>02: Spatial Pyramid Pooling Network | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="Jupeter Notebook을 설치해서 사용해보자.">
+		content="핵심 아이디어">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/ds/docker/2020/09/01/Docker-02-Jupeter-Notebook-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0.html">
+	<link rel="canonical" href="/ds/dl/2020/09/02/PaperReview-02-Spatial-Pyramid-Pooling-Network.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -339,6 +339,8 @@ function changeContent(event){
                 
                 
                 
+                
+                
 -->
       <!-- Social icons from Font Awesome, if enabled  -->
       <!--                
@@ -553,18 +555,18 @@ function changeContent(event){
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/30.jpg')">
-    <h1 class="title">02: Jupeter Notebook 사용하기 및 명령어 모음</h1>
+  <header style="background-image: url('/assets/img/42.jpg')">
+    <h1 class="title">02: Spatial Pyramid Pooling Network</h1>
     
     <p class="meta">
-      DS/Docker
+      DS/DL
       
-        : Docker
+        : Paper Review
       
     </p>
 
     <p class="meta">
-      September 1, 2020
+      September 2, 2020
       
     </p>
   </header>
@@ -582,7 +584,7 @@ function changeContent(event){
 <div class="series-nav">
     
       <p>
-      이 포스팅은 <b><em>Docker</em></b> 시리즈 <b><em>4</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
+      이 포스팅은 <b><em>Paper Review</em></b> 시리즈 <b><em>3</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
       </p>
       <ul class="side-nav" id="js-side_nav">
 
@@ -600,10 +602,12 @@ function changeContent(event){
       
           
           
-            <li onclick="location.href='/ds/docker/2020/09/01/Docker-01-%EA%B0%9C%EC%9A%94.html'">
-                <span>Part 1 - 01: 개요</span>
+            <li onclick="location.href='/ds/dl/2020/09/02/PaperReview-01-RCNN.html'">
+                <span>Part 1 - 01: R-CNN</span>
             </li>
           
+      
+      
       
       
       
@@ -660,19 +664,18 @@ function changeContent(event){
       
           
           
-            <li onclick="location.href='/ds/docker/2020/09/01/Docker-04-image%EC%83%9D%EC%84%B1-%EC%97%85%EB%A1%9C%EB%93%9C.html'">
-                <span>Part 3 - 03: image 생성, 업로드</span>
+            <li onclick="location.href='/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html'">
+                <span>Part 3 - 03: Fast R-CNN</span>
             </li>
           
       
       
       
-          
-          
-            <li onclick="location.href='/ds/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html'">
-                <span>Part 4 - 03: 데이터 저장 (Volume, Mount)</span>
-            </li>
-          
+      
+      
+      
+      
+      
       
       
       
@@ -981,193 +984,57 @@ function changeContent(event){
 
 
 
-  <p>Jupeter Notebook을 설치해서 사용해보자.</p>
-
-<h1 id="설치">설치</h1>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>docker
-</code></pre></div></div>
-
-<p><a href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">mac 용 도커</a> 설치하기</p>
-
-<h1 id="docker-image-download">Docker image download</h1>
-
-<ul>
-  <li><a href="https://hub.docker.com/">Docker Hub</a> 에서 원하는 docker 이미지를 다운로드</li>
-  <li>혹은 아래 예제와 같이 명령어로 다운받을 수도 있음</li>
-</ul>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull hugojuhel/notebook
-</code></pre></div></div>
-
-<p><a href="https://hub.docker.com/r/hugojuhel/notebook">사용한 이미지</a></p>
-
-<h1 id="docker-image-확인">Docker image 확인</h1>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker images
-</code></pre></div></div>
-
-<h1 id="docker-container-생성-및-실행">Docker container 생성 및 실행</h1>
+  <h2 id="핵심-아이디어">핵심 아이디어</h2>
 
 <blockquote>
-  <p>명령어는 항상 root 권한으로 실행한다.</p>
+  <p>입력 이미지의 크기나 비율에 관계없이 CNN 학습은 불가한가?</p>
 </blockquote>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-it</span> <span class="nt">--name</span> jpt <span class="nt">-v</span> ./share <span class="nt">-p</span> 28888:8888 hugojuhel/notebook /bin/bash
-</code></pre></div></div>
+<p>Fast R-CNN으로 넘어가기전 상당히 많은 아이디어를 가져온 논문이다. 이전의 R-CNN을 보게되면, proposal roi가 CNN에 들어가기 전에 입력 이미지를 바꿔주어야 하는 한계가 존재했다. 여기서 저자들은 의문을 갖는다. 이 제한 요소를 없앤 상태로 CNN을 학습시키는 것이다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb8IxbK%2FbtquUAR4pmA%2FoIzcYiAR8kkDunLCKSWwT1%2Fimg.png" alt="도커 명령어 설명" /><em>사용자 상황에 맞게 옵션 골라 사용</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdb1FzH%2FbtqASyVypzb%2FGpCrnYjeKY1Si6LjftCoO0%2Fimg.png" alt="" class="center" width="80%" /><em>SPPNet의 핵심 아이디어</em></p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">-i(interactive)</code>, <code class="language-plaintext highlighter-rouge">-t(Pseudo-try)</code> 옵션 : 실행된 Bash 셸에 입력 및 출력을 할 수 있다.</li>
-  <li><code class="language-plaintext highlighter-rouge">-v</code>, <code class="language-plaintext highlighter-rouge">--volume</code> 옵션 : host folder와 공유할 수 있다.</li>
-</ul>
+<p>사실 CNN의 입력이미지 크기는 고정될 필요가 없다. CNN의 핵심 아이디어는 filter를 가지고 연산을 수행하는 것이고, 이것의 연산 방식은 sliding window 방식으로 진행된다. 하지만, 이 입력 이미지의 크기가 고정이어야 하는 이유는, 마지막에 도출되는 fully connected layer의 크기가 고정적으로 나와야 하기 때문이다. 이 문제점으로 부터 SPPNet가 제안된다.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-it</span> <span class="nt">--name</span> jpt <span class="nt">-v</span> /Users/Choiwansik/Documents/internship/image_processing/share:/home/jovyan/share <span class="nt">-p</span> 28888:8888 hugojuhel/notebook /bin/bash
-</code></pre></div></div>
+<blockquote>
+  <p>입력 이미지 상관 없이 통과시키고, FC 전에 polling을 통해서 동일한 크기로 만들자!</p>
+</blockquote>
 
-<h1 id="jupyter-notebook-실행">jupyter notebook 실행</h1>
+<p>굉장히 단순한 방법을 제안하였다. (…) 이런 방식을 사용할 경우, 원본 이미지의 특징을 고스란히 간직한 feature map을 얻을 수 있다. 추가적으로 비율도 조절하지 않기 때문에, 사물의 크기에 따른 변화도 감지가 가능하다.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter notebook <span class="nt">--ip</span><span class="o">=</span>0.0.0.0 <span class="nt">--allow-root</span>
-</code></pre></div></div>
+<p>위의 그림을 보면 Crop 후 conv에 넣는 것이 아니고, feature map을 만든 후, 이를 SSPNet에 넣어 모양을 맞춘 후에 output을 만드는 것을 볼 수 있다.</p>
 
-<h1 id="docker-명령어">Docker 명령어</h1>
+<h2 id="알고리즘">알고리즘</h2>
 
-<p>명령어 총집합!</p>
+<ol>
+  <li>전체 이미지를 pretrained model을 통과시켜 feature map을 추출한다.</li>
+  <li>해당 feature map으로 부터 selective search를 통해 ROI를 뽑아낸다. 이 때 발생하는 ROI는 모두 크기와 비율이 다르다. 여기서 <strong><em>SSPNet</em></strong>을 적용하여 고정된 크기의 feature vector를 추출한다.</li>
+  <li>FC layer를 통과시킨다.</li>
+  <li>앞서 추출한 벡터로 각 이미지 클래스 별로 SVM을 학습시킨다.</li>
+  <li>마찬가지로 해당 벡터로 bounding box regressor를 학습시킨다.</li>
+</ol>
 
-<h4 id="프로세스-보기">프로세스 보기</h4>
+<h2 id="spatial-pyramid-pooling">Spatial Pyramid Pooling</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker ps <span class="nt">-a</span>
-</code></pre></div></div>
+<p><img src="https://lh3.googleusercontent.com/proxy/sVOitw5Jpud7QnLoR5r3TzlOWJYSEFkRCCx1MlG71WCIG5BP8I8B5EZTveQKsJ5ign3DT00vzGB5dEoYYjrfsXFbA1D6laCS" alt="" class="center" /><em>출처 : http://kaiminghe.com/eccv14sppnet/index.html</em></p>
 
-<p>-a 옵션을 사용하면 정지된 컨테이너까지 모두 출력하고, 옵션을 사용하지 않으면 실행되고 있는 컨테이너만 출력한다.</p>
+<p>그렇다면 어떤 방식으로 SPP가 돌아가는지 이해해야 한다. 먼저 CNN을 거친 feature map을 input으로 받는다. 그리고 이것을 미리 정해져 있는 영여긍로 나누어 준다. 위의 예시에서는 4x4, 2x2, 1x1 3개의 영역이 적용되어 있고, 이 각각을 하나의 피라미드라 부른다. 즉, 3개의 피라미드를 설정한 것.</p>
 
-<h4 id="컨테이너-시작하기">컨테이너 시작하기</h4>
+<p>이 피라미드는 4x4 짜리 고정된 CNN 필터 같은 것이 아니다. 어떠한 input이 들어오더라도 4x4 격자로 만든다는 표현이 더 맞는 표현이다. 예를 들어 입력이 64 x 64 x 256 크기의 피쳐 맵이 들어온다고 했을 때, 4x4의 피라미드의 bin의 크기는 16x16이 된다.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker container start hello
-</code></pre></div></div>
+<p>이제 이 각각의 bin에서 가장 큰 값만 추출하는 max pooling을 수행하고, 그 결과를 <strong>쭉 이어 붙인다</strong>. 입력 feature map의 채널 크기가 k, bin의 개수를 M이라 한다면, 해당 SSP의 output은 <code class="language-plaintext highlighter-rouge">k x M</code>의 크기를 가진 1차원의 벡터가 될 것이다.</p>
 
-<p>이름 대신 container_id를 사용해도 된다.</p>
+<h2 id="한계">한계</h2>
 
-<h4 id="컨테이너-재부팅">컨테이너 재부팅</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker container restart hello
-</code></pre></div></div>
-
-<h4 id="컨테이너-접속하기">컨테이너 접속하기</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker container attach hello
-</code></pre></div></div>
-
-<p>bash에서 <code class="language-plaintext highlighter-rouge">exit</code> 혹은 <code class="language-plaintext highlighter-rouge">Ctrl+D</code> 를 입력하면 컨테이너가 정지된다.</p>
-
-<h4 id="exec-명령으로-컨테이너-외부에서-명령-실행하기">exec 명령으로 컨테이너 외부에서 명령 실행하기</h4>
-
-<p>현재 hello 컨테이너의 bin/bash를 실행한 상태라고 가정하자. 그리고 해당 컨테이너에 접속하지 않은 상태로, hello 컨테이너 안의 명령을 실행해보자.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker container <span class="nb">exec </span>hello <span class="nb">echo</span> <span class="s2">"Hello World"</span>
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">docker container exec &lt;컨테이너 이름&gt; &lt;명령&gt; &lt;매개변수&gt;</code> 형식이다. 컨테이너 대신 컨테이너 id를 사용할 수 있다. 이 명령어는 컨테이너가 실행되고 있는 상태에서만 사용할 수 있으며 정지된 상태에서는 사용할 수 없다.</p>
-
-<p><code class="language-plaintext highlighter-rouge">docker exec</code> 명령은 이미 실행된 컨테이너에 <code class="language-plaintext highlighter-rouge">apt-get, yum</code> 과 같은 명령으로 패키지를 설치하거나 각종 데몬을 실행할 때 활용할 수 있다.</p>
-
-<h4 id="컨테이너-정지하기">컨테이너 정지하기</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker container stop hello
-</code></pre></div></div>
-
-<h4 id="컨테이너-삭제하기">컨테이너 삭제하기</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker container <span class="nb">rm </span>hello
-</code></pre></div></div>
-
-<h4 id="컨테이너-실행-상태로-빠져나오기">컨테이너 실행 상태로 빠져나오기</h4>
-
-<p>컨테이너 안에서 <code class="language-plaintext highlighter-rouge">ctrl+pq</code>을 누르면 된다.</p>
-
-<h4 id="컨테이너-내-사용자-비밀번호를-모를-때">컨테이너 내 사용자 비밀번호를 모를 때</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker container <span class="nb">exec</span> <span class="nt">-u</span> 0 <span class="nt">-it</span> jpt /bin/bash
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">-u</code>는 default user라 password를 필요로 하지 않는다.</p>
-
-<h4 id="이미지-삭제하기">이미지 삭제하기</h4>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>docker rmi ubuntu:latest
-</code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">docker rmi &lt;이미지 이름&gt;:&lt;태그&gt;</code> 형식이다. 이미지 이름 대신 id를 사용해도 된다. 태그를 주는 이유는 같은 이름 인 경우 모두 삭제되기 때문이다.</p>
-
-<h3 id="정리">정리</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">명령</th>
-      <th style="text-align: center">Code</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">버전 확인</td>
-      <td style="text-align: center">$ docker -v</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">이미지 다운로드</td>
-      <td style="text-align: center">$ docker pull [이미지 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">다운로드된 이미지 목록</td>
-      <td style="text-align: center">$ docker images</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 생성</td>
-      <td style="text-align: center">$ docker create [옵션] [이미지 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 생성 및 실행</td>
-      <td style="text-align: center">$ docker run [옵션] [이미지 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 실행</td>
-      <td style="text-align: center">$ docker start [컨테이너 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 재실행</td>
-      <td style="text-align: center">$ docker restart [컨테이너 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 접속</td>
-      <td style="text-align: center">$ docker attach [컨테이너 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 정지</td>
-      <td style="text-align: center">$ docker stop [컨테이너 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">실행중인 컨테이너 목록</td>
-      <td style="text-align: center">$ docker ps</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">정지된 컨테이너 목록</td>
-      <td style="text-align: center">$ docker ps -a</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 명 변경</td>
-      <td style="text-align: center">$ docker rename [기존 컨테이너 명] [새로운 컨테이너 명]</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">컨테이너 삭제</td>
-      <td style="text-align: center">$ docker rm [컨테이너 명]</td>
-    </tr>
-  </tbody>
-</table>
+<ol>
+  <li>여전히 multi stage model이다.</li>
+  <li>여전히 SVM, selective search를 사용한다.</li>
+  <li>feature map을 만들어내는 network를 학습시키지 못한다.</li>
+</ol>
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="https://pbj0812.tistory.com/134">[Docker] 설치, 다운로드, 실행, jupyter notebook 연동, 삭제, 기타 등등</a></p>
+<p><a href="https://www.youtube.com/watch?v=kcPAGIgBGRs&amp;list=PLWKf9beHi3Tg50UoyTe6rIm20sVQOH1br&amp;index=12">PR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks</a></p>
 
   </section>
   
@@ -1176,11 +1043,7 @@ function changeContent(event){
     
     <a class="tag" href="/tags#DS">#DS</a>
     
-    <a class="tag" href="/tags#python">#python</a>
-    
-    <a class="tag" href="/tags#docker">#docker</a>
-    
-    <a class="tag" href="/tags#Jupeter+Notebook">#Jupeter Notebook</a>
+    <a class="tag" href="/tags#paper+review">#paper review</a>
     
   </div>
 </footer>
@@ -1215,10 +1078,10 @@ function changeContent(event){
       
           
           
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/docker/2020/09/01/Docker-01-%EA%B0%9C%EC%9A%94.html';">
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/PaperReview-01-RCNN.html';">
                 <p>PREVIOUS SERIES</p>
-                <a href="/ds/docker/2020/09/01/Docker-01-%EA%B0%9C%EC%9A%94.html">
-                  01: 개요
+                <a href="/ds/dl/2020/09/02/PaperReview-01-RCNN.html">
+                  01: R-CNN
                 </a>
             </div>
           
@@ -1247,6 +1110,8 @@ function changeContent(event){
       
       
       
+      
+      
           
           
         
@@ -1274,19 +1139,22 @@ function changeContent(event){
       
           
           
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/docker/2020/09/01/Docker-04-image%EC%83%9D%EC%84%B1-%EC%97%85%EB%A1%9C%EB%93%9C.html';">
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html';">
               <p>NEXT SERIES</p>
-              <a href="/ds/docker/2020/09/01/Docker-04-image%EC%83%9D%EC%84%B1-%EC%97%85%EB%A1%9C%EB%93%9C.html">
-                03: image 생성, 업로드
+              <a href="/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html">
+                03: Fast R-CNN
               </a>
             </div>
           
         
       
       
-          
-          
-        
+      
+      
+      
+      
+      
+      
       
       
       

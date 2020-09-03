@@ -7,9 +7,8 @@ tags: [css, span, height, block]
 feature-img: "assets/img/25.jpg"
 feature-title:
 use_math: true
+summary: "text를 쓰는 데 있어 어떤 tag를 써야 하는지, 또 그랬을 때 문제는 무엇인지 알아보자."
 ---
-
-text를 쓰는 데 있어 어떤 tag를 써야 하는지, 또 그랬을 때 문제는 무엇인지 알아보자.
 
 ## text는 span 태그에 넣어서 관리한다.
 
