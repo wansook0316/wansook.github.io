@@ -1,27 +1,27 @@
 ---
 layout: post
-title: "01: R-CNN"
+title: "02: R-CNN"
 category: "DS/DL"
 comments: true
 tags: [DS, "paper review"]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
-series: "Paper Review"
-summary: "Fast R-CNN을 리뷰해본다."
+series: "Computer Vision"
+summary: "R-CNN을 리뷰해본다."
 ---
 
 # Computer Vision의 Task
 
-![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-3-638.jpg?cb=1504447138){: .center}
+![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-3-638.jpg?cb=1504447138){: .center width="80%"}
 이중 Object Detection에 해당하는 문제이다.
 
-![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-5-638.jpg?cb=1504447138){: .center}_속도가 느려보여도 정확도 측면에서 높은 것을 알 수 있다._
+![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-5-638.jpg?cb=1504447138){: .center width="80%"}_속도가 느려보여도 정확도 측면에서 높은 것을 알 수 있다._
 
 # R-CNN
 
-![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-6-638.jpg?cb=1504447138){: .center}
-![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-7-638.jpg?cb=1504447138){: .center}
+![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-6-638.jpg?cb=1504447138){: .center width="80%"}
+![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-7-638.jpg?cb=1504447138){: .center width="80%"}
 
 1. region proposal을 진행한다.
 2. CNN에 각각 넣는다. -> **느리다**, CNN을 사용하기 때문에 입력 크기가 동일해야 한다.(warpping)
@@ -30,7 +30,7 @@ summary: "Fast R-CNN을 리뷰해본다."
 
 ## Region Proposal
 
-![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-8-638.jpg?cb=1504447138){: .center}
+![](https://image.slidesharecdn.com/pr12fasterrcnn170528-170802143120/95/faster-rcnn-pr012-8-638.jpg?cb=1504447138){: .center width="80%"}
 
 initial bounding box를 selective search를 사용하여 뽑아낸다. -> 느리다.
 

@@ -2,9 +2,9 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>01:  | 완숙의 에그머니🍳</title>
+	<title>02: Spatial Pyramid Pooling Network | 완숙의 에그머니🍳</title>
 	<meta name="description"
-		content="">
+		content="핵심 아이디어">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- CSS -->
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/ds/cv/2020/09/01/opencv-copy.html">
+	<link rel="canonical" href="/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -169,8 +169,6 @@ function changeContent(event){
   <nav class="site-nav">
     <ul>
       <!--
-                
-                
                 
                 
                 
@@ -511,7 +509,6 @@ function changeContent(event){
         <li><a href="/DS/DL">Deep Learning</a></li>
         <li><a href="/DS/ML">Machine Learning</a></li>
         <li><a href="/DS/Visualization">Visualization</a></li>
-        <li><a href="/DS/CV">Computer Vision</a></li>
       </ul>
     </li>
 
@@ -555,18 +552,18 @@ function changeContent(event){
 
     <div class="content">
       <article class="feature-image">
-  <header style="background-image: url('/assets/img/41.jpg')">
-    <h1 class="title">01: </h1>
+  <header style="background-image: url('/assets/img/42.jpg')">
+    <h1 class="title">02: Spatial Pyramid Pooling Network</h1>
     
     <p class="meta">
-      DS/CV
+      DS/DL
       
-        : OpenCV
+        : Computer Vision
       
     </p>
 
     <p class="meta">
-      September 1, 2020
+      September 2, 2020
       
     </p>
   </header>
@@ -584,7 +581,7 @@ function changeContent(event){
 <div class="series-nav">
     
       <p>
-      이 포스팅은 <b><em>OpenCV</em></b> 시리즈 <b><em>1</em></b> 편 중 <b><em>1</em></b> 번째 글 입니다.
+      이 포스팅은 <b><em>Computer Vision</em></b> 시리즈 <b><em>5</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
       </p>
       <ul class="side-nav" id="js-side_nav">
 
@@ -594,10 +591,56 @@ function changeContent(event){
       
       
       
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-02-RCNN.html'">
+                <span>Part 1 - 01: R-CNN</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html'">
+                <span>Part 2 - 01: 컴퓨터 비전 용어 정리</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
           
           
             <li class="current">
-                <span>Part 1 - This Post</span>
+                <span>Part 3 - This Post</span>
             </li>
           
       
@@ -639,6 +682,12 @@ function changeContent(event){
       
       
       
+          
+          
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html'">
+                <span>Part 4 - 04: Fast R-CNN</span>
+            </li>
+          
       
       
       
@@ -650,34 +699,12 @@ function changeContent(event){
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+          
+          
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html'">
+                <span>Part 5 - 05: Faster R-CNN</span>
+            </li>
+          
       
       
       
@@ -970,14 +997,66 @@ function changeContent(event){
 
 
 
-  
+  <h2 id="핵심-아이디어">핵심 아이디어</h2>
+
+<blockquote>
+  <p>입력 이미지의 크기나 비율에 관계없이 CNN 학습은 불가한가?</p>
+</blockquote>
+
+<p>Fast R-CNN으로 넘어가기전 상당히 많은 아이디어를 가져온 논문이다. 이전의 R-CNN을 보게되면, proposal roi가 CNN에 들어가기 전에 입력 이미지를 바꿔주어야 하는 한계가 존재했다. 여기서 저자들은 의문을 갖는다. 이 제한 요소를 없앤 상태로 CNN을 학습시키는 것이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdb1FzH%2FbtqASyVypzb%2FGpCrnYjeKY1Si6LjftCoO0%2Fimg.png" alt="" class="center" width="80%" /><em>SPPNet의 핵심 아이디어</em></p>
+
+<p>사실 CNN의 입력이미지 크기는 고정될 필요가 없다. CNN의 핵심 아이디어는 filter를 가지고 연산을 수행하는 것이고, 이것의 연산 방식은 sliding window 방식으로 진행된다. 하지만, 이 입력 이미지의 크기가 고정이어야 하는 이유는, 마지막에 도출되는 fully connected layer의 크기가 고정적으로 나와야 하기 때문이다. 이 문제점으로 부터 SPPNet가 제안된다.</p>
+
+<blockquote>
+  <p>입력 이미지 상관 없이 통과시키고, FC 전에 polling을 통해서 동일한 크기로 만들자!</p>
+</blockquote>
+
+<p>굉장히 단순한 방법을 제안하였다. (…) 이런 방식을 사용할 경우, 원본 이미지의 특징을 고스란히 간직한 feature map을 얻을 수 있다. 추가적으로 비율도 조절하지 않기 때문에, 사물의 크기에 따른 변화도 감지가 가능하다.</p>
+
+<p>위의 그림을 보면 Crop 후 conv에 넣는 것이 아니고, feature map을 만든 후, 이를 SSPNet에 넣어 모양을 맞춘 후에 output을 만드는 것을 볼 수 있다.</p>
+
+<h2 id="알고리즘">알고리즘</h2>
+
+<ol>
+  <li>전체 이미지를 pretrained model을 통과시켜 feature map을 추출한다.</li>
+  <li>해당 feature map으로 부터 selective search를 통해 ROI를 뽑아낸다. 이 때 발생하는 ROI는 모두 크기와 비율이 다르다. 여기서 <strong><em>SSPNet</em></strong>을 적용하여 고정된 크기의 feature vector를 추출한다.</li>
+  <li>FC layer를 통과시킨다.</li>
+  <li>앞서 추출한 벡터로 각 이미지 클래스 별로 SVM을 학습시킨다.</li>
+  <li>마찬가지로 해당 벡터로 bounding box regressor를 학습시킨다.</li>
+</ol>
+
+<h2 id="spatial-pyramid-pooling">Spatial Pyramid Pooling</h2>
+
+<p><img src="https://lh3.googleusercontent.com/proxy/sVOitw5Jpud7QnLoR5r3TzlOWJYSEFkRCCx1MlG71WCIG5BP8I8B5EZTveQKsJ5ign3DT00vzGB5dEoYYjrfsXFbA1D6laCS" alt="" class="center" /><em>출처 : http://kaiminghe.com/eccv14sppnet/index.html</em></p>
+
+<p>그렇다면 어떤 방식으로 SPP가 돌아가는지 이해해야 한다. 먼저 CNN을 거친 feature map을 input으로 받는다. 그리고 이것을 미리 정해져 있는 영여긍로 나누어 준다. 위의 예시에서는 4x4, 2x2, 1x1 3개의 영역이 적용되어 있고, 이 각각을 하나의 피라미드라 부른다. 즉, 3개의 피라미드를 설정한 것.</p>
+
+<p>이 피라미드는 4x4 짜리 고정된 CNN 필터 같은 것이 아니다. 어떠한 input이 들어오더라도 4x4 격자로 만든다는 표현이 더 맞는 표현이다. 예를 들어 입력이 64 x 64 x 256 크기의 피쳐 맵이 들어온다고 했을 때, 4x4의 피라미드의 bin의 크기는 16x16이 된다.</p>
+
+<p>이제 이 각각의 bin에서 가장 큰 값만 추출하는 max pooling을 수행하고, 그 결과를 <strong>쭉 이어 붙인다</strong>. 입력 feature map의 채널 크기가 k, bin의 개수를 M이라 한다면, 해당 SSP의 output은 <code class="language-plaintext highlighter-rouge">k x M</code>의 크기를 가진 1차원의 벡터가 될 것이다.</p>
+
+<h2 id="한계">한계</h2>
+
+<ol>
+  <li>여전히 multi stage model이다.</li>
+  <li>여전히 SVM, selective search를 사용한다.</li>
+  <li>feature map을 만들어내는 network를 학습시키지 못한다.</li>
+</ol>
+
+<h3 id="reference">Reference</h3>
+
+<p><a href="https://www.youtube.com/watch?v=kcPAGIgBGRs&amp;list=PLWKf9beHi3Tg50UoyTe6rIm20sVQOH1br&amp;index=12">PR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks</a></p>
 
   </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#opencv">#opencv</a>
+    <a class="tag" href="/tags#DS">#DS</a>
+    
+    <a class="tag" href="/tags#paper+review">#paper review</a>
     
   </div>
 </footer>
@@ -1001,6 +1080,51 @@ function changeContent(event){
     
     
      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html">
+                  01: 컴퓨터 비전 용어 정리
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
       
       
       
@@ -1045,6 +1169,16 @@ function changeContent(event){
       
       
       
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html">
+                04: Fast R-CNN
+              </a>
+            </div>
+          
+        
       
       
       
@@ -1055,36 +1189,9 @@ function changeContent(event){
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+          
+          
+        
       
       
       

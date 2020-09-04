@@ -198,8 +198,6 @@ function changeContent(event){
                 
                 
                 
-                
-                
                 <li>
                     <a class="page-link" href="/about/">
                         About Me
@@ -463,7 +461,6 @@ function changeContent(event){
         <li><a href="/DS/DL">Deep Learning</a></li>
         <li><a href="/DS/ML">Machine Learning</a></li>
         <li><a href="/DS/Visualization">Visualization</a></li>
-        <li><a href="/DS/CV">Computer Vision</a></li>
       </ul>
     </li>
 
@@ -523,19 +520,31 @@ function changeContent(event){
 <script>
   window.store = {
     
-      "ds-dl-2020-09-02-paperreview-03-fast-rcnn-html": {
-        "title": "03: Fast R-CNN",
+      "ds-dl-2020-09-02-computer-vision-05-faster-rcnn-html": {
+        "title": "05: Faster R-CNN",
         "tags": "DS, paper review",
         "date": "September 2, 2020",
         "author": "",
         "category": "DS/DL",
-        "content": "핵심 아이디어  Feature Extraction, classification, bounding box regression까지 한번에 학습할 수 있는 모델을 만들자!Fast R-CNN은 이전 SSP Net이 가지는 한계점을 극복하는 시도에서 출발한다. SSP Net은 1) Multi stage model이고 2) FC layer 만 학습 시킬 수 있다는 한계점이 있었다.Fast R-CNN Architecture알고리즘  pretrained model로 부터 feature map을 추출한다.  Selective Search를 통해 찾은 각각의 ROI에 대해 *ROI Pooling을 진행한다. 그 결과로 고정된 크기의 feature vector를 얻는다.  feature vector는 FC layer를 통과하고 두개의 branch로 나뉜다.  하나의 branch에서는 softmax를 통과하여 해당 ROI가 어떤 물체인지 clasification을 진행한다.  다른 branch에서는 bounding box regression을 통해 selective search로 찾은 박스의 위치를 조정한다.핵심 의의는 multi stage model에서 end-to-end로 model을 구성했다는 것에 있다. 결과적으로도 속도, 정확도, 학습 속도 모두를 향상시켰다는데 의의가 있다.ROI pollingReferencePR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks",
+        "content": "핵심 아이디어  Region Proposal도 Network안에 포함시키자!Faster R-CNN의 핵심 아이디어는 Resion Proposal Network(이하 RPN)이다. 기존 Fast R-CNN구조를 계승하면서 selective search를 제거하고 RPN을 통해서 Roi를 계산한다. 이를 통해서 GPU를 통해 Roi를 계산할 수 있게 되었고, 이 RoI를 추출하는 것 역시 학습시켜 정확도를 높일 수 있다. 결과적으로 selective search가 2000개 RoI를 계산하는데 반해, 800개 정도로 더 높은 정확도를 가진다.~Faster R-CNN structure그림을 보면 알겠지만, feature map으로 부터 selective search를 거치치 않고 이를 RPN에 전달하여 계산을 진행한다. 여기서 얻은 RoI로 RoI Pooling을 진행한 다음 object detection을 진행한다.Region Proposal NetworkRegion Proposal Network structure이 그림보다는 순차적으로 된 그림으로 이해하는 것이 쉽다.Region Proposal Network structure  CNN을 통해 뽑아낸 feature map을 입력으로 받는다. 어떤 pretrained model을 사용할 지 모르므로 이를 H x W x C로 둔다.  feature map에 (3 x 3) x 256 또는 (3 x 3) x 512 conv 연산을 수행한다. 엄밀히 말하면 C와 256, 512는 같아야 한다. 일단 연산이 가능하다고 가정하자. 이 때, H x W가 보존될 수 있게 padding을 1로 설정한다.  2번의 과정에서 나온 feature map을 가지고 classification을 위한 확률값과, bounding box regression 값을 뽑아낸다. 이 과정에서 너무 많은 연산을 진행하게 되면 모델이 지나치게 무거워 진다. 저자들은 1 x 1 conv만을 수행하여 예측값을 뽑아내고자 하였다.Anchor  먼저, Classification의 경우, 더욱 가볍게 진행하기 위해 물체인지 아닌지를 구분하는 binary classification을 진행하고자 하였다. 하지만 이 문제는 bounding box와 엮어서 이를 생각해야 하는데, 저자들은 이 단계에서 Anchor라는 개념을 도입하여 이를 진행하였다. Anchor는 간단하게 사전에 정의해 둔 Box들이다. 총 9개를 사용하였다. 이 모든 내용을 정리하면, classification의 결과는 총 (H x W)의 각각의 위치에 제안된 Anchor(9개)에 대해 물체의 여부(2)를 나타내는 총 18개의 Node를 가져야 한다. 그러기 위해 (1 x 1) x (2 x 9)의 conv 연산을 진행하였다. 결과적으로 (H x W) x (2 x 9)의 Feature map이 나오고, 각각의 노드는 순서대로 (h, w) 위치에 있는 1번 anchor가 물체일 logit, (h, w) 위치에 있는 1번 anchor가 물체가 아닐 logit … 로 정의된다. 최종적으로 이를 확률 값으로 변경해주기 위해 적절히 reshape 해준 다음 Softmax를 적용한다.  두번째로 Bounding Box Regression을 진행한다. 같은 방법을 사용한다. 이번에는 9개 anchor에 대해 총 4개의 좌표를 수정하기 위한 조절값을 예측해야 하므로 (H x W) x (4 x 9)의 결과를 얻어야 한다. 이번에는 regression이기 때문에 그대로 결과값으로 사용하면 된다.  4번 5번의 과정은 순차적으로 진행된다. 즉, classification을 먼저 진행하고, 이 결과를 기반으로 물체일 확률을 sorting한다. 이 중 높은 순으로 K개의 anchor를 후보군으로 선정한다. 이 후보군에 각각 bounding Box Regression을 진행한다. 마지막으로 Non-Maximum-Suppression을 적용하고, 이것을 기반으로 RoI를 제안한다.이러한 방법을 통해서 RoI를 제안하는 Network를 만들었다. 이 후 과정은, 이렇게Reference갈아먹는 Object Detection [4] Faster R-CNN",
         
-        "url": "/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html"
+        "url": "/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html"
       }
       ,
     
-      "ds-dl-2020-09-02-paperreview-02-spatial-pyramid-pooling-network-html": {
+      "ds-dl-2020-09-02-computer-vision-04-fast-rcnn-html": {
+        "title": "04: Fast R-CNN",
+        "tags": "DS, paper review",
+        "date": "September 2, 2020",
+        "author": "",
+        "category": "DS/DL",
+        "content": "핵심 아이디어  Feature Extraction, classification, bounding box regression까지 한번에 학습할 수 있는 모델을 만들자!Fast R-CNN은 이전 SSP Net이 가지는 한계점을 극복하는 시도에서 출발한다. SSP Net은 1) Multi stage model이고 2) FC layer 만 학습 시킬 수 있다는 한계점이 있었다.Fast R-CNN Architecture알고리즘  pretrained model로 부터 feature map을 추출한다.  Selective Search를 통해 찾은 각각의 ROI에 대해 *ROI Pooling을 진행한다. 그 결과로 고정된 크기의 feature vector를 얻는다.  feature vector는 FC layer를 통과하고 두개의 branch로 나뉜다.  하나의 branch에서는 softmax를 통과하여 해당 ROI가 어떤 물체인지 clasification을 진행한다.  다른 branch에서는 bounding box regression을 통해 selective search로 찾은 박스의 위치를 조정한다.핵심 의의는 multi stage model에서 end-to-end로 model을 구성했다는 것에 있다. 결과적으로도 속도, 정확도, 학습 속도 모두를 향상시켰다는데 의의가 있다.ROI pollingRoi pooling의 아이디어는 앞서 보았던 SPP Net과 유사하다. SPP Net은, pretrained model으로 부터 도출되는 feature map으로 부터, 피라미드 filter를 거친 후 이를 vectorize 하여 고정된 개수의 vector를 얻을 수 있었다. 이 아이디어를 조금 변경하여 제시하는 것이 Roi pooling이다.ROI pooling  feature map에서 Selective search를 통해 Resion Proposal을 진행한다.  이 proposal에 Roi pooling을 진행하여 고정된 형태의 작은 feature map을 만든다.Roi pooling은, Resion Proposal을 고정된 형태의 output 모양으로 바꾼다. (H x W) 크기의 feature map을 output으로 원한다면, proposal을 이에 맞게 칸을 나눈 후, max pooling을 진행한다. 이렇게 되면 항상 같은 크기의 결과를 얻을 수 있다.Multi Task Loss딥러닝을 공부하면서 가장 새롭고 즐거웠던 부분은 손실함수 부분이었다. object detection은 기본적으로 bounding box regression과 classication을 동시에 진행해야 하는 Task이다. 그래서 예전 접근은 multi stage로 이루어졌었다. 하지만 이 Fast R-CNN에서 처음으로 이 두가지 task를 하나로 엮는 방법이 고안된다.우리는 이미지로 부터 feature map을 추출했고, 이 feature map에서 Roi를 제안 받아 Roi pooling을 통해 feature vector를 만들었다. 이제 이 벡터로 classification과 bounding box regression을 적용하여 각각의 loss를 얻어내고, 이를 back propagation하여 전체 모델을 학습시키면 된다. 이 두 Task 모두를 반영한 손실함수를 보자.각 변수 하나하나에 대해서 알아보자. 먼저, $p$ 는, Softmax를 통해 얻어낸 $K+1$ 개의 확률값이다.(이산 확률 분포) $K+1$인 이유는 K개의 object와 배경(아무 물체도 아님)을 추가한 것이다. $u$는 해당 Roi의 ground truth label 벡터이다.다음으로는 bounding box regression을 진행한다. 고정 처리된 feature map을 가지고 regression을 했을 때 결과는, 각각의 class (K + 1) 에 대해 각각 x, y, w, h를 조정하는 파라미터 $t^k$를 리턴한다. 말로 풀어보면 다음과 같다. feature map으로 부터 1번 클래스 일 때 (x, y, w, h)를 ($t_x$, $t_y$, $t_w$, $t_h$) 로 변화시켜. 2번 클래스 일때는 …(중략). 이 중에서 우리가 하고 싶은 것은, 이 결과를 바탕으로 이를 수정하는 loss function을 만들고 싶은 것이므로 이 결과들 중 ground truth에 속하는 u번째 t만 가져와서 사용한다. $v$는 ground truth bounding box 조절 값에 해당한다.그렇다면 이제 각각의 loss function에 대해서 알아보자. 먼저 classification loss 는 log loss를 사용한다. 못맞출 수록 패널티를 크게 준다.location을 담당하는 loss는 아래와 같다.bounding box를 만들기 위한 예측 조절값에서 실제 조절값을 smooth L1을 통과시킨 것의 합을 사용한다.저자들은 실험 과정에서 라벨 값과 지나치게 차이가 많이 나는 outlier가 많았고, 이런 outlier에 민감하게 반응하는 L2 loss를 그대로 사용할 경우 gradient explode현상이 발생하는 것을 확인했다고 한다. 이를 제어하기 위해 custom한 loss function을 사용했다.Backpropagation through RoI Pooling Layer이제 네트워크를 학습하면 된다. 그런데 이전의 SSP Net을 보면, feature map을 뽑아낸 후, SSP를 거쳐 나온 vector들에 대해 FC layer를 구성하고, 이 단계만 학습시켰던 것을 기억할 거다.(fine tuning) 위 논문에서 저자들은, 이미지의 특징을 추출하는 가장 중요한 역할인 CNN이 학습될 수 없다는 것에 집중한다. 즉, 어느 단계까지 fine tuning을 진행할 것인지, 또 그 fine funing을 진행할 경우 학습이 진행이 되는지(역전파가 전달이 되는지)를 이론적으로 검증한다.$x_i$라고 하는 것은 CNN을 통해 추출된 feature map에서 하나의 feature를 의미하고 이는 실수이다. 전체 Loss에 대해서 이 피쳐 값의 편미분 값을 구하면 그 값이 곧 xi에 대한 loss 값이 되며 역전파 알고리즘을 수행할 수 있다. 이제 피쳐 맵에서 RoI를 찾고 RoI Pooling을 적용하기 위해서 H x W 크기의 grid로 나눈다. 이 그리드들을 sub-window라 부르며, 위 수식에서 j란 몇번째 sub-window인지를 나타내는 인덱스이다. $y_{rj}$는 이 Roi Pooling 을 통과하여 최종적으로 얻어진 ouput의 값이며 이 역시 실수이다.Back Propagation through RoI Pooling$x_i$ 가 최종 prediction 값에 영향을 주려면 $x_i$가 속하는 모든 Roi의 sub-window 에서 해당 $x_i$가 최댓값이 되야 한다. $i^*(r, j)$란 Roi와 sub-window index j가 주어졌을 때, 최대 피쳐 값의 인덱스를 말한다.즉 수식을 보면 $[i = i^*(r, j)]$ 이렇게 표현되어 있는데, 최대 패쳐 인덱스가 내가 구하길 원하는 피쳐와 같을 때는 1을 return, 아니면 0 을 return 하라는 의미이다. 결과적으로 우리는 $\\partial L \\over \\partial y_{rj}$ 이 값을 가지고 있고, 발생하는 모든 이 값을 더해서 적용시켜주면 $x_i$에 대한 gradient를 구할 수 있다.종합하면, 우리는 앞서 구한 multitask loss를 RoI Pooling layer를 통과하여 CNN 단까지 fine-tuning 할 수 있다. 저자드은 실험을 통해서 실제로 CNN단 까지 fine tuning 하는 것이 성능 향상에 도움이 되었다는 실험 결과를 보여준다.fine tuning depth에 따른 성능 변화위 실험 결과는 fine-tuning 하는 깊이를 조절해가며 성능 변화를 실험한 것이다. CNN의 단을 깊이 학습시킬 수록 성능이 향상되었으며, 이 때 테스트에 소요되는 시간 변화는 거의 없는 것을 확인할 수 있다. 즉, CNN 단을 Object Detection에 맞게끔 fine-tuning 하는 것이 성능 향상의 키 포인트였다.의의  end-to-end 모델 제안  학습 단계 간소화  정확도, 성능 개선한계  region proposal을 selective search를 사용          이는 CPU 연산으로만 가능하기 때문에 병목이 발생      이 부분이 inference를 수행하는데 있어 가장 많은 시간을 차지함      Reference갈아먹는 Object Detection [3] Fast R-CNN",
+        
+        "url": "/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html"
+      }
+      ,
+    
+      "ds-dl-2020-09-02-computer-vision-03-spatial-pyramid-pooling-network-html": {
         "title": "02: Spatial Pyramid Pooling Network",
         "tags": "DS, paper review",
         "date": "September 2, 2020",
@@ -543,11 +552,11 @@ function changeContent(event){
         "category": "DS/DL",
         "content": "핵심 아이디어  입력 이미지의 크기나 비율에 관계없이 CNN 학습은 불가한가?Fast R-CNN으로 넘어가기전 상당히 많은 아이디어를 가져온 논문이다. 이전의 R-CNN을 보게되면, proposal roi가 CNN에 들어가기 전에 입력 이미지를 바꿔주어야 하는 한계가 존재했다. 여기서 저자들은 의문을 갖는다. 이 제한 요소를 없앤 상태로 CNN을 학습시키는 것이다.SPPNet의 핵심 아이디어사실 CNN의 입력이미지 크기는 고정될 필요가 없다. CNN의 핵심 아이디어는 filter를 가지고 연산을 수행하는 것이고, 이것의 연산 방식은 sliding window 방식으로 진행된다. 하지만, 이 입력 이미지의 크기가 고정이어야 하는 이유는, 마지막에 도출되는 fully connected layer의 크기가 고정적으로 나와야 하기 때문이다. 이 문제점으로 부터 SPPNet가 제안된다.  입력 이미지 상관 없이 통과시키고, FC 전에 polling을 통해서 동일한 크기로 만들자!굉장히 단순한 방법을 제안하였다. (…) 이런 방식을 사용할 경우, 원본 이미지의 특징을 고스란히 간직한 feature map을 얻을 수 있다. 추가적으로 비율도 조절하지 않기 때문에, 사물의 크기에 따른 변화도 감지가 가능하다.위의 그림을 보면 Crop 후 conv에 넣는 것이 아니고, feature map을 만든 후, 이를 SSPNet에 넣어 모양을 맞춘 후에 output을 만드는 것을 볼 수 있다.알고리즘  전체 이미지를 pretrained model을 통과시켜 feature map을 추출한다.  해당 feature map으로 부터 selective search를 통해 ROI를 뽑아낸다. 이 때 발생하는 ROI는 모두 크기와 비율이 다르다. 여기서 SSPNet을 적용하여 고정된 크기의 feature vector를 추출한다.  FC layer를 통과시킨다.  앞서 추출한 벡터로 각 이미지 클래스 별로 SVM을 학습시킨다.  마찬가지로 해당 벡터로 bounding box regressor를 학습시킨다.Spatial Pyramid Pooling출처 : http://kaiminghe.com/eccv14sppnet/index.html그렇다면 어떤 방식으로 SPP가 돌아가는지 이해해야 한다. 먼저 CNN을 거친 feature map을 input으로 받는다. 그리고 이것을 미리 정해져 있는 영여긍로 나누어 준다. 위의 예시에서는 4x4, 2x2, 1x1 3개의 영역이 적용되어 있고, 이 각각을 하나의 피라미드라 부른다. 즉, 3개의 피라미드를 설정한 것.이 피라미드는 4x4 짜리 고정된 CNN 필터 같은 것이 아니다. 어떠한 input이 들어오더라도 4x4 격자로 만든다는 표현이 더 맞는 표현이다. 예를 들어 입력이 64 x 64 x 256 크기의 피쳐 맵이 들어온다고 했을 때, 4x4의 피라미드의 bin의 크기는 16x16이 된다.이제 이 각각의 bin에서 가장 큰 값만 추출하는 max pooling을 수행하고, 그 결과를 쭉 이어 붙인다. 입력 feature map의 채널 크기가 k, bin의 개수를 M이라 한다면, 해당 SSP의 output은 k x M의 크기를 가진 1차원의 벡터가 될 것이다.한계  여전히 multi stage model이다.  여전히 SVM, selective search를 사용한다.  feature map을 만들어내는 network를 학습시키지 못한다.ReferencePR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks",
         
-        "url": "/ds/dl/2020/09/02/PaperReview-02-Spatial-Pyramid-Pooling-Network.html"
+        "url": "/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html"
       }
       ,
     
-      "ds-dl-2020-09-02-paperreview-01-rcnn-html": {
+      "ds-dl-2020-09-02-computer-vision-02-rcnn-html": {
         "title": "01: R-CNN",
         "tags": "DS, paper review",
         "date": "September 2, 2020",
@@ -555,7 +564,19 @@ function changeContent(event){
         "category": "DS/DL",
         "content": "Computer Vision의 Task이중 Object Detection에 해당하는 문제이다.속도가 느려보여도 정확도 측면에서 높은 것을 알 수 있다.R-CNN  region proposal을 진행한다.  CNN에 각각 넣는다. -&gt; 느리다, CNN을 사용하기 때문에 입력 크기가 동일해야 한다.(warpping)  CNN의 마지막 feature map에서 SVM을 사용하여 구분한다.  또한 입력으로 주어진 bounding box를 조정하기 위해 regression을 진행한다.Region Proposalinitial bounding box를 selective search를 사용하여 뽑아낸다. -&gt; 느리다.Training  pretrained model = alexnet for ImageNet classification dataset          이미지넷에서 사전 훈련된 알렉스 넷을 사용했다. 마지막단을 잘라서 사용한다.        가지고 있는 데이터를 넣어서 훈련한다.  여기서 발생한 마지막 feature map을 가지고 와서 classification, bounding box regression 을 진행한다.이러한 방법은, 두가지 문제를 발생시킨다.  속도  마지막 단의 feature map을 사용하기 때문에 back propagation을 통한 학습이 불가하다.Bounding-Box RegressionBox는 centerX, centerY, Width, Height로 표현된다.우리의 목적은 $P^i$ 박스를 최대한 G에 가깝게 이동시키는 함수를 학습시키는 것이다. 이를 표현해보면 다음과 같다.x, y의 경우는 평행이동이 연산의 전부이기 때문에 linear 연산으로 처리가 가능하다. 반면 너비와 높이는 확대, 축소 변환이 필요하다. 단순한 확대 축소 연산을 사용하게 되면, 추후에 backpropagation을 통한 학습이 어려워지기 때문에 여기서는 exp를 사용했다.왜 굳이 식을 이렇게 만들었냐 보다는, 이러한 방식으로 제안을 하려고 했다고 생각해보자. P에 대한 변수는 초기에 제안하는 것이므로, 우리는 함수 $d_*(P)$ 가 어떤 녀석인지 아는 것이 목표이다. 그리고 이 함수를 알아내는 과정은 deep learning network를 사용하여 만들 것이다.여기서 $\\phi_5(P)$는 pretraioned model의 가장 마지막 feature map을 의미한다. 결국 feature맵에 선형 연산을 추가하여 원하는 함수를 구한다.그렇다면, 이제는 문제가 변화했다. ground truth에서 발생하는 함수와 제안된 방법의 함수 $w^T_* \\phi_5(P)$ 의 가중치 $w^T_*$ 를 구하는 문제이다.ground truth에서 발생하는 값인 $t^i_*$는 각각의 사진 한장에 대해서 고정되어 있다. 이를 반영한 손실 함수는 다음과 같다. 저자들은 람다를 1000으로 설정하였다.한계  느리다.  SVM은 CNN을 훈련시키지 못한다.  Multostage Training Pipeline이다.ReferencePR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks",
         
-        "url": "/ds/dl/2020/09/02/PaperReview-01-RCNN.html"
+        "url": "/ds/dl/2020/09/02/computer-vision-02-RCNN.html"
+      }
+      ,
+    
+      "ds-dl-2020-09-02-computer-vision-01-ec-9a-a9-ec-96-b4-ec-a0-95-eb-a6-ac-html": {
+        "title": "01: 컴퓨터 비전 용어 정리",
+        "tags": "DS, paper review, terms",
+        "date": "September 2, 2020",
+        "author": "",
+        "category": "DS/DL",
+        "content": "Descripter  이미지를 비교하기 위해 동일한 방법을 통해 하나의 비교 대상으로 만드는 것descripter두 가지 이미지가 있다. 이 두가지 이미지가 비슷한지 아닌지를 구분하기 위해 만든 것이 descripter이다. 위의 그림에서는 픽셀의 값들을 기반으로 gradients를 구해 이를 grid에 plot하여 표현하였다. 여기서 이 gradients를 descripter로 사용했다고 말한다.HOG algorithm예를 들어 HOG 알고리즘은 각 pixel에서 gradient를 구하고 이 값들을 총 8가지 방향으로 매핑한 후, 히스토그램을 생성한다. 이렇게 추출돈 Feature vector는 keypoint이고 이를 기반으로 bounding box등을 만드는데 활용한다. 요즘은 이 feature mapCNN을 통해 생성한다.Region Proposal  이미지로부터 영역을 선택하기 위해 사용되는 알고리즘기존의 sliding window방식은 매우 비효율적이었고, 이를 개선한 방법이다. “물체가 있을 법한” 영역을 빠른 속도로 찾아내는 알고리즘이다. 보편적으로 selective search, edge box algorithm이 있다. 하지만 이 역시도 추후에 end-to-end 방식으로 개선된다.RoI(Region of Interest)  이미지내에서의 관심 영역원래 input에서 잘라낸 관심 영역들을 RoI라 한다.Caption generation  이미지로 부터 문장을 생성하는 것이 연구는 Human-object interaction에 기초하여 연구되고 있다.Smooth L1 LossL1, L2 Loss는 생략하였다. 수식에서의 x는 $|y-\\hat{y}|$로 정답 label과 차이이다. 오차가 작은 부분은 제곱을 사용했고, 그렇지 않은 부분에서는 직선을 사용했다. 이러한 방식은 L1 Loss와 L2 Loss의 장점을 결합한 형태이다. 즉, error가 클경우 안정적으로 loss를 감소시키고($x$), 작을 경우에는 L2 Loss를 사용하여 업데이트 과정중 진동을 감소시킨다.IOU (Intersection over union)  예측한 bounding box와 ground truth box간의 겹치는 넓이 비율IOU이것은 사진으로 직관적으로 이해할 수 있다.Ablation study  기존 모델에서 feature를 제거하면서 영향력을 확인하는 것여기서 feature는 변수보다는 network, layer등을 말한다.Jittered examples  IoU를 기준으로 사용하겠다고 판단한 bounding boxbounding box regression을 진행한 후에 각각의 proposal에 대해 예측한 결과 중 학습에 재사용하기 위한 샘플을 걸러낼 때 사용되는 개념이다. 예를 들어 IoU가 0.5이상 인 샘플을 positive sample이라 정의할 경우, 이 샘플을 Jittered examples이라 한다.Non-maximum suppression (NMS)  동일한 클래스라 판명된 bounding box들 중 중복을 제거하는 방법Non-maximum suppression (NMS)알고리즘은 다음과 같다.  동일한 클래스에 대해 검출된 bounding box들을 confidence 순서로 정렬한다.  가장 confidence가 높은 bounding box와 IoU가 일정 이상인 bounding box는 동일 물체를 detect했다 판단하여 지운다.          가장 confidence높은것만 남기고 보통 0.5이상 box들을 지운다.      OHEM (Online Hard Example Mining)먼저, Hard Example과 Easy Example의 개념부터 알아보자. 사람인지 아닌지를 분류하는 모델이 있다고 하자. 우리의 목적은 이 모델을 훈련시키는 것이다. 대부분의 사람 이미지는 분류하도록 만들었다. 하지만 사람 동상과 같은 샘플에 대해서는 모델이 구분하기 어려울 것이다. 이러한 상황에서 일반적으로 잘 동작하는 샘플을 Easy Example, 사람 동상 이미지를 Hard Example 이라 한다. 이런 것들을 제대로 훈련하기 위해서는 Hard Example에 대해 가중치를 주거나 해서 모델을 훈련시켜야 할 것이다.다음은 positive와 negative에 대한 개념이다. positive는 문제에서 내가 원하는 클래스를 의미한다. positive sample은 bounding box의 label이 사람인 것을 의미하고, negative sample은 배경임을 의미한다.그렇다면 hard negative란, 실제로는 배경인데, 사람이라고 예측한 sample이다. 반대로 easy negative는 실제로 배경이며 배경으로 예측했음을 의미한다.즉, hard negative sample은, 네거티브 샘플이라고 보기 어렵다라는 의미이다. 해당 샘플에 대해 배경이라고 말해야 하는데, confidence는 높게 나오는 상황을 말한다.우리가 알아볼 object detection문제에서는 resion proposal을 통해 여러가지 후보를 선택하게 된다. 이 후보군의 대부분은 배경이라고 말해야 하는 easy negative sample이 차지하고 있다. 또한 사람이라고 말해야 하는 positive sample의 개수는 매우 부족하다. 보통 이러한 상황에서는 모집단의 balance를 맞추는 resampling을 진행하거나, boosting알고리즘으로 진행하게 된다. 하지만 이것은 label의 불균형을 알고있고, 이를 처리할 수 있을 때 가능하다. detection문제는 후보군의 label을 모르기 때문에 이 방법은 사용할 수 없다. 그렇다면 만약 이 상황에서 그대로 훈련을 진행하게 되면, easy negative sample의 양이 너무 많기 때문에 배경을 배경이라 하는 예측만이 대다수를 이루고, 이에 대해서만 학습을 진행하게 된다.Cross Entropy &amp; Binary Cross Entropy일반적으로 Classification에서 사용하는 Loss 함수는 Cross Entropy 이다. 이러한 imbalance를 고려하여 업데이트를 하지 않기 때문에, 기존의 방식을 사용할 경우, background만 잘 맞추는 요상한 모델이 결과로 도출된다.OHEM (Online Hard Example Mining)우리는 결과적으로 배경은 배경이라하고, 사람은 사람이라고 하는 좋은 모델을 제작해야 한다. 그러기 위해서는 후보군의 대부분을 차지하고 있는 easy negative sample에 대해서 업데이트는 줄이고, 배경인데 배경이 아니라고 하는 hard negative sample에 대해 주된 업데이트를 진행해야 한다. 이를 위해 제안된 방법이 OHEM (Online Hard Example Mining)이다. 결과적으로 positive sample과 hard negative sample을 가지고 문제를 해결한다. 이와 같은 불균형 문제를 Class Imbalance라 한다.Focal Loss위의 OHEM과 비슷하게 class Imbalance를 해결하기 위한 방법이다. loss function을 수정하여 이를 해결한다.이런 loss funtion을 이해하는 가장 좋은 방법은 양 극단치를 넣어보는 것이다. y=1일 경우, ground truth가 사람인 경우에는 해당 class가 나올 확률을 그대로 넣어준다. 즉 $p_t = p$ 이다. 그렇다면 만약 잘 맞췄을 경우에는 loss가 0에 가까워진다. 결과적으로 postitive에 대해 잘 예측할 경우 loss를 작게 주고, 그렇지 않은 경우 loss를 크게 준다.y!=1인 경우, $p_t = 1-p$이고, 그렇게 될 경우 $FL(p_t) = -p\\gamma log(1-p)$이다. cross entropy식에서 앞항과 뒤 항의 변형을 통해 log함수가 가지는 특징을 사용했다. 잘 예측할 경우 loss를 크게 주고, 그렇지 않을 경우 loss를 작게준다. 다만 log 함수에 엮여 있는 부분은 잘 예측했을 경우에 더 큰 loss값을 주게 되므로, 이 식의 의도는, 너무 잘 예측하는 데이터(p가 계속 너무 높게 나옴)의 영향력을 줄이기 위한 것이 강하다. 실제로 OHEM 보다 성능이 더 좋다고 한다.Contextual feature2d image에서 contextual based classification은 pixel의 주변 neighborhood 과의 relationship에 초점을 맞춘 approach를 뜻한다. 즉, 어떤 특정 pixel의 contextual feature는 주변 pixel들과의 relationship에 기반해서 추출한 feature를 뜻한다.Reference컴퓨터비전에서의 기본 용어 및 개념 정리",
+        
+        "url": "/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html"
       }
       ,
     
@@ -616,18 +637,6 @@ function changeContent(event){
         "content": "도커란? (되게 귀엽다)개념  개발자와 시스템 관리자가 컨테이너 기술을 사용하여 어플리케이션을 개발, 배포, 실행하기 위한 플랫폼컨테이너 기술을 리눅스에서 사용되던 기술이다. 이 때, 이 기술을 사용하여 응용프로그램을 배포하는 것을 컨테이화 시킨 것이다. 새로운 기술은 아니지만, 이를 통해 매우 편리하고 간편하게 배포하는 것이 가능하다.컨테이너 기술은 아래와 같은 특징들이 있다.  유연성 (Flexible) : 복잡한 어플리케이션들도 모두 컨테이너화 할 수 있다.  경량화 (Lightweight) : 컨테이너는 호스트 커널을 활용하고 공유한다.  변화 관리 편의성 (InterChangeable) : 업데이트 및 업그레이드를 즉시 배포할 수 있다.  포터블 (Portable) : 로컬로 구축하고, 클라우드와 가상화에 배치가 가능하고, 어디서나 실행할 수 있다.  확장성 (Scalable) : 컨테이너 복제본을 늘리고 자동 배포가 가능하다.  스택화 (Stackable) : 서비스들에 대한 수직적 또는 수평적 디자인이 매우 용이하다.어마무시한 도커 사용량이미지와 컨테이너docker contatiner  이미지          코드, 런타임, 라이브러리, 환경 변수 및 구성 파일 등 응용프로그램을 실행하는 데 필요한 모든 것을 포함하는 실행가능 패키지        컨테이너          이미지의 런타임 인스턴스      이 두개의 개념은 도커를 이해하는 데 매우 중요하다. class는 instance의 설계도이다. 마찬가지로 이 class에 해당하는 것이 바로 image이며, 이를 메모리단에 올린 것을 container라 한다.컨테이너의 동작 방식가상 머신과 도커의 차이점기존에 사용하던 가상 머신은, Host OS위에 Guest OS를 얹어 사용하는 방식이다. 사용법은 간단하지만 느리다라는 치명적인 단점을 갖고 있다.이러한 상황을 개선하기 위해 CPU 가상화 기술을 사용한 KVM(Kernel-based Virtual Machine)이 등장했다. 하지만 여전히 성능 문제가 있었다. 이를 해결한 것이 Docker contatiner이다. 이는 바로 Host OS위에서 격리만하여 프로세스를 처리하는 방식이다.Reference초보를 위한 도커 안내서 - 도커란 무엇인가?",
         
         "url": "/ds/docker/2020/09/01/Docker-01-%EA%B0%9C%EC%9A%94.html"
-      }
-      ,
-    
-      "ds-cv-2020-09-01-opencv-copy-html": {
-        "title": "01: ",
-        "tags": "opencv",
-        "date": "September 1, 2020",
-        "author": "",
-        "category": "DS/CV",
-        "content": "",
-        
-        "url": "/ds/cv/2020/09/01/opencv-copy.html"
       }
       ,
     

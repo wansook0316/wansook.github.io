@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "02: Spatial Pyramid Pooling Network"
+title: "03: Spatial Pyramid Pooling Network"
 category: "DS/DL"
 comments: true
 tags: [DS, "paper review"]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
-series: "Paper Review"
+series: "Computer Vision"
 summary: "Spatial Pyramid Pooling Network을 리뷰해본다."
 ---
 

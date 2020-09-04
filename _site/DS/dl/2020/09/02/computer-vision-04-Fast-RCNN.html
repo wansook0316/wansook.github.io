@@ -2,7 +2,7 @@
 <html class="no-js">
   <head>
 	<meta charset="utf-8">
-	<title>02: Spatial Pyramid Pooling Network | 완숙의 에그머니🍳</title>
+	<title>04: Fast R-CNN | 완숙의 에그머니🍳</title>
 	<meta name="description"
 		content="핵심 아이디어">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
 	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
 	<!-- Canonical -->
-	<link rel="canonical" href="/ds/dl/2020/09/02/PaperReview-02-Spatial-Pyramid-Pooling-Network.html">
+	<link rel="canonical" href="/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳"
@@ -169,8 +169,6 @@ function changeContent(event){
   <nav class="site-nav">
     <ul>
       <!--
-                
-                
                 
                 
                 
@@ -511,7 +509,6 @@ function changeContent(event){
         <li><a href="/DS/DL">Deep Learning</a></li>
         <li><a href="/DS/ML">Machine Learning</a></li>
         <li><a href="/DS/Visualization">Visualization</a></li>
-        <li><a href="/DS/CV">Computer Vision</a></li>
       </ul>
     </li>
 
@@ -556,12 +553,12 @@ function changeContent(event){
     <div class="content">
       <article class="feature-image">
   <header style="background-image: url('/assets/img/42.jpg')">
-    <h1 class="title">02: Spatial Pyramid Pooling Network</h1>
+    <h1 class="title">04: Fast R-CNN</h1>
     
     <p class="meta">
       DS/DL
       
-        : Paper Review
+        : Computer Vision
       
     </p>
 
@@ -584,7 +581,7 @@ function changeContent(event){
 <div class="series-nav">
     
       <p>
-      이 포스팅은 <b><em>Paper Review</em></b> 시리즈 <b><em>3</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
+      이 포스팅은 <b><em>Computer Vision</em></b> 시리즈 <b><em>5</em></b> 편 중 <b><em>4</em></b> 번째 글 입니다.
       </p>
       <ul class="side-nav" id="js-side_nav">
 
@@ -598,14 +595,66 @@ function changeContent(event){
       
       
       
-      
-      
           
           
-            <li onclick="location.href='/ds/dl/2020/09/02/PaperReview-01-RCNN.html'">
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-02-RCNN.html'">
                 <span>Part 1 - 01: R-CNN</span>
             </li>
           
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html'">
+                <span>Part 2 - 01: 컴퓨터 비전 용어 정리</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html'">
+                <span>Part 3 - 02: Spatial Pyramid Pooling Network</span>
+            </li>
+          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       
@@ -636,7 +685,7 @@ function changeContent(event){
           
           
             <li class="current">
-                <span>Part 2 - This Post</span>
+                <span>Part 4 - This Post</span>
             </li>
           
       
@@ -650,48 +699,12 @@ function changeContent(event){
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
           
           
-            <li onclick="location.href='/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html'">
-                <span>Part 3 - 03: Fast R-CNN</span>
+            <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html'">
+                <span>Part 5 - 05: Faster R-CNN</span>
             </li>
           
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
       
       
@@ -987,54 +1000,118 @@ function changeContent(event){
   <h2 id="핵심-아이디어">핵심 아이디어</h2>
 
 <blockquote>
-  <p>입력 이미지의 크기나 비율에 관계없이 CNN 학습은 불가한가?</p>
+  <p>Feature Extraction, classification, bounding box regression까지 한번에 학습할 수 있는 모델을 만들자!</p>
 </blockquote>
 
-<p>Fast R-CNN으로 넘어가기전 상당히 많은 아이디어를 가져온 논문이다. 이전의 R-CNN을 보게되면, proposal roi가 CNN에 들어가기 전에 입력 이미지를 바꿔주어야 하는 한계가 존재했다. 여기서 저자들은 의문을 갖는다. 이 제한 요소를 없앤 상태로 CNN을 학습시키는 것이다.</p>
+<p>Fast R-CNN은 이전 SSP Net이 가지는 한계점을 극복하는 시도에서 출발한다. SSP Net은 1) Multi stage model이고 2) FC layer 만 학습 시킬 수 있다는 한계점이 있었다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdb1FzH%2FbtqASyVypzb%2FGpCrnYjeKY1Si6LjftCoO0%2Fimg.png" alt="" class="center" width="80%" /><em>SPPNet의 핵심 아이디어</em></p>
-
-<p>사실 CNN의 입력이미지 크기는 고정될 필요가 없다. CNN의 핵심 아이디어는 filter를 가지고 연산을 수행하는 것이고, 이것의 연산 방식은 sliding window 방식으로 진행된다. 하지만, 이 입력 이미지의 크기가 고정이어야 하는 이유는, 마지막에 도출되는 fully connected layer의 크기가 고정적으로 나와야 하기 때문이다. 이 문제점으로 부터 SPPNet가 제안된다.</p>
-
-<blockquote>
-  <p>입력 이미지 상관 없이 통과시키고, FC 전에 polling을 통해서 동일한 크기로 만들자!</p>
-</blockquote>
-
-<p>굉장히 단순한 방법을 제안하였다. (…) 이런 방식을 사용할 경우, 원본 이미지의 특징을 고스란히 간직한 feature map을 얻을 수 있다. 추가적으로 비율도 조절하지 않기 때문에, 사물의 크기에 따른 변화도 감지가 가능하다.</p>
-
-<p>위의 그림을 보면 Crop 후 conv에 넣는 것이 아니고, feature map을 만든 후, 이를 SSPNet에 넣어 모양을 맞춘 후에 output을 만드는 것을 볼 수 있다.</p>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20200219160147/fast-RCNN1.png" alt="" class="center" width="80%" /><em>Fast R-CNN Architecture</em></p>
 
 <h2 id="알고리즘">알고리즘</h2>
 
 <ol>
-  <li>전체 이미지를 pretrained model을 통과시켜 feature map을 추출한다.</li>
-  <li>해당 feature map으로 부터 selective search를 통해 ROI를 뽑아낸다. 이 때 발생하는 ROI는 모두 크기와 비율이 다르다. 여기서 <strong><em>SSPNet</em></strong>을 적용하여 고정된 크기의 feature vector를 추출한다.</li>
-  <li>FC layer를 통과시킨다.</li>
-  <li>앞서 추출한 벡터로 각 이미지 클래스 별로 SVM을 학습시킨다.</li>
-  <li>마찬가지로 해당 벡터로 bounding box regressor를 학습시킨다.</li>
+  <li>pretrained model로 부터 feature map을 추출한다.</li>
+  <li>Selective Search를 통해 찾은 각각의 ROI에 대해 <strong>*ROI Pooling</strong>을 진행한다. 그 결과로 고정된 크기의 feature vector를 얻는다.</li>
+  <li>feature vector는 FC layer를 통과하고 두개의 branch로 나뉜다.</li>
+  <li>하나의 branch에서는 softmax를 통과하여 해당 ROI가 어떤 물체인지 clasification을 진행한다.</li>
+  <li>다른 branch에서는 bounding box regression을 통해 selective search로 찾은 박스의 위치를 조정한다.</li>
 </ol>
 
-<h2 id="spatial-pyramid-pooling">Spatial Pyramid Pooling</h2>
+<p>핵심 의의는 multi stage model에서 end-to-end로 model을 구성했다는 것에 있다. 결과적으로도 속도, 정확도, 학습 속도 모두를 향상시켰다는데 의의가 있다.</p>
 
-<p><img src="https://lh3.googleusercontent.com/proxy/sVOitw5Jpud7QnLoR5r3TzlOWJYSEFkRCCx1MlG71WCIG5BP8I8B5EZTveQKsJ5ign3DT00vzGB5dEoYYjrfsXFbA1D6laCS" alt="" class="center" /><em>출처 : http://kaiminghe.com/eccv14sppnet/index.html</em></p>
+<h2 id="roi-polling">ROI polling</h2>
 
-<p>그렇다면 어떤 방식으로 SPP가 돌아가는지 이해해야 한다. 먼저 CNN을 거친 feature map을 input으로 받는다. 그리고 이것을 미리 정해져 있는 영여긍로 나누어 준다. 위의 예시에서는 4x4, 2x2, 1x1 3개의 영역이 적용되어 있고, 이 각각을 하나의 피라미드라 부른다. 즉, 3개의 피라미드를 설정한 것.</p>
+<p>Roi pooling의 아이디어는 앞서 보았던 SPP Net과 유사하다. SPP Net은, pretrained model으로 부터 도출되는 feature map으로 부터, 피라미드 filter를 거친 후 이를 vectorize 하여 고정된 개수의 vector를 얻을 수 있었다. 이 아이디어를 조금 변경하여 제시하는 것이 Roi pooling이다.</p>
 
-<p>이 피라미드는 4x4 짜리 고정된 CNN 필터 같은 것이 아니다. 어떠한 input이 들어오더라도 4x4 격자로 만든다는 표현이 더 맞는 표현이다. 예를 들어 입력이 64 x 64 x 256 크기의 피쳐 맵이 들어온다고 했을 때, 4x4의 피라미드의 bin의 크기는 16x16이 된다.</p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmF4V0%2FbtqAVGST2nx%2FNhjfsG6vd89TgIK5bn2Ha0%2Fimg.png" alt="" class="center" width="80%" /><em>ROI pooling</em></p>
 
-<p>이제 이 각각의 bin에서 가장 큰 값만 추출하는 max pooling을 수행하고, 그 결과를 <strong>쭉 이어 붙인다</strong>. 입력 feature map의 채널 크기가 k, bin의 개수를 M이라 한다면, 해당 SSP의 output은 <code class="language-plaintext highlighter-rouge">k x M</code>의 크기를 가진 1차원의 벡터가 될 것이다.</p>
+<ol>
+  <li>feature map에서 Selective search를 통해 Resion Proposal을 진행한다.</li>
+  <li>이 proposal에 Roi pooling을 진행하여 고정된 형태의 작은 feature map을 만든다.</li>
+</ol>
+
+<p>Roi pooling은, Resion Proposal을 고정된 형태의 output 모양으로 바꾼다. (H x W) 크기의 feature map을 output으로 원한다면, proposal을 이에 맞게 칸을 나눈 후, max pooling을 진행한다. 이렇게 되면 항상 같은 크기의 결과를 얻을 수 있다.</p>
+
+<h2 id="multi-task-loss">Multi Task Loss</h2>
+
+<p>딥러닝을 공부하면서 가장 새롭고 즐거웠던 부분은 손실함수 부분이었다. object detection은 기본적으로 bounding box regression과 classication을 동시에 진행해야 하는 Task이다. 그래서 예전 접근은 multi stage로 이루어졌었다. 하지만 이 Fast R-CNN에서 처음으로 이 두가지 task를 하나로 엮는 방법이 고안된다.</p>
+
+<p>우리는 이미지로 부터 feature map을 추출했고, 이 feature map에서 Roi를 제안 받아 Roi pooling을 통해 feature vector를 만들었다. 이제 이 벡터로 classification과 bounding box regression을 적용하여 각각의 loss를 얻어내고, 이를 back propagation하여 전체 모델을 학습시키면 된다. 이 두 Task 모두를 반영한 손실함수를 보자.</p>
+
+<script type="math/tex; mode=display">L(p, u, t^u, v) = L_{cls}(p, u) + \lambda[u \ge 1]L_{loc}(t^u, v)</script>
+
+<p>각 변수 하나하나에 대해서 알아보자. 먼저, $p$ 는, Softmax를 통해 얻어낸 $K+1$ 개의 확률값이다.(이산 확률 분포) $K+1$인 이유는 K개의 object와 배경(아무 물체도 아님)을 추가한 것이다. $u$는 해당 Roi의 ground truth label 벡터이다.</p>
+
+<script type="math/tex; mode=display">p = (p_0, ..., p_n,..., p_k)\\
+u = (0, ..., 1, ..., 0)</script>
+
+<p>다음으로는 <a href="https://wansook0316.github.io/ds/dl/2020/09/02/PaperReview-01-RCNN.html">bounding box regression</a>을 진행한다. 고정 처리된 feature map을 가지고 regression을 했을 때 결과는, 각각의 class (K + 1) 에 대해 각각 x, y, w, h를 조정하는 파라미터 $t^k$를 리턴한다. 말로 풀어보면 다음과 같다. feature map으로 부터 1번 클래스 일 때 (x, y, w, h)를 ($t_x$, $t_y$, $t_w$, $t_h$) 로 변화시켜. 2번 클래스 일때는 …(중략). 이 중에서 우리가 하고 싶은 것은, 이 결과를 바탕으로 이를 수정하는 loss function을 만들고 싶은 것이므로 이 결과들 중 ground truth에 속하는 u번째 t만 가져와서 사용한다. $v$는 ground truth bounding box 조절 값에 해당한다.</p>
+
+<script type="math/tex; mode=display">t^k = (t^k_x, t^k_y, t^k_w, t^k_h)\\
+t^u = (t^u_x, t^u_y, t^u_w, t^u_h)\\</script>
+
+<p>그렇다면 이제 각각의 loss function에 대해서 알아보자. 먼저 classification loss 는 log loss를 사용한다. 못맞출 수록 패널티를 크게 준다.</p>
+
+<script type="math/tex; mode=display">L_{cls}(p, u) = -logp_u</script>
+
+<p><code class="language-plaintext highlighter-rouge">location</code>을 담당하는 loss는 아래와 같다.</p>
+
+<script type="math/tex; mode=display">L_{loc}(t^u, v) = \sum_{i \in {x, y, w, h}}smooth_{L_1}(t^u_i - v_i)</script>
+
+<p>bounding box를 만들기 위한 예측 조절값에서 실제 조절값을 smooth L1을 통과시킨 것의 합을 사용한다.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+smooth_{L_1}(x) =
+
+\begin{cases}
+0.5x^2 & \mbox {if }\left| x \right| < 1 \mbox{ is even} \\
+\left| x \right|-0.5 & otherwise
+\end{cases} %]]></script>
+
+<p>저자들은 실험 과정에서 라벨 값과 지나치게 차이가 많이 나는 <code class="language-plaintext highlighter-rouge">outlier</code>가 많았고, 이런 <code class="language-plaintext highlighter-rouge">outlier</code>에 민감하게 반응하는 L2 loss를 그대로 사용할 경우 <code class="language-plaintext highlighter-rouge">gradient explode</code>현상이 발생하는 것을 확인했다고 한다. 이를 제어하기 위해 custom한 loss function을 사용했다.</p>
+
+<h2 id="backpropagation-through-roi-pooling-layer">Backpropagation through RoI Pooling Layer</h2>
+
+<p>이제 네트워크를 학습하면 된다. 그런데 이전의 SSP Net을 보면, <code class="language-plaintext highlighter-rouge">feature map</code>을 뽑아낸 후, SSP를 거쳐 나온 vector들에 대해 FC layer를 구성하고, 이 단계만 학습시켰던 것을 기억할 거다.(fine tuning) 위 논문에서 저자들은, 이미지의 특징을 추출하는 가장 중요한 역할인 CNN이 학습될 수 없다는 것에 집중한다. 즉, 어느 단계까지 fine tuning을 진행할 것인지, 또 그 fine funing을 진행할 경우 학습이 진행이 되는지(역전파가 전달이 되는지)를 이론적으로 검증한다.</p>
+
+<script type="math/tex; mode=display">{\partial L \over \partial x_i } = \sum_r \sum_j [i = i^*(r, j)]{\partial L \over \partial y_{rj} }</script>
+
+<p>$x_i$라고 하는 것은 CNN을 통해 추출된 <code class="language-plaintext highlighter-rouge">feature map</code>에서 하나의 <code class="language-plaintext highlighter-rouge">feature</code>를 의미하고 이는 실수이다. 전체 Loss에 대해서 이 피쳐 값의 편미분 값을 구하면 그 값이 곧 xi에 대한 loss 값이 되며 역전파 알고리즘을 수행할 수 있다. 이제 피쳐 맵에서 RoI를 찾고 <code class="language-plaintext highlighter-rouge">RoI Pooling</code>을 적용하기 위해서 <code class="language-plaintext highlighter-rouge">H x W</code> 크기의 grid로 나눈다. 이 그리드들을 <code class="language-plaintext highlighter-rouge">sub-window</code>라 부르며, 위 수식에서 <code class="language-plaintext highlighter-rouge">j</code>란 몇번째 <code class="language-plaintext highlighter-rouge">sub-window</code>인지를 나타내는 인덱스이다. $y_{rj}$는 이 <code class="language-plaintext highlighter-rouge">Roi Pooling</code> 을 통과하여 최종적으로 얻어진 ouput의 값이며 이 역시 실수이다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcHlzBy%2FbtqAThsNYhK%2FVKc46d2mKurHG7foMCN2wk%2Fimg.png" alt="" class="center" width="60%" /><em>Back Propagation through RoI Pooling</em></p>
+
+<p>$x_i$ 가 최종 <code class="language-plaintext highlighter-rouge">prediction</code> 값에 영향을 주려면 $x_i$가 속하는 모든 <code class="language-plaintext highlighter-rouge">Roi</code>의 <code class="language-plaintext highlighter-rouge">sub-window</code> 에서 해당 $x_i$가 최댓값이 되야 한다. $i^*(r, j)$란 <code class="language-plaintext highlighter-rouge">Roi</code>와 <code class="language-plaintext highlighter-rouge">sub-window index j</code>가 주어졌을 때, 최대 피쳐 값의 인덱스를 말한다.</p>
+
+<p>즉 수식을 보면 $[i = i^*(r, j)]$ 이렇게 표현되어 있는데, 최대 패쳐 인덱스가 내가 구하길 원하는 피쳐와 같을 때는 1을 return, 아니면 0 을 return 하라는 의미이다. 결과적으로 우리는 $\partial L \over \partial y_{rj}$ 이 값을 가지고 있고, 발생하는 모든 이 값을 더해서 적용시켜주면 $x_i$에 대한 <code class="language-plaintext highlighter-rouge">gradient</code>를 구할 수 있다.</p>
+
+<p>종합하면, 우리는 앞서 구한 multitask loss를 RoI Pooling layer를 통과하여 CNN 단까지 fine-tuning 할 수 있다. 저자드은 실험을 통해서 실제로 CNN단 까지 fine tuning 하는 것이 성능 향상에 도움이 되었다는 실험 결과를 보여준다.</p>
+
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbadZIp%2FbtqAVIwqRP6%2FW9hTlTIcKm6JNlFDTsWf4K%2Fimg.png" alt="" class="center" width="60%" /><em>fine tuning depth에 따른 성능 변화</em></p>
+
+<p>위 실험 결과는 fine-tuning 하는 깊이를 조절해가며 성능 변화를 실험한 것이다. CNN의 단을 깊이 학습시킬 수록 성능이 향상되었으며, 이 때 테스트에 소요되는 시간 변화는 거의 없는 것을 확인할 수 있다. 즉, CNN 단을 Object Detection에 맞게끔 fine-tuning 하는 것이 성능 향상의 키 포인트였다.</p>
+
+<h2 id="의의">의의</h2>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">end-to-end</code> 모델 제안</li>
+  <li>학습 단계 간소화</li>
+  <li>정확도, 성능 개선</li>
+</ol>
 
 <h2 id="한계">한계</h2>
 
 <ol>
-  <li>여전히 multi stage model이다.</li>
-  <li>여전히 SVM, selective search를 사용한다.</li>
-  <li>feature map을 만들어내는 network를 학습시키지 못한다.</li>
+  <li>region proposal을 selective search를 사용
+    <ul>
+      <li>이는 CPU 연산으로만 가능하기 때문에 병목이 발생</li>
+      <li>이 부분이 inference를 수행하는데 있어 가장 많은 시간을 차지함</li>
+    </ul>
+  </li>
 </ol>
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="https://www.youtube.com/watch?v=kcPAGIgBGRs&amp;list=PLWKf9beHi3Tg50UoyTe6rIm20sVQOH1br&amp;index=12">PR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks</a></p>
+<p><a href="https://yeomko.tistory.com/15?category=888201">갈아먹는 Object Detection [3] Fast R-CNN</a></p>
 
   </section>
   
@@ -1074,14 +1151,46 @@ function changeContent(event){
       
       
       
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
           
           
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/PaperReview-01-RCNN.html';">
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html';">
                 <p>PREVIOUS SERIES</p>
-                <a href="/ds/dl/2020/09/02/PaperReview-01-RCNN.html">
-                  01: R-CNN
+                <a href="/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html">
+                  02: Spatial Pyramid Pooling Network
                 </a>
             </div>
           
@@ -1112,6 +1221,18 @@ function changeContent(event){
       
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
           
           
         
@@ -1125,52 +1246,16 @@ function changeContent(event){
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
           
           
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html';">
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html';">
               <p>NEXT SERIES</p>
-              <a href="/ds/dl/2020/09/02/PaperReview-03-Fast-RCNN.html">
-                03: Fast R-CNN
+              <a href="/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html">
+                05: Faster R-CNN
               </a>
             </div>
           
         
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
       
       
