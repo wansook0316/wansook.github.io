@@ -5,13 +5,22 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>얼떨결에 들어왔으니 이것도 인연😌</description>
-    <pubDate>Tue, 08 Sep 2020 09:41:12 +0900</pubDate>
+    <pubDate>Tue, 08 Sep 2020 14:20:14 +0900</pubDate>
     
       <item>
-        <title>07: Mask R-CNN</title>
-        <link>/ds/dl/2020/09/07/computer-vision-07-Mask-RCNN.html</link>
-        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-07-Mask-RCNN.html</guid>
-        <description>&lt;p&gt;원래대로라면, YOLO를 리뷰해야 하나, 일단은 같은 계열인 Mask RCNN부터 리뷰해보자. 해당 논문은 Faster R-CNN을 확장하여 Instance Segmentation에 적용하고자 하는 모델이다.&lt;/p&gt;
+        <title>13: Mask R-CNN</title>
+        <link>/ds/dl/2020/09/07/computer-vision-13-Mask-RCNN.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-13-Mask-RCNN.html</guid>
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-60-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;structure of mask RCNN&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Facebok AI Research (FAIR), Kaiming He, 24 Jan 2018&lt;/li&gt;
+  &lt;li&gt;Marr Prize at ICCV 2017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object instance segmentation&lt;/code&gt;을 위한 프레임 워크이다. 기존의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;semantic segmentation&lt;/code&gt;을 넘어서 각각의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;instance&lt;/code&gt;도 구분이 가능한 구조를 만들었다. 학습이 쉽고 Faster RCNN에 조금의 overhead만 추가하여 5fps의 빠르기로 실행된다. COCO 데이터셋에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;instance segmentation&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bbox object detection&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;person keypoint detection&lt;/code&gt; 에서 가장 높은 결과를 보였다.&lt;/p&gt;
 
 &lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
 
@@ -19,9 +28,232 @@
   &lt;p&gt;Faster R-CNN에서 detect한 각각의 box에 mask를 씌워주자!&lt;/p&gt;
 &lt;/blockquote&gt;
 
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;instance segmentation&lt;/code&gt;은 두 가지 과제를 합친 것이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;object detection
+    &lt;ul&gt;
+      &lt;li&gt;bbox를 이용하여 object를 분류하고, 위치를 찾는 것.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;semantic segmentation
+    &lt;ul&gt;
+      &lt;li&gt;object instance는 구별하지 않지만, 정해진 카테고리별로 각각의 pixel을 분류하는 것&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이전의 Segmentation에서 중요한 논문인 FCN에서는 총 3가지를 고려하였다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;pixel 단위의 classification&lt;/li&gt;
+  &lt;li&gt;그렇기 때문에 pixel 단위 softmax 값 추출이 필요&lt;/li&gt;
+  &lt;li&gt;multi instance를 고려해야 함&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;하지만 mask RCNN은 Faster RCNN을 그대로 가져다가 쓰기 때문에, 이 문제가 다소 변경된다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;del&gt;pixel 단위의 classification&lt;/del&gt; -&amp;gt; 이미 bounding box로 구분을 해줌&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;그렇기 때문에 pixel 단위 softmax 값 추출이 필요&lt;/del&gt; -&amp;gt; bounding box 안에서 물체 인지 아닌지만 구분해주면 됨(Sigmoid)&lt;/li&gt;
+  &lt;li&gt;&lt;del&gt;multi instance를 고려해야 함&lt;/del&gt; -&amp;gt; 이미 multi instance로 bounding box를 쳐줌&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-18-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;class, box 외에 mask FCN만 추가한다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;결과적으로, 이 문제에서 해야할 일은 masking을 수행하는 것이다. 그래서 논문이름도 Mask RCNN이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;equivariance&quot;&gt;Equivariance&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;input에서의 변화가 output의 변화에 영향을 준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-39-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Invariance vs. Equivariance&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;classification 문제에서는 label을 도출하는 문제이기 때문에 Invariance 하다. 하지만 segmentation 문제 같은 경우에는 output이 원래 이미지 사이즈와 같아야 하기 때문에 이 문제는 Equivariance로 해결 해야한다. 이 때, 저자들은 convolution은 translation-equivariance 하기 때문에 이 네트워크를 사용했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-41-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
+&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-42-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Fully convolutional network 사용&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;mask RCNN의 구조를 담당하는 Faster RCNN은 Fully conv net을 사용하고 있다. 여기서 mask RCNN은 뒤의 mask head부분 역시 FCN을 사용하여 제작하였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;roi-align&quot;&gt;RoI Align&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-47-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;기존의 Faster RCNN의 구조&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;기존에 Faster RCNN에서는 feature map을 뽑아낸 뒤, Region proposal Network를 사용하여 이를 제시하였다. 그 방법은 RoI pooling이었다. 하지만 segmentation은 detection 문제와 다르게 단지 box를 치는 문제가 아니다. 좀더 정확한 위치정보를 담은 상태의 feature map이 필요하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-54-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;RoI pooling은 proposal의 위치를 반올림한다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;기존의 RoI Pooling을 생각해보면, 4개의 좌표 변환 값을 regression하고, 이를 기반으로 예상 좌표를 얻어낸 뒤(실수) 이를 반올림하여 정수단위인 pixel의 위치를 제안한다. 하지만, 소수점을 반올림한 좌표를 가지고 Pooling을 해주면 input image의 원본 위치 정보가 왜곡된다. classfication에는 이런 문제가 심각하지 않지만, pixel-by-pixel로 detection을 진행해야 하는 segmentation 에서는 문제가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-58-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;RoI Align&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이 문제를 해결하기 위해 저자들은 다음과 같은 방법을 통해 이를 해결한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;제안된 proposal을 들고온다.&lt;/li&gt;
+  &lt;li&gt;Roi pooling에서 4등분 했던 것처럼 일단 자른다.&lt;/li&gt;
+  &lt;li&gt;그 안에서 추가적으로 4등분을 한다. (subcell)&lt;/li&gt;
+  &lt;li&gt;이렇게 발생한 격자내에 들어오는 픽셀의 면적을 기준으로 가중평균한다.&lt;/li&gt;
+  &lt;li&gt;발생한 값을 기준으로 pooling한다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이 방법은 Mask Accuracy에서 큰 향상을 보였다.&lt;/p&gt;
+
+&lt;h2 id=&quot;mask-rcnn-architecture&quot;&gt;Mask RCNN architecture&lt;/h2&gt;
+
+&lt;p&gt;Mask R-CNN은 여러 가지 아키텍쳐를 합친 네트워크인데, 크게 두 가지로 나뉜다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Convolutional backbone architecture
+    &lt;ul&gt;
+      &lt;li&gt;이미지에서 feature extraction&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Network head
+    &lt;ul&gt;
+      &lt;li&gt;bounding-box 인식(classification &amp;amp; regression), mask 예측&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-64-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Head Architecture&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;resnet-backbone&quot;&gt;ResNet Backbone&lt;/h3&gt;
+
+&lt;p&gt;논문에서는 ResNet 과 ResNeXt networks 를 depth 50 or 101 layers에 대해 평가했다. 원래 Faster R-CNN은 ResNet을 사용하는데, 4번째 스테이지의 마지막 Conv layer(이하 C4)에서 features를 뽑아낸다.
+이 경우, 이 backbone을 사용한다면 우리는 ResNet-50-C4 와 같이 부를 것이다. ResNet-50-C4가 일반적으로 사용된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;resnet-fpn-backbone&quot;&gt;ResNet-FPN Backbone&lt;/h3&gt;
+
+&lt;p&gt;FPN은 Feature Pyramid Network로, top-down architecture를 사용한다. FPN backbone을 사용하는 Faster R-CNN은 피쳐 피라미드의 서로 다른 레벨로부터 RoI features를 뽑아내지만, 나머지는 vanilla ResNet과 같다. Mask R-CNN에서 피쳐 추출을 위해 ResNet-FPN backbone을 이용하는 것은 정확도와 속도 면에서 엄청난 향상을 보였다. Feature Pyramid Network는 추후 글에서 작성하도록 하겠다.&lt;/p&gt;
+
+&lt;h2 id=&quot;loss-function-decoupling&quot;&gt;Loss function (decoupling)&lt;/h2&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;L = L_{cls} + L_{box} + L_{mask}&lt;/script&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$L_{cls}$ : Softmax Cross Entropy (loss of classification)&lt;/li&gt;
+  &lt;li&gt;$L_{box}$ : bbox regression&lt;/li&gt;
+  &lt;li&gt;$L_{mask}$ : Binary Cross Entropy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위의 아이디어를 그대로 가져와서, 결과적으로 masking만 하는 loss 함수를 정의하여 사용한다. 그림으로 이해해 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-27-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;이전 방법들과의 비교&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그림을 보게되면, 단순히 masking을 하는 구조를 추가하고, 이를 반영하는 방식으로 진행된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-35-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;mask Head의 loss update 방법&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;update 방법은 상당히 단순한데, 일단 전체 mask loss는 모든 클래스(사람, 말 등)에서 차이가 나는 mask의 정도로 정의가 된다. 하지만 해당 사진에서 bounding box는 하나만 box 처리가 되어 있다. 기존의 faster RCNN에서 bounding box를 예측할 때는 하나의 box만 처리하기 때문이다. 이런 상황에서 mask에 대한 업데이트는 모든 사물에 대해서 업데이트를 할 수 없게 된다. 그래서 이렇게 해당 사진의 class가 정해질 경우, 해당 class에 해당하는 mask만을 선택하고 이를 업데이트 해준다. 즉, 말이 정답 class인 경우, 이 class에 해당하는 mask만 학습된다.&lt;/p&gt;
+
+&lt;p&gt;결과적으로 이렇게 학습되는 mask branch는 &lt;strong&gt;어떠한 class인지 상관 없이 물체의 masking만 따는 것을 배우게 된다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-37-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;test senario&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 학습된 mask branch는 실제로 여러개의 물체에 대한 mask라고 예측할 것이다. 하지만 이 녀석은 어떠한 물체인지 분간하지 못하는데, 이부분에 있어서 classification의 결과를 넣어주어, 하나의 masking을 제안한다. 즉 mask prediction에서는 단지 이 pixel이 mask인지, 아닌지 만을 구분(sigmoid 사용)하도록 하여 성능의 향상을 보였다. 이러한 방법을 Mask prediction 과 class prediction 을 decouple 했다고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-38-638.jpg?cb=1515317235&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;decouple을 시도했을 때 올라간 정확도&lt;/em&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://yeomko.tistory.com/17?category=888201&quot;&gt;갈아먹는 Object Detection [4] Faster R-CNN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://mylifemystudy.tistory.com/82&quot;&gt;Mask R-CNN 정리&lt;/a&gt;
+&lt;a href=&quot;https://www.youtube.com/watch?v=RtSZALC9DlU&amp;amp;t=248s&quot;&gt;PR-057: Mask R-CNN&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>12: Deep Lab v3</title>
+        <link>/ds/dl/2020/09/07/computer-vision-12-deep-lab-v3.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-12-deep-lab-v3.html</guid>
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+</description>
+        <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>11: Deep Lab v2</title>
+        <link>/ds/dl/2020/09/07/computer-vision-11-deep-lab-v2.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-11-deep-lab-v2.html</guid>
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+</description>
+        <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>10: Deep Lab v1</title>
+        <link>/ds/dl/2020/09/07/computer-vision-10-deep-lab-v1.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-10-deep-lab-v1.html</guid>
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+</description>
+        <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>09: Conditional Random Field(CRF)</title>
+        <link>/ds/dl/2020/09/07/computer-vision-09-conditional-random-field.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-09-conditional-random-field.html</guid>
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+</description>
+        <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>08: Dilated Convolution</title>
+        <link>/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html</guid>
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
+
+&lt;p&gt;앞서 알아본, FCN에서 발생하는 문제를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dilated Convolution&lt;/code&gt;으로 해결하겠다는 논지이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Dilated Convolution으로 parameter 수를 유지하면서 Pooling의 효과를 누리고, Resoultion이 줄어드는 것을 막는다.(&lt;del&gt;일석삼조&lt;/del&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;기존의 FCN에서는 pooling으로 인한 해상도 감소문제를 skip connection으로 해결하였다. 여기서, 근본적으로 pooling에 대해 해결하보려는 의지가 엿보인다. 우리가 Pooling을 하는 이유는 global feature를 multi-scale로 보기 위해서이다. 하지만 이런 관점은 classification의 관점에서 맞는 말이다.&lt;/p&gt;
+
+&lt;p&gt;segementation을 위해서는 결국 dense prediction을 얻어내야 하는데, 이는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;up-convolutions&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multi-scale inputs&lt;/code&gt;를 통해 가능하다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;up-convolutions&lt;/code&gt;는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html&quot;&gt;이전 글&lt;/a&gt;에서 찾아볼 수 있다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multi sclae inputs&lt;/code&gt;은 이름에서도 유추가 가능하듯이 하나의 이미지에 대해서 여러 scale에서 test를 하는 방법을 의미한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://hoya012.github.io/assets/img/object_detection_sixth/1.PNG&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;multi scale inputs 예시&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dilated Convolution&lt;/code&gt;은 애초에 pooling을 해야돼? 라는 질문에서 출발한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/99448C335A014DD609&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;Dilated Convolution&lt;/em&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dilated Convolution&lt;/code&gt;은 필터 내부에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero padding&lt;/code&gt;을 추가해 강제로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;receptive field&lt;/code&gt;를 늘리는 방법이다. 위 그림은 파란색이 인풋, 초록색이 아웃풋인데, 진한 파랑 부분에만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;weight&lt;/code&gt;가 있고 나머지 부분은 0으로 채워진다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;receptive field&lt;/code&gt;란 필터가 한 번의 보는 영영으로 볼 수 있는데, 결국 필터를 통해 어떤 사진의 전체적인 특징을 잡아내기 위해서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;receptive field&lt;/code&gt;는 높으면 높을 수록 좋다. 그렇다고 필터의 크기를 크게하면 연산의 양이 크게 늘어나고, 오버피팅의 우려가있다.&lt;/p&gt;
+
+&lt;p&gt;그래서 일반적인 CNN에서는 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conv-pooling&lt;/code&gt;의 결합으로 해결한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pooling&lt;/code&gt;을 통해 dimension을 줄이고 다시 작은 크기의 filter로 conv를 하면, 전체적인 특징을 잡아낼 수 있다. 하지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pooling&lt;/code&gt;을 수행하면 기존 정보의 손실이 일어난다. 이를 해결하기 위한것이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dilated Convolution&lt;/code&gt;으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pooling&lt;/code&gt;을 수행하지 않고도 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;receptive field&lt;/code&gt;의 크기를 크게 가져갈 수 있기 때문에 spatial dimension의 손실이 적고, 대부분의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;weight&lt;/code&gt;가 0이기 때문에 연산의 효율도 좋다.&lt;/p&gt;
+
+&lt;h2 id=&quot;structure&quot;&gt;Structure&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/99BD2B335A01526610&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Structure of using Dilated Convolution&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;첫번째 그림은 classification을 위한 CNN VGG-16의 아키텍쳐이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conv-pooling&lt;/code&gt;을 반복적으로 수행한 후, 마지막으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fully Connected Layer&lt;/code&gt;에 통과하여 최종 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt; 결과를 얻는 과정을 보여주고있다. 그 아래의 그림은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dilated Convolution&lt;/code&gt;을 통하여 이미지를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;segmentation&lt;/code&gt;하는 예를 보여주고 있다. 이 아키텍쳐의 아웃풋의 사이즈는 28x28xN 이며, (N은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;segmentation&lt;/code&gt; 원하는 클래스의 수) 이를 다시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt;하여 원래의 크기로 복원한다. (이부분에서 공간적 정보의 손실이 있다.)&lt;/p&gt;
+
+&lt;p&gt;이 아키텍쳐와 classification 아키텍쳐의 다른점은 우선 다이아몬드 모양으로 표시한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dilated convolution&lt;/code&gt;으 통해 공간적 정보의 손실을 최소화하였다. 그리고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dilated convolution&lt;/code&gt; 2번을 적용한 뒤 나온 28x28x4096 에 대하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x1 convolution&lt;/code&gt;으로 channel의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dimension reduction&lt;/code&gt;을 수행한다. 최종적으로 28x28xN이 나오고 이를 8x &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt;하여 최종적인 segmention 결과를 output으로 내놓는다. 이 때 1x1 convolution 은 공간적인 정보를 잃지 않기 위해 사용되며, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fully Connected Layer(FC)&lt;/code&gt;와 비슷한 역할을 한다. 하지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;에서는 공간적인 정보는 중요하지 않기 때문에 Flatten하여 사용하는 것이다. 이는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html&quot;&gt;앞선 글&lt;/a&gt;에서 자세하게 다뤄보았다.&lt;/p&gt;
+
+&lt;h2 id=&quot;결과&quot;&gt;결과&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://t1.daumcdn.net/cfile/tistory/99E713335A01509E2A&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;comparison of whether using dilated conv&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이 그림을 통해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pooling-conv&lt;/code&gt;후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt;을 하는 것과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dilated convolution(astrous convolution)&lt;/code&gt;을 하는 것의 차이를 볼 수 있다. 위 그림에서 볼 수 있듯 공간적 정보의 손실이 있는 것을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt; 하면 해상도가 떨어진다. 하지만 dilated convolution의 그림을 보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;receptive field&lt;/code&gt;를 크게 가져가면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;convolution&lt;/code&gt;을 하면 정보의 손실을 최대화하면서 해상도는 큰 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;output&lt;/code&gt;을 얻을 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://modulabs-biomedical.github.io/Learning_Deconvolution_Network_for_Semantic_Segmentation&quot;&gt;Learning Deconvolution Network for Semantic Segmentation&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
       </item>
@@ -34,14 +266,14 @@
 
 &lt;blockquote&gt;
   &lt;p&gt;Noh, H., Hong, S., and Han, B. Learning Deconvolution Network for Semantic Segmentation. ICCV, 2015.&lt;/p&gt;
-
-  &lt;p&gt;이번 논문은 앞서 다뤘던 Fully Convolutional Networks와 같은 년도(2015)에 다른 학회(FCN은 CVPR, 본 논문은 ICCV)에 발표된 논문이다. FCN이나 이후에 다룰 UNet보다는 다소 인기가 적었지만, FCN이 가진 한계를 잘 짚어주셨다는 점에서 의의가 있다.&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;p&gt;이번 논문은 앞서 다뤘던 Fully Convolutional Networks와 같은 년도(2015)에 다른 학회(FCN은 CVPR, 본 논문은 ICCV)에 발표된 논문이다. FCN이나 이후에 다룰 UNet보다는 다소 인기가 적었지만, FCN이 가진 한계를 잘 짚어주셨다는 점에서 의의가 있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;크기, 디테일에 약해? -&amp;gt; layer 를 추가하자.&lt;/p&gt;
+  &lt;p&gt;크기, 디테일에 약해? -&amp;gt; layer 를 추가하자. (Upconvolution)&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h3 id=&quot;크기의-문제점&quot;&gt;크기의 문제점&lt;/h3&gt;
@@ -50,9 +282,45 @@
 
 &lt;p&gt;위의 예시들처럼 FCN의 추론 결과를 보면, 대상 물체가 너무 큰 경우(a)에는 파편화되고, 너무 작은 경우(b)에는 배경으로 무시되는 경향이 있다. FCN에서는 receptive field(상위 레이어의 한 지점에서 참조하는 하위 레이어의 영역)의 크기가 고정되어, 단일 배율(scale)만을 학습하는 것이 이 문제의 원인이라고 본 논문은 지적한다. 여러 레이어의 결과를 조합하는 skip 구조가 이러한 현상을 완화시켜주기는 하지만, 근본적인 해법은 아니라는 주장한다.&lt;/p&gt;
 
+&lt;h3 id=&quot;디테일의-문제점&quot;&gt;디테일의 문제점&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig5.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;FCN이 비록 기존 기법들에 비해 큰 발전을 이루었지만, 세부적인 영역을 찾아내는 데에서는 아직 개선의 여지가 있다고 이 논문은 보고 있다. FCN에서는 deconvolution에 들어가는 입력부터 이미 세부 묘사가 떨어지고, deconvolution 과정 자체도 충분히 깊지 않고 너무 단순하다고 말한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;네트워크-구조의-변경&quot;&gt;네트워크 구조의 변경&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig2.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;부족하면 더 넣으면 된다. FCN에서는 CNN의 결과를 입력이미지의 원래 차원으로 확대(upsampling)하는데 있어서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deconvolution&lt;/code&gt;을 사용했지만, 이 논문에서는 deconvolution시 차원을 유지하는 방법으로, CNN의 layer만큼 레이어 숫자를 늘렸다. 즉, 완전한 대칭 모양이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig3.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;uppooling&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;CNN으로 인해 원래 이미지보다 축소된 차원 크기는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uppooling&lt;/code&gt;으로 복원합니다. 여기서 unpooling이란 CNN의 max pooling 시의 위치 정보를 기억했다가, 원래 위치로 그대로 복원해주는 작업이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig4.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;uppooling 과정 (a-&amp;gt;b)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그 효과는 위의 그림과 같다. (b)에서 (c)로 갈 때의 unpooling에 의해, 해상도가 커지는 대신 신호가 흩어져서 희소(sparse)해진다. 이것을 (c)에서 (d)로 deconvolution을 거치면, 디테일을 살려내면서 신호가 고르게 밀집(dense)된다. 이러한 과정이 반복되자 노이즈도 점차 자연스럽게 사라지는 것을 볼 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;학습-방법&quot;&gt;학습 방법&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/edge-box.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;edge-box&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;단일 데이터셋에서 다양한 크기의 사례들을 학습하기 위해, 논문에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edge-box&lt;/code&gt;라는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object proposal&lt;/code&gt; 알고리즘을 사용하여 무언가 있을만한 영역을 다양한 크기의 상자로 골라낸다. 학습 시에는 우선 실제 정답이 가운데에 들어가도록 잘라낸(crop) 이미지들로 1차 학습을, 그 다음 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edge-box&lt;/code&gt;의 결과물 중 실제 정답과 잘 겹치는 것들을 활용하여 조금 더 심도있는 2차 학습을 진행한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig6.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;edge-box inference&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 학습에 사용된 edge-box는 추론 시에도 사용되는데, 추론 시 사용하는 object proposal의 수(상자 수)를 증가시킬 수록 성능은 좋아진다고 한다. 물론 그만큼 계산량과 시간은 늘어난다.&lt;/p&gt;
+
+&lt;h2 id=&quot;결과&quot;&gt;결과&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig7.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;result&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 세심하게 설계되고 학습된 결과는 FCN이 실수하는 물체들도 보다 세밀하게 잘 찾아내는 모습을 보인다. 다만 FCN이 잘 맞추는 곳에서 실수를 할 때도 있는데, 결국 둘을 앙상블하여 conditional random field로 후처리하면 두 가지 모델을 모두 뛰어넘게 되어, FCN과 상호 보완적인 관계에 있다고 논문은 맺는다.&lt;/p&gt;
+
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://bskyvision.com/491&quot;&gt;semantic segmentation의 목적과 대표 알고리즘 FCN의 원리&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://modulabs-biomedical.github.io/Learning_Deconvolution_Network_for_Semantic_Segmentation&quot;&gt;Learning Deconvolution Network for Semantic Segmentation&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
       </item>
@@ -214,8 +482,6 @@
 &lt;h3 id=&quot;rpns-loss-function&quot;&gt;RPN’s Loss function&lt;/h3&gt;
 
 &lt;p&gt;RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a = 10&lt;/script&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)&lt;/script&gt;
 
@@ -415,7 +681,7 @@ smooth_{L_1}(x) =
 
 &lt;h2 id=&quot;spatial-pyramid-pooling&quot;&gt;Spatial Pyramid Pooling&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://lh3.googleusercontent.com/proxy/sVOitw5Jpud7QnLoR5r3TzlOWJYSEFkRCCx1MlG71WCIG5BP8I8B5EZTveQKsJ5ign3DT00vzGB5dEoYYjrfsXFbA1D6laCS&quot; alt=&quot;&quot; class=&quot;center&quot; /&gt;&lt;em&gt;출처 : http://kaiminghe.com/eccv14sppnet/index.html&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&amp;amp;fname=http%3A%2F%2Fcfile21.uf.tistory.com%2Fimage%2F99D6063A5C53E7F5294025&quot; alt=&quot;&quot; class=&quot;center&quot; /&gt;&lt;em&gt;출처 : http://kaiminghe.com/eccv14sppnet/index.html&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;그렇다면 어떤 방식으로 SPP가 돌아가는지 이해해야 한다. 먼저 CNN을 거친 feature map을 input으로 받는다. 그리고 이것을 미리 정해져 있는 영여긍로 나누어 준다. 위의 예시에서는 4x4, 2x2, 1x1 3개의 영역이 적용되어 있고, 이 각각을 하나의 피라미드라 부른다. 즉, 3개의 피라미드를 설정한 것.&lt;/p&gt;
 
@@ -751,418 +1017,6 @@ FL(p_t) = -(1-p_t)^\gamma log(p_t) %]]&gt;&lt;/script&gt;
 &lt;p&gt;&lt;a href=&quot;https://zzsza.github.io/development/2018/04/17/docker-kubernetes/&quot;&gt;Docker와 쿠버네티스의 이해&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>03: 데이터 저장 (Volume, Mount)</title>
-        <link>/ds/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html</link>
-        <guid isPermaLink="true">/ds/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html</guid>
-        <description>&lt;p&gt;&lt;img src=&quot;https://docs.docker.com/storage/images/types-of-mounts-volume.png&quot; alt=&quot;Volume과 Mount&quot; class=&quot;center&quot; /&gt;&lt;em&gt;Volume과 Mount&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Docker Conatiner에 쓰여진 데이터는 컨테이너가 삭제될 때 함께 사라진다. 하지만 이에 관계없이 우리는 데이터를 영속적으로 저장할 필요가 있다. 또한 여러개의 컨테이너를 생성하여 사용할 경우, 하나의 폴더를 공유해야 하는 일이 빈번하다.&lt;/p&gt;
-
-&lt;p&gt;이러한 필요성에 대해 Docker는 두가지 옵션을 제공한다. 첫째가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Volume&lt;/code&gt;, 둘째가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mount&lt;/code&gt;이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;volume&quot;&gt;Volume&lt;/h1&gt;
-
-&lt;p&gt;이 방법은 Docker에서 권장하는 방법이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;volume의-생성&quot;&gt;Volume의 생성&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker volume create hello
-hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;volume의-조회&quot;&gt;Volume의 조회&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker volume &lt;span class=&quot;nb&quot;&gt;ls
-&lt;/span&gt;DRIVER              VOLUME NAME
-&lt;span class=&quot;nb&quot;&gt;local               &lt;/span&gt;hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker volume inspect hello
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&quot;CreatedAt&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;2020-05-09T17:03:46Z&quot;&lt;/span&gt;,
-        &lt;span class=&quot;s2&quot;&gt;&quot;Driver&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;local&quot;&lt;/span&gt;,
-        &lt;span class=&quot;s2&quot;&gt;&quot;Labels&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;,
-        &lt;span class=&quot;s2&quot;&gt;&quot;Mountpoint&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;/var/lib/docker/volumes/our-vol/_data&quot;&lt;/span&gt;,
-        &lt;span class=&quot;s2&quot;&gt;&quot;Name&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;our-vol&quot;&lt;/span&gt;,
-        &lt;span class=&quot;s2&quot;&gt;&quot;Options&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;,
-        &lt;span class=&quot;s2&quot;&gt;&quot;Scope&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;local&quot;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Mountpoint&lt;/code&gt;를 보면 해당 볼륨이 어디에 있는지 알 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;볼륨을-컨테이너에-마운트하기&quot;&gt;볼륨을 컨테이너에 마운트하기&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; hello:/home/app &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; one hugojuhel/notebook &lt;span class=&quot;nb&quot;&gt;touch&lt;/span&gt; /app/test.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker run -v &amp;lt;볼륨 이름&amp;gt;:&amp;lt;컨테이너 내의 절대 경로&amp;gt; --name &amp;lt;컨테이너 이름&amp;gt; &amp;lt;image 이름&amp;gt; &amp;lt;명령&amp;gt; &amp;lt;파라미터&amp;gt;&lt;/code&gt; 형식으로 구성되어 있다.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker inspect hello
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;...생략...&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;Mounts&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;s2&quot;&gt;&quot;Type&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;volume&quot;&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;Name&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;our-vol&quot;&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;Source&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;/var/lib/docker/volumes/our-vol/_data&quot;&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;Destination&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;/app&quot;&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;Driver&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;local&quot;&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;Mode&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;z&quot;&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;RW&quot;&lt;/span&gt;: &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;,
-            &lt;span class=&quot;s2&quot;&gt;&quot;Propagation&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;...생략...&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;실제로 생성된 컨테이너를 조사하면 다음과 같이 뜨며, Type이 volume으로 지정된 것을 확인할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;이러한 방법은 다른 컨테이너에 마운트할 때에도 동일하게 적용된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;volume-삭제&quot;&gt;Volume 삭제&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker volume &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;hello
-Error response from daemon: remove hello: volume is &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;use - &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;f73130c9dad14644ac46b89fe4018e561a7bcbfa4118d637949642d0d5d742e4, 666dda54f6be8ca852f3150b9741a9cab5a4659fa2e83fe6ca339550072c861ex]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;삭제할 때는 mount 된 컨테이너를 모두 삭제한 뒤에야 삭제가 가능하다.&lt;/p&gt;
-
-&lt;p&gt;삭제를 수행했다면 에러가 뜨지 않을 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;volume-청소&quot;&gt;Volume 청소&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;docker volume prune
-WARNING! This will remove all &lt;span class=&quot;nb&quot;&gt;local &lt;/span&gt;volumes not used by at least one container.
-Are you sure you want to &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;? &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;y/N] y
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;마운트 되지 않은 모든 볼륨을 한번에 정리할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;bind-mount&quot;&gt;Bind-Mount&lt;/h1&gt;
-
-&lt;p&gt;위의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Volume&lt;/code&gt; 방법을 보면, 경로를 docker가 제시한 경로에 맞춰서 생성된다. 하지만 시스템의 특정 경로를 기반으로 작업하고 싶은 경우도 많다. 이런 필요성에 대해 docker는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bind-Mount&lt;/code&gt;를 제공한다.&lt;/p&gt;
-
-&lt;p&gt;사용법은 매우 간단하다. 위의 Volume 명이 들어가는 자리에, 원하는 호스트 경로를 적어주는 것으로 끝난다.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; jpt &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /Users/Choiwansik/Documents/internship/image_processing/share:/home/jovyan/share &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 28888:8888 hugojuhel/notebook /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이 때 역시나 container의 절대 경로를 써주어야 한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Mounts&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;s2&quot;&gt;&quot;Type&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;bind&quot;&lt;/span&gt;,
-                &lt;span class=&quot;s2&quot;&gt;&quot;Source&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;/Users/Choiwansik/Documents/internship/image_processing/share&quot;&lt;/span&gt;,
-                &lt;span class=&quot;s2&quot;&gt;&quot;Destination&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;/home/jovyan/share&quot;&lt;/span&gt;,
-                &lt;span class=&quot;s2&quot;&gt;&quot;Mode&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;,
-                &lt;span class=&quot;s2&quot;&gt;&quot;RW&quot;&lt;/span&gt;: &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;,
-                &lt;span class=&quot;s2&quot;&gt;&quot;Propagation&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;rprivate&quot;&lt;/span&gt;
-            &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Type&lt;/code&gt;이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind&lt;/code&gt;로 묶여있음을 확인할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;volume-vs-bind-mount&quot;&gt;Volume vs Bind-Mount&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;경로(Mount Point) 관리해 줄까? 말까?&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;둘의 가장 큰 차이점은, docker가 mount point를 관리해 주느냐의 여부로 나뉜다. 그냥 막 사용하고 싶은 경우애는 volume이 맞을 수 있지만, 컨테이너화된 개발 환경을 구축하고 싶을 때는 bind-mount가 더 유리하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.daleseo.com/docker-volumes-bind-mounts/&quot;&gt;Docker 컨테이너에 데이터 저장 (볼륨/바인드 마운트)&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>02: 명령어 모음</title>
-        <link>/ds/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html</link>
-        <guid isPermaLink="true">/ds/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html</guid>
-        <description>&lt;h2 id=&quot;설치&quot;&gt;설치&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;docker
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://hub.docker.com/editions/community/docker-ce-desktop-mac&quot;&gt;mac 용 도커&lt;/a&gt; 설치하기&lt;/p&gt;
-
-&lt;h2 id=&quot;docker-image-download&quot;&gt;Docker image download&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker pull hugojuhel/notebook
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://hub.docker.com/&quot;&gt;Docker Hub&lt;/a&gt; 에서 원하는 docker 이미지를 다운로드&lt;/li&gt;
-  &lt;li&gt;혹은 아래 예제와 같이 명령어로 다운받을 수도 있음&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://hub.docker.com/r/hugojuhel/notebook&quot;&gt;사용한 이미지&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;docker-image-확인&quot;&gt;Docker image 확인&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker images
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;설치한 이미지들을 볼 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;docker-container-생성-및-실행&quot;&gt;Docker container 생성 및 실행&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; jpt &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /Users/Choiwansik/Documents/internship/image_processing/share:/home/jovyan/share &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 28888:8888 hugojuhel/notebook /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb8IxbK%2FbtquUAR4pmA%2FoIzcYiAR8kkDunLCKSWwT1%2Fimg.png&quot; alt=&quot;도커 명령어 설명&quot; /&gt;&lt;em&gt;사용자 상황에 맞게 옵션 골라 사용&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;명령어는 항상 root 권한으로 실행한다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-i(interactive)&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-t(Pseudo-try)&lt;/code&gt; 옵션 : 실행된 Bash 셸에 입력 및 출력을 할 수 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-v&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--volume&lt;/code&gt; 옵션 : host folder와 공유할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;jupyter-notebook-실행&quot;&gt;jupyter notebook 실행&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jupyter notebook &lt;span class=&quot;nt&quot;&gt;--ip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.0.0.0 &lt;span class=&quot;nt&quot;&gt;--allow-root&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;실행하게 되면, 아까 연결해 두었던 로컬 포트로 접속할 경우 사용할 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;docker-명령어&quot;&gt;Docker 명령어&lt;/h2&gt;
-
-&lt;p&gt;도커 명령어 Cheat Cheet이다. 나중에 이거만 보고 사용하도록 하자.&lt;/p&gt;
-
-&lt;h4 id=&quot;프로세스-보기&quot;&gt;프로세스 보기&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker ps &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;-a 옵션을 사용하면 정지된 컨테이너까지 모두 출력하고, 옵션을 사용하지 않으면 실행되고 있는 컨테이너만 출력한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-시작하기&quot;&gt;컨테이너 시작하기&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker container start hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이름 대신 container_id를 사용해도 된다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-재부팅&quot;&gt;컨테이너 재부팅&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker container restart hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;운영체제 재부팅과 유사하다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-접속하기&quot;&gt;컨테이너 접속하기&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker container attach hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;bash에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exit&lt;/code&gt; 혹은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+D&lt;/code&gt; 를 입력하면 컨테이너가 정지된다.&lt;/p&gt;
-
-&lt;h4 id=&quot;exec-명령으로-컨테이너-외부에서-명령-실행하기&quot;&gt;exec 명령으로 컨테이너 외부에서 명령 실행하기&lt;/h4&gt;
-
-&lt;p&gt;현재 hello 컨테이너의 bin/bash를 실행한 상태라고 가정하자. 그리고 해당 컨테이너에 접속하지 않은 상태로, hello 컨테이너 안의 명령을 실행해보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker container &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;hello &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker container exec &amp;lt;컨테이너 이름&amp;gt; &amp;lt;명령&amp;gt; &amp;lt;매개변수&amp;gt;&lt;/code&gt; 형식이다. 컨테이너 대신 컨테이너 id를 사용할 수 있다. 이 명령어는 컨테이너가 실행되고 있는 상태에서만 사용할 수 있으며 정지된 상태에서는 사용할 수 없다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker exec&lt;/code&gt; 명령은 이미 실행된 컨테이너에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apt-get, yum&lt;/code&gt; 과 같은 명령으로 패키지를 설치하거나 각종 데몬을 실행할 때 활용할 수 있다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-정지하기&quot;&gt;컨테이너 정지하기&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker container stop hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;정지한 경우 다시 attach하고 싶으면 start후 가능하다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-삭제하기&quot;&gt;컨테이너 삭제하기&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker container &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;hello
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;container 명령어를 쓰지 않아도되지만 최신 버전에서는 권장한다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-실행-상태로-빠져나오기&quot;&gt;컨테이너 실행 상태로 빠져나오기&lt;/h4&gt;
-
-&lt;p&gt;컨테이너 안에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl+pq&lt;/code&gt;을 누르면 된다.&lt;/p&gt;
-
-&lt;h4 id=&quot;컨테이너-내-사용자-비밀번호를-모를-때&quot;&gt;컨테이너 내 사용자 비밀번호를 모를 때&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker container &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; 0 &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; jpt /bin/bash
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-u&lt;/code&gt;는 default user라 password를 필요로 하지 않는다.&lt;/p&gt;
-
-&lt;h4 id=&quot;이미지-삭제하기&quot;&gt;이미지 삭제하기&lt;/h4&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker rmi ubuntu:latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker rmi &amp;lt;이미지 이름&amp;gt;:&amp;lt;태그&amp;gt;&lt;/code&gt; 형식이다. 이미지 이름 대신 id를 사용해도 된다. 태그를 주는 이유는 같은 이름 인 경우 모두 삭제되기 때문이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;명령&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Code&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;버전 확인&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker -v&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;이미지 다운로드&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker pull [이미지 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;다운로드된 이미지 목록&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker images&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 생성&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker create [옵션] [이미지 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 생성 및 실행&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker run [옵션] [이미지 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 실행&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker start [컨테이너 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 재실행&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker restart [컨테이너 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 접속&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker attach [컨테이너 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 정지&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker stop [컨테이너 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;실행중인 컨테이너 목록&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker ps&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;정지된 컨테이너 목록&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker ps -a&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 명 변경&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker rename [기존 컨테이너 명] [새로운 컨테이너 명]&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;컨테이너 삭제&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;$ docker rm [컨테이너 명]&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://pbj0812.tistory.com/134&quot;&gt;[Docker] 설치, 다운로드, 실행, jupyter notebook 연동, 삭제, 기타 등등&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;pre.highlight margin-top 1em
-ul margin-bottom 0
-p margin-bottm 1em
-p margin-top 1em&lt;/p&gt;
-</description>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: 개요</title>
-        <link>/ds/docker/2020/09/01/Docker-01-%EA%B0%9C%EC%9A%94.html</link>
-        <guid isPermaLink="true">/ds/docker/2020/09/01/Docker-01-%EA%B0%9C%EC%9A%94.html</guid>
-        <description>&lt;p&gt;&lt;img src=&quot;https://subicura.com/assets/article_images/2017-01-19-docker-guide-for-beginners-1/docker-works.png&quot; alt=&quot;도커란?&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;도커란? (되게 귀엽다)&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;개념&quot;&gt;개념&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;개발자와 시스템 관리자가 컨테이너 기술을 사용하여 어플리케이션을 개발, 배포, 실행하기 위한 플랫폼&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;컨테이너 기술을 리눅스에서 사용되던 기술이다. 이 때, 이 기술을 사용하여 응용프로그램을 배포하는 것을 컨테이화 시킨 것이다. 새로운 기술은 아니지만, 이를 통해 매우 편리하고 간편하게 배포하는 것이 가능하다.&lt;/p&gt;
-
-&lt;p&gt;컨테이너 기술은 아래와 같은 특징들이 있다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;유연성 (Flexible) : 복잡한 어플리케이션들도 모두 컨테이너화 할 수 있다.&lt;/li&gt;
-  &lt;li&gt;경량화 (Lightweight) : 컨테이너는 호스트 커널을 활용하고 공유한다.&lt;/li&gt;
-  &lt;li&gt;변화 관리 편의성 (InterChangeable) : 업데이트 및 업그레이드를 즉시 배포할 수 있다.&lt;/li&gt;
-  &lt;li&gt;포터블 (Portable) : 로컬로 구축하고, 클라우드와 가상화에 배치가 가능하고, 어디서나 실행할 수 있다.&lt;/li&gt;
-  &lt;li&gt;확장성 (Scalable) : 컨테이너 복제본을 늘리고 자동 배포가 가능하다.&lt;/li&gt;
-  &lt;li&gt;스택화 (Stackable) : 서비스들에 대한 수직적 또는 수평적 디자인이 매우 용이하다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://i1.wp.com/www.docker.com/blog/wp-content/uploads/2020/07/Mainstream-and-Growing.png?resize=1110%2C740&amp;amp;ssl=1&quot; alt=&quot;Docker 사용량&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;어마무시한 도커 사용량&lt;/em&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;이미지와-컨테이너&quot;&gt;이미지와 컨테이너&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://www.docker.com/sites/default/files/social/docker_facebook_share.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;40%&quot; /&gt;&lt;em&gt;docker contatiner&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;이미지
-    &lt;ul&gt;
-      &lt;li&gt;코드, 런타임, 라이브러리, 환경 변수 및 구성 파일 등 응용프로그램을 실행하는 데 필요한 모든 것을 포함하는 실행가능 패키지&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;컨테이너
-    &lt;ul&gt;
-      &lt;li&gt;이미지의 런타임 인스턴스&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이 두개의 개념은 도커를 이해하는 데 매우 중요하다. class는 instance의 설계도이다. 마찬가지로 이 class에 해당하는 것이 바로 image이며, 이를 메모리단에 올린 것을 container라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;컨테이너의-동작-방식&quot;&gt;컨테이너의 동작 방식&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://subicura.com/assets/article_images/2017-01-19-docker-guide-for-beginners-1/vm-vs-docker.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;가상 머신과 도커의 차이점&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;기존에 사용하던 가상 머신은, Host OS위에 Guest OS를 얹어 사용하는 방식이다. 사용법은 간단하지만 &lt;strong&gt;느리다&lt;/strong&gt;라는 치명적인 단점을 갖고 있다.
-이러한 상황을 개선하기 위해 CPU 가상화 기술을 사용한 KVM(Kernel-based Virtual Machine)이 등장했다. 하지만 여전히 성능 문제가 있었다. 이를 해결한 것이 Docker contatiner이다. 이는 바로 Host OS위에서 격리만하여 프로세스를 처리하는 방식이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html&quot;&gt;초보를 위한 도커 안내서 - 도커란 무엇인가?&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>Updater 영상 처리 intern</title>
-        <link>/cv/internship/2020/09/01/Updater-%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-%EC%9D%B8%ED%84%B4.html</link>
-        <guid isPermaLink="true">/cv/internship/2020/09/01/Updater-%EC%98%81%EC%83%81%EC%B2%98%EB%A6%AC-%EC%9D%B8%ED%84%B4.html</guid>
-        <description>&lt;p&gt;기간 : 0901~1031&lt;/p&gt;
-</description>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>03 : deckgl</title>
-        <link>/ds/ml/2020/08/24/%EA%B3%B5%EA%B0%84%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%8B%9C%EA%B0%81%ED%99%94-02-%EA%B3%B5%EA%B0%84%EB%8D%B0%EC%9D%B4%ED%84%B0-03-deckgl.html</link>
-        <guid isPermaLink="true">/ds/ml/2020/08/24/%EA%B3%B5%EA%B0%84%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%8B%9C%EA%B0%81%ED%99%94-02-%EA%B3%B5%EA%B0%84%EB%8D%B0%EC%9D%B4%ED%84%B0-03-deckgl.html</guid>
-        <description>&lt;p&gt;공간 데이터를 시각화 할 수 있는 deckgl에 대해 알아본다.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 24 Aug 2020 00:00:00 +0900</pubDate>
       </item>
     
   </channel>

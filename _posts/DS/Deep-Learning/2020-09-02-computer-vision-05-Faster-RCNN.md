@@ -52,10 +52,6 @@ CNN을 통해 뽑아낸 `feature map`을 입력으로 받는다. 어떤 pretrain
 RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.
 
 $$
-a = 10
-$$
-
-$$
 L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)
 $$
 

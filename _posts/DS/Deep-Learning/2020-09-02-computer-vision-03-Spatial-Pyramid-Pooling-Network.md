@@ -37,7 +37,7 @@ Fast R-CNN으로 넘어가기전 상당히 많은 아이디어를 가져온 논�
 
 ## Spatial Pyramid Pooling
 
-![](https://lh3.googleusercontent.com/proxy/sVOitw5Jpud7QnLoR5r3TzlOWJYSEFkRCCx1MlG71WCIG5BP8I8B5EZTveQKsJ5ign3DT00vzGB5dEoYYjrfsXFbA1D6laCS){: .center}_출처 : http://kaiminghe.com/eccv14sppnet/index.html_
+![](https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile21.uf.tistory.com%2Fimage%2F99D6063A5C53E7F5294025){: .center}_출처 : http://kaiminghe.com/eccv14sppnet/index.html_
 
 그렇다면 어떤 방식으로 SPP가 돌아가는지 이해해야 한다. 먼저 CNN을 거친 feature map을 input으로 받는다. 그리고 이것을 미리 정해져 있는 영여긍로 나누어 준다. 위의 예시에서는 4x4, 2x2, 1x1 3개의 영역이 적용되어 있고, 이 각각을 하나의 피라미드라 부른다. 즉, 3개의 피라미드를 설정한 것.
 
