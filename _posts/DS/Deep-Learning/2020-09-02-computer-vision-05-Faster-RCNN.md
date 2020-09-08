@@ -3,7 +3,7 @@ layout: post
 title: "05: Faster R-CNN"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review"]
+tags: [DS, "paper review", "Object Detection"]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
@@ -52,6 +52,10 @@ CNN을 통해 뽑아낸 `feature map`을 입력으로 받는다. 어떤 pretrain
 RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.
 
 $$
+a = 10
+$$
+
+$$
 L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)
 $$
 
@@ -59,7 +63,7 @@ $$
 
 `classification`은 `binary cross entropy`, `regression`은 `smooth L1 loss`를 사용한다.
 
-주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 `minibatch` 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. `\lambda`는 `Classifiaction Loss`와 `Regression Loss` 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 [Fast R-CNN](https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html) 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.
+주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 `minibatch` 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. $\lambda$는 `Classifiaction Loss`와 `Regression Loss` 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 [Fast R-CNN](https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html) 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.
 
 ## Training Method
 
