@@ -80,6 +80,8 @@ mask RCNN의 구조를 담당하는 Faster RCNN은 Fully conv net을 사용하�
 4. 이렇게 발생한 격자내에 들어오는 픽셀의 면적을 기준으로 가중평균한다.
 5. 발생한 값을 기준으로 pooling한다.
 
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-45-638.jpg?cb=1515317235){: .center width="100%"}
+
 이 방법은 Mask Accuracy에서 큰 향상을 보였다.
 
 ## Mask RCNN architecture
