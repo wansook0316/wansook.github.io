@@ -5,85 +5,19 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>얼떨결에 들어왔으니 이것도 인연😌</description>
-    <pubDate>Tue, 08 Sep 2020 09:24:19 +0900</pubDate>
+    <pubDate>Tue, 08 Sep 2020 09:34:49 +0900</pubDate>
     
       <item>
-        <title>05: Faster R-CNN</title>
+        <title>07: Mask R-CNN</title>
         <link>/ds/dl/2020/09/07/computer-vision-07-Mask-RCNN.html</link>
         <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-07-Mask-RCNN.html</guid>
-        <description>&lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
+        <description>&lt;p&gt;원래대로라면, YOLO를 리뷰해야 하나, 일단은 같은 계열인 Mask RCNN부터 리뷰해보자. 해당 논문은 Faster R-CNN을 확장하여 Instance Segmentation에 적용하고자 하는 모델이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Region Proposal도 Network안에 포함시키자!&lt;/p&gt;
+  &lt;p&gt;Faster R-CNN에서 detect한 각각의 box에 mask를 씌워주자!&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;p&gt;Faster R-CNN의 핵심 아이디어는 Resion Proposal Network(이하 RPN)이다. 기존 Fast R-CNN구조를 계승하면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;를 제거하고 RPN을 통해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roi&lt;/code&gt;를 계산한다. 이를 통해서 GPU를 통해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roi&lt;/code&gt;를 계산할 수 있게 되었고, 이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;를 추출하는 것 역시 학습시켜 정확도를 높일 수 있다. 결과적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;가 2000개 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;를 계산하는데 반해, 800개 정도로 더 높은 정확도를 가진다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbUjRYz%2FbtqAWb0p8cv%2Fdx8Ky33sdZtb2RKQ8sQxZK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Faster R-CNN structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;그림을 보면 알겠지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;으로 부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;를 거치치 않고 이를 RPN에 전달하여 계산을 진행한다. 여기서 얻은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI Pooling&lt;/code&gt;을 진행한 다음 object detection을 진행한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;region-proposal-network&quot;&gt;Region Proposal Network&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo7PTm%2FbtqAXir1rPy%2FVbzsfY9JMY9N3ixCe3zxb0%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Region Proposal Network structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;이 그림보다는 순차적으로 된 그림으로 이해하는 것이 쉽다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7xNNb%2FbtqAYHyrFDU%2FJDkko5dBYTMzZV96AcpakK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Region Proposal Network structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;CNN을 통해 뽑아낸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;을 입력으로 받는다. 어떤 pretrained model을 사용할 지 모르므로 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HxWxC&lt;/code&gt;로 둔다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(3x3)x256&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(3x3)x512&lt;/code&gt; conv 연산을 수행한다. 엄밀히 말하면 C와 256, 512는 같아야 한다. 일단 연산이 가능하다고 가정하자. 이 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HxW&lt;/code&gt;가 보존될 수 있게 padding을 1로 설정한다.&lt;/p&gt;
-
-&lt;p&gt;전 과정에서 나온 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;을 가지고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 위한 확률값과, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt; 값을 뽑아낸다. 이 과정에서 너무 많은 연산을 진행하게 되면 모델이 지나치게 무거워 진다. 저자들은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 x 1 conv&lt;/code&gt;만을 수행하여 예측값을 뽑아내고자 하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92203883-385bee80-eebd-11ea-9782-e8e3c0e5c95d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Anchor&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;먼저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classification&lt;/code&gt;의 경우, 더욱 가볍게 진행하기 위해 물체인지 아닌지를 구분하는 binary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 진행하고자 하였다. 하지만 이 문제는 bounding box와 엮어서 이를 생각해야 하는데, 저자들은 이 단계에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;라는 개념을 도입하여 이를 진행하였다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;는 간단하게 사전에 정의해 둔 Box들이다. 총 9개를 사용하였다.&lt;/p&gt;
-
-&lt;p&gt;이 모든 내용을 정리하면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;의 결과는 총 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxW)&lt;/code&gt;의 각각의 위치에 제안된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;(9개)에 대해 물체의 여부(2)를 나타내는 총 18개의 Node를 가져야 한다. 그러기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(1x1)x(2x9)&lt;/code&gt;의 conv 연산을 진행하였다. 결과적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxW)x(2x9)&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature map&lt;/code&gt;이 나오고, 각각의 노드는 순서대로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(h, w)&lt;/code&gt; 위치에 있는 1번 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 물체일 logit, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(h, w)&lt;/code&gt; 위치에 있는 1번 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 물체가 아닐 logit … 로 정의된다. 최종적으로 이를 확률 값으로 변경해주기 위해 적절히 reshape 해준 다음 Softmax를 적용한다.&lt;/p&gt;
-
-&lt;p&gt;두번째로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bounding Box Regression&lt;/code&gt;을 진행한다. 같은 방법을 사용한다. 이번에는 9개 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;에 대해 총 4개의 좌표를 수정하기 위한 조절값을 예측해야 하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(H W)x(4x9)&lt;/code&gt;의 결과를 얻어야 한다. 이번에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;이기 때문에 그대로 결과값으로 사용하면 된다.&lt;/p&gt;
-
-&lt;p&gt;앞선 과정은 순차적으로 진행된다. 즉, classification을 먼저 진행하고, 이 결과를 기반으로 물체일 확률을 sorting한다. 이 중 높은 순으로 K개의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 후보군으로 선정한다. 이 후보군에 각각 bounding Box &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression&lt;/code&gt;을 진행한다. 마지막으로 Non-Maximum-Suppression을 적용하고, 이것을 기반으로 RoI를 제안한다.&lt;/p&gt;
-
-&lt;p&gt;이러한 방법을 통해서 RoI를 제안하는 Network를 만들었다. 이 후 과정은, 이렇게 만들어진 RoI를 첫번째 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature map&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxWxC) &lt;/code&gt;에 투영하는 과정을 거친다. 이 부분은 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;rpns-loss-function&quot;&gt;RPN’s Loss function&lt;/h3&gt;
-
-&lt;p&gt;RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)&lt;/script&gt;
-
-&lt;p&gt;여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;는 하나의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 말한다. $p_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 통해서 얻은 해당 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;일 확률을 의미한다. $t_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt;을 통해서 얻은 박스 조정 값 벡터를 의미한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;이 붙은 변수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ground truth label&lt;/code&gt;에 해당된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary cross entropy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;smooth L1 loss&lt;/code&gt;를 사용한다.&lt;/p&gt;
-
-&lt;p&gt;주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minibatch&lt;/code&gt; 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\lambda&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classifiaction Loss&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression Loss&lt;/code&gt; 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;training-method&quot;&gt;Training Method&lt;/h2&gt;
-
-&lt;p&gt;하지만 전체 모델을 한번에 학습시키기란 매우 어려운 작업이다. RPN이 제대로 RoI를 계산해내지 못하는데 뒷 단의 Classification 레이어가 학습될 리가 없다. 여기서 저자들은 4단계에 걸쳐서 모델을 번갈아서 학습시키는 Alternating Training 기법을 취한다. 말이 어렵지 그냥 따로 하고 지지고 볶으면서 학습시킨거다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ImageNet pretrained&lt;/code&gt; 모델을 불러온 다음, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;을 학습시킨다.&lt;/li&gt;
-  &lt;li&gt;1 단계에서 학습시킨 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;에서 기본 CNN을 제외한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Region Proposal 레이어&lt;/code&gt;만 가져온다. 이를 활용하여 Fast RCNN을 학습시킨다. 이 때 , 처음 피쳐맵을 추출하는 CNN까지 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다.&lt;/li&gt;
-  &lt;li&gt;앞서 학습시킨 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast RCNN&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;을 불러온 다음, 다른 웨이트들은 고정하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;에 해당하는 레이어들만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다. 여기서부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast RCNN&lt;/code&gt;이 컨볼루션 웨이트를 공유하게 된다.&lt;/li&gt;
-  &lt;li&gt;마지막으로 공유하는 CNN과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;은 고정시킨 채, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast R-CNN&lt;/code&gt;에 해당하는 레이어만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;의의&quot;&gt;의의&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;region proposal&lt;/code&gt;을 한번에 수행&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;한계&quot;&gt;한계&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;여전히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;real time&lt;/code&gt;이라고 하기에는 무리가 있음&lt;/li&gt;
-  &lt;li&gt;여전히 학습과정이 복잡하고 2step 임&lt;/li&gt;
-&lt;/ol&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 
@@ -93,171 +27,144 @@
       </item>
     
       <item>
-        <title>05: Faster R-CNN</title>
+        <title>07: Learning Deconvolution Network for Semantic Segmentation</title>
         <link>/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html</link>
         <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html</guid>
-        <description>&lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;개요&quot;&gt;개요&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Region Proposal도 Network안에 포함시키자!&lt;/p&gt;
+  &lt;p&gt;Noh, H., Hong, S., and Han, B. Learning Deconvolution Network for Semantic Segmentation. ICCV, 2015.&lt;/p&gt;
+
+  &lt;p&gt;이번 논문은 앞서 다뤘던 Fully Convolutional Networks와 같은 년도(2015)에 다른 학회(FCN은 CVPR, 본 논문은 ICCV)에 발표된 논문이다. FCN이나 이후에 다룰 UNet보다는 다소 인기가 적었지만, FCN이 가진 한계를 잘 짚어주셨다는 점에서 의의가 있다.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Faster R-CNN의 핵심 아이디어는 Resion Proposal Network(이하 RPN)이다. 기존 Fast R-CNN구조를 계승하면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;를 제거하고 RPN을 통해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roi&lt;/code&gt;를 계산한다. 이를 통해서 GPU를 통해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roi&lt;/code&gt;를 계산할 수 있게 되었고, 이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;를 추출하는 것 역시 학습시켜 정확도를 높일 수 있다. 결과적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;가 2000개 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;를 계산하는데 반해, 800개 정도로 더 높은 정확도를 가진다.&lt;/p&gt;
+&lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbUjRYz%2FbtqAWb0p8cv%2Fdx8Ky33sdZtb2RKQ8sQxZK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Faster R-CNN structure&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;크기, 디테일에 약해? -&amp;gt; layer 를 추가하자.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;그림을 보면 알겠지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;으로 부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;를 거치치 않고 이를 RPN에 전달하여 계산을 진행한다. 여기서 얻은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI Pooling&lt;/code&gt;을 진행한 다음 object detection을 진행한다.&lt;/p&gt;
+&lt;h3 id=&quot;크기의-문제점&quot;&gt;크기의 문제점&lt;/h3&gt;
 
-&lt;h1 id=&quot;region-proposal-network&quot;&gt;Region Proposal Network&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig1.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo7PTm%2FbtqAXir1rPy%2FVbzsfY9JMY9N3ixCe3zxb0%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Region Proposal Network structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;이 그림보다는 순차적으로 된 그림으로 이해하는 것이 쉽다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7xNNb%2FbtqAYHyrFDU%2FJDkko5dBYTMzZV96AcpakK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Region Proposal Network structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;CNN을 통해 뽑아낸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;을 입력으로 받는다. 어떤 pretrained model을 사용할 지 모르므로 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HxWxC&lt;/code&gt;로 둔다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(3x3)x256&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(3x3)x512&lt;/code&gt; conv 연산을 수행한다. 엄밀히 말하면 C와 256, 512는 같아야 한다. 일단 연산이 가능하다고 가정하자. 이 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HxW&lt;/code&gt;가 보존될 수 있게 padding을 1로 설정한다.&lt;/p&gt;
-
-&lt;p&gt;전 과정에서 나온 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;을 가지고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 위한 확률값과, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt; 값을 뽑아낸다. 이 과정에서 너무 많은 연산을 진행하게 되면 모델이 지나치게 무거워 진다. 저자들은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 x 1 conv&lt;/code&gt;만을 수행하여 예측값을 뽑아내고자 하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92203883-385bee80-eebd-11ea-9782-e8e3c0e5c95d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Anchor&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;먼저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classification&lt;/code&gt;의 경우, 더욱 가볍게 진행하기 위해 물체인지 아닌지를 구분하는 binary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 진행하고자 하였다. 하지만 이 문제는 bounding box와 엮어서 이를 생각해야 하는데, 저자들은 이 단계에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;라는 개념을 도입하여 이를 진행하였다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;는 간단하게 사전에 정의해 둔 Box들이다. 총 9개를 사용하였다.&lt;/p&gt;
-
-&lt;p&gt;이 모든 내용을 정리하면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;의 결과는 총 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxW)&lt;/code&gt;의 각각의 위치에 제안된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;(9개)에 대해 물체의 여부(2)를 나타내는 총 18개의 Node를 가져야 한다. 그러기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(1x1)x(2x9)&lt;/code&gt;의 conv 연산을 진행하였다. 결과적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxW)x(2x9)&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature map&lt;/code&gt;이 나오고, 각각의 노드는 순서대로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(h, w)&lt;/code&gt; 위치에 있는 1번 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 물체일 logit, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(h, w)&lt;/code&gt; 위치에 있는 1번 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 물체가 아닐 logit … 로 정의된다. 최종적으로 이를 확률 값으로 변경해주기 위해 적절히 reshape 해준 다음 Softmax를 적용한다.&lt;/p&gt;
-
-&lt;p&gt;두번째로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bounding Box Regression&lt;/code&gt;을 진행한다. 같은 방법을 사용한다. 이번에는 9개 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;에 대해 총 4개의 좌표를 수정하기 위한 조절값을 예측해야 하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(H W)x(4x9)&lt;/code&gt;의 결과를 얻어야 한다. 이번에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;이기 때문에 그대로 결과값으로 사용하면 된다.&lt;/p&gt;
-
-&lt;p&gt;앞선 과정은 순차적으로 진행된다. 즉, classification을 먼저 진행하고, 이 결과를 기반으로 물체일 확률을 sorting한다. 이 중 높은 순으로 K개의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 후보군으로 선정한다. 이 후보군에 각각 bounding Box &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression&lt;/code&gt;을 진행한다. 마지막으로 Non-Maximum-Suppression을 적용하고, 이것을 기반으로 RoI를 제안한다.&lt;/p&gt;
-
-&lt;p&gt;이러한 방법을 통해서 RoI를 제안하는 Network를 만들었다. 이 후 과정은, 이렇게 만들어진 RoI를 첫번째 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature map&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxWxC) &lt;/code&gt;에 투영하는 과정을 거친다. 이 부분은 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;rpns-loss-function&quot;&gt;RPN’s Loss function&lt;/h3&gt;
-
-&lt;p&gt;RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)&lt;/script&gt;
-
-&lt;p&gt;여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;는 하나의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 말한다. $p_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 통해서 얻은 해당 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;일 확률을 의미한다. $t_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt;을 통해서 얻은 박스 조정 값 벡터를 의미한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;이 붙은 변수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ground truth label&lt;/code&gt;에 해당된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary cross entropy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;smooth L1 loss&lt;/code&gt;를 사용한다.&lt;/p&gt;
-
-&lt;p&gt;주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minibatch&lt;/code&gt; 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\lambda&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classifiaction Loss&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression Loss&lt;/code&gt; 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;training-method&quot;&gt;Training Method&lt;/h2&gt;
-
-&lt;p&gt;하지만 전체 모델을 한번에 학습시키기란 매우 어려운 작업이다. RPN이 제대로 RoI를 계산해내지 못하는데 뒷 단의 Classification 레이어가 학습될 리가 없다. 여기서 저자들은 4단계에 걸쳐서 모델을 번갈아서 학습시키는 Alternating Training 기법을 취한다. 말이 어렵지 그냥 따로 하고 지지고 볶으면서 학습시킨거다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ImageNet pretrained&lt;/code&gt; 모델을 불러온 다음, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;을 학습시킨다.&lt;/li&gt;
-  &lt;li&gt;1 단계에서 학습시킨 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;에서 기본 CNN을 제외한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Region Proposal 레이어&lt;/code&gt;만 가져온다. 이를 활용하여 Fast RCNN을 학습시킨다. 이 때 , 처음 피쳐맵을 추출하는 CNN까지 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다.&lt;/li&gt;
-  &lt;li&gt;앞서 학습시킨 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast RCNN&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;을 불러온 다음, 다른 웨이트들은 고정하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;에 해당하는 레이어들만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다. 여기서부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast RCNN&lt;/code&gt;이 컨볼루션 웨이트를 공유하게 된다.&lt;/li&gt;
-  &lt;li&gt;마지막으로 공유하는 CNN과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;은 고정시킨 채, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast R-CNN&lt;/code&gt;에 해당하는 레이어만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;의의&quot;&gt;의의&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;region proposal&lt;/code&gt;을 한번에 수행&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;한계&quot;&gt;한계&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;여전히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;real time&lt;/code&gt;이라고 하기에는 무리가 있음&lt;/li&gt;
-  &lt;li&gt;여전히 학습과정이 복잡하고 2step 임&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;위의 예시들처럼 FCN의 추론 결과를 보면, 대상 물체가 너무 큰 경우(a)에는 파편화되고, 너무 작은 경우(b)에는 배경으로 무시되는 경향이 있다. FCN에서는 receptive field(상위 레이어의 한 지점에서 참조하는 하위 레이어의 영역)의 크기가 고정되어, 단일 배율(scale)만을 학습하는 것이 이 문제의 원인이라고 본 논문은 지적한다. 여러 레이어의 결과를 조합하는 skip 구조가 이러한 현상을 완화시켜주기는 하지만, 근본적인 해법은 아니라는 주장한다.&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://yeomko.tistory.com/17?category=888201&quot;&gt;갈아먹는 Object Detection [4] Faster R-CNN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://bskyvision.com/491&quot;&gt;semantic segmentation의 목적과 대표 알고리즘 FCN의 원리&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
       </item>
     
       <item>
-        <title>05: Faster R-CNN</title>
+        <title>06: Fully Convolutional Networks</title>
         <link>/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html</link>
         <guid isPermaLink="true">/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html</guid>
-        <description>&lt;h2 id=&quot;핵심-아이디어&quot;&gt;핵심 아이디어&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;task&quot;&gt;Task&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Region Proposal도 Network안에 포함시키자!&lt;/p&gt;
+  &lt;p&gt;Segmentation&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Faster R-CNN의 핵심 아이디어는 Resion Proposal Network(이하 RPN)이다. 기존 Fast R-CNN구조를 계승하면서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;를 제거하고 RPN을 통해서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roi&lt;/code&gt;를 계산한다. 이를 통해서 GPU를 통해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Roi&lt;/code&gt;를 계산할 수 있게 되었고, 이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;를 추출하는 것 역시 학습시켜 정확도를 높일 수 있다. 결과적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;가 2000개 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;를 계산하는데 반해, 800개 정도로 더 높은 정확도를 가진다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLRsBh%2FbtqvFWzSkG4%2FzVFXbcqvOHsbDeQ9NlkTOK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Types of Task&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbUjRYz%2FbtqAWb0p8cv%2Fdx8Ky33sdZtb2RKQ8sQxZK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Faster R-CNN structure&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;semantic segmentation은 이미지 내에 있는 물체들을 의미 있는 단위로 분할해내는 것이다. 좀 더 구체적으로 이야기하면, 이미지의 각 픽셀이 어느 클래스에 속하는지 예측하는 것이다. 이렇게 이미지 내 모든 픽셀에 대해서 예측을 진행하기 때문에 이 과제를 dense prediction이라고 부르기도 한다. 어떤 이미지 내에는 사람, 자동차, 강아지, 고양이, 노트북, 선풍기 등 여러 종류의 물체가 포함되어 있을 수 있다. 이렇게 서로 다른 종류의 물체들을 깔끔하게 분할해내는 것이 semantic segmentation의 목적이다.&lt;/p&gt;
 
-&lt;p&gt;그림을 보면 알겠지만, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;으로 부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selective search&lt;/code&gt;를 거치치 않고 이를 RPN에 전달하여 계산을 진행한다. 여기서 얻은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI&lt;/code&gt;로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RoI Pooling&lt;/code&gt;을 진행한 다음 object detection을 진행한다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-6-638.jpg?cb=1509881698&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;관련 논문들 &lt;del&gt;할거개많다&lt;/del&gt;&lt;/em&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;region-proposal-network&quot;&gt;Region Proposal Network&lt;/h1&gt;
+&lt;p&gt;이 중에서 의미론적인 구분을 하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sementic Segmentation&lt;/code&gt; 중에서 Deep Lab에 대해 알아볼 것이다. 다음으로는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;U-Net&lt;/code&gt;, 마지막으로 instance 단위로 segmentation을 진행하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;instance segmentation&lt;/code&gt;을 알아볼 것이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo7PTm%2FbtqAXir1rPy%2FVbzsfY9JMY9N3ixCe3zxb0%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Region Proposal Network structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;이 그림보다는 순차적으로 된 그림으로 이해하는 것이 쉽다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7xNNb%2FbtqAYHyrFDU%2FJDkko5dBYTMzZV96AcpakK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Region Proposal Network structure&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;CNN을 통해 뽑아낸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;을 입력으로 받는다. 어떤 pretrained model을 사용할 지 모르므로 이를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HxWxC&lt;/code&gt;로 둔다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(3x3)x256&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(3x3)x512&lt;/code&gt; conv 연산을 수행한다. 엄밀히 말하면 C와 256, 512는 같아야 한다. 일단 연산이 가능하다고 가정하자. 이 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HxW&lt;/code&gt;가 보존될 수 있게 padding을 1로 설정한다.&lt;/p&gt;
-
-&lt;p&gt;전 과정에서 나온 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feature map&lt;/code&gt;을 가지고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 위한 확률값과, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt; 값을 뽑아낸다. 이 과정에서 너무 많은 연산을 진행하게 되면 모델이 지나치게 무거워 진다. 저자들은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 x 1 conv&lt;/code&gt;만을 수행하여 예측값을 뽑아내고자 하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92203883-385bee80-eebd-11ea-9782-e8e3c0e5c95d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;Anchor&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;먼저 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classification&lt;/code&gt;의 경우, 더욱 가볍게 진행하기 위해 물체인지 아닌지를 구분하는 binary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 진행하고자 하였다. 하지만 이 문제는 bounding box와 엮어서 이를 생각해야 하는데, 저자들은 이 단계에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;라는 개념을 도입하여 이를 진행하였다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;는 간단하게 사전에 정의해 둔 Box들이다. 총 9개를 사용하였다.&lt;/p&gt;
-
-&lt;p&gt;이 모든 내용을 정리하면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;의 결과는 총 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxW)&lt;/code&gt;의 각각의 위치에 제안된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Anchor&lt;/code&gt;(9개)에 대해 물체의 여부(2)를 나타내는 총 18개의 Node를 가져야 한다. 그러기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(1x1)x(2x9)&lt;/code&gt;의 conv 연산을 진행하였다. 결과적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxW)x(2x9)&lt;/code&gt;의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature map&lt;/code&gt;이 나오고, 각각의 노드는 순서대로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(h, w)&lt;/code&gt; 위치에 있는 1번 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 물체일 logit, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(h, w)&lt;/code&gt; 위치에 있는 1번 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 물체가 아닐 logit … 로 정의된다. 최종적으로 이를 확률 값으로 변경해주기 위해 적절히 reshape 해준 다음 Softmax를 적용한다.&lt;/p&gt;
-
-&lt;p&gt;두번째로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bounding Box Regression&lt;/code&gt;을 진행한다. 같은 방법을 사용한다. 이번에는 9개 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;에 대해 총 4개의 좌표를 수정하기 위한 조절값을 예측해야 하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(H W)x(4x9)&lt;/code&gt;의 결과를 얻어야 한다. 이번에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;이기 때문에 그대로 결과값으로 사용하면 된다.&lt;/p&gt;
-
-&lt;p&gt;앞선 과정은 순차적으로 진행된다. 즉, classification을 먼저 진행하고, 이 결과를 기반으로 물체일 확률을 sorting한다. 이 중 높은 순으로 K개의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 후보군으로 선정한다. 이 후보군에 각각 bounding Box &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression&lt;/code&gt;을 진행한다. 마지막으로 Non-Maximum-Suppression을 적용하고, 이것을 기반으로 RoI를 제안한다.&lt;/p&gt;
-
-&lt;p&gt;이러한 방법을 통해서 RoI를 제안하는 Network를 만들었다. 이 후 과정은, 이렇게 만들어진 RoI를 첫번째 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature map&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(HxWxC) &lt;/code&gt;에 투영하는 과정을 거친다. 이 부분은 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다.&lt;/p&gt;
-
-&lt;h3 id=&quot;rpns-loss-function&quot;&gt;RPN’s Loss function&lt;/h3&gt;
-
-&lt;p&gt;RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)&lt;/script&gt;
-
-&lt;p&gt;여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;는 하나의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 말한다. $p_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 통해서 얻은 해당 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;일 확률을 의미한다. $t_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt;을 통해서 얻은 박스 조정 값 벡터를 의미한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;이 붙은 변수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ground truth label&lt;/code&gt;에 해당된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary cross entropy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;smooth L1 loss&lt;/code&gt;를 사용한다.&lt;/p&gt;
-
-&lt;p&gt;주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minibatch&lt;/code&gt; 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\lambda&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classifiaction Loss&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression Loss&lt;/code&gt; 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;training-method&quot;&gt;Training Method&lt;/h2&gt;
-
-&lt;p&gt;하지만 전체 모델을 한번에 학습시키기란 매우 어려운 작업이다. RPN이 제대로 RoI를 계산해내지 못하는데 뒷 단의 Classification 레이어가 학습될 리가 없다. 여기서 저자들은 4단계에 걸쳐서 모델을 번갈아서 학습시키는 Alternating Training 기법을 취한다. 말이 어렵지 그냥 따로 하고 지지고 볶으면서 학습시킨거다.&lt;/p&gt;
+&lt;h2 id=&quot;알아두어야-할-것&quot;&gt;알아두어야 할 것&lt;/h2&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ImageNet pretrained&lt;/code&gt; 모델을 불러온 다음, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;을 학습시킨다.&lt;/li&gt;
-  &lt;li&gt;1 단계에서 학습시킨 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;에서 기본 CNN을 제외한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Region Proposal 레이어&lt;/code&gt;만 가져온다. 이를 활용하여 Fast RCNN을 학습시킨다. 이 때 , 처음 피쳐맵을 추출하는 CNN까지 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다.&lt;/li&gt;
-  &lt;li&gt;앞서 학습시킨 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast RCNN&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;을 불러온 다음, 다른 웨이트들은 고정하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;에 해당하는 레이어들만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다. 여기서부터 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast RCNN&lt;/code&gt;이 컨볼루션 웨이트를 공유하게 된다.&lt;/li&gt;
-  &lt;li&gt;마지막으로 공유하는 CNN과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RPN&lt;/code&gt;은 고정시킨 채, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fast R-CNN&lt;/code&gt;에 해당하는 레이어만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fine tune&lt;/code&gt; 시킨다.&lt;/li&gt;
+  &lt;li&gt;평가 metric
+    &lt;ul&gt;
+      &lt;li&gt;IoU(intersection over Union)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;사용 데이터셋
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://pjreddie.com/projects/pascal-voc-dataset-mirror/&quot;&gt;Pascal VOC 2012&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://pjreddie.com/projects/pascal-voc-dataset-mirror/&quot;&gt;cityscape&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;의의&quot;&gt;의의&lt;/h2&gt;
+&lt;h2 id=&quot;fully-convolutional-networks&quot;&gt;Fully Convolutional Networks&lt;/h2&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;region proposal&lt;/code&gt;을 한번에 수행&lt;/li&gt;
-&lt;/ol&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Fully connected 대신 Fully convolution!&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h2 id=&quot;한계&quot;&gt;한계&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Baseline
+    &lt;ul&gt;
+      &lt;li&gt;Fully Convolutional Networks for Semantic Segmentation”, 2014&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;여전히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;real time&lt;/code&gt;이라고 하기에는 무리가 있음&lt;/li&gt;
-  &lt;li&gt;여전히 학습과정이 복잡하고 2step 임&lt;/li&gt;
-&lt;/ol&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Sematic Segmentation = Pixel level Calssification??&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;CNN은 image classification을 잘한다. 그렇다면 Sememtation은 pixel 단위로 classification을 진행하면 되지 않을까? 하지만 굉장히 비효율적이다. 그렇다면, 최대한 기존 network의 구조를 변경하지 않으면서 이걸 가능하게 할 방법은?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-17-638.jpg?cb=1509881698&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
+&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdYXtID%2FbtqvFhyuhNf%2FTf0TfXSNpXZmdbmQMzQRiK%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;기존 VGG16 network&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;AlexNet, VGGNet 등 이미지 분류(image classification)용 CNN 알고리즘들은 일반적으로 컨볼루션 층들과 fully connected 층들로 이뤄져있다. 입력이미지에 의존도가 크기 때문에 항상 입력이미지를 네트워크에 맞는 고정된 사이즈로 작게 만들어서 입력해준다. 그러면 네트워크는 그 이미지가 속할 클래스를 예측해서 알려준다. 아래 그림에서 네트워크는 입력된 이미지의 클래스를 얼룩무늬 고양이(tabby cat)라고 예측해냈다.&lt;/p&gt;
+
+&lt;p&gt;이 분류용 CNN 알고리즘들은 이미지에 있는 물체가 어떤 클래스에 속하는지는 예측해낼 수 있지만, 그 물체가 어디에 존재하는지는 예측해낼 수 없다. 왜냐하면 네트워크 후반부의 fully connected 층에 들어서면서 위치정보가 소실되었기 때문이다. 따라서 AlexNet, VGGNet 등과 같은 알고리즘들을 수정함없이 Semantic segmentation 과제에 그대로 사용하는 것은 불가능하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-19-638.jpg?cb=1509881698&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
+&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcSbIVE%2FbtqvI5YqCii%2Fk6AP2w27BjDtdEQYKgu5Tk%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Fully Convolutional Network&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;그래서 저자들은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x1 filter&lt;/code&gt;를 사용하여 위치정보를 살렸다. 마지막 단에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;7x7 heatmap&lt;/code&gt; 을 output으로 내고, 이를 원래 image size로 upsampling을 진행하여 문제를 해결하고자 하였다.&lt;/p&gt;
+
+&lt;p&gt;결과적으로 네트워크 전체가 컨볼루션층들로 이뤄지게 되었다. fully connected 층들이 없어졌으므로 더 이상 입력 이미지의 크기에 제한을 받지 않게 되었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-20-638.jpg?cb=1509881698&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
+&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFIfAW%2FbtqvHhd0D3s%2FFIyW7ZKEzL1DFOjk0EfFA1%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;입력 크기에 대해 자유로워졌다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;저자들은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fully Convolutional Network&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x1 filter&lt;/code&gt;를 사용하기 때문에 input image에 대한 dependency가 작은 것도 장점이라 했다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1x1 conv&lt;/code&gt;는 Width, Height에 대해 의존도가 없기 때문에 channel 수를 마음대로 조정하여 원하는 output 모양을 맞출 수 있다. 여러 층의 컨볼루션층들을 거치고 나면 특성맵(feature map)의 크기가 H/32 x W/32가 되는데, 그 특성맵의 한 픽셀이 입력이미지의 32 x 32 크기를 대표한다. 즉, 입력이미지의 위치 정보를 ‘대략적으로’ 유지하고 있는 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;upsampling&quot;&gt;Upsampling&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;feature map을 키워서 image size로 만들자!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc2rRKu%2FbtqvFhluGR4%2FL0t8Da4wcUNJzkxPmzH6tk%2Fimg.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;Heatmap과 Upsampling&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;입력이미지의 위치 정보를 가지고 있는 Heapmap은 아직 대략적인 정보(Coarse)일 뿐이다. 이러한 정보를 기반으로 원래 이미지의 Pixel Size에서 class를 예측하는 dense Prediction을 수행해야 한다. 이 과정에서 Heat map을 원래 image size로 크기를 키워주는 과정을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt;이라 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwdTpY%2FbtqvHixmi52%2FBq3qFblKq2M59qH3DTQ6Xk%2Fimg.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;FCN-32s 모델의 전체 과정&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 단순히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt;을 진행하면 예상하겠지만 여전히 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Coarse&lt;/code&gt;한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;segmentation map&lt;/code&gt;을 얻게 된다. 단숨에 32배 한다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coarse&lt;/code&gt; 할수 밖에 없다. 이렇게 단숨에 32배 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;upsampling&lt;/code&gt;한 네트워크를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FCN-32s&lt;/code&gt;라 소개하고 있다. 확실히 정확도가 많이 떨어진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc8w6Q4%2FbtqvIl8hnlM%2FluT2LiEWwy1s6C6iBLOB9K%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;60%&quot; /&gt;&lt;em&gt;FCN-32s : Coarse Output&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;skip-combining&quot;&gt;Skip Combining&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;이전 단계의 컨볼루션층들의 특성맵을 참고하여 upsampling을 해주자!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FIGdNu%2FbtqvIlt4uDG%2FfcPrxA9rRuGSK0k7urG1SK%2Fimg.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;FCN-16s&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;컨볼루션과 풀링 단계로 이뤄진 이전 단계의 컨볼루션층들의 특성맵을 참고하여 upsampling을 해주면 좀 더 정확도를 높일 수 있지 않겠냐는 생각에서 Skip combining이라는 방법을 제안한다. 왜냐하면 이전 컨볼루션층들의 특성맵들이 해상도 면에서는 더 낫기 때문이다. 이렇게 바로 전 컨볼루션층의 특성맵(pool4)과 현재 층의 특성맵(conv7)을 2배 upsampling한 것을 더한다. 그 다음 그것(pool + 2x conv7)을 16배 upsampling으로 얻은 특성맵들로 segmentation map을 얻는 방법을 FCN-16s라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcUvGlz%2FbtqvJ6CMaea%2FmhXVZg7xJk9rEdLR7KRgWk%2Fimg.jpg&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;em&gt;FCN-8s&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;또 더 나아가서 전전 컨볼루션층의 결과도 참고해서 특성맵들을 얻고, 또 그 특성맵들로 segmentation map을 구할 수도 있다. 이 방법은 FCN-8s라고 부른다. 좀 더 구체적으로 이야기하면, 먼저 전전 단계의 특성맵(pool3)과 전 단계의 특성맵(pool4)을 2배 upsampling한 것과 현 단계의 특성맵(conv7)을 4배 upsampling 한 것을 모두 더한 다음에 8배 upsampling을 수행하므로 특성맵들을 얻는다. 이것을 모두 종합해서 최종 segmentation map을 산출한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FpU9Xh%2FbtqvGCXt7hJ%2FyFa9DNVZi99eGvVoBXut8k%2Fimg.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;skip combining의 depth에 따른 결과 비교&lt;/em&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;reference&quot;&gt;Reference&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://yeomko.tistory.com/17?category=888201&quot;&gt;갈아먹는 Object Detection [4] Faster R-CNN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://bskyvision.com/491&quot;&gt;semantic segmentation의 목적과 대표 알고리즘 FCN의 원리&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 07 Sep 2020 00:00:00 +0900</pubDate>
       </item>
@@ -308,13 +215,15 @@
 
 &lt;p&gt;RPN은 앞서서 Classification과 Bouding Box Regression을 수행했다. 로스 펑션은 이 두 가지 테스크에서 얻은 로스를 엮은 형태를 취하고 있다.&lt;/p&gt;
 
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;a = 10&lt;/script&gt;
+
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;L(\{p_i\}, \{t_i\})= {1 \over N_{cls}}\sum_i L_{cls}(p_i, p_i^*) + \lambda {1 \over N_{reg}}\sum_i p_i^* L_{reg}(t_i, t_i^*)&lt;/script&gt;
 
 &lt;p&gt;여기서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;는 하나의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;를 말한다. $p_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;을 통해서 얻은 해당 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt;가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;일 확률을 의미한다. $t_i$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bounding box regression&lt;/code&gt;을 통해서 얻은 박스 조정 값 벡터를 의미한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;이 붙은 변수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ground truth label&lt;/code&gt;에 해당된다.&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classification&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binary cross entropy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;regression&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;smooth L1 loss&lt;/code&gt;를 사용한다.&lt;/p&gt;
 
-&lt;p&gt;주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minibatch&lt;/code&gt; 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\lambda&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classifiaction Loss&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression Loss&lt;/code&gt; 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.&lt;/p&gt;
+&lt;p&gt;주목해야 할 점은 각각 $N_{cls}$와 $N_{reg}$를 가진다는 점이다. $N_{cls}$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minibatch&lt;/code&gt; 사이즈이며 논문에서는 256입니다. $N_{reg}$는 엥커 개수에 해당하며 약 2400개 (256 x 9)에 해당한다. 실제 실험을 진행했을 떄 이부분이 큰 부분을 담당하지는 않는다고 말한다. $\lambda$는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Classifiaction Loss&lt;/code&gt;와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Regression Loss&lt;/code&gt; 사이에 가중치를 조절해주는 부분인데 논문에서는 10으로 설정되어 있어, 사실상 두 로스는 동일하게 가중치가 매겨진다. 이후는 &lt;a href=&quot;https://wansook0316.github.io/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html&quot;&gt;Fast R-CNN&lt;/a&gt; 구조와 같다. 이제 남은 것은 어떻게 이 두 네트워크를 학습시키느냐에 대한 것이다.&lt;/p&gt;
 
 &lt;h2 id=&quot;training-method&quot;&gt;Training Method&lt;/h2&gt;
 

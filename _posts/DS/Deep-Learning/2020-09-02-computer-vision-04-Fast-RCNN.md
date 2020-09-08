@@ -3,7 +3,7 @@ layout: post
 title: "04: Fast R-CNN"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review"]
+tags: [DS, "paper review", "Object Detection"]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
