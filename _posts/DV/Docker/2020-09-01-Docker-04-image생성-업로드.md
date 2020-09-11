@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "03: image 생성, 업로드"
-category: "DS/Docker"
+title: "04: image 생성, 업로드"
+category: "DV/Docker"
 comments: true
-tags: [DS, "python", "docker", "image"]
+tags: [DV, "python", "docker", "image"]
 feature-img: "assets/img/30.jpg"
 feature-title: ""
 use_math: true
