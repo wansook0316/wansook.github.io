@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "13: Mask R-CNN"
+title: "14: Mask R-CNN"
 category: "DS/DL"
 comments: true
 tags: [DS, "paper review", "image segmentation"]
@@ -13,7 +13,7 @@ summary: "Mask R-CNN을 리뷰해본다."
 
 ## 개요
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-60-638.jpg?cb=1515317235){: .center width="100%"}_structure of mask RCNN_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-60-638.jpg?cb=1515317235){: .center width="80%"}_structure of mask RCNN_
 
 - Facebok AI Research (FAIR), Kaiming He, 24 Jan 2018
 - Marr Prize at ICCV 2017
@@ -43,7 +43,7 @@ summary: "Mask R-CNN을 리뷰해본다."
 2. ~~그렇기 때문에 pixel 단위 softmax 값 추출이 필요~~ -> bounding box 안에서 물체 인지 아닌지만 구분해주면 됨(Sigmoid)
 3. ~~multi instance를 고려해야 함~~ -> 이미 multi instance로 bounding box를 쳐줌
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-18-638.jpg?cb=1515317235){: .center width="100%"}_class, box 외에 mask FCN만 추가한다._
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-18-638.jpg?cb=1515317235){: .center width="80%"}_class, box 외에 mask FCN만 추가한다._
 
 결과적으로, 이 문제에서 해야할 일은 masking을 수행하는 것이다. 그래서 논문이름도 Mask RCNN이다.
 
@@ -51,26 +51,26 @@ summary: "Mask R-CNN을 리뷰해본다."
 
 > input에서의 변화가 output의 변화에 영향을 준다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-39-638.jpg?cb=1515317235){: .center width="100%"}_Invariance vs. Equivariance_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-39-638.jpg?cb=1515317235){: .center width="80%"}_Invariance vs. Equivariance_
 
 classification 문제에서는 label을 도출하는 문제이기 때문에 Invariance 하다. 하지만 segmentation 문제 같은 경우에는 output이 원래 이미지 사이즈와 같아야 하기 때문에 이 문제는 Equivariance로 해결 해야한다. 이 때, 저자들은 convolution은 translation-equivariance 하기 때문에 이 네트워크를 사용했다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-41-638.jpg?cb=1515317235){: .center width="100%"}
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-42-638.jpg?cb=1515317235){: .center width="100%"}_Fully convolutional network 사용_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-41-638.jpg?cb=1515317235){: .center width="80%"}
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-42-638.jpg?cb=1515317235){: .center width="80%"}_Fully convolutional network 사용_
 
 mask RCNN의 구조를 담당하는 Faster RCNN은 Fully conv net을 사용하고 있다. 여기서 mask RCNN은 뒤의 mask head부분 역시 FCN을 사용하여 제작하였다.
 
 ## RoI Align
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-47-638.jpg?cb=1515317235){: .center width="100%"}_기존의 Faster RCNN의 구조_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-47-638.jpg?cb=1515317235){: .center width="80%"}_기존의 Faster RCNN의 구조_
 
 기존에 Faster RCNN에서는 feature map을 뽑아낸 뒤, Region proposal Network를 사용하여 이를 제시하였다. 그 방법은 RoI pooling이었다. 하지만 segmentation은 detection 문제와 다르게 단지 box를 치는 문제가 아니다. 좀더 정확한 위치정보를 담은 상태의 feature map이 필요하다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-54-638.jpg?cb=1515317235){: .center width="100%"}_RoI pooling은 proposal의 위치를 반올림한다._
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-54-638.jpg?cb=1515317235){: .center width="80%"}_RoI pooling은 proposal의 위치를 반올림한다._
 
 기존의 RoI Pooling을 생각해보면, 4개의 좌표 변환 값을 regression하고, 이를 기반으로 예상 좌표를 얻어낸 뒤(실수) 이를 반올림하여 정수단위인 pixel의 위치를 제안한다. 하지만, 소수점을 반올림한 좌표를 가지고 Pooling을 해주면 input image의 원본 위치 정보가 왜곡된다. classfication에는 이런 문제가 심각하지 않지만, pixel-by-pixel로 detection을 진행해야 하는 segmentation 에서는 문제가 발생한다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-58-638.jpg?cb=1515317235){: .center width="100%"}_RoI Align_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-58-638.jpg?cb=1515317235){: .center width="80%"}_RoI Align_
 
 이 문제를 해결하기 위해 저자들은 다음과 같은 방법을 통해 이를 해결한다.
 
@@ -80,7 +80,7 @@ mask RCNN의 구조를 담당하는 Faster RCNN은 Fully conv net을 사용하�
 4. 이렇게 발생한 격자내에 들어오는 픽셀의 면적을 기준으로 가중평균한다.
 5. 발생한 값을 기준으로 pooling한다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-45-638.jpg?cb=1515317235){: .center width="100%"}
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-45-638.jpg?cb=1515317235){: .center width="80%"}
 
 이 방법은 Mask Accuracy에서 큰 향상을 보였다.
 
@@ -93,7 +93,7 @@ Mask R-CNN은 여러 가지 아키텍쳐를 합친 네트워크인데, 크게 �
 2. Network head
    - bounding-box 인식(classification & regression), mask 예측
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-64-638.jpg?cb=1515317235){: .center width="100%"}_Head Architecture_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-64-638.jpg?cb=1515317235){: .center width="80%"}_Head Architecture_
 
 ### ResNet Backbone
 
@@ -116,21 +116,21 @@ $$
 
 위의 아이디어를 그대로 가져와서, 결과적으로 masking만 하는 loss 함수를 정의하여 사용한다. 그림으로 이해해 보자.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-27-638.jpg?cb=1515317235){: .center width="100%"}_이전 방법들과의 비교_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-27-638.jpg?cb=1515317235){: .center width="80%"}_이전 방법들과의 비교_
 
 그림을 보게되면, 단순히 masking을 하는 구조를 추가하고, 이를 반영하는 방식으로 진행된다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-35-638.jpg?cb=1515317235){: .center width="100%"}_mask Head의 loss update 방법_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-35-638.jpg?cb=1515317235){: .center width="80%"}_mask Head의 loss update 방법_
 
 update 방법은 상당히 단순한데, 일단 전체 mask loss는 모든 클래스(사람, 말 등)에서 차이가 나는 mask의 정도로 정의가 된다. 하지만 해당 사진에서 bounding box는 하나만 box 처리가 되어 있다. 기존의 faster RCNN에서 bounding box를 예측할 때는 하나의 box만 처리하기 때문이다. 이런 상황에서 mask에 대한 업데이트는 모든 사물에 대해서 업데이트를 할 수 없게 된다. 그래서 이렇게 해당 사진의 class가 정해질 경우, 해당 class에 해당하는 mask만을 선택하고 이를 업데이트 해준다. 즉, 말이 정답 class인 경우, 이 class에 해당하는 mask만 학습된다.
 
 결과적으로 이렇게 학습되는 mask branch는 **어떠한 class인지 상관 없이 물체의 masking만 따는 것을 배우게 된다.**
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-37-638.jpg?cb=1515317235){: .center width="100%"}_test senario_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-37-638.jpg?cb=1515317235){: .center width="80%"}_test senario_
 
 이렇게 학습된 mask branch는 실제로 여러개의 물체에 대한 mask라고 예측할 것이다. 하지만 이 녀석은 어떠한 물체인지 분간하지 못하는데, 이부분에 있어서 classification의 결과를 넣어주어, 하나의 masking을 제안한다. 즉 mask prediction에서는 단지 이 pixel이 mask인지, 아닌지 만을 구분(sigmoid 사용)하도록 하여 성능의 향상을 보였다. 이러한 방법을 Mask prediction 과 class prediction 을 decouple 했다고 한다.
 
-![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-38-638.jpg?cb=1515317235){: .center width="100%"}_decouple을 시도했을 때 올라간 정확도_
+![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-38-638.jpg?cb=1515317235){: .center width="80%"}_decouple을 시도했을 때 올라간 정확도_
 
 ### Reference
 
@@ -142,9 +142,9 @@ f = plt.figure(figsize=(10, 6))
 gs = f.add_gridspec(1, 2)
 
 with sns.axes_style("whitegrid"):
-    ax = f.add_subplot(gs[0, 0])
-    sns.barplot(x="date", y="LEAS_COUNTS", data=demand_date, palette="Blues", ax=ax)
+ax = f.add_subplot(gs[0, 0])
+sns.barplot(x="date", y="LEAS_COUNTS", data=demand_date, palette="Blues", ax=ax)
 
 with sns.axes_style("whitegrid"):
-    ax = f.add_subplot(gs[0, 1])
-    sns.barplot(x="date", y="RTN_COUNTS", data=demand_date, palette="YlOrBr", ax=ax)
+ax = f.add_subplot(gs[0, 1])
+sns.barplot(x="date", y="RTN_COUNTS", data=demand_date, palette="YlOrBr", ax=ax)

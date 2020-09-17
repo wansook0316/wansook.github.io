@@ -2,74 +2,75 @@
 layout: default
 ---
 
-<article {% if page.feature-img %}class="feature-image main-category-feature"{% endif %}>
+<article
+  {%
+  if
+  page.feature-img
+  %}class="feature-image main-category-feature"
+  {%
+  endif
+  %}
+>
   {% assign category = page.category | default: page.title %}
-  <header style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')">
-    
-    {% comment %} <ul class="category-title"> {% endcomment %}
-    {% comment %} {% assign category_title = page.title | append: ' : ' | append: page.subtitle %} {% endcomment %}
-    {% if page.alt-subtitle %}
+  <header
+    style="background-image: url('{{ site.baseurl }}/{{ page.feature-img }}')"
+  >
+    {% comment %}
+    <ul class="category-title">
+      {% endcomment %} {% comment %} {% assign category_title = page.title |
+      append: ' : ' | append: page.subtitle %} {% endcomment %} {% assign
+      category_name = page.title | append: '/' | append:page.subtitle %} {% if
+      page.alt-subtitle %}
       <h1 class="title">{{page.alt-subtitle}}</h1>
-    {% else %}
+      {% else %}
       <h1 class="title">{{page.subtitle}}</h1>
-    {% endif %}
-      {% comment %} <h1 class="title">{{page.title}}:{{page.subtitle}}</h1> {% endcomment %}
-    {% comment %} </ul> {% endcomment %}
+      {% endif %}
+
+      <p class="meta">
+        Number of Posts : {{ site.categories[category_name]|size }}
+      </p>
+
+      {% comment %}
+      <h1 class="title">{{page.title}}:{{page.subtitle}}</h1>
+      {% endcomment %} {% comment %}
+    </ul>
+    {% endcomment %}
   </header>
 </article>
 
-  <ul class="posts">
-    {% assign category_name = page.title | append: '/' | append: page.subtitle %}
-    {% for post in site.categories[category_name] %}
-      <div class="post-teaser list-box">
-
-      <div style=" cursor: pointer;" onclick="location.href='{{ post.url | relative_url }}';">
+<ul class="posts">
+  {% assign category_name = page.title | append: '/' | append: page.subtitle %}
+  {% for post in site.categories[category_name] %}
+  <div class="post-teaser list-box">
+    <div
+      style="cursor: pointer"
+      onclick="location.href='{{ post.url | relative_url }}';"
+    >
       <header>
         <h2 class="categorized-post__title">
           <a href="{{ site.baseurl }}{{ post.url }}">
-            {% comment %} {% if post.series %}
-                {{ post.series }} 
-            {% endif %} {% endcomment %}
-            {{ post.title }}
+            {% comment %} {% if post.series %} {{ post.series }} {% endif %} {%
+            endcomment %} {{ post.title }}
           </a>
         </h2>
         <p class="meta">
-            {{post.category}} 
-            {% if post.series %}
-                - {{ post.series }}
-            {% endif %}
-          </p>
-        <p class="meta">
-          {{ post.date | date: "%B %-d, %Y" }}
+          {{post.category}} {% if post.series %} - {{ post.series }} {% endif %}
         </p>
+        <p class="meta">{{ post.date | date: "%B %-d, %Y" }}</p>
       </header>
       <div class="excerpt">
-        
-        {% if post.summary %}
-          {{ post.summary }}
-        {% else %} 
-          {{ post.excerpt | strip_html }}
-        {% endif %}
-        
-      </div>
+        {% if post.summary %} {{ post.summary }} {% else %} {{ post.excerpt |
+        strip_html }} {% endif %}
       </div>
     </div>
+  </div>
 
-
-
-    {% comment %} <li class="post-teaser categorized-post">
-      <h3 class="categorized-post__title">
-        <a href="{{ site.baseurl }}{{ post.url }}">
-          {{ post.title }}
-        </a>
-      </h3>
-      <div class="meta">
-            {{ post.date | date: "%B %-d, %Y" }}
-      </div>
-
-    </li> {% endcomment %}
-  {% endfor %}
-  
+  {% comment %}
+  <li class="post-teaser categorized-post">
+    <h3 class="categorized-post__title">
+      <a href="{{ site.baseurl }}{{ post.url }}"> {{ post.title }} </a>
+    </h3>
+    <div class="meta">{{ post.date | date: "%B %-d, %Y" }}</div>
+  </li>
+  {% endcomment %} {% endfor %}
 </ul>
-
-
