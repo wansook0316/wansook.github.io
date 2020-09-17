@@ -8,7 +8,7 @@ feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
 series: "Computer Vision"
-summary: "Mask R-CNN을 리뷰해본다."
+summary: "Fully Convolutional Networks을 리뷰해본다."
 ---
 
 ## Task

@@ -8,7 +8,7 @@ feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
 series: "Computer Vision"
-summary: "Mask R-CNN을 리뷰해본다."
+summary: "Learning Deconvolution Network for Semantic Segmentation을 리뷰해본다."
 ---
 
 ## 개요
