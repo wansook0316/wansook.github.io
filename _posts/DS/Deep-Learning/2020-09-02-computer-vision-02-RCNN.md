@@ -93,6 +93,6 @@ $$
 2.  SVM은 CNN을 훈련시키지 못한다.
 3.  Multostage Training Pipeline이다.
 
-### Reference
+# Reference
 
 [PR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks](https://www.youtube.com/watch?v=kcPAGIgBGRs&list=PLWKf9beHi3Tg50UoyTe6rIm20sVQOH1br&index=12)

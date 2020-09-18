@@ -123,6 +123,6 @@ $x_i$ 가 최종 `prediction` 값에 영향을 주려면 $x_i$가 속하는 모�
    - 이는 CPU 연산으로만 가능하기 때문에 병목이 발생
    - 이 부분이 inference를 수행하는데 있어 가장 많은 시간을 차지함
 
-### Reference
+# Reference
 
 [갈아먹는 Object Detection [3] Fast R-CNN](https://yeomko.tistory.com/15?category=888201)

@@ -5,7 +5,90 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>Be On My Wave 🌊</description>
-    <pubDate>Thu, 17 Sep 2020 15:26:05 +0900</pubDate>
+    <pubDate>Fri, 18 Sep 2020 17:35:43 +0900</pubDate>
+    
+      <item>
+        <title>15: Gram Matrix</title>
+        <link>/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html</link>
+        <guid isPermaLink="true">/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html</guid>
+        <description>&lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
+
+&lt;p&gt;style transfer에서는 input의 style을 target의 style과 맞게 만들어주는 방법이 필요한데, 이에 대한 방법론의 핵심을 담당하는 Gram Matrix에 대해 알아본다.&lt;/p&gt;
+
+&lt;h1 id=&quot;수식&quot;&gt;수식&lt;/h1&gt;
+
+&lt;p&gt;먼저, 논문에서 제안하고 있는 Gram Matrix의 형태는 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;G^l_{cd} = \frac{\sum_{ij} F^l_{ijc}(x)F^l_{ijd}(x)}{IJ}&lt;/script&gt;
+
+&lt;p&gt;우리는 쉬운 이해를 위해서 채널, 정규화 과정을 제거한 채로 살펴보자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;G^l_{ij} = {\sum_{k} F^l_{ik}(x)F^l_{jk}(x)}&lt;/script&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;l : layer&lt;/li&gt;
+  &lt;li&gt;F : Filter&lt;/li&gt;
+  &lt;li&gt;i, j : Filter Index&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;수식으로 들어온다면 여기까지만 읽으면 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;의미&quot;&gt;의미&lt;/h1&gt;
+
+&lt;p&gt;이미지 $\vec{x}$ 가 있다고 하자. 해당 벡터는 2차원 이미지가 있을 때, 이를 1차원으로 faltten 한 것이다. 이 이미지의 크기를 M=3이라 하자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\vec{x}=[x_0, x_1, x_2]&lt;/script&gt;
+
+&lt;p&gt;각 이미지가 통과하는 필터(M=2)가 2개 있다고 하자. 해당 필터는 $F$로 표기한다. 각각의 filter에 image를 통과시킨 결과를 $\vec{F}$라 하자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\mathbf{F} =
+\begin{bmatrix}
+   F_1(x_0) &amp; F_1(x_1) &amp; F_1(x_2) \\
+   F_2(x_0) &amp; F_2(x_1) &amp; F_2(x_2)
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;F_{ik} = F_i(x_k)&lt;/script&gt;
+
+&lt;p&gt;$F_{ik}$는 $F_i$ 필터에 $x_k$ 픽셀을 넣었을 때의 activation(response)이다. 그렇다면 Gram Matrix의 의미가 무엇인지 알아보자. 일단&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{align}
+   G^l_{ij}
+   &amp;=
+   \sum_{\text{all term}}
+   \begin{bmatrix}
+      F_{00}F_{00} + F_{01}F_{01} + F_{11}F_{11} &amp; F_{00}F_{10} + F_{01}F_{11} + F_{02}F_{12} \\
+      F_{10}F_{00} + F_{10}F_{01} + F_{12}F_{02} &amp; F_{10}F_{10} + F_{11}F_{11} + F_{12}F_{12}
+   \end{bmatrix}
+   \\
+
+   &amp;=
+   \sum_{\text{all term}} \sum_k
+   \begin{bmatrix}
+      {F_{0k}}^2 &amp; F_{0k}F_{1k} \\
+      F_{0k}F_{1k} &amp; {F_{0k}}^2
+   \end{bmatrix}
+\end{align} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;어디서 많이 본 모양이다. pixel별 filter activation의 Covariance이다! 결과적으로 발생하는 모든 항을 더하게되면 다음의 의미이다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;pixel의 filter activation들에 대한 covariance 모든 항의 합&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;이렇게 발생한 값을 가지고 input의 filter가 원하는 target filter의 gram matrix 값과 같도록 학습을 진행한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;E_{l}= {1\over4{N_e}^2{M_e}^2}\sum_{ij}(G_{ij}^l - \hat{G_{ij}^l})^2&lt;/script&gt;
+
+&lt;p&gt;최종적으로는 밀도로 나누어서 사용해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://m.blog.naver.com/PostView.nhn?blogId=atelierjpro&amp;amp;logNo=221180412283&amp;amp;proxyReferer=https:%2F%2Fwww.google.com%2F&quot;&gt;Gram Matrix 설명&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 18 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>01: </title>
@@ -497,15 +580,6 @@
         <link>/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-05-EDA-%ED%9B%84%EB%B3%B4%EA%B5%B0-%EC%83%9D%EC%84%B1.html</link>
         <guid isPermaLink="true">/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-05-EDA-%ED%9B%84%EB%B3%B4%EA%B5%B0-%EC%83%9D%EC%84%B1.html</guid>
         <description>&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92856105-094dfb80-f42e-11ea-90ef-2236f1c328f8.png&quot; alt=&quot;screencapture-compas-nb-lh-or-kr-user-wansook0316-nbconvert-html-result-ipynb-2020-09-11-11_42_16-5&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 11 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>04: EDA 2</title>
-        <link>/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-04-EDA.html</link>
-        <guid isPermaLink="true">/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-04-EDA.html</guid>
-        <description>&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92856095-06eba180-f42e-11ea-8231-94958796f667.png&quot; alt=&quot;screencapture-compas-nb-lh-or-kr-user-wansook0316-nbconvert-html-result-ipynb-2020-09-11-11_42_16-4&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 11 Sep 2020 00:00:00 +0900</pubDate>
       </item>

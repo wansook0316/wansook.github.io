@@ -132,19 +132,7 @@ update 방법은 상당히 단순한데, 일단 전체 mask loss는 모든 클�
 
 ![](https://image.slidesharecdn.com/pr057maskrcnn-180107092616/95/pr057-mask-rcnn-38-638.jpg?cb=1515317235){: .center width="80%"}_decouple을 시도했을 때 올라간 정확도_
 
-### Reference
+# Reference
 
 [Mask R-CNN 정리](https://mylifemystudy.tistory.com/82)
 [PR-057: Mask R-CNN](https://www.youtube.com/watch?v=RtSZALC9DlU&t=248s)
-
-import seaborn as sns
-f = plt.figure(figsize=(10, 6))
-gs = f.add_gridspec(1, 2)
-
-with sns.axes_style("whitegrid"):
-ax = f.add_subplot(gs[0, 0])
-sns.barplot(x="date", y="LEAS_COUNTS", data=demand_date, palette="Blues", ax=ax)
-
-with sns.axes_style("whitegrid"):
-ax = f.add_subplot(gs[0, 1])
-sns.barplot(x="date", y="RTN_COUNTS", data=demand_date, palette="YlOrBr", ax=ax)

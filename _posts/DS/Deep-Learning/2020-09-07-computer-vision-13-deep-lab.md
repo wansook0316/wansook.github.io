@@ -91,7 +91,7 @@ DeepLab V3+는 위에서 설명한 모듈을 Encoder-Decoder로 구조화시켰�
 
 ## 미리 보기
 
-![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb4jyRh%2FbtqBOr1Js63%2FSIfgecVgLei3GURcAy6My1%2Fimg.png){: .center width="80%"}_DeepLab V3 구조_
+![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb4jyRh%2FbtqBOr1Js63%2FSIfgecVgLei3GURcAy6My1%2Fimg.png){: .center width="50%"}_DeepLab V3 구조_
 
 DeepLab V3는 기본적으로 ResNet을 Backbone으로 사용하였으며 구조는 다음과 같다.
 
@@ -147,6 +147,54 @@ DeepLab V3+에서는 `Xception`을 `backbone`으로 사용하지만 `MSRA의 Ali
 
 ![](https://seongkyun.github.io/assets/post_img/papers/2019-07-10-deeplab/fig8.PNG){: .center width="80%"}_CRF 반복 횟수에 따른 결과 양상_
 
+### 왜 CRF(Conditional Random Field)가 필요한가?
+
+Classification과 같이 object-centric한 경우 가능한 높은 수준의 공간적인 불변성(spatial invariance)를 얻기 위해 여러 단계의 conv+pooling을 통해 영상 속에 존재하며 변화에 영향을 크게 받지 않은 강인한 특징을 추출해야하며, 이로인해 detail한 정보보단 global한 정보에 집중하게 된다.
+
+반면 semantic segmenation은 픽셀 단위의 조밀한 예측이 필요해 classification 네트워크 기반으로 segmentation 망을 구상하게 된다면 계속 feature map의 크기가 줄어들게되는 특성상 detail한 정보들을 잃게 된다.
+
+이 문제에 대한 해결책으로 FCN에선 skip connection을 사용하였고, dilated conv나 DeepLab에서는 마지막에 오는 pooling layer 2개를 없애고 dilated/atrous conv를 사용했다. 후에 작성할 Mask RCNN에서는 `Roi align`을 사용해서 이를 해결하고자 했다.
+
+하지만 이러한 방법을 사용하더라도 분명히 한계는 존재하기에 DeepLab에서는 atrous conv에 그치지 않고 CRF를 후처리 과정으로 사용하여 픽셀 단위 예측의 정확도를 더 높일 수 있게 되었다.
+
+### 개념
+
+> 이전 노드(pixel)간의 관계(조건부 확률 같은)를 기반으로 현재 노드의 값을 추론한다.
+
+일반적으로 좁은 범위(short-range)의 CRF는 segmentation을 수행한 뒤 생기는 segmentation noise를 없애는 용도로 많이 사용된다.
+하지만 앞서 살펴본 것처럼 DCNN에서는 여러 단계 conv+pooling을 거치며 feature map의 크기가 작아지게 되고 이를 upsampling을 통해 원 영상 크기로 확대하기에 이미 충분히 smoothen되어있는 상태이며, 여기에 기존처럼 short-range CRF를 적용하면 결과가 더 나빠지게 된다.
+
+Noise 성분도 같이 upsampling 되므로 세분화된 segmentation 결과를 얻기 어렵다. 이에 대한 해결책으로 Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials (Philipp Karahenbuhl)라는 논문이 발표되었으며, 해당 논문에선 기존에 사용되던 short-range CRF대신 전체 픽셀을 모두 연결한 (fully connected) CRF 방법을 개발해 놀라운 성능 향상을 얻어내었고 이 후 많은 사람들이 fully connected CRF를 후처리에서 사용하게 된다.
+
+기존에 사용되던 short-range CRF는 아래 그림처럼 local connection 정보만을 사용한다.
+이렇게 되면 detail 정보가 누락되게 된다.
+
+![](https://seongkyun.github.io/assets/post_img/papers/2019-07-10-deeplab/fig10.PNG){: .center width="80%"}_short range CRF 적용_
+
+반면 fully connected CRF를 사용하면 아래처럼 detail 정보들이 살아있는 결과를 얻을 수 있다. 물론 모든 노드(pixel)을 연결하여 처리하기 때문에 굉장히 오랜 시간이 걸린다는 것을 알 수 있다.
+
+![](https://seongkyun.github.io/assets/post_img/papers/2019-07-10-deeplab/fig11.PNG){: .center width="80%"}_Fully connected CRF 적용_
+
+위처럼 MCMC(Markov Chain Monte Carlo) 방식을 사용할 경우 좋은 결과가 나오지만 연산량이 많다는 단점이 있어 적용이 불가했다. 하지만 Philipp Karahenbuhl의 논문에서 이를 0.2초만에 효과적으로 연산가능하게 했다.
+
+Philipp Karahenbuhl는 일명 mean field approximation 방법을 적용해 message passing을 사용한 iteration 방법을 적용하여 효과적으로 빠른 fully connected CRF를 수행 가능하도록 했다.
+
+여기서 mean field approximation이란 물리학이나 확률이론에서 많이 사용되는 방법으로, 복잡한 모델을 설명하기 위해 더 간단한 모델을 선택하는 방식을 의미한다. 수많은 변수들로 이루어진 복잡한 관계를 갖는 상황에서 특정 변수와 다른 변수들의 관계의 평균을 취하게 되면, 평균으로부터 변화(fluctuation)를 해석하는데도 용이하고, 평균으로 단순화/근사화된 모델을 사용하면 전체를 조망하기에 좋다.
+
+### 수식
+
+![image](https://user-images.githubusercontent.com/37871541/93564618-f48cdd00-f9c4-11ea-9acb-67aa4e949912.png){: .center width="80%"}
+![image](https://user-images.githubusercontent.com/37871541/93564804-43d30d80-f9c5-11ea-99bd-70da26194176.png){: .center width="80%"}
+![image](https://user-images.githubusercontent.com/37871541/93564777-37e74b80-f9c5-11ea-880d-3374a68b4798.png){: .center width="80%"}_Conditional Random Field_
+
+CRF의 수식을 보면 unary term과 pairwise term으로 구성됨. 아래의 식에서 x는 각 픽셀의 위치에 해당하는 픽셀의 label이며, i와 j는 픽셀의 위치좌표를 나타낸다. Unary term은 CNN 연산을통해 얻어질 수 있으며, 픽셀간의 detail한 예측에서 pairwise term이 중요한 역할을 한다. Pairwise term에서는 마치 bi-lateral filter에서 그러듯이 픽셀값의 유사도와 위치적인 유사도를 함께 고려한다.(필터에 대해서는 [[Learn opencv by examples] 6. Gaussian 필터, Bilateral 필터, Median 필터](https://bskyvision.com/24)를 읽어보자.)
+
+![](https://seongkyun.github.io/assets/post_img/papers/2019-07-10-deeplab/fig12.PNG){: .center width="80%"}_Conditional Random Field_
+
+위 CRF 식을 보면, 2개의 가우시안 커널로 구성된 것을 볼 수 있으며 표준편차 를 통해 scale을 조절 할 수 있다. 첫 번째 가우시안 커널은 비슷한 컬러를 갖는 픽셀들에 대해 비슷한 label이 붙을 수 있도록 하며, 두 번째 가우시안 커널은 원래 픽셀의 근접도에 따라 smooth 수준을 결정한다. 위 식에서 $p_i, p_j$는 픽셀의 위치(position)를 나타내며 $I_i, I_j$는 픽셀의 컬러값(intensity)이다.
+
+이것을 고속처리하기 위해 Philipp Krahenbuhl 방식을 사용하게 되면 feature space에서는 Gaussian convolution으로 표현 할 수 있게되어 고속 연산이 가능해진다. (~~아 이부분은 도저히..~~)
+
 ## CRF가 적용된 동작 방식
 
 ![](https://seongkyun.github.io/assets/post_img/papers/2019-07-10-deeplab/fig13.PNG){: .center width="80%"}_CRF까지 적용된 동작 방식_
@@ -176,6 +224,9 @@ ASPP 부분과 Decoder 부분에 사용되는 `Convolution`들을 모두 `Separa
 
 위 `Visualization` 결과를 보면 상당히 안정적이고 정확하게 각각의 픽셀에 대해 클래스를 예측하고 있음을 확인할 수 있다. `Xception` 기반의 `encoder`로 양질의 `high level semantic` 정보를 가지는 feature를 추출할 수 있고, ASPP 모듈을 통해 각 픽셀이 여러 스케일의 `context` 정보를 취해 보다 정확한 추론이 가능하며, U-Net 구조의 `decoder`를 통해 각 물체에 해당하는 정교한 `boundary`를 그려낼 수 있기에 위와 같은 `visualization` 결과를 얻어낼 수 있다고 해석해 볼 수 있다.
 
-### Reference
+# Reference
 
 [DeepLabv3+ 원리](https://kuklife.tistory.com/121)
+[Efficient Inference in Fully
+Connected CRFs with Gaussian
+Edge Potentials](http://swoh.web.engr.illinois.edu/courses/IE598/handout/fall2016_slide15.pdf)

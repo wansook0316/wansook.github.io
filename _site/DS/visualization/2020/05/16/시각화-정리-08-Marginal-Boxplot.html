@@ -47,40 +47,60 @@
 </head>
 <html class="no-js">
   <head>
-	<meta charset="utf-8">
-	<title>09: Marginal Boxplot | 완숙의 에그머니 🍳</title>
-	<meta name="description"
-		content="Scatter Plot에 각각의 boxplot을 추가해보자.연습 kaggle notebook">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <title>
+    09: Marginal Boxplot | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="Scatter Plot에 각각의 boxplot을 추가해보자.연습 kaggle notebook"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<!-- CSS -->
-	<link rel="stylesheet" href="/assets/css/main.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
 
-	<!--Favicon-->
-	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
-	<!-- Canonical -->
-	<link rel="canonical" href="/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Boxplot.html">
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Boxplot.html"
+  />
 
-	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳"
-		href="/feed.xml" />
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
 
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-		integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
-	<!-- Google Fonts -->
-	
-	<link href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace" rel="stylesheet"
-		type="text/css">
-	
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
 
-	<!-- naver web mater tool -->
-	<meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5" />
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
-	<!-- KaTeX -->
-    <!--
+  <!-- KaTeX -->
+  <!--
 	
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
 		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
@@ -91,29 +111,41 @@
 	
 
     -->
-	<!-- Google Analytics -->
-	
-	<script>
-		(function (i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date(); a = s.createElement(o),
-			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-		ga('create', 'UA-156961472-1', 'auto');
-		ga('send', 'pageview');
-	</script>
-	
+  <!-- Google Analytics -->
   
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
   <!-- Latex -->
-<!--
+  <!--
   <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 -->
-  
-    
-        <!-- <script type="text/x-mathjax-config">
+
+   <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
         equationNumbers: {
@@ -156,9 +188,7 @@
     type="text/javascript"
   ></script>
 </head>
-
-    
-	<script>
+  <script>
   console.log(window)
 
   window.addEventListener("resize", changeContent);
@@ -195,26 +225,37 @@
   }
   
 </script>
-
-
-	
-	<script>
-  function handleNavShowing() {
+  <script>
+  function handleSeriesNavShowing() {
     var side_nav = document.getElementById("js-side_nav");
-    var side_nav_button_title = document.getElementById("js-btn-content");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
 
     if (side_nav.style.display == "block") {
-        side_nav.style.display = "none";
-        side_nav_button_title.innerHTML = "▼ 목록 보기";
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
     } else {
-        side_nav.style.display = "block";
-        side_nav_button_title.innerHTML = "▲ 숨기기";
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
     }
   }
 </script>
 
-	 
 </head>
+
   <body>
     <header class="site-header">
   <div class="site-title-nav">
@@ -641,592 +682,123 @@
   </ul>
 </div>
 
-    <div class="content"><article class="feature-image">
-  <header style="background-image: url('/assets/img/30.jpg')">
+    <div class="content"><article class="feature-image" >
+  <header
+    style="background-image: url('/assets/img/30.jpg')"
+  >
     <h1 class="title">09: Marginal Boxplot</h1>
     
     <p class="meta">
-      DS/Visualization
-      
-        : 시각화 정리
-      
+      DS/Visualization  : 시각화 정리 
     </p>
-
     <p class="meta">
-      May 16, 2020
-      
+      May 16, 2020 
     </p>
   </header>
 
-
-
-<section class="post-content">
   
-    
-    
-    
-    
 
+  <section class="post-content">
+        
 
 <div class="series-nav">
-    
-      <p>
-      이 포스팅은 <b><em>시각화 정리</em></b> 시리즈 <b><em>16</em></b> 편 중 <b><em>10</em></b> 번째 글 입니다.
-      </p>
-      <ul class="side-nav" id="js-side_nav">
-
-    
-    
-     
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
-                <span>Part 1 - 01: 라이브러리</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-02-matplotlib-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.html'">
-                <span>Part 2 - 02: matplotlib 알아보기</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
-                <span>Part 3 - 03: 산점도</span>
-            </li>
-          
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-04-bubble-plot.html'">
-                <span>Part 4 - 04: Circling을 통한 버블 플롯</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
-                <span>Part 5 - 05: 선형 회귀 선을 포함한 산점도</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html'">
-                <span>Part 6 - 06: Strip plot</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-07-Count-plot.html'">
-                <span>Part 7 - 07: Counts plot</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html'">
-                <span>Part 8 - 08: Marginal Histogram</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-09-Correlation-plot.html'">
-                <span>Part 9 - 09: Correlation plot</span>
-            </li>
-          
-      
-      
-      
-      
-      
-          
-          
-            <li class="current">
-                <span>Part 10 - This Post</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-10-Pair-Plot.html'">
-                <span>Part 11 - 10: Pair plot</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-11-Diverging-Bars.html'">
-                <span>Part 12 - 11: Diverging Bars</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/20/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-12-Diverging-lines-with-text.html'">
-                <span>Part 13 - 12: Diverging lines with text</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-13-Diverging-Lollipop-Chart-with-Markers.html'">
-                <span>Part 14 - 13: Diverging Lollipop Chart with Markers</span>
-            </li>
-          
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-14-Area-Chart.html'">
-                <span>Part 15 - 14: Area chart</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html'">
-                <span>Part 16 - 15: Ordered Bar Chart</span>
-            </li>
-          
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-       
-      </ul>
-      <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleNavShowing();">
-        <div class="side-nav-btn__content" id="js-btn-content">▼ 목록 보기</div>
-      </div>
+  <p>
+    이 포스팅은 <b><em>시각화 정리</em></b> 시리즈
+    <b><em>16</em></b> 편 중 <b><em>10</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                 
+    <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
+      <span>Part 1 - 01: 라이브러리</span>
+    </li>
+                                 
+    <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-02-matplotlib-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.html'">
+      <span>Part 2 - 02: matplotlib 알아보기</span>
+    </li>
+                                         
+    <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
+      <span>Part 3 - 03: 산점도</span>
+    </li>
+           
+    <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-04-bubble-plot.html'">
+      <span>Part 4 - 04: Circling을 통한 버블 플롯</span>
+    </li>
+                                 
+    <li onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
+      <span>Part 5 - 05: 선형 회귀 선을 포함한 산점도</span>
+    </li>
+                       
+    <li onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html'">
+      <span>Part 6 - 06: Strip plot</span>
+    </li>
+               
+    <li onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-07-Count-plot.html'">
+      <span>Part 7 - 07: Counts plot</span>
+    </li>
+                     
+    <li onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html'">
+      <span>Part 8 - 08: Marginal Histogram</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-09-Correlation-plot.html'">
+      <span>Part 9 - 09: Correlation plot</span>
+    </li>
+           
+    <li class="current">
+      <span>Part 10 - This Post</span>
+    </li>
+                 
+    <li onclick="location.href='/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-10-Pair-Plot.html'">
+      <span>Part 11 - 10: Pair plot</span>
+    </li>
+               
+    <li onclick="location.href='/ds/visualization/2020/05/19/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-11-Diverging-Bars.html'">
+      <span>Part 12 - 11: Diverging Bars</span>
+    </li>
+                 
+    <li onclick="location.href='/ds/visualization/2020/05/20/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-12-Diverging-lines-with-text.html'">
+      <span>Part 13 - 12: Diverging lines with text</span>
+    </li>
+                 
+    <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-13-Diverging-Lollipop-Chart-with-Markers.html'">
+      <span>Part 14 - 13: Diverging Lollipop Chart with Markers</span>
+    </li>
+           
+    <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-14-Area-Chart.html'">
+      <span>Part 15 - 14: Area chart</span>
+    </li>
+               
+    <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html'">
+      <span>Part 16 - 15: Ordered Bar Chart</span>
+    </li>
+                                                                                                                                                                                                                        
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
   </div>
+</div>
 
 
+     
 
-  <p>Scatter Plot에 각각의 boxplot을 추가해보자.<br />
+<div class="toc-whole-nav">
+  <p>목차 보기</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <p>Scatter Plot에 각각의 boxplot을 추가해보자.<br />
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">"whitegrid"</span><span class="p">)</span>
@@ -1622,6 +1194,8 @@
       
       
       
+      
+      
           
           
         
@@ -1845,8 +1419,7 @@
 
 <!-- Disqus -->
 
-<div class="comments">
-  <div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1856,13 +1429,10 @@
 	})();
 </script>
 <noscript>Please enable JavaScript to view comments.</noscript>
-
 </div>
 
 
 <!-- Post navigation -->
-
-
 
 </div>
 

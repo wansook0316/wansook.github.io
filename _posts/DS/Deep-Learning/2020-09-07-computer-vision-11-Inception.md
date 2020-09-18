@@ -13,6 +13,6 @@ summary: "Inception을 리뷰해본다."
 
 # 개요
 
-### Reference
+# Reference
 
 [Google Inception Model](https://norman3.github.io/papers/docs/google_inception.html)

@@ -89,6 +89,6 @@ AlexNet, VGGNet 등 이미지 분류(image classification)용 CNN 알고리즘�
 
 ![](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FpU9Xh%2FbtqvGCXt7hJ%2FyFa9DNVZi99eGvVoBXut8k%2Fimg.png){: .center width="80%"}_skip combining의 depth에 따른 결과 비교_
 
-### Reference
+# Reference
 
 [semantic segmentation의 목적과 대표 알고리즘 FCN의 원리](https://bskyvision.com/491)

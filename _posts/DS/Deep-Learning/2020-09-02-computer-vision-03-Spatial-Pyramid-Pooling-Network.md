@@ -51,6 +51,6 @@ Fast R-CNN으로 넘어가기전 상당히 많은 아이디어를 가져온 논�
 2. 여전히 SVM, selective search를 사용한다.
 3. feature map을 만들어내는 network를 학습시키지 못한다.
 
-### Reference
+# Reference
 
 [PR-012: Faster R-CNN : Towards Real-Time Object Detection with Region Proposal Networks](https://www.youtube.com/watch?v=kcPAGIgBGRs&list=PLWKf9beHi3Tg50UoyTe6rIm20sVQOH1br&index=12)

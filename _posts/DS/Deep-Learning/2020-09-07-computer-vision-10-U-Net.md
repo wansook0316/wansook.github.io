@@ -13,6 +13,6 @@ summary: "U-Net을 리뷰해본다."
 
 # 개요
 
-### Reference
+# Reference
 
 [U-Net 원리](https://kuklife.tistory.com/119?category=872135)

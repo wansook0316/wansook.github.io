@@ -133,6 +133,6 @@ $$
 
 2d image에서 `contextual based classification`은 `pixel`의 주변 `neighborhood` 과의 `relationship`에 초점을 맞춘 approach를 뜻한다. 즉, 어떤 특정 pixel의 `contextual feature`는 주변 pixel들과의 `relationship`에 기반해서 추출한 feature를 뜻한다.
 
-### Reference
+# Reference
 
 [컴퓨터비전에서의 기본 용어 및 개념 정리](https://ganghee-lee.tistory.com/33)

@@ -163,6 +163,6 @@ Entry, Middle, Exit의 3개 구조로 나뉜다.
 3. Exit Flow
    - filter의 개수를 늘린다음 -> Maxpooling -> 2번 separable convolution -> Global Average Pooling -> Optional Fully-Connected -> Logistic Regression
 
-### Reference
+# Reference
 
 [이제는 기본 모델이 된 'Xception' 이해하기](https://nbviewer.jupyter.org/github/Hyunjulie/KR-Reading-Image-Segmentation-Papers/blob/master/Xception%EC%84%A4%EB%AA%85%EA%B3%BC%20Pytorch%EA%B5%AC%ED%98%84.ipynb)

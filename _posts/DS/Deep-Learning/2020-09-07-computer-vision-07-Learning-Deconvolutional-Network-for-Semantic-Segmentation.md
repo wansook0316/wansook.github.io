@@ -63,6 +63,6 @@ CNN으로 인해 원래 이미지보다 축소된 차원 크기는 `uppooling`�
 
 이렇게 세심하게 설계되고 학습된 결과는 FCN이 실수하는 물체들도 보다 세밀하게 잘 찾아내는 모습을 보인다. 다만 FCN이 잘 맞추는 곳에서 실수를 할 때도 있는데, 결국 둘을 앙상블하여 conditional random field로 후처리하면 두 가지 모델을 모두 뛰어넘게 되어, FCN과 상호 보완적인 관계에 있다고 논문은 맺는다.
 
-### Reference
+# Reference
 
 [Learning Deconvolution Network for Semantic Segmentation](https://modulabs-biomedical.github.io/Learning_Deconvolution_Network_for_Semantic_Segmentation)

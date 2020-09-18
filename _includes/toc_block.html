@@ -1,0 +1,17 @@
+{% if page.series %} {% assign count = '0' %} {% assign idx = '0' %} {% assign
+sortedPosts = site.posts | sort: 'title' %} {% for post in sortedPosts %} {% if
+post.series == page.series %} {% capture count %}{{ count | plus: '1' }}{%
+endcapture %} {% if post.url == page.url %} {% capture idx %}{{count}}{%
+endcapture %} {% endif %} {% endif %} {% endfor %}
+
+<div class="toc-whole-nav">
+  <p>목차 보기</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  {% include toc.html html=content h_max=2 class="toc-nav" id="js-toc_nav"%}
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+{% endif %}

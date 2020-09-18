@@ -46,6 +46,6 @@ segementation을 위해서는 결국 dense prediction을 얻어내야 하는데,
 
 이 그림을 통해 `pooling-conv`후 `upsampling`을 하는 것과 `dilated convolution(astrous convolution)`을 하는 것의 차이를 볼 수 있다. 위 그림에서 볼 수 있듯 공간적 정보의 손실이 있는 것을 `upsampling` 하면 해상도가 떨어진다. 하지만 dilated convolution의 그림을 보면 `receptive field`를 크게 가져가면서 `convolution`을 하면 정보의 손실을 최대화하면서 해상도는 큰 `output`을 얻을 수 있다.
 
-### Reference
+# Reference
 
 [Learning Deconvolution Network for Semantic Segmentation](https://modulabs-biomedical.github.io/Learning_Deconvolution_Network_for_Semantic_Segmentation)

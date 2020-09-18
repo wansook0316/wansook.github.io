@@ -79,6 +79,6 @@ $$
 1. 여전히 `real time`이라고 하기에는 무리가 있음
 2. 여전히 학습과정이 복잡하고 2step 임
 
-### Reference
+# Reference
 
 [갈아먹는 Object Detection [4] Faster R-CNN](https://yeomko.tistory.com/17?category=888201)
