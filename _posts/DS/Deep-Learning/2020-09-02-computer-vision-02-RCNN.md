@@ -3,7 +3,14 @@ layout: post
 title: "02: R-CNN"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review", "Object Detection"]
+tags:
+  [
+    Data Science,
+    "Deep Learning",
+    "Computer Vision",
+    "Paper Review",
+    "Object Detection",
+  ]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true

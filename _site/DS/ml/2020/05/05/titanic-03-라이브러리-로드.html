@@ -203,6 +203,7 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
     const about = document.getElementById("category-about");
     if (width < 710) {
       cv.innerText = "📜"
@@ -210,6 +211,7 @@
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
+      tags.innerText = "🏷"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -218,6 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
+      tags.innerText = "Tags"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -676,6 +679,10 @@
       </ul>
     </li>
 
+    <li>
+      <a id="category-tags" href="/tags/"> </a>
+    </li>
+
     <li><a id="category-about" href="/about/"> </a></li>
 
     <!--    <ul class="cat2">-->
@@ -694,7 +701,7 @@
     <h1 class="title">03: 라이브러리 로드</h1>
     
     <p class="meta">
-      DS/ML  : Titanic 
+      DS/ML  : Kaggle::Titanic 
     </p>
     <p class="meta">
       May 5, 2020 
@@ -708,7 +715,7 @@
 
 <div class="series-nav">
   <p>
-    이 포스팅은 <b><em>Titanic</em></b> 시리즈
+    이 포스팅은 <b><em>Kaggle::Titanic</em></b> 시리즈
     <b><em>10</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
@@ -788,12 +795,15 @@
  <p>Kaggle에 있는 Titanic Prediction 문제의 라이브러리를 로드한다.</p>
 
 <h1 id="데이터-정제">데이터 정제</h1>
+
 <p>제공된 데이터 셋을 사용하기 편하게 정제한다.</p>
 
 <h2 id="라이브러리-사용">라이브러리 사용</h2>
+
 <p>사용하는 라이브러리를 확인한다.</p>
 
 <h3 id="기본-라이브러리">기본 라이브러리</h3>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python
 </span>
 <span class="c1">#load packages
@@ -810,11 +820,11 @@
 </span><span class="k">print</span><span class="p">(</span><span class="s">"NumPy version: {}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
 
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="n">sp</span> <span class="c1"># 수학 관련 함수가 내장된 라이브러리
-</span><span class="k">print</span><span class="p">(</span><span class="s">"SciPy version: {}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span> 
+</span><span class="k">print</span><span class="p">(</span><span class="s">"SciPy version: {}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
 
 <span class="kn">import</span> <span class="nn">IPython</span>
 <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">display</span> <span class="c1"># 주피터 노트북에서 예쁘게 시각화 해주는 도구
-</span><span class="k">print</span><span class="p">(</span><span class="s">"IPython version: {}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span> 
+</span><span class="k">print</span><span class="p">(</span><span class="s">"IPython version: {}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">IPython</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
 
 <span class="kn">import</span> <span class="nn">sklearn</span> <span class="c1"># 각종 통계 도구와 머신 러닝 알고리즘이 내장되어 있는 라이브러리
 </span><span class="k">print</span><span class="p">(</span><span class="s">"scikit-learn version: {}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">sklearn</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
@@ -869,7 +879,9 @@
 </code></pre></div></div>
 
 <h4 id="matplotlib에서-style-바꾸는-법">matplotlib에서 style 바꾸는 법</h4>
+
 <p>이 부분을 바꾸면 전체적인 그래프의 색등이 바뀐다.</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
 </code></pre></div></div>
 
@@ -877,13 +889,14 @@
 </code></pre></div></div>
 
 <ul>
-  <li>사용법
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">([</span><span class="s">'fivethirtyeight'</span><span class="p">])</span>
-</code></pre></div>    </div>
-  </li>
+  <li>사용법</li>
 </ul>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">([</span><span class="s">'fivethirtyeight'</span><span class="p">])</span>
+</code></pre></div></div>
+
 <h4 id="seaborn에서-스타일-바꾸는-법">seaborn에서 스타일 바꾸는 법</h4>
+
 <p>이 부분을 바꾸면 뒤의 배경과 같은 부분을 바꿀 수 있다.
 <code class="language-plaintext highlighter-rouge">darkgrid</code>, <code class="language-plaintext highlighter-rouge">whitegrid</code>, <code class="language-plaintext highlighter-rouge">dark</code>, <code class="language-plaintext highlighter-rouge">white</code>, 그리고 <code class="language-plaintext highlighter-rouge">ticks</code> 스타일을 제공한다.</p>
 
@@ -897,23 +910,27 @@
 <p><a href="https://datascienceschool.net/view-notebook/4c2d5ff1caab4b21a708cc662137bc65/">seaborn 시각화</a></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a><br />
 <a href="http://blog.naver.com/PostView.nhn?blogId=sagala_soske&amp;logNo=221280201722&amp;redirect=Dlog&amp;widgetTypeCall=true&amp;directAccess=false">subprocess 모듈에 관하여</a><br />
 <a href="https://datascienceschool.net/view-notebook/4c2d5ff1caab4b21a708cc662137bc65/">seaborn 시각화</a></p>
-
 
   </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#DS">#DS</a>
+    <a class="tag" href="/tags#Data+Science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    <a class="tag" href="/tags#Machine+Learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="/tags#ML">#ML</a>
-    
-    <a class="tag" href="/tags#titanic">#titanic</a>
+    <a class="tag" href="/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>

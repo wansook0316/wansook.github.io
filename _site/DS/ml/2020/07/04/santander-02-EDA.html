@@ -203,6 +203,7 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
     const about = document.getElementById("category-about");
     if (width < 710) {
       cv.innerText = "📜"
@@ -210,6 +211,7 @@
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
+      tags.innerText = "🏷"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -218,6 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
+      tags.innerText = "Tags"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -676,6 +679,10 @@
       </ul>
     </li>
 
+    <li>
+      <a id="category-tags" href="/tags/"> </a>
+    </li>
+
     <li><a id="category-about" href="/about/"> </a></li>
 
     <!--    <ul class="cat2">-->
@@ -694,7 +701,7 @@
     <h1 class="title">02: EDA</h1>
     
     <p class="meta">
-      DS/ML  : Santander Transaction Prediction 
+      DS/ML  : Kaggle::Santander Transaction 
     </p>
     <p class="meta">
       July 4, 2020 
@@ -708,7 +715,7 @@
 
 <div class="series-nav">
   <p>
-    이 포스팅은 <b><em>Santander Transaction Prediction</em></b> 시리즈
+    이 포스팅은 <b><em>Kaggle::Santander Transaction</em></b> 시리즈
     <b><em>2</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
@@ -773,16 +780,20 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 모양
 </span><span class="n">train_df</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">test_df</span><span class="o">.</span><span class="n">shape</span>
 </code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>((200000, 202), (200000, 201))
 </code></pre></div></div>
+
 <hr />
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/86508006-708c7580-be17-11ea-8d82-7e7f1418249d.png" alt="image" class="center-text" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/86508017-800bbe80-be17-11ea-8158-60f918129420.png" alt="image" class="center-text" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Train contains:
@@ -795,6 +806,7 @@ Test contains:
 ID_code (string);
 200 numerical variables, named from var_0 to var_199;
 </code></pre></div></div>
+
 <hr />
 
 <h2 id="missing-data">Missing Data</h2>
@@ -810,17 +822,21 @@ ID_code (string);
     <span class="n">tt</span><span class="p">[</span><span class="s">'Types'</span><span class="p">]</span> <span class="o">=</span> <span class="n">types</span>
     <span class="k">return</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tt</span><span class="p">))</span>
 </code></pre></div></div>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
 <span class="n">missing_data</span><span class="p">(</span><span class="n">train_df</span><span class="p">)</span>
 </code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CPU times: user 2.07 s, sys: 134 ms, total: 2.2 s
 Wall time: 2.2 s
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/86508089-3c658480-be18-11ea-9983-6aa6c5fe9aa2.png" alt="image" class="center-text" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
 <span class="n">missing_data</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
 </code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CPU times: user 2.2 s, sys: 132 ms, total: 2.33 s
 Wall time: 2.33 s
 </code></pre></div></div>
@@ -842,6 +858,7 @@ Wall time: 2.33 s
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">time</span>
 <span class="n">test_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/86508121-79ca1200-be18-11ea-8687-ca980dfe9aa1.png" alt="image" /></p>
 
 <h2 id="관찰의-결과">관찰의 결과</h2>
@@ -856,6 +873,7 @@ Wall time: 2.33 s
 <h1 id="변수-상관도">변수 상관도</h1>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/gpreda/santander-eda-and-prediction#">kaggle Notebook</a></p>
 
   </section>
@@ -863,13 +881,17 @@ Wall time: 2.33 s
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#DS">#DS</a>
+    <a class="tag" href="/tags#Data+Science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    <a class="tag" href="/tags#Machine+Learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="/tags#ML">#ML</a>
-    
-    <a class="tag" href="/tags#Santander">#Santander</a>
+    <a class="tag" href="/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>

@@ -3,15 +3,14 @@ layout: post
 title: "09: Hyper Parameter Tuning"
 category: "DS/ML"
 comments: true
-tags: [DS, "kaggle", "ML", "titanic", "hyper parameter"]
+tags: [Data Science, "Machine Learning", "kaggle"]
 feature-img: "assets/img/36.jpg"
 feature-title: ""
 use_math: true
-series: "Titanic"
+series: "Kaggle::Titanic"
 ---
 
-Kaggle에 있는 Titanic Prediction 문제의 모델 파라미터를 튜닝한다.  
-
+Kaggle에 있는 Titanic Prediction 문제의 모델 파라미터를 튜닝한다.
 
 # Hyper Parameter Tuning
 
@@ -22,6 +21,7 @@ Kaggle에 있는 Titanic Prediction 문제의 모델 파라미터를 튜닝한�
 > 계속 되는 분기를 설정하여 예측을 하는 방법
 
 ### 장점
+
 1. 이해하고 해석하기 편리하다. 시각화 할 수 있다.
 2. 데이터 준비가 거의 필요없다. 정규화 X, Dummy화 X. 하지만 결측치(NULL)을 지원하지 않는다.
 3. 트리를 학습하기 위한 Cost는 log(# of data) 이다.
@@ -31,23 +31,22 @@ Kaggle에 있는 Titanic Prediction 문제의 모델 파라미터를 튜닝한�
 7. 통계적 검증을 test를 통해 검증이 가능하다. 모델의 설명력을 측정할 수 있다.
 
 ### 단점
+
 1. 지나치게 깊은 트리를 사용하여 일반화를 놓치는 모델을 만들 수 있다. 즉 오버피팅이다. 최대 트리의 깊이나, 잎의 수와 같은 제약을 거는 것이 좋다.
 2. 결정 트리는 상당히 불안정하다. 데이터에서 약간의 변동이 생긴다면 즉각 적용이 되어 다른 트리가 생성되기 때문이다. 이러한 부분은 여러개의 트리를 앙상블하여 완화시킬 수 있다.
 3. 최적의 결정 트리를 학습하는 문제는 NP 문제이다. 따라서 트리를 만드는데 있어서는 Greedy 알고리즘을 사용한다. 그렇기 때문에 만들어진 트리는 최적의 결과라고 보장할 수 없다. 마찬가지로 앙상블을 통해 완화할 수 있다.
-4. 결정 트리로는 배타적 논리합이나 패리티, 멀티플렉서와 같은 문제를 학습하기 어렵다. 
+4. 결정 트리로는 배타적 논리합이나 패리티, 멀티플렉서와 같은 문제를 학습하기 어렵다.
 5. 각각 서로 다른 수의 단계로 분류가 가능한 변수를 포함하는 데이터에 대하여 더 많은 단계를 가지는 속성 쪽으로 정보 획득량이 편향되는 문제가 있다. 데이터의 균형을 맞추는 것이 좋다. 하지만 이 문제는 조건부 추론을 통해 해결이 가능하다.
 
-
 ### sklearn parameters
+
 ```python
 class sklearn.tree.DecisionTreeClassifier(criterion=’gini’, splitter=’best’, max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, class_weight=None, presort=False)
 ```
 
-우리는 여기서 [ParameterGrid](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ParameterGrid.html#sklearn.model_selection.ParameterGrid), [GridSearchCV](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV), 그리고 [sklearn scoring](http://scikit-learn.org/stable/modules/model_evaluation.html)을 사용할 것이다. 
+우리는 여기서 [ParameterGrid](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ParameterGrid.html#sklearn.model_selection.ParameterGrid), [GridSearchCV](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV), 그리고 [sklearn scoring](http://scikit-learn.org/stable/modules/model_evaluation.html)을 사용할 것이다.
 
 추가적으로 [ROC_AUC scores](http://www.dataschool.io/roc-curves-and-auc-explained/)에 대해서 배우고 오자. [Click here to learn more about ROC_AUC scores](http://www.dataschool.io/roc-curves-and-auc-explained/). 다음으로는 [graphviz](http://scikit-learn.org/stable/modules/generated/sklearn.tree.export_graphviz.html#sklearn.tree.export_graphviz)을 사용하여 결정 트리를 시각화할 것이다.
-
-
 
 ### Grid search
 
@@ -58,7 +57,7 @@ base_results = model_selection.cross_validate(dtree, data1[data1_x_bin], data1[T
 dtree.fit(data1[data1_x_bin], data1[Target])
 
 print('BEFORE DT Parameters: ', dtree.get_params())
-print("BEFORE DT Training w/bin score mean: {:.2f}". format(base_results['train_score'].mean()*100)) 
+print("BEFORE DT Training w/bin score mean: {:.2f}". format(base_results['train_score'].mean()*100))
 print("BEFORE DT Test w/bin score mean: {:.2f}". format(base_results['test_score'].mean()*100))
 print("BEFORE DT Test w/bin score 3*std: +/- {:.2f}". format(base_results['test_score'].std()*100*3))
 #print("BEFORE DT Test w/bin set score min: {:.2f}". format(base_results['test_score'].min()*100))
@@ -86,7 +85,7 @@ tune_model.fit(data1[data1_x_bin], data1[Target])
 #print(tune_model.cv_results_['params'])
 print('AFTER DT Parameters: ', tune_model.best_params_)
 #print(tune_model.cv_results_['mean_train_score'])
-print("AFTER DT Training w/bin score mean: {:.2f}". format(tune_model.cv_results_['mean_train_score'][tune_model.best_index_]*100)) 
+print("AFTER DT Training w/bin score mean: {:.2f}". format(tune_model.cv_results_['mean_train_score'][tune_model.best_index_]*100))
 #print(tune_model.cv_results_['mean_test_score'])
 print("AFTER DT Test w/bin score mean: {:.2f}". format(tune_model.cv_results_['mean_test_score'][tune_model.best_index_]*100))
 print("AFTER DT Test w/bin score 3*std: +/- {:.2f}". format(tune_model.cv_results_['std_test_score'][tune_model.best_index_]*100*3))
@@ -97,7 +96,7 @@ print('-'*10)
 #tune_results = model_selection.cross_validate(tune_model, data1[data1_x_bin], data1[Target], cv  = cv_split)
 
 #print('AFTER DT Parameters: ', tune_model.best_params_)
-#print("AFTER DT Training w/bin set score mean: {:.2f}". format(tune_results['train_score'].mean()*100)) 
+#print("AFTER DT Training w/bin set score mean: {:.2f}". format(tune_results['train_score'].mean()*100))
 #print("AFTER DT Test w/bin set score mean: {:.2f}". format(tune_results['test_score'].mean()*100))
 #print("AFTER DT Test w/bin set score min: {:.2f}". format(tune_results['test_score'].min()*100))
 #print('-'*10)
@@ -117,19 +116,18 @@ AFTER DT Test w/bin score 3*std: +/- 5.00
 ----------
 ```
 
-grid search를 통해 최적의 파라미터를 찾았다. 
-
+grid search를 통해 최적의 파라미터를 찾았다.
 
 ### Feature Selection
 
-모든 변수를 찾는 것이 좋은 모델을 찾는 것으로 이어지지 않는다고 얘기했었다. 따라서 이번에는 많은 feature중 어떤 것을 선택했을 때 가장 좋은 성능을 가지는지 알아본다. sklearn에는 다양한 선택지가 있다. 그 중에서  [recursive feature elimination (RFE) with cross validation (CV)](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFECV.html#sklearn.feature_selection.RFECV)를 사용할 것이다.
+모든 변수를 찾는 것이 좋은 모델을 찾는 것으로 이어지지 않는다고 얘기했었다. 따라서 이번에는 많은 feature중 어떤 것을 선택했을 때 가장 좋은 성능을 가지는지 알아본다. sklearn에는 다양한 선택지가 있다. 그 중에서 [recursive feature elimination (RFE) with cross validation (CV)](http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFECV.html#sklearn.feature_selection.RFECV)를 사용할 것이다.
 
 ```python
 #base model
-print('BEFORE DT RFE Training Shape Old: ', data1[data1_x_bin].shape) 
+print('BEFORE DT RFE Training Shape Old: ', data1[data1_x_bin].shape)
 print('BEFORE DT RFE Training Columns Old: ', data1[data1_x_bin].columns.values)
 
-print("BEFORE DT RFE Training w/bin score mean: {:.2f}". format(base_results['train_score'].mean()*100)) 
+print("BEFORE DT RFE Training w/bin score mean: {:.2f}". format(base_results['train_score'].mean()*100))
 print("BEFORE DT RFE Test w/bin score mean: {:.2f}". format(base_results['test_score'].mean()*100))
 print("BEFORE DT RFE Test w/bin score 3*std: +/- {:.2f}". format(base_results['test_score'].std()*100*3))
 print('-'*10)
@@ -146,10 +144,10 @@ X_rfe = data1[data1_x_bin].columns.values[dtree_rfe.get_support()] # get_support
 rfe_results = model_selection.cross_validate(dtree, data1[X_rfe], data1[Target], cv  = cv_split)
 
 #print(dtree_rfe.grid_scores_)
-print('AFTER DT RFE Training Shape New: ', data1[X_rfe].shape) 
+print('AFTER DT RFE Training Shape New: ', data1[X_rfe].shape)
 print('AFTER DT RFE Training Columns New: ', X_rfe)
 
-print("AFTER DT RFE Training w/bin score mean: {:.2f}". format(rfe_results['train_score'].mean()*100)) 
+print("AFTER DT RFE Training w/bin score mean: {:.2f}". format(rfe_results['train_score'].mean()*100))
 print("AFTER DT RFE Test w/bin score mean: {:.2f}". format(rfe_results['test_score'].mean()*100))
 print("AFTER DT RFE Test w/bin score 3*std: +/- {:.2f}". format(rfe_results['test_score'].std()*100*3))
 print('-'*10)
@@ -164,7 +162,7 @@ rfe_tune_model.fit(data1[X_rfe], data1[Target])
 #print(rfe_tune_model.cv_results_['params']) # 파라미터 확인
 print('AFTER DT RFE Tuned Parameters: ', rfe_tune_model.best_params_)
 #print(rfe_tune_model.cv_results_['mean_train_score'])
-print("AFTER DT RFE Tuned Training w/bin score mean: {:.2f}". format(rfe_tune_model.cv_results_['mean_train_score'][tune_model.best_index_]*100)) 
+print("AFTER DT RFE Tuned Training w/bin score mean: {:.2f}". format(rfe_tune_model.cv_results_['mean_train_score'][tune_model.best_index_]*100))
 #print(rfe_tune_model.cv_results_['mean_test_score'])
 print("AFTER DT RFE Tuned Test w/bin score mean: {:.2f}". format(rfe_tune_model.cv_results_['mean_test_score'][tune_model.best_index_]*100))
 print("AFTER DT RFE Tuned Test w/bin score 3*std: +/- {:.2f}". format(rfe_tune_model.cv_results_['std_test_score'][tune_model.best_index_]*100*3))
@@ -195,23 +193,19 @@ AFTER DT RFE Tuned Test w/bin score 3*std: +/- 6.21
 `FareBin`feature가 삭제된 후, 성능이 올라갔다.
 
 ### Graph 그리기
+
 ```python
 #Graph MLA version of Decision Tree: http://scikit-learn.org/stable/modules/generated/sklearn.tree.export_graphviz.html
-import graphviz 
-dot_data = tree.export_graphviz(dtree, out_file=None, 
+import graphviz
+dot_data = tree.export_graphviz(dtree, out_file=None,
                                 feature_names = data1_x_bin, class_names = True,
                                 filled = True, rounded = True)
-graph = graphviz.Source(dot_data) 
+graph = graphviz.Source(dot_data)
 graph
 ```
 
-
-
 ![image](https://user-images.githubusercontent.com/37871541/81384752-12138580-914d-11ea-8412-7eeb50729d82.png){: .center}
 
-
-
-
-
 ### Reference
-[kaggle Notebook](https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#)  
+
+[kaggle Notebook](https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#)

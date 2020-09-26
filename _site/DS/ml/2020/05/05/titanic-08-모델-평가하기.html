@@ -203,6 +203,7 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
     const about = document.getElementById("category-about");
     if (width < 710) {
       cv.innerText = "📜"
@@ -210,6 +211,7 @@
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
+      tags.innerText = "🏷"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -218,6 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
+      tags.innerText = "Tags"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -676,6 +679,10 @@
       </ul>
     </li>
 
+    <li>
+      <a id="category-tags" href="/tags/"> </a>
+    </li>
+
     <li><a id="category-about" href="/about/"> </a></li>
 
     <!--    <ul class="cat2">-->
@@ -694,7 +701,7 @@
     <h1 class="title">08: 모델링 평가하기</h1>
     
     <p class="meta">
-      DS/ML  : Titanic 
+      DS/ML  : Kaggle::Titanic 
     </p>
     <p class="meta">
       May 5, 2020 
@@ -708,7 +715,7 @@
 
 <div class="series-nav">
   <p>
-    이 포스팅은 <b><em>Titanic</em></b> 시리즈
+    이 포스팅은 <b><em>Kaggle::Titanic</em></b> 시리즈
     <b><em>10</em></b> 편 중 <b><em>8</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
@@ -789,9 +796,11 @@
  <p>Kaggle에 있는 Titanic Prediction 문제를 모델링한 결과를 바탕으로 모델을 평가한다.</p>
 
 <h1 id="모델-성능-평가">모델 성능 평가</h1>
+
 <p>현재까지의 상황을 보면, baseline 코드로 82%의 정확도를 가지는 모델을 만들었다. 여기서 중요한 것은, 데이터 과학자가 사업적 측면을 생각하고 만든다는 것에 있다. 즉, 투자대비 성능(ROI)를 고민하는 것이 좋다. 연구하는 사람이 아니라면 지나친 성능확대는 시간 낭비일 뿐이기 때문이다.</p>
 
 <h2 id="기준-정확도-결정">기준 정확도 결정</h2>
+
 <p>동전 뒤집기를 생각해보자. 우리가 맞춰야 하는 것은 특정 상황에서 이 동전이 앞면이 나올지 뒷면이 나올지를 예측해야 한다. 그 예측값을 위해, 바람, 힘의 크기와 같은 변수들이 주어졌다고 하자. 그런데, 내가 만든 모델이 50%확률로 동전의 앞, 뒤를 맞춘다면, 이만큼 쓸모없는 모델도 없을 것이다. 왜냐하면, 이 정보는 그저 동전을 던지면서 발생하는 빈도수로도 예측이 가능한 결과이기 때문이다.</p>
 
 <p>이번에는 타이타닉 문제에 적용해보자. 우리는 training data를 근간으로 1,502 / 2,224=67.5%(약 68%)의 확률로 생존, 사망을 알 수 있다. 그러므로 내가 만든 모델의 성능은 이보다는 높은 결과를 가져와야 의미있는 것이라 할 수 있다. 이러한 방법으로 내가 만든 모델의 최악의 성능 마지노선을 설정할 수 있다.</p>
@@ -801,16 +810,17 @@
 <p>어떻게 모델을 만들 수 있는 지 배워보는 입장에서 적어본다.</p>
 
 <h3 id="coin-flip-model">Coin flip model</h3>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#coin flip model with random 1/survived 0/died
 </span>
 <span class="c1">#iterate over dataFrame rows as (index, Series) pairs: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.iterrows.html
-</span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data1</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> 
+</span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data1</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
     <span class="c1">#random number generator: https://docs.python.org/2/library/random.html
-</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">.5</span><span class="p">:</span>     <span class="c1"># Random float x, 0.0 &lt;= x &lt; 1.0    
+</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">.5</span><span class="p">:</span>     <span class="c1"># Random float x, 0.0 &lt;= x &lt; 1.0
 </span>        <span class="n">data1</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">'Random_Predict'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">#predict survived/1
-</span>    <span class="k">else</span><span class="p">:</span> 
+</span>    <span class="k">else</span><span class="p">:</span>
         <span class="n">data1</span><span class="o">.</span><span class="n">set_value</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s">'Random_Predict'</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">#predict died/0
-</span>    
+</span>
 
 <span class="c1"># coin flip 모델의 성능을 검증해보자. 옳게 맞추면 1, 아니면 0이다.
 #the mean of the column will then equal the accuracy
@@ -828,6 +838,7 @@ Coin Flip Model Accuracy w/SciKit: 47.14%
 </code></pre></div></div>
 
 <h3 id="group화-후-판단하기">group화 후 판단하기</h3>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#group by or pivot table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html
 </span><span class="n">pivot_female</span> <span class="o">=</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="o">.</span><span class="n">Sex</span><span class="o">==</span><span class="s">'female'</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'Sex'</span><span class="p">,</span><span class="s">'Pclass'</span><span class="p">,</span> <span class="s">'Embarked'</span><span class="p">,</span><span class="s">'FareBin'</span><span class="p">])[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">'Survival Decision Tree w/Female Node: </span><span class="se">\n</span><span class="s">'</span><span class="p">,</span><span class="n">pivot_female</span><span class="p">)</span>
@@ -838,8 +849,8 @@ Coin Flip Model Accuracy w/SciKit: 47.14%
 
 <p>여자만 다양한 지표로 구분한 이유는 위의 EDA를 해보았을 때, 남자는 놀랍게도 class나, embarked에 따라 생존률이 다르지 않았다. 하지만 title이라는 변수는 유의미했다.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Survival Decision Tree w/Female Node: 
- Sex     Pclass  Embarked  FareBin        
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Survival Decision Tree w/Female Node:
+ Sex     Pclass  Embarked  FareBin
 female  1       C         (14.454, 31.0]     0.666667
                           (31.0, 512.329]    1.000000
                 Q         (31.0, 512.329]    1.000000
@@ -865,8 +876,8 @@ female  1       C         (14.454, 31.0]     0.666667
 Name: Survived, dtype: float64
 
 
-Survival Decision Tree w/Male Node: 
- Sex   Title 
+Survival Decision Tree w/Male Node:
+ Sex   Title
 male  Master    0.575000
       Misc      0.250000
       Mr        0.156673
@@ -877,9 +888,10 @@ Name: Survived, dtype: float64
 남자의 경우는 title에 따라 생존율이 극명하게 다르다.</p>
 
 <h3 id="내가-만드는-tree">내가 만드는 tree</h3>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#handmade data model using brain power (and Microsoft Excel Pivot Tables for quick calculations)
 </span><span class="k">def</span> <span class="nf">mytree</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    
+
     <span class="c1">#initialize table to store predictions
 </span>    <span class="n">Model</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Predict'</span><span class="p">:[]})</span>
     <span class="n">male_title</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Master'</span><span class="p">]</span> <span class="c1">#survived titles
@@ -896,10 +908,10 @@ Name: Survived, dtype: float64
         <span class="c1">#Question 3A Female - Class and Question 4 Embarked gain minimum information
 </span>        <span class="c1">#클래스에 따라 나누는 것은 큰 정보이득이 없다. (즉, 클래스에 따른 생존률의 차이가 없다. 정보이득이 없다. 고르게 분포되어 있어 분기를 만드는 것이 의미가 없다.)
 </span>
-        <span class="c1">#Question 5B Female - FareBin; set anything less than .5 in female node decision tree back to 0       
+        <span class="c1">#Question 5B Female - FareBin; set anything less than .5 in female node decision tree back to 0
 </span>        <span class="c1"># 여자이며 클래스가 3번, 출항 항구가 S 그리고 돈을 8보다 많이 낸 사람들은 생존했다. 아마 못사는 사람들이 돈을 더 많이 내지 않았을까..
-</span>        <span class="k">if</span> <span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Sex'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'female'</span><span class="p">)</span> <span class="o">&amp;</span> 
-            <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Pclass'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> 
+</span>        <span class="k">if</span> <span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Sex'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'female'</span><span class="p">)</span> <span class="o">&amp;</span>
+            <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Pclass'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span>
             <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Embarked'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'S'</span><span class="p">)</span>  <span class="o">&amp;</span>
             <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s">'Fare'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">)</span>
 
@@ -939,6 +951,7 @@ avg / total       0.82      0.82      0.82       891
 </code></pre></div></div>
 
 <h3 id="혼동-행렬confusion-matrix-만들기">혼동 행렬(Confusion Matrix) 만들기</h3>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Plot Accuracy Summary
 #Credit: http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
 </span><span class="kn">import</span> <span class="nn">itertools</span>
@@ -988,7 +1001,7 @@ avg / total       0.82      0.82      0.82       891
 
 <span class="c1"># Plot normalized confusion matrix
 </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cnf_matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cnf_matrix</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                       <span class="n">title</span><span class="o">=</span><span class="s">'Normalized confusion matrix'</span><span class="p">)</span>
 
 </code></pre></div></div>
@@ -1005,6 +1018,7 @@ Normalized confusion matrix
 <img src="https://user-images.githubusercontent.com/37871541/81373029-c0f89700-9136-11ea-99f9-1597a3a344ac.png" alt="Unknown-14" class="center" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
 
   </section>
@@ -1012,15 +1026,17 @@ Normalized confusion matrix
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#DS">#DS</a>
+    <a class="tag" href="/tags#Data+Science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    <a class="tag" href="/tags#Machine+Learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="/tags#ML">#ML</a>
-    
-    <a class="tag" href="/tags#titanic">#titanic</a>
-    
-    <a class="tag" href="/tags#evaluation">#evaluation</a>
+    <a class="tag" href="/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>

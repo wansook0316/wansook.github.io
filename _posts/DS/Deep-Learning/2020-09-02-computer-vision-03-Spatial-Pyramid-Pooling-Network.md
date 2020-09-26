@@ -3,7 +3,14 @@ layout: post
 title: "03: Spatial Pyramid Pooling Network"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review", "Object Detection"]
+tags:
+  [
+    Data Science,
+    "Deep Learning",
+    "Computer Vision",
+    "Paper Review",
+    "Object Detection",
+  ]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true

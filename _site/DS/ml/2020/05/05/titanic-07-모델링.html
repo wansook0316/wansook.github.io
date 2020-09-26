@@ -203,6 +203,7 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
     const about = document.getElementById("category-about");
     if (width < 710) {
       cv.innerText = "📜"
@@ -210,6 +211,7 @@
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
+      tags.innerText = "🏷"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -218,6 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
+      tags.innerText = "Tags"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -676,6 +679,10 @@
       </ul>
     </li>
 
+    <li>
+      <a id="category-tags" href="/tags/"> </a>
+    </li>
+
     <li><a id="category-about" href="/about/"> </a></li>
 
     <!--    <ul class="cat2">-->
@@ -694,7 +701,7 @@
     <h1 class="title">07: 모델링</h1>
     
     <p class="meta">
-      DS/ML  : Titanic 
+      DS/ML  : Kaggle::Titanic 
     </p>
     <p class="meta">
       May 5, 2020 
@@ -708,7 +715,7 @@
 
 <div class="series-nav">
   <p>
-    이 포스팅은 <b><em>Titanic</em></b> 시리즈
+    이 포스팅은 <b><em>Kaggle::Titanic</em></b> 시리즈
     <b><em>10</em></b> 편 중 <b><em>7</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
@@ -789,6 +796,7 @@
  <p>Kaggle에 있는 Titanic Prediction 문제의 모델링을 수행한다.</p>
 
 <h1 id="modeling">Modeling</h1>
+
 <p>데이터 사이언스는 수학, CS, 산업에 대한 이해 모두가 필요한 분야이다. 그렇기 때문에 이 세 부분을 모두 주의깊게 공부할 필요가 있다. 지금 부터 할 작업은 수학적 이해가 있으면 좋지만 구현하는데에는 크게 필요가 없다. 지금은 큰 그림을 이해하는 것을 우선으로 한다.</p>
 
 <p>기계학습이라는 단어 자체에는 기계에게 학습을 가르친다는 착각을 일으킬 수 있는 여지가 많다. 하지만, 실제로는 그렇지 않다. 다양한 사람들이 좋은 라이브러리를 사용하여 많은 문제를 해결할 수 있게 된 것은 좋으나, 이러한 문제 때문에 오히려 제대로 된 방법을 사용못하는 사람도 많아졌다. 데이터 과학자는 데이터라는 목재를 가지고, 목표에 대한 적절한 도구를 사용하여 문제를 해결해야 한다. 개집을 짓는다면 그에 맞는 적절한 도구로 충분하지만, 큰 목조 건물을 짓는다면, 더 효율적인 도구를 통하여 문제를 해결해야 할 것이다. 결과적으로 알고리즘에 대한 정확한 이해도와 그를 사용할 수 있는 능력을 키워야 할 것이다.</p>
@@ -816,6 +824,7 @@
 <a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.discriminant_analysis">Discriminant Analysis</a></p>
 
 <h2 id="기계학습-알고리즘을-고르는-방법">기계학습 알고리즘을 고르는 방법</h2>
+
 <blockquote>
   <p>최고의 알고리즘은 없다. NFLT (No Free Lunch Theorem)</p>
 </blockquote>
@@ -823,6 +832,7 @@
 <p>최고의 알고리즘은 존재하지 않는다. 다양한 알고리즘을 통해 검증하여 최고의 답안을 내는 것이 최선이다.</p>
 
 <h2 id="머신-러닝-알고리즘-선택-및-초기화">머신 러닝 알고리즘 선택 및 초기화</h2>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Machine Learning Algorithm
 </span><span class="n">MLA</span> <span class="o">=</span> <span class="p">[</span>
     <span class="c1">#Ensemble Methods
@@ -834,37 +844,37 @@
 
     <span class="c1">#Gaussian Processes
 </span>    <span class="n">gaussian_process</span><span class="o">.</span><span class="n">GaussianProcessClassifier</span><span class="p">(),</span>
-    
+
     <span class="c1">#GLM (Generalized Linear Model)
 </span>    <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">(),</span>
     <span class="n">linear_model</span><span class="o">.</span><span class="n">PassiveAggressiveClassifier</span><span class="p">(),</span>
     <span class="n">linear_model</span><span class="o">.</span><span class="n">RidgeClassifierCV</span><span class="p">(),</span>
     <span class="n">linear_model</span><span class="o">.</span><span class="n">SGDClassifier</span><span class="p">(),</span>
     <span class="n">linear_model</span><span class="o">.</span><span class="n">Perceptron</span><span class="p">(),</span>
-    
+
     <span class="c1">#Navies Bayes
 </span>    <span class="n">naive_bayes</span><span class="o">.</span><span class="n">BernoulliNB</span><span class="p">(),</span>
     <span class="n">naive_bayes</span><span class="o">.</span><span class="n">GaussianNB</span><span class="p">(),</span>
-    
+
     <span class="c1">#Nearest Neighbor
 </span>    <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">(),</span>
-    
+
     <span class="c1">#SVM
 </span>    <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
     <span class="n">svm</span><span class="o">.</span><span class="n">NuSVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
     <span class="n">svm</span><span class="o">.</span><span class="n">LinearSVC</span><span class="p">(),</span>
-    
-    <span class="c1">#Trees    
+
+    <span class="c1">#Trees
 </span>    <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">(),</span>
     <span class="n">tree</span><span class="o">.</span><span class="n">ExtraTreeClassifier</span><span class="p">(),</span>
-    
+
     <span class="c1">#Discriminant Analysis (판별 분석)
 </span>    <span class="n">discriminant_analysis</span><span class="o">.</span><span class="n">LinearDiscriminantAnalysis</span><span class="p">(),</span>
     <span class="n">discriminant_analysis</span><span class="o">.</span><span class="n">QuadraticDiscriminantAnalysis</span><span class="p">(),</span>
 
-    
+
     <span class="c1">#xgboost: http://xgboost.readthedocs.io/en/latest/model.html
-</span>    <span class="n">XGBClassifier</span><span class="p">()</span>    
+</span>    <span class="n">XGBClassifier</span><span class="p">()</span>
     <span class="p">]</span>
 
 
@@ -888,32 +898,33 @@
 </span>    <span class="n">MLA_name</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
     <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">MLA_name</span>
     <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Parameters'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">alg</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
-    
+
     <span class="c1">#score model with cross validation: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate
 </span>    <span class="c1"># 만들어진 10개의 split set에 대해 검증을 한다. 이 작업 이후에 결과는 10개가 나올 것이다.
 </span>    <span class="n">cv_results</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">alg</span><span class="p">,</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">cv</span>  <span class="o">=</span> <span class="n">cv_split</span><span class="p">)</span>
 
     <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Time'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'fit_time'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Train Accuracy Mean'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># 10개의 결과에 대해 평균치
-</span>    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Test Accuracy Mean'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>   
+</span>    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Test Accuracy Mean'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="c1"># https://ko.wikipedia.org/wiki/68-95-99.7_규칙
 </span>    <span class="c1"># 제대로 된 random으로 sampling을 했다면, cross-validation으로 나온 결과는 3시그마 규칙을 만족할 것이다.(즉, 정규 분포로 나왔을 것이다.)
 </span>    <span class="c1"># 이 값을 얻는 이유는, 최악의 훈련 결과를 알아보기 위함이다. 편차가 작을 수록 일반화된 모델이라는 생각을 할 수 있다.
 </span>    <span class="n">MLA_compare</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="s">'MLA Test Accuracy 3*STD'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv_results</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">*</span><span class="mi">3</span>   <span class="c1">#let's know the worst that can happen!
-</span>    
+</span>
 
     <span class="c1">#save MLA predictions - see section 6 for usage
 </span>    <span class="n">alg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
     <span class="n">MLA_predict</span><span class="p">[</span><span class="n">MLA_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">alg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">])</span>
-    
+
     <span class="n">row_index</span><span class="o">+=</span><span class="mi">1</span>
 
-    
+
 <span class="c1">#print and sort table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html
 # test 정확도가 높은 순서대로 sorting한다.
 </span><span class="n">MLA_compare</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s">'MLA Test Accuracy Mean'</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="n">MLA_compare</span>
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/81290326-d6bc7c80-90a2-11ea-9e43-7e898b23d80c.png" alt="image" class="center" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MLA_predict</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -933,6 +944,7 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/81290877-c22cb400-90a3-11ea-92e6-01e0ada98c7c.png" alt="Unknown-12" class="center" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
 
   </section>
@@ -940,15 +952,17 @@
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#DS">#DS</a>
+    <a class="tag" href="/tags#Data+Science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    <a class="tag" href="/tags#Machine+Learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="/tags#ML">#ML</a>
-    
-    <a class="tag" href="/tags#titanic">#titanic</a>
-    
-    <a class="tag" href="/tags#modeling">#modeling</a>
+    <a class="tag" href="/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>

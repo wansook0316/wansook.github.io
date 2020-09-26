@@ -203,6 +203,7 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
     const about = document.getElementById("category-about");
     if (width < 710) {
       cv.innerText = "📜"
@@ -210,6 +211,7 @@
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
+      tags.innerText = "🏷"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -218,6 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
+      tags.innerText = "Tags"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -676,6 +679,10 @@
       </ul>
     </li>
 
+    <li>
+      <a id="category-tags" href="/tags/"> </a>
+    </li>
+
     <li><a id="category-about" href="/about/"> </a></li>
 
     <!--    <ul class="cat2">-->
@@ -694,7 +701,7 @@
     <h1 class="title">10: Ensemble</h1>
     
     <p class="meta">
-      DS/ML  : Titanic 
+      DS/ML  : Kaggle::Titanic 
     </p>
     <p class="meta">
       May 5, 2020 
@@ -708,7 +715,7 @@
 
 <div class="series-nav">
   <p>
-    이 포스팅은 <b><em>Titanic</em></b> 시리즈
+    이 포스팅은 <b><em>Kaggle::Titanic</em></b> 시리즈
     <b><em>10</em></b> 편 중 <b><em>10</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
@@ -822,20 +829,20 @@
 
     <span class="c1">#Gaussian Processes: http://scikit-learn.org/stable/modules/gaussian_process.html#gaussian-process-classification-gpc
 </span>    <span class="p">(</span><span class="s">'gpc'</span><span class="p">,</span> <span class="n">gaussian_process</span><span class="o">.</span><span class="n">GaussianProcessClassifier</span><span class="p">()),</span>
-    
+
     <span class="c1">#GLM: http://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
 </span>    <span class="p">(</span><span class="s">'lr'</span><span class="p">,</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">()),</span>
-    
+
     <span class="c1">#Navies Bayes: http://scikit-learn.org/stable/modules/naive_bayes.html
 </span>    <span class="p">(</span><span class="s">'bnb'</span><span class="p">,</span> <span class="n">naive_bayes</span><span class="o">.</span><span class="n">BernoulliNB</span><span class="p">()),</span>
     <span class="p">(</span><span class="s">'gnb'</span><span class="p">,</span> <span class="n">naive_bayes</span><span class="o">.</span><span class="n">GaussianNB</span><span class="p">()),</span>
-    
+
     <span class="c1">#Nearest Neighbor: http://scikit-learn.org/stable/modules/neighbors.html
 </span>    <span class="p">(</span><span class="s">'knn'</span><span class="p">,</span> <span class="n">neighbors</span><span class="o">.</span><span class="n">KNeighborsClassifier</span><span class="p">()),</span>
-    
+
     <span class="c1">#SVM: http://scikit-learn.org/stable/modules/svm.html
 </span>    <span class="p">(</span><span class="s">'svc'</span><span class="p">,</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="bp">True</span><span class="p">)),</span>
-    
+
     <span class="c1">#xgboost: http://xgboost.readthedocs.io/en/latest/model.html
 </span>   <span class="p">(</span><span class="s">'xgb'</span><span class="p">,</span> <span class="n">XGBClassifier</span><span class="p">())</span>
 
@@ -847,7 +854,7 @@
 <span class="n">vote_hard_cv</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">vote_hard</span><span class="p">,</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">cv</span>  <span class="o">=</span> <span class="n">cv_split</span><span class="p">)</span>
 <span class="n">vote_hard</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_hard_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> 
+<span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_hard_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting Test w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_hard_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting Test w/bin score 3*std: +/- {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_hard_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
@@ -858,7 +865,7 @@
 <span class="n">vote_soft_cv</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">vote_soft</span><span class="p">,</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">cv</span>  <span class="o">=</span> <span class="n">cv_split</span><span class="p">)</span>
 <span class="n">vote_soft</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_soft_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> 
+<span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_soft_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting Test w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_soft_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting Test w/bin score 3*std: +/- {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">vote_soft_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
@@ -900,8 +907,8 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 </span>            <span class="c1">#'algorithm': ['SAMME', 'SAMME.R'], #default=’SAMME.R
 </span>            <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
             <span class="p">}],</span>
-       
-    
+
+
             <span class="p">[{</span>
             <span class="c1">#BaggingClassifier - http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.BaggingClassifier.html#sklearn.ensemble.BaggingClassifier
 </span>            <span class="s">'n_estimators'</span><span class="p">:</span> <span class="n">grid_n_estimator</span><span class="p">,</span> <span class="c1">#default=10
@@ -909,7 +916,7 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 </span>            <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
              <span class="p">}],</span>
 
-    
+
             <span class="p">[{</span>
             <span class="c1">#ExtraTreesClassifier - http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.ExtraTreesClassifier.html#sklearn.ensemble.ExtraTreesClassifier
 </span>            <span class="s">'n_estimators'</span><span class="p">:</span> <span class="n">grid_n_estimator</span><span class="p">,</span> <span class="c1">#default=10
@@ -925,11 +932,11 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 </span>            <span class="s">'learning_rate'</span><span class="p">:</span> <span class="p">[</span><span class="mf">.05</span><span class="p">],</span> <span class="c1">#default=0.1 -- 12/31/17 set to reduce runtime -- The best parameter for GradientBoostingClassifier is {'learning_rate': 0.05, 'max_depth': 2, 'n_estimators': 300, 'random_state': 0} with a runtime of 264.45 seconds.
 </span>            <span class="s">'n_estimators'</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">],</span> <span class="c1">#default=100 -- 12/31/17 set to reduce runtime -- The best parameter for GradientBoostingClassifier is {'learning_rate': 0.05, 'max_depth': 2, 'n_estimators': 300, 'random_state': 0} with a runtime of 264.45 seconds.
 </span>            <span class="c1">#'criterion': ['friedman_mse', 'mse', 'mae'], #default=”friedman_mse”
-</span>            <span class="s">'max_depth'</span><span class="p">:</span> <span class="n">grid_max_depth</span><span class="p">,</span> <span class="c1">#default=3   
+</span>            <span class="s">'max_depth'</span><span class="p">:</span> <span class="n">grid_max_depth</span><span class="p">,</span> <span class="c1">#default=3
 </span>            <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
              <span class="p">}],</span>
 
-    
+
             <span class="p">[{</span>
             <span class="c1">#RandomForestClassifier - http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html#sklearn.ensemble.RandomForestClassifier
 </span>            <span class="s">'n_estimators'</span><span class="p">:</span> <span class="n">grid_n_estimator</span><span class="p">,</span> <span class="c1">#default=10
@@ -938,14 +945,14 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 </span>            <span class="s">'oob_score'</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">],</span> <span class="c1">#default=False -- 12/31/17 set to reduce runtime -- The best parameter for RandomForestClassifier is {'criterion': 'entropy', 'max_depth': 6, 'n_estimators': 100, 'oob_score': True, 'random_state': 0} with a runtime of 146.35 seconds.
 </span>            <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
              <span class="p">}],</span>
-    
-            <span class="p">[{</span>    
+
+            <span class="p">[{</span>
             <span class="c1">#GaussianProcessClassifier
 </span>            <span class="s">'max_iter_predict'</span><span class="p">:</span> <span class="n">grid_n_estimator</span><span class="p">,</span> <span class="c1">#default: 100
 </span>            <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
             <span class="p">}],</span>
-        
-    
+
+
             <span class="p">[{</span>
             <span class="c1">#LogisticRegressionCV - http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegressionCV.html#sklearn.linear_model.LogisticRegressionCV
 </span>            <span class="s">'fit_intercept'</span><span class="p">:</span> <span class="n">grid_bool</span><span class="p">,</span> <span class="c1">#default: True
@@ -953,25 +960,25 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 </span>            <span class="s">'solver'</span><span class="p">:</span> <span class="p">[</span><span class="s">'newton-cg'</span><span class="p">,</span> <span class="s">'lbfgs'</span><span class="p">,</span> <span class="s">'liblinear'</span><span class="p">,</span> <span class="s">'sag'</span><span class="p">,</span> <span class="s">'saga'</span><span class="p">],</span> <span class="c1">#default: lbfgs
 </span>            <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
              <span class="p">}],</span>
-            
-    
+
+
             <span class="p">[{</span>
             <span class="c1">#BernoulliNB - http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html#sklearn.naive_bayes.BernoulliNB
 </span>            <span class="s">'alpha'</span><span class="p">:</span> <span class="n">grid_ratio</span><span class="p">,</span> <span class="c1">#default: 1.0
 </span>             <span class="p">}],</span>
-    
-    
-            <span class="c1">#GaussianNB - 
+
+
+            <span class="c1">#GaussianNB -
 </span>            <span class="p">[{}],</span>
-    
+
             <span class="p">[{</span>
             <span class="c1">#KNeighborsClassifier - http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier
 </span>            <span class="s">'n_neighbors'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="c1">#default: 5
 </span>            <span class="s">'weights'</span><span class="p">:</span> <span class="p">[</span><span class="s">'uniform'</span><span class="p">,</span> <span class="s">'distance'</span><span class="p">],</span> <span class="c1">#default = ‘uniform’
 </span>            <span class="s">'algorithm'</span><span class="p">:</span> <span class="p">[</span><span class="s">'auto'</span><span class="p">,</span> <span class="s">'ball_tree'</span><span class="p">,</span> <span class="s">'kd_tree'</span><span class="p">,</span> <span class="s">'brute'</span><span class="p">]</span>
             <span class="p">}],</span>
-            
-    
+
+
             <span class="p">[{</span>
             <span class="c1">#SVC - http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
 </span>            <span class="c1">#http://blog.hackerearth.com/simple-tutorial-svm-parameter-tuning-python-r
@@ -983,14 +990,14 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
             <span class="s">'random_state'</span><span class="p">:</span> <span class="n">grid_seed</span>
              <span class="p">}],</span>
 
-    
+
             <span class="p">[{</span>
             <span class="c1">#XGBClassifier - http://xgboost.readthedocs.io/en/latest/parameter.html
 </span>            <span class="s">'learning_rate'</span><span class="p">:</span> <span class="n">grid_learn</span><span class="p">,</span> <span class="c1">#default: .3
 </span>            <span class="s">'max_depth'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="c1">#default 2
-</span>            <span class="s">'n_estimators'</span><span class="p">:</span> <span class="n">grid_n_estimator</span><span class="p">,</span> 
-            <span class="s">'seed'</span><span class="p">:</span> <span class="n">grid_seed</span>  
-             <span class="p">}]</span>   
+</span>            <span class="s">'n_estimators'</span><span class="p">:</span> <span class="n">grid_n_estimator</span><span class="p">,</span>
+            <span class="s">'seed'</span><span class="p">:</span> <span class="n">grid_seed</span>
+             <span class="p">}]</span>
         <span class="p">]</span>
 
 
@@ -1000,16 +1007,16 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 </span>
     <span class="c1">#print(clf[1]) #vote_est is a list of tuples, index 0 is the name and index 1 is the algorithm
 </span>    <span class="c1">#print(param)
-</span>    
-    
-    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>        
+</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
     <span class="n">best_search</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span> <span class="o">=</span> <span class="n">clf</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">param</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">cv_split</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="s">'roc_auc'</span><span class="p">)</span>
     <span class="n">best_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
     <span class="n">run</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
 
     <span class="n">best_param</span> <span class="o">=</span> <span class="n">best_search</span><span class="o">.</span><span class="n">best_params_</span>
     <span class="k">print</span><span class="p">(</span><span class="s">'The best parameter for {} is {} with a runtime of {:.2f} seconds.'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">clf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">best_param</span><span class="p">,</span> <span class="n">run</span><span class="p">))</span>
-    <span class="n">clf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">best_param</span><span class="p">)</span> 
+    <span class="n">clf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">best_param</span><span class="p">)</span>
 
 
 <span class="n">run_total</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_total</span>
@@ -1017,6 +1024,7 @@ Soft Voting Test w/bin score 3*std: +/- 5.14
 
 <span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
 </code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The best parameter for AdaBoostClassifier is {'learning_rate': 0.1, 'n_estimators': 300, 'random_state': 0} with a runtime of 37.28 seconds.
 The best parameter for BaggingClassifier is {'max_samples': 0.25, 'n_estimators': 300, 'random_state': 0} with a runtime of 33.04 seconds.
 The best parameter for ExtraTreesClassifier is {'criterion': 'entropy', 'max_depth': 6, 'n_estimators': 100, 'random_state': 0} with a runtime of 68.93 seconds.
@@ -1044,7 +1052,7 @@ Total optimization time was 5.96 minutes.
 <span class="n">grid_hard_cv</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">grid_hard</span><span class="p">,</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">cv</span>  <span class="o">=</span> <span class="n">cv_split</span><span class="p">)</span>
 <span class="n">grid_hard</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting w/Tuned Hyperparameters Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_hard_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> 
+<span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting w/Tuned Hyperparameters Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_hard_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting w/Tuned Hyperparameters Test w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_hard_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Hard Voting w/Tuned Hyperparameters Test w/bin score 3*std: +/- {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_hard_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
@@ -1054,7 +1062,7 @@ Total optimization time was 5.96 minutes.
 <span class="n">grid_soft_cv</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">cross_validate</span><span class="p">(</span><span class="n">grid_soft</span><span class="p">,</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">],</span> <span class="n">cv</span>  <span class="o">=</span> <span class="n">cv_split</span><span class="p">)</span>
 <span class="n">grid_soft</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="n">data1_x_bin</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">])</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting w/Tuned Hyperparameters Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_soft_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span> 
+<span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting w/Tuned Hyperparameters Training w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_soft_cv</span><span class="p">[</span><span class="s">'train_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting w/Tuned Hyperparameters Test w/bin score mean: {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_soft_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"Soft Voting w/Tuned Hyperparameters Test w/bin score 3*std: +/- {:.2f}"</span><span class="o">.</span> <span class="nb">format</span><span class="p">(</span><span class="n">grid_soft_cv</span><span class="p">[</span><span class="s">'test_score'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span>
 <span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
@@ -1075,6 +1083,7 @@ Total optimization time was 5.96 minutes.
 #The best parameter for XGBClassifier is {'learning_rate': 0.01, 'max_depth': 4, 'n_estimators': 300, 'seed': 0} with a runtime of 46.23 seconds.
 #Total optimization time was 5.56 minutes.
 </span></code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hard Voting w/Tuned Hyperparameters Training w/bin score mean: 85.22
 Hard Voting w/Tuned Hyperparameters Test w/bin score mean: 82.31
 Hard Voting w/Tuned Hyperparameters Test w/bin score 3*std: +/- 5.26
@@ -1086,6 +1095,7 @@ Soft Voting w/Tuned Hyperparameters Test w/bin score 3*std: +/- 5.42
 </code></pre></div></div>
 
 <h2 id="실제-validation에-적용-for-submit">실제 validation에 적용 (for submit)</h2>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#prepare data for modeling
 </span><span class="k">print</span><span class="p">(</span><span class="n">data_val</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
@@ -1204,7 +1214,7 @@ dtypes: category(2), float64(2), int64(11), object(6)
 memory usage: 63.1+ KB
 None
 ----------
-Validation Data Distribution: 
+Validation Data Distribution:
  0    0.633971
 1    0.366029
 Name: Survived, dtype: float64
@@ -1215,23 +1225,25 @@ Name: Survived, dtype: float64
 <p>신기하게도 다른 알고리즘 보다, 내가 만든 트리의 정확도가 실제 제출시에 더 높았다. 이것은, 훈련 데이터 셋의 분포와 제출 데이터 셋의 분포가 다름을 나타낸다. 즉, CV를 통해 모델을 학습한다 할지라도 제출용 데이터의 분포가 성능에 지대한 역할을 미친다는 것이다. 알고리즘에 의존하는 것이 아닌, 전처리와 feature engineering이 더 중요한 경우도 많다.</p>
 
 <h3 id="reference">Reference</h3>
-<p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
 
+<p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
 
   </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#DS">#DS</a>
+    <a class="tag" href="/tags#Data+Science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    <a class="tag" href="/tags#Machine+Learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="/tags#ML">#ML</a>
-    
-    <a class="tag" href="/tags#titanic">#titanic</a>
-    
-    <a class="tag" href="/tags#hyper+parameter">#hyper parameter</a>
+    <a class="tag" href="/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>

@@ -3,7 +3,15 @@ layout: post
 title: "15: Gram Matrix"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review", "image segmentation"]
+tags:
+  [
+    Data Science,
+    "Deep Learning",
+    "Computer Vision",
+    "Paper Review",
+    "GAN",
+    "Style Transfer",
+  ]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true

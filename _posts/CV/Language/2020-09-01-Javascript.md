@@ -3,7 +3,7 @@ layout: post
 title: "Javascript"
 category: "CV/Language"
 comments: true
-tags: [언어]
+tags: ["CV", "Language"]
 feature-img: "assets/img/60.jpg"
 feature-title:
 use_math: true

@@ -203,6 +203,7 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
     const about = document.getElementById("category-about");
     if (width < 710) {
       cv.innerText = "📜"
@@ -210,6 +211,7 @@
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
+      tags.innerText = "🏷"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -218,6 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
+      tags.innerText = "Tags"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -676,6 +679,10 @@
       </ul>
     </li>
 
+    <li>
+      <a id="category-tags" href="/tags/"> </a>
+    </li>
+
     <li><a id="category-about" href="/about/"> </a></li>
 
     <!--    <ul class="cat2">-->
@@ -694,7 +701,7 @@
     <h1 class="title">06: EDA (Exploratory Data Analysis)</h1>
     
     <p class="meta">
-      DS/ML  : Titanic 
+      DS/ML  : Kaggle::Titanic 
     </p>
     <p class="meta">
       May 5, 2020 
@@ -708,7 +715,7 @@
 
 <div class="series-nav">
   <p>
-    이 포스팅은 <b><em>Titanic</em></b> 시리즈
+    이 포스팅은 <b><em>Kaggle::Titanic</em></b> 시리즈
     <b><em>10</em></b> 편 중 <b><em>6</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
@@ -798,6 +805,7 @@
  <p>Kaggle에 있는 Titanic Prediction 문제의 데이터를 탐험적 데이터 탐색을 통해 이해한다.</p>
 
 <h1 id="eda">EDA</h1>
+
 <p>데이터 정제가 끝났으니, 탐험적 데이터 분석을 통해서, 데이터에 대한 이해를 시각적으로 해보자. 이 단계에서 변수를 분리하고, 종속 변수와의 상관관계를 결정해 볼 수 있다.</p>
 
 <h2 id="이산적-변수와-y와의-관계">이산적 변수와 y와의 관계</h2>
@@ -805,33 +813,34 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data1_x</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">data1</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="s">'float64'</span> <span class="p">:</span>
         <span class="k">print</span><span class="p">(</span><span class="s">'Survival Correlation by:'</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">data1</span><span class="p">[[</span><span class="n">x</span><span class="p">,</span> <span class="n">Target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> 
+        <span class="k">print</span><span class="p">(</span><span class="n">data1</span><span class="p">[[</span><span class="n">x</span><span class="p">,</span> <span class="n">Target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
         <span class="c1"># feature와 survived를 가져와서 해당 feature에 대해 group을 묶고, 그 group의 평균을 구해라
 </span>        <span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
-        
+
 
 <span class="c1"># 빈도표 만들기
 </span><span class="k">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">data1</span><span class="p">[</span><span class="s">'Title'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">Target</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
 </code></pre></div></div>
+
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Survival Correlation by: Sex
       Sex  Survived
 0  female  0.742038
 1    male  0.188908
----------- 
+----------
 
 Survival Correlation by: Pclass
    Pclass  Survived
 0       1  0.629630
 1       2  0.472826
 2       3  0.242363
----------- 
+----------
 
 Survival Correlation by: Embarked
   Embarked  Survived
 0        C  0.553571
 1        Q  0.389610
 2        S  0.339009
----------- 
+----------
 
 Survival Correlation by: Title
     Title  Survived
@@ -840,7 +849,7 @@ Survival Correlation by: Title
 2    Miss  0.697802
 3      Mr  0.156673
 4     Mrs  0.792000
----------- 
+----------
 
 Survival Correlation by: SibSp
    SibSp  Survived
@@ -851,7 +860,7 @@ Survival Correlation by: SibSp
 4      4  0.166667
 5      5  0.000000
 6      8  0.000000
----------- 
+----------
 
 Survival Correlation by: Parch
    Parch  Survived
@@ -862,7 +871,7 @@ Survival Correlation by: Parch
 4      4  0.000000
 5      5  0.200000
 6      6  0.000000
----------- 
+----------
 
 Survival Correlation by: FamilySize
    FamilySize  Survived
@@ -875,16 +884,16 @@ Survival Correlation by: FamilySize
 6           7  0.333333
 7           8  0.000000
 8          11  0.000000
----------- 
+----------
 
 Survival Correlation by: IsAlone
    IsAlone  Survived
 0        0  0.505650
 1        1  0.303538
----------- 
+----------
 
 Survived    0    1
-Title             
+Title
 Master     17   23
 Misc       15   12
 Miss       55  127
@@ -897,7 +906,9 @@ Mrs        26   99
 <a href="https://3months.tistory.com/194">빈도표 만들기</a></p>
 
 <h2 id="이산-데이터에-대한-plot">이산 데이터에 대한 plot</h2>
+
 <p>이 부분에서 plot을 하는데 있어 연습을 위해 다양한 방법을 통해 구현해본다.</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#graph distribution of quantitative data
 </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">12</span><span class="p">])</span>
 
@@ -917,7 +928,7 @@ Mrs        26   99
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Family Size (#)'</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">234</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s">'Fare'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s">'Fare'</span><span class="p">]],</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s">'Fare'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s">'Fare'</span><span class="p">]],</span>
          <span class="n">stacked</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s">'g'</span><span class="p">,</span><span class="s">'r'</span><span class="p">],</span><span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Survived'</span><span class="p">,</span><span class="s">'Dead'</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Fare Histogram by Survival'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Fare ($)'</span><span class="p">)</span>
@@ -925,7 +936,7 @@ Mrs        26   99
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">235</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s">'Age'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s">'Age'</span><span class="p">]],</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s">'Age'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s">'Age'</span><span class="p">]],</span>
          <span class="n">stacked</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s">'g'</span><span class="p">,</span><span class="s">'r'</span><span class="p">],</span><span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Survived'</span><span class="p">,</span><span class="s">'Dead'</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Age Histogram by Survival'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Age (Years)'</span><span class="p">)</span>
@@ -933,7 +944,7 @@ Mrs        26   99
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">236</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s">'FamilySize'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s">'FamilySize'</span><span class="p">]],</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s">'FamilySize'</span><span class="p">],</span> <span class="n">data1</span><span class="p">[</span><span class="n">data1</span><span class="p">[</span><span class="s">'Survived'</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">][</span><span class="s">'FamilySize'</span><span class="p">]],</span>
          <span class="n">stacked</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s">'g'</span><span class="p">,</span><span class="s">'r'</span><span class="p">],</span><span class="n">label</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Survived'</span><span class="p">,</span><span class="s">'Dead'</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Family Size Histogram by Survival'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Family Size (#)'</span><span class="p">)</span>
@@ -946,6 +957,7 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81252728-a0aad880-9061-11ea-84da-b2118f3672ab.png" alt="image" class="center" /></p>
 
 <h2 id="범주형-데이터에-대한-plot">범주형 데이터에 대한 plot</h2>
+
 <p>seaborn을 사용한 plot을 해본다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#graph individual features by survival
@@ -966,6 +978,7 @@ Mrs        26   99
 <p>이 단계에서 우리는 Pclass에 따른 생존률의 차이가 있다는 것을 알 수 있다. 조금더 자세하게 비교해보자.</p>
 
 <h2 id="생존-여부-클래스에-따른-추가-변수의-분포">생존 여부, 클래스에 따른 추가 변수의 분포</h2>
+
 <p>생존 여부, 클래스에 따른 지불 비용, 가족의 크기, 연령 등의 분포를 알아보자. 분포를 알아볼 때는 보통 boxplot을 사용한다. 하지만, boxplot을 사용했을 때 가독성이 떨어지는 경우가 있다. 그 이유는 점들이 찍혀 있고 그렇기 때문인데, 이럴경우 분포를 보는 것이 목적이라면 violin plot을 쓰는 것이 좋다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#graph distribution of qualitative data: Pclass
@@ -982,6 +995,7 @@ Mrs        26   99
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">'Pclass'</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span><span class="s">'FamilySize'</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">'Survived'</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">data1</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">axis3</span><span class="p">)</span>
 <span class="n">axis3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Pclass vs Family Size Survival Comparison'</span><span class="p">)</span>
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/81253817-7575b880-9064-11ea-99dc-e7776a58750d.png" alt="Unknown" class="center" /></p>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/81253868-8d4d3c80-9064-11ea-8f53-b78a7f85f7d3.png" alt="Unknown-2" class="center" /></p>
@@ -1007,6 +1021,7 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81254211-680cfe00-9065-11ea-9236-7abac5318fb1.png" alt="Unknown-3" class="center" /></p>
 
 <h2 id="가족-구조와-성별에-따른-생존률-비교">가족 구조와 성별에 따른 생존률 비교</h2>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#more side-by-side comparisons
 </span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">maxis1</span><span class="p">,</span> <span class="n">maxis2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
 
@@ -1020,9 +1035,11 @@ Mrs        26   99
               <span class="n">palette</span><span class="o">=</span><span class="p">{</span><span class="s">"male"</span><span class="p">:</span> <span class="s">"blue"</span><span class="p">,</span> <span class="s">"female"</span><span class="p">:</span> <span class="s">"pink"</span><span class="p">},</span>
               <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s">"*"</span><span class="p">,</span> <span class="s">"o"</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s">"-"</span><span class="p">,</span> <span class="s">"--"</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">maxis2</span><span class="p">)</span>
 </code></pre></div></div>
+
 <p><img src="https://user-images.githubusercontent.com/37871541/81254334-c934d180-9065-11ea-8af1-e19d1c10e912.png" alt="Unknown-4" class="center" /></p>
 
 <h2 id="클래스-출항-항구에-따른-생존률">클래스, 출항 항구에 따른 생존률</h2>
+
 <p>클래스도 여러개의 factor, 출항 항구도 factor이다. 이렇게 여러개에 대한 plot을 빠르게 하는 방법이 있다. seaborn의 <a href="https://seaborn.pydata.org/generated/seaborn.FacetGrid.html">facetgrid</a>를 사용하는 것이다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="s">'Embarked'</span><span class="p">)</span>
@@ -1033,6 +1050,7 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81255201-0732f500-9068-11ea-93b6-106b16042eff.png" alt="Unknown-5" class="center" /></p>
 
 <h2 id="나이에-따른-생존-확률-분포">나이에 따른 생존 확률 분포</h2>
+
 <p>나이대에 따른 생존률의 분포를 알고 싶다. 이런 분포는 밀도 함수를 구하는 것과 같다. x가 나이, y가 생존확률이기 때문이다. 이럴 때, kernel함수를 사용하여 밀도함수를 만들어 낼 수 있다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span> <span class="n">data1</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">'Survived'</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">4</span> <span class="p">)</span>
@@ -1044,6 +1062,7 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81255855-c045ff00-9069-11ea-8c4d-6eee00dca8e2.png" alt="Unknown-6" class="center" /></p>
 
 <h2 id="성별-클래스에-따른-나이에-대한-사람-분포">성별, 클래스에 따른 나이에 대한 사람 분포</h2>
+
 <p>성별, 클래스에 따른 그래프를 하나씩 생성하기 위해 col, row 구분은 각각 성별, 클래스로 해준다. 그 상태에서 x는 age, y는 히스토그램에서의 개수가 될 것이다. 이 때, 각각의 그래프에서 색상 구분을 통해 survived를 구분해준다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#histogram comparison of sex, class, and age by survival
@@ -1055,6 +1074,7 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81256047-482c0900-906a-11ea-98fc-70fd7f94aefd.png" alt="Unknown-7" class="center" /></p>
 
 <h2 id="전체-feature들에-대한-plot">전체 feature들에 대한 plot</h2>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#pair plots of entire dataset
 </span><span class="n">pp</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">'Survived'</span><span class="p">,</span> <span class="n">palette</span> <span class="o">=</span> <span class="s">'deep'</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">diag_kind</span> <span class="o">=</span> <span class="s">'kde'</span><span class="p">,</span> <span class="n">diag_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">shade</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> <span class="n">plot_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xticklabels</span><span class="o">=</span><span class="p">[])</span>
@@ -1065,24 +1085,25 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81256540-c5a44900-906b-11ea-8168-c92443bd91d1.png" alt="Unknown-8" class="center" /></p>
 
 <h2 id="상관관계-히트맵">상관관계 히트맵</h2>
+
 <p>각 변수들간의 상관관계에 대해서 plot 해본다. <a href="https://seaborn.pydata.org/generated/seaborn.diverging_palette.html">seaborn.diverging_palette</a></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#correlation heatmap of dataset
 </span><span class="k">def</span> <span class="nf">correlation_heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">_</span> <span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
     <span class="n">colormap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">as_cmap</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    
+
     <span class="n">_</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> 
+        <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span>
         <span class="n">cmap</span> <span class="o">=</span> <span class="n">colormap</span><span class="p">,</span> <span class="c1"># 이친구가 matplot 객체를 입력으로 받는다. as_camp = True로 해줘야 한다.
-</span>        <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
-        <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s">'shrink'</span><span class="p">:</span><span class="mf">.9</span> <span class="p">},</span> 
+</span>        <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s">'shrink'</span><span class="p">:</span><span class="mf">.9</span> <span class="p">},</span>
         <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
         <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1"># 박스에 값 입력해준다.
 </span>        <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">linecolor</span><span class="o">=</span><span class="s">'white'</span><span class="p">,</span>
         <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s">'fontsize'</span><span class="p">:</span><span class="mi">12</span> <span class="p">}</span>
     <span class="p">)</span>
-    
+
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Pearson Correlation of Features'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 
 <span class="n">correlation_heatmap</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
@@ -1091,6 +1112,7 @@ Mrs        26   99
 <p><img src="https://user-images.githubusercontent.com/37871541/81260296-b249ab80-9074-11ea-857f-11bacf199b07.png" alt="Unknown-10" class="center" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy#">kaggle Notebook</a></p>
 
   </section>
@@ -1098,19 +1120,17 @@ Mrs        26   99
 <footer>
   <div class="tags">
     
-    <a class="tag" href="/tags#DS">#DS</a>
+    <a class="tag" href="/tags#Data+Science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="/tags#kaggle">#kaggle</a>
+    <a class="tag" href="/tags#Machine+Learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="/tags#ML">#ML</a>
-    
-    <a class="tag" href="/tags#titanic">#titanic</a>
-    
-    <a class="tag" href="/tags#%EC%8B%9C%EA%B0%81%ED%99%94">#시각화</a>
-    
-    <a class="tag" href="/tags#boxplot">#boxplot</a>
-    
-    <a class="tag" href="/tags#violinplot">#violinplot</a>
+    <a class="tag" href="/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>

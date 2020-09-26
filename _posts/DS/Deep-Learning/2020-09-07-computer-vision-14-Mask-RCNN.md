@@ -3,7 +3,14 @@ layout: post
 title: "14: Mask R-CNN"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review", "image segmentation"]
+tags:
+  [
+    Data Science,
+    "Deep Learning",
+    "Computer Vision",
+    "Paper Review",
+    "Segmentation",
+  ]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true

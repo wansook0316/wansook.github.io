@@ -3,7 +3,14 @@ layout: post
 title: "12: Xception"
 category: "DS/DL"
 comments: true
-tags: [DS, "paper review", "image segmentation"]
+tags:
+  [
+    Data Science,
+    "Deep Learning",
+    "Computer Vision",
+    "Paper Review",
+    "Base Model",
+  ]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true
