@@ -2,7 +2,7 @@
 layout: page
 title: About Me
 permalink: /about/
-feature-img: "assets/img/24.jpg"
+feature-img: "assets/img/about.jpg"
 introduce: "안녕하세요. 최완식입니다."
 ---
 
