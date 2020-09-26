@@ -4,6 +4,6 @@ title: DS
 subtitle: Calculus
 alt-subtitle: Calculus
 permalink: "DS/Calculus"
-feature-img: "assets/img/2.jpg"
+feature-img: "assets/img/calculus.jpg"
 hide: true
 ---

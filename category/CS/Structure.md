@@ -4,6 +4,6 @@ title: CS
 subtitle: Structure
 alt-subtitle: Computer Structure
 permalink: "CS/Structure"
-feature-img: "assets/img/10.jpg"
+feature-img: "assets/img/structure.jpg"
 hide: true
 ---

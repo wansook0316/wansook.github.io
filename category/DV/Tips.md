@@ -3,6 +3,6 @@ layout: category
 title: DV
 subtitle: Tips
 permalink: "DV/Tips"
-feature-img: "assets/img/14.jpg"
+feature-img: "assets/img/tips.jpg"
 hide: true
 ---

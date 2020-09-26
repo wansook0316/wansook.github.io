@@ -4,6 +4,6 @@ title: Book
 subtitle: SM
 alt-subtitle: Self Management
 permalink: "Book/SM"
-feature-img: "assets/img/43.jpg"
+feature-img: "assets/img/self-management.jpg"
 hide: true
 ---
