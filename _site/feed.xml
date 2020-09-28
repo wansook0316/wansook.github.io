@@ -5,7 +5,7 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>Be On My Wave 🌊</description>
-    <pubDate>Mon, 28 Sep 2020 16:50:53 +0900</pubDate>
+    <pubDate>Tue, 29 Sep 2020 00:51:42 +0900</pubDate>
     
       <item>
         <title>03: 들여쓰기</title>
@@ -21,7 +21,9 @@
 
 &lt;h1 id=&quot;2-주석은-코드와-같은-레벨에-있어야-한다&quot;&gt;2. 주석은 코드와 같은 레벨에 있어야 한다.&lt;/h1&gt;
 
-&lt;p&gt;들여쓰기의 레벨을 같이 사용한다.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;들여쓰기의 레벨을 같이 사용한다.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;좋은-예&quot;&gt;좋은 예&lt;/h2&gt;
 
@@ -845,6 +847,780 @@
       </item>
     
       <item>
+        <title>07: Functions #5 - CallbyValue, CallbyReference</title>
+        <link>/dv/c++/2020/09/28/OOP-07-Function-5.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-07-Function-5.html</guid>
+        <description>&lt;p&gt;참조변수와 일반변수의 사용의 차이점을 알았다면, main 함수가 동작하는 도중 다른 함수를 호출할때, 그 함수의 인자 역시 두 종류가 있음을 알 수 있다. 마찬가지로 일반변수와, 참조변수를 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;두 변수의 값을 바꾸는 함수 &lt;em&gt;swap&lt;/em&gt; 을 main 함수에서 호출하는 상황을 가정하고 비교해보자.&lt;/p&gt;
+
+&lt;h1 id=&quot;swap_callbyvalue&quot;&gt;Swap_callbyValue&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, y = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, y = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// x = 5, y = 10
+// x = 5, y = 10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;왜 같은 값이 출력될까?&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt; 함수를 호출했을 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; 값이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt; 함수에 들어가고, 이 값은 각각 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; 에 &lt;strong&gt;복사&lt;/strong&gt; 된다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt; 함수 안에서는 &lt;strong&gt;복사된 a, b&lt;/strong&gt; 안에 들어간 값이 서로 바뀌게 되고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt; 함수가 종료된 후에 이 값은 &lt;strong&gt;사라진다. **결국 내가 원한 결과인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; 는 바뀌지 않는게 당연하다. 이렇게 값이 복사되어 함수를 호출하는 것을 **callbyvalue&lt;/strong&gt; 라 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;swap_callbyreference&quot;&gt;Swap_callbyReference&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, y = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, y = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// x = 5, y = 10
+// x = 10, y = 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 할 경우, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt; 함수를 호출한 뒤에 안에 들어갈 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;a = x&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;b = y&lt;/code&gt; 이런식으로 들어가기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; 와 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; 자체를 가리킨다. 따라서 내가 원하는 결과인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; 의 값이 바뀌게 된다. 이렇게 실제값을 가지고 함수를 호출하는 것을 &lt;strong&gt;callbyreference&lt;/strong&gt; 라 한다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>06: Functions #4 - Reference Variable vs. Pointer</title>
+        <link>/dv/c++/2020/09/28/OOP-06-Function-4.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-06-Function-4.html</guid>
+        <description>&lt;p&gt;참조변수는 내가 선언한 값을 동시에 가리킨다는 점에서 포인터와 유사한 측면이 있다. 또 헷갈리는 점이 있다. C에서 &amp;amp;의 사용은, 내가 저장한 변수의 주소값을 불러오는 용도로 사용했었다. 그런데 C++에 와서는 이 녀석을 참조변수로 사용할 수 있다고 하니 여간 혼돈스러운게 아니다.&lt;/p&gt;
+
+&lt;h1 id=&quot;diffrence-between-pointer--reference-variable&quot;&gt;Diffrence between Pointer &amp;amp; Reference Variable&lt;/h1&gt;
+
+&lt;p&gt;C에서 포인터는 장단점이 아주 명확하다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;장점&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;메모리에 직접적으로 접근할 수 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;단점&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;그렇기 때문에 사용자의 선택이 지배적이다. 즉, 아무렇게나 접근하여 잘못된 주소로 접근할 수 있다는 위험성이 있다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;포인터의 문제점은 선언과 할당을 나누기 때문에 발생한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위와 같은 방식으로 선언과 할당을 해준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-03-19 오전 10 23 01&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54573778-fd4bce00-4a30-11e9-8998-c4e0e055eb0e.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;메모리와 할당을 나타내는 그림&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이런식으로 가리키게 된다. 그런데 만약 내가 이것보다 복잡한 구조에 포인터를 잘못사용한다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NULL&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Garbage&lt;/code&gt; 값이 들어갈 위험이 있다 이런 단점을 보안하는 방식으로 &lt;em&gt;참조변수&lt;/em&gt; 가 만들어졌다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 사용할 경우 r은 x를 가리키는 또다른 별칭이 된다.
+&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-03-19 오전 10 28 14&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54573957-b7dbd080-4a31-11e9-8ced-2ae62f6902ed.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;alias&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이런식으로 구성된다. 참조변수는 포인터와 다르게 선언과 할당이 분리되어서 사용되지 않고, 동시에 이루어져야 한다. 즉, &lt;strong&gt;선언과 초기화가 동시에 이루어진다.&lt;/strong&gt; 그렇기 때문에 포인터에서 발생하는 잘못된 객체를 가리키는 문제점이 해결된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+
+&lt;h2 id=&quot;pointer&quot;&gt;Pointer&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;선언과 할당이 분리되어 이루어짐&lt;/li&gt;
+  &lt;li&gt;자유롭게 객체를 가리킬 수 있으나, 그렇기 때문에 오류 발생확률이 높음 (Null 값)&lt;/li&gt;
+  &lt;li&gt;선언과 할당이 분리되니, 포인터 변수안의 주소값을 바꿀 수 있음&lt;/li&gt;
+  &lt;li&gt;포인터 변수안에는 해당 객체의 주소값이 들어가있음&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; 를 사용해서 선언하고 사용함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;reference-variable&quot;&gt;Reference Variable&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;선언과 할당이 동시에 이루어짐&lt;/li&gt;
+  &lt;li&gt;그렇기 때문에 포인터에 비해 오류가 날 확률이 줄어듦&lt;/li&gt;
+  &lt;li&gt;또한 선언과 할당이후 다른 객체를 가리킬 수 없음&lt;/li&gt;
+  &lt;li&gt;참조변수는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 값 자체를 가리킴&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 의 별칭이라고 생각하면 됨&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; 을 사용해서 선언하고 사용함&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;주소를-가져오는--와-참조변수의-&quot;&gt;주소를 가져오는 &amp;amp; 와 참조변수의 &amp;amp;&lt;/h1&gt;
+
+&lt;p&gt;C 에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scanf()&lt;/code&gt; 같은 함수를 사용할 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;a&lt;/code&gt; 와 같은 방식으로 입력을 받았다. 이 때, &amp;amp;는 변수의 주소를 가져오는 방법으로 생각하고 사용했었다. 같은 &amp;amp;를 쓰면서 왜 하나는 주소를 가져오는 방법으로, 또 참조변수라고 다르게 얘기하는 걸까? 사용법은 2가지가 있는데, 구체적으로 알아보면 굉장히 간단함을 알 수 있다. 차례차례 알아보자.&lt;/p&gt;
+
+&lt;h2 id=&quot;주소를-가져오는-&quot;&gt;주소를 가져오는 &amp;amp;&lt;/h2&gt;
+
+&lt;div class=&quot;language-c highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;stdio.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+   &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 코드를 보면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; 는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 의 주소를 받음을 알 수 있다. 이때 &amp;amp;은 참조변수가 아니고 x의 주소를 가져온다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;=&lt;/code&gt; 연산자의 &lt;strong&gt;오른쪽&lt;/strong&gt; 에 있는 것을 기억하자.&lt;/p&gt;
+
+&lt;h2 id=&quot;참조변수-&quot;&gt;참조변수 &amp;amp;&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;c++ 에서 참조변수는 다음과 같이 선언과 초기화를 한다. 이때 &amp;amp;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;=&lt;/code&gt; 연산자 &lt;strong&gt;왼쪽&lt;/strong&gt; 에 있다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;주소를 가져올 때 &amp;amp; 는 &lt;strong&gt;오른쪽&lt;/strong&gt;, 참조변수를 사용할 때는 &lt;strong&gt;왼쪽&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>05: Functions #3 - Recursion Function, Reference Variable</title>
+        <link>/dv/c++/2020/09/28/OOP-05-Function-3.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-05-Function-3.html</guid>
+        <description>&lt;h1 id=&quot;recursion-function&quot;&gt;Recursion Function&lt;/h1&gt;
+
+&lt;p&gt;Factorial 같은 함수를 구현하기 위해서는, 자기자신의 출력값을 다시 불러야 되는 필요성이 있다. 이것을 &lt;strong&gt;재귀함수&lt;/strong&gt;라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;							&lt;span class=&quot;c1&quot;&gt;// 제약조건&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factorial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 과정을 알아보면,&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-03-18 오후 11 52 20&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54539097-dfeb1580-49d8-11e9-8f97-9aed646bc24e.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;factorial&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;6일 때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1 factorial&lt;/code&gt; 을 불러야 하므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;5 factorial&lt;/code&gt; 로 간다. 같은 방법으로 제약조건인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n==1&lt;/code&gt; 일 때까지 갔다가, 도착하면 순차적으로 값을 얻어와 최종 값을 반환한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-03-18 오후 11 53 57&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54539238-19bc1c00-49d9-11e9-9556-dc8800592530.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;factorial 연산 과정&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;aliasing-reference-variable&quot;&gt;Aliasing (Reference Variable)&lt;/h1&gt;
+
+&lt;p&gt;기본적으로, 우리가 선언된 변수를 다른 변수에 할당하게 되면 이 값을 복사해서 사용하는 셈이 된다. 작은 값의 경우 복사를 해서 프로그램을 짜는 것이 문제가 없을 수 있지만, 구조체나 객체같은 경우 복사를 해서 쓴다면 메모리 낭비가 될 수 있다.&lt;/p&gt;
+
+&lt;p&gt;또한, 함수의 인자로 값을 그냥 넘겨준다면, 그 함수 내에서만 선언되는 지역변수들만 가지고 장난을 치게되어, 내가 원하는 결과, 원래 값 자체를 가지고 반환하는 것이 도출되지 않을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;그렇기 때문에 우리는 내가 저장한 값 자체를 가리킬 필요성이 생기는데, C에서는 이걸 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pointer&lt;/code&gt; 로 가능하게 했었다. 하지만 포인터의 문제점 때문에, C++ 은 참조변수라는 새로운 개념을 도입한다. 포인터와 참조변수의 차이점과 장단점은 밑에서 다뤄보도록 하고 지금은 참조변수에 대해서 알아보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;밑의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;r&lt;/code&gt; 이 참조 변수이다. 저렇게 할 경우 r은 x가 저장된 메모리공간을 동시에 가르키는 변수이다. 즉, x가 가리키는 3의 &lt;strong&gt;별명&lt;/strong&gt; 이 생겼다고 생각하면 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;example-1&quot;&gt;Example&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;---------------&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;r = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// x = 5
+// y = 5
+// r = 5
+// ---------------
+// x = 7
+// y = 5
+// r = 7
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;x 값을 바꿨더니, r에는 바뀐 값이 들어간 것을 볼 수 있다. 반대로 y는 5라는 값이 그대로 들어가 있다. y는 x값을 복사해서 메모리에 넣은 것이고, r은 x의 메모리공간을 함께 뜻하고 있음을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;여기서 여러 혼란이 올 수 있다. C에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; 는 저장된 값의 주소를 불러오는 방법이었다. 그런데 여기서는 참조변수라는 다른 이름을 가져다가 쓰고 있다. 같은 값을 가리킨다는 점에서 C언어에서 Pointer 가 생각났다.그런데 애매하게 다른 점이 있는 것 같다. 구체적으로 어떤점이 다를까?&lt;/p&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>04: Functions #2 - Local, Global Variable</title>
+        <link>/dv/c++/2020/09/28/OOP-04-Function-2.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-04-Function-2.html</guid>
+        <description>&lt;h1 id=&quot;local-global-variables&quot;&gt;Local, Global Variables&lt;/h1&gt;
+
+&lt;h2 id=&quot;local-variables&quot;&gt;Local Variables&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;함수 안에서만 동작하고 함수가 끝나면 메모리에서 삭제된다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수안에서 계속 살아있는 녀석이 아니다!&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수도 &lt;strong&gt;함수&lt;/strong&gt; 이기 때문에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수 종료후 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수 안에서 선언된 변수는 사라진다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;global-variables&quot;&gt;Global Variables&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;함수가 실행되기 전에 선언되는 변수&lt;/li&gt;
+  &lt;li&gt;프로그램의 주가 되는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수가 끝나기 전까지 항상 살아있는 변수이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;example-1&quot;&gt;Example #1&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;							&lt;span class=&quot;c1&quot;&gt;// 전역변수&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeDouble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;// 4&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;							&lt;span class=&quot;c1&quot;&gt;// 5 	makeDouble 함수 안의 지역변수&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;02: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;// 6&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;						&lt;span class=&quot;c1&quot;&gt;// 7&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;03: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;// 8&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;				&lt;span class=&quot;c1&quot;&gt;// 9&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;									&lt;span class=&quot;c1&quot;&gt;// 10&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;							&lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;01: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;// 2&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;makeDouble&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;// 3 // 11&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;04: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;// 12&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;						&lt;span class=&quot;c1&quot;&gt;// 13&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// [Output]
+// 01: 10
+// 02: -1031346592 (Garbage)
+// 03: 10
+// 04: 20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;함수안에 적어둔 숫자 순서대로 작동한다. 실행절차를 적어보자.&lt;/p&gt;
+
+&lt;p&gt;여기서 주의깊게 봐야하는 것은 값을 같다고 놨을 때, &lt;strong&gt;복사&lt;/strong&gt; 한다는 점. 그리고 &lt;strong&gt;전역 변수, 지역 변수&lt;/strong&gt; 가 어떻게 돌아가는지에 대한 &lt;strong&gt;구조&lt;/strong&gt; 이다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수 안으로 들어간다.&lt;/li&gt;
+  &lt;li&gt;전역변수 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 를 출력한다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;01: 10&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;전역 변수 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;의 10을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makeDouble&lt;/code&gt; 함수로 복사한다.&lt;/li&gt;
+  &lt;li&gt;그 값을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makeDouble&lt;/code&gt; 함수의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param&lt;/code&gt; 으로 복사한다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makeDouble&lt;/code&gt; 함수의 지역 변수 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 를 만든다. 값은 저장되지 않았다.&lt;/li&gt;
+  &lt;li&gt;이 값을 출력한다. 값을 할당하지 않았으므로 쓰레기값이 출력된다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;02: -1031346592 (Garbage)&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makeDouble&lt;/code&gt; 함수의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 에 넘어온 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param&lt;/code&gt; 값을 복사한다.&lt;/li&gt;
+  &lt;li&gt;복사된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 를 출력한다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;03: 10&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param * 2&lt;/code&gt; 값을 반환한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param&lt;/code&gt; 은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makeDouble&lt;/code&gt; 함수가 아직 끝나지 않았으므로 살아있다.&lt;/li&gt;
+  &lt;li&gt;함수가 종료되고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;makeDouble&lt;/code&gt; 의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param&lt;/code&gt; 은 사라지고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param * 2&lt;/code&gt; 만 임시 저장소에 저장된다.&lt;/li&gt;
+  &lt;li&gt;반환된 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param * 2&lt;/code&gt; 을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 에 넣는다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;param * 2&lt;/code&gt; 은 사라진다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 를 출력한다.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;04: 20&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수가 끝나고 0 을 반환한다.&lt;/li&gt;
+  &lt;li&gt;프로그램이 종료된다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;example-2&quot;&gt;Example #2&lt;/h2&gt;
+
+&lt;p&gt;위의 예제를 이해했다면, 아래 코드의 결과값도 이해될 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;함수 증가전, x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;함수 증가후, x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;증가전, x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;increment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;증가후, x = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// 증가전, x = 5
+// 함수 증가전, x = 5
+// 함수 증가후, x = 6
+// 증가후, x = 5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;increment&lt;/code&gt; 함수 통과후 사용되었던 지역변수는 모두 사라졌기에, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수에서의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 는 그대로 5 이다.
+만약 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; 함수에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 값을 변화시키고 싶다면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;increment&lt;/code&gt; 함수에서 반환값을 만들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; 에 대입하는 방향으로 코드를 썼어야 했다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>03: Functions #1 - Calling</title>
+        <link>/dv/c++/2020/09/28/OOP-03-Function-1.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-03-Function-1.html</guid>
+        <description>&lt;h1 id=&quot;함수의-기본-모양&quot;&gt;함수의 기본 모양&lt;/h1&gt;
+
+&lt;p&gt;수학에서의 함수와 같이, input , output 이 있고, input 이 들어갔을 때, 어떤 작업을 한 뒤, output 을 내보내는 방식으로 작동한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-03-18 오후 7 40 30&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54524590-b1a80e80-49b5-11e9-88b1-a429d7ff2d4c.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;함수&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서는 input , output 에 아무 숫자나 넣어줘도 되지만, 컴퓨터는 이 숫자 자체도 명시적으로 써줘야 하기 때문에 어떤 input 이 들어가는지, 예상되는 output 은 어떤 녀석인지 명시적으로 써줄 필요가 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;function-in-c&quot;&gt;Function in C++&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;iSqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;// #1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;// #2&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;int p : input 파라미터의 자료형은 integer 이어야 한다.
+    &lt;ul&gt;
+      &lt;li&gt;int iSqrt : output 의 자료형은 integer 이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;어떻게 작용하는지 적어주는 함수의 body 이다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-03-18 오후 8 06 31&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54526182-5415c100-49b9-11e9-95c4-4fa0c356b565.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;함수의 구조&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;input-output-paramater&quot;&gt;Input, output paramater&lt;/h1&gt;
+
+&lt;p&gt;수학에서의 함수와 다르게 input , output 파라미터가 없을 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;input-파라미터가-없는-경우&quot;&gt;input 파라미터가 없는 경우&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;helloworld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hello world&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;helloworld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// helloworld
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;output-파라미터가-없는-경우&quot;&gt;output 파라미터가 없는 경우&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;helloworld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;helloworld&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;helloworld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;출력
+// helloworld
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;void 자료형은 window 운영체제에서만 가능하다.&lt;/p&gt;
+
+&lt;h1 id=&quot;main-함수-안에서-사용&quot;&gt;Main 함수 안에서 사용&lt;/h1&gt;
+
+&lt;p&gt;선언(Declare) , 정의(Define) , 호출(Calling) 의 세 과정을 거친다.&lt;/p&gt;
+
+&lt;h2 id=&quot;선언declare&quot;&gt;선언(Declare)&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;iSqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;main 함수로 들어가기 전에, 먼저 함수의 반환형과, 파라미터의 자료형이 써진 함수의 원형(prototype) 을 적어준다. 변수 이름은 써 줄 필요없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;정의define&quot;&gt;정의(Define)&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;iSqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;main 함수 밑에 어떻게 작용하는지 함수의 내용을 적어준다. 이때는 input 파라미터로 변수의 이름까지 적어줘야 사용가능하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;호출calling&quot;&gt;호출(Calling)&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iSqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;main 함수에서 불러서 사용한다. 함수를 돌리고난 반환값이 y에 저장된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;전체코드-예제&quot;&gt;전체코드 예제&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;# include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;					&lt;span class=&quot;c1&quot;&gt;// Declare&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x 입력&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y 입력&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;// Calling&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;					&lt;span class=&quot;c1&quot;&gt;// Define&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;default-arguments&quot;&gt;Default Arguments&lt;/h1&gt;
+
+&lt;p&gt;함수를 호출했을 때, 아무 인자도 넣지 않았다면, default로 파라미터를 넘길 수 있다. 선언할 때, 인자값까지 같이 전달하면 된다. 또한, input이 적게 들어왔을 경우, 앞 인자만 초기값으로 설정된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;# include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;					&lt;span class=&quot;c1&quot;&gt;// Defalut Arguments&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;x 입력&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;				&lt;span class=&quot;c1&quot;&gt;// 8&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y 입력&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;				&lt;span class=&quot;c1&quot;&gt;// 5&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;// 13&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;				&lt;span class=&quot;c1&quot;&gt;// 9&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;				&lt;span class=&quot;c1&quot;&gt;// 7&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;함수의-동작과정&quot;&gt;함수의 동작과정&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cmath&amp;gt;		// cmath 라이브러리 포함
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 변수 할당&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 루트 계산&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 다른 값 계산 후 할당&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;cmath 는 수학 함수들을 모아둔 표준 c++ 라이브러리 이다. 우리가 주 목적을 두는 함수는 main 함수이다. 이때, 다른 함수를 불러올때, 어떤 방법으로 실행되는지 그림으로 살펴보자. main 함수가 동작하다가, 중간에 sqrt 를 만나면 만들어둔 그 함수로 갔다가, 반환값을 다시 가져오고, 또 만나면 다시 갔다가 반환값을 가져오는 방식으로 동작한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;cmath-library&quot;&gt;cmath Library&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;종류
+&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-03-18 오후 8 05 10&quot; src=&quot;https://user-images.githubusercontent.com/37871541/54526127-23ce2280-49b9-11e9-94e3-8f20e9935406.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;math library&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>02: Identifier, Variable, constant, Std IO, Operator</title>
+        <link>/dv/c++/2020/09/28/OOP-02-Identifier-Variable-constant-Std-IO-Operator.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-02-Identifier-Variable-constant-Std-IO-Operator.html</guid>
+        <description>&lt;h1 id=&quot;identifier&quot;&gt;Identifier&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/54508875-d89d1b00-498a-11e9-8cff-f1c3ffb86c44.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;Reserved Words(예약어)&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;사용가능-문자&quot;&gt;사용가능 문자&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789&lt;/li&gt;
+  &lt;li&gt;예약어는 안된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;variable-assignment&quot;&gt;Variable Assignment&lt;/h1&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;// 메모리에 integer 자료형을 넣을 공간만들고, 그 이름을 x라 하겠다.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;variable-constant&quot;&gt;Variable, Constant&lt;/h1&gt;
+
+&lt;p&gt;C와 같으므로 &lt;a href=&quot;https://egg-money.tistory.com/60?category=811216&quot;&gt;링크&lt;/a&gt;로 대체하겠다.&lt;/p&gt;
+
+&lt;h1 id=&quot;standard-input--output&quot;&gt;Standard Input &amp;amp; Output&lt;/h1&gt;
+
+&lt;p&gt;기본적으로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iostream&lt;/code&gt; 헤더파일을 가져와서 사용한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iostream.h&lt;/code&gt; 헤더 파일은, c++에 있는 입출력을 위한 헤더파일이다. C언어의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stdio.h&lt;/code&gt; 와 같은 역할을 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;출력-cout&quot;&gt;출력 (cout)&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Please&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;intger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;namespace&lt;/code&gt; 를 사용하면 다음과 같이 함수를 사용하는데 있어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;std::&lt;/code&gt; 를 쓰지 않고 사용할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Please&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enter&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;intger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;입력-cin&quot;&gt;입력 (cin)&lt;/h2&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;여러개를 한번에 입력받을 수 있다. 마찬가지로, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;namespace&lt;/code&gt; 를 사용하면 다음과 같이 함수를 사용하는데 있어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;std::&lt;/code&gt; 를 쓰지 않고 사용할 수 있다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C++&quot;&gt;    #include &amp;lt;iostream&amp;gt;
+
+    using namespace std;
+    int main(){
+        cin &amp;gt;&amp;gt; value1 &amp;gt;&amp;gt; value2;
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;예제&quot;&gt;예제&lt;/h3&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Please enter two integer values: &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; + &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;operator&quot;&gt;Operator&lt;/h1&gt;
+
+&lt;p&gt;마찬가지로 C와 같으므로 &lt;a href=&quot;https://egg-money.tistory.com/63?category=811216&quot;&gt;링크&lt;/a&gt;로 대체하겠다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>01: Introduction</title>
+        <link>/dv/c++/2020/09/28/OOP-01-Introduction.html</link>
+        <guid isPermaLink="true">/dv/c++/2020/09/28/OOP-01-Introduction.html</guid>
+        <description>&lt;h1 id=&quot;c&quot;&gt;C++&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;발표년도 : 1983&lt;/li&gt;
+  &lt;li&gt;설계자 : Bjarne Stroustrup, 덴마크&lt;/li&gt;
+  &lt;li&gt;패러다임 : 절차적 프로그래밍, 함수형 프로그래밍, 객체 지향 프로그래밍&lt;/li&gt;
+  &lt;li&gt;절차지향, 객체지향의 성격을 동시에 띄기 깨문에, 굉장히 유연하고 강력하다. 만능설계가 가능&lt;/li&gt;
+  &lt;li&gt;하지만 복잡하다는 단점이 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;software-build-process--tools&quot;&gt;Software Build Process &amp;amp; Tools&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/54469619-b3b77500-47dd-11e9-882a-ef88fd44561d.png&quot; alt=&quot;&quot; class=&quot;center&quot; width=&quot;50%&quot; /&gt;&lt;em&gt;Build Process&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;editor&quot;&gt;Editor&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;대부분의 에디터는 신택스에러를 막기위해 색을 칠한 단어로 표기되는 경향이 있다.&lt;/li&gt;
+  &lt;li&gt;에디터는 사용자가 프로그램의 소스코드에 들어갈 수 있게 허용한다.&lt;/li&gt;
+  &lt;li&gt;신택스 에러가 뜬다면 컴파일이 되지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;pre-processor&quot;&gt;Pre-Processor&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;전처리기는 코드를 처리하기 전에 소스코드의 요소들을 수정하고 더한다.&lt;/li&gt;
+  &lt;li&gt;보통 #include 를 사용해서 우리 프로그램이 사용하는 라이브러리 정보를 가져온다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;compiler&quot;&gt;Compiler&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컴파일러는 소스 코드를 타겟 코드로 변환한다.&lt;/li&gt;
+  &lt;li&gt;타겟 코드는 장치나 특정 플랫폼을 위한 기계 언어일지 모른다.&lt;/li&gt;
+  &lt;li&gt;일지 모른다고 한 이유는, 특정 프로그래밍 언어를 컴파일 할 경우, 다른 언어의 소스 언어가 될지 모르기 때문이다.&lt;/li&gt;
+  &lt;li&gt;예를 들어, 초기 C++ 컴파일러는 C로 변환했다.&lt;/li&gt;
+  &lt;li&gt;즉 컴파일 한 타겟 코드가 다른 소스 언어로 변환 된 것이다.&lt;/li&gt;
+  &lt;li&gt;요즘의 C++ 컴파일러는 바로 기계언어로 변환한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;linker&quot;&gt;Linker&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;링커는 컴파일러에 의해 만들어진 기계 코드와, 사전에 처리된 라이브러리 코드 또는 다른 소스로 부터 만들어진 소스들을 하나의 실행가능한 프로그램으로 만들기 위해 묶는다.&lt;/li&gt;
+  &lt;li&gt;대부분의 컴파일 된 C++ 코드는 혼자서 작동할 수 없다.&lt;/li&gt;
+  &lt;li&gt;실행가능한 하나의 프로그램을 만들기 위해서는 추가적인 기계 코드가 필요하다.&lt;/li&gt;
+  &lt;li&gt;이 없는 기계 코드는 이미 컴파일 되어 있고, 라이브러리 라는 저장소에 저장되어 있다.&lt;/li&gt;
+  &lt;li&gt;이 링커라고 불리는 프로그램은 프로그래머가 한 컴파일 된 코드와 라이브러리 코드를 묶어 완성된 프로그램을 만든다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;debugger&quot;&gt;Debugger&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;디버거는 프로그래머가 프로그램 구현시 오류를 찾아서 수정하기 위해 프로그램의 실행을보다 쉽게 추적 할 수있게 한다.&lt;/li&gt;
+  &lt;li&gt;디버거를 사용하면 개발자는 프로그램을 구동하면서 동시에 프로그램의 동작에 있어 어떤 소스코드 라인이 책임이 있는지 알 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;profiler&quot;&gt;Profiler&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;성능분석을 한다.&lt;/li&gt;
+  &lt;li&gt;프로그램의 시간 복잡도를 분석한다.&lt;/li&gt;
+  &lt;li&gt;함수 호출 주기, 빈도등도 분석할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 28 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
         <title>공공자전거 스테이션 최적 위치 선정 - 장려상</title>
         <link>/cv/awards/2020/09/23/2020-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81-%EC%9C%84%EC%B9%98-%EC%84%A0%EC%A0%95.html</link>
         <guid isPermaLink="true">/cv/awards/2020/09/23/2020-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81-%EC%9C%84%EC%B9%98-%EC%84%A0%EC%A0%95.html</guid>
@@ -1125,273 +1901,6 @@
 &lt;p&gt;이제는 막힌 구멍을 뚫어야 하고, 퍼붓기가 아니라 생산성, 즉 투입이 아니라 산출에 신경을 쓰야 한다고 이야기 한다.&lt;/p&gt;
 </description>
         <pubDate>Wed, 16 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>03: GDP</title>
-        <link>/book/finance/2020/09/16/%EA%B8%88%EC%9C%B5-%EC%9A%A9%EC%96%B4-%EC%9D%B4%ED%95%B4-03-GDP.html</link>
-        <guid isPermaLink="true">/book/finance/2020/09/16/%EA%B8%88%EC%9C%B5-%EC%9A%A9%EC%96%B4-%EC%9D%B4%ED%95%B4-03-GDP.html</guid>
-        <description>&lt;h1 id=&quot;gdp의-탄생설화&quot;&gt;GDP의 탄생설화&lt;/h1&gt;
-
-&lt;p&gt;경제는 ‘세상을 경영해 백성을 부유하게 한다’는 뜻이다. 그런데 여기서 우리는 의문을 가질 수밖에 없다. 도대체 무슨 수로 백성의 부를 측정할 수 있을까?&lt;/p&gt;
-
-&lt;p&gt;실제로 이 문제 때문에 많은 사람들이 고민을 했다. 고민의 결과로 나온 첫 번째 대답은 금 덩어리였다(금본위 제도). 금덩어리 많은 나라가 부자나라라는 이야기. 하지만 금덩이리는 단점을 가지고 있다. 극단적으로 가정해서 아프리카 사막에 떨어졌다고 생각해보자. 금덩어리가 아무리 많아도 할게 없다. 사막에서 제일 필요한 것은 물과, 음식, 그리고 햇빛을 가려줄 양산이다. 즉, 금이라는 물건의 양이 해당 나라가 살산다는 사실을 대변할 수 없다는 것.&lt;/p&gt;
-
-&lt;p&gt;금덩어리가 부자나라를 가리킬 수 없다면 도대체 어떤 나라가 부자나라일까? 혹시 돈 많은 나라가 부자나라일까? 하지만 이것도 치명적인 문제가 있다. 돈 많은 나라가 부자라면 나라 안에 돌아다니는 종이라는 종이는 모조리 끓어 모아서 돈을 막 찍어내면 된다. 하지만 이렇게 돈을 찍어내고 또 찍어내다보면 어느 순간에는 그냥 종이쪼가리가 될 뿐이다. 즉, 돈이라는 물건도 해당 나라의 살산다는 사실을 대변해 줄 수 없다.&lt;/p&gt;
-
-&lt;p&gt;금덩어리가 많은 나라도, 돈이 많은 나라도 부자나라가 아니면 어떤 나라가 부자나라일까? 이 때, 등장하는 형이 아담 스미스 형이다.&lt;/p&gt;
-
-&lt;p&gt;형은 물질적부는 금이나 돈이 아니라 국민들이 먹고 마시고 즐기는 물건이라 말했다. 즉 온 나라에 먹고 마실 음식이 흘러넘치고, 국민들의 생활을 윤택하게 해줄 핸드폰과 자동차와 멋진 집이 흘러넘치는 나라가 부자나라이다. 음.. 지금 생각해보니 당연한 이야기다.&lt;/p&gt;
-
-&lt;h1 id=&quot;gdp와-gnp&quot;&gt;GDP와 GNP&lt;/h1&gt;
-
-&lt;h2 id=&quot;gdpgross-domestic-product&quot;&gt;GDP(Gross Domestic Product)&lt;/h2&gt;
-
-&lt;p&gt;위의 말을 근간으로 해당 나라에 존재하는 &lt;strong&gt;물질적 부&lt;/strong&gt;를 모두 합한 것이 GDP(국내총생산)이다. 일단 대한민국 땅덩어리 안에서 만들어진 것이면 인정사정 보지않고 모두 합친것이 GDP이다. 만약 GDP가 1000조라면 우리나라 안에서 만들어진 물질적 부가 1000조원 어치라는 이야기.&lt;/p&gt;
-
-&lt;p&gt;직관적인 이해를 끝냈다면, 사전적 정의에 대해 알아보자.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;GDP(국내총생산) : ‘한 나라 안에 있는 가계, 기업, 정부 등 모든 경제주체가 일정기간 동안 새로이 생산한 재화와 서비스의 가치를 시장가격으로 평가하여 합산한 것&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;하지만 그냥 직관적으로 &lt;strong&gt;GDP는 대한민국에서 생산된/향유하는 모든 물질적 부를 합친 것&lt;/strong&gt;으로 이해하는 것이 편하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;gnpgross-national-product&quot;&gt;GNP(Gross National Product)&lt;/h2&gt;
-
-&lt;p&gt;GNP(국민총생산)는 세계 어디에서 생산되었든 상관없이 우리나라 국민이 생산한 것은 무조건 합쳐서 계산한 물질적 부이다. 미국에 살고 있든 우간다 밀림 속에 살고 있든 대한민국 사람이 만든 것이라면 무조건 합친 것이 바로 GNP다.&lt;/p&gt;
-
-&lt;p&gt;과거에는 GNP를 정말 중요하게 생각했고, 거의 모든 경제정책은 GNP를 크게 하는데 집중되었다. 그런데 지금은 대부분의 나라들이 옛날만큼은 GNP를 소중히 생각하지 않는다. 왜일까?&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 미국에 살고 있는 완식이가 돈을 벌면 미국에서 쇼핑하고, 미국에서 이발을 한다. 결국 완식이가 돈을 쓰면 미국 이발사, 미국 쇼핑몰 사장님이 좋아할 일이다. 우리나라 경제와는 아무 상관이 없는 것.&lt;/p&gt;
-
-&lt;p&gt;이와 달리 GDP는 국적에 상관없이 땅덩어리에 관심을 둔 개념이다. 사실 필리핀 기술연수생 아저씨가 돈을 벌면 결국 한국에서 물 사 먹고, 한국에서 옷을 산다. 결국 우리나라 옷가게, 물가게 사장님을 행복하게 만드는 것은 미국의 갑돌이가 아니라 우리나라에서 일하고 있는 필리핀 기술연수생 아저씨인 것이다. 그래서 이제는 국적개념의 GNP보다 땅덩어리 개념의 GDP를 더 중요하게 생각하고 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;명목nominal-gdp와-실질real-gdp&quot;&gt;명목(Nominal) GDP와 실질(Real) GDP&lt;/h1&gt;
-
-&lt;p&gt;예를 들어, 작년에 대한민국에서 생산한 모든 물질적 부가 쌀 한가마라고 하자. 그리고 작년의 쌀가격이 만원이었다면 대한민국의 GDP는 쌀 한가마*1만원=1만원이 된다.&lt;/p&gt;
-
-&lt;p&gt;그런데 올해도 대한민국 땅덩어리 안에서 생산한 모든 물질적 부가 쌀 한가마라고 하자. 그리고 올해의 쌀가격이 2만원이라면 대한민국의 GDP는 쌀한가마*2만원=2만원이 된다.&lt;/p&gt;
-
-&lt;p&gt;띠용. 실제로 생산된 물질적부는 쌀 한가마로 변함이 없는데 쌀가격이 뛰는 바람에 명목상, 쉽게 말해서 수치상의 GDP는 2만원이 되고 말았습니다. 이런 결과는 지표를 잘못해석하게 되면, 생산된 재화의 양에 대한 평가 없이 평가하게 된다.&lt;/p&gt;
-
-&lt;p&gt;따라서 우리는 대한민국의 물질적 부가 실제로 얼마나 생산되었는지 알고 싶을 때는 명목상의 GDP가 아니라 &lt;strong&gt;진짜로 생산된/향유한 물질적 부&lt;/strong&gt;에 관심을 기울여야 한다. 바로 이런 필요에 의해 나온 것이 실질GDP이다.&lt;/p&gt;
-
-&lt;p&gt;실질GDP를 계산하는 방법은 여러가지가 있는데 우리나라는 연쇄가중법을 이용해 실질GDP를 계산하고 있다. 연쇄가중법이라는 말이 어렵게 들리는데, 쉽게 말하면 여러해의 물가를 잘 고려해서 실제로 생산된 GDP를 계산한다는 이야기이다. 가중평균을 한다는 의미.&lt;/p&gt;
-
-&lt;h1 id=&quot;gnigross-national-income&quot;&gt;GNI(Gross National Income)&lt;/h1&gt;
-
-&lt;p&gt;1인당 국민총소득은 한 나라의 국민들의 생활수준을 알아보기 위하여 국제적으로 사용하는 소득 지표이다. 한 나라의 국민이 일정 기간 생산 활동에 참여하고, 그 대가로 받은 소득이 얼마인지를 합한 것이 GNI다.&lt;/p&gt;
-
-&lt;p&gt;국민 1인당 평균치를 계산한 것은 1인당 GNI라고 한다. 즉, 1인당 국민 총소득, 국민이 얼마나 잘 벌고 사는지를 나타내는 지표이다.&lt;/p&gt;
-
-&lt;p&gt;다른 계산법도 있다. 국내총생산(GDP)을 활용하는 것입니다. GDP에서 외국인이나 외국기업이 번 소득을 빼고, 외국에 있는 우리나라 사람이나 기업이 번 돈은 포함시키는 것. 한 마디로 순수하게 한국국적을 가진 사람의 소득의 합이 GNI이다.&lt;/p&gt;
-
-&lt;p&gt;손흥민 선수의 소득은 GDP에서는 빠지지만 GNI에는 포함된다. GNI는 국민이 벌어들인 소득으로, 국민의 소비와 생활이 크게 반영된다는 점에서 중요한 개념이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;요약&quot;&gt;요약&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;용어&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;의미&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;GDP&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;국가&lt;/strong&gt;가 향유한 재화를 시장가격으로 평가(국가에 초점)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;GNP&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;국민&lt;/strong&gt;이 향유한 재화를 시장가격으로 평가(국민에 초점) - 안쓰임&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;명목 GNP&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;GDP를 단순히 시장가격으로 봄(숫자에 초점)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;실질 GNP&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;시장 가격으로 평가하지 않고 실제 생산 재화를 고려하여 평가함 (재화에 초점)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;GNI&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;국민&lt;/strong&gt; 총소득&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-</description>
-        <pubDate>Wed, 16 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: </title>
-        <link>/book/sm/2020/09/15/%EC%9E%90%EA%B8%B0%EA%B4%80%EB%A6%AC-%EC%B1%85-01.html</link>
-        <guid isPermaLink="true">/book/sm/2020/09/15/%EC%9E%90%EA%B8%B0%EA%B4%80%EB%A6%AC-%EC%B1%85-01.html</guid>
-        <description>&lt;h1 id=&quot;배경단상&quot;&gt;배경/단상&lt;/h1&gt;
-
-&lt;h1 id=&quot;줄거리-주요-내용-요약&quot;&gt;줄거리/ 주요 내용 요약&lt;/h1&gt;
-
-&lt;h1 id=&quot;발췌-및-해석&quot;&gt;발췌 및 해석&lt;/h1&gt;
-
-&lt;h1 id=&quot;전체-느낌추천-대상추천-이유&quot;&gt;전체 느낌/추천 대상/추천 이유&lt;/h1&gt;
-</description>
-        <pubDate>Tue, 15 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: </title>
-        <link>/book/leadership/2020/09/15/%EB%A6%AC%EB%8D%94%EC%8B%AD-%EC%B1%85-01.html</link>
-        <guid isPermaLink="true">/book/leadership/2020/09/15/%EB%A6%AC%EB%8D%94%EC%8B%AD-%EC%B1%85-01.html</guid>
-        <description>&lt;h1 id=&quot;배경단상&quot;&gt;배경/단상&lt;/h1&gt;
-
-&lt;h1 id=&quot;줄거리-주요-내용-요약&quot;&gt;줄거리/ 주요 내용 요약&lt;/h1&gt;
-
-&lt;h1 id=&quot;발췌-및-해석&quot;&gt;발췌 및 해석&lt;/h1&gt;
-
-&lt;h1 id=&quot;전체-느낌추천-대상추천-이유&quot;&gt;전체 느낌/추천 대상/추천 이유&lt;/h1&gt;
-</description>
-        <pubDate>Tue, 15 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: </title>
-        <link>/book/ch/2020/09/15/%EB%AC%B8%ED%99%94-%EC%97%AD%EC%82%AC-%EC%B1%85-01.html</link>
-        <guid isPermaLink="true">/book/ch/2020/09/15/%EB%AC%B8%ED%99%94-%EC%97%AD%EC%82%AC-%EC%B1%85-01.html</guid>
-        <description>&lt;h1 id=&quot;배경단상&quot;&gt;배경/단상&lt;/h1&gt;
-
-&lt;h1 id=&quot;줄거리-주요-내용-요약&quot;&gt;줄거리/ 주요 내용 요약&lt;/h1&gt;
-
-&lt;h1 id=&quot;발췌-및-해석&quot;&gt;발췌 및 해석&lt;/h1&gt;
-
-&lt;h1 id=&quot;전체-느낌추천-대상추천-이유&quot;&gt;전체 느낌/추천 대상/추천 이유&lt;/h1&gt;
-</description>
-        <pubDate>Tue, 15 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: </title>
-        <link>/book/classics/2020/09/15/%EA%B3%A0%EC%A0%84-%EC%B1%85-01.html</link>
-        <guid isPermaLink="true">/book/classics/2020/09/15/%EA%B3%A0%EC%A0%84-%EC%B1%85-01.html</guid>
-        <description>&lt;h1 id=&quot;배경단상&quot;&gt;배경/단상&lt;/h1&gt;
-
-&lt;h1 id=&quot;줄거리-주요-내용-요약&quot;&gt;줄거리/ 주요 내용 요약&lt;/h1&gt;
-
-&lt;h1 id=&quot;발췌-및-해석&quot;&gt;발췌 및 해석&lt;/h1&gt;
-
-&lt;h1 id=&quot;전체-느낌추천-대상추천-이유&quot;&gt;전체 느낌/추천 대상/추천 이유&lt;/h1&gt;
-</description>
-        <pubDate>Tue, 15 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: </title>
-        <link>/book/bm/2020/09/15/%EA%B2%BD%EC%98%81-%EB%A7%88%EC%BC%80%ED%8C%85-%EC%B1%85-01.html</link>
-        <guid isPermaLink="true">/book/bm/2020/09/15/%EA%B2%BD%EC%98%81-%EB%A7%88%EC%BC%80%ED%8C%85-%EC%B1%85-01.html</guid>
-        <description>&lt;h1 id=&quot;배경단상&quot;&gt;배경/단상&lt;/h1&gt;
-
-&lt;h1 id=&quot;줄거리-주요-내용-요약&quot;&gt;줄거리/ 주요 내용 요약&lt;/h1&gt;
-
-&lt;h1 id=&quot;발췌-및-해석&quot;&gt;발췌 및 해석&lt;/h1&gt;
-
-&lt;h1 id=&quot;전체-느낌추천-대상추천-이유&quot;&gt;전체 느낌/추천 대상/추천 이유&lt;/h1&gt;
-</description>
-        <pubDate>Tue, 15 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>09: 최종 보고서</title>
-        <link>/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-09-%EB%B3%B4%EA%B3%A0%EC%84%9C.html</link>
-        <guid isPermaLink="true">/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-09-%EB%B3%B4%EA%B3%A0%EC%84%9C.html</guid>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;공공자전거의 최적 위치를 수요와 리밸런싱을 고려하여 제시하였다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p style=&quot;text-align:center&quot;&gt;파일을 불러오는데 시간이 좀 걸립니다!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879362-f3e5cb00-f447-11ea-9ccb-fcbbe2e62733.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0001&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879377-f811e880-f447-11ea-8eb2-40ced4374241.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0002&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879383-f8aa7f00-f447-11ea-9d9c-c11ad1d908f5.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0003&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879385-f9431580-f447-11ea-99fb-ed8a9323a483.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0004&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879388-f9dbac00-f447-11ea-88fe-53a442c2ca93.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0005&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879392-fa744280-f447-11ea-8d7f-df6e77d7fbdd.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0006&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879393-fb0cd900-f447-11ea-8cfa-553f7235b8dc.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0007&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879397-fb0cd900-f447-11ea-8c93-959ed0cee67a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0008&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879399-fba56f80-f447-11ea-8cd1-15be24fd34fa.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0009&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879402-fc3e0600-f447-11ea-95db-b9ca65878734.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0010&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879404-fcd69c80-f447-11ea-9410-751cd15dac43.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0011&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879406-fcd69c80-f447-11ea-84c1-b21fb6a1fe95.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0012&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879408-fd6f3300-f447-11ea-8ae6-cbce1133073f.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0013&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879411-fe07c980-f447-11ea-84b5-478139f76d55.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0014&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879413-fe07c980-f447-11ea-83c1-1be2deb6be06.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0015&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879416-fea06000-f447-11ea-80b0-0e84a7e08288.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0016&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879418-ff38f680-f447-11ea-919d-51aced863362.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0017&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879419-ff38f680-f447-11ea-85a2-231cd5912cbc.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0018&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879420-ffd18d00-f447-11ea-9af0-c7b8fd27ac2e.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0019&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879422-006a2380-f448-11ea-8352-f65f6965768f.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0020&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879423-0102ba00-f448-11ea-8f83-169ea69d253b.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0021&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879424-0102ba00-f448-11ea-850b-c582570452bb.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0022&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879426-019b5080-f448-11ea-87ce-a76de0bc068a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0023&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879427-0233e700-f448-11ea-846e-46307d13893a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0024&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879429-0233e700-f448-11ea-93b4-8ec942fca14a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0025&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879430-02cc7d80-f448-11ea-9609-89baf35cfe2a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0026&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879432-03651400-f448-11ea-8d6e-f4bce173162d.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0027&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879434-03651400-f448-11ea-9e48-e9da8f38a574.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0028&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879435-03fdaa80-f448-11ea-8fe4-4d4b6d20f926.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0029&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879438-04964100-f448-11ea-9e47-5961e69a4186.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0030&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879440-04964100-f448-11ea-8176-9d2c0ad7b900.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0031&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879443-052ed780-f448-11ea-8b26-c73928c7b675.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0032&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879444-05c76e00-f448-11ea-847f-ed9f40b4a2a5.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0033&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879447-05c76e00-f448-11ea-9579-c91678e0a0ef.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0034&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879450-06600480-f448-11ea-8dca-61abd0cbb004.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0035&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879452-06f89b00-f448-11ea-841f-864036e909c6.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0036&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879456-06f89b00-f448-11ea-9fb5-8b3ffcdb125d.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0037&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879457-07913180-f448-11ea-864a-21fb2e0c6648.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0038&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879459-0829c800-f448-11ea-906e-a74400da7fb6.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0039&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879460-0829c800-f448-11ea-99ce-b85f53d20eae.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0040&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879462-08c25e80-f448-11ea-8832-3b35580dcc52.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0041&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879464-095af500-f448-11ea-9cea-7ab4f0a101be.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0042&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879466-095af500-f448-11ea-8ad3-3e08bad504d4.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0043&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879467-09f38b80-f448-11ea-9c05-d9cd4395a109.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0044&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879468-0a8c2200-f448-11ea-866d-ff41381a81e1.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0045&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879470-0a8c2200-f448-11ea-85c4-a4d2da78f225.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0046&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879473-0b24b880-f448-11ea-88ef-187b950a3c04.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0047&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879475-0bbd4f00-f448-11ea-9642-72e69efa7b44.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0048&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879478-0c55e580-f448-11ea-8919-3c243975dfd5.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0049&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879480-0cee7c00-f448-11ea-9a39-cdcd2944bd07.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0050&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879482-0d871280-f448-11ea-8e93-2d0fae2f2ba4.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0051&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879486-0d871280-f448-11ea-965c-22c48d2ba03e.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0052&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879488-0e1fa900-f448-11ea-97db-4ddc39b70672.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0053&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879490-0eb83f80-f448-11ea-841e-1d79741d7688.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0054&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879491-0f50d600-f448-11ea-9950-fd2becdf8517.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0055&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879498-0f50d600-f448-11ea-960e-15cf786f1c8a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0056&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879500-0fe96c80-f448-11ea-9abd-9bfac7fa1e15.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0057&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879506-10820300-f448-11ea-9f7d-6a7ba83fcdcf.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0058&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879508-111a9980-f448-11ea-8033-c1af422ef19a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0059&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879511-11b33000-f448-11ea-961a-9c5784051023.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0060&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879513-124bc680-f448-11ea-9ecb-da5117ccd49d.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0061&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879517-12e45d00-f448-11ea-9404-05bd6146fc95.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0062&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879519-12e45d00-f448-11ea-970e-8881ffcb1a74.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0063&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879521-137cf380-f448-11ea-84dd-e54d2c1c9b2c.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0064&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879524-137cf380-f448-11ea-8805-9b504f50fa58.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0065&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879529-14158a00-f448-11ea-9cb2-c65143aaece9.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0066&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879535-14ae2080-f448-11ea-9f14-1860020cdd15.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0067&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879537-1546b700-f448-11ea-9fc5-4e9ec17ee8fc.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0068&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879540-15df4d80-f448-11ea-80da-6bf1f0447398.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0069&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879544-15df4d80-f448-11ea-82de-a2b01cd64151.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0070&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879545-1677e400-f448-11ea-9f14-30a84ed765d8.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0071&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879547-17107a80-f448-11ea-898b-bc238173b363.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0072&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879550-17107a80-f448-11ea-8b4d-387c1b227462.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0073&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879552-17a91100-f448-11ea-9ea2-e0fcf9cc0b2d.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0074&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879554-1841a780-f448-11ea-92de-c753d332a89f.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0075&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879556-1841a780-f448-11ea-8322-a79c3204aa30.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0076&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879559-18da3e00-f448-11ea-8453-91364deaf630.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0077&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879562-1972d480-f448-11ea-9aef-36d2ac517c41.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0078&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879566-1972d480-f448-11ea-8ce4-503eb6dd822a.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0079&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/92879568-1a0b6b00-f448-11ea-89be-2df5dc622965.jpg&quot; alt=&quot;고양시 공공자전거 스테이션 최적 위치 선정 - 수요와 Rebalancing을 고려한 최적 자전거 _page-0080&quot; class=&quot;center&quot; width=&quot;100%&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 11 Sep 2020 00:00:00 +0900</pubDate>
       </item>
     
   </channel>

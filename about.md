@@ -36,7 +36,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 ---
 
-### Machine Learning
+## Machine Learning
 
 - A competition for predicting delays by flight using air flight data (Big Contest)
   - 3rd place
@@ -46,27 +46,27 @@ introduce: "안녕하세요. 최완식입니다."
 - Competition for selecting the best location for public bicycles
   - 3rd place (reward 1,000\$)
 
-### Scholarships
+## Scholarships
 
 - Software Festival
-  - 2nd place (reward 500\$)
+  - 2nd place (reward 500 \$)
 
 # Personal Projects
 
 ---
 
-### Development
+## Development
 
 - [Movie App(React)](https://wansook0316.github.io/movie_app_react/)
 - [kakaotalk clone](https://wansook0316.github.io/kakaotalkClone/chat.html)
 
-### Implementation
+## Implementation
 
-### Open source
+## Open source
 
 - [Data Science for COVID-19 (DS4C)](https://www.kaggle.com/kimjihoo/coronavirusdataset)
 
-### Machine Learning
+## Machine Learning
 
 - [Prediction of number of meals at restaurants in Seoul City Hall](https://wansook0316.github.io/cv/projects/2018/08/01/%EC%84%9C%EC%9A%B8%EC%8B%9C%EC%B2%AD-%EC%8B%9D%EC%88%98%EC%9D%B8%EC%9B%90-%EC%98%88%EC%B8%A1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.html) (2017.09 ~ 2018.03)
 - [Predicting delays by flight using air flight data](https://wansook0316.github.io/cv/projects/2019/11/01/%ED%95%AD%EA%B3%B5-%EC%A7%80%EC%97%B0-%EC%98%88%EC%B8%A1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.html) (2019.07 ~ 2019.11)
