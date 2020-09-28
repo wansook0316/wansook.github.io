@@ -3,13 +3,12 @@ layout: post
 title: Latex equation 예쁘게 맞추기
 category: "DV/Tips"
 comments: true
-tags: [LaTex, equation, align]
+tags: [LaTex]
 feature-img: "assets/img/31.jpg"
 feature-title:
 use_math: true
+summary: "LaTex 에서 align을 사용하여 방정식을 예쁘게 맞춰보자."
 ---
-
-LaTex 에서 align을 사용하여 방정식을 예쁘게 맞춰보자.
 
 수식 전개를 하다보면, 계속해서 등호를 사용하여 수식의 변경요소를 보여줄 필요가 있다.
 

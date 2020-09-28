@@ -8,31 +8,29 @@ introduce: "안녕하세요. 최완식입니다."
 
 # Profile
 
+---
+
 - KyungHee Univ.
   - Mechanical Engineering
   - Software Conversion
 
----
-
 # Links
+
+---
 
 - [Github](<[wansook0316](https://github.com/wansook0316)>)
 - [LinkedIn](https://www.linkedin.com/in/wansik-choi-b065881aa/)
 
----
-
 # Research Experience
-
----
 
 # Work Experience
 
 - Updater
   Software Intern (2020.09 ~ )
 
----
-
 # Awards
+
+---
 
 ### Machine Learning
 
@@ -49,9 +47,9 @@ introduce: "안녕하세요. 최완식입니다."
 - Software Festival
   - 2nd place (reward 500\$)
 
----
-
 # Personal Projects
+
+---
 
 ### Development
 
@@ -72,9 +70,9 @@ introduce: "안녕하세요. 최완식입니다."
 - [Condensation Prediction for Hyundai Steel's Steel Products](https://wansook0316.github.io/cv/projects/2020/07/01/%EA%B2%B0%EB%A1%9C-%EB%B0%9C%EC%83%9D-%EC%98%88%EC%B8%A1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.html) (2020.07 ~ 2020.08)
 - [Selecting the best location for public bicycles](https://wansook0316.github.io/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-01-%EC%A0%84%EC%B2%98%EB%A6%AC.html) (2020.08 ~ 2020.09)
 
----
-
 # Skills
+
+---
 
 - Programming: Python, node.js, C++
 - Human Languages: English - Reading, speaking only, Korean - Native

@@ -589,11 +589,14 @@
   <header
     style="background-image: url('/assets/img/30.jpg')"
   >
-    <h1 class="title">Search</h1>
-     
-    <p class="meta">Number of Tags : 205</p>
-    
+    <ul class="category-title">
+      <h1 class="title">Search</h1>
+       
+      <p class="meta">Number of Tags : 204</p>
+      
+    </ul>
   </header>
+
   <section class="post-content"><div class="search">
 
     <div id="search-results"></div> 
@@ -605,6 +608,30 @@
 
 <script>
   window.store = {
+    
+      "dv-tips-2020-09-28-naming-rules-02-ed-8a-b9-ec-a0-95-eb-aa-85-eb-aa-85-ea-b7-9c-ec-b9-99-html": {
+        "title": "02: 특정한 명명 규칙",
+        "tags": "Naming",
+        "date": "September 28, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "1. get/set은 반드시 속성(attribute)에 직접 접근할 때 사용한다.hwewefㅏ저ㅜㄷㅈㅎ안녕안녕안녕안녕C++ 개발 커뮤니티에서 일반적인 용례이며, 자바에서는 거의 표준이 되었다.employee.getName();employee.setName(name);matrix.getElement(2, 4);matrix.setElement(2, 4, value);2. compute는 무언가 계산하는 메서드에서 사용한다.valueSet-&gt;computeAverage();matrix-&gt;computeInverse();이 것은 시간을 소비할 수 있는 연산이라는 것을 즉시 알아챌 수 있는 단서를 제공해 반복해서 사용한다면 결과를 따로 저장해 두는 것을 고려하도록 할 수 있다. 이처럼 용어를 일관되게 사용하면 가독성을 향상시키게 된다.3. find는 무언가를 찾는 메서드에서 사용한다.vertex.findNearestVertex();matrix.findMinElement();최소한의 계산이 포함된, 간단한 검색 메서드라는 것을 즉시 알아챌 수 있는 단서를 다른 개발자에게 제공한다.4. initialize는 객체 또는 개념을 만들 때 사용한다.printer.initializeFontSet();영국어 initialise보다 미국어 initialize를 사용해야 하며, 약어 init 는 피하도록 한다.5. GUI 요소(component)를 나타내는 변수는 해당 요소 타입 이름을 접미어로 사용한다.mainWindow, propertiesDialog, widthScale, loginText, leftScrollbar, mainForm, fileMenu, minLabel, exitButton, yesToggle, 등…해당 변수 타입을 통해 리소스 객체를 즉시 알아챌 수 있는 단서를 사용자에게 제공하므로 가독성을 향상시킨다.6. 복수형은 객체 모음(collection)을 나타내는 이름에 사용해야 한다.vector &lt;Point&gt;  point;int  values[];변수 타입과 더불어 해당 요소에 수행할 수 있는 연산을 즉시 알아챌 수 있는 단서를 사용자에게 제공하므로 가독성을 향상시킨다.7. 접두어 n 은 객체 수를 나타내는 변수에 사용한다.  nPoints  nLines객체 수를 나타내는 이 관례적인 표기법은 수학에서 가져왔다.8. 접미어 “No”는 독자적인(Entity) 번호를 나타내는 변수에 사용한다.  tableNo  employeeNoEntity 번호를 나타내는 이 관례적인 표기법은 수학에서 가져왔다.세련된 다른 방법은 iTable, iEmployee 처럼 접두어 i 를 붙이는 것이며, 이를 통해 효과적으로 그런 변수를 명명된 반복자로 만들 수 있다.9. 반복자 변수는 i, j, k 등으로 호출한다.for ( int i = 0 ; i &lt; nTables ; i++ ){...}for ( vector&lt;MyClass&gt;::iterator i = list.begin() ; i != list.end() ; i++ ){Element element = *i;...}반복자를 나타내는 이 관례적인 표기법은 수학에서 가져왔다. 변수 이름으로 i 를 제외한 j, k 등은 중첩 루프에서만 사용한다. (옮긴이 주: 이 표기법은 되도록 간단한 루프에서만 사용하고 복잡하거나 긴 루프에서는 의미있는 이름을 사용하는 게 좋다.)10. 접두어 is는 Boolean 변수와 메서드에서 사용한다.  isSet  isVisible  isFinished  isFound  isOpenC++ 개발 커뮤니티에서 일반적이며, 자바에서는 일부분에서 강제하는 용례이다. 접두어 is를 사용하면 status나 flag처럼 좋지 못한 불리언 이름을 선택하는 흔한 문제를 해결할 수 있다. 사실 isStatus나 isFlag는 적절하지 못하므로 더 의미있는 이름을 선택해야 한다.다음은 상황에 따라 접두어 is 보다 더 나은 방법 몇 가지로 has, can 그리고 should 접두어를 사용한다.bool hasLicense();bool canEvaluate();bool shouldSort();11. 반의어는 반드시 대응하는 연산에 대해 사용해야 한다.get/set, add/remove, create/destroy, start/stop, insert/delete, increment/decrement, old/new, begin/end, first/last, up/down, min/max, next/previous, open/close, show/hide, suspend/resume, 등…대칭 관계를 통해 복잡성을 낮출 수 있다.. 이름에 약어는 피해야 한다.computeAverage(); // 잘못된 경우 : compAvg();두 가지 단어 종류를 생각해야 하는데, 첫 번째는 사전에 있는 일반 단어이며 절대 약어로 쓰면 안 된다. 즉, 절대 다음처럼 쓰지 않는다.command =&gt; cmdcopy =&gt; cppoint =&gt; ptcompute =&gt; compinitialize =&gt; init등…그에 반해 약어/두문자어가 더 자연스런 특정 분야의 관용구는 약어 형태를 유지해야 하며, 절대 다음처럼 쓰지 않는다.html =&gt; HypertextMarkupLanguagecpu =&gt; CentralProcessingUnitpe =&gt; PriceEarningRatio등…. 포인터를 이름에 사용하는 것은 특히 피해야 한다.Line* line; // 잘못된 경우 : Line* pLine;// 잘못된 경우 : Line* linePtr;C/C++ 환경에서 많은 변수가 포인터이므로 이와 같은 관례는 따르기가 거의 불가능하다. 또한 C++ 에서 객체는 흔히, 프로그래머가 특정 구현 내용을 무시할 수 있는 간접 타입이다.포인터를 이름에 사용할 때는 객체의 실제 타입이 특별히 중요할 때에 한해 해당 타입을 강조하기 위해서이다.. 부정적인(negated) Boolean 변수 이름은 반드시 피해야 한다.bool isError; // 잘못된 경우 : isNoErrorbool isFound; // 잘못된 경우 : isNotFound문제는 이런 이름을 논리 부정 연산자와 함께 사용할 때 이중 부정을 통해 결과가 만들어지므로 생긴다.!isNotFound 의 의미를 즉시 명확하게 알아차릴 수 없다.. 열거 상수는 공통 타입 이름을 접두어로 붙인다.enum Color {COLOR_RED,COLOR_GREEN,COLOR_BLUE,};이러한 것은 해당 선언을 어디에서 찾을 수 있는지, 어느 상수가 함께 속한 것인지, 그리고 그 상수가 어떤 개념을 나타내는지 등 추가 정보를 제공한다. 다른 방법은 Color: : RED, Airline: : AIR_FRANCE 등과 같이 항상 공통 타입을 통해 해당 상수를 참조하는 것이다.. 예외 클래스는 Exception 접미어를 붙인다.class AccessException{…}예외 클래스는 실제 해당 프로그램의 주된 설계 부분이 아니며(옮긴이 주: 프로그램에서 주된 처리 로직이 아니라는 뜻), 이와 같이 이름을 붙이면 다른 클래스와 상대적으로 구별된다.. 함수(무언가를 반환하는 메서드)는 이름 앞에 반환하는 것을, 프로시저(void 메서드)는 이름 앞에 하는 일을 써야 한다.가독성을 높일 수 있다. 이를 통해 해당 단위에서 해야 하는 것과 특히 하지 않는 모든 것을 명확히 한다. 더불어 해당 코드의 부작용을 더 쉽게 제거할 수 있다.(옮긴이 주: 이 항목은 의미가 명확하지 않음)출처: https://viiiin.tistory.com/49 [Think Like a Man of Action and Act Like Man of Thought…]Reference프로그램 코딩 시 네이밍 규칙과 들여쓰기",
+        
+        "url": "/dv/tips/2020/09/28/Naming-Rules-02-%ED%8A%B9%EC%A0%95-%EB%AA%85%EB%AA%85-%EA%B7%9C%EC%B9%99.html"
+      }
+      ,
+    
+      "dv-tips-2020-09-28-naming-rules-01-eb-84-a4-ec-9d-b4-eb-b0-8d-ea-b4-80-eb-a1-80-ec-99-80-ed-91-9c-ec-a4-80-html": {
+        "title": "01: 네이밍 관례와 표준",
+        "tags": "Naming",
+        "date": "September 28, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "가장 중요한 두 가지의 표기법을 알고 읽으면 수월하다.  파스칼 표기법          모든 단어에서 첫번째 문자가 대문자이며 나머지는 소문자이다      BackColor        카멜 표기법          최초에 사용된 단어를 제외한 첫번째 문자가 대문자이며 나머지는 소문자이다      backColor      1. 클래스 명에는 파스칼 표기법을 사용한다.public class HelloWorld{...}2. 함수(Method) 명에는 파스칼 표기법을 사용한다.void SayHello(string name){...}3. 변수와 함수 파라미터에는 카멜 표기법을 사용한다.int totalCount = 0;void SayHello(string name){string fullMessage = \"Hello \" + name;...}4. 인터페이스에는 접두사 “I”가 포함된 파스칼 표기법을 따른다.  IEntity5. 변수명에 헝가리안 표기법을 사용하지 않는다.이전에는 많은 프로그래머들이 변수명에 데이터 타입에 해당하는 접두사를 첨가하였다. 즉, 멤버변수에는 아래와 같이 m_ 을 접두사로 사용하는 것과 같은 헝가리안 표기법을 사용했었다.string m_sName;int nAge;그러나 닷넷 코딩 표준에서 헝가리안 표기법은 추천하지 않는다. 데이터 타입을 사용하는 것과 멤버 변수를 표현하기 위한 m* 은 사용해서는 안된다. 모든 변수는 카멜 표기법을 사용해야 한다. 몇몇 프로그래머들은 아직 m* 을 붙이거나 데이터 타입을 표시하는 것을 더 좋아하겠지만, 이제 이것들은 멤버 변수를 확인하기 위한 쉬운 방법이 아니다.6. 변수에 모든 의미를 충분히 담아라(약어를 사용하지 말 것).            좋은 예      나쁜 예                  string address      tring addr              int salary      int sal      7. i, n, s와 같이 한 글자로 된 이름을 사용하지 말 것.i, n, s 보다는 index, temp 와 같은 이름을 사용한다.한 가지 예외가 있다면 루프에서 반복을 의미하는 변수를 하용하는 경우이다.for ( int i = 0; i &lt; count; i++ ){...}만일 변수가 단지 반복을 위한 카운터로만 사용 된다면, 그리고 그것이 루프 안에 있는 다른 어떤 곳에서도 사용되지 않는다면, 많은 사람들은 아직까지 다른 적합한 단어를 만들어서 사용하는 것보다 i 를 사용하는 것을 선호한다.8. 지역변수와 멤버변수는 변수명 앞에 밑줄(_)을 사용하여 구별한다.지역변수에는 변수명 앞에 밑줄을 사용하지 않는다.멤버변수에는 m_ 과 같은 헝가리안 표기법을 사용하는 대신 밑줄을 사용하여 지역변수와 구별한다.9. 키워드와 비슷한 이름을 하용하지 말것.10. boolean 이 들어가는 변수, 속성, 함수(method)등은 “is” 또는 유사한 접두사를 사용한다.  private bool _isFinished11. 네임스페이스 명은 표준 패턴을 따라야 한다.  &lt;회사명&gt;.&lt;제품명&gt;.&lt;최상위모듈&gt;.&lt;하위모듈&gt;  org.apache.common.lang.StringUtils;12. UI 구성요소를 위해 적당한 접두사를 사용한다.UI 구성요소를 적당한 접두사를 사용하여 다른 변수들과 구분할 수 있어야 한다.여기서 추천하는 서로 다른 두 가지 방식이 있다.12.1. 모든 UI 구성요소를 위하여 공통적인 접두사(ui_)를 사용한다.이것은 모든 UI 구성요소를 묶는데 도움을 줄 것이고, 쉽게 이해하고 접근할 수 있도록 도와 줄 것이다.12.2. 각각의 UI 구성요소마다 접두사를 적용한다.간단한 목록이 아래에 있다. 닷넷은 다양한 컨트롤들이 제공되므로 더 많은 컨트롤(써드파티 컨트롤을 포함한)에 대한 표준을 정의해야 한다.            Control      Prefix      Control      Prefix      Control      Prefix                  Label      lbl      ListBox      lst      Image      img              TextBox      txt      DataList      dtl      Panel      pnl              DataGrid      dtg      Repeater      rep      PlaceHolder      phd              Button      btn      CheckBox      chk      Table      tbl              ImageButton      imb      CheckBoxList      cbl      Validators      val              Hyperlink      hlk      RadioButton      rdo      -      -              DropDownList      ddl      RadioButtonList      rbl      -      -      13. 파일 명은 클래스 명과 같아야 한다.예를 들어, 클래스 명이 “HelloWorld” 라면 파일명은 “HelloWorld.cs” 이어야 한다.14. 파일 명은 파스칼 표기법을 사용한다.메서드나 함수 이름은 반드시 동사이면서 소문자로 시작해 대소문자를 섞어 써야 한다.  getName()  computeTotalWidth()C++ 개발 커뮤니티에서 일반적인 용례이다. 이 형식은 변수 이름과 같지만 C++ 에서 함수는 형식상 변수와 이미 구별된다. 약어와 동의어를 이름으로 사용할 때는 반드시 대문자가 아니어야 한다.            좋은 예      나쁜 예                  exportHtmlSource();      exportHTMLSource();              openDvdPlayer();      openDVDPlayer();      기본 이름에 대해 모두 대문자를 사용하면 위에서 제시한 명명 규칙과 충돌한다. 이런 종류의 변수는 dVD, hTML 등으로 이름 지어야 하나 분명 가독성이 매우 나쁘다. 위의 예에서 보여준 다른 문제는 이런 이름을 다른 것과 붙여 사용할 때 가독성이 심각하게 나빠진다는 점이다. 즉, 약어 다음에 오는 단어가 원하는 만큼 돋보이지 않게 된다.Reference프로그램 코딩 시 네이밍 규칙과 들여쓰기",
+        
+        "url": "/dv/tips/2020/09/28/Naming-Rules-01-%EB%84%A4%EC%9D%B4%EB%B0%8D-%EA%B4%80%EB%A1%80%EC%99%80-%ED%91%9C%EC%A4%80.html"
+      }
+      ,
     
       "cv-awards-2020-09-23-2020-ea-b3-b5-ea-b3-b5-ec-9e-90-ec-a0-84-ea-b1-b0-ec-8a-a4-ed-85-8c-ec-9d-b4-ec-85-98-ec-b5-9c-ec-a0-81-ec-9c-84-ec-b9-98-ec-84-a0-ec-a0-95-html": {
         "title": "공공자전거 스테이션 최적 위치 선정 - 장려상",
@@ -2840,11 +2867,11 @@
     
       "dv-tips-2020-03-25-latex-align-html": {
         "title": "Latex equation 예쁘게 맞추기",
-        "tags": "LaTex, equation, align",
+        "tags": "LaTex",
         "date": "March 25, 2020",
         "author": "",
         "category": "DV/Tips",
-        "content": "LaTex 에서 align을 사용하여 방정식을 예쁘게 맞춰보자.수식 전개를 하다보면, 계속해서 등호를 사용하여 수식의 변경요소를 보여줄 필요가 있다.으으 못생겼다이런 경우 Latex 수식을 시작할 떄 align 속성을 걸어주면 예쁘게 사용할 수 있다.\\begin{align}A &amp; = B \\\\&amp; = C \\\\&amp;= \\cdots \\\\&amp;= Z.\\end{align}",
+        "content": "수식 전개를 하다보면, 계속해서 등호를 사용하여 수식의 변경요소를 보여줄 필요가 있다.으으 못생겼다이런 경우 Latex 수식을 시작할 떄 align 속성을 걸어주면 예쁘게 사용할 수 있다.\\begin{align}A &amp; = B \\\\&amp; = C \\\\&amp;= \\cdots \\\\&amp;= Z.\\end{align}",
         
         "url": "/dv/tips/2020/03/25/Latex-align.html"
       }
