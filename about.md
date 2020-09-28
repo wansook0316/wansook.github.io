@@ -6,7 +6,7 @@ feature-img: "assets/img/about.jpg"
 introduce: "안녕하세요. 최완식입니다."
 ---
 
-# Profile
+<h1 style="margin-top:0;">Profile</h1>
 
 ---
 
@@ -23,7 +23,11 @@ introduce: "안녕하세요. 최완식입니다."
 
 # Research Experience
 
+---
+
 # Work Experience
+
+---
 
 - Updater
   Software Intern (2020.09 ~ )

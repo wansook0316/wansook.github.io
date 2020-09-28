@@ -4,7 +4,7 @@ title: "01: 네이밍 관례와 표준"
 category: "DV/Tips"
 comments: true
 tags: [Naming]
-feature-img: "assets/img/31.jpg"
+feature-img: "assets/img/1.jpg"
 feature-title:
 use_math: true
 series: "Naming Rules"
@@ -71,7 +71,7 @@ int nAge;
 | string `address` | tring `addr` |
 |   int `salary`   |  int `sal`   |
 
-# 7. `i`, `n`, `s`와 같이 한 글자로 된 이름을 사용하지 말 것.
+# 7. 한 글자로 된 이름을 사용하지 말 것.
 
 `i`, `n`, `s` 보다는 `index`, `temp` 와 같은 이름을 사용한다.
 
@@ -99,8 +99,8 @@ for ( int i = 0; i < count; i++ )
 
 # 11. 네임스페이스 명은 표준 패턴을 따라야 한다.
 
-- `<회사명>.<제품명>.<최상위모듈>.<하위모듈>`
-- `org.apache.common.lang.StringUtils;`
+- <회사명>.<제품명>.<최상위모듈>.<하위모듈>
+- org.apache.common.lang.StringUtils;
 
 # 12. UI 구성요소를 위해 적당한 접두사를 사용한다.
 
@@ -115,15 +115,19 @@ UI 구성요소를 적당한 접두사를 사용하여 다른 변수들과 구�
 
 간단한 목록이 아래에 있다. 닷넷은 다양한 컨트롤들이 제공되므로 더 많은 컨트롤(써드파티 컨트롤을 포함한)에 대한 표준을 정의해야 한다.
 
-|   Control    | Prefix |     Control     | Prefix |   Control   | Prefix |
-| :----------: | :----: | :-------------: | :----: | :---------: | :----: |
-|    Label     |  lbl   |     ListBox     |  lst   |    Image    |  img   |
-|   TextBox    |  txt   |    DataList     |  dtl   |    Panel    |  pnl   |
-|   DataGrid   |  dtg   |    Repeater     |  rep   | PlaceHolder |  phd   |
-|    Button    |  btn   |    CheckBox     |  chk   |    Table    |  tbl   |
-| ImageButton  |  imb   |  CheckBoxList   |  cbl   | Validators  |  val   |
-|  Hyperlink   |  hlk   |   RadioButton   |  rdo   |      -      |   -    |
-| DropDownList |  ddl   | RadioButtonList |  rbl   |      -      |   -    |
+|   Control    | Prefix |     Control     | Prefix |
+| :----------: | :----: | :-------------: | :----: |
+|    Label     |  lbl   |     ListBox     |  lst   |
+|   TextBox    |  txt   |    DataList     |  dtl   |
+|   DataGrid   |  dtg   |    Repeater     |  rep   |
+|    Button    |  btn   |    CheckBox     |  chk   |
+| ImageButton  |  imb   |  CheckBoxList   |  cbl   |
+|  Hyperlink   |  hlk   |   RadioButton   |  rdo   |
+| DropDownList |  ddl   | RadioButtonList |  rbl   |
+|    Image     |  img   |   PlaceHolder   |  phd   |
+|    Panel     |  pnl   |      Table      |  tbl   |
+|  Validators  |  val   |        -        |   -    |
+|      -       |   -    |        -        |   -    |
 
 # 13. 파일 명은 클래스 명과 같아야 한다.
 

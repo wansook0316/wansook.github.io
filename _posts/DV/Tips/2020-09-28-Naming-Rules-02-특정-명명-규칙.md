@@ -4,22 +4,14 @@ title: "02: 특정한 명명 규칙"
 category: "DV/Tips"
 comments: true
 tags: [Naming]
-feature-img: "assets/img/31.jpg"
+feature-img: "assets/img/1.jpg"
 feature-title:
 use_math: true
 series: "Naming Rules"
-summary: "뒤죽박죽인 내 소스코드에 깔끔함을 선물해보자."
+summary: "일반적인 규칙을 제외하고, 특이한 경우를 알아본다."
 ---
 
 # 1. get/set은 반드시 속성(attribute)에 직접 접근할 때 사용한다.
-
-## hwewefㅏ저ㅜㄷㅈㅎ안녕
-
-### 안녕
-
-#### 안녕
-
-##### 안녕
 
 C++ 개발 커뮤니티에서 일반적인 용례이며, 자바에서는 거의 표준이 되었다.
 
@@ -125,71 +117,92 @@ bool shouldSort();
 
 # 11. 반의어는 반드시 대응하는 연산에 대해 사용해야 한다.
 
-get/set, add/remove, create/destroy, start/stop, insert/delete, increment/decrement, old/new, begin/end, first/last, up/down, min/max, next/previous, open/close, show/hide, suspend/resume, 등...
+|    A    |    B    |     A     |     B     |
+| :-----: | :-----: | :-------: | :-------: |
+|   get   |   set   |    add    |  remove   |
+| create  | destroy |   start   |   stop    |
+| insert  | delete  | increment | decrement |
+|   old   |   new   |   begin   |    end    |
+|  first  |  last   |    up     |   down    |
+|   min   |   max   |   next    | previous  |
+|  open   |  close  |   show    |   hide    |
+| suspend | resume  |     -     |     -     |
 
 대칭 관계를 통해 복잡성을 낮출 수 있다.
 
-# . 이름에 약어는 피해야 한다.
+# 12. 이름에 약어는 피해야 한다.
 
-computeAverage(); // 잘못된 경우 : compAvg();
+약어는 되도록이면 피하고, 명시적으로 작성한다.
 
-두 가지 단어 종류를 생각해야 하는데, 첫 번째는 사전에 있는 일반 단어이며 절대 약어로 쓰면 안 된다. 즉, 절대 다음처럼 쓰지 않는다.
+|      좋은 예      |  나쁜 예   |
+| :---------------: | :--------: |
+| computeAverage(); | compAvg(); |
 
-command => cmd
-copy => cp
-point => pt
-compute => comp
-initialize => init
-등...
+## 12.1 사용하면 안되는 약어
+
+문제가 될 만한 단어들은 약어를 사용하지 않는다.
+
+|     O      |  X   |
+| :--------: | :--: |
+|  command   | cmd  |
+|    copy    |  cp  |
+|   point    |  pt  |
+|  compute   | comp |
+| initialize | init |
+
+## 12.1 약어를 사용하는 것이 좋은 경우
 
 그에 반해 약어/두문자어가 더 자연스런 특정 분야의 관용구는 약어 형태를 유지해야 하며, 절대 다음처럼 쓰지 않는다.
 
-html => HypertextMarkupLanguage
-cpu => CentralProcessingUnit
-pe => PriceEarningRatio
-등...
+|  O   |            X            |
+| :--: | :---------------------: |
+| html | HypertextMarkupLanguage |
+| cpu  |  CentralProcessingUnit  |
+| per  |    PriceEarningRatio    |
 
-# . 포인터를 이름에 사용하는 것은 특히 피해야 한다.
+# 13. 포인터를 이름에 사용하는 것은 특히 피해야 한다.
 
-Line* line; // 잘못된 경우 : Line* pLine;
-// 잘못된 경우 : Line\* linePtr;
+|      O       |        X        |
+| :----------: | :-------------: |
+| Line\* line; |  Line\* pLine;  |
+|      -       | Line\* linePtr; |
 
 C/C++ 환경에서 많은 변수가 포인터이므로 이와 같은 관례는 따르기가 거의 불가능하다. 또한 C++ 에서 객체는 흔히, 프로그래머가 특정 구현 내용을 무시할 수 있는 간접 타입이다.
 
 포인터를 이름에 사용할 때는 객체의 실제 타입이 특별히 중요할 때에 한해 해당 타입을 강조하기 위해서이다.
 
-# . 부정적인(negated) Boolean 변수 이름은 반드시 피해야 한다.
+# 14. 부정적인(negated) Boolean 변수 이름은 반드시 피해야 한다.
 
-bool isError; // 잘못된 경우 : isNoError
-bool isFound; // 잘못된 경우 : isNotFound
+|       O       |     X      |
+| :-----------: | :--------: |
+| bool isError; | isNoError  |
+| bool isFound; | isNotFound |
 
 문제는 이런 이름을 논리 부정 연산자와 함께 사용할 때 이중 부정을 통해 결과가 만들어지므로 생긴다.
-!isNotFound 의 의미를 즉시 명확하게 알아차릴 수 없다.
+`!isNotFound` 의 의미를 즉시 명확하게 알아차릴 수 없다.
 
-# . 열거 상수는 공통 타입 이름을 접두어로 붙인다.
+# 15. 열거 상수는 공통 타입 이름을 접두어로 붙인다.
 
+```c++
 enum Color {
 COLOR_RED,
 COLOR_GREEN,
 COLOR_BLUE,
 };
+```
 
-이러한 것은 해당 선언을 어디에서 찾을 수 있는지, 어느 상수가 함께 속한 것인지, 그리고 그 상수가 어떤 개념을 나타내는지 등 추가 정보를 제공한다. 다른 방법은 Color: : RED, Airline: : AIR_FRANCE 등과 같이 항상 공통 타입을 통해 해당 상수를 참조하는 것이다.
+이러한 것은 해당 선언을 어디에서 찾을 수 있는지, 어느 상수가 함께 속한 것인지, 그리고 그 상수가 어떤 개념을 나타내는지 등 추가 정보를 제공한다. 다른 방법은 `Color: : RED, Airline: : AIR_FRANCE` 등과 같이 항상 공통 타입을 통해 해당 상수를 참조하는 것이다.
 
-# . 예외 클래스는 Exception 접미어를 붙인다.
+# 16. 예외 클래스는 Exception 접미어를 붙인다.
 
+```c++
 class AccessException
 {
 ...
 }
+```
 
 예외 클래스는 실제 해당 프로그램의 주된 설계 부분이 아니며(옮긴이 주: 프로그램에서 주된 처리 로직이 아니라는 뜻), 이와 같이 이름을 붙이면 다른 클래스와 상대적으로 구별된다.
-
-# . 함수(무언가를 반환하는 메서드)는 이름 앞에 반환하는 것을, 프로시저(void 메서드)는 이름 앞에 하는 일을 써야 한다.
-
-가독성을 높일 수 있다. 이를 통해 해당 단위에서 해야 하는 것과 특히 하지 않는 모든 것을 명확히 한다. 더불어 해당 코드의 부작용을 더 쉽게 제거할 수 있다.(옮긴이 주: 이 항목은 의미가 명확하지 않음)
-
-출처: https://viiiin.tistory.com/49 [Think Like a Man of Action and Act Like Man of Thought...]
 
 # Reference
 
