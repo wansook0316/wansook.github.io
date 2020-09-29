@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "sublime text처럼 단축키 추가하기"
-category: "DS/Python"
+category: "DV/Python"
 comments: true
 tags: [python]
 feature-img: "assets/img/35.jpg"

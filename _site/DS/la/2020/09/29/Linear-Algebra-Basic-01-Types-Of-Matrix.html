@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    01: Types of Matrix (행렬의 종류) | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="Types of Matrix"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/ds/la/2020/09/29/Linear-Algebra-Basic-01-Types-Of-Matrix.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/4.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">01: Types of Matrix (행렬의 종류)</h1>
+      
+      <p class="meta">
+        DS/LA  : Linear Algebra Basic 
+      </p>
+      <p class="meta">
+        September 29, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Linear Algebra Basic</em></b> 시리즈
+    <b><em>6</em></b> 편 중 <b><em>1</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                               
+    <li class="current">
+      <span>Part 1 - This Post</span>
+    </li>
+                                   
+    <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html'">
+      <span>Part 2 - 02: Determinant, Inverse Matrix, Orthogonal Matrix (행렬식, 역행렬, 직교행렬)</span>
+    </li>
+                                                   
+    <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html'">
+      <span>Part 3 - 03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅)</span>
+    </li>
+                         
+    <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html'">
+      <span>Part 4 - 04: Aspects of Matrix Multiplication (행렬 곱셈의 여러 측면)</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html'">
+      <span>Part 5 - 04: LU Decomposition (LU 분해)</span>
+    </li>
+                                                     
+    <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html'">
+      <span>Part 6 - 06: QR Decomposition (QR 분해)</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                                      
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#types-of-matrix">Types of Matrix</a>
+    <ul>
+      <li><a href="#square-matrix">Square Matrix</a></li>
+      <li><a href="#rectangular-matrix">Rectangular Matrix</a></li>
+      <li><a href="#zero-matrix">Zero Matrix</a></li>
+      <li><a href="#symmetric-matrix">Symmetric Matrix</a></li>
+      <li><a href="#upper-triangle-matrix">Upper-Triangle Matrix</a></li>
+      <li><a href="#lower-triangle-matrix">Lower-Triangle Matrix</a></li>
+      <li><a href="#diagonal-matrix">Diagonal Matrix</a></li>
+      <li><a href="#identity-matrix">Identity Matrix</a></li>
+      <li><a href="#skew-symmetric-matrix">Skew-Symmetric Matrix</a></li>
+    </ul>
+  </li>
+  <li><a href="#matrix-transformation">Matrix Transformation</a>
+    <ul>
+      <li><a href="#before-transformation">Before Transformation</a></li>
+      <li><a href="#after-transformation">After Transformation</a></li>
+      <li><a href="#성질">성질</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <h1 id="types-of-matrix">Types of Matrix</h1>
+
+<script type="math/tex; mode=display">A\;=\;[a_{ij}]\\
+\;\\
+i\;=\;m\;:row\;size\\
+j\;=\;n\;\;:col\;size\\</script>
+
+<h2 id="square-matrix">Square Matrix</h2>
+
+<script type="math/tex; mode=display">m\;=\;n</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+0 & 1 & 0\\
+0 & 2 & 0\\
+0 & 0 & 3
+\end{bmatrix} %]]></script>
+
+<h2 id="rectangular-matrix">Rectangular Matrix</h2>
+
+<script type="math/tex; mode=display">m\; \ne\;n</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+0 & 1 & 2\\
+-1 & 0 & 3\\
+-2 & -3 & 0\\
+9 & 3 & 6
+\end{bmatrix} %]]></script>
+
+<h2 id="zero-matrix">Zero Matrix</h2>
+
+<script type="math/tex; mode=display">all\;[a_{ij}]\;=\;0</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+0 & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
+\end{bmatrix} %]]></script>
+
+<h2 id="symmetric-matrix">Symmetric Matrix</h2>
+
+<script type="math/tex; mode=display">a_{ij}\;=\;a_{ji}</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+0 & 1 & 2\\
+1 & 0 & 3\\
+2 & 3 & 0
+\end{bmatrix} %]]></script>
+
+<h2 id="upper-triangle-matrix">Upper-Triangle Matrix</h2>
+
+<script type="math/tex; mode=display">a_{ij}\;=\;0\;\;\;\;i>j</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+7 & 1 & 1\\
+0 & 2 & 4\\
+0 & 0 & 3
+\end{bmatrix} %]]></script>
+
+<h2 id="lower-triangle-matrix">Lower-Triangle Matrix</h2>
+
+<script type="math/tex; mode=display">% <![CDATA[
+a_{ij}\;=\;0\;\;\;\;j<i %]]></script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+4 & 0 & 0\\
+1 & 2 & 0\\
+6 & 8 & 3
+\end{bmatrix} %]]></script>
+
+<h2 id="diagonal-matrix">Diagonal Matrix</h2>
+
+<script type="math/tex; mode=display">a_{ij}\;=\;0\;\;\;\;if\;j\ne i</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 2 & 0\\
+0 & 0 & 3
+\end{bmatrix} %]]></script>
+
+<h2 id="identity-matrix">Identity Matrix</h2>
+
+<script type="math/tex; mode=display">a_{ij}\;=\;0\;\;\;\;if\;\;i\ne j\\
+a_{ij}\;=\;1\;\;\;\;if\;\;i=j</script>
+
+<h2 id="skew-symmetric-matrix">Skew-Symmetric Matrix</h2>
+
+<script type="math/tex; mode=display">a_{ij}\;=\;-a_{ji}</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+0 & 1 & 2\\
+-1 & 0 & 3\\
+-2 & -3 & 0
+\end{bmatrix} %]]></script>
+
+<h1 id="matrix-transformation">Matrix Transformation</h1>
+
+<p>전치 행렬은 정사각행렬에서, 행과 열의 숫자가 같은 요소들을 기준으로 하는 선으로 행렬을 대칭 시킨 것을 말한다.</p>
+
+<h2 id="before-transformation">Before Transformation</h2>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+3 & 1 & 1\\
+-1 & 3 & 1\\
+-1 & -1 & 3
+\end{bmatrix} %]]></script>
+
+<h2 id="after-transformation">After Transformation</h2>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+3 & -1 & -1\\
+1 & 3 & -1\\
+1 & 1 & 3
+\end{bmatrix} %]]></script>
+
+<h2 id="성질">성질</h2>
+
+<script type="math/tex; mode=display">(A^T)^T\;=\;A\\
+(A+B)^T\;=\;A^T+B^T\\
+(cA)^T\;=\;cA^T\\
+(AB)^T\;=\;B^TA^T\\
+if\;\;A^T\;=\;A\;,\;A\;is\;Symmetric\\
+A^T\;=\;-A\;,\;A\;,\;A\;is\;Skew-Symmetric\\
+I^T\;=\;I\;,\;O^T\;=\;O</script>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#math"
+      >#math</a
+    >
+    
+    <a class="tag" href="/tags#Linear-Algebra"
+      >#Linear-Algebra</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html">
+                02: Determinant, Inverse Matrix, Orthogonal Matrix (행렬식, 역행렬, 직교행렬)
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

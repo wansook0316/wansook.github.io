@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    03: Variables | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="모든 변수는 객체이다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/dv/python/2020/09/29/python-basic-03-Variables.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/3.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">03: Variables</h1>
+      
+      <p class="meta">
+        DV/Python  : Python Basic 
+      </p>
+      <p class="meta">
+        September 29, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Python Basic</em></b> 시리즈
+    <b><em>13</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                           
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-01-Introduction.html'">
+      <span>Part 1 - 01: Introduction</span>
+    </li>
+                                                 
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-02-String-Array-List-DataType.html'">
+      <span>Part 2 - 02: String Array, List, Data Type</span>
+    </li>
+                                             
+    <li class="current">
+      <span>Part 3 - This Post</span>
+    </li>
+                             
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-04-Function-Design-Recipe.html'">
+      <span>Part 4 - 04: Function Design Recipe (FDR)</span>
+    </li>
+                               
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-05-String.html'">
+      <span>Part 5 - 05: String</span>
+    </li>
+                         
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-06-Conditional-Statement.html'">
+      <span>Part 6 - 06: Conditional Statement</span>
+    </li>
+                               
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-07-Module.html'">
+      <span>Part 7 - 07: Module</span>
+    </li>
+                 
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-08-class-method.html'">
+      <span>Part 8 - 08: Class & Method</span>
+    </li>
+                               
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-09-List.html'">
+      <span>Part 9 - 09: List</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-10-Loop.html'">
+      <span>Part 10 - 10: Loop</span>
+    </li>
+                     
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-11-File.html'">
+      <span>Part 11 - 11: File</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-12-Other-Data-Types.html'">
+      <span>Part 12 - 12: Other Data Types</span>
+    </li>
+               
+    <li onclick="location.href='/dv/python/2020/09/29/python-basic-13-Class.html'">
+      <span>Part 13 - 13: Class</span>
+    </li>
+                                                                                                                                                                                                                                                                  
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#모든-변수는-객체이다">모든 변수는 객체이다.</a></li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <h1 id="모든-변수는-객체이다">모든 변수는 객체이다.</h1>
+
+<p>파이썬에서 사용하는 변수는 객체를 가리킨다. 여기서 객체란 <strong>파이썬에서 사용되는 모든 것</strong> 을 의미하는 말이다. 이게 무슨말일까? 이 개념에 대한 직관적인 설명을 잘해둔 페이지가 있어 여기 소개한다. <a href="https://wikidocs.net/20457">객체란?</a></p>
+
+<p>신기하게도, C 에서 변수를 선언하면 각각 다른 메모리 공간에 상수로 들어갔던 것과 달리 파이썬에서는 같은 객체를 가리킨다. 예제로 직관적 이해를 해보도록 하자.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<p>먼저 이렇게 선언했을 때, 변수 a는 객체가 저장된 메모리 위치를 가리킨다. 또 오른쪽 3은, 정수 자료형 객체가 자동으로 메모리에 생성된다. 이렇게 보면 <strong>변수 a는 객체가 저장된 메모리의 위치를 가리키는 레퍼런스</strong> 라고 생각할 수 있다. 그리고 만약 내가 같은 객체를 다른 변수를 통해 가리킨다면, 같다고 뜬다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+
+<p>a가 3을 가리키고 b도 3을 가리킨다. 즉 a=3 을 입력하는 순간 3이라는 정수형 객체가 생성되고 변수 a는 3이라는 객체의 메모리 주소를 가리킨다. 다음에 변수 b가 동일한 객체인 3을 가리킨다. 이제 3이라는 정수형 객체를 가리키는 변수가 2개가 됐다. 이 두 변수는 가리키고 있는 대상이 동일하다. 따라서 동일한 객체를 가리키고 있는지 아닌지에 대해서 판단하는 파이썬 내장 함수인 is 함수를 a is b처럼 실행했을 때 참(True)을 리턴하게 된다. 이렇게 하나의 객체를 가리키는 변수의 개수를 <strong>레퍼런스 카운트 (참조 개수)</strong> 라 한다. 여기서는 2가 되겠다.</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#python"
+      >#python</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/python/2020/09/29/python-basic-02-String-Array-List-DataType.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/dv/python/2020/09/29/python-basic-02-String-Array-List-DataType.html">
+                  02: String Array, List, Data Type
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/dv/python/2020/09/29/python-basic-04-Function-Design-Recipe.html';">
+              <p>NEXT SERIES</p>
+              <a href="/dv/python/2020/09/29/python-basic-04-Function-Design-Recipe.html">
+                04: Function Design Recipe (FDR)
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

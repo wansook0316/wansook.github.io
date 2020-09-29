@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "13: Class"
-category: "DS/Python"
+category: "DV/Python"
 comments: true
 tags: [python]
 feature-img: "assets/img/3.jpg"
@@ -13,7 +13,7 @@ summary: "클래스에 대해 제대로 알아보자."
 
 클래스는 c++에서 자세히 다뤘으므로, 해당 내용에 대해 파이썬 문법만 알아보도록 하자.
 
-# **init**, constructor
+# init, constructor
 
 ```python
 class Student:

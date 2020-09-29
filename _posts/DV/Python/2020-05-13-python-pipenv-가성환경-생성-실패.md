@@ -3,7 +3,7 @@ layout: post
 title: 가상 환경 생성 실패
 category: "DV/Python"
 comments: true
-tags: [pipenv, mac]
+tags: [pipenv, python, trouble-shooting]
 feature-img: "assets/img/31.jpg"
 feature-title:
 use_math: true
@@ -17,6 +17,6 @@ pipenv를 사용하다가 가상환경이 생성되지 않는 경우 해결책�
 pipenv install --python /usr/local/bin/python3
 ```
 
-
 ### Reference
+
 [github issue](https://github.com/pypa/pipenv/issues/4191)

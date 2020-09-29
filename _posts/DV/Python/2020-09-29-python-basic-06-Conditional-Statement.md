@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "06: Conditional Statement"
-category: "DS/Python"
+category: "DV/Python"
 comments: true
 tags: [python]
 feature-img: "assets/img/3.jpg"

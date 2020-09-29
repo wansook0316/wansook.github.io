@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "07: Module"
-category: "DS/Python"
+category: "DV/Python"
 comments: true
 tags: [python]
 feature-img: "assets/img/3.jpg"
