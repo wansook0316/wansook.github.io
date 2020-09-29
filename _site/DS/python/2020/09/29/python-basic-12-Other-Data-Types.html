@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    12: Other Data Types | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="지금까지 배운 데이터 타입은 정수, 실수, boolean, 문자열, list 였다. 그런데 정수, 실수는 단순한 데이터 타입이므로, 결국 여러 정보를 넣을 수 있는 것은 String, List이다. 그런데 String은 입력할 때에 숫자와 문자를 섞어 넣을 수 있지만, 요소에 접근..."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/ds/python/2020/09/29/python-basic-12-Other-Data-Types.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/3.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">12: Other Data Types</h1>
+      
+      <p class="meta">
+        DS/Python  : Python Basic 
+      </p>
+      <p class="meta">
+        September 29, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Python Basic</em></b> 시리즈
+    <b><em>13</em></b> 편 중 <b><em>12</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                           
+    <li onclick="location.href='/ds/docker/2020/09/29/python-basic-01-Introduction.html'">
+      <span>Part 1 - 01: Introduction</span>
+    </li>
+                                             
+    <li onclick="location.href='/ds/docker/2020/09/29/python-basic-02-String-Array-List-DataType.html'">
+      <span>Part 2 - 02: String Array, List, Data Type</span>
+    </li>
+                                           
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-03-Variables.html'">
+      <span>Part 3 - 03: Variables</span>
+    </li>
+                           
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-04-Function-Design-Recipe.html'">
+      <span>Part 4 - 04: Function Design Recipe (FDR)</span>
+    </li>
+                             
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-05-String.html'">
+      <span>Part 5 - 05: String</span>
+    </li>
+                         
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-06-Conditional-Statement.html'">
+      <span>Part 6 - 06: Conditional Statement</span>
+    </li>
+                             
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-07-Module.html'">
+      <span>Part 7 - 07: Module</span>
+    </li>
+                 
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-08-class-method.html'">
+      <span>Part 8 - 08: Class & Method</span>
+    </li>
+                               
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-09-List.html'">
+      <span>Part 9 - 09: List</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-10-Loop.html'">
+      <span>Part 10 - 10: Loop</span>
+    </li>
+                     
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-11-File.html'">
+      <span>Part 11 - 11: File</span>
+    </li>
+                       
+    <li class="current">
+      <span>Part 12 - This Post</span>
+    </li>
+               
+    <li onclick="location.href='/ds/python/2020/09/29/python-basic-13-Class.html'">
+      <span>Part 13 - 13: Class</span>
+    </li>
+                                                                                                                                                                                                                                                                  
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#set">Set</a>
+    <ul>
+      <li><a href="#example-1">Example 1</a></li>
+      <li><a href="#example-2">Example 2</a></li>
+      <li><a href="#집합-연산">집합 연산</a></li>
+    </ul>
+  </li>
+  <li><a href="#tuple">Tuple</a>
+    <ul>
+      <li><a href="#요소가-하나-있는-튜플-만들기">요소가 하나 있는 튜플 만들기</a></li>
+      <li><a href="#튜플-안에-리스트">튜플 안에 리스트</a></li>
+    </ul>
+  </li>
+  <li><a href="#dictionary">Dictionary</a>
+    <ul>
+      <li><a href="#선언-방법--value-접근">선언 방법 / Value 접근</a></li>
+    </ul>
+  </li>
+  <li><a href="#실습">실습</a>
+    <ul>
+      <li><a href="#example-1-1">Example 1</a></li>
+      <li><a href="#example-2-1">Example 2</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <p>지금까지 배운 데이터 타입은 정수, 실수, boolean, 문자열, list 였다. 그런데 정수, 실수는 단순한 데이터 타입이므로, 결국 여러 정보를 넣을 수 있는 것은 String, List이다. 그런데 String은 입력할 때에 숫자와 문자를 섞어 넣을 수 있지만, 요소에 접근해 수정할 수 없으므로 우리가 여러 정보를 넣어 처리할 수 있는 것은 리스트가 전부다. 파이썬은 이런 목적에 맞는 다양한 데이터 타입을 제공한다.</p>
+
+<h1 id="summary">Summary</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Collection</th>
+      <th style="text-align: center">Mutable</th>
+      <th style="text-align: center">Ordered</th>
+      <th style="text-align: center">Duplication</th>
+      <th style="text-align: center">Notation</th>
+      <th style="text-align: center">Description</th>
+      <th style="text-align: center">Empty Collection</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">[ ]</td>
+      <td style="text-align: center">“simple string”</td>
+      <td style="text-align: center">s = ‘’ or s = “”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">list</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">[ ]</td>
+      <td style="text-align: center">[ [“item0_0”, 12 ], [“item1_0”, 22 ] ]</td>
+      <td style="text-align: center">l = []</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">tuple</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">( )</td>
+      <td style="text-align: center">( [“item0_0”, 12 ], [“item1_0”, 22 ] )</td>
+      <td style="text-align: center">t = ()</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">set</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">{ }</td>
+      <td style="text-align: center">{ 1, 2, 3, 4, 5 }</td>
+      <td style="text-align: center">S = set()</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">dictionary</td>
+      <td style="text-align: center">yes</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">no</td>
+      <td style="text-align: center">{ }</td>
+      <td style="text-align: center">{ ‘one’ : 1, ‘two’ : 2, ‘three’ : 3 }</td>
+      <td style="text-align: center">d = {}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="set">Set</h1>
+
+<p><code class="language-plaintext highlighter-rouge">set</code>은 정렬되지 않은 수학의 <code class="language-plaintext highlighter-rouge">집합</code>과 동일한 개념의 데이터 타입으로서, 중복된 값을 가질 수 없다. 아래의 예제에서 exSet1은 set의 규칙에 제대로 부합하는 경우 이지만, exSet2는 중복된 아이템(‘p’)이 섞여 있는 것을 볼 수 있다. 따라서 실제 아래의 코드를 실행해 보면, exSet2에는 Python이 알아서 중복된 값을 하나 제거한 것을 알 수 있다.</p>
+
+<h2 id="example-1">Example 1</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">exSet1</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span>
+<span class="k">print</span><span class="p">(</span><span class="n">exSet1</span><span class="p">)</span>
+
+<span class="n">exSet2</span> <span class="o">=</span> <span class="p">{</span> <span class="s">'a'</span><span class="p">,</span> <span class="s">'p'</span><span class="p">,</span> <span class="s">'p'</span><span class="p">,</span> <span class="s">'l'</span><span class="p">,</span> <span class="s">'e'</span> <span class="p">}</span>
+<span class="k">print</span><span class="p">(</span><span class="n">exSet2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1, 2, 3, 4, 5}
+{'l', 'p', 'a', 'e'}
+</code></pre></div></div>
+
+<h2 id="example-2">Example 2</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 빈 집합 만들기
+</span><span class="n">aSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"(a)"</span><span class="p">,</span> <span class="n">aSet</span><span class="p">)</span>
+
+<span class="c1"># List를 input으로 넣었을 때
+</span><span class="n">bSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"(b)"</span><span class="p">,</span> <span class="n">bSet</span><span class="p">)</span>
+
+<span class="c1"># 집합을 input으로 넣었을 때
+</span><span class="n">cSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">})</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"(c)"</span><span class="p">,</span> <span class="n">cSet</span><span class="p">)</span>
+
+<span class="c1"># range 함수를 넣었을 때
+</span><span class="n">dSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"(d)"</span><span class="p">,</span> <span class="n">dSet</span><span class="p">)</span>
+
+<span class="c1"># tuple을 넣었을 때
+</span><span class="n">eSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"(e)"</span><span class="p">,</span> <span class="n">eSet</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(a) set()
+(b) {1, 2, 3, 4, 5}
+(c) {1, 3, 5, 7, 9}
+(d) {1, 2, 3, 4, 5}
+(e) {2, 4, 6, 8, 10}
+</code></pre></div></div>
+
+<h2 id="집합-연산">집합 연산</h2>
+
+<p>집합을 정의했다면 당연히 연산도 가능할 것이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">연산자</th>
+      <th style="text-align: center">수학 기호</th>
+      <th style="text-align: center">Python 문법</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">합집합(union)</td>
+      <td style="text-align: center">$A \cup B$</td>
+      <td style="text-align: center">A.union(B) 혹은 A $</td>
+      <td>$ B</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">교집합(intersection)</td>
+      <td style="text-align: center">$A \cap B$</td>
+      <td style="text-align: center">A.intersection(B) 혹은 A &amp; B</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">차집합(difference)</td>
+      <td style="text-align: center">$A - B$</td>
+      <td style="text-align: center">A.difference(B) 혹은 A - B</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">상위집합(superset)</td>
+      <td style="text-align: center">$A \supseteq B$</td>
+      <td style="text-align: center">A.issuperset(B) 혹은 A &gt;= B</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">부분집합(subset)</td>
+      <td style="text-align: center">$A \subseteq B$</td>
+      <td style="text-align: center">A.issubset(B) 혹은 A &lt;= B</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">aSet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">}</span>
+<span class="n">bSet</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">}</span>
+
+<span class="c1"># 원소 추가
+</span><span class="n">aSet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span><span class="p">)</span>
+
+<span class="c1"># 원소 제거
+</span><span class="n">aSet</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span><span class="p">)</span>
+
+<span class="c1"># 합, 교, 차
+</span><span class="k">print</span><span class="p">(</span><span class="n">aSet</span> <span class="o">|</span> <span class="n">bSet</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span> <span class="o">&amp;</span> <span class="n">bSet</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span> <span class="o">-</span> <span class="n">bSet</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">bSet</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">bSet</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">bSet</span><span class="p">))</span>
+
+<span class="c1"># 상위, 하위
+</span><span class="k">print</span><span class="p">(</span><span class="n">aSet</span> <span class="o">&gt;=</span> <span class="n">bSet</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span> <span class="o">&lt;=</span> <span class="n">bSet</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">aSet</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">aSet</span> <span class="o">-</span> <span class="n">bSet</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1, 2, 3, 4, 5, 6}
+
+{1, 2, 3, 4, 5}
+
+{1, 2, 3, 4, 5, 8, 16}
+{1, 2, 4}
+{3, 5}
+
+{1, 2, 3, 4, 5, 8, 16}
+{1, 2, 4}
+{3, 5}
+
+False
+False
+True
+</code></pre></div></div>
+
+<h1 id="tuple">Tuple</h1>
+
+<p><code class="language-plaintext highlighter-rouge">tuple</code>는 여러 부분 리스트와 매우 유사한데, 가장 큰 차이점은 <code class="language-plaintext highlighter-rouge">tuple</code>의 아이템은 <strong>변경이 불가(immutable)하다</strong>는 점이다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tempTuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">tempTuple</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">tempTuple</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1, 2, 3, 4, 5)
+
+tuple
+</code></pre></div></div>
+
+<p>인덱싱과 슬라이싱은 리스트와 비슷하다. 다만 주의해야 하는 점이 있다.</p>
+
+<h2 id="요소가-하나-있는-튜플-만들기">요소가 하나 있는 튜플 만들기</h2>
+
+<p>튜플에 선언에 있어 ()를 사용하고 있기 때문에 (8)과 같이 선언을 할경우 파이썬은 괄호를 <strong>연산자</strong> 라 판단한다. 따라서 우리가 하나의 튜플 요소를 선언할 경우 (8,) 다음과 같이 명확히 알려주는 문법을 사용해야 한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">notTuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"[notTuple]"</span><span class="p">,</span> <span class="n">notTuple</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">notTuple</span><span class="p">))</span>
+
+<span class="n">minTuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"[minTuple]"</span><span class="p">,</span> <span class="n">minTuple</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">minTuple</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[notTuple] 8 &lt;class 'int'&gt;
+[minTuple] (8,) &lt;class 'tuple'&gt;
+</code></pre></div></div>
+
+<h2 id="튜플-안에-리스트">튜플 안에 리스트</h2>
+
+<p>튜플은 기본적으로 수정이 불가하다고 생각하지만, 만약 <strong>튜플 안에 리스트</strong> 가 있다면 리스트 내의 요소를 바꿀 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sampleList</span> <span class="o">=</span> <span class="p">([</span><span class="s">"Python"</span><span class="p">,</span> <span class="s">'B'</span><span class="p">],</span> <span class="p">[</span><span class="s">"C++"</span><span class="p">,</span> <span class="s">'B'</span><span class="p">])</span>
+
+<span class="c1"># 튜플 안 리스트의 요소를 바꾸고 있으므로 가능하다.
+</span><span class="n">sampleList</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">'A'</span>
+
+<span class="c1"># 튜플의 요소를 바꾸고 있으므로 불가능 하다.
+</span><span class="n">sampleList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Python"</span><span class="p">,</span> <span class="s">'B'</span><span class="p">]</span> <span class="c1"># Erron in this statement
+</span>
+</code></pre></div></div>
+
+<h1 id="dictionary">Dictionary</h1>
+
+<p>Key - Value 의 형태로 저장되어 있는 자료형이다.</p>
+
+<ol>
+  <li><strong>Key 는 변할 수 없다.</strong></li>
+  <li><strong>Value는 변할 수 있다.</strong></li>
+</ol>
+
+<h2 id="선언-방법--value-접근">선언 방법 / Value 접근</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 선언
+</span><span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="s">"python"</span> <span class="p">:</span> <span class="s">"person1"</span><span class="p">,</span> <span class="s">"c++"</span> <span class="p">:</span> <span class="s">"person2"</span><span class="p">}</span>
+
+<span class="c1"># 접근
+</span><span class="n">author</span><span class="p">[</span><span class="s">"python"</span><span class="p">]</span>
+
+<span class="c1"># 삭제
+</span><span class="k">del</span> <span class="n">author</span><span class="p">[</span><span class="s">"python"</span><span class="p">]</span>
+
+<span class="c1"># 추가
+</span><span class="n">author</span><span class="p">[</span><span class="s">"python"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"person1"</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">author</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s">"is designed by "</span><span class="p">,</span> <span class="n">author</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c++ is designed by  person2
+python is designed by  person1
+</code></pre></div></div>
+
+<h1 id="실습">실습</h1>
+
+<h2 id="example-1-1">Example 1</h2>
+
+<p>(a) 다음과 같이 list 하나는 프로그래밍 언어를, 다른 list는 언어의 개발자 이름을 갖도록 선언합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">language</span> <span class="o">=</span> <span class="p">[</span><span class="s">"python"</span><span class="p">,</span> <span class="s">"c++"</span><span class="p">,</span> <span class="s">"javascript"</span><span class="p">,</span> <span class="s">"go"</span><span class="p">]</span>
+<span class="n">author</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Guido van Rossum"</span><span class="p">,</span> <span class="s">"Bjarne Stroustrup"</span><span class="p">,</span> <span class="s">"Brendan Eich"</span><span class="p">,</span> <span class="s">"Robert Griesemer"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>(b) 함수 matingPairs()를 만드는데, 입력 파라메타로 위의 두 리스트를 받아서, 결과롤 set 타입을 돌려줍니다.</p>
+
+<p>(c) 함수 matingPairs()는 두 리스트에서 각각 하나의 값을 꺼내서 언어 이름별 저자의 tuple을 만든 후,</p>
+
+<p>(d) 함수 matingPairs() 안의 내부 변수인 set 타입 데이터 타입에 (c)에서 만든 tuple을 아이템으로 추가해 줍니다.</p>
+
+<p>(e) 모든 언어에 대한 저자 매핑과, 이를 set에 넣는 과정을 마치면, 함수 matingPairs()은 결과값으로 set를 돌려줍니다.</p>
+
+<p>(f) 함수 matingPairs()의 결과값을 화면에 출력합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">language</span> <span class="o">=</span> <span class="p">[</span><span class="s">"python"</span><span class="p">,</span> <span class="s">"c++"</span><span class="p">,</span> <span class="s">"javascript"</span><span class="p">,</span> <span class="s">"go"</span><span class="p">]</span>
+<span class="n">author</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Guido van Rossum"</span><span class="p">,</span> <span class="s">"Bjarne Stroustrup"</span><span class="p">,</span> <span class="s">"Brendan Eich"</span><span class="p">,</span> <span class="s">"Robert Griesemer"</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">matingPairs</span><span class="p">(</span><span class="n">array1</span><span class="p">,</span> <span class="n">array2</span><span class="p">):</span>
+    <span class="n">result_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array1</span><span class="p">)):</span>
+        <span class="n">temp_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">array1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">array2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">result_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">temp_tuple</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result_set</span>
+
+
+<span class="n">matingPairs</span><span class="p">(</span><span class="n">language</span><span class="p">,</span> <span class="n">author</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{('c++', 'Bjarne Stroustrup'),
+ ('go', 'Robert Griesemer'),
+ ('javascript', 'Brendan Eich'),
+ ('python', 'Guido van Rossum')}
+</code></pre></div></div>
+
+<h2 id="example-2-1">Example 2</h2>
+
+<p>다음의 요구 사항에 맞는 프로그램을 개발하여 아래의 입력창을 통해서 실행합니다.</p>
+
+<p>(a) <code class="language-plaintext highlighter-rouge">dictionary</code>의 <code class="language-plaintext highlighter-rouge">key</code>는 유일해야 하지만 <code class="language-plaintext highlighter-rouge">value</code>는 유일하지 않아도 됩니다.</p>
+
+<p>(b) <code class="language-plaintext highlighter-rouge">count_values()</code> 라는 이름의 함수를 구현합니다.</p>
+
+<p>(c) <code class="language-plaintext highlighter-rouge">count_values()</code> 함수는 하나의 dictionary를 입력 파라메타로 받아서, 이 dictionary가 포함한 서로 다른 value의 개수를 반환합니다.</p>
+
+<p>(d) 예를 들어, <code class="language-plaintext highlighter-rouge">{'red': 1, 'green': 1, 'blue': 2}</code>가 입력 파라메타로 전달되면, 2를 반환합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">count_values</span><span class="p">(</span><span class="n">dic</span><span class="p">):</span>
+    <span class="n">set_dic</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dic</span><span class="p">:</span>
+        <span class="n">set_dic</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dic</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_dic</span><span class="p">)</span>
+
+<span class="n">dic</span> <span class="o">=</span> <span class="p">{</span><span class="s">'red'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'green'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'blue'</span> <span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+
+<span class="n">count_values</span><span class="p">(</span><span class="n">dic</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#python"
+      >#python</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/python/2020/09/29/python-basic-11-File.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/ds/python/2020/09/29/python-basic-11-File.html">
+                  11: File
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/python/2020/09/29/python-basic-13-Class.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/python/2020/09/29/python-basic-13-Class.html">
+                13: Class
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

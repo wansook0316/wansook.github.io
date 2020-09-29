@@ -1,15 +1,14 @@
 ---
 layout: post
 title: "sublime text처럼 단축키 추가하기"
-category: "DS/Docker"
+category: "DS/Python"
 comments: true
-tags: [python, "단축키"]
+tags: [python]
 feature-img: "assets/img/35.jpg"
 feature-title: ""
 use_math: true
+summary: "부족한 jupyter notebook의 단축키를 보완해보자."
 ---
-
-부족한 jupyter notebook의 단축키를 보완해보자.
 
 ### Reference
 
