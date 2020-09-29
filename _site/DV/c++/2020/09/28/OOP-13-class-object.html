@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    13: class, object | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="What is Class?"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/dv/c++/2020/09/28/OOP-13-class-object.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/2.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">13: class, object</h1>
+      
+      <p class="meta">
+        DV/C++  : Object Oriented Programming 
+      </p>
+      <p class="meta">
+        September 28, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Object Oriented Programming</em></b> 시리즈
+    <b><em>23</em></b> 편 중 <b><em>13</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-01-Introduction.html'">
+      <span>Part 1 - 01: Introduction</span>
+    </li>
+                                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-02-Identifier-Variable-constant-Std-IO-Operator.html'">
+      <span>Part 2 - 02: Identifier, Variable, constant, Std IO, Operator</span>
+    </li>
+                                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-03-Function-1.html'">
+      <span>Part 3 - 03: Functions #1 - Calling (호출)</span>
+    </li>
+                                 
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-04-Function-2.html'">
+      <span>Part 4 - 04: Functions #2 - Local, Global Variable</span>
+    </li>
+                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-05-Function-3.html'">
+      <span>Part 5 - 05: Functions #3 - Recursion Function, Reference Variable (재귀함수)</span>
+    </li>
+                             
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-06-Function-4.html'">
+      <span>Part 6 - 06: Functions #4 - Reference Variable vs. Pointer</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-07-Function-5.html'">
+      <span>Part 7 - 07: Functions #5 - CallbyValue, CallbyReference</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-08-Selection-Repetition.html'">
+      <span>Part 8 - 08: Selection and Repetition</span>
+    </li>
+                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-09-File-Input-Output.html'">
+      <span>Part 9 - 09: File Input & Output (파일입출력)</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-10-rand-srand.html'">
+      <span>Part 10 - 10: String library, rand(), srand()</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-11-pointer-function-pointer.html'">
+      <span>Part 11 - 11: Pointer, Function Pointer</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-12-Array-Vector.html'">
+      <span>Part 12 - 12: Array, Vector (정적배열, 동적배열)</span>
+    </li>
+                     
+    <li class="current">
+      <span>Part 13 - This Post</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html'">
+      <span>Part 14 - 14: this, operator overloading</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html'">
+      <span>Part 15 - 15: friend, static, destructor</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-16-Inherence.html'">
+      <span>Part 16 - 16: Inherence(상속)</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-17-Static-binding-Dynamic-Binding-Header-file.html'">
+      <span>Part 17 - 17: Static Binding, Dynamic Binding, Header File</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-18-Generic-Programming.html'">
+      <span>Part 18 - 18: Generic Programming, Template</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-19-List-container.html'">
+      <span>Part 19 - 19: List Container</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-20-Iterator.html'">
+      <span>Part 20 - 20: Iterator (반복자)</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-22-algorithm-library.html'">
+      <span>Part 21 - 21: algorithm Library</span>
+    </li>
+         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-21-functional-lambda.html'">
+      <span>Part 22 - 21: functional, lambda function</span>
+    </li>
+         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-23-Exception-handling.html'">
+      <span>Part 23 - 22: Exception handling</span>
+    </li>
+                                                                                                                                                                                                              
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#what-is-class">What is Class?</a></li>
+  <li><a href="#class-생성-방법">Class 생성 방법</a>
+    <ul>
+      <li><a href="#member-data">Member data</a></li>
+      <li><a href="#member-function">Member function</a></li>
+      <li><a href="#private-public">Private, public</a></li>
+      <li><a href="#constructor">Constructor</a></li>
+    </ul>
+  </li>
+  <li><a href="#example">Example</a>
+    <ul>
+      <li><a href="#example-1">Example 1</a></li>
+      <li><a href="#example-2">Example 2</a></li>
+      <li><a href="#example-3">Example 3</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <h1 id="what-is-class">What is Class?</h1>
+
+<blockquote>
+  <p>설계도.</p>
+</blockquote>
+
+<p>우리는 클래스라는 개념을 왜 도입했을까? C++에서 함수가 태어나게 된 이유도 분리해서 관리하기 위함이었다.</p>
+
+<p>그런데 함수로 계속해서 나눠서 하는데 한계가 찾아온 것! 함수에 들어가는 입출 파라미터가 특정 데이터 타입에 연관되어 필요하다는 사실을 알아냈다.</p>
+
+<p>실제로 우리가 어떤 물건을 생각해 보면, 해당 물건(객체)는 물건의 용도에 따라 할 수 있는 행동(method)가 정해져 있다. 따라서 우리는 어떤 객체인지를 밝히고, 그 객체가 할 수 있는 함수를 정의해 놓는 것이 보다 실제적인 접근이다. 이 때 <strong>클래스</strong> 의 개념은 신이 무언가를 만들때 어떻게 만들지 생각해놓은 <strong>설계도</strong> 라 생각하면 된다.</p>
+
+<p><img width="50%" alt="스크린샷 2019-04-19 오전 12 25 46" src="https://user-images.githubusercontent.com/37871541/56372300-b0c6fe80-6239-11e9-98e0-259937987157.png" class="center" /><em>Class, object, instance</em></p>
+
+<h1 id="class-생성-방법">Class 생성 방법</h1>
+
+<h2 id="member-data">Member data</h2>
+
+<p>실제 세상에 비유하면 물체를 만드는 행위에 해당한다. 해당 클래스를 선언할 때, 기본으로 어떤 값을 가지고서 동작을 할 것인지 정의한다.</p>
+
+<h2 id="member-function">Member function</h2>
+
+<p>물체에 대한 행동을 정의하는 부분이다. 함수를 선언하듯 적어주면 된다.</p>
+
+<h2 id="private-public">Private, public</h2>
+
+<p>클래스를 만드는 행위는, 특정 물체에 대해 설계도를 만드는 것과 동일하므로, 사용자 지향적이어야 한다.</p>
+
+<p>예를 들어 리모컨을 설계한다고 했을 때, 사용자는 입력 신호와 출력 결과물만 알면 되지, 그 중간에 작용하는 다른 변수에 대해 제어할 필요가 없다.</p>
+
+<p>따라서 클래스를 만드는 설계자 입장에서 클래스 내에서만 작동하는 <code class="language-plaintext highlighter-rouge">private</code> 구간과 클래스 밖에서 접근가능한 <code class="language-plaintext highlighter-rouge">public</code> 구간으로 나눠관리할 필요가 있다.</p>
+
+<h2 id="constructor">Constructor</h2>
+
+<p>우리가 물건을 떠올리면, 다른 물건들이 세상에는 존재하지만 공통점을 가진다. 예를 들어 리모컨이라 한다면, 보통 10개 정도의 숫자버튼과, 전원버튼 정도가 기본적으로 달려있는 모습을 떠올릴 것이다. 이와 마찬가지로, 사용자가 특정 객체를 사용할 때, <strong>기본적으로 가져야 하는 값</strong>이 존재한다. 그래서 우리는 이걸 설정할 수 있게, 혹은 기본값을 가질 수 있게 만들어 주어야 한다. 이것을 <strong>생성자</strong> 라 한다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">Public</code> 밑에 선언을 하고 사용하는데, 이 때 일반적인 함수의 모양과 다르게 <code class="language-plaintext highlighter-rouge">Output</code> 이 없다. 또한, 사용하는 문법이 조금 다르다. 기억해 둘 필요가 있다.</p>
+
+<h1 id="example">Example</h1>
+
+<h2 id="example-1">Example 1</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
+
+<span class="c1">// 클래스를 구성하고 있는 변수를 Member variable 이라 한다.</span>
+
+<span class="nl">private:</span>    <span class="c1">// x, y 변수는 내부에서만 사용되고, 함수로 이 변수를 제어하는 방향으로 코딩하는 것이 좋음.</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>  <span class="c1">// 클래스 내부에서만 사용가능</span>
+    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+
+<span class="c1">// 클래스를 구성하고 있는 함수를 Member Function(Method) 이라 한다.</span>
+<span class="nl">public:</span>     <span class="c1">// 클래스 외부에서도 사용가능</span>
+
+    <span class="kt">void</span> <span class="n">setXY</span><span class="p">(</span><span class="kt">int</span> <span class="n">_x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_y</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">_x</span><span class="p">;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">_y</span><span class="p">;</span>
+    <span class="p">}</span>							<span class="c1">// pt1.x = 1 과 같이 직접적으로 접근하기보다는 함수로 변경시킨다.</span>
+    							<span class="c1">// 이렇게 함수를 실행해서 값을 할당해준다.</span>
+
+    <span class="kt">int</span> <span class="n">getX</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="p">;}</span>		<span class="c1">// 값을 가져올 때도 이렇게 함수를 만들어서 가져온다.</span>
+    <span class="kt">int</span> <span class="n">getY</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="n">y</span><span class="p">;}</span>
+
+    							<span class="c1">// 출력하는 함수도 새로 만들어준다.</span>
+    <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"("</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="s">")"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="n">Point</span> <span class="n">pt1</span><span class="p">,</span> <span class="n">pt2</span><span class="p">;</span>				<span class="c1">// Point라는 클래스로 부터 객체 2개를 만든다.</span>
+<span class="c1">//    pt1.x = 1;				// x, y를 public 에서 선언했다면 실행가능한 코드이다.</span>
+<span class="c1">//    pt1.y = 2;</span>
+
+    <span class="n">pt1</span><span class="p">.</span><span class="n">setXY</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>			<span class="c1">// 생성된 객체 pt1의 값을 할당한다.</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span>  <span class="n">pt1</span><span class="p">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>		<span class="c1">// pt1의 x값을 가져와서 출력한다.</span>
+
+<span class="c1">//    cout &lt;&lt; pt1.x &lt;&lt; ", " &lt;&lt; pt1.y &lt;&lt;endl;		// public 으로 선언했다면 가능한 코드</span>
+    <span class="n">pt1</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>						<span class="c1">// pt1 값을 출력해라</span>
+    <span class="n">pt2</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+
+    <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">pt1</span><span class="p">.</span><span class="n">getX</span><span class="p">();</span>				<span class="c1">// 값을 할당하는 방법</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">temp</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="example-2">Example 2</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Account</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">balance</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="c1">// constructor</span>
+    <span class="c1">// 생성자의 이름은 class의 이름과 같다.</span>
+    <span class="c1">// output이 없다.</span>
+    <span class="c1">// 초기화를 담당하는 함수 (생성자)</span>
+
+    <span class="c1">// 아무 것도 입력이 안되었을 때 초기값</span>
+    <span class="n">Account</span><span class="p">()</span><span class="o">:</span>
+    	<span class="n">name</span><span class="p">(</span><span class="s">"초기값이름"</span><span class="p">),</span> <span class="n">id</span><span class="p">(</span><span class="mo">0000</span><span class="p">),</span> <span class="n">balance</span><span class="p">(</span><span class="mi">0</span><span class="p">){</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 사용자가 하고 싶은 초기값을 설정하고 싶을 때,</span>
+    <span class="n">Account</span><span class="p">(</span><span class="n">string</span> <span class="n">_name</span><span class="p">,</span> <span class="n">string</span> <span class="n">_id</span><span class="p">,</span> <span class="kt">double</span> <span class="n">_bal</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">name</span><span class="p">(</span><span class="n">_name</span><span class="p">),</span> <span class="n">id</span><span class="p">(</span><span class="n">_id</span><span class="p">),</span> <span class="n">balance</span><span class="p">(</span><span class="n">_bal</span><span class="p">){</span>
+
+            <span class="c1">// 초기화가 진행될 때 동작되는 함수가 들어가는 공간</span>
+            <span class="c1">// 마이너스 통장하는 게 아니므로 잔고가 음수면 오류를 발생시킨다.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+                <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Error, negatice balance"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+                <span class="n">balance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="c1">// Method</span>
+
+    <span class="c1">// 예금할 때,</span>
+    <span class="kt">void</span> <span class="n">deposit</span><span class="p">(</span><span class="kt">int</span> <span class="n">_amt</span><span class="p">){</span>
+        <span class="n">balance</span> <span class="o">+=</span> <span class="n">_amt</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 출금할 때, 잔고보다 출금금액이 많으면 false를 반환</span>
+    <span class="kt">bool</span> <span class="n">withdraw</span><span class="p">(</span><span class="kt">int</span> <span class="n">_amt</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">_amt</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="c1">// 출금이 가능하면 잔고에서 값을 빼고 true 반환</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">balance</span> <span class="o">-=</span> <span class="n">_amt</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">print</span><span class="p">(){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="n">setw</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">id</span> <span class="o">&lt;&lt;</span>  <span class="n">setw</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">balance</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">};</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="n">Account</span> <span class="n">ac1</span><span class="p">(</span><span class="s">"최완식"</span><span class="p">,</span> <span class="s">"0316"</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+    <span class="n">ac1</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+
+    <span class="n">ac1</span><span class="p">.</span><span class="n">deposit</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+    <span class="n">ac1</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+
+<span class="c1">//    ac1.withdraw(3000);</span>
+<span class="c1">//    ac1.print();</span>
+
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">ac1</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">10000</span><span class="p">))</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"잔액 부족"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">ac1</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+
+
+    <span class="n">ac1</span><span class="p">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+    <span class="n">ac1</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="example-3">Example 3</h2>
+
+<p>사용자의 계좌정보를 기억하고, 이름별, 아이디별, 잔고별 정렬을 해서 출력해주는 프로그램을 만들어보자. 먼저 설명이 적힌 코드부터 보고 가자.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Account</span><span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">balance</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">add_account</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;&amp;</span> <span class="n">accts</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">amount</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter name, account number, and account balance: "</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">name</span> <span class="o">&gt;&gt;</span> <span class="n">number</span> <span class="o">&gt;&gt;</span> <span class="n">amount</span><span class="p">;</span>
+    <span class="n">Account</span> <span class="n">acct</span><span class="p">;</span>
+
+    <span class="n">acct</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">acct</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">number</span><span class="p">;</span>
+    <span class="n">acct</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">amount</span><span class="p">;</span>
+    <span class="n">accts</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">acct</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">print_accounts</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;&amp;</span> <span class="n">accts</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">accts</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">accts</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">accts</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">accts</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">balance</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">Account</span><span class="o">&amp;</span> <span class="n">er1</span><span class="p">,</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">er2</span><span class="p">){</span>
+    <span class="n">Account</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">er1</span><span class="p">;</span>
+    <span class="n">er1</span> <span class="o">=</span> <span class="n">er2</span><span class="p">;</span>
+    <span class="n">er2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="nf">less_than_by_name</span><span class="p">(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;</span> <span class="n">e2</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">bool</span> <span class="nf">less_than_by_id</span><span class="p">(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="p">.</span><span class="n">id</span> <span class="o">&lt;</span> <span class="n">e2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">bool</span> <span class="nf">less_than_by_balance</span><span class="p">(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="p">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">e2</span><span class="p">.</span><span class="n">balance</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;&amp;</span> <span class="n">db</span><span class="p">,</span> <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">comp</span><span class="p">)(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span><span class="p">)){</span>
+    <span class="c1">// 참조변수 db로 vector를 가져오고,</span>
+    <span class="c1">// comp라고 부를 특정 함수의 시작주소를 bool 포인터 변수에 담는다.</span>
+    <span class="c1">// 그리고 그 시작주소에 있는 함수는</span>
+    <span class="c1">// Account 자료형을 가지는 변수를 참조해서 가져온 녀석 두개를 입력 파라미터로 받는다.</span>
+
+    <span class="c1">// db의 총 사이즈를 담아 둔다. 벡터이므로 unsigned int로 받아주어야 한다.</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">db</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+    <span class="c1">// 10 크기인 배열이라면, 0~8까지 i는 움직인다.</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="c1">// 그리고 해당 인덱스가 가장 작은 값이라 가정한다.</span>
+        <span class="kt">int</span> <span class="n">smallest</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="c1">// i의 다음 번째부터 끝까지 하나씩 비교한다.</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">comp</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">db</span><span class="p">[</span><span class="n">smallest</span><span class="p">]))</span>
+                <span class="c1">// 비교는 사용자가 어떤 파라미터를 기준으로 비교함에 따라서 달라져야 한다.</span>
+                <span class="c1">// 여기서 함수포인터를 입력 파라미터로 받은 것이 효과를 발휘한다.</span>
+                <span class="c1">// 특정 함수에 대해서 가장 작을 것이라고 생각했던 smallest 인덱스의 값과</span>
+                <span class="c1">// 현재 j인덱스의 값을 비교한다.</span>
+                <span class="c1">// comp의 후보가 될 수 있는 함수들</span>
+                <span class="c1">// (less_than_by_name, less_than_by_id, less_than_by_balance)</span>
+                <span class="c1">// 의 리턴 값은 모두 boolian 이다.</span>
+                <span class="c1">// 그리고 두번째 파라미터 값이 클 때, True 이다.</span>
+                <span class="c1">// 따라서 이 if 문이 실행되기 위해서는 내가 작다고 가정한 smallest 인덱스가</span>
+                <span class="c1">// j 인덱스 보다 클 때 실행되며, 우리는 smallest 인덱스가 j가 되어야 함을 알 수 있다.</span>
+                <span class="n">smallest</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        	<span class="c1">// 나머지 경우는 smallest 인덱스가 여전히 가장 작은 값을 가지므로 내비두면 된다.</span>
+
+        <span class="c1">// 만약에 위의 조건문이 실행되었다면</span>
+        <span class="c1">// smallest가 이전의 인덱스와 달라졌을 것이다.</span>
+        <span class="c1">// 이때 우리는 실제 i 인텍스에서와 smallest 인덱스의 값을 바꿔줘야 한다.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">smallest</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">swap</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">db</span><span class="p">[</span><span class="n">smallest</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="c1">// 자료형이 Account 클래스인 벡터를 선언하고 이것의 이름을 customers라 하자.</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="n">customers</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="n">cmd</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">done</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="k">do</span><span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"[A]dd [N]ame [I]D [B]alanc [Q]uit ==&gt; "</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">cmd</span><span class="p">;</span>
+
+        <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">){</span>
+            <span class="k">case</span> <span class="sc">'A'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'a'</span><span class="p">:</span>
+                <span class="n">add_account</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'P'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'p'</span><span class="p">:</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+
+            <span class="c1">// 함수이름이 포인터이므로 함수이름자체를 넘겨준다.</span>
+            <span class="k">case</span> <span class="sc">'N'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'n'</span><span class="p">:</span>
+                <span class="n">sort</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">less_than_by_name</span><span class="p">);</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'I'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'i'</span><span class="p">:</span>
+                <span class="n">sort</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">less_than_by_id</span><span class="p">);</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'B'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'b'</span><span class="p">:</span>
+                <span class="n">sort</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">less_than_by_balance</span><span class="p">);</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'Q'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'q'</span><span class="p">:</span>
+                <span class="n">done</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">done</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>이제 설명이 없는 코드이다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Account</span><span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">balance</span><span class="p">;</span>
+
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">add_account</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;&amp;</span> <span class="n">accts</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">amount</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Enter name, account number, and account balance: "</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">name</span> <span class="o">&gt;&gt;</span> <span class="n">number</span> <span class="o">&gt;&gt;</span> <span class="n">amount</span><span class="p">;</span>
+    <span class="n">Account</span> <span class="n">acct</span><span class="p">;</span>
+    <span class="n">acct</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+    <span class="n">acct</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">number</span><span class="p">;</span>
+    <span class="n">acct</span><span class="p">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">amount</span><span class="p">;</span>
+    <span class="n">accts</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">acct</span><span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">print_accounts</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;&amp;</span> <span class="n">accts</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">accts</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">accts</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">accts</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">accts</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">balance</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">Account</span><span class="o">&amp;</span> <span class="n">er1</span><span class="p">,</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">er2</span><span class="p">){</span>
+    <span class="n">Account</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">er1</span><span class="p">;</span>
+    <span class="n">er1</span> <span class="o">=</span> <span class="n">er2</span><span class="p">;</span>
+    <span class="n">er2</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="nf">less_than_by_name</span><span class="p">(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="p">.</span><span class="n">name</span> <span class="o">&lt;</span> <span class="n">e2</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">bool</span> <span class="nf">less_than_by_id</span><span class="p">(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="p">.</span><span class="n">id</span> <span class="o">&lt;</span> <span class="n">e2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">bool</span> <span class="nf">less_than_by_balance</span><span class="p">(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="p">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">e2</span><span class="p">.</span><span class="n">balance</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">sort</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;&amp;</span> <span class="n">db</span><span class="p">,</span> <span class="kt">bool</span> <span class="p">(</span><span class="o">*</span><span class="n">comp</span><span class="p">)(</span><span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">Account</span><span class="o">&amp;</span><span class="p">)){</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">db</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">smallest</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">comp</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">db</span><span class="p">[</span><span class="n">smallest</span><span class="p">]))</span>
+                <span class="n">smallest</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">smallest</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">swap</span><span class="p">(</span><span class="n">db</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">db</span><span class="p">[</span><span class="n">smallest</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Account</span><span class="o">&gt;</span> <span class="n">customers</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="n">cmd</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">done</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="k">do</span><span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"[A]dd [N]ame [I]D [B]alanc [Q]uit ==&gt; "</span><span class="p">;</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">cmd</span><span class="p">;</span>
+
+        <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">){</span>
+            <span class="k">case</span> <span class="sc">'A'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'a'</span><span class="p">:</span>
+                <span class="n">add_account</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'P'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'p'</span><span class="p">:</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'N'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'n'</span><span class="p">:</span>
+                <span class="n">sort</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">less_than_by_name</span><span class="p">);</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'I'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'i'</span><span class="p">:</span>
+                <span class="n">sort</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">less_than_by_id</span><span class="p">);</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'B'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'b'</span><span class="p">:</span>
+                <span class="n">sort</span><span class="p">(</span><span class="n">customers</span><span class="p">,</span> <span class="n">less_than_by_balance</span><span class="p">);</span>
+                <span class="n">print_accounts</span><span class="p">(</span><span class="n">customers</span><span class="p">);</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'Q'</span><span class="p">:</span>
+            <span class="k">case</span> <span class="sc">'q'</span><span class="p">:</span>
+                <span class="n">done</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">done</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#c%2B%2B"
+      >#c++</a
+    >
+    
+    <a class="tag" href="/tags#OOP"
+      >#OOP</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-12-Array-Vector.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/dv/c++/2020/09/28/OOP-12-Array-Vector.html">
+                  12: Array, Vector (정적배열, 동적배열)
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html';">
+              <p>NEXT SERIES</p>
+              <a href="/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html">
+                14: this, operator overloading
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

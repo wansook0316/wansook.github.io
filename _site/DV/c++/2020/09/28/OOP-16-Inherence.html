@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    16: Inherence(상속) | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="전체적인 구조"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/dv/c++/2020/09/28/OOP-16-Inherence.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/2.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">16: Inherence(상속)</h1>
+      
+      <p class="meta">
+        DV/C++  : Object Oriented Programming 
+      </p>
+      <p class="meta">
+        September 28, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Object Oriented Programming</em></b> 시리즈
+    <b><em>23</em></b> 편 중 <b><em>16</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-01-Introduction.html'">
+      <span>Part 1 - 01: Introduction</span>
+    </li>
+                                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-02-Identifier-Variable-constant-Std-IO-Operator.html'">
+      <span>Part 2 - 02: Identifier, Variable, constant, Std IO, Operator</span>
+    </li>
+                                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-03-Function-1.html'">
+      <span>Part 3 - 03: Functions #1 - Calling (호출)</span>
+    </li>
+                                 
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-04-Function-2.html'">
+      <span>Part 4 - 04: Functions #2 - Local, Global Variable</span>
+    </li>
+                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-05-Function-3.html'">
+      <span>Part 5 - 05: Functions #3 - Recursion Function, Reference Variable (재귀함수)</span>
+    </li>
+                             
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-06-Function-4.html'">
+      <span>Part 6 - 06: Functions #4 - Reference Variable vs. Pointer</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-07-Function-5.html'">
+      <span>Part 7 - 07: Functions #5 - CallbyValue, CallbyReference</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-08-Selection-Repetition.html'">
+      <span>Part 8 - 08: Selection and Repetition</span>
+    </li>
+                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-09-File-Input-Output.html'">
+      <span>Part 9 - 09: File Input & Output (파일입출력)</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-10-rand-srand.html'">
+      <span>Part 10 - 10: String library, rand(), srand()</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-11-pointer-function-pointer.html'">
+      <span>Part 11 - 11: Pointer, Function Pointer</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-12-Array-Vector.html'">
+      <span>Part 12 - 12: Array, Vector (정적배열, 동적배열)</span>
+    </li>
+                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-13-class-object.html'">
+      <span>Part 13 - 13: class, object</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html'">
+      <span>Part 14 - 14: this, operator overloading</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html'">
+      <span>Part 15 - 15: friend, static, destructor</span>
+    </li>
+           
+    <li class="current">
+      <span>Part 16 - This Post</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-17-Static-binding-Dynamic-Binding-Header-file.html'">
+      <span>Part 17 - 17: Static Binding, Dynamic Binding, Header File</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-18-Generic-Programming.html'">
+      <span>Part 18 - 18: Generic Programming, Template</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-19-List-container.html'">
+      <span>Part 19 - 19: List Container</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-20-Iterator.html'">
+      <span>Part 20 - 20: Iterator (반복자)</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-22-algorithm-library.html'">
+      <span>Part 21 - 21: algorithm Library</span>
+    </li>
+         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-21-functional-lambda.html'">
+      <span>Part 22 - 21: functional, lambda function</span>
+    </li>
+         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-23-Exception-handling.html'">
+      <span>Part 23 - 22: Exception handling</span>
+    </li>
+                                                                                                                                                                                                              
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#전체적인-구조">전체적인 구조</a></li>
+  <li><a href="#상속이-필요한-이유">상속이 필요한 이유</a></li>
+  <li><a href="#base-와-derived-간-상속관계">Base 와 Derived 간 상속관계</a>
+    <ul>
+      <li><a href="#summary">Summary</a></li>
+    </ul>
+  </li>
+  <li><a href="#example-1">Example 1</a></li>
+  <li><a href="#initialize-list의-중요성">Initialize List의 중요성</a>
+    <ul>
+      <li><a href="#example">Example</a></li>
+    </ul>
+  </li>
+  <li><a href="#function-overloading">function overloading</a></li>
+  <li><a href="#function-overriding">function overriding</a></li>
+  <li><a href="#virtual-override">Virtual, override</a></li>
+  <li><a href="#소스코드-총-정리">소스코드 총 정리</a></li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <h1 id="전체적인-구조">전체적인 구조</h1>
+
+<p><img width="50%" alt="스크린샷 2019-05-04 오후 1 44 24" src="https://user-images.githubusercontent.com/37871541/57174021-bdbb3300-6e72-11e9-9ce1-221f1ef3c442.png" class="center" /><em>한번에 이해하기</em></p>
+
+<h1 id="상속이-필요한-이유">상속이 필요한 이유</h1>
+
+<p>상속은 매우 유용하다. 이전에 클래스를 다뤘던 글을 다시 기억해보자. <a href="https://wansook0316.github.io/dv/c++/2020/09/28/OOP-13-class-object.html">13: class, object</a></p>
+
+<p>우리가 클래스를 사용하는 이유는, 쉽게 말해, 어떤 물체를 정의해서 사용하는 것이 더 합리적이라는 판단이 들어서이다. 함수만 가지고서 무언가를 만들기 보다는, 내가 물건을 정의하고 그 물건들을 실제로 만든뒤, 물건들로 다른 활동을 하는 것이 보다 쉽기 때문이다.</p>
+
+<p>이전에 사용했던 사진을 다시 사용해보면,</p>
+
+<p><img width="50%" alt="스크린샷 2019-05-04 오후 1 48 05" src="https://user-images.githubusercontent.com/37871541/57174047-41751f80-6e73-11e9-8a05-8f562b7a8042.png" class="center" /><em>class, object, instance</em></p>
+
+<p>간단하게 이렇게 정의할 수 있다. 물체를 정의하기 위해 만들어진 것이 <strong>클래스</strong>, 그 클래스를 기반으로 만들어질 대상이 <strong>객체</strong>, 실제로 만들어져 구체화 된 물체를 <strong>인스턴스</strong>라 부른다.</p>
+
+<p>그럼, 상속의 개념은 왜 필요할까? 위의 클래스 예시에서 리모컨 설계도는 굉장히 다양할 수 있다. TV 리모컨, 차 리모컨, 에어컨 리모컨,, 이렇게 다양한 리모컨이 있지만, 이녀석을 세상에 존재하는 하나의 물건(인스턴스)로 구현하기 위해서는, 각자에 맞는 설계도(Class)가 따로 필요하다. 하지만 이녀석들이 가지는 근본적인 특성은 모두 동일하다.</p>
+
+<p>이 설계도(Class)를 만들 때 있어서 보다 큰 집합 개념을 도입하면 어떨까? 더 큰 클래스에서 가지는 특성을 변형해서 다른 클래스를 만들면 어떨까? 이것이 바로 <strong>상속</strong> 이다.</p>
+
+<p><img width="50%" alt="스크린샷 2019-05-04 오후 2 00 41" src="https://user-images.githubusercontent.com/37871541/57174165-04aa2800-6e75-11e9-9dcb-5b5601d8d5f6.png" class="center" /><em>상속의 필요성</em></p>
+
+<p>이렇게 부모 클래스로 부터 파생된 다른 녀석들을 만들어 가져다 쓸 수 있다. 따라서 부모클래스는 자식클래스의 내용을 반드시 가질 수 밖에 없다. 그렇기 때문에 부모 클래스가 (A) 이고, 부모클래스로 부터 만들어진 파생 클래스가 (A’) 라 했을 때, 각각의 클래스로 부터 만들어진 객체가 (a, a’)이라 하면, 할당이 가능한 방법은 하나뿐이다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="err">'</span><span class="p">;</span>		<span class="c1">// 가능</span>
+<span class="n">a</span><span class="err">'</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>		<span class="c1">// 불가능</span>
+</code></pre></div></div>
+
+<p>이렇게 부모는 자식의 내용을 일부 가지고 있기 때문에 없는 변수나, 함수에 관해서는 무시하고 있는 값만 할당 받으면 되지만, <strong>자식 객체에 부모 객체를 할당 할 수 없다.</strong> 자식 객체가 가지는 변수는 부모객체가 가지고 있지 않기 때문에 어떤 값을 할당 받아야하는지 모호해지기 때문이다.</p>
+
+<h1 id="base-와-derived-간-상속관계">Base 와 Derived 간 상속관계</h1>
+
+<p><img width="50%" alt="스크린샷 2019-05-02 오후 12 07 22" src="https://user-images.githubusercontent.com/37871541/57054959-db519680-6cd2-11e9-92fa-2d3900aa1d38.png" class="center" /><em>상속 Type과 속성</em></p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li><strong>Base : Private</strong> -&gt; 사용 불가</li>
+  <li><strong>Base : Protected</strong> -&gt; Private</li>
+  <li><strong>Base : Public</strong> -&gt; 상속 타입에 따라 변화!</li>
+</ul>
+
+<h1 id="example-1">Example 1</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">#include &lt;iostream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">print_base</span><span class="p">()</span> <span class="p">{</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Base"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Base</span><span class="p">{</span> <span class="c1">// Base를 Private으로 받으니,</span>
+    						  <span class="c1">// 이 클래스 내에서는 모두 Private으로 받는다.</span>
+<span class="c1">// 따라서 지금은 적혀 있지 않지만, 이 클래스의 private는 Base 클래스가</span>
+<span class="c1">// 가지는 public내의 변수와 함수를 갖는다.</span>
+
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">print_derived</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Base</span><span class="o">::</span><span class="n">print_base</span><span class="p">();</span>	<span class="c1">// 그렇기 때문에 여기서 Base 클래스의 함수를 사용할 수 있다.</span>
+        					<span class="c1">// private이니까!</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Derived"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="n">Base</span> <span class="n">base</span><span class="p">;</span>
+    <span class="n">Derived</span> <span class="n">derived</span><span class="p">;</span>
+
+    <span class="n">base</span><span class="p">.</span><span class="n">print_base</span><span class="p">();</span>
+    <span class="c1">//derived.print_base();  이 부분은 에러가 뜬다.</span>
+    					 <span class="c1">//	Derived 클래스에서는 print_base 함수가 Private 이다.</span>
+    <span class="n">derived</span><span class="p">.</span><span class="n">print_derived</span><span class="p">();</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output
+Base
+Base
+Derived
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<h1 id="initialize-list의-중요성">Initialize List의 중요성</h1>
+
+<p>지금까지 위에서 클래스를 상속하는데 있어, 기존 클래스에서 정의된 속성과, 파생 클래스에서 어떤 방식으로 상속을 받는지에 따라 사용할 수 있는 범위가 제한됨을 배웠다.</p>
+
+<p>그런데 보통 우리는 클래스를 작성할 때, <strong>Private에 이 클래스가 가지는 변수들을 정의</strong>하여 사용한다. 그렇기 때문에 내가 파생클래스를 작성 할때, 상속 속성을 <strong>Public</strong> 으로 준다고 하더라도, Private에 작성된 녀석은 사용할 수가 없다. 따라서 내가 만든 파생 변수가 기존의 클래스를 따와서 <strong>같은 변수들을 넣어줘야 함에도 그 변수에 접근할 수가 없다</strong> 는 문제가 발생한다.</p>
+
+<p>이 때, Initialize List가 중요한 이유가 나온다. 예제를 통해 알아보자.</p>
+
+<h2 id="example">Example</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">// 부모 클래스의 생성자를 Public에 정의했다.</span>
+<span class="k">class</span> <span class="nc">Text</span><span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">string</span> <span class="n">text</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">string</span> <span class="n">_t</span><span class="p">)</span> <span class="o">:</span> <span class="n">text</span><span class="p">(</span><span class="n">_t</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="c1">// 파생 클래스에서는 부모 클래스를 받아, 추가적인 기능을 구현하도록 한다.</span>
+<span class="c1">// 이 때 부모클래스의 Private는 파생클래스에서 직접적으로 사용할 수 없다.</span>
+<span class="k">class</span> <span class="nc">FancyText</span><span class="o">:</span> <span class="k">public</span> <span class="n">Text</span><span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="c1">// string text; 이 변수는 파생클래스에서 직접적으로 사용할 수는 없다.</span>
+    <span class="c1">// 하지만 상속 받았기 때문에 이 변수는 파생 클래스에서도 중요한 역할을 할 것이다.</span>
+    <span class="c1">// 그렇다면 파생 클래스를 선언할 때, 이 변수를 어떻게 받을 수 있을까?</span>
+    <span class="n">string</span> <span class="n">left_brac</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">right_brac</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">connector</span><span class="p">;</span>
+
+<span class="nl">public:</span>
+    <span class="c1">// 정답은 파생 클래스에서 생성자를 호출할 때, Initialize list를 사용하면 되는데,</span>
+    <span class="c1">// 사용자로 부터 초기값을 받을때, 그 값을 initialize list의 인자로 넘겨준다.</span>
+    <span class="c1">// 위의 부모 클래스의 생성자를 보게되면, Public으로 선언되었기 때문에,</span>
+    <span class="c1">// 파생 클래스에서 이 생성자를 가져다가 사용할 수 있다!!</span>
+    <span class="n">FancyText</span><span class="p">(</span><span class="n">string</span> <span class="n">_t</span><span class="p">,</span> <span class="n">string</span> <span class="n">_lb</span><span class="p">,</span> <span class="n">string</span> <span class="n">_rb</span><span class="p">,</span> <span class="n">string</span> <span class="n">_con</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">Text</span><span class="o">::</span><span class="n">Text</span><span class="p">(</span><span class="n">_t</span><span class="p">),</span> <span class="n">left_brac</span><span class="p">(</span><span class="n">_lb</span><span class="p">),</span> <span class="n">right_brac</span><span class="p">(</span><span class="n">_rb</span><span class="p">),</span> <span class="n">connector</span><span class="p">(</span><span class="n">_con</span><span class="p">){</span>
+    <span class="p">}</span>
+    <span class="c1">// Text::Text(_t) 이 부분이 부모클래스의 생성자를 호출한 부분이다.</span>
+    <span class="c1">// 따라서 우리는 private로 선언되어 있는 부모클래스의 속성 부분을</span>
+    <span class="c1">// 간접적으로 생성자를 호출함으로써 초기화에 성공했다.</span>
+<span class="p">};</span>
+
+
+<span class="k">class</span> <span class="nc">FixedText</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Text</span><span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="n">FixedText</span><span class="p">()</span> <span class="o">:</span> <span class="n">Text</span><span class="o">::</span><span class="n">Text</span><span class="p">(</span><span class="s">"FIXED"</span><span class="p">){}</span>
+    <span class="c1">// 생성자를 호출할 수 있게 해준다는 것이 initialize list의 엄청난 장점!!!!</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h1 id="function-overloading">function overloading</h1>
+
+<p>이름만 같은 함수를 의미한다. 입력 파라미터의 자료형, 입력 파라미터의 갯수, 출력파라미터의 자료형 등, 아무 상관이 없다. 하지만 함수 이름을 동일하게 작성했기 때문에 아마도 본질적으로 수행하는 내용은 동일 할 것이다. 따라서, 함수 오버로딩은, <strong>하는 행동, 본질(A)이 동일한 녀석</strong> 이라고 생각하면 된다. 결국 같은 이름의 다른 함수들이 <strong>쌓이</strong> 고 있기 때문에 우리는 <strong>function overloading</strong> 이라 한다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span>    <span class="n">sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">),</span>
+<span class="kt">double</span> <span class="n">sum</span><span class="p">(</span><span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="kt">double</span> <span class="n">y</span><span class="p">)</span>
+<span class="kt">float</span>  <span class="n">sum</span><span class="p">(</span><span class="kt">float</span> <span class="n">x</span><span class="p">,</span> <span class="kt">float</span> <span class="n">y</span><span class="p">,</span> <span class="kt">float</span> <span class="n">z</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="function-overriding">function overriding</h1>
+
+<p>함수 오버라이딩은 상속의 특수한 경우에 해당되는데, base 클래스의 함수로 부터 상속받아 구체적이거나, 혹은 이 클래스에 맞는 방식으로 함수를 재정의 할 때 사용한다.</p>
+
+<p>즉, <strong>같은 이름, 또 같은 입력파라미터</strong>를 받으나, 함수내의 작동에 있어서 함수 오버로딩 처럼 (A)의 본질을 따르기 보다는, <strong>A’ 혹은 B</strong> 와 같이 변경이 있을 수 있다. 상속을 받아 이녀석의 내용을 변경하고 있으므로, 원래 클래스의 함수에 내가 원하는 내용을 <strong>추가 혹은 올라타</strong> 고 있다. 따라서 <strong>function overloading</strong> 이다.</p>
+
+<h1 id="virtual-override">Virtual, override</h1>
+
+<p>우리는 함수 오버로딩을 할때, 부모 클래스로 부터 자식 클래스로 갈때, 변경될 수 있다는 것을 명시해주기 위해 <strong><em>Virtual</em></strong> 이라는 단어를 명시해주고, 또 자식클래스에서는 부모클래스로 부터 받았다는 것을 알려주기 위해 <strong><em>override</em></strong> 라는 단어를 사용한다.</p>
+
+<p>사실 프로그램을 구동하는데는 문제가 없지만,</p>
+
+<ol>
+  <li>유지보수</li>
+  <li>Polymorphism (다형성)</li>
+</ol>
+
+<p>을 위해 필수적이니 명시적으로 작성해주는 것을 습관들이자.</p>
+
+<h1 id="소스코드-총-정리">소스코드 총 정리</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Text</span><span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">string</span> <span class="n">text</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">string</span> <span class="n">_t</span><span class="p">)</span> <span class="o">:</span> <span class="n">text</span><span class="p">(</span><span class="n">_t</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="c1">// 이 함수는 가상이며, 파생클래스에서 구체화 될것을 명시한다.</span>
+    <span class="k">virtual</span> <span class="n">string</span> <span class="n">get</span><span class="p">(){</span> <span class="k">return</span> <span class="n">text</span><span class="p">;}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">append</span><span class="p">(</span><span class="n">string</span> <span class="n">_extra</span><span class="p">)</span> <span class="p">{</span><span class="n">text</span> <span class="o">+=</span> <span class="n">_extra</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">FancyText</span><span class="o">:</span> <span class="k">public</span> <span class="n">Text</span><span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">string</span> <span class="n">left_brac</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">right_brac</span><span class="p">;</span>
+    <span class="n">string</span> <span class="n">connector</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">FancyText</span><span class="p">(</span><span class="n">string</span> <span class="n">_t</span><span class="p">,</span> <span class="n">string</span> <span class="n">_lb</span><span class="p">,</span> <span class="n">string</span> <span class="n">_rb</span><span class="p">,</span> <span class="n">string</span> <span class="n">_con</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">Text</span><span class="o">::</span><span class="n">Text</span><span class="p">(</span><span class="n">_t</span><span class="p">),</span> <span class="n">left_brac</span><span class="p">(</span><span class="n">_lb</span><span class="p">),</span> <span class="n">right_brac</span><span class="p">(</span><span class="n">_rb</span><span class="p">),</span> <span class="n">connector</span><span class="p">(</span><span class="n">_con</span><span class="p">){</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 부모 클래스로 부터 override 된 함수임을 명시해준다.</span>
+    <span class="n">string</span> <span class="n">get</span><span class="p">()</span> <span class="k">override</span> <span class="p">{</span> <span class="k">return</span> <span class="n">left_brac</span> <span class="o">+</span> <span class="n">Text</span><span class="o">::</span><span class="n">get</span><span class="p">()</span> <span class="o">+</span> <span class="n">right_brac</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">append</span><span class="p">(</span><span class="n">string</span> <span class="n">_extra</span><span class="p">)</span> <span class="k">override</span><span class="p">{</span>
+            <span class="n">Text</span><span class="o">::</span><span class="n">append</span><span class="p">(</span><span class="n">connector</span> <span class="o">+</span> <span class="n">_extra</span><span class="p">);</span>
+        <span class="c1">// 이 함수내용을 작성하는데 있어, text = text + connector + _extra;</span>
+        <span class="c1">// 이렇게 쓸 수 없다. 부모클래스의 text는 private로 선언되어 있기 때문이다.</span>
+        <span class="c1">// 그렇기 때문에 우리는 부모클래스에 정의된 public 특성의 함수로 접근해서 작성해야 한다.</span>
+        <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">FixedText</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Text</span><span class="p">{</span>
+
+<span class="nl">public:</span>
+    <span class="n">FixedText</span><span class="p">()</span> <span class="o">:</span> <span class="n">Text</span><span class="o">::</span><span class="n">Text</span><span class="p">(</span><span class="s">"FIXED"</span><span class="p">){}</span>
+    <span class="kt">void</span> <span class="n">append</span><span class="p">(</span><span class="n">string</span> <span class="n">_extra</span><span class="p">)</span> <span class="k">override</span><span class="p">{</span>
+        <span class="c1">// no operation</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="n">Text</span> <span class="n">t1</span><span class="p">(</span><span class="s">"Plain"</span><span class="p">);</span>
+    <span class="n">t1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"A"</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">t1</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+
+    <span class="n">FancyText</span> <span class="n">t2</span><span class="p">(</span><span class="s">"Fancy"</span><span class="p">,</span> <span class="s">"&lt;&lt;"</span><span class="p">,</span> <span class="s">"&gt;&gt;"</span><span class="p">,</span> <span class="s">"***"</span><span class="p">);</span>
+    <span class="n">t2</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"A"</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">t2</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="n">FixedText</span> <span class="n">t3</span><span class="p">;</span>
+    <span class="n">t3</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"A"</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">t3</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+<span class="c1">//    t1 = t2; // 자식 클래스 내용은 부모에 넣을 수 잇음</span>
+<span class="c1">//    t2 = t1;    // 반대는 안댐</span>
+<span class="c1">//    return 0;</span>
+<span class="c1">//}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output
+PlainA
+&lt;&lt;Fancy***A&gt;&gt;
+FIXED
+Program ended with exit code: 0
+</code></pre></div></div>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#c%2B%2B"
+      >#c++</a
+    >
+    
+    <a class="tag" href="/tags#OOP"
+      >#OOP</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html">
+                  15: friend, static, destructor
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-17-Static-binding-Dynamic-Binding-Header-file.html';">
+              <p>NEXT SERIES</p>
+              <a href="/dv/c++/2020/09/28/OOP-17-Static-binding-Dynamic-Binding-Header-file.html">
+                17: Static Binding, Dynamic Binding, Header File
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

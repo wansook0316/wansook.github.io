@@ -71,7 +71,7 @@ C와 같으므로 [링크](https://egg-money.tistory.com/60?category=811216)로 
 
 여러개를 한번에 입력받을 수 있다. 마찬가지로, `namespace` 를 사용하면 다음과 같이 함수를 사용하는데 있어 `std::` 를 쓰지 않고 사용할 수 있다.
 
-```C++
+```c++
     #include <iostream>
 
     using namespace std;

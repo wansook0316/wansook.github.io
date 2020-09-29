@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    22: Exception handling | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="예외 처리"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/dv/c++/2020/09/28/OOP-23-Exception-handling.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/2.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">22: Exception handling</h1>
+      
+      <p class="meta">
+        DV/C++  : Object Oriented Programming 
+      </p>
+      <p class="meta">
+        September 28, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Object Oriented Programming</em></b> 시리즈
+    <b><em>23</em></b> 편 중 <b><em>23</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-01-Introduction.html'">
+      <span>Part 1 - 01: Introduction</span>
+    </li>
+                                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-02-Identifier-Variable-constant-Std-IO-Operator.html'">
+      <span>Part 2 - 02: Identifier, Variable, constant, Std IO, Operator</span>
+    </li>
+                                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-03-Function-1.html'">
+      <span>Part 3 - 03: Functions #1 - Calling (호출)</span>
+    </li>
+                                 
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-04-Function-2.html'">
+      <span>Part 4 - 04: Functions #2 - Local, Global Variable</span>
+    </li>
+                         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-05-Function-3.html'">
+      <span>Part 5 - 05: Functions #3 - Recursion Function, Reference Variable (재귀함수)</span>
+    </li>
+                             
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-06-Function-4.html'">
+      <span>Part 6 - 06: Functions #4 - Reference Variable vs. Pointer</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-07-Function-5.html'">
+      <span>Part 7 - 07: Functions #5 - CallbyValue, CallbyReference</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-08-Selection-Repetition.html'">
+      <span>Part 8 - 08: Selection and Repetition</span>
+    </li>
+                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-09-File-Input-Output.html'">
+      <span>Part 9 - 09: File Input & Output (파일입출력)</span>
+    </li>
+                       
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-10-rand-srand.html'">
+      <span>Part 10 - 10: String library, rand(), srand()</span>
+    </li>
+                   
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-11-pointer-function-pointer.html'">
+      <span>Part 11 - 11: Pointer, Function Pointer</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-12-Array-Vector.html'">
+      <span>Part 12 - 12: Array, Vector (정적배열, 동적배열)</span>
+    </li>
+                     
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-13-class-object.html'">
+      <span>Part 13 - 13: class, object</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html'">
+      <span>Part 14 - 14: this, operator overloading</span>
+    </li>
+               
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html'">
+      <span>Part 15 - 15: friend, static, destructor</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-16-Inherence.html'">
+      <span>Part 16 - 16: Inherence(상속)</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-17-Static-binding-Dynamic-Binding-Header-file.html'">
+      <span>Part 17 - 17: Static Binding, Dynamic Binding, Header File</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-18-Generic-Programming.html'">
+      <span>Part 18 - 18: Generic Programming, Template</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-19-List-container.html'">
+      <span>Part 19 - 19: List Container</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-20-Iterator.html'">
+      <span>Part 20 - 20: Iterator (반복자)</span>
+    </li>
+           
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-22-algorithm-library.html'">
+      <span>Part 21 - 21: algorithm Library</span>
+    </li>
+         
+    <li onclick="location.href='/dv/c++/2020/09/28/OOP-21-functional-lambda.html'">
+      <span>Part 22 - 21: functional, lambda function</span>
+    </li>
+         
+    <li class="current">
+      <span>Part 23 - This Post</span>
+    </li>
+                                                                                                                                                                                                              
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#예외-처리">예외 처리</a></li>
+  <li><a href="#에러-만들기">에러 만들기</a></li>
+  <li><a href="#trycatch">Try/catch</a>
+    <ul>
+      <li><a href="#사용법">사용법</a></li>
+    </ul>
+  </li>
+  <li><a href="#stdexception-class">std::exception class</a>
+    <ul>
+      <li><a href="#member-functions">Member functions</a></li>
+      <li><a href="#vector-container-함수를-사용하는-이유">vector container 함수를 사용하는 이유</a></li>
+    </ul>
+  </li>
+  <li><a href="#클래스에서-예외-처리-구문-만들기">클래스에서 예외 처리 구문 만들기</a>
+    <ul>
+      <li><a href="#예외-처리가-필요한-함수-만들기">예외 처리가 필요한 함수 만들기</a></li>
+      <li><a href="#throw-구문">throw 구문</a></li>
+      <li><a href="#예외-처리-클래스-만들기">예외 처리 클래스 만들기</a></li>
+      <li><a href="#main-에서-trycatch-구문">main 에서 try/catch 구문</a></li>
+      <li><a href="#전체-코드">전체 코드</a></li>
+    </ul>
+  </li>
+  <li><a href="#trycatch-구문의-작동-방식">try/catch 구문의 작동 방식</a>
+    <ul>
+      <li><a href="#findint-nearest-catch-statement">Findint Nearest catch Statement</a></li>
+      <li><a href="#예제">예제</a></li>
+    </ul>
+  </li>
+  <li><a href="#double-throwre-thorwing">double throw(Re-thorwing)</a>
+    <ul>
+      <li><a href="#예제-1">예제</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <h1 id="예외-처리">예외 처리</h1>
+
+<p>예외 처리를 사용하므로써 알고리즘이 마주할 수 있는 예외 상황에 대해 코드를 분리할 수 있다. 이 결과 알고리즘에 보다 집중할 수 있다.</p>
+
+<h1 id="에러-만들기">에러 만들기</h1>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output
+10
+=&gt; Error
+</code></pre></div></div>
+
+<p>vector size보다 큰 index를 넣을 경우, <strong>프로그램이 멈춰버린다.</strong> 이렇게 될 경우 만드는 사람 입장에서는 어느 부분 때문에 에러가 났는지 찾기 어렵다.</p>
+
+<h1 id="trycatch">Try/catch</h1>
+
+<p>그래서 우리는 예외를 처리하는 다음과 같은 구문을 활용한다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+
+    <span class="k">try</span><span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"인덱스 오류가 발생!"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"[program is still running!]"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output1
+알고 싶은 인덱스를 입력해주세요 :3
+4
+[program is still running!]
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output2
+알고 싶은 인덱스를 입력해주세요 :10
+vector
+인덱스 오류가 발생!
+[program is still running!]
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<p>인덱스를 넘어가는 값을 입력했을 때, 이 오류를 <strong>캐치</strong>해서 예외를 처리해 주었다. 또한, 예외처리 구문을 통해서, <strong><em>프로그램이 제대로 마무리 되었다는 사실을 알 수 있다!</em></strong> 그렇기 때문에 예외를 통과했기 때문에 문제가 없음을 판단할 수 있다.</p>
+
+<h2 id="사용법">사용법</h2>
+
+<ol>
+  <li>예외를 throw 할 것 같은 곳에 <code class="language-plaintext highlighter-rouge">try</code> block으로 싼다.</li>
+  <li>예외가 발생 했을 경우에만 발생할 코드를 <code class="language-plaintext highlighter-rouge">catch</code> block 으로 싼다.</li>
+  <li><code class="language-plaintext highlighter-rouge">exception&amp; e</code> 는 프로그램이 던지는 에러를 받아주는 객체이다.</li>
+  <li><code class="language-plaintext highlighter-rouge">try/catch</code> 구문은 <code class="language-plaintext highlighter-rouge">if</code> 문 처럼 state가 한줄이더라도 꼭 <code class="language-plaintext highlighter-rouge">{}</code> 로 감싸줘야 한다.</li>
+</ol>
+
+<h1 id="stdexception-class">std::exception class</h1>
+
+<blockquote>
+  <p>Standard exception class</p>
+</blockquote>
+
+<p>예외를 담당하는 기본 c++제공 클래스이다. 모든 예외 처리 클래스는 이 클래스를 상속받아서 작성된다. 따라서 다형성의 원리에 의해 어떤 에러를 던지더라도, 추상클래스인 <strong>exception class</strong> 로 받을 수 있다.</p>
+
+<h2 id="member-functions">Member functions</h2>
+
+<p><img width="80%" alt="스크린샷 2019-06-13 오후 5 48 06" src="https://user-images.githubusercontent.com/37871541/59418113-690cbf80-8e03-11e9-9591-972a02bf4725.png" class="center" /><em>exception 클래스 멤버함수</em></p>
+
+<p>이 중에서 <code class="language-plaintext highlighter-rouge">what()</code> 이라는 함수가 중요하게 사용되는데, 어떤 예외이냐에 따라 이 <code class="language-plaintext highlighter-rouge">what()</code> 함수가 다르게 구성된다. 즉, override 를 통해 재정의해서 사용한다! 여기서는 사실 다른구문을 쓰지만 그건 밑에서 알아보자.</p>
+
+<h2 id="vector-container-함수를-사용하는-이유">vector container 함수를 사용하는 이유</h2>
+
+<p>위의 예에서, vector의 index로 접근하는 부분을 바꿔보자.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+
+    <span class="k">try</span><span class="p">{</span>
+        <span class="c1">// 이 부분!</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"인덱스 오류가 발생!"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"[program is still running!]"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output
+알고 싶은 인덱스를 입력해주세요 :3
+4
+[program is still running!]
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>알고 싶은 인덱스를 입력해주세요 :10
+1
+[program is still running!]
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<p>기존 에는 10을 넣었을 경우 에러를 출력했는데, 이번에는 에러가 뜨지 않는다 왜 그럴까? 이건 클래스 내부에서 에러를 발생하는 <code class="language-plaintext highlighter-rouge">exception</code> 객체를 <code class="language-plaintext highlighter-rouge">throw</code> 해주지 않아서 그렇다.</p>
+
+<h1 id="클래스에서-예외-처리-구문-만들기">클래스에서 예외 처리 구문 만들기</h1>
+
+<h2 id="예외-처리가-필요한-함수-만들기">예외 처리가 필요한 함수 만들기</h2>
+
+<p>위에서는 <code class="language-plaintext highlighter-rouge">try/catch</code> 구문을 사용해 vector container 에서 발생하는 예외처리를 어떻게 받아서 표현하는지 알아보았다. 그렇다면 내가 함수나 클래스를 만들 때, 어떤 부분에서 에러가 날지를 규명해주는 것이 필요하다. 여기서는, file을 읽어, 벡터로 넣어주는 함수를 만들어 보았다. 이 때 만약 파일을 읽지 못할 경우 에러를 throw 하도록 만들었다.</p>
+
+<h2 id="throw-구문">throw 구문</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">load_vector</span><span class="p">(</span><span class="n">string</span> <span class="n">filename</span><span class="p">){</span>
+    <span class="n">ifstream</span> <span class="n">fin</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fin</span><span class="p">){</span>
+        <span class="c1">// 예외 처리 throw</span>
+        <span class="k">throw</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="n">fin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">fin</span> <span class="o">&gt;&gt;</span> <span class="n">value</span><span class="p">;</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="구문해석">구문해석</h3>
+
+<ul>
+  <li>예외 처리 throw
+특정 상황에 에러가 날 경우 우리는 에러를 던져줘야 한다. 이때 사용하는 것이 <strong>throw</strong> 구문이다.</li>
+</ul>
+
+<h2 id="예외-처리-클래스-만들기">예외 처리 클래스 만들기</h2>
+
+<p>그렇다면 <code class="language-plaintext highlighter-rouge">FileNotFoundException</code> 은 예외처리를 담당하는 클래스이므로, 위에서 말했듯, 예외 처리 클래스는 <code class="language-plaintext highlighter-rouge">std::exception</code> 클래스를 상속해서 만든다.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FileNotFoundException</span> <span class="o">:</span> <span class="k">public</span> <span class="n">exception</span> <span class="p">{</span>
+    <span class="n">string</span> <span class="n">message</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="c1">// 1.</span>
+    <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">string</span> <span class="n">_m</span><span class="p">)</span><span class="o">:</span> <span class="n">message</span><span class="p">(</span><span class="s">"File not Found : "</span> <span class="o">+</span> <span class="n">_m</span><span class="p">){}</span>
+
+    <span class="c1">// 2.</span>
+    <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">what</span><span class="p">()</span> <span class="k">const</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// 3.</span>
+        <span class="k">return</span> <span class="n">message</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span>
+
+    <span class="p">}</span>
+<span class="p">};</span>
+
+</code></pre></div></div>
+
+<h3 id="구문-해석">구문 해석</h3>
+
+<ol>
+  <li>생성자(constructor)
+member variable 로 갖고 있는, message에 담아준다.</li>
+  <li><code class="language-plaintext highlighter-rouge">what()</code> override 하기.
+    <ul>
+      <li>virtual
+        <ul>
+          <li>이 <code class="language-plaintext highlighter-rouge">FileNotFoundException</code> 클래스를 상속받는 다른 클래스가 있을 수 있기 때문에 써주었다.</li>
+        </ul>
+      </li>
+      <li>const
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">what()</code> 함수의 return type은 <code class="language-plaintext highlighter-rouge">const char*</code> 이다.</li>
+          <li>즉, 문자열을 리턴 값으로 갖는다는 것인데,
+이 리턴 값은 변할 수 없으므로 <code class="language-plaintext highlighter-rouge">const</code> 를 적어 명시적으로 써준다.</li>
+        </ul>
+      </li>
+      <li>what()
+        <ul>
+          <li>override를 수행할 함수의 이름이다.</li>
+        </ul>
+      </li>
+      <li>const
+        <ul>
+          <li>외부 함수에서 만든 객체를 불러올 때, <code class="language-plaintext highlighter-rouge">callbyreference</code> 로 가져올 경우 값을 변화 시킬 수 있다.</li>
+          <li>그래서 우리는 <code class="language-plaintext highlighter-rouge">void print(const 클래스이름&amp; p)</code> 이런식으로 가져오는데,</li>
+          <li>이 때 입력 파라미터의 값을 변화시키지 않으면서 reference 하겠다는 의도에서 const를 적게되면,</li>
+          <li>내가 만든 class 에서도 const를 적은 함수만 사용이 가능하다.</li>
+          <li><strong>즉, 외부에서 const 상태로 사용하는 함수를 의미한다.</strong></li>
+          <li>추가 정보는,<a href="https://wansook0316.github.io/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html">14: this, operator overloading</a>를 참고하자.</li>
+        </ul>
+      </li>
+      <li><strong>throw()</strong>
+        <ul>
+          <li>위에서 설명한 이 부분이 다른데 exception 클래스를 상속받을 때, <code class="language-plaintext highlighter-rouge">what()</code> 함수를 <code class="language-plaintext highlighter-rouge">override</code> 할때는, <code class="language-plaintext highlighter-rouge">throw()</code> 를 사용한다.</li>
+          <li>이는, 에러를 던진다는 의미에서 유래된 듯하다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>string 인 <code class="language-plaintext highlighter-rouge">message</code> 를 <code class="language-plaintext highlighter-rouge">char</code> 로 만들어주자.</li>
+</ol>
+
+<h2 id="main-에서-trycatch-구문">main 에서 try/catch 구문</h2>
+
+<p>이제 함수도 만들고, 예외처리 클래스도 정의했으니, <code class="language-plaintext highlighter-rouge">try/catch</code> 구문을 사용해서 나타내보자.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="k">try</span><span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">load_vector</span><span class="p">(</span><span class="s">"values.dat"</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="c1">// 1.   catch(FileNotFoundException&amp; e)</span>
+    <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">){</span>
+        <span class="c1">// 2.</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="구문해석-1">구문해석</h3>
+
+<ol>
+  <li>주석처리한 부분을 보면, 원래 <code class="language-plaintext highlighter-rouge">catch</code> 구문에서는 예외 처리 객체를 받아줘야 한다.
+    <ul>
+      <li>즉, <code class="language-plaintext highlighter-rouge">catch(FileNotFoundException&amp; e)</code> 이런식으로 써줘야 하는데, ` catch(exception&amp; e)` 이렇게만 써줬다.</li>
+      <li>이 이유는 위에서 설명한 것과 같이 <strong>다형성</strong> 때문이다.</li>
+    </ul>
+  </li>
+  <li>에러가 발생했을 때, 이 에러가 어떤 에러인지 <code class="language-plaintext highlighter-rouge">what()</code> 메서드로 보여준다.</li>
+</ol>
+
+<h2 id="전체-코드">전체 코드</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">FileNotFoundException</span> <span class="o">:</span> <span class="k">public</span> <span class="n">exception</span> <span class="p">{</span>
+    <span class="n">string</span> <span class="n">message</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">string</span> <span class="n">_m</span><span class="p">)</span><span class="o">:</span> <span class="n">message</span><span class="p">(</span><span class="s">"File not Found : "</span> <span class="o">+</span> <span class="n">_m</span><span class="p">){}</span>
+
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">what</span><span class="p">()</span> <span class="k">const</span> <span class="k">throw</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">message</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span>
+
+    <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">load_vector</span><span class="p">(</span><span class="n">string</span> <span class="n">filename</span><span class="p">){</span>
+    <span class="n">ifstream</span> <span class="n">fin</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fin</span><span class="p">){</span>
+        <span class="k">throw</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+
+    <span class="n">fin</span> <span class="o">&gt;&gt;</span> <span class="n">num</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">fin</span> <span class="o">&gt;&gt;</span> <span class="n">value</span><span class="p">;</span>
+        <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+
+    <span class="k">try</span><span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="n">load_vector</span><span class="p">(</span><span class="s">"values.dat"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h1 id="trycatch-구문의-작동-방식">try/catch 구문의 작동 방식</h1>
+
+<h2 id="findint-nearest-catch-statement">Findint Nearest catch Statement</h2>
+
+<p><img width="80%" alt="스크린샷 2019-06-13 오후 6 45 51" src="https://user-images.githubusercontent.com/37871541/59422507-7a59ca00-8e0b-11e9-9be9-aad31d5d91d4.png" class="center" /><em>catch의 동작 방식</em></p>
+
+<p>여러 개의 함수에 <code class="language-plaintext highlighter-rouge">exception</code> 과 <code class="language-plaintext highlighter-rouge">try/catch</code> 구문을 걸어놓을 경우, 가장 근접한 <code class="language-plaintext highlighter-rouge">catch</code> 구문을 찾아가서 실행한다.</p>
+
+<h2 id="예제">예제</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">// double throw</span>
+<span class="kt">void</span> <span class="nf">filter</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">compute</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">a</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="n">filter</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">ex</span><span class="p">){</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"******1번 catch********"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"반복문이 중간에 멈췄습니다."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"when i ="</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"**********************"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="c1">//            throw ex;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">};</span>
+    <span class="k">try</span><span class="p">{</span>
+        <span class="n">compute</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"******2번 catch******"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"에러가 발생했습니다."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"**********************"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"프로그램 종료"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output
+******1번 catch********
+반복문이 중간에 멈췄습니다.
+when i =5
+**********************
+프로그램 종료
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<h3 id="구문-해석-1">구문 해석</h3>
+
+<ol>
+  <li>main 함수
+main 함수를 보게 되면, compute 함수를 호출하게 된다.</li>
+  <li>compute 함수
+compute 함수는 filter 함수를 호출한다.</li>
+  <li>filter 함수
+filter 함수를 수행하는 도중, i의 값이 size를 넘는 순간이 오고,
+exception 객체를 throw 한다.</li>
+  <li>프로그램은 왔던 길을 되돌아가며 가장 근접한 catch 문을 찾는다.
+이 경우 compute 함수에 있기 때문에, 이 catch 문을 실행한다.</li>
+  <li>main 함수로 돌아올 때는 throw가 다 해소됐고, 돌아오는 throw가 없으므로 catch 함수는 실행되지 않는다.</li>
+</ol>
+
+<h1 id="double-throwre-thorwing">double throw(Re-thorwing)</h1>
+
+<p>그러면, main으로 돌아올 때도, 객체를 던져주면, 여러번의 catch 구문을 실행 시킬 수 있지 않을까?</p>
+
+<h2 id="예제-1">예제</h2>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;fstream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">// double throw</span>
+<span class="kt">void</span> <span class="nf">filter</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">){</span>
+    <span class="n">v</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">compute</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">a</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="n">filter</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">ex</span><span class="p">){</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"******1번 catch********"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"반복문이 중간에 멈췄습니다."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"when i ="</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"**********************"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+            <span class="k">throw</span> <span class="n">ex</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">list</span> <span class="p">{</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">};</span>
+    <span class="k">try</span><span class="p">{</span>
+        <span class="n">compute</span><span class="p">(</span><span class="n">list</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="n">exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">){</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"******2번 catch******"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"에러가 발생했습니다."</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"**********************"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"프로그램 종료"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Output
+******1번 catch********
+반복문이 중간에 멈췄습니다.
+when i =5
+**********************
+******2번 catch******
+에러가 발생했습니다.
+std::exception
+**********************
+프로그램 종료
+Program ended with exit code: 0
+</code></pre></div></div>
+
+<p>잘 작동한다!</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#c%2B%2B"
+      >#c++</a
+    >
+    
+    <a class="tag" href="/tags#OOP"
+      >#OOP</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+          
+          
+        
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-21-functional-lambda.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/dv/c++/2020/09/28/OOP-21-functional-lambda.html">
+                  21: functional, lambda function
+                </a>
+            </div>
+          
+        
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
