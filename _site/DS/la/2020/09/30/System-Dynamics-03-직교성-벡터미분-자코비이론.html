@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    03: Orthogonality, Vector Differentiation, Jacobi's Theorem | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="행렬의 종류에 대해서는 링크로 대체한다!"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/ds/la/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const tags = document.getElementById("category-tags");
+    const about = document.getElementById("category-about");
+    if (width < 710) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      tags.innerText = "🏷"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      tags.innerText = "Tags"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul>
+        <li><a href="/CS/Network">Network</a></li>
+        <li><a href="/CS/Database">Database</a></li>
+        <li><a href="/CS/Algorithm">Algorithm</a></li>
+        <li><a href="/CS/Structure">Structure</a></li>
+        <li><a href="/CS/Parallel">Parallel</a></li>
+        <li><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul>
+        <li><a href="/DV/Server">Server</a></li>
+        <li><a href="/DV/Linux">Linux</a></li>
+        <li><a href="/DV/Python">Python</a></li>
+        <li><a href="/DV/C++">C++</a></li>
+        <li><a href="/DV/JavaScript">JavaScript</a></li>
+        <li><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li><a href="/DV/React">React</a></li>
+        <li><a href="/DV/Django">Django</a></li>
+        <li><a href="/DV/Docker">Docker</a></li>
+        <li><a href="/DV/Git">Git</a></li>
+        <li><a href="/DV/Tips">Tips</a></li>
+        <li><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-tags" href="/tags"> </a>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/4.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">03: Orthogonality, Vector Differentiation, Jacobi's Theorem</h1>
+      
+      <p class="meta">
+        DS/LA  : System Dynamics 
+      </p>
+      <p class="meta">
+        September 30, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+        
+
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>System Dynamics</em></b> 시리즈
+    <b><em>8</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                         
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html'">
+      <span>Part 1 - 01: 다물체 동역학 개론</span>
+    </li>
+                                                         
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html'">
+      <span>Part 2 - 02: 평면에서 다물체계의 운동학</span>
+    </li>
+                         
+    <li class="current">
+      <span>Part 3 - This Post</span>
+    </li>
+                                                 
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html'">
+      <span>Part 4 - 04: 평면에서의 기구학</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html'">
+      <span>Part 5 - 05: 기구학적 제약</span>
+    </li>
+                                 
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html'">
+      <span>Part 6 - 06: Newton Raphson Method</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-07-Computational-Algorithm.html'">
+      <span>Part 7 - 07: Computational Algorithm</span>
+    </li>
+                               
+    <li onclick="location.href='/ds/la/2020/09/30/System-Dynamics-08-Newton-Euler-Algorithm.html'">
+      <span>Part 8 - 08: Newton-Euler Equations, D'Alembert's Principle</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                        
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+
+
+     
+
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#orthogonality">Orthogonality</a></li>
+  <li><a href="#orthonomality">Orthonomality</a></li>
+  <li><a href="#vector-differentiation">Vector Differentiation</a>
+    <ul>
+      <li><a href="#scalar-function-by-scalar">Scalar Function by Scalar</a></li>
+      <li><a href="#vector-function-by-scalar">Vector Function by Scalar</a></li>
+      <li><a href="#scalar-function-by-vector">Scalar Function by Vector</a></li>
+      <li><a href="#vector-function-by-scalar-1">Vector Function by Scalar</a></li>
+    </ul>
+  </li>
+  <li><a href="#skew-symmetric-matrix-representation">Skew-Symmetric Matrix Representation</a>
+    <ul>
+      <li><a href="#property">Property</a></li>
+      <li><a href="#역학에서-사용예">역학에서 사용예</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+
+ <p>행렬의 종류에 대해서는 링크로 대체한다!</p>
+
+<p><a href="https://wansook0316.github.io/ds/la/2020/09/29/Linear-Algebra-Basic-01-Types-Of-Matrix.html">Types of Matrix</a></p>
+
+<h1 id="orthogonality">Orthogonality</h1>
+
+<p>두 벡터를 곱했을 때 수직! 자기 자신이 나온다.</p>
+
+<script type="math/tex; mode=display">\vec {a} \cdot \vec {b}\;=\;\vec {a}^T \vec {b}\;=\;0</script>
+
+<p>자기 자신을 곱한다면 자기자신의 크기의 제곱이 나와야 한다.</p>
+
+<script type="math/tex; mode=display">\vec {a} \cdot \vec {a}\;=\;\vec {a}^T \vec {a}\;=\;|\vec {a}|^2</script>
+
+<h1 id="orthonomality">Orthonomality</h1>
+
+<p>여기서는 두 벡터가 단위 벡터이다! 따라서 자기 자신을 곱했을 때, 1이 나와야 한다.</p>
+
+<script type="math/tex; mode=display">\vec {a} \cdot \vec {a}\;=\;\vec {a}^T \vec {a}\;=\;1</script>
+
+<p>사실 Orthogonal Matrix는 각 열(혹은 행) 벡터가 모두 단위 벡터일 때 정의를 만족한다!</p>
+
+<h1 id="vector-differentiation">Vector Differentiation</h1>
+
+<h2 id="scalar-function-by-scalar">Scalar Function by Scalar</h2>
+
+<script type="math/tex; mode=display">f \;=\;function \;of(q_1,q_2,\dots,q_n, t)\\
+\;\\
+q_i\;=\;g_i(t),\;\;i=1,2,3 \dots, n</script>
+
+<p>이때 t에 대해 미분하면,</p>
+
+<script type="math/tex; mode=display">{df\over dt}\;=\;{\partial f\over \partial q_1}{dq_1\over dt}+{\partial f\over \partial q_2}{dq_2\over dt}+\dots+{\partial f\over \partial q_n}{dq_n\over dt}+{\partial f \over \partial t}</script>
+
+<p>이를 벡터 형식으로 나타내면,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{df\over dt}\;=\;\begin{bmatrix}
+{\partial f\over \partial q_1} & {\partial f\over \partial q_2} & \dots & {\partial f\over \partial q_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+{dq_1\over dt}\\ {dq_2\over dt}\\ \vdots \\{dq_n\over dt}\\
+\end{bmatrix}
++{\partial f \over \partial t}\\ %]]></script>
+
+<p>여기서 벡터로 표현된 녀석을 다음과 같이 표현하자.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+{\partial f\over \partial q_1} & {\partial f\over \partial q_2} & \dots & {\partial f\over \partial q_n}\\
+\end{bmatrix}={\partial f \over \partial \overset{\rightarrow}{q}}=f_{\overset{\rightarrow}{q}} %]]></script>
+
+<script type="math/tex; mode=display">\begin{bmatrix}
+{dq_1\over dt}\\ {dq_2\over dt}\\ \vdots \\{dq_n\over dt}\\
+\end{bmatrix}={d \overset{\rightarrow}{q} \over dt}</script>
+
+<p>그렇다면 위의 식은 다음과 같이 정리된다.</p>
+
+<script type="math/tex; mode=display">{df\over dt}\;=\;f_{\overset{\rightarrow}{q}}{d \overset{\rightarrow}{q} \over dt}+{df \over dt}</script>
+
+<h2 id="vector-function-by-scalar">Vector Function by Scalar</h2>
+
+<p>벡터함수 f는 각각의 요소에 변수 (q1~qn, t) 를 갖는 스칼라 함수를 m개 갖는다고 하자.</p>
+
+<script type="math/tex; mode=display">f_1\;=\;f_1(q_1,q_2,\dots,q_n,t)\\
+f_2\;=\;f_1(q_1,q_2,\dots,q_n,t)\\
+f_3\;=\;f_1(q_1,q_2,\dots,q_n,t)\\
+\vdots\\
+f_m\;=\;f_n(q_1,q_2,\dots,q_n,t)\\
+\;\\
+\;\\
+\overset{\rightarrow}{f}\;=\;[f_1\;f_2\;f_3\;\dots\;f_m]^T</script>
+
+<p>그렇다면 이 함수를 스칼라 변수 t로 미분하면,</p>
+
+<p>각각의 요소는,</p>
+
+<script type="math/tex; mode=display">{df_j\over dt}\;=\;{\partial f_j \over \partial \overset{\rightarrow}{q}}{d \overset{\rightarrow}{q} \over dt}+{df \over dt}\\
+\;\\
+\;\\
+j\;=\;1,2,\dots, m</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{\partial f_j \over \partial \overset{\rightarrow}{q}}=
+\begin{bmatrix}
+{\partial f_j\over \partial q_1} & {\partial f_j\over \partial q_2} & \dots & {\partial f_j\over \partial q_n}\\
+\end{bmatrix} %]]></script>
+
+<p>그렇다면, 벡터 함수를 t로 미분한 최종 결과는,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{d\overset{\rightarrow}{f} \over dt}\;=\;\begin{bmatrix}
+{df_1\over dt}\\ {df_2\over dt}\\ \vdots \\{df_n\over dt}\\
+\end{bmatrix}\;=
+\begin{bmatrix}
+{\partial f_1\over \partial q_1} & \dots & {\partial f_1\over \partial q_n}
+\\\vdots\ & &  \vdots\\
+{\partial f_m\over \partial q_1}  & \dots & {\partial f_m\over \partial q_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+{dq_1\over dt}\\ \vdots \\{dq_n\over dt}\\
+\end{bmatrix}
++\begin{bmatrix}
+{df_1 \over dt}\\  \vdots \\{df_m \over dt}\\
+\end{bmatrix}
+\\ %]]></script>
+
+<script type="math/tex; mode=display">{d\overset{\rightarrow}{f} \over dt}\;=\;{\partial\overset{\rightarrow}{f} \over \partial\overset{\rightarrow}{q}}{d\overset{\rightarrow}{q} \over dt}
++{\partial\overset{\rightarrow}{f} \over \partial t}</script>
+
+<p>여기서 행렬이 만들어진다는 것을 잊으면 안된다! 각각의 크기만 적어보면,</p>
+
+<script type="math/tex; mode=display">{d\overset{\rightarrow}{f} \over dt}\;=\;{\partial\overset{\rightarrow}{f} \over \partial\overset{\rightarrow}{q}}{d\overset{\rightarrow}{q} \over dt}
++{\partial\overset{\rightarrow}{f} \over \partial t}\\
+(m\times 1)=(m\times n)(n\times 1)+(m\times1)</script>
+
+<h2 id="scalar-function-by-vector">Scalar Function by Vector</h2>
+
+<p>스칼라 함수를 스칼라로 미분하는 가장 위의 예에서, 함수 f를 벡터 q로 미분하면, 다음과 같다.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{d f \over d\overset{\rightarrow}{q}}\;=\;\begin{bmatrix}
+{d f\over d q_1} & {d f\over d q_2} & \dots & {d f\over d q_n}\\
+\end{bmatrix} %]]></script>
+
+<h2 id="vector-function-by-scalar-1">Vector Function by Scalar</h2>
+
+<p>벡터 함수를 스칼라로 미분하는 두번째 예에서, 벡터 함수 f를 q1으로 미분한다면,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{d\overset{\rightarrow}{f} \over dq_1}\;=\;\begin{bmatrix}
+{d f_1\over d q_1} & {d f_1\over d q_1} & \dots & {d f_1\over d q_1}\\
+\end{bmatrix} %]]></script>
+
+<h3 id="정리">정리</h3>
+
+<ol>
+  <li>스칼라 함수를 스칼라로 미분하면 스칼라함수다.</li>
+  <li>스칼라 함수를 벡터 함수로 미분하면 1xn 벡터가 나온다.</li>
+  <li>벡터 함수를 스칼라로 미분하면 1xm 벡터가 나온다.</li>
+  <li>벡터 함수를 벡터로 미분하면 nxm 행렬이 나온다.</li>
+</ol>
+
+<h1 id="skew-symmetric-matrix-representation">Skew-Symmetric Matrix Representation</h1>
+
+<p>Skew-Symmetric Matrix는 벡터의 외적을 사용해서 다르게 표현이 가능한데, 간단한 예를 들어 생각해보자.</p>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{a} \;=\;[a_1\;a_2\;a_3]^T\\
+\overset{\rightarrow}{b} \;=\;[b_1\;b_2\;b_3]^T\\</script>
+
+<p>이 두 벡터를 내적하면,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\overset{\rightarrow}{a}\times\overset{\rightarrow}{b}\;=\;
+\begin{bmatrix}
+a_2b_3-a_3b_2\\
+-(a_1b_3-a_3b_1)\\
+a_1b_2-a_2b_1
+\end{bmatrix}
+=\begin{bmatrix}
+0 & -a_3 & a_2\\
+a_3 & 0 & -a_1\\
+-a_2 & a_1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+b_1\\
+b_2\\
+b_3
+\end{bmatrix}\;=\;
+{ { \underset{=} {\overset{\sim}{a} } } } \cdot \overset{\rightarrow}{b} %]]></script>
+
+<p>외적 식을 b벡터를 활용해서 나타내면 다음과 같이 나타낼 수 있다. 이때 중간에 skew-symmetric matrix 가 나오고, a 벡터가 왼쪽에 놓인 외적을 수행했을 때 발생하는 행렬을 위와 같이 표현했다. 마찬가지로, b벡터에 대해 하면,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\overset{\rightarrow}{a}\times\overset{\rightarrow}{b}\;=\;\begin{bmatrix}
+0 & -b_3 & b_2\\
+b_3 & 0 & -b_1\\
+-b_2 & b_1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+a_1\\
+a_2\\
+a_3
+\end{bmatrix}\;=\;
+{ { \underset{=} {\overset{\sim}{b} } } } \cdot \overset{\rightarrow}{a} %]]></script>
+
+<p>이와 같다.</p>
+
+<h2 id="property">Property</h2>
+
+<p>a 의 단위벡터와 a 벡터를 외적하면, 0이다.</p>
+
+<script type="math/tex; mode=display">\hat{\overset{\rightarrow}{a}}\;\times \;\overset{\rightarrow}{a}\;=\;
+-\overset{\rightarrow}{a}\;\times \;\hat{\overset{\rightarrow}{a}}\;=\;
+\overset{\rightarrow}{0}</script>
+
+<p>이 표현을 Skew-symmetric Matrix를 써서 표현하면,</p>
+
+<script type="math/tex; mode=display">-\overset{\rightarrow}{a}\;\times \;\hat{\overset{\rightarrow}{a}}\;=\;
+-{ { \underset{=} {\overset{\rightarrow}{a} } } } \cdot \hat{\overset{\rightarrow}{a}}\;=\;
+{\overset{\rightarrow}{0}}</script>
+
+<p>Skew-Symmetric Matrix 의 특징을 사용하면,</p>
+
+<script type="math/tex; mode=display">-{ { \underset{=} {\overset{\rightarrow}{a} } } }\;=\;{  {\underset{= }{\overset{\rightarrow}{a} } } }^T</script>
+
+<script type="math/tex; mode=display">-{ { \underset{=} {\overset{\rightarrow}{a} } } } \cdot \hat{\overset{\rightarrow}{a}}\;=\;{ { \underset{=} {\overset{\rightarrow}{a} } } }^T\cdot \hat{\overset{\rightarrow}{a}}\;=\;{\overset{\rightarrow}{0}}</script>
+
+<h2 id="역학에서-사용예">역학에서 사용예</h2>
+
+<p>시스템 내에서 역학적 Joint 에서 위치 벡터와의 관계는 다음과 같이 빈번하게 묘사된다.</p>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{a}\times\overset{\rightarrow}{x}\;=\;\overset{\rightarrow}{0}</script>
+
+<p>즉, a 벡터와 x 벡터가 수직임을 나타낸다. 수직인 벡터는 무수하게 많이 나온다는 점을 기억한 상태로 다음을 보자. Skew-symmetric Matrix를 사용해서 나타내면,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+{ { \underset{=} {\overset{\sim}{a} } } } \cdot \overset{\rightarrow}{x}\;=\;\overset{\rightarrow}{0}\\
+\;\\
+\;\\
+{ { \underset{=} {\overset{\sim}{a} } } }\;=\;
+\begin{bmatrix}
+0 & -a_3 & a_2\\
+a_3 & 0 & -a_1\\
+-a_2 & a_1 & 0
+\end{bmatrix} %]]></script>
+
+<p>a 행렬에 대해 <strong>Determinant를 구해보면, 0이다.</strong> 즉, a 행렬은 특이 행렬이다. 즉, Rank가 matrix size보다 작다. 즉, x 벡터는 하나로 결정되지 못한다.</p>
+
+<h3 id="jacobis-theorem">Jacobi’s Theorem</h3>
+
+<script type="math/tex; mode=display">det({ { \underset{=} {\overset{\sim}{a} } } })\;=\;\overset{\rightarrow}{0}\\</script>
+
+<p>Determinant 의 성질에 의해서,</p>
+
+<script type="math/tex; mode=display">det({ { \underset{=} A} })\;=\;det({ { \underset{=} A^T} })</script>
+
+<script type="math/tex; mode=display">det({ { \underset{=} {\overset{\sim}{a} } } }^T)\;=\;
+det(-{ { \underset{=} {\overset{\sim}{a} } } })\;=\;
+(-1)^ndet({ { \underset{=} {\overset{\sim}{a} } } })</script>
+
+<p>이 때 n이 짝수이게 되면, 양쪽 식의 값이 동치가 되어 det(a)의 값은 부정이다.
+따라서 n의 값은 홀수여야 한다. 즉, Skew-symmetric Matrix의 행렬식의 값이 0이 되려면, 행렬의 size가 홀수 차원이어야 한다.</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="/tags#math"
+      >#math</a
+    >
+    
+    <a class="tag" href="/tags#Dynamics"
+      >#Dynamics</a
+    >
+    
+    <a class="tag" href="/tags#Linear-Algebra"
+      >#Linear-Algebra</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+  
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+     
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/la/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html';">
+                <p>PREVIOUS SERIES</p>
+                <a href="/ds/la/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html">
+                  02: 평면에서 다물체계의 운동학
+                </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/la/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html';">
+              <p>NEXT SERIES</p>
+              <a href="/ds/la/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html">
+                04: 평면에서의 기구학
+              </a>
+            </div>
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+          
+          
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+  
+
+  
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

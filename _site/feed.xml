@@ -5,7 +5,1147 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>Be On My Wave 🌊</description>
-    <pubDate>Wed, 30 Sep 2020 00:37:09 +0900</pubDate>
+    <pubDate>Wed, 30 Sep 2020 01:49:50 +0900</pubDate>
+    
+      <item>
+        <title>08: Newton-Euler Equations, D'Alembert's Principle</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-08-Newton-Euler-Algorithm.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-08-Newton-Euler-Algorithm.html</guid>
+        <description>&lt;h1 id=&quot;newton-euler-equations&quot;&gt;Newton Euler Equations&lt;/h1&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-05-08 오전 10 47 42&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57343537-b64f9e80-717e-11e9-8e5c-1d7cd4106cf4.png&quot; class=&quot;center&quot; /&gt;&lt;em&gt;강체를 위치를 나타낸 그림&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Reference point(O^i) 가 강체 i 의 질량중심에 위치해 있다고 생각하자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;m^ia_x^i\;=\;F_x^i\\
+m^ia_y^i\;=\;F_y^i\\
+J\theta^{\cdot \cdot}\;=\;M^i&lt;/script&gt;
+
+&lt;p&gt;M은 net Moment, J는 강체의 관성모멘트, F는 net force 이다. 따라서 2차원 공간에서 작용할 수 있는 3가지 자유도에 대한 힘과 모멘트는, 질량 중심에 작용하는 3가지 Term 으로 정리된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;dalemberts-principle&quot;&gt;D’Alembert’s Principle&lt;/h1&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sum_i(\overset{\rightarrow}{F_i}-m_i\overset{\rightarrow}{a_i})\cdot \delta \overset{\rightarrow}{r_i}\;=\;0&lt;/script&gt;
+
+&lt;p&gt;여기서 delta r 벡터는 &lt;strong&gt;Virtual displacement&lt;/strong&gt; 라 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;virtual-displacement&quot;&gt;Virtual Displacement&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이 항은 시스템의 무한히 작은 변화를 가정했을 때 변위를 의미한다.&lt;/li&gt;
+  &lt;li&gt;즉, 시간이 constant 일 때, 계의 변위를 측정한 것이다.&lt;/li&gt;
+  &lt;li&gt;우리는 이것을 가상 변위라 부르는데, 실제로 시간이 상수일 때, 변위는 없기 때문이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;식을 정리하면, 다음과 같이 정리된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;dalemberts-equation&quot;&gt;D’Alembert’s Equation&lt;/h2&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{d \over dt}{\partial\large \mathcal{L} \over\partial \overset{\cdot}{q_j}}\;-\;
+{\partial\large \mathcal{L} \over\partial {q_j}}\;=\;
+Q_j^{nc}+Q_j^e&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathcal{L}(Lagrangian)\;=\;T-V(kinetic\;E\;-\;potential\;E)\\
+\;\\
+nc\;=\;non\;conservative\;forse\\
+\;\\
+e\;=\;eternal\;force\\
+\;\\&lt;/script&gt;
+
+&lt;p&gt;여기서 q_j 는 다음과 같은 것들이 될 수 있다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\rightarrow}{q}\;=\;
+\begin{bmatrix}
+[R_x^1&amp; R_y^1 &amp; \theta^1] &amp; [R_x^2&amp; R_y^2 &amp; \theta^2] &amp; [R_x^3 &amp; R_y^3 &amp; \theta^3]
+\end{bmatrix}^T
+\\
+\;\\
+\;=\;
+\begin{bmatrix}
+q_1&amp; q_2&amp; q_3&amp; q_4&amp; q_5&amp; q_6&amp; q_7&amp; q_8&amp; q_9
+\end{bmatrix}^T %]]&gt;&lt;/script&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>07: Computational Algorithm</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-07-Computational-Algorithm.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-07-Computational-Algorithm.html</guid>
+        <description>&lt;h1 id=&quot;computational-algorithm&quot;&gt;Computational Algorithm&lt;/h1&gt;
+
+&lt;h2 id=&quot;step-1&quot;&gt;Step 1&lt;/h2&gt;
+
+&lt;p&gt;특정 시간에 대해서 C 벡터 함수의 해를 추정한다. 즉, 초기값을 설정한다. 이 추정치는 발산하지 않도록 잘 선택해야 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-2&quot;&gt;Step 2&lt;/h2&gt;
+
+&lt;p&gt;이 추정치를 기반으로 &lt;strong&gt;자코비안 행렬&lt;/strong&gt; 과 C 벡터함수의 해를 구한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-3&quot;&gt;Step 3&lt;/h2&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta \overset{\rightarrow}{q_i}\;=\;-[  C_{q_i}]^{-1\;}\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)&lt;/script&gt;
+
+&lt;p&gt;를 계산한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-4&quot;&gt;Step 4&lt;/h2&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{q_{i+1}}\;=\;\overset{\rightarrow}{q_i}\;+\;\Delta \overset{\rightarrow}{q_i}&lt;/script&gt;
+
+&lt;p&gt;를 계산한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-5&quot;&gt;Step 5&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 2 ~ Step 5&lt;/strong&gt; 를 사용자가 지정한 임계치보다 작을 때 까지 반복한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+|\Delta \overset{\rightarrow}{q_i}|\;&lt;\;\epsilon_1\\
+\;\\
+OR\\
+\;\\
+|\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)|\;&lt;\;\epsilon_2 %]]&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;step-6&quot;&gt;Step 6&lt;/h2&gt;
+
+&lt;p&gt;속도 벡터를 구한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot}{\overset{\rightarrow}{q}}\;=\;
+-[  C_{q}]^{-1}\overset{\rightarrow}{C_{t}}&lt;/script&gt;
+
+&lt;h2 id=&quot;step-7&quot;&gt;Step 7&lt;/h2&gt;
+
+&lt;p&gt;가속도 벡터 구하기&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot \cdot}{\overset{\rightarrow}{q}}\;=\;
+[  C_{q}]^{-1}\overset{\rightarrow}{Q_{d}}
+\\
+\;\\
+\overset{\rightarrow}{Q_{d}}\;=\;-(  C_{q} \overset{\cdot}{\overset{\rightarrow}{q}})_q \overset{\cdot}{\overset{\rightarrow}{q}}\;-\;2  C_{qt} \overset{\cdot}{\overset{\rightarrow}{q}}\;-\;\overset{\rightarrow}{C_{tt}}&lt;/script&gt;
+
+&lt;h2 id=&quot;step-8&quot;&gt;Step 8&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Step 1 ~ Step 7&lt;/strong&gt; 까지 다른 t를 설정한 뒤 반복한다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>06: Newton Raphson Method</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html</guid>
+        <description>&lt;h1 id=&quot;tayler-series&quot;&gt;Tayler Series&lt;/h1&gt;
+
+&lt;p&gt;테일러 급수는, 임의의 함수를 무한개의 다항식을 더하여 근사하는 방법이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x)\;=\;f(a)+f^\prime(a)(x-a)+{f^{\prime \prime}(a)\over 2!}(x-a)^2+{f^{\prime \prime \prime}(a)\over 2!}(x-a)^3 \cdots\\
+\;\\
+\;=\;\sum_{n=0}^{\infin}{f^{n}(a)\over n!}(x-a)^n&lt;/script&gt;
+
+&lt;p&gt;보통 테일러 급수는 1차 함수로 근사할 때 많이 사용한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;newton-rahpson-method&quot;&gt;Newton-Rahpson method&lt;/h1&gt;
+
+&lt;p&gt;뉴턴 랍슨 메서드의 핵심은, &lt;strong&gt;iterative&lt;/strong&gt; 접근이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;1변수-함수에서-newton-rahpson-method&quot;&gt;1변수 함수에서 Newton-Rahpson method&lt;/h2&gt;
+
+&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-05-07 오후 1 18 53&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57271504-ab3b3680-70ca-11e9-822a-455f9d3349b8.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다음과 같은 함수가 있다고 하자. 우리가 하고 싶은 것은 이 함수의 &lt;strong&gt;근&lt;/strong&gt; 을 찾는 것이다. 그러기 위해서 테일러 시리즈를 사용해보자. 이 함수 f는 1차까지만 근사하면 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x)\;=\;f(a)+f^\prime(a)(x-a)&lt;/script&gt;
+
+&lt;p&gt;이 때, 이 근사를 시작하는 점, a를 x_i로 주면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x)\;=\;f(x_i)+f^\prime(x_i)(x-x_i)&lt;/script&gt;
+
+&lt;p&gt;그렇다면 이 x&lt;em&gt;i로 시작해서 이 함수를 근사했으므로, 근사한 식을 0으로 만드는 것이 답이다. **이 근사된 함수로 나온 solution을 x&lt;/em&gt;(i+1) 이라 하자.**&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x_{i+1})\;=\;f(x_i)+f^\prime(x_i)(x_{i+1}-x_i)\\
+\;\\
+f(x_{i+1})\;=\;f(x_i)+f^\prime(x_i)(\Delta x)\\
+\;\\
+f(x_{i+1})\;=\;0을\;만족하는 \;점이다.&lt;/script&gt;
+
+&lt;p&gt;우리는 x_(i+1)을 찾고 싶으므로, 위의 가정들을 식에 다 집어넣으면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x_{i+1})\;=\;f(x_i)+f^\prime(x_i)(\Delta x_i)\;=\;0\\
+\;\\
+\Delta x_i\;=\;-{f(x_i)\over f^{\prime}(x_i)}&lt;/script&gt;
+
+&lt;p&gt;따라서, 우리가 원하는 x_(i+1) 은 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x_{i+1}\;=\;x_i\;+\;\Delta x_i&lt;/script&gt;
+
+&lt;p&gt;나온 x_(i+1)을 다시 a로 넣고, 이 작업을 반복하게 되면, 해 근처에 갔을 때, 델타 x가 매우 작아진다. 이 때, 우리는 해를 찾았다고 return 해준다.&lt;/p&gt;
+
+&lt;h2 id=&quot;일반화된-newton-rahpson-method&quot;&gt;일반화된 Newton-Rahpson method&lt;/h2&gt;
+
+&lt;p&gt;그렇다면, 식이 2개, 변수가 2개인 벡터 함수에서는 어떻게 근사할 수 있을까?&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{f}(x,y)\;=\;
+\begin{bmatrix}
+f_1(x,y)\\
+f_2(x,y)
+\end{bmatrix}&lt;/script&gt;
+
+&lt;p&gt;각각을 테일러 시리즈로 전개하자. 1차항 까지.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f_1(x_{i+1}, y_{i+1})\;=\;f_1(x_i, y_i)+{\partial f_1 \over \partial x}(x_i,y_i)(\Delta x_i)+\;{\partial f_1 \over \partial y}(x_i,y_i)(\Delta y_i)=\;0\\
+\;\\
+f_2(x_{i+1}, y_{i+1})\;=\;f_2(x_i, y_i)+{\partial f_2 \over \partial x}(x_i,y_i)(\Delta x_i)+\;{\partial f_2 \over \partial y}(x_i,y_i)(\Delta y_i)=\;0\\&lt;/script&gt;
+
+&lt;p&gt;우변이 0인 이유는 위에서 설명한 것과 같은 의미 이다. 우리는 0이 되는 x, y를 찾고 싶은 것이기에 근사한 식에서 함수값이 0이 될 때, &lt;em&gt;x*(i+1), y*(i+1)&lt;/em&gt; 이 필요하다. 편미분 후 x_i, y_i를 넣는 것을 생략해서 표현하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix}
+\partial f_1 \over \partial x &amp; \partial f_1 \over \partial y\\
+\partial f_2 \over \partial x &amp; \partial f_2 \over \partial y\\
+\end{bmatrix}
+\begin{bmatrix}
+\Delta x_i\\
+\Delta y_i\\
+\end{bmatrix}
+\;=\;
+\begin{bmatrix}
+-f_1(x_i, y_i)\\
+-f_2(x_i, y_i)\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;여기서,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+J\;=\;\begin{bmatrix}
+\partial f_1 \over \partial x &amp; \partial f_1 \over \partial y\\
+\partial f_2 \over \partial x &amp; \partial f_2 \over \partial y\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;J를 &lt;strong&gt;자코비안 행렬&lt;/strong&gt; 이라 한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\Delta \overset{\rightarrow}{h}
+\;=\;
+\begin{bmatrix}
+\Delta x_i\\
+\Delta y_i\\
+\end{bmatrix}
+\;=\;
+\begin{bmatrix}
+\partial f_1 \over \partial x &amp; \partial f_1 \over \partial y\\
+\partial f_2 \over \partial x &amp; \partial f_2 \over \partial y\\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+-f_1(x_i, y_i)\\
+-f_2(x_i, y_i)\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x_{i+1}\;=\;x_i\;+\;\Delta x_i
+\\
+\;\\
+y_{i+1}\;=\;y_i\;+\;\Delta y_i&lt;/script&gt;
+
+&lt;p&gt;이므로 업데이트가 가능하다. 역시나 초기값 설정이 필요하다!&lt;/p&gt;
+
+&lt;h1 id=&quot;position-analysis&quot;&gt;Position Analysis&lt;/h1&gt;
+
+&lt;p&gt;이전 글에서 우리는 제약식들이 모인 벡터함수 C를 정의했다. 우리는 결국 벡터함수 C = 0 이되는 해, 즉 q 벡터를 찾는 것이 목적이다. 따라서 우리는 이 벡터 함수 C를 테일러 시리즈로 근사한 뒤 &lt;strong&gt;Newton-Rahpson method&lt;/strong&gt; 를 사용해서 해를 구하자! 그러기 위해서는 벡터함수 C를 근사화 해야 한다. 테일러 시리즈를 적용하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i+1}}\;,t)\;=\;
+\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)\;+\;  C_{q_i}\Delta \overset{\rightarrow}{q_i}\;=\;0&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+C_{q_i}\;=\;{\partial \overset{\rightarrow}{C} \over \partial \overset{\rightarrow}{q_{i}}}\;=\;
+\begin{bmatrix}
+{\partial C_1\over \partial q_1} &amp; \dots &amp; {\partial C_1\over \partial q_n}
+\\\vdots\ &amp; &amp;  \vdots\\
+{\partial C_m\over \partial q_1}  &amp; \dots &amp; {\partial C_m\over \partial q_n}\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;C 행렬은 자코비안 행렬이다. 따라서,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta \overset{\rightarrow}{q_i}\;=\;-[  C_{q_i}]^{-1\;}\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{q_{i+1}}\;=\;\overset{\rightarrow}{q_i}\;+\;\Delta \overset{\rightarrow}{q_i}&lt;/script&gt;
+
+&lt;p&gt;로 q벡터를 구할 수 있다. 이를 반복하다가 특정 조건일 때, 우리는 반복을 멈추고 return 하면되는데,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+|\Delta \overset{\rightarrow}{q_i}|\;&lt;\;\epsilon_1\\
+\;\\
+OR\\
+\;\\
+|\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)|\;&lt;\;\epsilon_2 %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;두 식의 의미는, 하나는 다가가는 step size이고, 두번째는 함수값의 size 차이이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-05-07 오후 2 24 47&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57273735-e3934280-70d3-11e9-8b20-05b30f88ef64.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해답을 찾아가는 과정에는 다음과 같이 두가지의 기준을 세울 수 있으므로, 두 기준에 대해서 iteration을 멈춘다.&lt;/p&gt;
+
+&lt;h2 id=&quot;notice&quot;&gt;Notice&lt;/h2&gt;
+
+&lt;p&gt;우리는 t가 변수가 아닌 것에 주목해야 한다. 우리는 해를 수치적으로 구할 것이기 때문이다. t가 0일 때, q벡터의 초기값을 임의로 잡고, Newton 메서드, q 구함. t가 0.01 일 때, q벡터의 초기값을 임의로 잡고, newton 메서드 , q 구함. 따라서 t는 상수로 생각하고 우리는 문제를 푼다.&lt;/p&gt;
+
+&lt;h1 id=&quot;velocity-analysis&quot;&gt;Velocity Analysis&lt;/h1&gt;
+
+&lt;p&gt;같은 방법으로 제약식이 주어졌을 때, 우리가 궁금한 것은 q_dot 벡터이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{C}(\overset{\rightarrow}{q}\;,t)\;=\;\overset{\rightarrow}{0}&lt;/script&gt;
+
+&lt;p&gt;이므로,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{d\overset{\rightarrow}{C}(\overset{\rightarrow}{q}, t) \over dt}\;=\;{d\overset{\rightarrow}{C} \over d\overset{\rightarrow}{q}}\cdot\overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\cdot}{\overset{\rightarrow}{C}}
+\;=\;  C_{q}\cdot \overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\rightarrow}{C_{t}}
+\;=\;\overset{\rightarrow}{0}&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{C_{t}}\;=\;
+\begin{bmatrix}
+{d C_1\over dt}\\
+{d C_2\over dt}\\
+\vdots\\
+{d C_{n_c}\over dt}\\
+\end{bmatrix}
+
+\\
+\;\\
+n_c\;=\;제약식의 \;갯수&lt;/script&gt;
+
+&lt;p&gt;Ct 벡터는 t에 대해 미분한 벡터이므로, Driving constraint 식 이외 항은 0이다. 따라서 결론적으로,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;C_{q}\cdot \overset{\cdot}{\overset{\rightarrow}{q}}
+\;=\;-\overset{\rightarrow}{C_{t}}\\
+\;\\
+
+\overset{\cdot}{\overset{\rightarrow}{q}}\;=\;
+-[  C_{q}]^{-1}\overset{\rightarrow}{C_{t}}&lt;/script&gt;
+
+&lt;p&gt;이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;acceleration-analysis&quot;&gt;Acceleration Analysis&lt;/h1&gt;
+
+&lt;p&gt;제약식을 두번 미분해서, q_twodot 을 구하면 된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{d^2\overset{\rightarrow}{C}(\overset{\rightarrow}{q}, t) \over dt^2}\;=\;
+{d\over dt}[{d\overset{\rightarrow}{C} \over d\overset{\rightarrow}{q}}\cdot\overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\cdot}{\overset{\rightarrow}{C}}]
+\;=\;
+{d\over dt}[  C_{q}\cdot \overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\rightarrow}{C_{t}}]
+\;=\;\overset{\rightarrow}{0}&lt;/script&gt;
+
+&lt;p&gt;결과적으로,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;C_{q}\cdot \overset{\cdot \cdot}{\overset{\rightarrow}{q}}
+\;=\;\overset{\rightarrow}{Q_{d}}\\
+\;\\
+
+\overset{\cdot \cdot}{\overset{\rightarrow}{q}}\;=\;
+[  C_{q}]^{-1}\overset{\rightarrow}{Q_{d}}
+\\
+\;\\
+\overset{\rightarrow}{Q_{d}}\;=\;-(  C_{q} \overset{\cdot}{\overset{\rightarrow}{q}})_q \overset{\cdot}{\overset{\rightarrow}{q}}\;-\;2  C_{qt} \overset{\cdot}{\overset{\rightarrow}{q}}\;-\;\overset{\rightarrow}{C_{tt}}&lt;/script&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>05: 기구학적 제약</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html</guid>
+        <description>&lt;p&gt;기구학적인 joint 들은 각자가 가지는 특징 때문에, 기구학적으로 제약을 갖는다. 이 제약은 결국 시스템의 자유도를 구속하게 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;ground&quot;&gt;Ground&lt;/h1&gt;
+
+&lt;p&gt;2차원 공간에서 기본적으로 가지는 자유도는 3이다. 이때, 특정 포인트를 내가 지면으로 잡는다면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;R_x\;=\;c_1\\
+R_y\;=\;c_2\\
+\theta\;=\;c_3&lt;/script&gt;
+
+&lt;p&gt;이렇게 3개의 제약이 걸리게 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;revolute-joint&quot;&gt;Revolute joint&lt;/h1&gt;
+
+&lt;p&gt;특정 포인트에 Revolute joint가 달리게 될 경우, 회전만 가능하고, 두 body 사이에 연결된 revolute joint는 하나만을 가리켜야 한다.&lt;/p&gt;
+
+&lt;p&gt;Global coordinate 에서 표현한다고 했을 때, 따라서 body 1에서 가리키는 revolute joint의 벡터와 body 2에서 가리키는 revolute joint의 벡터는 같아야 한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{r_p}^j
+\\\overset{\rightarrow}{R}^i\;+\;A^i \overset{\rightarrow}{\overset{-}{u_p}}^i
+\;=\;\overset{\rightarrow}{R}^j\;+\;A^j \overset{\rightarrow}{\overset{-}{u_p}}^j&lt;/script&gt;
+
+&lt;p&gt;따라서 2개의 제약이 걸리게 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;prismatic-joint&quot;&gt;Prismatic joint&lt;/h1&gt;
+
+&lt;p&gt;Prismatic joint는 한방향의 병진운동만 가능하게 하는 joint이다. 따라서 2개의 제약식이 만들어질 것임을 예상할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;두 body 사이에 prismatic joint가 연결되어 있다면, global coordinate에서 봤을 때 정의된 두 body coordinate 의 초기 상대각도는 &lt;strong&gt;constant&lt;/strong&gt; 로 유지된다.&lt;/p&gt;
+
+&lt;p&gt;또한 prismatic 의 경우, 두 바디 사이의 각이 항상 수직이다. 따라서 움직이는 방향 벡터와 수직으로 연결된 body의 벡터를 내적하면 항상 0이다. 따라서 2개의 제약이 걸리게 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;moblility-criteria&quot;&gt;Moblility Criteria&lt;/h1&gt;
+
+&lt;p&gt;역학 시스템을 분석하기 위한 가장 기본적인 단계는, 계의 자유도를 구하는 것이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;n_b\;=\;Number\;of\;bodies\\
+\\\;\\
+n_c\;=\;Number\;of\;constraint\;eqns\\
+\;\\
+n_d\;=\;Degree\;of\;freedom&lt;/script&gt;
+
+&lt;p&gt;2D 에서 구하는 방법은 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;n_d\;=\;n_b\times 3\;-\;n_c&lt;/script&gt;
+
+&lt;p&gt;3D 에서 구하는 방법은 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;n_d\;=\;n_b\times 6\;-\;n_c&lt;/script&gt;
+
+&lt;h1 id=&quot;driving-constraint&quot;&gt;Driving Constraint&lt;/h1&gt;
+
+&lt;p&gt;시스템의 자유도가 0 인 경우 우리는 추가적인 제약식을 만들 필요가 없다. 하지만 자유도가 0이 아닌 정수인 경우. 우리는 추가적인 제약식이 있어야 연립방정식을 풀 수 있다. 이 때 주어지는 제약식을 &lt;strong&gt;Driving Constraint&lt;/strong&gt; 라 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;예제&quot;&gt;예제&lt;/h1&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-05-07 오전 10 37 43&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57265771-27764f80-70b4-11e9-9284-bd2b03fbf36c.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;dof-구하기&quot;&gt;DOF 구하기&lt;/h2&gt;
+
+&lt;h3 id=&quot;body&quot;&gt;BODY&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Ground&lt;/li&gt;
+  &lt;li&gt;bar1&lt;/li&gt;
+  &lt;li&gt;bar2&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;3 x 3 = 9&lt;/p&gt;
+
+&lt;h3 id=&quot;constraint&quot;&gt;Constraint&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Ground : 3&lt;/li&gt;
+  &lt;li&gt;Revoulte joint 1 : 2&lt;/li&gt;
+  &lt;li&gt;Revolute joint 2 : 2&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;3 + 2 + 2 = 7&lt;/p&gt;
+
+&lt;h3 id=&quot;result&quot;&gt;Result&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;System DOF&lt;/strong&gt; = 9 - 7 = 2&lt;/p&gt;
+
+&lt;p&gt;결과적으로 우리는 theta2, theta3 에 관해 자유롭다. 따라서 이 시스템의 기구학적 특성을 살펴보기 위해서는 이 두 요소에 대한 &lt;strong&gt;Driving Constraint&lt;/strong&gt; 가 필요하다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot}{\theta^2}\;=\;\omega^2\\
+\;\\
+\overset{\cdot}{\theta^3}\;=\;\omega^3&lt;/script&gt;
+
+&lt;p&gt;위 두가지 제약으로 부터,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta^2\;=\;\theta_o^2\;+\;\omega^2t\\
+\;\\
+\theta^3\;=\;\theta_o^3\;+\;\omega^3t&lt;/script&gt;
+
+&lt;p&gt;O로 표현된 각은 초기 각이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;제약식-나타내기&quot;&gt;제약식 나타내기&lt;/h2&gt;
+
+&lt;p&gt;각 constraint condition 으로 부터 도출되는 식은, system body에서 결정되는 coordinate 변수의 종류 안에서 결정된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\rightarrow}{q}\;=\;
+\begin{bmatrix}
+[R_x^1&amp; R_y^1 &amp; \theta^1] &amp; [R_x^2&amp; R_y^2 &amp; \theta^2] &amp; [R_x^3 &amp; R_y^3 &amp; \theta^3]
+\end{bmatrix}^T
+\\
+\;\\
+\;=\;
+\begin{bmatrix}
+q_1&amp; q_2&amp; q_3&amp; q_4&amp; q_5&amp; q_6&amp; q_7&amp; q_8&amp; q_9
+\end{bmatrix}^T %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;총 9개의 식이 나오고, 이 각각을 C_1, C_2.. 스칼라 함수라고 한다면, 총 9개의 스칼라 함수를 가지는 벡터함수 C는,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{C}(\overset{\rightarrow}{q}\;,t)\;=\;
+
+
+\begin{bmatrix}
+\begin{bmatrix}
+C_1(\overset{\rightarrow}{q}\;,t)\\
+C_2(\overset{\rightarrow}{q}\;,t)\\
+C_3(\overset{\rightarrow}{q}\;,t)
+\end{bmatrix}\;\;\;Ground\;\;\;\\
+\begin{bmatrix}
+C_4(\overset{\rightarrow}{q}\;,t)\\
+C_5(\overset{\rightarrow}{q}\;,t)\\
+\end{bmatrix}\;Revoulte\;1\\
+\begin{bmatrix}
+C_6(\overset{\rightarrow}{q}\;,t)\\
+C_7(\overset{\rightarrow}{q}\;,t)\\
+\end{bmatrix}\;Revoulte\;1\\
+\begin{bmatrix}
+C_8(\overset{\rightarrow}{q}\;,t)\\
+C_9(\overset{\rightarrow}{q}\;,t)\\
+\end{bmatrix}Driving\;Cd\\
+\end{bmatrix}
+\;=\;
+\overset{\rightarrow}{0}&lt;/script&gt;
+
+&lt;p&gt;위와 같다. 그런데 각각의 스칼라 함수 안에 들어가는 함수는, 삼각함수로 표현되기 일쑤기 때문에 Non-linear 하다. 따라서 우리는 저 행렬식을 푸는데 있어 다른 방법을 생각해야 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;to-solve-nonlinear-function&quot;&gt;To solve nonlinear function&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Bisection method&lt;/li&gt;
+  &lt;li&gt;Golden Section method&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;em&gt;Newton-Raphson method&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;secant method&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;우리는 여기서 Newton-Rahpson Method를 사용해 보겠다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>04: 평면에서의 기구학</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html</guid>
+        <description>&lt;h1 id=&quot;좌표계의-회전-변환&quot;&gt;좌표계의 회전 변환&lt;/h1&gt;
+
+&lt;p&gt;i번째에서 정의된 좌표계는, 내가 원하는 global 좌표계에서 좌표로 다음과 같은 관계를 갖는다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix}
+x_p\\
+y_p
+\end{bmatrix}\;=\;
+\begin{bmatrix}
+cos\theta &amp; -sin\theta\\
+sin\theta &amp; cos\theta\\
+\end{bmatrix}
+\begin{bmatrix}
+x_p^i\\
+y_p^i
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;이 행렬을 A라 정의하자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+A^i\;=\;\begin{bmatrix}
+cos\theta &amp; -sin\theta\\
+sin\theta &amp; cos\theta\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;h1 id=&quot;위치-벡터의-표현&quot;&gt;위치 벡터의 표현&lt;/h1&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-05-04 오후 6 18 02&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57176903-f8d05d00-6e98-11e9-8d4b-dc68acd7ffcd.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다음과 같이 global 좌표계가 있고, 특정 body에서 정의된 좌표계가 있을 때, 우리는 이 두 좌표계를 변환할 필요가 있다. global 좌표계에서 body의 움직임을 알고 싶다. 강체라 가정하고, body의 좌표계에서 중심점이 되는 곳을 우리는 &lt;strong&gt;reference point&lt;/strong&gt; 라 부른다. 또 그곳에서 정의되는 좌표계를 &lt;strong&gt;body frame, local coordinate&lt;/strong&gt; 라 한다. 그리고 global 좌표계의 중심이 되는 곳을 &lt;strong&gt;reference frame&lt;/strong&gt; 이라 부를 것이다. 이 두좌표계를 변환하는 관계식은 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{R}^i\;+\;\overset{\rightarrow}{u_p}^i&lt;/script&gt;
+
+&lt;p&gt;이 표기법을 말로 정의해보면, &lt;strong&gt;global 좌표계에서 표현된 p점의 벡터&lt;/strong&gt; 는, &lt;strong&gt;reference point까지의 벡터&lt;/strong&gt; 와 &lt;strong&gt;reference point로 부터 global 좌표계에서 표현된 특정 위치의 벡터&lt;/strong&gt; 를 더한 것이다. 라는 의미이다. 이 때, reference point로 부터 global 좌표계에서 표현된 특정 위치의 벡터는 &lt;strong&gt;local coordinate&lt;/strong&gt; 로 부터 &lt;strong&gt;global coordinate&lt;/strong&gt; 로 회전 변환 한 것이므로,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{R}^i\;+\;A^i \overset{\rightarrow}{\overset{-}{u_p} }^i&lt;/script&gt;
+
+&lt;p&gt;여기서 맨 오른쪽에 표현된 term은, local coordinate에서 표현된 특정 좌표이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
+\begin{bmatrix}
+{\overset{-}{x_p} }^i\\
+{\overset{-}{y_p} }^i
+\end{bmatrix}&lt;/script&gt;
+
+&lt;h1 id=&quot;속도-벡터의-표현&quot;&gt;속도 벡터의 표현&lt;/h1&gt;
+
+&lt;p&gt;위치벡터를 미분하면, 얻을 수 있다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{r_p}^i\;={d\over dt }\overset{\rightarrow}{r_p}^i\;=\;
+
+
+\;\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{A^i} \overset{\rightarrow}{\overset{-}{u_p} }^i\;+\;A^i \overset{\cdot}{\overset{\rightarrow}{\overset{-}{u_p} }^i}&lt;/script&gt;
+
+&lt;p&gt;여기서 의미를 파악해보면, 시간에 흐름에 따라, &lt;strong&gt;Rigid body assumption&lt;/strong&gt; 에 의해 &lt;strong&gt;local coordinate 안에서 p점의 속도는 0이다.&lt;/strong&gt; &lt;strong&gt;따라서 마지막 항은 0이다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{r_p}^i\;={d\over dt }\overset{\rightarrow}{r_p}^i\;=\;
+
+
+\;\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{A^i} \overset{\rightarrow}{\overset{-}{u_p} }^i&lt;/script&gt;
+
+&lt;p&gt;여기서 행렬 미분을 생각해보면, A는 theta 만의 함수이므로 이녀석을 시간 t에 대해 미분하면, &lt;strong&gt;chain rule&lt;/strong&gt; 에 의해,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot}{A^i} \;=\;{d\over dt}{A^i(\theta^i)} \;=\;{d\theta^i\over dt}({d\over d\theta^i}{A^i})\;=\;\overset{\cdot}{\theta^i}A^i_{,\theta}&lt;/script&gt;
+
+&lt;p&gt;이렇게 표현되고, A를 theta에 대해 미분한 행렬은,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+A^i_{,\theta}\;=\;\begin{bmatrix}
+-sin\theta^i &amp; -cos\theta^i\\
+cos\theta^i &amp; -sin\theta^i\\
+
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;transform-to-cross-product-form&quot;&gt;Transform to Cross product form&lt;/h2&gt;
+
+&lt;p&gt;결과적으로, &lt;strong&gt;강체에서&lt;/strong&gt; 속도 벡터는,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot}{\overset{\rightarrow}{r_p}^i}\;=\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i&lt;/script&gt;
+
+&lt;p&gt;2D에서 각속도 벡터는,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{\omega}^i\;=\;\overset{\cdot}{\theta^i}\hat{k}\;=\;[0\;\;\;\;0\;\;\;\;\overset{\cdot}{\theta^i}]^T&lt;/script&gt;
+
+&lt;p&gt;이 때,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
+\overset{\cdot}{\theta^i}
+\begin{bmatrix}
+-sin\theta^i &amp; -cos\theta^i\\
+cos\theta^i &amp; -sin\theta^i\\
+\end{bmatrix}
+\begin{bmatrix}
+\overset{-}{x_p}^i\\
+\overset{-}{y_p}^i\\
+\end{bmatrix}
+\;=\;
+\overset{\cdot}{\theta^i}\begin{bmatrix}
+-\overset{-}{x_p}^isin\theta^i-\overset{-}{y_p}^icos\theta^i\\
+\overset{-}{x_p}^icos\theta^i-\overset{-}{y_p}^isin\theta^i
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;로 정리될 수 있다. 여기서 Up 벡터는 다음과 같이 표현 될 수 있다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\rightarrow}{ {u_p} }^i\;
+=\;A^i\overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
+\begin{bmatrix}
+cos\theta^i &amp; -sin\theta^i\\
+sin\theta^i &amp; cos\theta^i\\
+\end{bmatrix}
+\begin{bmatrix}
+\overset{-}{x_p}^i\\
+\overset{-}{y_p}^i\\
+\end{bmatrix}
+\;=\;\begin{bmatrix}
+\overset{-}{x_p}^icos\theta^i-\overset{-}{y_p}^isin\theta^i\\
+\overset{-}{x_p}^isin\theta^i+\overset{-}{y_p}^icos\theta^i
+\end{bmatrix}
+\;=\;
+\begin{bmatrix}
+u_x^i\\
+u_y^i\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;각속도 백터와 Up 벡터를 내적하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i\;=\;
+\begin{vmatrix}
+\hat{i} &amp; \hat{j} &amp; \hat{k} \\
+0 &amp; 0 &amp; \overset{\cdot}{\theta^i}\\
+u_x^i &amp; u_y^i &amp; 0
+\end{vmatrix}
+\\
+\;\\
+\;=\;
+\begin{vmatrix} 0 &amp; \overset{\cdot}{\theta^i} \\ u_y^i &amp; 0 \end{vmatrix}\hat{i}
+-\begin{vmatrix} 0 &amp; \overset{\cdot}{\theta^i} \\ u_x^i &amp; 0 \end{vmatrix}\hat{j}
++\begin{vmatrix} 0 &amp; 0 \\ u_x^i &amp; u_y^i \end{vmatrix}\hat{k}\\
+\;\\
+\;=\;-\overset{\cdot}{\theta^i}u_y^i\hat i\;+\;\overset{\cdot}{\theta^i}u_x^i\hat j
+\\
+\;\\
+\;\\ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;이 식을 행렬식으로 표현하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot}{\theta^i}\begin{bmatrix}
+-u_y^i\\
+u_x^i\\
+\end{bmatrix}\;=\;
+\overset{\cdot}{\theta^i}\begin{bmatrix}
+-\overset{-}{x_p}^isin\theta^i-\overset{-}{y_p}^icos\theta^i\\
+\overset{-}{x_p}^icos\theta^i-\overset{-}{y_p}^isin\theta^i
+\end{bmatrix}\;=\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i&lt;/script&gt;
+
+&lt;p&gt;따라서,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i&lt;/script&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;결론적으로 속도 벡터는 다음과 같이 표현된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{r_p}^i\;=\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;\overset{\cdot}{\overset{\rightarrow}{R}^i}+\;\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i&lt;/script&gt;
+
+&lt;h1 id=&quot;가속도-벡터의-표현&quot;&gt;가속도 벡터의 표현&lt;/h1&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot \cdot}{\overset{\rightarrow}{r_p}^i}
+\;=\;{d\over dt }\overset{\cdot}{\overset{\rightarrow}{r_p}^i}\;=\;
+{d\over dt}[\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i]&lt;/script&gt;
+
+&lt;p&gt;정리하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\cdot \cdot}{\overset{\rightarrow}{r_p}^i}\;=\;
+\overset{\cdot \cdot}{\overset{\rightarrow}{R}^i}
+-(\overset{\cdot}{\theta^i})^2A^i \overset{\rightarrow}{\overset{-}{u_p} }^i
++\overset{\cdot \cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i
+\\
+\;\\
+\;=\;
+\overset{\cdot \cdot}{\overset{\rightarrow}{R}^i}+
+[\overset{\rightarrow}{\omega}^i\times(\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i)]
++[\alpha^i \times\overset{\rightarrow}{ {u_p} }^i]&lt;/script&gt;
+
+&lt;p&gt;여기서 alpha는,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\alpha^i\;=\;[0\;\;\;\;0\;\;\;\;\overset{\cdot \cdot}{\theta^i}]^T&lt;/script&gt;
+
+&lt;p&gt;이다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>03: Orthogonality, Vector Differentiation, Jacobi's Theorem</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html</guid>
+        <description>&lt;p&gt;행렬의 종류에 대해서는 링크로 대체한다!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wansook0316.github.io/ds/la/2020/09/29/Linear-Algebra-Basic-01-Types-Of-Matrix.html&quot;&gt;Types of Matrix&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;orthogonality&quot;&gt;Orthogonality&lt;/h1&gt;
+
+&lt;p&gt;두 벡터를 곱했을 때 수직! 자기 자신이 나온다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\vec {a} \cdot \vec {b}\;=\;\vec {a}^T \vec {b}\;=\;0&lt;/script&gt;
+
+&lt;p&gt;자기 자신을 곱한다면 자기자신의 크기의 제곱이 나와야 한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\vec {a} \cdot \vec {a}\;=\;\vec {a}^T \vec {a}\;=\;|\vec {a}|^2&lt;/script&gt;
+
+&lt;h1 id=&quot;orthonomality&quot;&gt;Orthonomality&lt;/h1&gt;
+
+&lt;p&gt;여기서는 두 벡터가 단위 벡터이다! 따라서 자기 자신을 곱했을 때, 1이 나와야 한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\vec {a} \cdot \vec {a}\;=\;\vec {a}^T \vec {a}\;=\;1&lt;/script&gt;
+
+&lt;p&gt;사실 Orthogonal Matrix는 각 열(혹은 행) 벡터가 모두 단위 벡터일 때 정의를 만족한다!&lt;/p&gt;
+
+&lt;h1 id=&quot;vector-differentiation&quot;&gt;Vector Differentiation&lt;/h1&gt;
+
+&lt;h2 id=&quot;scalar-function-by-scalar&quot;&gt;Scalar Function by Scalar&lt;/h2&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f \;=\;function \;of(q_1,q_2,\dots,q_n, t)\\
+\;\\
+q_i\;=\;g_i(t),\;\;i=1,2,3 \dots, n&lt;/script&gt;
+
+&lt;p&gt;이때 t에 대해 미분하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{df\over dt}\;=\;{\partial f\over \partial q_1}{dq_1\over dt}+{\partial f\over \partial q_2}{dq_2\over dt}+\dots+{\partial f\over \partial q_n}{dq_n\over dt}+{\partial f \over \partial t}&lt;/script&gt;
+
+&lt;p&gt;이를 벡터 형식으로 나타내면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+{df\over dt}\;=\;\begin{bmatrix}
+{\partial f\over \partial q_1} &amp; {\partial f\over \partial q_2} &amp; \dots &amp; {\partial f\over \partial q_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+{dq_1\over dt}\\ {dq_2\over dt}\\ \vdots \\{dq_n\over dt}\\
+\end{bmatrix}
++{\partial f \over \partial t}\\ %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;여기서 벡터로 표현된 녀석을 다음과 같이 표현하자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix}
+{\partial f\over \partial q_1} &amp; {\partial f\over \partial q_2} &amp; \dots &amp; {\partial f\over \partial q_n}\\
+\end{bmatrix}={\partial f \over \partial \overset{\rightarrow}{q}}=f_{\overset{\rightarrow}{q}} %]]&gt;&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\begin{bmatrix}
+{dq_1\over dt}\\ {dq_2\over dt}\\ \vdots \\{dq_n\over dt}\\
+\end{bmatrix}={d \overset{\rightarrow}{q} \over dt}&lt;/script&gt;
+
+&lt;p&gt;그렇다면 위의 식은 다음과 같이 정리된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{df\over dt}\;=\;f_{\overset{\rightarrow}{q}}{d \overset{\rightarrow}{q} \over dt}+{df \over dt}&lt;/script&gt;
+
+&lt;h2 id=&quot;vector-function-by-scalar&quot;&gt;Vector Function by Scalar&lt;/h2&gt;
+
+&lt;p&gt;벡터함수 f는 각각의 요소에 변수 (q1~qn, t) 를 갖는 스칼라 함수를 m개 갖는다고 하자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f_1\;=\;f_1(q_1,q_2,\dots,q_n,t)\\
+f_2\;=\;f_1(q_1,q_2,\dots,q_n,t)\\
+f_3\;=\;f_1(q_1,q_2,\dots,q_n,t)\\
+\vdots\\
+f_m\;=\;f_n(q_1,q_2,\dots,q_n,t)\\
+\;\\
+\;\\
+\overset{\rightarrow}{f}\;=\;[f_1\;f_2\;f_3\;\dots\;f_m]^T&lt;/script&gt;
+
+&lt;p&gt;그렇다면 이 함수를 스칼라 변수 t로 미분하면,&lt;/p&gt;
+
+&lt;p&gt;각각의 요소는,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{df_j\over dt}\;=\;{\partial f_j \over \partial \overset{\rightarrow}{q}}{d \overset{\rightarrow}{q} \over dt}+{df \over dt}\\
+\;\\
+\;\\
+j\;=\;1,2,\dots, m&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+{\partial f_j \over \partial \overset{\rightarrow}{q}}=
+\begin{bmatrix}
+{\partial f_j\over \partial q_1} &amp; {\partial f_j\over \partial q_2} &amp; \dots &amp; {\partial f_j\over \partial q_n}\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;그렇다면, 벡터 함수를 t로 미분한 최종 결과는,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+{d\overset{\rightarrow}{f} \over dt}\;=\;\begin{bmatrix}
+{df_1\over dt}\\ {df_2\over dt}\\ \vdots \\{df_n\over dt}\\
+\end{bmatrix}\;=
+\begin{bmatrix}
+{\partial f_1\over \partial q_1} &amp; \dots &amp; {\partial f_1\over \partial q_n}
+\\\vdots\ &amp; &amp;  \vdots\\
+{\partial f_m\over \partial q_1}  &amp; \dots &amp; {\partial f_m\over \partial q_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+{dq_1\over dt}\\ \vdots \\{dq_n\over dt}\\
+\end{bmatrix}
++\begin{bmatrix}
+{df_1 \over dt}\\  \vdots \\{df_m \over dt}\\
+\end{bmatrix}
+\\ %]]&gt;&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{d\overset{\rightarrow}{f} \over dt}\;=\;{\partial\overset{\rightarrow}{f} \over \partial\overset{\rightarrow}{q}}{d\overset{\rightarrow}{q} \over dt}
++{\partial\overset{\rightarrow}{f} \over \partial t}&lt;/script&gt;
+
+&lt;p&gt;여기서 행렬이 만들어진다는 것을 잊으면 안된다! 각각의 크기만 적어보면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;{d\overset{\rightarrow}{f} \over dt}\;=\;{\partial\overset{\rightarrow}{f} \over \partial\overset{\rightarrow}{q}}{d\overset{\rightarrow}{q} \over dt}
++{\partial\overset{\rightarrow}{f} \over \partial t}\\
+(m\times 1)=(m\times n)(n\times 1)+(m\times1)&lt;/script&gt;
+
+&lt;h2 id=&quot;scalar-function-by-vector&quot;&gt;Scalar Function by Vector&lt;/h2&gt;
+
+&lt;p&gt;스칼라 함수를 스칼라로 미분하는 가장 위의 예에서, 함수 f를 벡터 q로 미분하면, 다음과 같다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+{d f \over d\overset{\rightarrow}{q}}\;=\;\begin{bmatrix}
+{d f\over d q_1} &amp; {d f\over d q_2} &amp; \dots &amp; {d f\over d q_n}\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;vector-function-by-scalar-1&quot;&gt;Vector Function by Scalar&lt;/h2&gt;
+
+&lt;p&gt;벡터 함수를 스칼라로 미분하는 두번째 예에서, 벡터 함수 f를 q1으로 미분한다면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+{d\overset{\rightarrow}{f} \over dq_1}\;=\;\begin{bmatrix}
+{d f_1\over d q_1} &amp; {d f_1\over d q_1} &amp; \dots &amp; {d f_1\over d q_1}\\
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;h3 id=&quot;정리&quot;&gt;정리&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;스칼라 함수를 스칼라로 미분하면 스칼라함수다.&lt;/li&gt;
+  &lt;li&gt;스칼라 함수를 벡터 함수로 미분하면 1xn 벡터가 나온다.&lt;/li&gt;
+  &lt;li&gt;벡터 함수를 스칼라로 미분하면 1xm 벡터가 나온다.&lt;/li&gt;
+  &lt;li&gt;벡터 함수를 벡터로 미분하면 nxm 행렬이 나온다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;skew-symmetric-matrix-representation&quot;&gt;Skew-Symmetric Matrix Representation&lt;/h1&gt;
+
+&lt;p&gt;Skew-Symmetric Matrix는 벡터의 외적을 사용해서 다르게 표현이 가능한데, 간단한 예를 들어 생각해보자.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a} \;=\;[a_1\;a_2\;a_3]^T\\
+\overset{\rightarrow}{b} \;=\;[b_1\;b_2\;b_3]^T\\&lt;/script&gt;
+
+&lt;p&gt;이 두 벡터를 내적하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\rightarrow}{a}\times\overset{\rightarrow}{b}\;=\;
+\begin{bmatrix}
+a_2b_3-a_3b_2\\
+-(a_1b_3-a_3b_1)\\
+a_1b_2-a_2b_1
+\end{bmatrix}
+=\begin{bmatrix}
+0 &amp; -a_3 &amp; a_2\\
+a_3 &amp; 0 &amp; -a_1\\
+-a_2 &amp; a_1 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+b_1\\
+b_2\\
+b_3
+\end{bmatrix}\;=\;
+{ { \underset{=} {\overset{\sim}{a} } } } \cdot \overset{\rightarrow}{b} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;외적 식을 b벡터를 활용해서 나타내면 다음과 같이 나타낼 수 있다. 이때 중간에 skew-symmetric matrix 가 나오고, a 벡터가 왼쪽에 놓인 외적을 수행했을 때 발생하는 행렬을 위와 같이 표현했다. 마찬가지로, b벡터에 대해 하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+\overset{\rightarrow}{a}\times\overset{\rightarrow}{b}\;=\;\begin{bmatrix}
+0 &amp; -b_3 &amp; b_2\\
+b_3 &amp; 0 &amp; -b_1\\
+-b_2 &amp; b_1 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+a_1\\
+a_2\\
+a_3
+\end{bmatrix}\;=\;
+{ { \underset{=} {\overset{\sim}{b} } } } \cdot \overset{\rightarrow}{a} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;이와 같다.&lt;/p&gt;
+
+&lt;h2 id=&quot;property&quot;&gt;Property&lt;/h2&gt;
+
+&lt;p&gt;a 의 단위벡터와 a 벡터를 외적하면, 0이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{\overset{\rightarrow}{a}}\;\times \;\overset{\rightarrow}{a}\;=\;
+-\overset{\rightarrow}{a}\;\times \;\hat{\overset{\rightarrow}{a}}\;=\;
+\overset{\rightarrow}{0}&lt;/script&gt;
+
+&lt;p&gt;이 표현을 Skew-symmetric Matrix를 써서 표현하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;-\overset{\rightarrow}{a}\;\times \;\hat{\overset{\rightarrow}{a}}\;=\;
+-{ { \underset{=} {\overset{\rightarrow}{a} } } } \cdot \hat{\overset{\rightarrow}{a}}\;=\;
+{\overset{\rightarrow}{0}}&lt;/script&gt;
+
+&lt;p&gt;Skew-Symmetric Matrix 의 특징을 사용하면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;-{ { \underset{=} {\overset{\rightarrow}{a} } } }\;=\;{  {\underset{= }{\overset{\rightarrow}{a} } } }^T&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;-{ { \underset{=} {\overset{\rightarrow}{a} } } } \cdot \hat{\overset{\rightarrow}{a}}\;=\;{ { \underset{=} {\overset{\rightarrow}{a} } } }^T\cdot \hat{\overset{\rightarrow}{a}}\;=\;{\overset{\rightarrow}{0}}&lt;/script&gt;
+
+&lt;h2 id=&quot;역학에서-사용예&quot;&gt;역학에서 사용예&lt;/h2&gt;
+
+&lt;p&gt;시스템 내에서 역학적 Joint 에서 위치 벡터와의 관계는 다음과 같이 빈번하게 묘사된다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a}\times\overset{\rightarrow}{x}\;=\;\overset{\rightarrow}{0}&lt;/script&gt;
+
+&lt;p&gt;즉, a 벡터와 x 벡터가 수직임을 나타낸다. 수직인 벡터는 무수하게 많이 나온다는 점을 기억한 상태로 다음을 보자. Skew-symmetric Matrix를 사용해서 나타내면,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
+{ { \underset{=} {\overset{\sim}{a} } } } \cdot \overset{\rightarrow}{x}\;=\;\overset{\rightarrow}{0}\\
+\;\\
+\;\\
+{ { \underset{=} {\overset{\sim}{a} } } }\;=\;
+\begin{bmatrix}
+0 &amp; -a_3 &amp; a_2\\
+a_3 &amp; 0 &amp; -a_1\\
+-a_2 &amp; a_1 &amp; 0
+\end{bmatrix} %]]&gt;&lt;/script&gt;
+
+&lt;p&gt;a 행렬에 대해 &lt;strong&gt;Determinant를 구해보면, 0이다.&lt;/strong&gt; 즉, a 행렬은 특이 행렬이다. 즉, Rank가 matrix size보다 작다. 즉, x 벡터는 하나로 결정되지 못한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;jacobis-theorem&quot;&gt;Jacobi’s Theorem&lt;/h3&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;det({ { \underset{=} {\overset{\sim}{a} } } })\;=\;\overset{\rightarrow}{0}\\&lt;/script&gt;
+
+&lt;p&gt;Determinant 의 성질에 의해서,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;det({ { \underset{=} A} })\;=\;det({ { \underset{=} A^T} })&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;det({ { \underset{=} {\overset{\sim}{a} } } }^T)\;=\;
+det(-{ { \underset{=} {\overset{\sim}{a} } } })\;=\;
+(-1)^ndet({ { \underset{=} {\overset{\sim}{a} } } })&lt;/script&gt;
+
+&lt;p&gt;이 때 n이 짝수이게 되면, 양쪽 식의 값이 동치가 되어 det(a)의 값은 부정이다.
+따라서 n의 값은 홀수여야 한다. 즉, Skew-symmetric Matrix의 행렬식의 값이 0이 되려면, 행렬의 size가 홀수 차원이어야 한다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>02: 평면에서 다물체계의 운동학</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html</guid>
+        <description>&lt;h1 id=&quot;kinematics-of-planer-multibody-systems&quot;&gt;Kinematics of Planer Multibody Systems&lt;/h1&gt;
+
+&lt;p&gt;평면에 놓인 특정 물체를 나타내려면 어떻게 해야할까? 그 물체를 나타내기 위해 우리는 기준을 잡아서 설명해야 할 것이다. 즉 &lt;strong&gt;절대좌표&lt;/strong&gt; 가 필요하다.&lt;/p&gt;
+
+&lt;p&gt;먼저 물체의 질량 중심을 가리키는 좌표가 존재할 것이고, (x, y) 그리고 그 물체의 형상을 나타낼 때에 기준으로 잡은 &lt;strong&gt;상대좌표&lt;/strong&gt; 가 필요하다. 이유는 물체는 위치정보 이외에도 회전에 대한 정보도 있기 때문에 이것을 표현하기 위해서는 물체기준으로 만들어진 기준이 필요하다. 즉, 절대좌표와 상대좌표가 얼마나 회전했는지에 대한 지표가 필요하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-04-26 오후 4 07 25&quot; src=&quot;https://user-images.githubusercontent.com/37871541/56789633-50d5e680-683d-11e9-9196-bbdb0f1e5d8c.jpg&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;2D
+    &lt;ul&gt;
+      &lt;li&gt;Rx, Ry, T : 3개&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;3D
+    &lt;ul&gt;
+      &lt;li&gt;Rx, Ry, Rz, Tx, Ty, Tz : 6개&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;degree-of-freedom&quot;&gt;Degree Of Freedom&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;계의 운동을 정확히 표현하기 위해 필요한 최소한의 좌표 수&lt;/strong&gt; 를 자유도라 한다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;dof\;k\;=\;n\;coordinates \;-\;m\;independent\;equations\;of\;constraint&lt;/script&gt;
+
+&lt;h2 id=&quot;좌표계의-총-개수&quot;&gt;좌표계의 총 개수&lt;/h2&gt;
+
+&lt;p&gt;여기서 n coordinates는 해당 시스템의 좌표의 총 개수를 의미한다. coordinates의 개수 n은, 해당 시스템의 물체수와 관련이 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;50%&quot; alt=&quot;스크린샷 2019-04-26 오후 4 07 25&quot; src=&quot;https://user-images.githubusercontent.com/37871541/56787664-34837b00-6838-11e9-930d-7e998d9a87a2.jpg&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이와 같은 시스템이 있을 때, 이 시스템을 나타내기 위해서는, 절대좌표, 또 각각의 물체에서 사용해야하는 좌표계까지 12개이다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;3 + 3\times3\;=\;12&lt;/script&gt;
+
+&lt;p&gt;우리는 보통 Ground를 절대좌표로 잡으며, 그렇기 때문에 이 시스템을 볼때, Ground, 크랭크, 커플러, 종동절 총 4개의 물체가 있다고 생각하고 각각의 물체가 2D에서 정의되어 있기 때문에 각각의 좌표계는 Rx, Ry, T 3개씩의 좌표가 필요하다. 따라서 12개가 총 필요한 좌표계의 수이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;구속식의-개수&quot;&gt;구속식의 개수&lt;/h2&gt;
+
+&lt;p&gt;그런데 저 시스템의 자유도는 1이었다. 그렇다면, 1개의 좌표만이 저 시스템의 운동학적 형상을 결정짓는데 영향을 준다는 얘기인데, 다른말로 하면 제약 조건이 11개라는 소리다.&lt;/p&gt;
+
+&lt;p&gt;그 제약조건은 어떤 것 때문에 발생할까? 각각의 물체에 연결되어 있는 Joint 때문이다. 이 시스템에서 각각의 Joint는 연결되어 있는 물체가 길이방향, 길이에 수직인 방향으로 움직이는 것을 제한하고 있다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;4\;\times\;2 = \;8&lt;/script&gt;
+
+&lt;p&gt;8개의 제약이 Joint에서 발생한다. 또한, Ground는 이 시스템 전체에서 기준점 역할을 하고 있다. 위에서 3개의 좌표를 가질 수 있다고 계산은 했지만, Rx, Ry, T 각각이 상수값을 가져야 하므로, 제약 역시 세 좌표에 대해서 가지고 있다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;Rx\;=\;c_1,\;\;R_y\;=\;c_2,\;\;\theta\;=\;c_3&lt;/script&gt;
+
+&lt;p&gt;따라서 Ground 에 대한 제약은 3이다. 결론적으로 전체 제약 조건은,&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;8\;+\;3\;=\;11&lt;/script&gt;
+
+&lt;p&gt;11이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;dof-calculation&quot;&gt;DOF calculation&lt;/h2&gt;
+
+&lt;p&gt;그래서 DOF는 다음과 같이 계산할 수 있다.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;n\;=\;3\;\times\;4\\
+\;\\
+m\;=\;3\;+\;2\;\times\;4\\
+\;\\
+dof\;k\;=\;n\;-m\;=\;12\;-\;11\;=\;1&lt;/script&gt;
+
+&lt;h2 id=&quot;types-of-mechanical-joints&quot;&gt;Types of Mechanical Joints&lt;/h2&gt;
+
+&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2019-04-26 오후 5 43 26&quot; src=&quot;https://user-images.githubusercontent.com/37871541/56795159-cf855080-684a-11e9-9110-3a16dff7ed2e.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Prismatic Joint (Translational joint)
+    &lt;ul&gt;
+      &lt;li&gt;한 방향으로만 움직일 수 있게 만든 joint&lt;/li&gt;
+      &lt;li&gt;따라서 2D 인 경우 제약 조건은 2이다.&lt;/li&gt;
+      &lt;li&gt;3D 인 경우 제약 조건은 5이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Revolute Joint (Pin joint)
+    &lt;ul&gt;
+      &lt;li&gt;한 방향으로 회전할 수 있게 만든 joint&lt;/li&gt;
+      &lt;li&gt;따라서 2D 인 경우 제약 조건은 2이다.&lt;/li&gt;
+      &lt;li&gt;3D 인 경우 제약 조건은 5이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Cylindrical Joint
+    &lt;ul&gt;
+      &lt;li&gt;회전과 한 방향으로 움직일 수 있게 만든 joint&lt;/li&gt;
+      &lt;li&gt;이 joint 경우 2D에서는 사용할 수 없다.&lt;/li&gt;
+      &lt;li&gt;3D 인 경우 제약 조건은 4이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Spherical Joint (ball Joint)
+    &lt;ul&gt;
+      &lt;li&gt;세 방향으로 회전만 가능하게 만든 joint&lt;/li&gt;
+      &lt;li&gt;따라서 2D 인 경우는 정의되지 않는다.&lt;/li&gt;
+      &lt;li&gt;3D 인 경우 제약 조건은 4이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
+    
+      <item>
+        <title>01: 다물체 동역학 개론</title>
+        <link>/ds/la/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html</link>
+        <guid isPermaLink="true">/ds/la/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html</guid>
+        <description>&lt;h1 id=&quot;classification-of-dynamics&quot;&gt;Classification of Dynamics&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;동역학
+    &lt;ul&gt;
+      &lt;li&gt;정역학 (Statics)
+평형 (Equilibirium) 조건으로부터 반력을 구함 (Material Mechanics)&lt;/li&gt;
+      &lt;li&gt;동역학(Dynamics)
+        &lt;ul&gt;
+          &lt;li&gt;운동학 (kinematics)
+            &lt;ul&gt;
+              &lt;li&gt;운동방정식 없이 가속도와 속도, 초기 위치등으로 현상을 기술하는 것을 말한다.&lt;/li&gt;
+              &lt;li&gt;힘이 주어지지 않았을 때, 물체의 기하적인 특징을 분석한다.&lt;/li&gt;
+              &lt;li&gt;질량에 관계 없다.&lt;/li&gt;
+              &lt;li&gt;운동 방정식을 사용하지 않고 기술한다.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;운동 역학 (kinetics)
+            &lt;ul&gt;
+              &lt;li&gt;운동 방정식을 통한 해석 방법을 말한다.&lt;/li&gt;
+              &lt;li&gt;질량에 관계 있다.&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;forward-inverse-dynamics&quot;&gt;Forward, Inverse Dynamics&lt;/h1&gt;
+
+&lt;p&gt;우리는 보통, 주어진 힘에 대한 운동을 해석하는 방법으로 동역학을 이용해 왔다. 기존의 익숙한 방법을 &lt;strong&gt;Forward Dynamics&lt;/strong&gt; 라 한다. 그런데, 로보틱스 같은 분야에서는 내가 원하는 궤적 (Path)를 따라가도록 하기 위해서 가해야 하는 힘이 얼마인지를 찾는 경우가 있다. 이런 경우 사용되는 동역학의 방법을 &lt;strong&gt;Inverse Dynamics&lt;/strong&gt; 라 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;straight-curve&quot;&gt;Straight, Curve&lt;/h1&gt;
+
+&lt;p&gt;운동은 직선 운동과 곡선운동으로 나눌 수 있다. 단 방향으로의 운동만 발생한다면 &lt;strong&gt;&lt;em&gt;스칼라&lt;/em&gt;&lt;/strong&gt; 로 표현가능하지만, 그렇지 않을 경우 우리는 해당 위치의 특성값을 &lt;strong&gt;&lt;em&gt;벡터&lt;/em&gt;&lt;/strong&gt; 로 표현해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;translation-rotation&quot;&gt;Translation, Rotation&lt;/h1&gt;
+
+&lt;p&gt;일반적인 운동은 병진운동과 회전운동, 두 가지의 형태의 결합으로 발생한다. 병진운동이라 함은, 물체의 자세가 바뀌지 않는 운동을 말한다. 위에서 배운 직선운동과 곡선 운동이 이 병진운동의 카테고리 안에 들어간다. 회전운동은 물체의 자세를 변화시키는 운동을 의미한다. 우리가 실제 물체의 운동을 관찰할 경우 이 두가지의 운동의 형태의 결합으로 모든 운동을 기술할 수 있다. (강체)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;병진 운동
+    &lt;ul&gt;
+      &lt;li&gt;직선 운동&lt;/li&gt;
+      &lt;li&gt;곡선 운동&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;회전 운동&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;degree-of-freedom-dof&quot;&gt;Degree of Freedom (DOF)&lt;/h1&gt;
+
+&lt;p&gt;자유도(DOF)란 어떠한 물체가 움직이는 형상 (configuration)을 표현하는데 필요한 최소한의 좌표 수를 의미한다.&lt;/p&gt;
+
+&lt;p&gt;자유도는 시간에 대해 독립적으로 계산한다. 그런데 만약에 특정 시간에 대해 시스템의 위치와 모양이 결정된다면 이 때 DOF는 0이다. 왜냐하면 시간에 대해 독립적이라 했으므로 DOF가 0이 아니라면, 어떤 시간을 잡던지 시스템의 위치와 모양은 결정될 수 없다. 그런데 특정시간에 결정된다면 DOF는 0이다.&lt;/p&gt;
+
+&lt;p&gt;다루는 시스템의 크기가 커져, Body의 갯수가 많아지면, 각각의 body에 대한 좌표(Coordinates) 갯수는 많아지지만 이에 비례하여 DOF가 증가하지는 않는다. 그 이유는 Body들이 서로 연관되어 있기 때문인데, 자세한 것은 다음에 설명하도록 하고, 지금은 간단한 그림을 통해 직관적으로 이해하는 것을 우선으로 하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/56787664-34837b00-6838-11e9-930d-7e998d9a87a2.jpg&quot; alt=&quot;IMG_3910&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;em&gt;Example system&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이런 시스템이 주어졌을 때, 크랭크의 각위치만 알면, 다른 링크의 형상도 계산할 수 있으므로, 자유도는 1이다. 즉, &lt;strong&gt;특정 형상을 결정하기 위해 필요한 좌표의 갯수&lt;/strong&gt;가 자유도 이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;point-mass-particle&quot;&gt;Point mass, particle&lt;/h1&gt;
+
+&lt;p&gt;질량은 있으나 크기를 무시할 만큼 작은 물체를 &lt;strong&gt;질점&lt;/strong&gt;이라고 한다. 크기가 점만큼 작기 때문에 회전운동을 고민할 필요가 없다.&lt;/p&gt;
+
+&lt;h1 id=&quot;rigid-body&quot;&gt;Rigid Body&lt;/h1&gt;
+
+&lt;p&gt;강체(rigid body)는 여러개의 질점들이 모여져 있고, 질점들 사이의 거리가 변하지 않는 물체이다. 이에 비해 탄성체는 변형에 의해 질점 사이의 거리가 변하는 물체이다. 우리는 보통 강체로 모든 물체를 가정하고 문제를 푼다. (&lt;strong&gt;Rigid body Assumption&lt;/strong&gt;)&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2020 00:00:00 +0900</pubDate>
+      </item>
     
       <item>
         <title>13: Class</title>
@@ -1719,760 +2859,6 @@ courseCopy:  ['Python', 'Javascript', 'C++', 'HTML5']
 
 &lt;span class=&quot;n&quot;&gt;SM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;convert_to_celsius&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;212&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>06: Conditional Statement</title>
-        <link>/dv/python/2020/09/29/python-basic-06-Conditional-Statement.html</link>
-        <guid isPermaLink="true">/dv/python/2020/09/29/python-basic-06-Conditional-Statement.html</guid>
-        <description>&lt;p&gt;C++과 약간의 차이를 기억해야 하는데, 가장 핵심적인 것은 &lt;strong&gt;OR, AND&lt;/strong&gt; 를 그대로 갖다 쓴다는 것이다. C++에서는 각각 &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&amp;amp;&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;||&lt;/code&gt;&lt;/strong&gt; 로 사용했는데, 이것을 &lt;strong&gt;AND, OR&lt;/strong&gt; 로 사용하면 된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문자열에서-특정-문자-갯수-세는-프로그램-개발하기&quot;&gt;문자열에서 특정 문자 갯수 세는 프로그램 개발하기&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calcCharacterFromString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputChar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;numChs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;inputChar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numChs&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Mary had a little lamb'&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;inputChar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Enter the Char : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;calcCharacterFromString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sentence&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inputChar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>05: String</title>
-        <link>/dv/python/2020/09/29/python-basic-05-String.html</link>
-        <guid isPermaLink="true">/dv/python/2020/09/29/python-basic-05-String.html</guid>
-        <description>&lt;h1 id=&quot;문자열-할당&quot;&gt;문자열 할당&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;nameVar1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Issac'&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;nameVar1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Issac&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;문자열-기본-연산자-내장-함수&quot;&gt;문자열 기본 연산자, 내장 함수&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;len()&lt;/code&gt;
-입력 파라미터로 문자열을 전달 받는다.
-길이를 결과값으로 돌려준다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt;
-두 문자열을 하나로 연결하여 결과값을 돌려준다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;
-문자열을 뒤에 곱한 수만큼 반복한 형태의 문자열로 돌려준다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int()&lt;/code&gt;
-입력 파라미터로 전달받은 문자열이 숫자로만 이루어진 경우 정수타입으로 변경하여 돌려준다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float()&lt;/code&gt;
-실수 타입으로 바꿔서 돌려준다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;문자열-할당-시--을-사용해야-하는-경우&quot;&gt;문자열 할당 시 ‘ 을 사용해야 하는 경우&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;&quot;&lt;/code&gt; 으로 감싼다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\'&lt;/code&gt; 을 사용한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;print-함수&quot;&gt;Print() 함수&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;' '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value,...&lt;/code&gt;
-입력 파라미터를 여러개 줄 수 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sep=' '&lt;/code&gt;
-각각의 입력 파라미터를 출력할 때에 구분하는 문자열은 공백이다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;end='\n'&lt;/code&gt;
-모든 입력 파라미터를 출력한 이후에 마지막에는 개행을 하고 마친다.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;file, flush&lt;/code&gt; 추후 설명&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;input-함수&quot;&gt;input() 함수&lt;/h1&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;input()&lt;/code&gt; 함수의 리턴값은 기본이 &lt;strong&gt;문자&lt;/strong&gt; 이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;문자열을 입력하세요 : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;# char
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;num_string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;숫자를 입력하세요 : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;# char
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;숫자를 입력하세요 : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;	&lt;span class=&quot;c1&quot;&gt;# int
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;문자열-주의-사항&quot;&gt;문자열 주의 사항&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;문자열은 한번 입력하면 수정이 불가하다!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;실습&quot;&gt;실습&lt;/h1&gt;
-
-&lt;h2 id=&quot;문자열-뒤집기-프로그램-만들기&quot;&gt;문자열 뒤집기 프로그램 만들기&lt;/h2&gt;
-
-&lt;p&gt;문자열이 들어오면 앞뒤를 뒤집어서 화면에 출력한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reverseString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;나이-계산-프로그램-만들기&quot;&gt;나이 계산 프로그램 만들기&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;이름 입력해!!! : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;old&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;몇 살이니??? : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;now_year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;올 해 몇년??? :&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;future_year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;궁금한 년수 : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calcAge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;old&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now_year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;future_year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;old&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;future_year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now_year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calcAge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;old&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now_year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;future_year&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;살 입니다.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;나이-출력-프로그램-만들기&quot;&gt;나이 출력 프로그램 만들기&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;입력 : 주민등록번호 앞자리를 받는다.&lt;/li&gt;
-  &lt;li&gt;출력 : 당신의 생일은 OOOO년 OO월 OO일 입니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;주민등록번호 앞자리 6자리를 입력해주세요 : &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeBirthdayString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;#print(&quot;당신의 생일은 &quot;, &quot;19&quot;+number[:1]+&quot;년&quot;, int(number[2:3],&quot;월&quot;, int(number[4:5]),&quot;일 입니다.&quot;)
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;당신의 생일은 &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;19&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;년 &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;월 &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]),&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;일 입니다.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;makeBirthdayString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;쇼핑-총액-계산-프로그램-만들기&quot;&gt;쇼핑 총액 계산 프로그램 만들기&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;apple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;how many apple?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;banana&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;how many apple?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;melon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;how many apple?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;peach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;how many apple?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;grape&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;how many apple?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calcProductSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;apple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;banana&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;melon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2500&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5000&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4000&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;banana&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;melon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;peach&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grape&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>04: Function Design Recipe (FDR)</title>
-        <link>/dv/python/2020/09/29/python-basic-04-Function-Design-Recipe.html</link>
-        <guid isPermaLink="true">/dv/python/2020/09/29/python-basic-04-Function-Design-Recipe.html</guid>
-        <description>&lt;h1 id=&quot;function-design-recipe-fdr&quot;&gt;Function Design Recipe (FDR)&lt;/h1&gt;
-
-&lt;p&gt;우리는 파이썬에서 제공하는 다양한 내장 함수들에 대한 설명을 보고싶을때, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;help()&lt;/code&gt; 함수를 통해 정보를 확인할 수 있었다. 마찬가지로 내가 정의한 함수를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;help()&lt;/code&gt; 를 통해 설명을 볼 수 있게 하는 것이 좋은 개발자의 방향이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;convert_to_celsius&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fahrenheit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot; (int) -&amp;gt; int #1
-
-    Return the celcius number from the given fahrenheit number. #2
-
-    &amp;gt;&amp;gt;&amp;gt; Return the celsius(212) #3
-    100 #4
-    &quot;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#5
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fahrenheit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;함수를 선언하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;&quot;&quot;&lt;/code&gt; 을 써준뒤 주석을 달아준다. 이 때,&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;입력파라미터와 리턴값을 써준다.&lt;/li&gt;
-  &lt;li&gt;함수의 설명을 써준다.&lt;/li&gt;
-  &lt;li&gt;예제를 써준다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이 세가지를 두루한다면 가장 완벽한 주석이 될 거다!&lt;/p&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>03: Variables</title>
-        <link>/dv/python/2020/09/29/python-basic-03-Variables.html</link>
-        <guid isPermaLink="true">/dv/python/2020/09/29/python-basic-03-Variables.html</guid>
-        <description>&lt;h1 id=&quot;모든-변수는-객체이다&quot;&gt;모든 변수는 객체이다.&lt;/h1&gt;
-
-&lt;p&gt;파이썬에서 사용하는 변수는 객체를 가리킨다. 여기서 객체란 &lt;strong&gt;파이썬에서 사용되는 모든 것&lt;/strong&gt; 을 의미하는 말이다. 이게 무슨말일까? 이 개념에 대한 직관적인 설명을 잘해둔 페이지가 있어 여기 소개한다. &lt;a href=&quot;https://wikidocs.net/20457&quot;&gt;객체란?&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;신기하게도, C 에서 변수를 선언하면 각각 다른 메모리 공간에 상수로 들어갔던 것과 달리 파이썬에서는 같은 객체를 가리킨다. 예제로 직관적 이해를 해보도록 하자.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;먼저 이렇게 선언했을 때, 변수 a는 객체가 저장된 메모리 위치를 가리킨다. 또 오른쪽 3은, 정수 자료형 객체가 자동으로 메모리에 생성된다. 이렇게 보면 &lt;strong&gt;변수 a는 객체가 저장된 메모리의 위치를 가리키는 레퍼런스&lt;/strong&gt; 라고 생각할 수 있다. 그리고 만약 내가 같은 객체를 다른 변수를 통해 가리킨다면, 같다고 뜬다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;a가 3을 가리키고 b도 3을 가리킨다. 즉 a=3 을 입력하는 순간 3이라는 정수형 객체가 생성되고 변수 a는 3이라는 객체의 메모리 주소를 가리킨다. 다음에 변수 b가 동일한 객체인 3을 가리킨다. 이제 3이라는 정수형 객체를 가리키는 변수가 2개가 됐다. 이 두 변수는 가리키고 있는 대상이 동일하다. 따라서 동일한 객체를 가리키고 있는지 아닌지에 대해서 판단하는 파이썬 내장 함수인 is 함수를 a is b처럼 실행했을 때 참(True)을 리턴하게 된다. 이렇게 하나의 객체를 가리키는 변수의 개수를 &lt;strong&gt;레퍼런스 카운트 (참조 개수)&lt;/strong&gt; 라 한다. 여기서는 2가 되겠다.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>02: String Array, List, Data Type</title>
-        <link>/dv/python/2020/09/29/python-basic-02-String-Array-List-DataType.html</link>
-        <guid isPermaLink="true">/dv/python/2020/09/29/python-basic-02-String-Array-List-DataType.html</guid>
-        <description>&lt;h1 id=&quot;자료형&quot;&gt;자료형&lt;/h1&gt;
-
-&lt;p&gt;파이썬은 알아서 처리해주니까 이부분을 무시하고 작성하는 경향이 있을 수 있다. 하지만 여전히 연산을 할때, 해당 변수의 자료형을 인지한 상태로 수행해야 한다. 명시적 형변환을 하는 것을 잊지 말자.&lt;/p&gt;
-
-&lt;h1 id=&quot;string&quot;&gt;String&lt;/h1&gt;
-
-&lt;h2 id=&quot;문자열-나누기&quot;&gt;문자열 나누기&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pithon&lt;/code&gt; -&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Python&lt;/code&gt; 으로 바꾸는 작업을 진행해보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 잘못된 예
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Pithon&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'y'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;불가능하다. &lt;strong&gt;문자열의 요소값은 바꿀 수 있는 값이 아니다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 옳은 예
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Pithon&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'y'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;슬라이싱을 사용하여 새로운 문자열을 만들 수 있다. 또한, 슬라이싱을 할때 마지막 값은 미만으로 인식한다. 이런 방법을 사용하지말고, 기본 메서드를 사용하면 더 쉽게 가능하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;문자열-관련-함수들&quot;&gt;문자열 관련 함수들&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 문자 개수 세기
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 위치 알려주기 1
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;# 있으면 처음으로 나온 위치 반환, 없으면 -1
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 위치 알려주기 2
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'t'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;# 있으면 처음으로 나온 위치 반환, 없으면 에러
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 문자열 삽입
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'abcd'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;# 'a,b,c,d'
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 소문자를 대문자로
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hi&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;			&lt;span class=&quot;c1&quot;&gt;# 'HI'
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 문자열 바꾸기
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Life is too short&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Life&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Your leg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;# ’Your leg is too short’
-&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 문자열 나누기
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Life is too short&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;						&lt;span class=&quot;c1&quot;&gt;# [’Life’, ’is’, ’too’, ’short’]
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;a:b:c:d&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 				&lt;span class=&quot;c1&quot;&gt;# [’a’, ’b’, ’c’, ’d’]
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;list&quot;&gt;List&lt;/h1&gt;
-
-&lt;h2 id=&quot;수정&quot;&gt;수정&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;2번 예제에서 리스트를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a[1:2] = [‘a’, ‘b’, ‘c’]&lt;/code&gt;로 수정하는 것과 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a[1] = [‘a’, ‘b’, ‘c’]&lt;/code&gt;로 수정하는 것은 전혀 다른 결과값을 갖게 되므로 주의해야 한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a[1] = [‘a’, ‘b’, ‘c’]&lt;/code&gt;는 리스트 a의 두 번째 요소를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[‘a’, ‘b’,‘c’]&lt;/code&gt;로 바꾼다는 말이고
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a[1:2]는 a[1]에서 a[2]&lt;/code&gt; 사이의 리스트를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[‘a’, ‘b’, ‘c’]&lt;/code&gt;로 바꾼다는 말이다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a[1] = [‘a’, ‘b’, ‘c’]&lt;/code&gt;로 수정하게 되면 위와는 달리 리스트 a가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1, [‘a’, ‘b’,‘c’], 4]&lt;/code&gt;라는 값으로 변하게 된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;삭제&quot;&gt;삭제&lt;/h2&gt;
-
-&lt;h3 id=&quot;--사용해-리스트-요소-삭제하기&quot;&gt;[ ] 사용해 리스트 요소 삭제하기&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;del-함수-사용해-리스트-요소-삭제하기&quot;&gt;del 함수 사용해 리스트 요소 삭제하기&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;del&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;리스트-관련-함수&quot;&gt;리스트 관련 함수&lt;/h2&gt;
-
-&lt;h3 id=&quot;append&quot;&gt;append&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;sort&quot;&gt;sort&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;insert&quot;&gt;insert&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;remove&quot;&gt;remove&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;첫번째로 나오는 녀석을 삭제한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;pop&quot;&gt;pop&lt;/h3&gt;
-
-&lt;p&gt;pop( )은 리스트의 맨 마지막 요소를 돌려 주고 그 요소는 삭제하는 함수이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;tuple&quot;&gt;Tuple&lt;/h1&gt;
-
-&lt;p&gt;튜플(tuple)은 몇 가지 점을 제외하곤 리스트와 거의 비슷하다. 리스트와 다른 점은 다음과 같다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;리스트는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[]&lt;/code&gt;으로 둘러싸지만 튜플은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;()&lt;/code&gt;으로 둘러싼다.&lt;/li&gt;
-  &lt;li&gt;리스트는 그 값의 생성, 삭제, 수정이 가능하지만 튜플은 그 값을 바꿀 수 없다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;딕셔너리-자료형&quot;&gt;딕셔너리 자료형&lt;/h1&gt;
-
-&lt;p&gt;사람은 누구든지 “이름” = “홍길동”, “생일” = “몇 월 몇 일” 등으로 구분 할 수 있다. 파이썬은 영리하게도 이러한 대응 관계를 나타낼 수 있는 자료형을 가지고 있다. 요즘 사용하는 대부분의 언어들도 이러한 대응 관계를 나타내는 자료형을 갖고 있는데, 이를 연관 배열(Associative array) 또는 해시(Hash)라고 한다.&lt;/p&gt;
-
-&lt;p&gt;파이썬에는 이 자료형을 딕셔너리라고 하는데, 기본적으로 Key, Value 라는 것을 한 쌍으로 갖는 자료형이다. 딕셔너리가 튜플이나 리스트와 가장 다른 점이라면, &lt;strong&gt;순차적으로 해당 요소값을 구하지 않고 Key 를 통해 Value를 얻는다&lt;/strong&gt;는 점이다. 처음부터 다 뒤져보는 것이 아니고, Key가 있는 곳만 탐색한다는 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;key-list&quot;&gt;Key list&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pey&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0119993323&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birth&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1118&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;dict_keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birth&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;items&quot;&gt;Items&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;dict_items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pey&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0119993323&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birth&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1118&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;items 함수는 key와 value의 쌍을 튜플로 묶은 값을 dict items 객체로 돌려준다.&lt;/p&gt;
-
-&lt;h2 id=&quot;get&quot;&gt;Get&lt;/h2&gt;
-
-&lt;p&gt;Key 로 Value 를 얻어보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pey&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0119993323&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;birth&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1118&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pey&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0119993323&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>01: Introduction</title>
-        <link>/dv/python/2020/09/29/python-basic-01-Introduction.html</link>
-        <guid isPermaLink="true">/dv/python/2020/09/29/python-basic-01-Introduction.html</guid>
-        <description>&lt;h1 id=&quot;기본-정보&quot;&gt;기본 정보&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;발표년도&lt;/strong&gt; : 1991&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;설계자&lt;/strong&gt; : Guido van Rossum, 네덜란드&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;패러다임&lt;/strong&gt; : 절차적 프로그래밍, 함수형 프로그래밍, 객체 지향 프로그래밍&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;초보자부터 전문가까지 사용자층이 넓다.&lt;/li&gt;
-  &lt;li&gt;다양한 플랫폼에서 쓸 수 있다.&lt;/li&gt;
-  &lt;li&gt;라이브러리(모듈)이 풍부하다.&lt;/li&gt;
-  &lt;li&gt;들여쓰기를 사용해서 블록을 구분한다.&lt;/li&gt;
-  &lt;li&gt;C/C++ 에 비해 수행 속도가 느리다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;철학&quot;&gt;철학&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“아름다운게 추한 것보다 낫다.” (Beautiful is better than ugly)&lt;/li&gt;
-  &lt;li&gt;“명시적인 것이 암시적인 것 보다 낫다.” (Explicit is better than implicit)&lt;/li&gt;
-  &lt;li&gt;“단순함이 복잡함보다 낫다.” (Simple is better than complex)&lt;/li&gt;
-  &lt;li&gt;“복잡함이 난해한 것보다 낫다.” (Complex is better than complicated)&lt;/li&gt;
-  &lt;li&gt;“가독성은 중요하다.” (Readability counts)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>06: QR Decomposition (QR 분해)</title>
-        <link>/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html</link>
-        <guid isPermaLink="true">/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html</guid>
-        <description>&lt;h1 id=&quot;qr-decomposition&quot;&gt;QR Decomposition&lt;/h1&gt;
-
-&lt;p&gt;QR 분해의 근본적인 이유는 무엇일까? 기존의 선형대수에 대한 글에서, 행렬은 하나의 공간을 매핑한다고 했다. 그리고 행렬 size가 정사각행렬이고, full rank일 때 n차원 공간을 매핑한다. 그런데 공간을 매핑하는데 있어, 굳이 &lt;strong&gt;orthogonal&lt;/strong&gt; 할 필요는 없다. 즉, 직교하는 축으로 공간이 매핑될 필요는 없다. 하지만, 우리는 직교축에 익숙하다! 또한 다루기도 매우 쉽다!&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;스크린샷 2019-05-04 오후 4 47 23&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57175898-4d211000-6e8c-11e9-8c57-48e8a7a15470.png&quot; class=&quot;center&quot; wdth=&quot;80%&quot; /&gt;&lt;em&gt;Vector&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;따라서 우리는 특정 행렬이 Orthogonal 한 행렬로 나타내어 진다면 다루기 굉장히 수월할 것이다! 필요성이 생겼으니 만들어보자.&lt;/p&gt;
-
-&lt;h2 id=&quot;assumption&quot;&gt;Assumption&lt;/h2&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-A\;=\;\begin{bmatrix}
-\overset{\rightarrow}{a_1} &amp; \overset{\rightarrow}{a_2} &amp; \cdots &amp; \overset{\rightarrow}{a_m}\\
-
-\end{bmatrix}
-\\\;\\
-size\;=\;n\times m %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;A 행렬의 모든 벡터는 &lt;strong&gt;선형 독립&lt;/strong&gt; 이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;idea&quot;&gt;Idea&lt;/h2&gt;
-
-&lt;p&gt;2 차원 공간에서 먼저 생각해보자. 우리가 하고 싶은 것은, A 벡터를 Orthogonal 한 벡터로 변환시키는 것이다. 그전에, 어떤 직교행렬로 만들지에 대한 고민이 필요한데, 그러기 위해서는 기준이 필요하다. 그래서 우리는 직교행렬로 만들 첫번째 축(b1)을 a1 벡터로 선택할 것이다.&lt;/p&gt;
-
-&lt;p&gt;그렇다면, 우리는 b1에 직교하는 축, b2를 만들어야 하는데, 이녀석은 어떻게 정의할 수 있을까? &lt;strong&gt;a2 벡터의 방향으로 부터, a1 벡터의 성분을 제거&lt;/strong&gt; 해준다면 그 남은 벡터가 b2 벡터라 할 수 있을 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;800&quot; alt=&quot;스크린샷 2019-05-04 오후 5 08 15&quot; src=&quot;https://user-images.githubusercontent.com/37871541/57176148-38924700-6e8f-11e9-96a5-d809e41ba6ac.png&quot; class=&quot;center&quot; wdth=&quot;80%&quot; /&gt;&lt;em&gt;Orthogonal Vector&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;그 다음 3차원 벡터는, a3 벡터에서, b1벡터의 성분을 빼고, b2벡터의 성분을 빼면 된다!&lt;/p&gt;
-
-&lt;h2 id=&quot;process&quot;&gt;Process&lt;/h2&gt;
-
-&lt;p&gt;이 과정을 수식화해보면, 첫번째 요소는,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{b_1}\;=\;{\overset{\rightarrow}{a_1}}&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{\overset{\rightarrow}{b_1}}\;=\;{\overset{\rightarrow}{a_1}\over|\overset{\rightarrow}{a_1}|}&lt;/script&gt;
-
-&lt;p&gt;두번째 요소는,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{b_2}\;=\;\overset{\rightarrow}{a_2}-(\overset{\rightarrow}{a_2}^T\hat{\overset{\rightarrow}{b_1}})\hat{\overset{\rightarrow}{b_1}}&lt;/script&gt;
-
-&lt;p&gt;세번째 요소는,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{b_3}\;=\;\overset{\rightarrow}{a_3}-(\overset{\rightarrow}{a_3}^T\hat{\overset{\rightarrow}{b_1}})\hat{\overset{\rightarrow}{b_1}}-(\overset{\rightarrow}{a_3}^T\hat{\overset{\rightarrow}{b_2}})\hat{\overset{\rightarrow}{b_2}}&lt;/script&gt;
-
-&lt;p&gt;i 번째 요소는,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{b_i}\;=\;
-\overset{\rightarrow}{a_i}
-
--\sum_{j=1}^{i-1}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}&lt;/script&gt;
-
-&lt;h2 id=&quot;transform-to-matrix-form&quot;&gt;Transform to Matrix form&lt;/h2&gt;
-
-&lt;p&gt;행렬 A에 대해 정리하기 위해, a벡터에 대해 정리해보자.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a_i}\;=\;
-\overset{\rightarrow}{b_i}
-
-+\sum_{j=1}^{i-1}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}&lt;/script&gt;
-
-&lt;p&gt;여기서,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{\overset{\rightarrow}{b_i}}\;=\;{\overset{\rightarrow}{b_i}\over|\overset{\rightarrow}{b_i}|}&lt;/script&gt;
-
-&lt;p&gt;이므로,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a_i}\;=\;
-|\overset{\rightarrow}{b_i}|\hat{\overset{\rightarrow}{b_i}}
-
-+\sum_{j=1}^{i-1}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}&lt;/script&gt;
-
-&lt;p&gt;이 식을 &lt;strong&gt;A&lt;/strong&gt; 식이라 하자. 여기서 양쪽에 b의 단위 벡터를 곱하자.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{\overset{\rightarrow}{b_i}}^T\overset{\rightarrow}{a_i}\;=\;
-|\overset{\rightarrow}{b_i}|\hat{\overset{\rightarrow}{b_i}}^T\hat{\overset{\rightarrow}{b_i}}
-
-+\sum_{j=1}^{i-1}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_i}}^T\hat{\overset{\rightarrow}{b_j}}&lt;/script&gt;
-
-&lt;p&gt;이 때, Orthogonal vector의 특징으로 부터,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\hat{\overset{\rightarrow}{b_i}}^T\hat{\overset{\rightarrow}{b_j}}\;=\;
-\begin{cases}
-1, &amp; i=j \\
-0, &amp; i\ne j
-\end{cases} %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;&lt;strong&gt;시그마로 표시된 우측항은 0 이다.&lt;/strong&gt; 또한, 그 왼쪽항도 1이 되어 b벡터의 크기만 남는다.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\hat{\overset{\rightarrow}{b_i}}^T\overset{\rightarrow}{a_i}\;=\;|\overset{\rightarrow}{b_i}|&lt;/script&gt;
-
-&lt;p&gt;여기서 왼쪽항을 전치행렬의 특징을 사용해서 뒤바꾸면,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_i}}\;=\;
-|\overset{\rightarrow}{b_i}|&lt;/script&gt;
-
-&lt;p&gt;이 결과를 &lt;strong&gt;A&lt;/strong&gt; 식에 대입하면,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a_i}\;=\;
-|\overset{\rightarrow}{b_i}|\hat{\overset{\rightarrow}{b_i}}
-
-+\sum_{j=1}^{i-1}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}\\
-\;\\
-\;\\
-
-
-\overset{\rightarrow}{a_i}\;=\;
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_i}})\hat{\overset{\rightarrow}{b_i}}
-
-+\sum_{j=1}^{i-1}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}\\
-\;\\
-\;\\
-\overset{\rightarrow}{a_i}\;=\;
-\sum_{j=1}^{i}
-(\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}\\&lt;/script&gt;
-
-&lt;p&gt;여기서 괄호안을 전치행렬의 특징을 사용해서 뒤바꾸면,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\overset{\rightarrow}{a_i}\;=\;
-\sum_{j=1}^{i}
-(\hat{\overset{\rightarrow}{b_j}^T}\overset{\rightarrow}{a_i})\hat{\overset{\rightarrow}{b_j}}\\&lt;/script&gt;
-
-&lt;p&gt;이제 행렬모양으로 바꿔보자.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-A\;=\;\begin{bmatrix}
-\overset{\rightarrow}{a_1} &amp; \overset{\rightarrow}{a_2} &amp; \cdots &amp; \overset{\rightarrow}{a_m}\\
-
-\end{bmatrix}\\
-\;\\
-=\begin{bmatrix}
-\hat{\overset{\rightarrow}{b_1}} &amp; \hat{\overset{\rightarrow}{b_2}} &amp; \cdots &amp; \hat{\overset{\rightarrow}{b_m}}\\
-\end{bmatrix}
-\begin{bmatrix}
-{\hat{\overset{\rightarrow}{b_1}^T}\overset{\rightarrow}{a_1}} &amp; {\hat{\overset{\rightarrow}{b_1}^T}\overset{\rightarrow}{a_2}} &amp; \dots &amp; \hat{\overset{\rightarrow}{b_1}^T}\overset{\rightarrow}{a_m}\\
-0 &amp; {\hat{\overset{\rightarrow}{b_2}^T}\overset{\rightarrow}{a_2}} &amp; \dots &amp; \hat{\overset{\rightarrow}{b_1}^T}\overset{\rightarrow}{a_m}
-\\ \vdots &amp;  &amp; \ddots &amp;  \vdots\\
-0 &amp; 0  &amp; \dots &amp; \hat{\overset{\rightarrow}{b_m}^T}\overset{\rightarrow}{a_m}\\
-\end{bmatrix}\\
-\;\\
-\;\\\;\\
-A\;=QR\;\\
-\;\\
-[n\times m]\;=\;[n\times m ]\;\times\;[m\times m] %]]&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;a가-정사각행렬일-때&quot;&gt;A가 정사각행렬일 때,&lt;/h2&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A\;=\;QR&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;A\overset{\rightarrow}{x}\;=\;\overset{\rightarrow}{b}\\
-\;\\
-
-QR\overset{\rightarrow}{x}\;=\;\overset{\rightarrow}{b}\\
-
-\;\\
-Q^TQR\overset{\rightarrow}{x}\;=\;Q^T\overset{\rightarrow}{b}\\
-\;\\
-IR\overset{\rightarrow}{x}\;=\;Q^T\overset{\rightarrow}{b}\\
-\;\\
-R\overset{\rightarrow}{x}\;=\;Q^T\overset{\rightarrow}{b}\\&lt;/script&gt;
-
-&lt;p&gt;orthogonal matrix의 특성에 따라 전치행렬을 곱하면 identity matrix가 나온다. 그리고 R 행렬은 upper triangle matrix 이다.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
-      </item>
-    
-      <item>
-        <title>04: Aspects of Matrix Multiplication (행렬 곱셈의 여러 측면)</title>
-        <link>/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html</link>
-        <guid isPermaLink="true">/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html</guid>
-        <description>&lt;h1 id=&quot;원소의-측면&quot;&gt;원소의 측면&lt;/h1&gt;
-
-&lt;p&gt;R이 결과 행렬이라고 한다면,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{bmatrix}
-1 &amp; 2\\
-4 &amp; 3
-\end{bmatrix}
-\begin{bmatrix}
-1 &amp; 1\\
-0 &amp; 3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1\times1+2\times0 &amp; 1\times1+2\times3\\
-4\times1+3\times0 &amp; 4\times1+3\times3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1 &amp; 7\\
-4 &amp; 13
-\end{bmatrix} %]]&gt;&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;R\;=\;[r_{ij}]\;=\;\sum_{k=1}^2a_{ik}b_{kj}&lt;/script&gt;
-
-&lt;h1 id=&quot;행의-측면&quot;&gt;행의 측면&lt;/h1&gt;
-
-&lt;p&gt;행의 측면에서 행렬의 곱을 바라본다면, 내가 변환된 행렬이 오른쪽에 있다고 가정했을 때 판단하면 유용하다. A가 내가 관심을 두는 행렬이고, E가 변환을 하는 행렬이라 생각하자.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-R\;=\;EA\;=\;
-
-\begin{bmatrix}
-1 &amp; 2\\
-\end{bmatrix}
-\begin{bmatrix}
-1 &amp; 1\\
-0 &amp; 3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1 &amp; 2\\
-\end{bmatrix}
-\begin{bmatrix}
-\overset{\rightarrow}{x_1}\\
-\overset{\rightarrow}{x_2}
-\end{bmatrix}\;=\;
-1\times\overset{\rightarrow}{x_1}+2\times\overset{\rightarrow}{x_2}
-\;=\;[1\;\;\;7] %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;따라서 내가 원하는 행렬이 오른쪽에 있다면 그 행렬을 &lt;strong&gt;행벡터의 모임&lt;/strong&gt; 으로 생각하고 왼쪽의 변환 행렬은 행방향 순서대로 상수배를 해주고 더한다는 개념으로 이해한다. &lt;strong&gt;결과는 행벡터이다.&lt;/strong&gt; 따라서,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{bmatrix}
-1 &amp; 2\\
-4 &amp; 3
-\end{bmatrix}
-\begin{bmatrix}
-1 &amp; 1\\
-0 &amp; 3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1 &amp; 2\\
-4 &amp; 3
-\end{bmatrix}
-\begin{bmatrix}
-\overset{\rightarrow}{x_1}\\
-\overset{\rightarrow}{x_2}
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1\times\overset{\rightarrow}{x_1}+2\times\overset{\rightarrow}{x_2}\\
-4\times\overset{\rightarrow}{x_1}+3\times\overset{\rightarrow}{x_2}
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1 &amp; 7\\
-4 &amp; 13
-\end{bmatrix} %]]&gt;&lt;/script&gt;
-
-&lt;h1 id=&quot;열의-측면&quot;&gt;열의 측면&lt;/h1&gt;
-
-&lt;p&gt;이번에는 내가 관심이 있는 행렬이 왼쪽에 있다고 생각하자. 그렇다면,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-R\;=\;AE\;=\;
-
-\begin{bmatrix}
-1 &amp; 2\\
-4 &amp; 3
-\end{bmatrix}
-\begin{bmatrix}
-1\\
-3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-\overset{\rightarrow}{x_1} &amp; \overset{\rightarrow}{x_2}\\
-\end{bmatrix}
-\begin{bmatrix}
-1\\
-3
-\end{bmatrix}\;=\;
-\overset{\rightarrow}{x_1}\times1+\overset{\rightarrow}{x_2}\times3
-\;=\;
-\begin{bmatrix}
-7\\
-13
-\end{bmatrix} %]]&gt;&lt;/script&gt;
-
-&lt;p&gt;따라서,&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;% &lt;![CDATA[
-\begin{bmatrix}
-1 &amp; 2\\
-4 &amp; 3
-\end{bmatrix}
-\begin{bmatrix}
-1 &amp; 1\\
-0 &amp; 3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-\overset{\rightarrow}{x_1} &amp; \overset{\rightarrow}{x_2}\\
-\end{bmatrix}
-\begin{bmatrix}
-1 &amp; 1\\
-0 &amp; 3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-\overset{\rightarrow}{x_1}\times1+\overset{\rightarrow}{x_2}\times0 &amp;
-\overset{\rightarrow}{x_1}\times1+\overset{\rightarrow}{x_2}\times3
-\end{bmatrix}\;=\;
-\begin{bmatrix}
-1 &amp; 7\\
-4 &amp; 13
-\end{bmatrix} %]]&gt;&lt;/script&gt;
-
-&lt;h1 id=&quot;정리&quot;&gt;정리&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;기본 요소로 보았을 때 계산은 식으로 나타냈을 때 굉장히 심플하다!&lt;/li&gt;
-  &lt;li&gt;내가 원하는 행렬이 &lt;strong&gt;오른쪽에 있을 때는 행으로 본다!&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;내가 원하는 행렬이 &lt;strong&gt;왼쪽에 있을 때는 열로 본다!&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
 </description>
         <pubDate>Tue, 29 Sep 2020 00:00:00 +0900</pubDate>
       </item>
