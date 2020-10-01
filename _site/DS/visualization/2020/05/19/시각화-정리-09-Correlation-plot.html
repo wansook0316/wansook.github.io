@@ -203,15 +203,15 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
-    const tags = document.getElementById("category-tags");
+    const works = document.getElementById("category-works");
     const about = document.getElementById("category-about");
-    if (width < 710) {
+    if (width < 740) {
       cv.innerText = "📜"
       book.innerText = "💡"
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
-      tags.innerText = "🏷"
+      works.innerText = "🎨"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -220,7 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
-      tags.innerText = "Tags"
+      works.innerText = "Works"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -368,6 +368,10 @@
                         About Me
                     </a>
                 </li>
+                
+                
+                
+                
                 
                 
                 
@@ -698,7 +702,11 @@
     </li>
 
     <li>
-      <a id="category-tags" href="/tags"> </a>
+      <a id="category-works" href="/"> </a>
+      <ul>
+        <li><a href="/Works/Tags">Tags</a></li>
+        <li><a href="/Works/Series">Series</a></li>
+      </ul>
     </li>
 
     <li><a id="category-about" href="/about/"> </a></li>
@@ -714,7 +722,7 @@
   
 >
   <header
-    style="background-image: url('/assets/img/30.jpg')"
+    style="background-image: url('/assets/img/9.jpg')"
   >
     <ul class="category-title">
       <h1 class="title">09: Correlation plot</h1>
@@ -739,7 +747,7 @@
     <b><em>16</em></b> 편 중 <b><em>9</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                           
+                                             
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
@@ -836,7 +844,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # The correlation plot helps us to comparte how correlated are 2 variables between them
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://en.wikipedia.org/wiki/Covariance_matrix#Correlation_matrix
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -863,7 +871,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # The correlation plot helps us to comparte how correlated are 2 variables between them
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://en.wikipedia.org/wiki/Covariance_matrix#Correlation_matrix
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -875,7 +883,7 @@
 # prepare the data for plotting
 # calculate the correlation between all variables
 </span><span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
-<span class="c1"># create a mask to pass it to seaborn and only show half of the cells 
+<span class="c1"># create a mask to pass it to seaborn and only show half of the cells
 # because corr between x and y is the same as the y and x
 # it's only for estetic reasons
 </span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span> <span class="c1"># 0행렬을 만든다.
@@ -886,10 +894,10 @@
 </span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># plot the data using seaborn
-</span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> 
-                 <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">,</span> 
-                 <span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> 
-                 <span class="n">square</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>  
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span>
+                 <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">,</span>
+                 <span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
+                 <span class="n">square</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
                  <span class="n">cmap</span> <span class="o">=</span> <span class="s">"viridis"</span><span class="p">)</span>
 <span class="c1"># set the title for the figure
 </span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Heatmap using seaborn"</span><span class="p">);</span>
@@ -898,6 +906,7 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/82282656-587ba680-99cf-11ea-9121-87599c2c7613.png" alt="다운로드 (10)" class="center-text" width="500" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
 
   </section>
@@ -929,626 +938,26 @@
 
 <!-- Post navigation -->
 <div id="post-nav">
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-     
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html';">
-                <p>PREVIOUS SERIES</p>
-                <a href="/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html">
-                  08: Marginal Histogram
-                </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Boxplot.html';">
-              <p>NEXT SERIES</p>
-              <a href="/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Boxplot.html">
-                09: Marginal Boxplot
-              </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
-  
-
-  
+           
+                                                                                                                                                                                                                                                   
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>08: Marginal Histogram</p>
+  </div>
+                                
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Boxplot.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>09: Marginal Boxplot</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                   
 </div>
 
 

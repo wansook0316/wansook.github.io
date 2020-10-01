@@ -3,8 +3,8 @@ layout: post
 title: "04: image 생성, 업로드"
 category: "DV/Docker"
 comments: true
-tags: [DV, "python", "docker", "image"]
-feature-img: "assets/img/30.jpg"
+tags: [DV, "Docker"]
+feature-img: "assets/img/10.jpg"
 feature-title: ""
 use_math: true
 series: "Docker"

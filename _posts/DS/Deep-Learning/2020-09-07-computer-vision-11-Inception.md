@@ -4,13 +4,7 @@ title: "11: Inception"
 category: "DS/DL"
 comments: true
 tags:
-  [
-    Data Science,
-    "Deep Learning",
-    "Computer Vision",
-    "Paper Review",
-    "Base Model",
-  ]
+  [DataScience, "DeepLearning", "Computer-Vision", "Paper-Review", "Base-Model"]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true

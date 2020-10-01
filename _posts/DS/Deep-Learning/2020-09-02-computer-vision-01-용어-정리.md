@@ -3,7 +3,7 @@ layout: post
 title: "01: 컴퓨터 비전 용어 정리"
 category: "DS/DL"
 comments: true
-tags: [Data Science, "Deep Learning", "Computer Vision", "Paper Review"]
+tags: [DataScience, "DeepLearning", "Computer-Vision", "Paper-Review"]
 feature-img: "assets/img/42.jpg"
 feature-title: ""
 use_math: true

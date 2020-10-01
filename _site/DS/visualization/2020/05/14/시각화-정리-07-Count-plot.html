@@ -203,15 +203,15 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
-    const tags = document.getElementById("category-tags");
+    const works = document.getElementById("category-works");
     const about = document.getElementById("category-about");
-    if (width < 710) {
+    if (width < 740) {
       cv.innerText = "📜"
       book.innerText = "💡"
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
-      tags.innerText = "🏷"
+      works.innerText = "🎨"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -220,7 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
-      tags.innerText = "Tags"
+      works.innerText = "Works"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -368,6 +368,10 @@
                         About Me
                     </a>
                 </li>
+                
+                
+                
+                
                 
                 
                 
@@ -698,7 +702,11 @@
     </li>
 
     <li>
-      <a id="category-tags" href="/tags"> </a>
+      <a id="category-works" href="/"> </a>
+      <ul>
+        <li><a href="/Works/Tags">Tags</a></li>
+        <li><a href="/Works/Series">Series</a></li>
+      </ul>
     </li>
 
     <li><a id="category-about" href="/about/"> </a></li>
@@ -714,7 +722,7 @@
   
 >
   <header
-    style="background-image: url('/assets/img/30.jpg')"
+    style="background-image: url('/assets/img/9.jpg')"
   >
     <ul class="category-title">
       <h1 class="title">07: Counts plot</h1>
@@ -739,7 +747,7 @@
     <b><em>16</em></b> 편 중 <b><em>7</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                           
+                                             
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
@@ -840,11 +848,11 @@
 <p>이전의 stripplot이 category 변수를 x, 조사하고 싶은 연속 변수를 y라 했을 때 분포를 본다면, 이번에는 x 변수에 대한 y의 개수를 파악한다. 이 문장에 내포되어 있는 뜻은, x, y가 모두 카테고리 변수라는 얘기로 볼 수 있다. 단, 이산적인 숫자이다. 이것을 코딩하기 위해서 필요한 것은, group과 그 그룹에 속하는 개수를 알아야 한다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
-# Draw a scatterplot where one variable is categorical. 
+# Draw a scatterplot where one variable is categorical.
 # In this plot we calculate the size of overlapping points in each category and for each y.
 # This way, the bigger the bubble the more concentration we have in that region.
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://seaborn.pydata.org/generated/seaborn.stripplot.html
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -863,8 +871,8 @@
 <span class="c1"># sort the values
 </span><span class="n">gb_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s">"cty"</span><span class="p">,</span> <span class="s">"hwy"</span><span class="p">,</span> <span class="s">"counts"</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 
-<span class="c1"># create a color for each group. 
-# there are several way os doing, you can also use this line: 
+<span class="c1"># create a color for each group.
+# there are several way os doing, you can also use this line:
 # colors = [plt.cm.gist_earth(i/float(len(gb_df["cty"].unique()))) for i in range(len(gb_df["cty"].unique()))]
 # colors 딕셔너리를 만든다. 각 cty 숫자에 대응하는 3개의 값(list)을 가지고 있는다.
 # 이 값은 RGB 값에 대응된다.
@@ -878,21 +886,21 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # iterate over each category and plot the data. This way, every group has it's own color and size.
 </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">gb_df</span><span class="p">[</span><span class="s">"cty"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())):</span>
-    
+
     <span class="c1"># get x and y values for each group
 </span>    <span class="n">x_values</span> <span class="o">=</span> <span class="n">gb_df</span><span class="p">[</span><span class="n">gb_df</span><span class="p">[</span><span class="s">"cty"</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">][</span><span class="s">"cty"</span><span class="p">]</span>
     <span class="n">y_values</span> <span class="o">=</span> <span class="n">gb_df</span><span class="p">[</span><span class="n">gb_df</span><span class="p">[</span><span class="s">"cty"</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">][</span><span class="s">"hwy"</span><span class="p">]</span>
-    
+
     <span class="c1"># extract the size of each group to plot
 </span>    <span class="n">size</span> <span class="o">=</span> <span class="n">gb_df</span><span class="p">[</span><span class="n">gb_df</span><span class="p">[</span><span class="s">"cty"</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">][</span><span class="s">"counts"</span><span class="p">]</span>
-    
+
     <span class="c1"># extract the color for each group and covert it from rgb to hex
 </span>    <span class="c1"># 0~1의 실수 범위 색상을 16진수 색상으로 바꿔준다.
 </span>    <span class="n">color</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">colors</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
 
     <span class="c1"># plot the data
 </span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">size</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">color</span><span class="p">)</span>
-    
+
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
 </span>
@@ -904,8 +912,8 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/81914857-ce1cf680-960c-11ea-8650-905daba5d36b.png" alt="다운로드 (4)" class="center-text" /></p>
 
 <h3 id="reference">Reference</h3>
-<p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
 
+<p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
 
   </section>
   
@@ -936,626 +944,26 @@
 
 <!-- Post navigation -->
 <div id="post-nav">
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-     
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html';">
-                <p>PREVIOUS SERIES</p>
-                <a href="/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html">
-                  06: Strip plot
-                </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html';">
-              <p>NEXT SERIES</p>
-              <a href="/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html">
-                08: Marginal Histogram
-              </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
-  
-
-  
+           
+                                                                                                                                                                                                               
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>06: Strip plot</p>
+  </div>
+                                      
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>08: Marginal Histogram</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                 
 </div>
 
 

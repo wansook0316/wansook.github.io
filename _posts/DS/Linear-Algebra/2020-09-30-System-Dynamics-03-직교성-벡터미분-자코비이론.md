@@ -4,7 +4,7 @@ title: "03: Orthogonality, Vector Differentiation, Jacobi's Theorem"
 category: "DS/LA"
 comments: true
 tags: [math, Dynamics, "Linear-Algebra"]
-feature-img: "assets/img/4.jpg"
+feature-img: "assets/img/7.jpg"
 feature-title: ""
 use_math: true
 series: "System Dynamics"

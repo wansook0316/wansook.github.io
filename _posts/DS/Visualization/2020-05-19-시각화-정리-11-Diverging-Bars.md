@@ -4,7 +4,7 @@ title: "11: Diverging Bars"
 category: "DS/Visualization"
 comments: true
 tags: [DS, "python", "matplotlib", "Diverging Bars"]
-feature-img: "assets/img/30.jpg"
+feature-img: "assets/img/9.jpg"
 feature-title: ""
 use_math: true
 series: "시각화 정리"
@@ -15,10 +15,10 @@ series: "시각화 정리"
 
 ```python
 # Useful for:
-# Based on a metric to compare, this plot helps you to see the divergence of the a value 
+# Based on a metric to compare, this plot helps you to see the divergence of the a value
 # to that metric (it could be mean, median or others).
 
-# More info: 
+# More info:
 # https://blog.datawrapper.de/divergingbars/
 
 # ----------------------------------------------------------------------------------------------------
@@ -76,12 +76,9 @@ ax.set_yticks(df.index)
 ax.set_yticklabels(df.cars);
 ```
 
-
-
 ![다운로드 (13)](https://user-images.githubusercontent.com/37871541/82284233-7ba85500-99d3-11ea-8958-e751b995326e.png)
 {:.center-text}
 
-
-
 ### Reference
+
 [Plotting with Python: learn 80 plots STEP by STEP](https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step)

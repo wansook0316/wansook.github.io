@@ -4,7 +4,7 @@ title: "02: 평면에서 다물체계의 운동학"
 category: "DS/LA"
 comments: true
 tags: [math, Dynamics, "Linear-Algebra"]
-feature-img: "assets/img/4.jpg"
+feature-img: "assets/img/7.jpg"
 feature-title: ""
 use_math: true
 series: "System Dynamics"

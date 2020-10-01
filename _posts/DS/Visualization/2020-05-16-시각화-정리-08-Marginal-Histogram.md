@@ -4,7 +4,7 @@ title: "08: Marginal Histogram"
 category: "DS/Visualization"
 comments: true
 tags: [DS, "python", "matplotlib", "Marginal Histogram"]
-feature-img: "assets/img/30.jpg"
+feature-img: "assets/img/9.jpg"
 feature-title: ""
 use_math: true
 series: "시각화 정리"
@@ -13,14 +13,13 @@ series: "시각화 정리"
 Scatter Plot에 각각의 histogram을 추가해보자.  
 [연습 kaggle notebook](https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit)
 
-
 ```python
 # Useful for:
 # This plot is a combination of 2 plots.
 # On one side we have a normal scatter plot that is helpful to see the relationship between data (x and y axis)
 # But we also add a histogram that is useful to see the concentration/bins and the distribution of a series.
 
-# More info: 
+# More info:
 # https://en.wikipedia.org/wiki/Histogram
 
 # ----------------------------------------------------------------------------------------------------
@@ -49,7 +48,7 @@ ax1 = fig.add_subplot(gs[:4, :-1])
 # this line is very nice c = df.manufacturer.astype('category').cat.codes
 # since it basically generate a color for each category
 # 이렇게 하면 카테고리별 색상을 구해준다. 총 78개의 category가 있는 것으로 보인다.
-ax1.scatter(x, y, c = df.manufacturer.astype('category').cat.codes) 
+ax1.scatter(x, y, c = df.manufacturer.astype('category').cat.codes)
 
 
 # set the labels for x and y
@@ -96,6 +95,6 @@ fig.tight_layout()
 
 ![다운로드 (7)](https://user-images.githubusercontent.com/37871541/82113783-9ab8a400-9793-11ea-9f49-4f2c82eeb6f0.png){:.center-text}
 
-
 ### Reference
+
 [Plotting with Python: learn 80 plots STEP by STEP](https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step)

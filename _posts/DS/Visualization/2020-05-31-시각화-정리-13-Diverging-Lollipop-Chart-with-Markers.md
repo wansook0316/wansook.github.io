@@ -4,15 +4,14 @@ title: "13: Diverging Lollipop Chart with Markers"
 category: "DS/Visualization"
 comments: true
 tags: [DS, "python", "matplotlib", "Diverging lines"]
-feature-img: "assets/img/30.jpg"
+feature-img: "assets/img/9.jpg"
 feature-title: ""
 use_math: true
 series: "시각화 정리"
 ---
 
-각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars를 동그라미로 나타내보자.    
+각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars를 동그라미로 나타내보자.  
 [연습 kaggle notebook](https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit)
-
 
 ```python
 # Useful for:
@@ -21,7 +20,7 @@ series: "시각화 정리"
 # This plot is very similar to the previous 2
 # But here we don't draw any lines and just play with the size of each point and make it a little bigger
 
-# More info: 
+# More info:
 # https://blog.datawrapper.de/divergingbars/
 
 # ----------------------------------------------------------------------------------------------------
@@ -53,29 +52,29 @@ ax = fig.add_subplot()
 # plot the data
 # iterate over x and y and annotate text and plot the data
 for x, y in zip(df["x_plot"], df.index):
-    
+
     # make a horizontal line from the y till the x value
     # this doesn't appear in the original 50 plot challenge
-    ax.hlines(y = y, 
-               xmin = -3,  
-               xmax = x, 
+    ax.hlines(y = y,
+               xmin = -3,
+               xmax = x,
                linewidth = 0.5,
                alpha = 0.3,
                color = "red" if x < 0 else "green")
-    
+
     # annotate text
-    ax.text(x, 
-             y, 
-             round(x, 2), 
+    ax.text(x,
+             y,
+             round(x, 2),
              color = "black",
-             horizontalalignment='center', 
+             horizontalalignment='center',
              verticalalignment='center',
              size = 8)
-    
+
     # plot the points
-    ax.scatter(x, 
-                y, 
-                color = "red" if x < 0 else "green", 
+    ax.scatter(x,
+                y,
+                color = "red" if x < 0 else "green",
                 s = 300,
                 alpha = 0.5)
 
@@ -106,25 +105,17 @@ ax.spines['right'].set_position(('data',0))
 ax.spines['right'].set_color('grey')
 ```
 
-
-
-
 ![다운로드 (17)](https://user-images.githubusercontent.com/37871541/83345472-6c6bc480-a34e-11ea-9e14-edc3774cc14a.png){:.center-text}
 
-
-
-
-
-
-
 ## Patch를 좀 더 간단하게
+
 ```python
 # Useful for:
 # This plot is really useful to show the different performance of deviation of data.
 # In this plot we use rectagles and matplotlib patches to draw the attention to specific points
 # This example shows how to add patches more easily
 
-# More info: 
+# More info:
 # https://blog.datawrapper.de/divergingbars/
 
 # ----------------------------------------------------------------------------------------------------
@@ -156,7 +147,7 @@ ax = fig.add_subplot()
 # ----------------------------------------------------------------------------------------------------
 # plot the data
 # plot horizontal lines from the origin to each data point
-ax.hlines(y = df.index, 
+ax.hlines(y = df.index,
           xmin = 0,
           xmax = df["x_plot"],
           color = df["color"],
@@ -178,12 +169,12 @@ ax.add_patch(p1)
 ax.add_patch(p2)
 
 # annotate text
-ax.annotate('Mercedes Models', 
-            xy = (0.0, 11.0), 
-            xytext = (1.5, 11), 
-            xycoords = 'data', 
-            fontsize = 10, 
-            ha = 'center', 
+ax.annotate('Mercedes Models',
+            xy = (0.0, 11.0),
+            xytext = (1.5, 11),
+            xycoords = 'data',
+            fontsize = 10,
+            ha = 'center',
             va = 'center',
             bbox = dict(boxstyle = 'square', fc = 'blue', alpha = 0.1),
             arrowprops = dict(arrowstyle = '-[, widthB=2.0, lengthB=1.5', lw = 2.0, color = 'grey'), color = 'black')
@@ -219,4 +210,5 @@ ax.grid(linestyle='--', alpha=0.5);
 ![다운로드 (16)](https://user-images.githubusercontent.com/37871541/83345465-61189900-a34e-11ea-9a19-d4f0f30b5076.png){:.center-text}
 
 ### Reference
+
 [Plotting with Python: learn 80 plots STEP by STEP](https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step)

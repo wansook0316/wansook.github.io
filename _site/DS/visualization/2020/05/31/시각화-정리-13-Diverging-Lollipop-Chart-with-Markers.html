@@ -53,7 +53,7 @@
   </title>
   <meta
     name="description"
-    content="각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars를 동그라미로 나타내보자.  연습 kaggle notebook"
+    content="각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars를 동그라미로 나타내보자.연습 kaggle notebook"
   />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -203,15 +203,15 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
-    const tags = document.getElementById("category-tags");
+    const works = document.getElementById("category-works");
     const about = document.getElementById("category-about");
-    if (width < 710) {
+    if (width < 740) {
       cv.innerText = "📜"
       book.innerText = "💡"
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
-      tags.innerText = "🏷"
+      works.innerText = "🎨"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -220,7 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
-      tags.innerText = "Tags"
+      works.innerText = "Works"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -368,6 +368,10 @@
                         About Me
                     </a>
                 </li>
+                
+                
+                
+                
                 
                 
                 
@@ -698,7 +702,11 @@
     </li>
 
     <li>
-      <a id="category-tags" href="/tags"> </a>
+      <a id="category-works" href="/"> </a>
+      <ul>
+        <li><a href="/Works/Tags">Tags</a></li>
+        <li><a href="/Works/Series">Series</a></li>
+      </ul>
     </li>
 
     <li><a id="category-about" href="/about/"> </a></li>
@@ -714,7 +722,7 @@
   
 >
   <header
-    style="background-image: url('/assets/img/30.jpg')"
+    style="background-image: url('/assets/img/9.jpg')"
   >
     <ul class="category-title">
       <h1 class="title">13: Diverging Lollipop Chart with Markers</h1>
@@ -739,7 +747,7 @@
     <b><em>16</em></b> 편 중 <b><em>14</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                           
+                                             
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
@@ -832,7 +840,7 @@
 </div>
 
 
- <p>각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars를 동그라미로 나타내보자.  <br />
+ <p>각 카테고리에 대한 값(평균, 중앙값, 표준화 값)을 비교하기 용이한 Diverging Bars를 동그라미로 나타내보자.<br />
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
@@ -841,7 +849,7 @@
 # This plot is very similar to the previous 2
 # But here we don't draw any lines and just play with the size of each point and make it a little bigger
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://blog.datawrapper.de/divergingbars/
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -873,29 +881,29 @@
 # plot the data
 # iterate over x and y and annotate text and plot the data
 </span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
-    
+
     <span class="c1"># make a horizontal line from the y till the x value
 </span>    <span class="c1"># this doesn't appear in the original 50 plot challenge
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> 
-               <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>  
-               <span class="n">xmax</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> 
+</span>    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+               <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>
+               <span class="n">xmax</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
                <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
                <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
                <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">)</span>
-    
+
     <span class="c1"># annotate text
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
-             <span class="n">y</span><span class="p">,</span> 
-             <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> 
+</span>    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+             <span class="n">y</span><span class="p">,</span>
+             <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
              <span class="n">color</span> <span class="o">=</span> <span class="s">"black"</span><span class="p">,</span>
-             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span> 
+             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
              <span class="n">verticalalignment</span><span class="o">=</span><span class="s">'center'</span><span class="p">,</span>
              <span class="n">size</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
-    
+
     <span class="c1"># plot the points
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> 
-                <span class="n">y</span><span class="p">,</span> 
-                <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">,</span> 
+</span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">y</span><span class="p">,</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">,</span>
                 <span class="n">s</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
                 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
 
@@ -929,12 +937,13 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/83345472-6c6bc480-a34e-11ea-9e14-edc3774cc14a.png" alt="다운로드 (17)" class="center-text" /></p>
 
 <h2 id="patch를-좀-더-간단하게">Patch를 좀 더 간단하게</h2>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # This plot is really useful to show the different performance of deviation of data.
 # In this plot we use rectagles and matplotlib patches to draw the attention to specific points
 # This example shows how to add patches more easily
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://blog.datawrapper.de/divergingbars/
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -966,7 +975,7 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data
 # plot horizontal lines from the origin to each data point
-</span><span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> 
+</span><span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
           <span class="n">xmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
           <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span>
           <span class="n">color</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">],</span>
@@ -988,12 +997,12 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
 
 <span class="c1"># annotate text
-</span><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">'Mercedes Models'</span><span class="p">,</span> 
-            <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> 
-            <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> 
-            <span class="n">xycoords</span> <span class="o">=</span> <span class="s">'data'</span><span class="p">,</span> 
-            <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> 
-            <span class="n">ha</span> <span class="o">=</span> <span class="s">'center'</span><span class="p">,</span> 
+</span><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">'Mercedes Models'</span><span class="p">,</span>
+            <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span>
+            <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+            <span class="n">xycoords</span> <span class="o">=</span> <span class="s">'data'</span><span class="p">,</span>
+            <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="n">ha</span> <span class="o">=</span> <span class="s">'center'</span><span class="p">,</span>
             <span class="n">va</span> <span class="o">=</span> <span class="s">'center'</span><span class="p">,</span>
             <span class="n">bbox</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span> <span class="o">=</span> <span class="s">'square'</span><span class="p">,</span> <span class="n">fc</span> <span class="o">=</span> <span class="s">'blue'</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">),</span>
             <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s">'-[, widthB=2.0, lengthB=1.5'</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'grey'</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'black'</span><span class="p">)</span>
@@ -1029,6 +1038,7 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/83345465-61189900-a34e-11ea-9a19-d4f0f30b5076.png" alt="다운로드 (16)" class="center-text" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
 
   </section>
@@ -1060,626 +1070,26 @@
 
 <!-- Post navigation -->
 <div id="post-nav">
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-     
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/20/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-12-Diverging-lines-with-text.html';">
-                <p>PREVIOUS SERIES</p>
-                <a href="/ds/visualization/2020/05/20/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-12-Diverging-lines-with-text.html">
-                  12: Diverging lines with text
-                </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-14-Area-Chart.html';">
-              <p>NEXT SERIES</p>
-              <a href="/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-14-Area-Chart.html">
-                14: Area chart
-              </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
-  
-
-  
+           
+                                                                                                                                                                                                                                                                                                                                
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/20/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-12-Diverging-lines-with-text.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>12: Diverging lines with text</p>
+  </div>
+                            
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-14-Area-Chart.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>14: Area chart</p>
+  </div>
+                                                                                                                                                                                                                                                          
 </div>
 
 

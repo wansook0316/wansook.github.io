@@ -203,15 +203,15 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
-    const tags = document.getElementById("category-tags");
+    const works = document.getElementById("category-works");
     const about = document.getElementById("category-about");
-    if (width < 710) {
+    if (width < 740) {
       cv.innerText = "📜"
       book.innerText = "💡"
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
-      tags.innerText = "🏷"
+      works.innerText = "🎨"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -220,7 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
-      tags.innerText = "Tags"
+      works.innerText = "Works"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -368,6 +368,10 @@
                         About Me
                     </a>
                 </li>
+                
+                
+                
+                
                 
                 
                 
@@ -698,7 +702,11 @@
     </li>
 
     <li>
-      <a id="category-tags" href="/tags"> </a>
+      <a id="category-works" href="/"> </a>
+      <ul>
+        <li><a href="/Works/Tags">Tags</a></li>
+        <li><a href="/Works/Series">Series</a></li>
+      </ul>
     </li>
 
     <li><a id="category-about" href="/about/"> </a></li>
@@ -714,7 +722,7 @@
   
 >
   <header
-    style="background-image: url('/assets/img/30.jpg')"
+    style="background-image: url('/assets/img/9.jpg')"
   >
     <ul class="category-title">
       <h1 class="title">04: Circling을 통한 버블 플롯</h1>
@@ -739,7 +747,7 @@
     <b><em>16</em></b> 편 중 <b><em>4</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                           
+                                             
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
@@ -846,12 +854,12 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # Visualize the relationship between data.
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://en.wikipedia.org/wiki/Scatter_plot
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
-</span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/midwest_filter.csv'</span> 
+</span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/midwest_filter.csv'</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -865,23 +873,23 @@
     <span class="c1"># filter x and the y for each category
 </span>    <span class="n">ar</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">][</span><span class="s">"area"</span><span class="p">]</span>
     <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">][</span><span class="s">"poptotal"</span><span class="p">]</span>
-    
+
     <span class="c1"># plot the data
 </span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">cat</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-    
+
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
 </span>
 <span class="c1"># 맨 위 줄과 오른쪽 줄을 없애서 보기 편하게
-</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span> 
+</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
 
 <span class="c1"># set a specific label for each axis
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Area"</span><span class="p">)</span> 
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Area"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Population"</span><span class="p">)</span>
 
 <span class="c1"># change the lower limit of the plot, this will allow us to see the legend on the left
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span> 
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Scatter plot of population vs area."</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 </code></pre></div></div>
@@ -889,15 +897,16 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/81772169-1d392d80-9520-11ea-8268-fe3e6942f6bc.png" alt="__results___42_0" class="center-text" /></p>
 
 <h2 id="추가적인-bubble-plot">추가적인 bubble plot</h2>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # Visualize the relationship between data but also helps us encircle a specific group we might want to draw the attention to.
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://en.wikipedia.org/wiki/Scatter_plot
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
-</span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/midwest_filter.csv'</span> 
+</span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/midwest_filter.csv'</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -909,7 +918,7 @@
 # prepare the data for plotting
 </span><span class="n">size_total</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"poptotal"</span><span class="p">]</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
 <span class="c1"># we want every group to have a different marker
-</span><span class="n">markers</span> <span class="o">=</span> <span class="p">[</span><span class="s">"."</span><span class="p">,</span> <span class="s">","</span><span class="p">,</span> <span class="s">"o"</span><span class="p">,</span> <span class="s">"v"</span><span class="p">,</span> <span class="s">"^"</span><span class="p">,</span> <span class="s">"&lt;"</span><span class="p">,</span> <span class="s">"&gt;"</span><span class="p">,</span> <span class="s">"1"</span><span class="p">,</span> <span class="s">"2"</span><span class="p">,</span> <span class="s">"3"</span><span class="p">,</span> <span class="s">"4"</span><span class="p">,</span> <span class="s">"8"</span><span class="p">,</span> <span class="s">"s"</span><span class="p">,</span> <span class="s">"p"</span><span class="p">,</span> <span class="s">"P"</span><span class="p">,</span> <span class="s">"*"</span><span class="p">,</span> <span class="s">"h"</span><span class="p">,</span> <span class="s">"H"</span><span class="p">,</span> <span class="s">"+"</span><span class="p">,</span> <span class="s">"x"</span><span class="p">,</span> <span class="s">"X"</span><span class="p">,</span> <span class="s">"D"</span><span class="p">,</span> <span class="s">"d"</span><span class="p">]</span> 
+</span><span class="n">markers</span> <span class="o">=</span> <span class="p">[</span><span class="s">"."</span><span class="p">,</span> <span class="s">","</span><span class="p">,</span> <span class="s">"o"</span><span class="p">,</span> <span class="s">"v"</span><span class="p">,</span> <span class="s">"^"</span><span class="p">,</span> <span class="s">"&lt;"</span><span class="p">,</span> <span class="s">"&gt;"</span><span class="p">,</span> <span class="s">"1"</span><span class="p">,</span> <span class="s">"2"</span><span class="p">,</span> <span class="s">"3"</span><span class="p">,</span> <span class="s">"4"</span><span class="p">,</span> <span class="s">"8"</span><span class="p">,</span> <span class="s">"s"</span><span class="p">,</span> <span class="s">"p"</span><span class="p">,</span> <span class="s">"P"</span><span class="p">,</span> <span class="s">"*"</span><span class="p">,</span> <span class="s">"h"</span><span class="p">,</span> <span class="s">"H"</span><span class="p">,</span> <span class="s">"+"</span><span class="p">,</span> <span class="s">"x"</span><span class="p">,</span> <span class="s">"X"</span><span class="p">,</span> <span class="s">"D"</span><span class="p">,</span> <span class="s">"d"</span><span class="p">]</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # create an encircle
@@ -922,16 +931,16 @@
     '''</span>
     <span class="c1"># get the axis if not passed
 </span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-    
+
     <span class="c1"># concatenate the x and y arrays
 </span>    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">]</span>
-    
+
     <span class="c1"># to calculate the limits of the polygon
 </span>    <span class="n">hull</span> <span class="o">=</span> <span class="n">ConvexHull</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-    
+
     <span class="c1"># create a polygon from the hull vertices
 </span>    <span class="n">poly</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Polygon</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">,:],</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-    
+
     <span class="c1"># add the patch to the axes
 </span>    <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">poly</span><span class="p">)</span> <span class="c1"># 내가 그린 그림을 위에 덧칠하게 해줌
 </span>
@@ -942,14 +951,14 @@
 </span>    <span class="c1"># filter x and the y for each category
 </span>    <span class="n">ar</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">][</span><span class="s">"area"</span><span class="p">]</span>
     <span class="n">pop</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"category"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cat</span><span class="p">][</span><span class="s">"poptotal"</span><span class="p">]</span>
-    
+
     <span class="c1"># this will allow us to set a specific size for each group.
 </span>    <span class="c1"># 해당 population 값에 따라 marker의 크기를 다르게 해주기 위함
 </span>    <span class="n">size</span> <span class="o">=</span> <span class="n">pop</span><span class="o">/</span><span class="n">size_total</span>
-    
+
     <span class="c1"># plot the data
 </span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">cat</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">size</span><span class="o">*</span><span class="mi">10000</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="n">marker</span><span class="p">)</span>
-    
+
     <span class="k">try</span><span class="p">:</span>
         <span class="c1"># try to add a patch
 </span>        <span class="n">encircle</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">pop</span><span class="p">,</span> <span class="n">ec</span> <span class="o">=</span> <span class="s">"k"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
@@ -969,7 +978,7 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Population"</span><span class="p">)</span>
 
 <span class="c1"># change the lower limit of the plot, this will allow us to see the legend on the left
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span> 
+</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Bubble plot with encircling"</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
 </code></pre></div></div>
@@ -977,6 +986,7 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/81772550-21197f80-9521-11ea-910c-9e07c5ff4298.png" alt="__results___43_0" class="center-text" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
 
   </section>
@@ -1012,626 +1022,26 @@
 
 <!-- Post navigation -->
 <div id="post-nav">
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-     
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
-                <p>PREVIOUS SERIES</p>
-                <a href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html">
-                  03: 산점도
-                </a>
-            </div>
-          
-        
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
-              <p>NEXT SERIES</p>
-              <a href="/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html">
-                05: 선형 회귀 선을 포함한 산점도
-              </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
-  
-
-  
+           
+                                                                                                                                
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>03: 산점도</p>
+  </div>
+                                                      
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>05: 선형 회귀 선을 포함한 산점도</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                
 </div>
 
 

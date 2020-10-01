@@ -4,7 +4,7 @@ title: "08: Newton-Euler Equations, D'Alembert's Principle"
 category: "DS/LA"
 comments: true
 tags: [math, Dynamics, "Linear-Algebra"]
-feature-img: "assets/img/4.jpg"
+feature-img: "assets/img/7.jpg"
 feature-title: ""
 use_math: true
 series: "System Dynamics"

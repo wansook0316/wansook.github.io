@@ -5,11 +5,11 @@ category: "DS/DL"
 comments: true
 tags:
   [
-    Data Science,
-    "Deep Learning",
-    "Computer Vision",
-    "Paper Review",
-    "Object Detection",
+    DataScience,
+    "DeepLearning",
+    "Computer-Vision",
+    "Paper-Review",
+    "Object-Detection",
   ]
 feature-img: "assets/img/42.jpg"
 feature-title: ""

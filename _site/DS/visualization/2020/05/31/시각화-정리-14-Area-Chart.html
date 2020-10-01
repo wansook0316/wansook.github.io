@@ -53,7 +53,7 @@
   </title>
   <meta
     name="description"
-    content="하나 또는 두개의 데이터에 대한 흐름을 파악할 때 유용한 Area chart를 알아보자.  연습 kaggle notebook"
+    content="하나 또는 두개의 데이터에 대한 흐름을 파악할 때 유용한 Area chart를 알아보자.연습 kaggle notebook"
   />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -203,15 +203,15 @@
     const ds = document.getElementById("category-ds");
     const cs = document.getElementById("category-cs");
     const dv = document.getElementById("category-dv");
-    const tags = document.getElementById("category-tags");
+    const works = document.getElementById("category-works");
     const about = document.getElementById("category-about");
-    if (width < 710) {
+    if (width < 740) {
       cv.innerText = "📜"
       book.innerText = "💡"
       ds.innerText = "📈"
       cs.innerText = "💾"
       dv.innerText = "📱"
-      tags.innerText = "🏷"
+      works.innerText = "🎨"
       about.innerText = "😎"
       cat.style.justifyContent = "space-around"
     } else {
@@ -220,7 +220,7 @@
       ds.innerText = "Data Science"
       cs.innerText = "Computer Science"
       dv.innerText = "Development"
-      tags.innerText = "Tags"
+      works.innerText = "Works"
       about.innerText = "About"
       cat.style.justifyContent = "center"
     }
@@ -368,6 +368,10 @@
                         About Me
                     </a>
                 </li>
+                
+                
+                
+                
                 
                 
                 
@@ -698,7 +702,11 @@
     </li>
 
     <li>
-      <a id="category-tags" href="/tags"> </a>
+      <a id="category-works" href="/"> </a>
+      <ul>
+        <li><a href="/Works/Tags">Tags</a></li>
+        <li><a href="/Works/Series">Series</a></li>
+      </ul>
     </li>
 
     <li><a id="category-about" href="/about/"> </a></li>
@@ -714,7 +722,7 @@
   
 >
   <header
-    style="background-image: url('/assets/img/30.jpg')"
+    style="background-image: url('/assets/img/9.jpg')"
   >
     <ul class="category-title">
       <h1 class="title">14: Area chart</h1>
@@ -739,7 +747,7 @@
     <b><em>16</em></b> 편 중 <b><em>15</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                           
+                                             
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
@@ -830,15 +838,15 @@
 </div>
 
 
- <p>하나 또는 두개의 데이터에 대한 흐름을 파악할 때 유용한 Area chart를 알아보자.  <br />
+ <p>하나 또는 두개의 데이터에 대한 흐름을 파악할 때 유용한 Area chart를 알아보자.<br />
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Useful for:
 # Area chart is really useful when you want to drawn the attention about when a series is below a certain point.
-# The area between axis and line are commonly emphasized with colors, textures and hatchings. 
+# The area between axis and line are commonly emphasized with colors, textures and hatchings.
 # Commonly one compares two or more quantities with an area chart.
 </span>
-<span class="c1"># More info: 
+<span class="c1"># More info:
 # https://en.wikipedia.org/wiki/Area_chart
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -858,7 +866,7 @@
 <span class="c1"># filter our df for a specific date
 </span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"date_converted"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s">"1975-01-01"</span><span class="p">)]</span>
 
-<span class="c1"># separate x and y 
+<span class="c1"># separate x and y
 </span><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"date_converted"</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"pce_monthly_change"</span><span class="p">]</span>
 
@@ -883,9 +891,9 @@
 
 <span class="c1"># annotate the text of the Max value
 </span><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">r'Max value'</span><span class="p">,</span>
-             <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">),</span> 
-             <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">),</span> 
-             <span class="n">textcoords</span> <span class="o">=</span> <span class="s">'offset points'</span><span class="p">,</span> 
+             <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">),</span>
+             <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">),</span>
+             <span class="n">textcoords</span> <span class="o">=</span> <span class="s">'offset points'</span><span class="p">,</span>
              <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
              <span class="n">arrowprops</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s">"-&gt;"</span><span class="p">,</span> <span class="n">connectionstyle</span> <span class="o">=</span> <span class="s">"arc3,rad=.2"</span><span class="p">)</span>
            <span class="p">)</span>
@@ -920,6 +928,7 @@
 <p><img src="https://user-images.githubusercontent.com/37871541/83345512-fb78dc80-a34e-11ea-9961-9fd414cb122d.png" alt="다운로드 (18)" /></p>
 
 <h3 id="reference">Reference</h3>
+
 <p><a href="https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step">Plotting with Python: learn 80 plots STEP by STEP</a></p>
 
   </section>
@@ -951,626 +960,26 @@
 
 <!-- Post navigation -->
 <div id="post-nav">
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-     
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-13-Diverging-Lollipop-Chart-with-Markers.html';">
-                <p>PREVIOUS SERIES</p>
-                <a href="/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-13-Diverging-Lollipop-Chart-with-Markers.html">
-                  13: Diverging Lollipop Chart with Markers
-                </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-          
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-          
-          
-            <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html';">
-              <p>NEXT SERIES</p>
-              <a href="/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html">
-                15: Ordered Bar Chart
-              </a>
-            </div>
-          
-        
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    
-  
-
-  
+           
+                                                                                                                                                                                                                                                                                                                                                 
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-13-Diverging-Lollipop-Chart-with-Markers.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>13: Diverging Lollipop Chart with Markers</p>
+  </div>
+                        
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>15: Ordered Bar Chart</p>
+  </div>
+                                                                                                                                                                                                                                             
 </div>
 
 

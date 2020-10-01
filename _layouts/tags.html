@@ -3,6 +3,8 @@ layout: page
 ---
 
 
+
+
 <div class="tags-expo">
   <div class="tags-expo-list">
     {% for tag in site.tags %}
@@ -37,7 +39,7 @@ forloop.last %},{% endunless %}{% endfor %}{% endcapture %} {% assign tag_words
 <!-- cycles through tag list and creates subheader for each tag name -->
 {% for item in (0..site.tags.size) %} {% unless forloop.last %} {% capture
 this_word %}{{ tag_words[item] | strip_newlines }}{% endcapture %}
-<h2 id="{{ this_word | cgi_escape }}" class="tag-title">
+<h2 id="{{ this_word | slugify }}" class="tag-title">
   #{{ this_word }}
 </h2>
 <!-- lists all posts corresponding to specific tag -->

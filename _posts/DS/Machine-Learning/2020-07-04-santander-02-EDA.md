@@ -4,7 +4,7 @@ title: "02: EDA"
 category: "DS/ML"
 comments: true
 tags: [Data Science, "Machine Learning", "kaggle"]
-feature-img: "assets/img/36.jpg"
+feature-img: "assets/img/11.jpg"
 feature-title: ""
 use_math: true
 series: "Kaggle::Santander Transaction"

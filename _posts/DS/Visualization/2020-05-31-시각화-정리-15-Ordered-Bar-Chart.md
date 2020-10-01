@@ -4,14 +4,13 @@ title: "15: Ordered Bar Chart"
 category: "DS/Visualization"
 comments: true
 tags: [DS, "python", "matplotlib", "Diverging lines"]
-feature-img: "assets/img/30.jpg"
+feature-img: "assets/img/9.jpg"
 feature-title: ""
 use_math: true
 series: "시각화 정리"
 ---
 
-feature를 정리한 후 히스토그램을 그려보자.      
-
+feature를 정리한 후 히스토그램을 그려보자.
 
 ```python
 # Useful for:
@@ -19,7 +18,7 @@ feature를 정리한 후 히스토그램을 그려보자.
 # From the lowest to the highest values
 # It's useful to show comparisons among discrete categories.
 
-# More info: 
+# More info:
 # https://en.wikipedia.org/wiki/Bar_chart
 
 # ----------------------------------------------------------------------------------------------------
@@ -47,7 +46,7 @@ for x_, y_ in zip(x, y):
     # this is very cool, since we can pass a function to matplotlib
     # and it will plot the color based on the result of the evaluation
     ax.bar(x_, y_, color = "red" if y_ < y.mean() else "green", alpha = 0.3)
-    
+
      # add some text
     ax.text(x_, y_ + 0.3, round(y_, 1), horizontalalignment = 'center')
 
@@ -74,8 +73,8 @@ ax.set_ylabel("Average Miles per Gallon by Manufacturer")
 ax.set_title("Bar Chart for Highway Mileage");
 ```
 
-
 ![다운로드 (19)](https://user-images.githubusercontent.com/37871541/83345564-8a85f480-a34f-11ea-801e-a0146a864368.png){:.center-text}
 
 ### Reference
+
 [Plotting with Python: learn 80 plots STEP by STEP](https://www.kaggle.com/python10pm/plotting-with-python-learn-80-plots-step-by-step)

@@ -5,10 +5,10 @@ category: "DS/DL"
 comments: true
 tags:
   [
-    Data Science,
-    "Deep Learning",
-    "Computer Vision",
-    "Paper Review",
+    DataScience,
+    "DeepLearning",
+    "Computer-Vision",
+    "Paper-Review",
     "GAN",
     "Style Transfer",
   ]
