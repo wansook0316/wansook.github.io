@@ -1,8 +1,8 @@
 <head>
   <meta charset="utf-8" />
   <title>
-    {% if page.title %}{{ page.title }} |{% endif %} {{
-    site.theme_settings.title }}
+    {% if page.series %}[{{ page.series }}] {% endif %}{% if page.title %}{{
+    page.title }} |{% endif %} {{ site.theme_settings.title }}
   </title>
   <meta
     name="description"
@@ -11,11 +11,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
-  {{ post.url | relative_url }}
+  <!-- {{ post.url | relative_url }} -->
   <meta
     property="og:title"
-    content="{% if page.title %}{{ page.title }} |{% endif %} {{
+    content="{% if page.series %}[{{ page.series }}] {% endif %}{% if page.title %}{{ page.title }} |{% endif %} {{
     site.theme_settings.title }}"
+  />
+  <meta
+    property="og:description"
+    content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.theme_settings.description }}{% endif %}"
   />
   <meta property="og:type" content="Blog" />
   <meta
@@ -24,7 +28,7 @@
   />
   <meta
     property="og:image"
-    content="{{ site.baseurl }}/{{ site.theme_settings.avatar }}"
+    content="{% if page.feature-img%} {{ site.baseurl }}/{{ page.feature-img }} {% else %}{{ site.baseurl }}/{{ site.theme_settings.avatar }} {%endif%}"
   />
 
   <!-- CSS -->
