@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [Fluid Mechanics] 05: 레이놀즈 수 유도  (Derive Reynolds Number) | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="레이놀즈 수를 유도해보자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[Fluid Mechanics] 05: 레이놀즈 수 유도  (Derive Reynolds Number) | 완숙의 에그머니 🍳"
+  />
+  <meta
+    property="og:description"
+    content="레이놀즈 수를 유도해보자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-05-%EB%A0%88%EC%9D%B4%EB%86%80%EC%A6%88-%EC%88%98.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/15.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/cs/dynamics/2020/10/02/Fluid-Mechanics-05-%EB%A0%88%EC%9D%B4%EB%86%80%EC%A6%88-%EC%88%98.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 740) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/JavaScript">JavaScript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/React">React</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Tips">Tips</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/15.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">05: 레이놀즈 수 유도  (Derive Reynolds Number)</h1>
+      
+      <p class="meta">
+        CS/Dynamics  : Fluid Mechanics 
+      </p>
+      <p class="meta">
+        October 2, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Fluid Mechanics</em></b> 시리즈
+    <b><em>14</em></b> 편 중 <b><em>5</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                                     
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-01-%EC%97%B0%EC%86%8D%EB%B0%A9%EC%A0%95%EC%8B%9D.html'">
+      <span>Part 1 - 01: 연속 방정식 & 나비에-스톡스 방정식 (Continuity Equation & Navier-Stokes Equation)</span>
+    </li>
+                                                     
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-02-Velocity-Profile.html'">
+      <span>Part 2 - 02: 완전발달유동에서 속도 윤곽 (Velocity Profile in Fully Developed Flow)</span>
+    </li>
+                                                             
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-03-pipe-flow.html'">
+      <span>Part 3 - 03: 파이프 유동 & 내부유동 (Pipe Flow & Internal Flow)</span>
+    </li>
+                             
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-04-%EB%A0%88%EC%9D%B4%EB%86%80%EC%A6%88-%EC%88%98%EC%86%A1%EC%A0%95%EB%A6%AC.html'">
+      <span>Part 4 - 04: 레이놀즈 수송정리와 나비에 스톡스 방정식 관계 (The Relation of Reynolds Transform Theorem & Navier-Stokes Equation)</span>
+    </li>
+                                   
+    <li class="current">
+      <span>Part 5 - This Post</span>
+    </li>
+                                             
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-06-%EC%9E%85%EA%B5%AC%EC%98%81%EC%97%AD.html'">
+      <span>Part 6 - 06: 입구영역, 입구유동 (Entrance Region or Entrance Flow)</span>
+    </li>
+                             
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-07-%EB%82%9C%EB%A5%98%EC%9C%A0%EB%8F%99.html'">
+      <span>Part 7 - 07: 난류 유동 (Tubulent Flow)</span>
+    </li>
+                                       
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-08-%EB%AC%B4%EB%94%94%EC%B0%A8%ED%8A%B8.html'">
+      <span>Part 8 - 08: 무디 차트 (Moddy Chart & Colebrook Equation)</span>
+    </li>
+                                 
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-09-%EB%B6%80%EC%86%90%EC%8B%A4-%EC%9C%A0%EB%8F%99%EB%B0%95%EB%A6%AC.html'">
+      <span>Part 9 - 09: 부손실 & 유동 박리 (Minor Loss & Flow Separation)</span>
+    </li>
+                           
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-10-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%8E%8C%ED%94%84%EC%84%A0%ED%83%9D.html'">
+      <span>Part 10 - 10: 파이프 연결망(네트워크) & 펌프선택 (Piping Network &Pump Selection)</span>
+    </li>
+                     
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-11-%EC%9C%A0%EB%9F%89%EC%B8%A1%EC%A0%95%EB%B2%95.html'">
+      <span>Part 11 - 11: 유량 측정법 (Flow Rate Velocity Measurement)</span>
+    </li>
+                           
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-12-%EC%B0%A8%EC%9B%90%ED%95%B4%EC%84%9D.html'">
+      <span>Part 12 - 12: 차원해석 개론 (Introduction of Dimensional Analysis)</span>
+    </li>
+                   
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-13-%EB%B3%80%EC%88%98%EB%B0%98%EB%B3%B5%EB%B2%95.html'">
+      <span>Part 13 - 13: 변수반복법 (Dimension Analysis - Method of Repeating Variables)</span>
+    </li>
+                   
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-14-%EB%B6%88%EC%99%84%EC%A0%84%EC%83%81%EC%82%AC.html'">
+      <span>Part 14 - 14: 불완전 상사 (Incomplete Similarity)</span>
+    </li>
+                                                                                                                                                                                                                                  
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+ <p>이번에는 레이놀즈 수를 유도하는 방법을 알아볼 것이다. 레이놀즈 수는 유체의 특징을 알려주는 무차원 수이다. 유체가 압력항에 영향을 크게 받는지, 점성항에 크게 받지를 직관적으로 알 수 있게 만든 수이다. 이 개념을 알기 위해서는 무차원 수를 알아야 하지만 난류의 이해를 위해서는 레이놀즈 수부터 알고 가는 것이 좋기에 먼저 설명하려고 한다.</p>
+
+<p>레이놀즈 수는 점성계수처럼 딱 정해진 숫자라고 보기 힘들다. 밀도, 속도, 길이, 점성 이 4가지의 조합으로 이루어져 있기에 상황에 따라 변한다.밑의 예시로 든 담배연기같은 경우도 그렇다. 처음에는 고르게 올라가다가 어느순간부터 연기는 퍼진다.퍼지는 이유는 여러가지 요인이 있지만 유체가 난류의 형태로 변화했기 때문이다. 무차원수에 대해는 나중에 배우고 이번에는 그냥 받아들이면서 유도과정을 보자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94922127-98fa3d80-04f4-11eb-9b83-09630bbd1458.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94922136-9e578800-04f4-11eb-9adf-42f232653049.png" alt="image" class="center" /></p>
+
+<p>여기서 왼쪽항은 ma, 즉 관성에 의해 운동하는 항을 의미한다.</p>
+
+<p>이 앞의 계수는 이 관성효과를 대변하는 수가 된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94922154-a6afc300-04f4-11eb-9d68-38fb03fa04e0.png" alt="image" class="center" /></p>
+
+<p>반대로 점성항 앞에 있는 계수항은 점성효과를 대변한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94922163-a9aab380-04f4-11eb-96c3-33fe2a4e09a2.png" alt="image" class="center" /></p>
+
+<p>이 두 항의 비율이 곧 레이놀즈 수이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94922172-add6d100-04f4-11eb-925a-a23e7a93b674.png" alt="image" class="center" /></p>
+
+<p>무차원화 하는 이유에 관해서는 다음 포스팅에서 설명하도록 하겠다.</p>
+
+<p>이 무차원 식을 기반으로 저번 포스팅에서 유도했던 Polar system에서 파이프 속도 양상을 구해보자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94922183-b62f0c00-04f4-11eb-9206-001e99f4b92f.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94922191-b9c29300-04f4-11eb-9e69-5e784fcb40c4.png" alt="image" class="center" /></p>
+
+<p>각각 다른 파이프지만 이렇게 Scaling을 한 뒤 일반화를 해놓게 되면, 특정 파이프의 특징에 따라 대입만하게 되면 값이 바로 도출 된다.</p>
+
+<p>그럼 이번에는 파이프에서 압력강하를 구해보자. 파이프에서 평균속도와 압력과의 관계로 부터 레이놀즈 수를 사용하여 압력차를 식으로 유도해보자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94922207-c0510a80-04f4-11eb-9000-b547d2b2c8ab.png" alt="image" class="center" /></p>
+
+<p>이렇게 도출한 식은 내가 특정한 파이프에 압력차를 주었을 때, 이 압력차에 해당하는 동압이 얼마나 생길지 알게 해준다. 거기서 영향을 주는 변수는 f, L,D 이다. (<del>마지막은 잘못 적었다.</del>)</p>
+
+<p>앞에서 본 파이프에서 압력강하는 fully developed 상황에서 이루어 진다. 만약 이 파이프에서 일정한 속도로 유체를 이동시켜야 한다고 하면 그만큼의 정압을 줘야한다는 의미가 된다. 반대로 말하면 그정도의 압력이 손실된다. 그래서 이 부분은 주손실과 관련이 있다.</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Dynamics"
+      >#Dynamics</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Fluid+Mechanics"
+      >#Fluid Mechanics</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                                                                                     
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-04-%EB%A0%88%EC%9D%B4%EB%86%80%EC%A6%88-%EC%88%98%EC%86%A1%EC%A0%95%EB%A6%AC.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>04: 레이놀즈 수송정리와 나비에 스톡스 방정식 관계 (The Relation of Reynolds Transform Theorem & Navier-Stokes Equation)</p>
+  </div>
+                                                                          
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-06-%EC%9E%85%EA%B5%AC%EC%98%81%EC%97%AD.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>06: 입구영역, 입구유동 (Entrance Region or Entrance Flow)</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                       
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

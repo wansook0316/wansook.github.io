@@ -1,9 +1,5 @@
-{% if page.series %} {% assign count = '0' %} {% assign idx = '0' %} {% assign
-sortedPosts = site.posts | sort: 'title' %} {% for post in sortedPosts %} {% if
-post.series == page.series %} {% capture count %}{{ count | plus: '1' }}{%
-endcapture %} {% if post.url == page.url %} {% capture idx %}{{count}}{%
-endcapture %} {% endif %} {% endif %} {% endfor %}
-
+{% assign hNodeNumbers = content | split: '<h' | size %} {% assign hNodeNumbers
+= hNodeNumbers | minus: 1 %} {% if hNodeNumbers > 1 %}
 <div class="toc-whole-nav">
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
@@ -13,5 +9,4 @@ endcapture %} {% endif %} {% endif %} {% endfor %}
     <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
   </div>
 </div>
-
-{% endif %}
+{%endif%}

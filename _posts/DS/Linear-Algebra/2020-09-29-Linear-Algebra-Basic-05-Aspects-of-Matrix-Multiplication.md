@@ -3,7 +3,7 @@ layout: post
 title: "05: Aspects of Matrix Multiplication (행렬 곱셈의 여러 측면)"
 category: "DS/LA"
 comments: true
-tags: [math, "Linear-Algebra"]
+tags: [Math, "Linear Algebra"]
 feature-img: "assets/img/4.jpg"
 feature-title: ""
 use_math: true

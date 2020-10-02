@@ -3,14 +3,14 @@ layout: post
 title: "백준(17626번): Four Squares"
 category: "CS/Algorithm"
 comments: true
-tags: [백준, 알고리즘, 동적 계획법]
-feature-img: "assets/img/34.jpg"
+tags: [백준, 알고리즘, 동적계획법]
+feature-img: "assets/img/57.jpg"
 feature-title:
 use_math: true
+series: "Algorithm Problem Solving"
 ---
 
-**_실버5_** : 동적 계획법 문제이다.  
-[백준(17626번) - Four Squares](https://www.acmicpc.net/problem/17626){: target="\_blank"}
+**_실버5_** : 동적 계획법 문제이다.
 
 # 생각
 
@@ -80,3 +80,7 @@ int main(){
 }
 
 ```
+
+# Reference
+
+[백준(17626번) - Four Squares](https://www.acmicpc.net/problem/17626){: target="\_blank"}

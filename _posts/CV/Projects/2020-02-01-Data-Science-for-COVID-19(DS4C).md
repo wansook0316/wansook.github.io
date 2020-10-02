@@ -7,7 +7,7 @@ tags: [project, "CV"]
 feature-img: "assets/img/64.jpg"
 feature-title:
 use_math: true
-seris: "DataScience for COVID-19"
+series: "DataScience for COVID-19"
 summary: "COVID-19가 발생한 이후, 관련 데이터를 제공하는 프로젝트이다."
 ---
 

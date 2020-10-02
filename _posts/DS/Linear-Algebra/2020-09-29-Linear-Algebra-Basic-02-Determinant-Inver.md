@@ -3,7 +3,7 @@ layout: post
 title: "02: Determinant, Inverse Matrix, Orthogonal Matrix (행렬식, 역행렬, 직교행렬)"
 category: "DS/LA"
 comments: true
-tags: [math, "Linear-Algebra"]
+tags: [Math, "Linear Algebra"]
 feature-img: "assets/img/4.jpg"
 feature-title: ""
 use_math: true

@@ -7,19 +7,20 @@ hide: true
 feature-img: "assets/img/series.jpg"
 ---
 
-{% assign seriesLists = "" | split: ":" %} {% assign sortedPosts = site.posts |
-sort: 'title' %} {% for post in sortedPosts %} {% if post.series %} {% unless
-seriesNameLists contains post.series %} {% assign seriesName = post.series %} {%
-assign category = post.category %} {% assign seriesCount = '0' %} {% for p in
+{% assign seriesLists = "" | split: ":" %} {% assign sortedPosts = site.posts %}
+{% for post in sortedPosts %} {% if post.series %} {% unless seriesNameLists
+contains post.series %} {% assign seriesName = post.series %} {% assign category
+= post.category %} {% assign seriesCount = '0' %} {% for p in
 site.categories[category] %} {% if p.series == seriesName %} {% capture
-seriesCount %}{{ seriesCount | plus: '1' }}{% endcapture %} {% endif %} {%
-endfor %} {% assign titleNumber= post.title | split: ":" %} {% if titleNumber[0]
-== "01" or seriesCount == "1" %} {% assign seriesName = post.series %} {% assign
-link = site.url | append: post.url %} {% assign category = post.category %} {%
-assign imgPath = site.url | append: "/" |append: post.feature-img %} {% assign
-seriesCount = '0' %} {% for p in site.categories[category] %} {% if p.series ==
-seriesName %} {% capture seriesCount %}{{ seriesCount | plus: '1' }}{%
-endcapture %} {% endif %} {% endfor %} {% assign orderGenerater =
+seriesCount %} {{seriesCount| plus: 1 }} {% endcapture %} {% endif %} {% endfor
+%} {% assign titleNumber= post.title | split: ":" %} {% if seriesCount == " 1 "
+or titleNumber[0] == "01" or titleNumber[0] == "백준(1003번)" or titleNumber[1]
+== "DATETIME에서 DATE로 형 변환" %} {% assign seriesName = post.series %} {%
+assign link = site.url | append: post.url %} {% assign category = post.category
+%} {% assign imgPath = site.url | append: "/" |append: post.feature-img %} {%
+assign seriesCount = '0' %} {% for p in site.categories[category] %} {% if
+p.series == seriesName %} {% capture seriesCount %}{{ seriesCount | plus: '1'
+}}{% endcapture %} {% endif %} {% endfor %} {% assign orderGenerater =
 site.data.order[seriesCount] %} {% assign seriesInfo = ""%} {% assign seriesInfo
 = seriesInfo | append: orderGenerater.order %} {% assign seriesInfo = seriesInfo
 | append: "," | append: seriesCount %} {% assign seriesInfo = seriesInfo |
@@ -31,7 +32,7 @@ category |append: ","%} {% assign seriesLists = seriesLists | push:seriesInfo %}
 seriesLists | sort | reverse %}
 
 <div id="wrapMagazine" class="wrap_magazine #my_mag">
-  <div class="list_content" style="">
+  <div class="list_content">
     {% for seriesPost in seriesLists %} {% assign seriesInfoArray = seriesPost |
     split: "," %}
     <div
@@ -42,10 +43,10 @@ seriesLists | sort | reverse %}
     >
       <div class="cover_book cover_book_type3">
         <a href="{{ seriesInfoArray[4] }}">
-          <div class="info_cover sanmessi" style="">
+          <div class="info_cover sanmessi">
             {% assign newlineText = seriesInfoArray[2] | split: " " %} {% for
             line in newlineText %}
-            <strong class="tit_cover" style="">{{ line }}</strong>
+            <strong class="tit_cover">{{ line }}</strong>
             {% endfor %}
           </div>
           <img
@@ -55,7 +56,7 @@ seriesLists | sort | reverse %}
             class="img_thumb"
             alt="이미지정보"
           />
-          <span class="dimmed_book_type1" style=""></span>
+          <span class="dimmed_book_type1"></span>
           <span class="dimmed_cover"></span>
         </a>
       </div>
@@ -63,10 +64,10 @@ seriesLists | sort | reverse %}
       <a href="{{ seriesInfoArray[4] }}" class="tit_subject"
         ><span class="inner_txt">{{ seriesInfoArray[2] }}</span></a
       >
-      <dl class="list_post_info" style="">
-        <dt><span class="ico_brunch_v1 ico_list" style=""></span></dt>
-        <dd class="txt_g" style="">
-          <em style="">{{ seriesInfoArray[1] }}</em>
+      <dl class="list_post_info">
+        <dt><span class="ico_brunch_v1 ico_list"></span></dt>
+        <dd class="txt_g">
+          <em>{{ seriesInfoArray[1] }}</em>
         </dd>
       </dl>
     </div>

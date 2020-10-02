@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [Partial Differential Equations] 11: 드무아브르의 공식 (De Moivre's Fomula) | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="드무아브르의 공식과 복소수의 제곱근을 알아보자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[Partial Differential Equations] 11: 드무아브르의 공식 (De Moivre's Fomula) | 완숙의 에그머니 🍳"
+  />
+  <meta
+    property="og:description"
+    content="드무아브르의 공식과 복소수의 제곱근을 알아보자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-11-DeMoivre's-Fomula.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/13.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/ds/calculus/2020/10/02/Partial-Differential-Equations-11-DeMoivre's-Fomula.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 740) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/JavaScript">JavaScript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/React">React</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Tips">Tips</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/13.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">11: 드무아브르의 공식 (De Moivre's Fomula)</h1>
+      
+      <p class="meta">
+        DS/Calculus  : Partial Differential Equations 
+      </p>
+      <p class="meta">
+        October 2, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Partial Differential Equations</em></b> 시리즈
+    <b><em>14</em></b> 편 중 <b><em>11</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                                                   
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-01-%ED%8E%B8%EB%AF%B8%EB%B6%84-%EB%B0%A9%EC%A0%95%EC%8B%9D-%EA%B0%9C%EB%A1%A0.html'">
+      <span>Part 1 - 01: 편미분 방정식 개론</span>
+    </li>
+                                                 
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-02-Wave-Equation-1.html'">
+      <span>Part 2 - 02: 파동방정식 (Wave Equation) #1</span>
+    </li>
+                                                 
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-03-Wave-Equation-2.html'">
+      <span>Part 3 - 03: 파동방정식 (Wave Equation) #2</span>
+    </li>
+                                   
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-04-Heat-Equation.html'">
+      <span>Part 4 - 04: 열 방정식 (Heat Equation)</span>
+    </li>
+                                         
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-05-Solution-Of-Heat-Equation.html'">
+      <span>Part 5 - 05: 열 방정식의 해</span>
+    </li>
+                               
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-06-Laplace-Equation.html'">
+      <span>Part 6 - 06: 라플라스 방정식 (Laplace Equation)</span>
+    </li>
+                     
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-07-Two-Dimentional-Wave-Equation.html'">
+      <span>Part 7 - 07: 2차원 파동 방정식 (Two Dimentional Wave Equation)</span>
+    </li>
+                                             
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-08-Wave-Equation-In-Polar-Coordinates.html'">
+      <span>Part 8 - 08: 극좌표에서 파동방정식 (Wave Equation in Polar Coordinates)</span>
+    </li>
+                                     
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-09-Complex-Number-Complex-Plane.html'">
+      <span>Part 9 - 09: 복소수 & 복소평면 (Complex Number & Complex Plane)</span>
+    </li>
+                         
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-10-Polar-Form-Of-Complex-Numbers.html'">
+      <span>Part 10 - 10: 복소수의 극좌표 표현(Polar Form of Complex Numbers)</span>
+    </li>
+                       
+    <li class="current">
+      <span>Part 11 - This Post</span>
+    </li>
+                           
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-12-%EB%B3%B5%EC%86%8C-%ED%95%B4%EC%84%9D-%ED%95%A8%EC%88%98%EC%9D%98-%EB%8F%84%ED%95%A8%EC%88%98.html'">
+      <span>Part 12 - 12: 복소 해석 함수의 도함수 (Derivative of Complex Analytic Function)</span>
+    </li>
+                         
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-13-Cauchy-Riemann-Equation.html'">
+      <span>Part 13 - 13: 코시-리만 방정식 (Cauchy-Riemann Equation)</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-14-Function-in-Complex-Numbers.html'">
+      <span>Part 14 - 14: 함수의 복소적 표현 (Function in Complex Numbers)</span>
+    </li>
+                                                                                                                                                                                                                              
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+ <p><img src="https://user-images.githubusercontent.com/37871541/94909315-f5059780-04dd-11eb-96ea-3fae6c52b49b.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94909326-f8991e80-04dd-11eb-8c61-ca6710271a0e.png" alt="image" class="center" /></p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Math"
+      >#Math</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Differential+Equation"
+      >#Differential Equation</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                                                                                                                                                                                                                                                                         
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-10-Polar-Form-Of-Complex-Numbers.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>10: 복소수의 극좌표 표현(Polar Form of Complex Numbers)</p>
+  </div>
+                                            
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/calculus/2020/10/02/Partial-Differential-Equations-12-%EB%B3%B5%EC%86%8C-%ED%95%B4%EC%84%9D-%ED%95%A8%EC%88%98%EC%9D%98-%EB%8F%84%ED%95%A8%EC%88%98.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>12: 복소 해석 함수의 도함수 (Derivative of Complex Analytic Function)</p>
+  </div>
+                                                                                                                                                                                                                                                                 
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

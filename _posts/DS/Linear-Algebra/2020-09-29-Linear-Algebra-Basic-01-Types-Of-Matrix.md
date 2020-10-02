@@ -3,7 +3,7 @@ layout: post
 title: "01: Types of Matrix (행렬의 종류)"
 category: "DS/LA"
 comments: true
-tags: [math, "Linear-Algebra"]
+tags: [Math, "Linear Algebra"]
 feature-img: "assets/img/4.jpg"
 feature-title: ""
 use_math: true

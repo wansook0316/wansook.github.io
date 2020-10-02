@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [System Dynamics] 06: Newton Raphson Method | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="비선형 방정식의 해를 구하기 위한 수치적 방법인 뉴턴 랩슨 메서드를 알아본다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[System Dynamics] 06: Newton Raphson Method | 완숙의 에그머니 🍳"
+  />
+  <meta
+    property="og:description"
+    content="비선형 방정식의 해를 구하기 위한 수치적 방법인 뉴턴 랩슨 메서드를 알아본다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/7.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 740) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/JavaScript">JavaScript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/React">React</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Tips">Tips</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/7.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">06: Newton Raphson Method</h1>
+      
+      <p class="meta">
+        CS/Dynamics  : System Dynamics 
+      </p>
+      <p class="meta">
+        September 30, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>System Dynamics</em></b> 시리즈
+    <b><em>8</em></b> 편 중 <b><em>6</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                           
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html'">
+      <span>Part 1 - 01: 다물체 동역학 개론</span>
+    </li>
+                                                                           
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html'">
+      <span>Part 2 - 02: 평면에서 다물체계의 운동학</span>
+    </li>
+                         
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html'">
+      <span>Part 3 - 03: Orthogonality, Vector Differentiation, Jacobi's Theorem</span>
+    </li>
+                                                               
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html'">
+      <span>Part 4 - 04: 평면에서의 기구학</span>
+    </li>
+                     
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html'">
+      <span>Part 5 - 05: 기구학적 제약</span>
+    </li>
+                                       
+    <li class="current">
+      <span>Part 6 - This Post</span>
+    </li>
+                             
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-07-Computational-Algorithm.html'">
+      <span>Part 7 - 07: Computational Algorithm</span>
+    </li>
+                                     
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-08-Newton-Euler-Algorithm.html'">
+      <span>Part 8 - 08: Newton-Euler Equations, D'Alembert's Principle</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                      
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#tayler-series">Tayler Series</a></li>
+  <li><a href="#newton-rahpson-method">Newton-Rahpson method</a>
+    <ul>
+      <li><a href="#1변수-함수에서-newton-rahpson-method">1변수 함수에서 Newton-Rahpson method</a></li>
+      <li><a href="#일반화된-newton-rahpson-method">일반화된 Newton-Rahpson method</a></li>
+    </ul>
+  </li>
+  <li><a href="#position-analysis">Position Analysis</a>
+    <ul>
+      <li><a href="#notice">Notice</a></li>
+    </ul>
+  </li>
+  <li><a href="#velocity-analysis">Velocity Analysis</a></li>
+  <li><a href="#acceleration-analysis">Acceleration Analysis</a></li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <h1 id="tayler-series">Tayler Series</h1>
+
+<p>테일러 급수는, 임의의 함수를 무한개의 다항식을 더하여 근사하는 방법이다.</p>
+
+<script type="math/tex; mode=display">f(x)\;=\;f(a)+f^\prime(a)(x-a)+{f^{\prime \prime}(a)\over 2!}(x-a)^2+{f^{\prime \prime \prime}(a)\over 2!}(x-a)^3 \cdots\\
+\;\\
+\;=\;\sum_{n=0}^{\infin}{f^{n}(a)\over n!}(x-a)^n</script>
+
+<p>보통 테일러 급수는 1차 함수로 근사할 때 많이 사용한다.</p>
+
+<h1 id="newton-rahpson-method">Newton-Rahpson method</h1>
+
+<p>뉴턴 랍슨 메서드의 핵심은, <strong>iterative</strong> 접근이다.</p>
+
+<h2 id="1변수-함수에서-newton-rahpson-method">1변수 함수에서 Newton-Rahpson method</h2>
+
+<p><img width="80%" alt="스크린샷 2019-05-07 오후 1 18 53" src="https://user-images.githubusercontent.com/37871541/57271504-ab3b3680-70ca-11e9-822a-455f9d3349b8.png" class="center" /></p>
+
+<p>다음과 같은 함수가 있다고 하자. 우리가 하고 싶은 것은 이 함수의 <strong>근</strong> 을 찾는 것이다. 그러기 위해서 테일러 시리즈를 사용해보자. 이 함수 f는 1차까지만 근사하면 다음과 같다.</p>
+
+<script type="math/tex; mode=display">f(x)\;=\;f(a)+f^\prime(a)(x-a)</script>
+
+<p>이 때, 이 근사를 시작하는 점, a를 x_i로 주면,</p>
+
+<script type="math/tex; mode=display">f(x)\;=\;f(x_i)+f^\prime(x_i)(x-x_i)</script>
+
+<p>그렇다면 이 x<em>i로 시작해서 이 함수를 근사했으므로, 근사한 식을 0으로 만드는 것이 답이다. **이 근사된 함수로 나온 solution을 x</em>(i+1) 이라 하자.**</p>
+
+<script type="math/tex; mode=display">f(x_{i+1})\;=\;f(x_i)+f^\prime(x_i)(x_{i+1}-x_i)\\
+\;\\
+f(x_{i+1})\;=\;f(x_i)+f^\prime(x_i)(\Delta x)\\
+\;\\
+f(x_{i+1})\;=\;0을\;만족하는 \;점이다.</script>
+
+<p>우리는 x_(i+1)을 찾고 싶으므로, 위의 가정들을 식에 다 집어넣으면,</p>
+
+<script type="math/tex; mode=display">f(x_{i+1})\;=\;f(x_i)+f^\prime(x_i)(\Delta x_i)\;=\;0\\
+\;\\
+\Delta x_i\;=\;-{f(x_i)\over f^{\prime}(x_i)}</script>
+
+<p>따라서, 우리가 원하는 x_(i+1) 은 다음과 같다.</p>
+
+<script type="math/tex; mode=display">x_{i+1}\;=\;x_i\;+\;\Delta x_i</script>
+
+<p>나온 x_(i+1)을 다시 a로 넣고, 이 작업을 반복하게 되면, 해 근처에 갔을 때, 델타 x가 매우 작아진다. 이 때, 우리는 해를 찾았다고 return 해준다.</p>
+
+<h2 id="일반화된-newton-rahpson-method">일반화된 Newton-Rahpson method</h2>
+
+<p>그렇다면, 식이 2개, 변수가 2개인 벡터 함수에서는 어떻게 근사할 수 있을까?</p>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{f}(x,y)\;=\;
+\begin{bmatrix}
+f_1(x,y)\\
+f_2(x,y)
+\end{bmatrix}</script>
+
+<p>각각을 테일러 시리즈로 전개하자. 1차항 까지.</p>
+
+<script type="math/tex; mode=display">f_1(x_{i+1}, y_{i+1})\;=\;f_1(x_i, y_i)+{\partial f_1 \over \partial x}(x_i,y_i)(\Delta x_i)+\;{\partial f_1 \over \partial y}(x_i,y_i)(\Delta y_i)=\;0\\
+\;\\
+f_2(x_{i+1}, y_{i+1})\;=\;f_2(x_i, y_i)+{\partial f_2 \over \partial x}(x_i,y_i)(\Delta x_i)+\;{\partial f_2 \over \partial y}(x_i,y_i)(\Delta y_i)=\;0\\</script>
+
+<p>우변이 0인 이유는 위에서 설명한 것과 같은 의미 이다. 우리는 0이 되는 x, y를 찾고 싶은 것이기에 근사한 식에서 함수값이 0이 될 때, <em>x*(i+1), y*(i+1)</em> 이 필요하다. 편미분 후 x_i, y_i를 넣는 것을 생략해서 표현하면,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\begin{bmatrix}
+\partial f_1 \over \partial x & \partial f_1 \over \partial y\\
+\partial f_2 \over \partial x & \partial f_2 \over \partial y\\
+\end{bmatrix}
+\begin{bmatrix}
+\Delta x_i\\
+\Delta y_i\\
+\end{bmatrix}
+\;=\;
+\begin{bmatrix}
+-f_1(x_i, y_i)\\
+-f_2(x_i, y_i)\\
+\end{bmatrix} %]]></script>
+
+<p>여기서,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+J\;=\;\begin{bmatrix}
+\partial f_1 \over \partial x & \partial f_1 \over \partial y\\
+\partial f_2 \over \partial x & \partial f_2 \over \partial y\\
+\end{bmatrix} %]]></script>
+
+<p>J를 <strong>자코비안 행렬</strong> 이라 한다.</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+\Delta \overset{\rightarrow}{h}
+\;=\;
+\begin{bmatrix}
+\Delta x_i\\
+\Delta y_i\\
+\end{bmatrix}
+\;=\;
+\begin{bmatrix}
+\partial f_1 \over \partial x & \partial f_1 \over \partial y\\
+\partial f_2 \over \partial x & \partial f_2 \over \partial y\\
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+-f_1(x_i, y_i)\\
+-f_2(x_i, y_i)\\
+\end{bmatrix} %]]></script>
+
+<script type="math/tex; mode=display">x_{i+1}\;=\;x_i\;+\;\Delta x_i
+\\
+\;\\
+y_{i+1}\;=\;y_i\;+\;\Delta y_i</script>
+
+<p>이므로 업데이트가 가능하다. 역시나 초기값 설정이 필요하다!</p>
+
+<h1 id="position-analysis">Position Analysis</h1>
+
+<p>이전 글에서 우리는 제약식들이 모인 벡터함수 C를 정의했다. 우리는 결국 벡터함수 C = 0 이되는 해, 즉 q 벡터를 찾는 것이 목적이다. 따라서 우리는 이 벡터 함수 C를 테일러 시리즈로 근사한 뒤 <strong>Newton-Rahpson method</strong> 를 사용해서 해를 구하자! 그러기 위해서는 벡터함수 C를 근사화 해야 한다. 테일러 시리즈를 적용하면,</p>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i+1}}\;,t)\;=\;
+\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)\;+\;  C_{q_i}\Delta \overset{\rightarrow}{q_i}\;=\;0</script>
+
+<script type="math/tex; mode=display">% <![CDATA[
+C_{q_i}\;=\;{\partial \overset{\rightarrow}{C} \over \partial \overset{\rightarrow}{q_{i}}}\;=\;
+\begin{bmatrix}
+{\partial C_1\over \partial q_1} & \dots & {\partial C_1\over \partial q_n}
+\\\vdots\ & &  \vdots\\
+{\partial C_m\over \partial q_1}  & \dots & {\partial C_m\over \partial q_n}\\
+\end{bmatrix} %]]></script>
+
+<p>C 행렬은 자코비안 행렬이다. 따라서,</p>
+
+<script type="math/tex; mode=display">\Delta \overset{\rightarrow}{q_i}\;=\;-[  C_{q_i}]^{-1\;}\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)</script>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{q_{i+1}}\;=\;\overset{\rightarrow}{q_i}\;+\;\Delta \overset{\rightarrow}{q_i}</script>
+
+<p>로 q벡터를 구할 수 있다. 이를 반복하다가 특정 조건일 때, 우리는 반복을 멈추고 return 하면되는데,</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+|\Delta \overset{\rightarrow}{q_i}|\;<\;\epsilon_1\\
+\;\\
+OR\\
+\;\\
+|\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)|\;<\;\epsilon_2 %]]></script>
+
+<p>두 식의 의미는, 하나는 다가가는 step size이고, 두번째는 함수값의 size 차이이다.</p>
+
+<p><img width="80%" alt="스크린샷 2019-05-07 오후 2 24 47" src="https://user-images.githubusercontent.com/37871541/57273735-e3934280-70d3-11e9-8b20-05b30f88ef64.png" class="center" /></p>
+
+<p>해답을 찾아가는 과정에는 다음과 같이 두가지의 기준을 세울 수 있으므로, 두 기준에 대해서 iteration을 멈춘다.</p>
+
+<h2 id="notice">Notice</h2>
+
+<p>우리는 t가 변수가 아닌 것에 주목해야 한다. 우리는 해를 수치적으로 구할 것이기 때문이다. t가 0일 때, q벡터의 초기값을 임의로 잡고, Newton 메서드, q 구함. t가 0.01 일 때, q벡터의 초기값을 임의로 잡고, newton 메서드 , q 구함. 따라서 t는 상수로 생각하고 우리는 문제를 푼다.</p>
+
+<h1 id="velocity-analysis">Velocity Analysis</h1>
+
+<p>같은 방법으로 제약식이 주어졌을 때, 우리가 궁금한 것은 q_dot 벡터이다.</p>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{C}(\overset{\rightarrow}{q}\;,t)\;=\;\overset{\rightarrow}{0}</script>
+
+<p>이므로,</p>
+
+<script type="math/tex; mode=display">{d\overset{\rightarrow}{C}(\overset{\rightarrow}{q}, t) \over dt}\;=\;{d\overset{\rightarrow}{C} \over d\overset{\rightarrow}{q}}\cdot\overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\cdot}{\overset{\rightarrow}{C}}
+\;=\;  C_{q}\cdot \overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\rightarrow}{C_{t}}
+\;=\;\overset{\rightarrow}{0}</script>
+
+<script type="math/tex; mode=display">\overset{\rightarrow}{C_{t}}\;=\;
+\begin{bmatrix}
+{d C_1\over dt}\\
+{d C_2\over dt}\\
+\vdots\\
+{d C_{n_c}\over dt}\\
+\end{bmatrix}
+
+\\
+\;\\
+n_c\;=\;제약식의 \;갯수</script>
+
+<p>Ct 벡터는 t에 대해 미분한 벡터이므로, Driving constraint 식 이외 항은 0이다. 따라서 결론적으로,</p>
+
+<script type="math/tex; mode=display">C_{q}\cdot \overset{\cdot}{\overset{\rightarrow}{q}}
+\;=\;-\overset{\rightarrow}{C_{t}}\\
+\;\\
+
+\overset{\cdot}{\overset{\rightarrow}{q}}\;=\;
+-[  C_{q}]^{-1}\overset{\rightarrow}{C_{t}}</script>
+
+<p>이다.</p>
+
+<h1 id="acceleration-analysis">Acceleration Analysis</h1>
+
+<p>제약식을 두번 미분해서, q_twodot 을 구하면 된다.</p>
+
+<script type="math/tex; mode=display">{d^2\overset{\rightarrow}{C}(\overset{\rightarrow}{q}, t) \over dt^2}\;=\;
+{d\over dt}[{d\overset{\rightarrow}{C} \over d\overset{\rightarrow}{q}}\cdot\overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\cdot}{\overset{\rightarrow}{C}}]
+\;=\;
+{d\over dt}[  C_{q}\cdot \overset{\cdot}{\overset{\rightarrow}{q}}\;+\;\overset{\rightarrow}{C_{t}}]
+\;=\;\overset{\rightarrow}{0}</script>
+
+<p>결과적으로,</p>
+
+<script type="math/tex; mode=display">C_{q}\cdot \overset{\cdot \cdot}{\overset{\rightarrow}{q}}
+\;=\;\overset{\rightarrow}{Q_{d}}\\
+\;\\
+
+\overset{\cdot \cdot}{\overset{\rightarrow}{q}}\;=\;
+[  C_{q}]^{-1}\overset{\rightarrow}{Q_{d}}
+\\
+\;\\
+\overset{\rightarrow}{Q_{d}}\;=\;-(  C_{q} \overset{\cdot}{\overset{\rightarrow}{q}})_q \overset{\cdot}{\overset{\rightarrow}{q}}\;-\;2  C_{qt} \overset{\cdot}{\overset{\rightarrow}{q}}\;-\;\overset{\rightarrow}{C_{tt}}</script>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Math"
+      >#Math</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Dynamics"
+      >#Dynamics</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Linear+Algebra"
+      >#Linear Algebra</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                                                                                                                
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>05: 기구학적 제약</p>
+  </div>
+                                                              
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-07-Computational-Algorithm.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>07: Computational Algorithm</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                      
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

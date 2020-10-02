@@ -3,7 +3,7 @@ layout: post
 title: "03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅)"
 category: "DS/LA"
 comments: true
-tags: [math, "Linear-Algebra"]
+tags: [Math, "Linear Algebra"]
 feature-img: "assets/img/4.jpg"
 feature-title: ""
 use_math: true

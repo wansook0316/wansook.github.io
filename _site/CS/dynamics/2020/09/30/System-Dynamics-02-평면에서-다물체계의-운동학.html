@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [System Dynamics] 02: 평면에서 다물체계의 운동학 | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="평면에서 어떻게 움직이는지 알아보자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[System Dynamics] 02: 평면에서 다물체계의 운동학 | 완숙의 에그머니 🍳"
+  />
+  <meta
+    property="og:description"
+    content="평면에서 어떻게 움직이는지 알아보자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/dynamics/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/7.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/cs/dynamics/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 740) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/JavaScript">JavaScript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/React">React</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Tips">Tips</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/7.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">02: 평면에서 다물체계의 운동학</h1>
+      
+      <p class="meta">
+        CS/Dynamics  : System Dynamics 
+      </p>
+      <p class="meta">
+        September 30, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>System Dynamics</em></b> 시리즈
+    <b><em>8</em></b> 편 중 <b><em>2</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                           
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html'">
+      <span>Part 1 - 01: 다물체 동역학 개론</span>
+    </li>
+                                                                           
+    <li class="current">
+      <span>Part 2 - This Post</span>
+    </li>
+                         
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html'">
+      <span>Part 3 - 03: Orthogonality, Vector Differentiation, Jacobi's Theorem</span>
+    </li>
+                                                               
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html'">
+      <span>Part 4 - 04: 평면에서의 기구학</span>
+    </li>
+                     
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html'">
+      <span>Part 5 - 05: 기구학적 제약</span>
+    </li>
+                                       
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html'">
+      <span>Part 6 - 06: Newton Raphson Method</span>
+    </li>
+                             
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-07-Computational-Algorithm.html'">
+      <span>Part 7 - 07: Computational Algorithm</span>
+    </li>
+                                     
+    <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-08-Newton-Euler-Algorithm.html'">
+      <span>Part 8 - 08: Newton-Euler Equations, D'Alembert's Principle</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                      
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#kinematics-of-planer-multibody-systems">Kinematics of Planer Multibody Systems</a></li>
+  <li><a href="#degree-of-freedom">Degree Of Freedom</a>
+    <ul>
+      <li><a href="#좌표계의-총-개수">좌표계의 총 개수</a></li>
+      <li><a href="#구속식의-개수">구속식의 개수</a></li>
+      <li><a href="#dof-calculation">DOF calculation</a></li>
+      <li><a href="#types-of-mechanical-joints">Types of Mechanical Joints</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <h1 id="kinematics-of-planer-multibody-systems">Kinematics of Planer Multibody Systems</h1>
+
+<p>평면에 놓인 특정 물체를 나타내려면 어떻게 해야할까? 그 물체를 나타내기 위해 우리는 기준을 잡아서 설명해야 할 것이다. 즉 <strong>절대좌표</strong> 가 필요하다.</p>
+
+<p>먼저 물체의 질량 중심을 가리키는 좌표가 존재할 것이고, (x, y) 그리고 그 물체의 형상을 나타낼 때에 기준으로 잡은 <strong>상대좌표</strong> 가 필요하다. 이유는 물체는 위치정보 이외에도 회전에 대한 정보도 있기 때문에 이것을 표현하기 위해서는 물체기준으로 만들어진 기준이 필요하다. 즉, 절대좌표와 상대좌표가 얼마나 회전했는지에 대한 지표가 필요하다.</p>
+
+<p><img width="50%" alt="스크린샷 2019-04-26 오후 4 07 25" src="https://user-images.githubusercontent.com/37871541/56789633-50d5e680-683d-11e9-9196-bbdb0f1e5d8c.jpg" class="center" /></p>
+
+<ul>
+  <li>2D
+    <ul>
+      <li>Rx, Ry, T : 3개</li>
+    </ul>
+  </li>
+  <li>3D
+    <ul>
+      <li>Rx, Ry, Rz, Tx, Ty, Tz : 6개</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="degree-of-freedom">Degree Of Freedom</h1>
+
+<p><strong>계의 운동을 정확히 표현하기 위해 필요한 최소한의 좌표 수</strong> 를 자유도라 한다.</p>
+
+<script type="math/tex; mode=display">dof\;k\;=\;n\;coordinates \;-\;m\;independent\;equations\;of\;constraint</script>
+
+<h2 id="좌표계의-총-개수">좌표계의 총 개수</h2>
+
+<p>여기서 n coordinates는 해당 시스템의 좌표의 총 개수를 의미한다. coordinates의 개수 n은, 해당 시스템의 물체수와 관련이 있다.</p>
+
+<p><img width="50%" alt="스크린샷 2019-04-26 오후 4 07 25" src="https://user-images.githubusercontent.com/37871541/56787664-34837b00-6838-11e9-930d-7e998d9a87a2.jpg" class="center" /></p>
+
+<p>이와 같은 시스템이 있을 때, 이 시스템을 나타내기 위해서는, 절대좌표, 또 각각의 물체에서 사용해야하는 좌표계까지 12개이다.</p>
+
+<script type="math/tex; mode=display">3 + 3\times3\;=\;12</script>
+
+<p>우리는 보통 Ground를 절대좌표로 잡으며, 그렇기 때문에 이 시스템을 볼때, Ground, 크랭크, 커플러, 종동절 총 4개의 물체가 있다고 생각하고 각각의 물체가 2D에서 정의되어 있기 때문에 각각의 좌표계는 Rx, Ry, T 3개씩의 좌표가 필요하다. 따라서 12개가 총 필요한 좌표계의 수이다.</p>
+
+<h2 id="구속식의-개수">구속식의 개수</h2>
+
+<p>그런데 저 시스템의 자유도는 1이었다. 그렇다면, 1개의 좌표만이 저 시스템의 운동학적 형상을 결정짓는데 영향을 준다는 얘기인데, 다른말로 하면 제약 조건이 11개라는 소리다.</p>
+
+<p>그 제약조건은 어떤 것 때문에 발생할까? 각각의 물체에 연결되어 있는 Joint 때문이다. 이 시스템에서 각각의 Joint는 연결되어 있는 물체가 길이방향, 길이에 수직인 방향으로 움직이는 것을 제한하고 있다.</p>
+
+<script type="math/tex; mode=display">4\;\times\;2 = \;8</script>
+
+<p>8개의 제약이 Joint에서 발생한다. 또한, Ground는 이 시스템 전체에서 기준점 역할을 하고 있다. 위에서 3개의 좌표를 가질 수 있다고 계산은 했지만, Rx, Ry, T 각각이 상수값을 가져야 하므로, 제약 역시 세 좌표에 대해서 가지고 있다.</p>
+
+<script type="math/tex; mode=display">Rx\;=\;c_1,\;\;R_y\;=\;c_2,\;\;\theta\;=\;c_3</script>
+
+<p>따라서 Ground 에 대한 제약은 3이다. 결론적으로 전체 제약 조건은,</p>
+
+<script type="math/tex; mode=display">8\;+\;3\;=\;11</script>
+
+<p>11이다.</p>
+
+<h2 id="dof-calculation">DOF calculation</h2>
+
+<p>그래서 DOF는 다음과 같이 계산할 수 있다.</p>
+
+<script type="math/tex; mode=display">n\;=\;3\;\times\;4\\
+\;\\
+m\;=\;3\;+\;2\;\times\;4\\
+\;\\
+dof\;k\;=\;n\;-m\;=\;12\;-\;11\;=\;1</script>
+
+<h2 id="types-of-mechanical-joints">Types of Mechanical Joints</h2>
+
+<p><img width="80%" alt="스크린샷 2019-04-26 오후 5 43 26" src="https://user-images.githubusercontent.com/37871541/56795159-cf855080-684a-11e9-9110-3a16dff7ed2e.png" class="center" /></p>
+
+<ol>
+  <li>Prismatic Joint (Translational joint)
+    <ul>
+      <li>한 방향으로만 움직일 수 있게 만든 joint</li>
+      <li>따라서 2D 인 경우 제약 조건은 2이다.</li>
+      <li>3D 인 경우 제약 조건은 5이다.</li>
+    </ul>
+  </li>
+  <li>Revolute Joint (Pin joint)
+    <ul>
+      <li>한 방향으로 회전할 수 있게 만든 joint</li>
+      <li>따라서 2D 인 경우 제약 조건은 2이다.</li>
+      <li>3D 인 경우 제약 조건은 5이다.</li>
+    </ul>
+  </li>
+  <li>Cylindrical Joint
+    <ul>
+      <li>회전과 한 방향으로 움직일 수 있게 만든 joint</li>
+      <li>이 joint 경우 2D에서는 사용할 수 없다.</li>
+      <li>3D 인 경우 제약 조건은 4이다.</li>
+    </ul>
+  </li>
+  <li>Spherical Joint (ball Joint)
+    <ul>
+      <li>세 방향으로 회전만 가능하게 만든 joint</li>
+      <li>따라서 2D 인 경우는 정의되지 않는다.</li>
+      <li>3D 인 경우 제약 조건은 4이다.</li>
+    </ul>
+  </li>
+</ol>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Math"
+      >#Math</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Dynamics"
+      >#Dynamics</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Linear+Algebra"
+      >#Linear Algebra</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                        
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>01: 다물체 동역학 개론</p>
+  </div>
+                                                                                              
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>03: Orthogonality, Vector Differentiation, Jacobi's Theorem</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>

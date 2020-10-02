@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [Thermodynamics] 07: 왕복 사이클 (Reciprocating Engines) | 완숙의 에그머니 🍳
+  </title>
+  <meta
+    name="description"
+    content="실제 왕복하는 사이클에 대해 알아보자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[Thermodynamics] 07: 왕복 사이클 (Reciprocating Engines) | 완숙의 에그머니 🍳"
+  />
+  <meta
+    property="og:description"
+    content="실제 왕복하는 사이클에 대해 알아보자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-07-Reciprocating-Engines.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/14.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/cs/dynamics/2020/10/02/Thermodynamics-07-Reciprocating-Engines.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니 🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 740) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "center"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+
+</head>
+
+  <body>
+    <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니 🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/Papers">Papers</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/JavaScript">JavaScript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/React">React</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Tips">Tips</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/14.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">07: 왕복 사이클 (Reciprocating Engines)</h1>
+      
+      <p class="meta">
+        CS/Dynamics  : Thermodynamics 
+      </p>
+      <p class="meta">
+        October 2, 2020 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Thermodynamics</em></b> 시리즈
+    <b><em>8</em></b> 편 중 <b><em>7</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                                               
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-01-Vapor-Power-Cycle.html'">
+      <span>Part 1 - 01: 증기 원동 사이클 (Vapor Power Cycle)</span>
+    </li>
+                                         
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-02-Heat-engine.html'">
+      <span>Part 2 - 02: 열기관과 냉동 사이클 (Heat Engine & Refrigerator Cycles)</span>
+    </li>
+                                                   
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-03-Maxwell-Relations.html'">
+      <span>Part 3 - 03: 맥스웰 관계식 & 클라페이롱 식 (Maxwell Relations & Clapeyron Equation)</span>
+    </li>
+                                                     
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-04-Gas-Mixture-Property.html'">
+      <span>Part 4 - 04: 혼합기체 물성치 (Gas Mixture Property)</span>
+    </li>
+                                       
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-05-Gas-Mixture-Pressure.html'">
+      <span>Part 5 - 05: 혼합기체에서 압력, 부피, 온도 양상 (PVT Behavior of Gas Mixture)</span>
+    </li>
+                                 
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-06-Properties-of-Gas-Vapor-Mixtures.html'">
+      <span>Part 6 - 06: 증기 혼합 기체에서의 물성치 (Properties of Gas-Vapor Mixtures)</span>
+    </li>
+                               
+    <li class="current">
+      <span>Part 7 - This Post</span>
+    </li>
+                             
+    <li onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-08-%EB%8B%A8%EC%97%B4-%ED%8F%AC%ED%99%94-%EC%98%A8%EB%8F%84.html'">
+      <span>Part 8 - 08: 단열 포화 온도(Adiabatic Saturation) & Psychrometric Chart</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                              
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li><a href="#종류">종류</a></li>
+  <li><a href="#기본적으로-알아야-하는-것">기본적으로 알아야 하는 것</a>
+    <ul>
+      <li><a href="#otto-cycle">OTTO Cycle</a></li>
+      <li><a href="#diesel-cycle">Diesel Cycle</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <p>왕복엔진이라 함은, 가솔린 엔진과 디젤 엔진으로 나뉜다. 기본적으로 피스톤의 왕복운동을 기반으로 Shaft work을 생산하기 때문에 그렇다.</p>
+
+<h1 id="종류">종류</h1>
+
+<ol>
+  <li>Spark-ignition (Gasolin)</li>
+  <li>compression-ignition (Diesel)</li>
+</ol>
+
+<h1 id="기본적으로-알아야-하는-것">기본적으로 알아야 하는 것</h1>
+
+<ul>
+  <li>MEP (Mean Effective Pressure)
+    <ul>
+      <li>피스톤이 움직이는 최대 부피대비 일 생산량 (kPa)</li>
+      <li>왕복엔진의 성능을 판단하는 척도가 된다.</li>
+      <li>$W_{net} = MEP * (V_{max} - V_{min})$</li>
+    </ul>
+  </li>
+  <li>Compression Ratio
+    <ul>
+      <li>r = Vmax/Vmin</li>
+    </ul>
+  </li>
+  <li>Actual : 4 stroke, open system</li>
+  <li>Ideal : 2 stroke, closed system</li>
+  <li>ISENTROPIC RELATION</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94918721-153d5280-04ee-11eb-9be7-3b6908692c79.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918734-1d958d80-04ee-11eb-8c3c-fa653d1456d8.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918756-271ef580-04ee-11eb-9466-6b2be4afa3db.png" alt="image" class="center" /></p>
+
+<h2 id="otto-cycle">OTTO Cycle</h2>
+
+<blockquote>
+  <p>Ideal Cycle for Spark - ignition Engine
+​</p>
+</blockquote>
+
+<ul>
+  <li>Process : 등엔트로피 수축 -&gt; 등적 Heat in -&gt; 등엔트로피 팽창 -&gt; 등적 Heat out</li>
+  <li>Efficiency : r (압축비) 의 함수, 높을 수록 증가한다.</li>
+  <li>Problem : 압축비가 높을 때 효율이 좋지만 자연발화의 가능성이 있다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94918866-65b4b000-04ee-11eb-8e0f-69cde00b4a32.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918815-4a49a500-04ee-11eb-8524-d06b08ad0838.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918907-749b6280-04ee-11eb-810e-8a43c39c21d4.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918917-79601680-04ee-11eb-8c56-4eb3b4bcc306.png" alt="image" class="center" /></p>
+
+<h2 id="diesel-cycle">Diesel Cycle</h2>
+
+<blockquote>
+  <p>Ideal Cycle for Compression - ignition Engine
+​</p>
+</blockquote>
+
+<ul>
+  <li>Difference : OTTO에는 혼합기체가 압축된다. Diesel은 공기만 압축된다.
+​ _ 자연발화의 가능성을 제거
+​ _ 높은 압축비에서 운행 가능</li>
+  <li>Process : 등엔트로피 수축 -&gt; 등압 Heat in -&gt; 등엔트로피 팽창 -&gt; 등적 Heat out</li>
+  <li>Efficiency : r (압축비)와 rc(부피비) 의 함수</li>
+  <li>Problem : 질소산화물 배출, r (압축비) 가 같을 경우 OTTO보다 효율이 낮다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/94918941-82e97e80-04ee-11eb-9db2-a86545d56293.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918947-85e46f00-04ee-11eb-9ff8-8e84d67edad0.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/94918955-8846c900-04ee-11eb-8a3b-59c764b368be.png" alt="image" class="center" /></p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Dynamics"
+      >#Dynamics</a
+    >
+    
+    <a class="tag" href="http://localhost:4000/Works/tags#Thermodynamics"
+      >#Thermodynamics</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                                                                                                                                                                 
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-06-Properties-of-Gas-Vapor-Mixtures.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>06: 증기 혼합 기체에서의 물성치 (Properties of Gas-Vapor Mixtures)</p>
+  </div>
+                                                      
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/10/02/Thermodynamics-08-%EB%8B%A8%EC%97%B4-%ED%8F%AC%ED%99%94-%EC%98%A8%EB%8F%84.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>08: 단열 포화 온도(Adiabatic Saturation) & Psychrometric Chart</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                             
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+<footer class="site-footer">
+	<p class="text">이전 블로그 <a href="https://egg-money.tistory.com">tistory</a>
+</p>
+</footer>
+
+
+  </body>
+</html>
