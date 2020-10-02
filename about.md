@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About Me
-subtitle: "About Me"
+alt-subtitle: "About Me"
 permalink: /about/
 feature-img: "assets/img/about.jpg"
 introduce: "안녕하세요. 최완식입니다."
