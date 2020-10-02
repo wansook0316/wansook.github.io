@@ -2,12 +2,13 @@
   <meta charset="utf-8" />
   <title>
     {% if page.series %}[{{page.series}}] {% endif %}{% if page.alt-subtitle
-    %}{{page.alt-subtitle}}{% elsif page.subtitle %}{{page.subtitle}}{% else
-    %}{{page.title}}{% endif %} | {{site.theme_settings.title}}
+    %}{{page.alt-subtitle}} | {% elsif page.subtitle %}{{page.subtitle}} | {%
+    else %}{%if page.title != "config" %}{{page.title}} | {% endif %}{% endif
+    %}{{site.theme_settings.title}}
   </title>
   <meta
     name="description"
-    content="{% if page.summary %}{{page.summary}} | {%elsif page.excerpt%}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }} | {% else %}{{ site.theme_settings.description }} | {% endif %}{{ site.theme_settings.header_sub_text }}"
+    content="{% if page.summary %}{{page.summary}} | {{ site.theme_settings.header_sub_text }}{% else %}{{ site.theme_settings.description }}{% endif %}"
   />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -15,11 +16,14 @@
   <!-- {{ post.url | relative_url }} -->
   <meta
     property="og:title"
-    content="{% if page.summary %}{{page.summary}} | {%elsif page.excerpt%}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }} | {% else %}{{ site.theme_settings.description }} | {% endif %}{{ site.theme_settings.header_sub_text }}"
+    content="{% if page.series %}[{{page.series}}] {% endif %}{% if page.alt-subtitle
+    %}{{page.alt-subtitle}} | {% elsif page.subtitle %}{{page.subtitle}} | {%
+    else %}{%if page.title != 'config' %}{{page.title}} | {% endif %}{% endif
+    %}{{site.theme_settings.title}}"
   />
   <meta
     property="og:description"
-    content="{% if page.summary %}{{page.summary}}{%elsif page.excerpt%}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.theme_settings.description }} | {{ site.theme_settings.header_sub_text }}{% endif %} "
+    content="{% if page.summary %}{{page.summary}} | {{ site.theme_settings.header_sub_text }}{% else %}{{ site.theme_settings.description }}{% endif %}"
   />
   <meta property="og:type" content="website" />
   <meta
