@@ -1,9 +1,9 @@
 <head>
   <meta charset="utf-8" />
   <title>
-    {% if page.series %}[{{ page.series }}] {% endif %} {% if page.layout ==
-    'category' and page.title %} {{ page.alt-subtitle }} {% else %} {{
-    page.title }} | {% endif %} {{ site.theme_settings.title }}
+    {% if page.series %}[{{ page.series }}] {% endif %} {% if page.alt-subtitle
+    %} {{ page.alt-subtitle }} {% elsif page.subtitle %} {{page.subtitle }} {%
+    else %} {{page.title}} {% endif %} | {{ site.theme_settings.title }}
   </title>
   <meta
     name="description"
@@ -15,11 +15,10 @@
   <!-- {{ post.url | relative_url }} -->
   <meta
     property="og:title"
-    content="{% if page.series %}
-    [{{ page.series }}] 
-    {% endif %} 
-    {% if page.layout == 'category' and page.title %} 
-    {{ page.alt-subtitle }} {% else %} {{page.title }} | {% endif %} {{ site.theme_settings.title }}"
+    content=" {% if page.series %}[{{ page.series }}] {% endif %} {% if page.alt-subtitle
+    %} {{ page.alt-subtitle }} {% elsif page.subtitle
+    %} {{page.subtitle }} {% else %} {{page.title}} {% endif %} | {{
+    site.theme_settings.title }}"
   />
   <meta
     property="og:description"
