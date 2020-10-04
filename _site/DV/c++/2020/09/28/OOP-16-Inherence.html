@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,23 +917,23 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#전체적인-구조">전체적인 구조</a></li>
-  <li><a href="#상속이-필요한-이유">상속이 필요한 이유</a></li>
-  <li><a href="#base-와-derived-간-상속관계">Base 와 Derived 간 상속관계</a>
-    <ul>
-      <li><a href="#summary">Summary</a></li>
+  <li class="toc-item"><a href="#전체적인-구조" class="toc-anchor">전체적인 구조</a></li>
+  <li class="toc-item"><a href="#상속이-필요한-이유" class="toc-anchor">상속이 필요한 이유</a></li>
+  <li class="toc-item"><a href="#base-와-derived-간-상속관계" class="toc-anchor">Base 와 Derived 간 상속관계</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#summary" class="toc-anchor">Summary</a></li>
     </ul>
   </li>
-  <li><a href="#example-1">Example 1</a></li>
-  <li><a href="#initialize-list의-중요성">Initialize List의 중요성</a>
-    <ul>
-      <li><a href="#example">Example</a></li>
+  <li class="toc-item"><a href="#example-1" class="toc-anchor">Example 1</a></li>
+  <li class="toc-item"><a href="#initialize-list의-중요성" class="toc-anchor">Initialize List의 중요성</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#example" class="toc-anchor">Example</a></li>
     </ul>
   </li>
-  <li><a href="#function-overloading">function overloading</a></li>
-  <li><a href="#function-overriding">function overriding</a></li>
-  <li><a href="#virtual-override">Virtual, override</a></li>
-  <li><a href="#소스코드-총-정리">소스코드 총 정리</a></li>
+  <li class="toc-item"><a href="#function-overloading" class="toc-anchor">function overloading</a></li>
+  <li class="toc-item"><a href="#function-overriding" class="toc-anchor">function overriding</a></li>
+  <li class="toc-item"><a href="#virtual-override" class="toc-anchor">Virtual, override</a></li>
+  <li class="toc-item"><a href="#소스코드-총-정리" class="toc-anchor">소스코드 총 정리</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

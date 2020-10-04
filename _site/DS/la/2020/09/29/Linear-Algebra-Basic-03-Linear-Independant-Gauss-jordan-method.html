@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -825,19 +849,19 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#linear-independence">Linear Independence</a></li>
-  <li><a href="#rank">Rank</a>
-    <ul>
-      <li><a href="#rank와-행렬식과의-관계">Rank와 행렬식과의 관계</a></li>
+  <li class="toc-item"><a href="#linear-independence" class="toc-anchor">Linear Independence</a></li>
+  <li class="toc-item"><a href="#rank" class="toc-anchor">Rank</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#rank와-행렬식과의-관계" class="toc-anchor">Rank와 행렬식과의 관계</a></li>
     </ul>
   </li>
-  <li><a href="#gauss-elimination">Gauss Elimination</a></li>
-  <li><a href="#gauss---jordan-method">Gauss - Jordan Method</a></li>
-  <li><a href="#pivoting">Pivoting</a>
-    <ul>
-      <li><a href="#motivation-of-pivoting">Motivation of Pivoting</a></li>
-      <li><a href="#remedy">Remedy</a></li>
-      <li><a href="#scaled-pivoting">Scaled Pivoting</a></li>
+  <li class="toc-item"><a href="#gauss-elimination" class="toc-anchor">Gauss Elimination</a></li>
+  <li class="toc-item"><a href="#gauss---jordan-method" class="toc-anchor">Gauss - Jordan Method</a></li>
+  <li class="toc-item"><a href="#pivoting" class="toc-anchor">Pivoting</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#motivation-of-pivoting" class="toc-anchor">Motivation of Pivoting</a></li>
+      <li class="toc-item"><a href="#remedy" class="toc-anchor">Remedy</a></li>
+      <li class="toc-item"><a href="#scaled-pivoting" class="toc-anchor">Scaled Pivoting</a></li>
     </ul>
   </li>
 </ul>

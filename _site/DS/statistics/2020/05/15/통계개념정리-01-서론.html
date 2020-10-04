@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -853,12 +877,12 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#통계는-왜-공부하는가">통계는 왜 공부하는가</a></li>
-  <li><a href="#주요-통계학-개념">주요 통계학 개념</a></li>
-  <li><a href="#데이터의-형태">데이터의 형태</a></li>
-  <li><a href="#히스토그램">히스토그램</a>
-    <ul>
-      <li><a href="#왜도skerness">왜도(skerness)</a></li>
+  <li class="toc-item"><a href="#통계는-왜-공부하는가" class="toc-anchor">통계는 왜 공부하는가</a></li>
+  <li class="toc-item"><a href="#주요-통계학-개념" class="toc-anchor">주요 통계학 개념</a></li>
+  <li class="toc-item"><a href="#데이터의-형태" class="toc-anchor">데이터의 형태</a></li>
+  <li class="toc-item"><a href="#히스토그램" class="toc-anchor">히스토그램</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#왜도skerness" class="toc-anchor">왜도(skerness)</a></li>
     </ul>
   </li>
 </ul>

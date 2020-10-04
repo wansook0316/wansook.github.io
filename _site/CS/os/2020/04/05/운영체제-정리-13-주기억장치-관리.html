@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,22 +905,22 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-메모리에-프로그램-할당하기">1. 메모리에 프로그램 할당하기</a>
-    <ul>
-      <li><a href="#11-프로그램을-빌드하는-과정">1.1 프로그램을 빌드하는 과정</a></li>
-      <li><a href="#12-mmumemory-management-unit">1.2 MMU(Memory Management Unit)</a></li>
+  <li class="toc-item"><a href="#1-메모리에-프로그램-할당하기" class="toc-anchor">1. 메모리에 프로그램 할당하기</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#11-프로그램을-빌드하는-과정" class="toc-anchor">1.1 프로그램을 빌드하는 과정</a></li>
+      <li class="toc-item"><a href="#12-mmumemory-management-unit" class="toc-anchor">1.2 MMU(Memory Management Unit)</a></li>
     </ul>
   </li>
-  <li><a href="#2-메모리-낭비-방지">2. 메모리 낭비 방지</a>
-    <ul>
-      <li><a href="#21-동적-적재dynamic-loading">2.1. 동적 적재(Dynamic Loading)</a></li>
-      <li><a href="#22-동적-연결dynamic-linking">2.2. 동적 연결(Dynamic Linking)</a></li>
-      <li><a href="#23-swapping">2.3 Swapping</a></li>
+  <li class="toc-item"><a href="#2-메모리-낭비-방지" class="toc-anchor">2. 메모리 낭비 방지</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#21-동적-적재dynamic-loading" class="toc-anchor">2.1. 동적 적재(Dynamic Loading)</a></li>
+      <li class="toc-item"><a href="#22-동적-연결dynamic-linking" class="toc-anchor">2.2. 동적 연결(Dynamic Linking)</a></li>
+      <li class="toc-item"><a href="#23-swapping" class="toc-anchor">2.3 Swapping</a></li>
     </ul>
   </li>
-  <li><a href="#3-연속-메모리-할당contiguous-memory-allocation">3. 연속 메모리 할당(Contiguous Memory Allocation)</a>
-    <ul>
-      <li><a href="#31-연속-메모리-할당-방식">3.1. 연속 메모리 할당 방식</a></li>
+  <li class="toc-item"><a href="#3-연속-메모리-할당contiguous-memory-allocation" class="toc-anchor">3. 연속 메모리 할당(Contiguous Memory Allocation)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#31-연속-메모리-할당-방식" class="toc-anchor">3.1. 연속 메모리 할당 방식</a></li>
     </ul>
   </li>
 </ul>

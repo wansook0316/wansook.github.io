@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,13 +905,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#deadlock-교착-상태">Deadlock (교착 상태)</a>
-    <ul>
-      <li><a href="#1-교착상태-필요-조건necessary-conditions">1. 교착상태 필요 조건(Necessary Conditions)</a></li>
-      <li><a href="#2-자원resources">2. 자원(Resources)</a></li>
-      <li><a href="#4-교착상태-처리">4. 교착상태 처리</a></li>
-      <li><a href="#43-교착상태-검출-및-복구-deadlock-detection--recovery">4.3 교착상태 검출 및 복구 (Deadlock Detection &amp; Recovery)</a></li>
-      <li><a href="#34-교착상태-무시">3.4 교착상태 무시</a></li>
+  <li class="toc-item"><a href="#deadlock-교착-상태" class="toc-anchor">Deadlock (교착 상태)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#1-교착상태-필요-조건necessary-conditions" class="toc-anchor">1. 교착상태 필요 조건(Necessary Conditions)</a></li>
+      <li class="toc-item"><a href="#2-자원resources" class="toc-anchor">2. 자원(Resources)</a></li>
+      <li class="toc-item"><a href="#4-교착상태-처리" class="toc-anchor">4. 교착상태 처리</a></li>
+      <li class="toc-item"><a href="#43-교착상태-검출-및-복구-deadlock-detection--recovery" class="toc-anchor">4.3 교착상태 검출 및 복구 (Deadlock Detection &amp; Recovery)</a></li>
+      <li class="toc-item"><a href="#34-교착상태-무시" class="toc-anchor">3.4 교착상태 무시</a></li>
     </ul>
   </li>
 </ul>

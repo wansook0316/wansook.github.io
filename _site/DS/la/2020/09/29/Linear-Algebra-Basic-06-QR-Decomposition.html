@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -825,13 +849,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#qr-decomposition">QR Decomposition</a>
-    <ul>
-      <li><a href="#assumption">Assumption</a></li>
-      <li><a href="#idea">Idea</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#transform-to-matrix-form">Transform to Matrix form</a></li>
-      <li><a href="#a가-정사각행렬일-때">A가 정사각행렬일 때,</a></li>
+  <li class="toc-item"><a href="#qr-decomposition" class="toc-anchor">QR Decomposition</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#assumption" class="toc-anchor">Assumption</a></li>
+      <li class="toc-item"><a href="#idea" class="toc-anchor">Idea</a></li>
+      <li class="toc-item"><a href="#process" class="toc-anchor">Process</a></li>
+      <li class="toc-item"><a href="#transform-to-matrix-form" class="toc-anchor">Transform to Matrix form</a></li>
+      <li class="toc-item"><a href="#a가-정사각행렬일-때" class="toc-anchor">A가 정사각행렬일 때,</a></li>
     </ul>
   </li>
 </ul>

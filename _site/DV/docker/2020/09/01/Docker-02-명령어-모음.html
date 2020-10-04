@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -817,12 +841,12 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#설치">설치</a></li>
-  <li><a href="#docker-image-download">Docker image download</a></li>
-  <li><a href="#docker-image-확인">Docker image 확인</a></li>
-  <li><a href="#docker-container-생성-및-실행">Docker container 생성 및 실행</a></li>
-  <li><a href="#jupyter-notebook-실행">jupyter notebook 실행</a></li>
-  <li><a href="#docker-명령어">Docker 명령어</a></li>
+  <li class="toc-item"><a href="#설치" class="toc-anchor">설치</a></li>
+  <li class="toc-item"><a href="#docker-image-download" class="toc-anchor">Docker image download</a></li>
+  <li class="toc-item"><a href="#docker-image-확인" class="toc-anchor">Docker image 확인</a></li>
+  <li class="toc-item"><a href="#docker-container-생성-및-실행" class="toc-anchor">Docker container 생성 및 실행</a></li>
+  <li class="toc-item"><a href="#jupyter-notebook-실행" class="toc-anchor">jupyter notebook 실행</a></li>
+  <li class="toc-item"><a href="#docker-명령어" class="toc-anchor">Docker 명령어</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -833,18 +857,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#power-cycleengine-vs-refrigeration-cycle">Power Cycle(Engine) vs Refrigeration Cycle</a>
-    <ul>
-      <li><a href="#vapor-compression-refrigeneration-cycle">Vapor-compression Refrigeneration Cycle</a></li>
+  <li class="toc-item"><a href="#power-cycleengine-vs-refrigeration-cycle" class="toc-anchor">Power Cycle(Engine) vs Refrigeration Cycle</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#vapor-compression-refrigeneration-cycle" class="toc-anchor">Vapor-compression Refrigeneration Cycle</a></li>
     </ul>
   </li>
-  <li><a href="#exergy-transfer">Exergy Transfer</a></li>
-  <li><a href="#2nd-law-efficiency">2nd Law Efficiency</a>
-    <ul>
-      <li><a href="#compressor">Compressor</a></li>
-      <li><a href="#condenser">Condenser</a></li>
-      <li><a href="#expansion-valve">Expansion Valve</a></li>
-      <li><a href="#evaporator">Evaporator</a></li>
+  <li class="toc-item"><a href="#exergy-transfer" class="toc-anchor">Exergy Transfer</a></li>
+  <li class="toc-item"><a href="#2nd-law-efficiency" class="toc-anchor">2nd Law Efficiency</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#compressor" class="toc-anchor">Compressor</a></li>
+      <li class="toc-item"><a href="#condenser" class="toc-anchor">Condenser</a></li>
+      <li class="toc-item"><a href="#expansion-valve" class="toc-anchor">Expansion Valve</a></li>
+      <li class="toc-item"><a href="#evaporator" class="toc-anchor">Evaporator</a></li>
     </ul>
   </li>
 </ul>

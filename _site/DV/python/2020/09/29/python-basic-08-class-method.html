@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -853,15 +877,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#method와-class-개념-이해하기">Method와 Class 개념 이해하기</a></li>
-  <li><a href="#문자열-class-methods-알아두기">문자열 Class Methods 알아두기</a>
-    <ul>
-      <li><a href="#format">format()</a></li>
+  <li class="toc-item"><a href="#method와-class-개념-이해하기" class="toc-anchor">Method와 Class 개념 이해하기</a></li>
+  <li class="toc-item"><a href="#문자열-class-methods-알아두기" class="toc-anchor">문자열 Class Methods 알아두기</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#format" class="toc-anchor">format()</a></li>
     </ul>
   </li>
-  <li><a href="#실습">실습</a>
-    <ul>
-      <li><a href="#문자열에서-해당-문자-찾기">문자열에서 해당 문자 찾기</a></li>
+  <li class="toc-item"><a href="#실습" class="toc-anchor">실습</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#문자열에서-해당-문자-찾기" class="toc-anchor">문자열에서 해당 문자 찾기</a></li>
     </ul>
   </li>
 </ul>

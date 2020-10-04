@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -841,13 +865,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#데이터-정제">데이터 정제</a>
-    <ul>
-      <li><a href="#방법론">방법론</a></li>
-      <li><a href="#정제-시작">정제 시작</a></li>
-      <li><a href="#double-check">Double Check</a></li>
-      <li><a href="#training-data와-testing-data를-나누자">Training data와 Testing data를 나누자.</a></li>
-      <li><a href="#325-split-training-and-testing-data">3.25 Split Training and Testing Data</a></li>
+  <li class="toc-item"><a href="#데이터-정제" class="toc-anchor">데이터 정제</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#방법론" class="toc-anchor">방법론</a></li>
+      <li class="toc-item"><a href="#정제-시작" class="toc-anchor">정제 시작</a></li>
+      <li class="toc-item"><a href="#double-check" class="toc-anchor">Double Check</a></li>
+      <li class="toc-item"><a href="#training-data와-testing-data를-나누자" class="toc-anchor">Training data와 Testing data를 나누자.</a></li>
+      <li class="toc-item"><a href="#325-split-training-and-testing-data" class="toc-anchor">3.25 Split Training and Testing Data</a></li>
     </ul>
   </li>
 </ul>

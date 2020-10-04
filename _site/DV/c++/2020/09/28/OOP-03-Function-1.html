@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,25 +917,25 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#함수의-기본-모양">함수의 기본 모양</a></li>
-  <li><a href="#function-in-c">Function in C++</a></li>
-  <li><a href="#input-output-paramater">Input, output paramater</a>
-    <ul>
-      <li><a href="#input-파라미터가-없는-경우">input 파라미터가 없는 경우</a></li>
-      <li><a href="#output-파라미터가-없는-경우">output 파라미터가 없는 경우</a></li>
+  <li class="toc-item"><a href="#함수의-기본-모양" class="toc-anchor">함수의 기본 모양</a></li>
+  <li class="toc-item"><a href="#function-in-c" class="toc-anchor">Function in C++</a></li>
+  <li class="toc-item"><a href="#input-output-paramater" class="toc-anchor">Input, output paramater</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#input-파라미터가-없는-경우" class="toc-anchor">input 파라미터가 없는 경우</a></li>
+      <li class="toc-item"><a href="#output-파라미터가-없는-경우" class="toc-anchor">output 파라미터가 없는 경우</a></li>
     </ul>
   </li>
-  <li><a href="#main-함수-안에서-사용">Main 함수 안에서 사용</a>
-    <ul>
-      <li><a href="#선언declare">선언(Declare)</a></li>
-      <li><a href="#정의define">정의(Define)</a></li>
-      <li><a href="#호출calling">호출(Calling)</a></li>
+  <li class="toc-item"><a href="#main-함수-안에서-사용" class="toc-anchor">Main 함수 안에서 사용</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#선언declare" class="toc-anchor">선언(Declare)</a></li>
+      <li class="toc-item"><a href="#정의define" class="toc-anchor">정의(Define)</a></li>
+      <li class="toc-item"><a href="#호출calling" class="toc-anchor">호출(Calling)</a></li>
     </ul>
   </li>
-  <li><a href="#전체코드-예제">전체코드 예제</a></li>
-  <li><a href="#default-arguments">Default Arguments</a></li>
-  <li><a href="#함수의-동작과정">함수의 동작과정</a></li>
-  <li><a href="#cmath-library">cmath Library</a></li>
+  <li class="toc-item"><a href="#전체코드-예제" class="toc-anchor">전체코드 예제</a></li>
+  <li class="toc-item"><a href="#default-arguments" class="toc-anchor">Default Arguments</a></li>
+  <li class="toc-item"><a href="#함수의-동작과정" class="toc-anchor">함수의 동작과정</a></li>
+  <li class="toc-item"><a href="#cmath-library" class="toc-anchor">cmath Library</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,12 +917,12 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#generic-programming">Generic Programming</a></li>
-  <li><a href="#template">template</a>
-    <ul>
-      <li><a href="#example-1">Example 1</a></li>
-      <li><a href="#example-2">Example 2</a></li>
-      <li><a href="#example-3">Example 3</a></li>
+  <li class="toc-item"><a href="#generic-programming" class="toc-anchor">Generic Programming</a></li>
+  <li class="toc-item"><a href="#template" class="toc-anchor">template</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#example-1" class="toc-anchor">Example 1</a></li>
+      <li class="toc-item"><a href="#example-2" class="toc-anchor">Example 2</a></li>
+      <li class="toc-item"><a href="#example-3" class="toc-anchor">Example 3</a></li>
     </ul>
   </li>
 </ul>

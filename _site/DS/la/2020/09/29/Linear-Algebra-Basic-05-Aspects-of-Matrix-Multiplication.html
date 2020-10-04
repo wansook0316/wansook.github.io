@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -825,10 +849,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#원소의-측면">원소의 측면</a></li>
-  <li><a href="#행의-측면">행의 측면</a></li>
-  <li><a href="#열의-측면">열의 측면</a></li>
-  <li><a href="#정리">정리</a></li>
+  <li class="toc-item"><a href="#원소의-측면" class="toc-anchor">원소의 측면</a></li>
+  <li class="toc-item"><a href="#행의-측면" class="toc-anchor">행의 측면</a></li>
+  <li class="toc-item"><a href="#열의-측면" class="toc-anchor">열의 측면</a></li>
+  <li class="toc-item"><a href="#정리" class="toc-anchor">정리</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

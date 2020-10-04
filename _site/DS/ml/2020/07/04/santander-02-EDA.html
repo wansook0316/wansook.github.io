@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -809,18 +833,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#eda">EDA</a>
-    <ul>
-      <li><a href="#check-the-data">Check the data</a></li>
-      <li><a href="#missing-data">Missing Data</a></li>
+  <li class="toc-item"><a href="#eda" class="toc-anchor">EDA</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#check-the-data" class="toc-anchor">Check the data</a></li>
+      <li class="toc-item"><a href="#missing-data" class="toc-anchor">Missing Data</a></li>
     </ul>
   </li>
-  <li><a href="#describe">Describe</a>
-    <ul>
-      <li><a href="#관찰의-결과">관찰의 결과</a></li>
+  <li class="toc-item"><a href="#describe" class="toc-anchor">Describe</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#관찰의-결과" class="toc-anchor">관찰의 결과</a></li>
     </ul>
   </li>
-  <li><a href="#변수-상관도">변수 상관도</a></li>
+  <li class="toc-item"><a href="#변수-상관도" class="toc-anchor">변수 상관도</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

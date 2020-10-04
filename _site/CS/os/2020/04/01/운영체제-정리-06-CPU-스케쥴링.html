@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,21 +905,21 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-스케쥴링의-유형">1. 스케쥴링의 유형</a>
-    <ul>
-      <li><a href="#11-preemptive">1.1 Preemptive</a></li>
-      <li><a href="#12-non-preemptive">1.2 Non-preemptive</a></li>
+  <li class="toc-item"><a href="#1-스케쥴링의-유형" class="toc-anchor">1. 스케쥴링의 유형</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#11-preemptive" class="toc-anchor">1.1 Preemptive</a></li>
+      <li class="toc-item"><a href="#12-non-preemptive" class="toc-anchor">1.2 Non-preemptive</a></li>
     </ul>
   </li>
-  <li><a href="#2-scheduling-criteria">2. Scheduling criteria</a></li>
-  <li><a href="#3-cpu-scheduling-algorithms">3. CPU Scheduling Algorithms</a>
-    <ul>
-      <li><a href="#31-first-come-first-servedfcfs">3.1 First-Come, First-Served(FCFS)</a></li>
-      <li><a href="#32-shortest-job-firstsjf">3.2 Shortest-Job-First(SJF)</a></li>
-      <li><a href="#33-priority">3.3 Priority</a></li>
-      <li><a href="#34-round-robinrr">3.4 Round-Robin(RR)</a></li>
-      <li><a href="#한계-2">한계</a></li>
-      <li><a href="#36-multilevel-feedback-queue">3.6 Multilevel Feedback Queue</a></li>
+  <li class="toc-item"><a href="#2-scheduling-criteria" class="toc-anchor">2. Scheduling criteria</a></li>
+  <li class="toc-item"><a href="#3-cpu-scheduling-algorithms" class="toc-anchor">3. CPU Scheduling Algorithms</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#31-first-come-first-servedfcfs" class="toc-anchor">3.1 First-Come, First-Served(FCFS)</a></li>
+      <li class="toc-item"><a href="#32-shortest-job-firstsjf" class="toc-anchor">3.2 Shortest-Job-First(SJF)</a></li>
+      <li class="toc-item"><a href="#33-priority" class="toc-anchor">3.3 Priority</a></li>
+      <li class="toc-item"><a href="#34-round-robinrr" class="toc-anchor">3.4 Round-Robin(RR)</a></li>
+      <li class="toc-item"><a href="#한계-2" class="toc-anchor">한계</a></li>
+      <li class="toc-item"><a href="#36-multilevel-feedback-queue" class="toc-anchor">3.6 Multilevel Feedback Queue</a></li>
     </ul>
   </li>
 </ul>

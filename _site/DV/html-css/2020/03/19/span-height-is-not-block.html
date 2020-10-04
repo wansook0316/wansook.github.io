@@ -262,11 +262,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -768,9 +792,9 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#text는-span-태그에-넣어서-관리한다">text는 span 태그에 넣어서 관리한다.</a></li>
-  <li><a href="#그렇다고-div에-있던-텍스트를-span으로-교체하면-문제가-생긴다">그렇다고 div에 있던 텍스트를 span으로 교체하면 문제가 생긴다.</a></li>
-  <li><a href="#div와-span의-가장-큰-차이는-display-block-inline">div와 span의 가장 큰 차이는 display: block, inline</a></li>
+  <li class="toc-item"><a href="#text는-span-태그에-넣어서-관리한다" class="toc-anchor">text는 span 태그에 넣어서 관리한다.</a></li>
+  <li class="toc-item"><a href="#그렇다고-div에-있던-텍스트를-span으로-교체하면-문제가-생긴다" class="toc-anchor">그렇다고 div에 있던 텍스트를 span으로 교체하면 문제가 생긴다.</a></li>
+  <li class="toc-item"><a href="#div와-span의-가장-큰-차이는-display-block-inline" class="toc-anchor">div와 span의 가장 큰 차이는 display: block, inline</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

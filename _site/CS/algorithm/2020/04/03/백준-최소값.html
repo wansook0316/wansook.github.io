@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -1033,18 +1057,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#생각">생각</a>
-    <ul>
-      <li><a href="#문제의-원인">문제의 원인</a></li>
-      <li><a href="#어떻게-나눌까">어떻게 나눌까?</a></li>
-      <li><a href="#tree-구조">Tree 구조</a></li>
-      <li><a href="#segment-tree">Segment Tree</a></li>
-      <li><a href="#init-초기화">init (초기화)</a></li>
-      <li><a href="#find">find</a></li>
+  <li class="toc-item"><a href="#생각" class="toc-anchor">생각</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#문제의-원인" class="toc-anchor">문제의 원인</a></li>
+      <li class="toc-item"><a href="#어떻게-나눌까" class="toc-anchor">어떻게 나눌까?</a></li>
+      <li class="toc-item"><a href="#tree-구조" class="toc-anchor">Tree 구조</a></li>
+      <li class="toc-item"><a href="#segment-tree" class="toc-anchor">Segment Tree</a></li>
+      <li class="toc-item"><a href="#init-초기화" class="toc-anchor">init (초기화)</a></li>
+      <li class="toc-item"><a href="#find" class="toc-anchor">find</a></li>
     </ul>
   </li>
-  <li><a href="#code">Code</a></li>
-  <li><a href="#reference">Reference</a></li>
+  <li class="toc-item"><a href="#code" class="toc-anchor">Code</a></li>
+  <li class="toc-item"><a href="#reference" class="toc-anchor">Reference</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

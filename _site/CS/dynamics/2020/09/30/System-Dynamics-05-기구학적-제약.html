@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -833,16 +857,16 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#ground">Ground</a></li>
-  <li><a href="#revolute-joint">Revolute joint</a></li>
-  <li><a href="#prismatic-joint">Prismatic joint</a></li>
-  <li><a href="#moblility-criteria">Moblility Criteria</a></li>
-  <li><a href="#driving-constraint">Driving Constraint</a></li>
-  <li><a href="#예제">예제</a>
-    <ul>
-      <li><a href="#dof-구하기">DOF 구하기</a></li>
-      <li><a href="#제약식-나타내기">제약식 나타내기</a></li>
-      <li><a href="#to-solve-nonlinear-function">To solve nonlinear function</a></li>
+  <li class="toc-item"><a href="#ground" class="toc-anchor">Ground</a></li>
+  <li class="toc-item"><a href="#revolute-joint" class="toc-anchor">Revolute joint</a></li>
+  <li class="toc-item"><a href="#prismatic-joint" class="toc-anchor">Prismatic joint</a></li>
+  <li class="toc-item"><a href="#moblility-criteria" class="toc-anchor">Moblility Criteria</a></li>
+  <li class="toc-item"><a href="#driving-constraint" class="toc-anchor">Driving Constraint</a></li>
+  <li class="toc-item"><a href="#예제" class="toc-anchor">예제</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#dof-구하기" class="toc-anchor">DOF 구하기</a></li>
+      <li class="toc-item"><a href="#제약식-나타내기" class="toc-anchor">제약식 나타내기</a></li>
+      <li class="toc-item"><a href="#to-solve-nonlinear-function" class="toc-anchor">To solve nonlinear function</a></li>
     </ul>
   </li>
 </ul>

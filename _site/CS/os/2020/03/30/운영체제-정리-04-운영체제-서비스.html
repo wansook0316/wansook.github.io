@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,14 +905,14 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-프로세스-관리process-management">1. 프로세스 관리(Process management)</a></li>
-  <li><a href="#2-주기억장치-관리main-memory-management">2. 주기억장치 관리(Main memory management)</a></li>
-  <li><a href="#3-파일-관리file-management">3. 파일 관리(File management)</a></li>
-  <li><a href="#4-보조기억장치-관리secondary-storage-management">4. 보조기억장치 관리(Secondary storage management)</a></li>
-  <li><a href="#5-입출력-장치-관리io-device-management">5. 입출력 장치 관리(I/O device management)</a></li>
-  <li><a href="#6-시스템-콜system-call">6. 시스템 콜(System call)</a>
-    <ul>
-      <li><a href="#61-주요-시스템-콜">6.1 주요 시스템 콜</a></li>
+  <li class="toc-item"><a href="#1-프로세스-관리process-management" class="toc-anchor">1. 프로세스 관리(Process management)</a></li>
+  <li class="toc-item"><a href="#2-주기억장치-관리main-memory-management" class="toc-anchor">2. 주기억장치 관리(Main memory management)</a></li>
+  <li class="toc-item"><a href="#3-파일-관리file-management" class="toc-anchor">3. 파일 관리(File management)</a></li>
+  <li class="toc-item"><a href="#4-보조기억장치-관리secondary-storage-management" class="toc-anchor">4. 보조기억장치 관리(Secondary storage management)</a></li>
+  <li class="toc-item"><a href="#5-입출력-장치-관리io-device-management" class="toc-anchor">5. 입출력 장치 관리(I/O device management)</a></li>
+  <li class="toc-item"><a href="#6-시스템-콜system-call" class="toc-anchor">6. 시스템 콜(System call)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#61-주요-시스템-콜" class="toc-anchor">6.1 주요 시스템 콜</a></li>
     </ul>
   </li>
 </ul>

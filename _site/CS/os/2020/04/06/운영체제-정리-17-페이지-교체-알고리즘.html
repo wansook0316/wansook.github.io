@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,21 +905,21 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-page-reference-string">1. Page reference string</a></li>
-  <li><a href="#2-first-in-first-outfifo">2. First-In First-Out(FIFO)</a>
-    <ul>
-      <li><a href="#21-예제">2.1 예제</a></li>
-      <li><a href="#22-beladys-anomaly">2.2 Belady’s Anomaly</a></li>
+  <li class="toc-item"><a href="#1-page-reference-string" class="toc-anchor">1. Page reference string</a></li>
+  <li class="toc-item"><a href="#2-first-in-first-outfifo" class="toc-anchor">2. First-In First-Out(FIFO)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#21-예제" class="toc-anchor">2.1 예제</a></li>
+      <li class="toc-item"><a href="#22-beladys-anomaly" class="toc-anchor">2.2 Belady’s Anomaly</a></li>
     </ul>
   </li>
-  <li><a href="#3-optimalopt">3. Optimal(OPT)</a>
-    <ul>
-      <li><a href="#31-예제">3.1 예제</a></li>
+  <li class="toc-item"><a href="#3-optimalopt" class="toc-anchor">3. Optimal(OPT)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#31-예제" class="toc-anchor">3.1 예제</a></li>
     </ul>
   </li>
-  <li><a href="#4-least-recently-usedlru">4. Least-Recently-Used(LRU)</a>
-    <ul>
-      <li><a href="#41-예제">4.1 예제</a></li>
+  <li class="toc-item"><a href="#4-least-recently-usedlru" class="toc-anchor">4. Least-Recently-Used(LRU)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#41-예제" class="toc-anchor">4.1 예제</a></li>
     </ul>
   </li>
 </ul>

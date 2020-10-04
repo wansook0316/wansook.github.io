@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -1033,13 +1057,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#생각">생각</a>
-    <ul>
-      <li><a href="#설계">설계</a></li>
+  <li class="toc-item"><a href="#생각" class="toc-anchor">생각</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#설계" class="toc-anchor">설계</a></li>
     </ul>
   </li>
-  <li><a href="#code">Code</a></li>
-  <li><a href="#reference">Reference</a></li>
+  <li class="toc-item"><a href="#code" class="toc-anchor">Code</a></li>
+  <li class="toc-item"><a href="#reference" class="toc-anchor">Reference</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

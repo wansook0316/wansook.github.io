@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -825,10 +849,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#e-행렬">E 행렬</a></li>
-  <li><a href="#이제-다시-lu-분해">이제 다시 LU 분해</a></li>
-  <li><a href="#lu-분해의-특별한-경우-choleskys-factorization">LU 분해의 특별한 경우 (Cholesky’s factorization)</a></li>
-  <li><a href="#numerical-solution-process">Numerical Solution Process</a></li>
+  <li class="toc-item"><a href="#e-행렬" class="toc-anchor">E 행렬</a></li>
+  <li class="toc-item"><a href="#이제-다시-lu-분해" class="toc-anchor">이제 다시 LU 분해</a></li>
+  <li class="toc-item"><a href="#lu-분해의-특별한-경우-choleskys-factorization" class="toc-anchor">LU 분해의 특별한 경우 (Cholesky’s factorization)</a></li>
+  <li class="toc-item"><a href="#numerical-solution-process" class="toc-anchor">Numerical Solution Process</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

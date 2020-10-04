@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -833,13 +857,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#classification-of-dynamics">Classification of Dynamics</a></li>
-  <li><a href="#forward-inverse-dynamics">Forward, Inverse Dynamics</a></li>
-  <li><a href="#straight-curve">Straight, Curve</a></li>
-  <li><a href="#translation-rotation">Translation, Rotation</a></li>
-  <li><a href="#degree-of-freedom-dof">Degree of Freedom (DOF)</a></li>
-  <li><a href="#point-mass-particle">Point mass, particle</a></li>
-  <li><a href="#rigid-body">Rigid Body</a></li>
+  <li class="toc-item"><a href="#classification-of-dynamics" class="toc-anchor">Classification of Dynamics</a></li>
+  <li class="toc-item"><a href="#forward-inverse-dynamics" class="toc-anchor">Forward, Inverse Dynamics</a></li>
+  <li class="toc-item"><a href="#straight-curve" class="toc-anchor">Straight, Curve</a></li>
+  <li class="toc-item"><a href="#translation-rotation" class="toc-anchor">Translation, Rotation</a></li>
+  <li class="toc-item"><a href="#degree-of-freedom-dof" class="toc-anchor">Degree of Freedom (DOF)</a></li>
+  <li class="toc-item"><a href="#point-mass-particle" class="toc-anchor">Point mass, particle</a></li>
+  <li class="toc-item"><a href="#rigid-body" class="toc-anchor">Rigid Body</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

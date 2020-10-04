@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -841,16 +865,16 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#앙상블">앙상블</a>
-    <ul>
-      <li><a href="#모델의-정확도간의-상관계수">모델의 정확도간의 상관계수</a></li>
-      <li><a href="#hard-vote-다수결--soft-vote-가중치">Hard Vote (다수결) &amp; Soft Vote (가중치)</a></li>
-      <li><a href="#grid-search">Grid Search</a></li>
-      <li><a href="#앙상블-1">앙상블</a></li>
-      <li><a href="#실제-validation에-적용-for-submit">실제 validation에 적용 (for submit)</a></li>
+  <li class="toc-item"><a href="#앙상블" class="toc-anchor">앙상블</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#모델의-정확도간의-상관계수" class="toc-anchor">모델의 정확도간의 상관계수</a></li>
+      <li class="toc-item"><a href="#hard-vote-다수결--soft-vote-가중치" class="toc-anchor">Hard Vote (다수결) &amp; Soft Vote (가중치)</a></li>
+      <li class="toc-item"><a href="#grid-search" class="toc-anchor">Grid Search</a></li>
+      <li class="toc-item"><a href="#앙상블-1" class="toc-anchor">앙상블</a></li>
+      <li class="toc-item"><a href="#실제-validation에-적용-for-submit" class="toc-anchor">실제 validation에 적용 (for submit)</a></li>
     </ul>
   </li>
-  <li><a href="#결론">결론</a></li>
+  <li class="toc-item"><a href="#결론" class="toc-anchor">결론</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

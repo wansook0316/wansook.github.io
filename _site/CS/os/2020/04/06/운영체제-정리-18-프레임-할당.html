@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,17 +905,17 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-global-vs-local-replacement">1. Global VS Local Replacement</a></li>
-  <li><a href="#2-프레임-할당allocation-of-frames">2. 프레임 할당(Allocation of Frames)</a>
-    <ul>
-      <li><a href="#21-쓰레싱thrashing">2.1. 쓰레싱(Thrashing)</a></li>
-      <li><a href="#22-프레임-할당의-방법">2.2 프레임 할당의 방법</a></li>
+  <li class="toc-item"><a href="#1-global-vs-local-replacement" class="toc-anchor">1. Global VS Local Replacement</a></li>
+  <li class="toc-item"><a href="#2-프레임-할당allocation-of-frames" class="toc-anchor">2. 프레임 할당(Allocation of Frames)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#21-쓰레싱thrashing" class="toc-anchor">2.1. 쓰레싱(Thrashing)</a></li>
+      <li class="toc-item"><a href="#22-프레임-할당의-방법" class="toc-anchor">2.2 프레임 할당의 방법</a></li>
     </ul>
   </li>
-  <li><a href="#3-페이지-크기page-size">3. 페이지 크기(Page Size)</a>
-    <ul>
-      <li><a href="#31-페이지-크기에-따른-성능">3.1 페이지 크기에 따른 성능</a></li>
-      <li><a href="#32-페이지-테이블">3.2 페이지 테이블</a></li>
+  <li class="toc-item"><a href="#3-페이지-크기page-size" class="toc-anchor">3. 페이지 크기(Page Size)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#31-페이지-크기에-따른-성능" class="toc-anchor">3.1 페이지 크기에 따른 성능</a></li>
+      <li class="toc-item"><a href="#32-페이지-테이블" class="toc-anchor">3.2 페이지 테이블</a></li>
     </ul>
   </li>
 </ul>

@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -782,11 +806,11 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#nginx란">nginx란?</a></li>
-  <li><a href="#apache-vs-nginx">Apache vs nginx</a></li>
-  <li><a href="#thread와-event-driven-방식">thread와 Event-driven 방식</a>
-    <ul>
-      <li><a href="#버퍼-오버플로우">버퍼 오버플로우</a></li>
+  <li class="toc-item"><a href="#nginx란" class="toc-anchor">nginx란?</a></li>
+  <li class="toc-item"><a href="#apache-vs-nginx" class="toc-anchor">Apache vs nginx</a></li>
+  <li class="toc-item"><a href="#thread와-event-driven-방식" class="toc-anchor">thread와 Event-driven 방식</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#버퍼-오버플로우" class="toc-anchor">버퍼 오버플로우</a></li>
     </ul>
   </li>
 </ul>

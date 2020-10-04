@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -833,15 +857,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#vapor-power-cycle">Vapor Power Cycle</a>
-    <ul>
-      <li><a href="#가정">가정</a></li>
+  <li class="toc-item"><a href="#vapor-power-cycle" class="toc-anchor">Vapor Power Cycle</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#가정" class="toc-anchor">가정</a></li>
     </ul>
   </li>
-  <li><a href="#rankin-cycle">Rankin Cycle</a></li>
-  <li><a href="#ideal-cycle-vs-acutal-cycle">Ideal cycle vs Acutal cycle</a>
-    <ul>
-      <li><a href="#the-way-of-making-cycle-more-efficient">The way of making cycle more Efficient</a></li>
+  <li class="toc-item"><a href="#rankin-cycle" class="toc-anchor">Rankin Cycle</a></li>
+  <li class="toc-item"><a href="#ideal-cycle-vs-acutal-cycle" class="toc-anchor">Ideal cycle vs Acutal cycle</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#the-way-of-making-cycle-more-efficient" class="toc-anchor">The way of making cycle more Efficient</a></li>
     </ul>
   </li>
 </ul>

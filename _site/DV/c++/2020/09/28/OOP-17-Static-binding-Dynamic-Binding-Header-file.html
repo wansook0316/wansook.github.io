@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,23 +917,23 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#static-binding-정적-바인딩">Static Binding (정적 바인딩)</a></li>
-  <li><a href="#dynamic-binding-동적-바인딩">Dynamic Binding (동적 바인딩)</a>
-    <ul>
-      <li><a href="#동적-바인딩의-의미">동적 바인딩의 의미</a></li>
+  <li class="toc-item"><a href="#static-binding-정적-바인딩" class="toc-anchor">Static Binding (정적 바인딩)</a></li>
+  <li class="toc-item"><a href="#dynamic-binding-동적-바인딩" class="toc-anchor">Dynamic Binding (동적 바인딩)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#동적-바인딩의-의미" class="toc-anchor">동적 바인딩의 의미</a></li>
     </ul>
   </li>
-  <li><a href="#pure-virtual-function-순수-가상-함수">Pure virtual function (순수 가상 함수)</a>
-    <ul>
-      <li><a href="#abstract-class추상-클래스">abstract Class(추상 클래스)</a></li>
+  <li class="toc-item"><a href="#pure-virtual-function-순수-가상-함수" class="toc-anchor">Pure virtual function (순수 가상 함수)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#abstract-class추상-클래스" class="toc-anchor">abstract Class(추상 클래스)</a></li>
     </ul>
   </li>
-  <li><a href="#header-file">Header File</a>
-    <ul>
-      <li><a href="#왜-사용하는가">왜 사용하는가?</a></li>
+  <li class="toc-item"><a href="#header-file" class="toc-anchor">Header File</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#왜-사용하는가" class="toc-anchor">왜 사용하는가?</a></li>
     </ul>
   </li>
-  <li><a href="#binding-의-시각화">Binding 의 시각화</a></li>
+  <li class="toc-item"><a href="#binding-의-시각화" class="toc-anchor">Binding 의 시각화</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

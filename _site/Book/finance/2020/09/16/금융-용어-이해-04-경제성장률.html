@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -821,18 +845,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#경제-성장률">경제 성장률</a></li>
-  <li><a href="#전년동기비-성장률과-전기비-성장률">전년동기비 성장률과 전기비 성장률</a>
-    <ul>
-      <li><a href="#전년동기비-성장률">전년동기비 성장률</a></li>
-      <li><a href="#전기비성장률">전기비성장률</a></li>
-      <li><a href="#전년동기비-성장률과-전기비-성장률-1">전년동기비 성장률과 전기비 성장률</a></li>
+  <li class="toc-item"><a href="#경제-성장률" class="toc-anchor">경제 성장률</a></li>
+  <li class="toc-item"><a href="#전년동기비-성장률과-전기비-성장률" class="toc-anchor">전년동기비 성장률과 전기비 성장률</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#전년동기비-성장률" class="toc-anchor">전년동기비 성장률</a></li>
+      <li class="toc-item"><a href="#전기비성장률" class="toc-anchor">전기비성장률</a></li>
+      <li class="toc-item"><a href="#전년동기비-성장률과-전기비-성장률-1" class="toc-anchor">전년동기비 성장률과 전기비 성장률</a></li>
     </ul>
   </li>
-  <li><a href="#경제성장기여도">경제성장기여도</a></li>
-  <li><a href="#경제성장기여율">경제성장기여율</a></li>
-  <li><a href="#잠재성장력">잠재성장력</a></li>
-  <li><a href="#요소투입주도-경제성장">요소투입주도 경제성장</a></li>
+  <li class="toc-item"><a href="#경제성장기여도" class="toc-anchor">경제성장기여도</a></li>
+  <li class="toc-item"><a href="#경제성장기여율" class="toc-anchor">경제성장기여율</a></li>
+  <li class="toc-item"><a href="#잠재성장력" class="toc-anchor">잠재성장력</a></li>
+  <li class="toc-item"><a href="#요소투입주도-경제성장" class="toc-anchor">요소투입주도 경제성장</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

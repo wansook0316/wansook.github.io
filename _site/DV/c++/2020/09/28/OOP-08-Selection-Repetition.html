@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,14 +917,14 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#iomanip-library">iomanip library</a></li>
-  <li><a href="#locale-library">locale library</a></li>
-  <li><a href="#while">while</a></li>
-  <li><a href="#break">break</a></li>
-  <li><a href="#continue">Continue</a></li>
-  <li><a href="#do-while">do-while</a></li>
-  <li><a href="#for">for</a></li>
-  <li><a href="#switch">Switch</a></li>
+  <li class="toc-item"><a href="#iomanip-library" class="toc-anchor">iomanip library</a></li>
+  <li class="toc-item"><a href="#locale-library" class="toc-anchor">locale library</a></li>
+  <li class="toc-item"><a href="#while" class="toc-anchor">while</a></li>
+  <li class="toc-item"><a href="#break" class="toc-anchor">break</a></li>
+  <li class="toc-item"><a href="#continue" class="toc-anchor">Continue</a></li>
+  <li class="toc-item"><a href="#do-while" class="toc-anchor">do-while</a></li>
+  <li class="toc-item"><a href="#for" class="toc-anchor">for</a></li>
+  <li class="toc-item"><a href="#switch" class="toc-anchor">Switch</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

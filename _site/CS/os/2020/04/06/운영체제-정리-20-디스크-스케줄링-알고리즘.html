@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,15 +905,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-디스크-스케줄링">1. 디스크 스케줄링</a>
-    <ul>
-      <li><a href="#11-fcfsfirst-come-first-served">1.1 FCFS(First-Come First-Served)</a></li>
-      <li><a href="#12-sstfshortest-seek-time-first">1.2 SSTF(Shortest-Seek-Time-First)</a></li>
-      <li><a href="#13-scan">1.3 Scan</a></li>
-      <li><a href="#14-c-scan">1.4 C-Scan</a></li>
-      <li><a href="#15-look">1.5 Look</a></li>
-      <li><a href="#16-c-look">1.6 C-Look</a></li>
-      <li><a href="#17-elevator-algorithm">1.7 Elevator Algorithm</a></li>
+  <li class="toc-item"><a href="#1-디스크-스케줄링" class="toc-anchor">1. 디스크 스케줄링</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#11-fcfsfirst-come-first-served" class="toc-anchor">1.1 FCFS(First-Come First-Served)</a></li>
+      <li class="toc-item"><a href="#12-sstfshortest-seek-time-first" class="toc-anchor">1.2 SSTF(Shortest-Seek-Time-First)</a></li>
+      <li class="toc-item"><a href="#13-scan" class="toc-anchor">1.3 Scan</a></li>
+      <li class="toc-item"><a href="#14-c-scan" class="toc-anchor">1.4 C-Scan</a></li>
+      <li class="toc-item"><a href="#15-look" class="toc-anchor">1.5 Look</a></li>
+      <li class="toc-item"><a href="#16-c-look" class="toc-anchor">1.6 C-Look</a></li>
+      <li class="toc-item"><a href="#17-elevator-algorithm" class="toc-anchor">1.7 Elevator Algorithm</a></li>
     </ul>
   </li>
 </ul>

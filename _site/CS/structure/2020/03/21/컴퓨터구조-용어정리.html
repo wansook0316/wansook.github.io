@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -829,15 +853,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#다나와">다나와</a></li>
-  <li><a href="#interface">Interface</a></li>
-  <li><a href="#동시성">동시성</a></li>
-  <li><a href="#병렬성">병렬성</a></li>
-  <li><a href="#원자성">원자성</a></li>
-  <li><a href="#의존성">의존성</a></li>
-  <li><a href="#동기화">동기화</a></li>
-  <li><a href="#교착상태deadlock">교착상태(Deadlock)</a></li>
-  <li><a href="#하드웨어-운영체제-프로세스-스레드">하드웨어, 운영체제, 프로세스, 스레드</a></li>
+  <li class="toc-item"><a href="#다나와" class="toc-anchor">다나와</a></li>
+  <li class="toc-item"><a href="#interface" class="toc-anchor">Interface</a></li>
+  <li class="toc-item"><a href="#동시성" class="toc-anchor">동시성</a></li>
+  <li class="toc-item"><a href="#병렬성" class="toc-anchor">병렬성</a></li>
+  <li class="toc-item"><a href="#원자성" class="toc-anchor">원자성</a></li>
+  <li class="toc-item"><a href="#의존성" class="toc-anchor">의존성</a></li>
+  <li class="toc-item"><a href="#동기화" class="toc-anchor">동기화</a></li>
+  <li class="toc-item"><a href="#교착상태deadlock" class="toc-anchor">교착상태(Deadlock)</a></li>
+  <li class="toc-item"><a href="#하드웨어-운영체제-프로세스-스레드" class="toc-anchor">하드웨어, 운영체제, 프로세스, 스레드</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

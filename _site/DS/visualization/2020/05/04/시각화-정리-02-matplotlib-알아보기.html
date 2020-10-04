@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -865,12 +889,12 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#figure-axes-subplots">Figure, axes, subplots</a>
-    <ul>
-      <li><a href="#basic-way">Basic Way</a></li>
-      <li><a href="#matplotlib의-구조">matplotlib의 구조</a></li>
-      <li><a href="#multiple-plots">Multiple plots</a></li>
-      <li><a href="#grid를-사용하여-예쁜-plot하기">grid를 사용하여 예쁜 plot하기</a></li>
+  <li class="toc-item"><a href="#figure-axes-subplots" class="toc-anchor">Figure, axes, subplots</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#basic-way" class="toc-anchor">Basic Way</a></li>
+      <li class="toc-item"><a href="#matplotlib의-구조" class="toc-anchor">matplotlib의 구조</a></li>
+      <li class="toc-item"><a href="#multiple-plots" class="toc-anchor">Multiple plots</a></li>
+      <li class="toc-item"><a href="#grid를-사용하여-예쁜-plot하기" class="toc-anchor">grid를 사용하여 예쁜 plot하기</a></li>
     </ul>
   </li>
 </ul>

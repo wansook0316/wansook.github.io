@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -833,20 +857,20 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#tayler-series">Tayler Series</a></li>
-  <li><a href="#newton-rahpson-method">Newton-Rahpson method</a>
-    <ul>
-      <li><a href="#1변수-함수에서-newton-rahpson-method">1변수 함수에서 Newton-Rahpson method</a></li>
-      <li><a href="#일반화된-newton-rahpson-method">일반화된 Newton-Rahpson method</a></li>
+  <li class="toc-item"><a href="#tayler-series" class="toc-anchor">Tayler Series</a></li>
+  <li class="toc-item"><a href="#newton-rahpson-method" class="toc-anchor">Newton-Rahpson method</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#1변수-함수에서-newton-rahpson-method" class="toc-anchor">1변수 함수에서 Newton-Rahpson method</a></li>
+      <li class="toc-item"><a href="#일반화된-newton-rahpson-method" class="toc-anchor">일반화된 Newton-Rahpson method</a></li>
     </ul>
   </li>
-  <li><a href="#position-analysis">Position Analysis</a>
-    <ul>
-      <li><a href="#notice">Notice</a></li>
+  <li class="toc-item"><a href="#position-analysis" class="toc-anchor">Position Analysis</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#notice" class="toc-anchor">Notice</a></li>
     </ul>
   </li>
-  <li><a href="#velocity-analysis">Velocity Analysis</a></li>
-  <li><a href="#acceleration-analysis">Acceleration Analysis</a></li>
+  <li class="toc-item"><a href="#velocity-analysis" class="toc-anchor">Velocity Analysis</a></li>
+  <li class="toc-item"><a href="#acceleration-analysis" class="toc-anchor">Acceleration Analysis</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

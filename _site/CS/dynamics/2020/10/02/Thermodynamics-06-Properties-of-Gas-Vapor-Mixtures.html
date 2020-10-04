@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -833,17 +857,17 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#gas-vapor-mixture">Gas Vapor Mixture</a>
-    <ul>
-      <li><a href="#가정">가정</a></li>
+  <li class="toc-item"><a href="#gas-vapor-mixture" class="toc-anchor">Gas Vapor Mixture</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#가정" class="toc-anchor">가정</a></li>
     </ul>
   </li>
-  <li><a href="#절대-습도-상대-습도">절대 습도, 상대 습도</a>
-    <ul>
-      <li><a href="#절대-습도를-통한-혼합기체의-엔탈피-표현">절대 습도를 통한 혼합기체의 엔탈피 표현</a></li>
+  <li class="toc-item"><a href="#절대-습도-상대-습도" class="toc-anchor">절대 습도, 상대 습도</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#절대-습도를-통한-혼합기체의-엔탈피-표현" class="toc-anchor">절대 습도를 통한 혼합기체의 엔탈피 표현</a></li>
     </ul>
   </li>
-  <li><a href="#dew-point-temperature">Dew point Temperature</a></li>
+  <li class="toc-item"><a href="#dew-point-temperature" class="toc-anchor">Dew point Temperature</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

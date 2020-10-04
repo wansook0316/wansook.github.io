@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,17 +917,17 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#identifier">Identifier</a></li>
-  <li><a href="#사용가능-문자">사용가능 문자</a></li>
-  <li><a href="#variable-assignment">Variable Assignment</a></li>
-  <li><a href="#variable-constant">Variable, Constant</a></li>
-  <li><a href="#standard-input--output">Standard Input &amp; Output</a>
-    <ul>
-      <li><a href="#출력-cout">출력 (cout)</a></li>
-      <li><a href="#입력-cin">입력 (cin)</a></li>
+  <li class="toc-item"><a href="#identifier" class="toc-anchor">Identifier</a></li>
+  <li class="toc-item"><a href="#사용가능-문자" class="toc-anchor">사용가능 문자</a></li>
+  <li class="toc-item"><a href="#variable-assignment" class="toc-anchor">Variable Assignment</a></li>
+  <li class="toc-item"><a href="#variable-constant" class="toc-anchor">Variable, Constant</a></li>
+  <li class="toc-item"><a href="#standard-input--output" class="toc-anchor">Standard Input &amp; Output</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#출력-cout" class="toc-anchor">출력 (cout)</a></li>
+      <li class="toc-item"><a href="#입력-cin" class="toc-anchor">입력 (cin)</a></li>
     </ul>
   </li>
-  <li><a href="#operator">Operator</a></li>
+  <li class="toc-item"><a href="#operator" class="toc-anchor">Operator</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

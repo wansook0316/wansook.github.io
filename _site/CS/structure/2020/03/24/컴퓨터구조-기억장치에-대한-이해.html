@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -829,18 +853,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#memory-device">Memory Device</a>
-    <ul>
-      <li><a href="#계층-구조">계층 구조</a></li>
-      <li><a href="#컴퓨터가-관리하는-방법---관리-체계">컴퓨터가 관리하는 방법 - 관리 체계</a></li>
-      <li><a href="#전체-흐름">전체 흐름</a></li>
+  <li class="toc-item"><a href="#memory-device" class="toc-anchor">Memory Device</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#계층-구조" class="toc-anchor">계층 구조</a></li>
+      <li class="toc-item"><a href="#컴퓨터가-관리하는-방법---관리-체계" class="toc-anchor">컴퓨터가 관리하는 방법 - 관리 체계</a></li>
+      <li class="toc-item"><a href="#전체-흐름" class="toc-anchor">전체 흐름</a></li>
     </ul>
   </li>
-  <li><a href="#컴퓨터가-연산하는-과정">컴퓨터가 연산하는 과정</a>
-    <ul>
-      <li><a href="#cpu-alu">CPU ALU</a></li>
-      <li><a href="#64bit-컴퓨터">64bit 컴퓨터</a></li>
-      <li><a href="#전체-과정">전체 과정</a></li>
+  <li class="toc-item"><a href="#컴퓨터가-연산하는-과정" class="toc-anchor">컴퓨터가 연산하는 과정</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#cpu-alu" class="toc-anchor">CPU ALU</a></li>
+      <li class="toc-item"><a href="#64bit-컴퓨터" class="toc-anchor">64bit 컴퓨터</a></li>
+      <li class="toc-item"><a href="#전체-과정" class="toc-anchor">전체 과정</a></li>
     </ul>
   </li>
 </ul>

@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,15 +917,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#iterator">Iterator</a></li>
-  <li><a href="#method">Method</a></li>
-  <li><a href="#example">Example</a>
-    <ul>
-      <li><a href="#iterator를-사용하지-않았을-때">iterator를 사용하지 않았을 때,</a></li>
-      <li><a href="#iterator를-사용할-때">iterator를 사용할 때</a></li>
+  <li class="toc-item"><a href="#iterator" class="toc-anchor">Iterator</a></li>
+  <li class="toc-item"><a href="#method" class="toc-anchor">Method</a></li>
+  <li class="toc-item"><a href="#example" class="toc-anchor">Example</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#iterator를-사용하지-않았을-때" class="toc-anchor">iterator를 사용하지 않았을 때,</a></li>
+      <li class="toc-item"><a href="#iterator를-사용할-때" class="toc-anchor">iterator를 사용할 때</a></li>
     </ul>
   </li>
-  <li><a href="#example2">Example2</a></li>
+  <li class="toc-item"><a href="#example2" class="toc-anchor">Example2</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

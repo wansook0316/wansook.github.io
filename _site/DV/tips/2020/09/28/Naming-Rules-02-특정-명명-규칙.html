@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -813,28 +837,28 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#1-getset은-반드시-속성attribute에-직접-접근할-때-사용한다">1. get/set은 반드시 속성(attribute)에 직접 접근할 때 사용한다.</a></li>
-  <li><a href="#2-compute는-무언가-계산하는-메서드에서-사용한다">2. compute는 무언가 계산하는 메서드에서 사용한다.</a></li>
-  <li><a href="#3-find는-무언가를-찾는-메서드에서-사용한다">3. find는 무언가를 찾는 메서드에서 사용한다.</a></li>
-  <li><a href="#4-initialize는-객체-또는-개념을-만들-때-사용한다">4. initialize는 객체 또는 개념을 만들 때 사용한다.</a></li>
-  <li><a href="#5-gui-요소component를-나타내는-변수는-해당-요소-타입-이름을-접미어로-사용한다">5. GUI 요소(component)를 나타내는 변수는 해당 요소 타입 이름을 접미어로 사용한다.</a></li>
-  <li><a href="#6-복수형은-객체-모음collection을-나타내는-이름에-사용해야-한다">6. 복수형은 객체 모음(collection)을 나타내는 이름에 사용해야 한다.</a></li>
-  <li><a href="#7-접두어-n-은-객체-수를-나타내는-변수에-사용한다">7. 접두어 n 은 객체 수를 나타내는 변수에 사용한다.</a></li>
-  <li><a href="#8-접미어-no는-독자적인entity-번호를-나타내는-변수에-사용한다">8. 접미어 “No”는 독자적인(Entity) 번호를 나타내는 변수에 사용한다.</a></li>
-  <li><a href="#9-반복자-변수는-i-j-k-등으로-호출한다">9. 반복자 변수는 i, j, k 등으로 호출한다.</a></li>
-  <li><a href="#10-접두어-is는-boolean-변수와-메서드에서-사용한다">10. 접두어 is는 Boolean 변수와 메서드에서 사용한다.</a></li>
-  <li><a href="#11-반의어는-반드시-대응하는-연산에-대해-사용해야-한다">11. 반의어는 반드시 대응하는 연산에 대해 사용해야 한다.</a></li>
-  <li><a href="#12-이름에-약어는-피해야-한다">12. 이름에 약어는 피해야 한다.</a>
-    <ul>
-      <li><a href="#121-사용하면-안되는-약어">12.1 사용하면 안되는 약어</a></li>
-      <li><a href="#121-약어를-사용하는-것이-좋은-경우">12.1 약어를 사용하는 것이 좋은 경우</a></li>
+  <li class="toc-item"><a href="#1-getset은-반드시-속성attribute에-직접-접근할-때-사용한다" class="toc-anchor">1. get/set은 반드시 속성(attribute)에 직접 접근할 때 사용한다.</a></li>
+  <li class="toc-item"><a href="#2-compute는-무언가-계산하는-메서드에서-사용한다" class="toc-anchor">2. compute는 무언가 계산하는 메서드에서 사용한다.</a></li>
+  <li class="toc-item"><a href="#3-find는-무언가를-찾는-메서드에서-사용한다" class="toc-anchor">3. find는 무언가를 찾는 메서드에서 사용한다.</a></li>
+  <li class="toc-item"><a href="#4-initialize는-객체-또는-개념을-만들-때-사용한다" class="toc-anchor">4. initialize는 객체 또는 개념을 만들 때 사용한다.</a></li>
+  <li class="toc-item"><a href="#5-gui-요소component를-나타내는-변수는-해당-요소-타입-이름을-접미어로-사용한다" class="toc-anchor">5. GUI 요소(component)를 나타내는 변수는 해당 요소 타입 이름을 접미어로 사용한다.</a></li>
+  <li class="toc-item"><a href="#6-복수형은-객체-모음collection을-나타내는-이름에-사용해야-한다" class="toc-anchor">6. 복수형은 객체 모음(collection)을 나타내는 이름에 사용해야 한다.</a></li>
+  <li class="toc-item"><a href="#7-접두어-n-은-객체-수를-나타내는-변수에-사용한다" class="toc-anchor">7. 접두어 n 은 객체 수를 나타내는 변수에 사용한다.</a></li>
+  <li class="toc-item"><a href="#8-접미어-no는-독자적인entity-번호를-나타내는-변수에-사용한다" class="toc-anchor">8. 접미어 “No”는 독자적인(Entity) 번호를 나타내는 변수에 사용한다.</a></li>
+  <li class="toc-item"><a href="#9-반복자-변수는-i-j-k-등으로-호출한다" class="toc-anchor">9. 반복자 변수는 i, j, k 등으로 호출한다.</a></li>
+  <li class="toc-item"><a href="#10-접두어-is는-boolean-변수와-메서드에서-사용한다" class="toc-anchor">10. 접두어 is는 Boolean 변수와 메서드에서 사용한다.</a></li>
+  <li class="toc-item"><a href="#11-반의어는-반드시-대응하는-연산에-대해-사용해야-한다" class="toc-anchor">11. 반의어는 반드시 대응하는 연산에 대해 사용해야 한다.</a></li>
+  <li class="toc-item"><a href="#12-이름에-약어는-피해야-한다" class="toc-anchor">12. 이름에 약어는 피해야 한다.</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#121-사용하면-안되는-약어" class="toc-anchor">12.1 사용하면 안되는 약어</a></li>
+      <li class="toc-item"><a href="#121-약어를-사용하는-것이-좋은-경우" class="toc-anchor">12.1 약어를 사용하는 것이 좋은 경우</a></li>
     </ul>
   </li>
-  <li><a href="#13-포인터를-이름에-사용하는-것은-특히-피해야-한다">13. 포인터를 이름에 사용하는 것은 특히 피해야 한다.</a></li>
-  <li><a href="#14-부정적인negated-boolean-변수-이름은-반드시-피해야-한다">14. 부정적인(negated) Boolean 변수 이름은 반드시 피해야 한다.</a></li>
-  <li><a href="#15-열거-상수는-공통-타입-이름을-접두어로-붙인다">15. 열거 상수는 공통 타입 이름을 접두어로 붙인다.</a></li>
-  <li><a href="#16-예외-클래스는-exception-접미어를-붙인다">16. 예외 클래스는 Exception 접미어를 붙인다.</a></li>
-  <li><a href="#reference">Reference</a></li>
+  <li class="toc-item"><a href="#13-포인터를-이름에-사용하는-것은-특히-피해야-한다" class="toc-anchor">13. 포인터를 이름에 사용하는 것은 특히 피해야 한다.</a></li>
+  <li class="toc-item"><a href="#14-부정적인negated-boolean-변수-이름은-반드시-피해야-한다" class="toc-anchor">14. 부정적인(negated) Boolean 변수 이름은 반드시 피해야 한다.</a></li>
+  <li class="toc-item"><a href="#15-열거-상수는-공통-타입-이름을-접두어로-붙인다" class="toc-anchor">15. 열거 상수는 공통 타입 이름을 접두어로 붙인다.</a></li>
+  <li class="toc-item"><a href="#16-예외-클래스는-exception-접미어를-붙인다" class="toc-anchor">16. 예외 클래스는 Exception 접미어를 붙인다.</a></li>
+  <li class="toc-item"><a href="#reference" class="toc-anchor">Reference</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,15 +917,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#c">C++</a></li>
-  <li><a href="#software-build-process--tools">Software Build Process &amp; Tools</a>
-    <ul>
-      <li><a href="#editor">Editor</a></li>
-      <li><a href="#pre-processor">Pre-Processor</a></li>
-      <li><a href="#compiler">Compiler</a></li>
-      <li><a href="#linker">Linker</a></li>
-      <li><a href="#debugger">Debugger</a></li>
-      <li><a href="#profiler">Profiler</a></li>
+  <li class="toc-item"><a href="#c" class="toc-anchor">C++</a></li>
+  <li class="toc-item"><a href="#software-build-process--tools" class="toc-anchor">Software Build Process &amp; Tools</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#editor" class="toc-anchor">Editor</a></li>
+      <li class="toc-item"><a href="#pre-processor" class="toc-anchor">Pre-Processor</a></li>
+      <li class="toc-item"><a href="#compiler" class="toc-anchor">Compiler</a></li>
+      <li class="toc-item"><a href="#linker" class="toc-anchor">Linker</a></li>
+      <li class="toc-item"><a href="#debugger" class="toc-anchor">Debugger</a></li>
+      <li class="toc-item"><a href="#profiler" class="toc-anchor">Profiler</a></li>
     </ul>
   </li>
 </ul>

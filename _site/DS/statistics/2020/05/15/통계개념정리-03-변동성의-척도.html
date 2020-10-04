@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -853,18 +877,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#변동성">변동성</a>
-    <ul>
-      <li><a href="#범위">범위</a></li>
-      <li><a href="#분산-표준-편차">분산, 표준 편차</a></li>
+  <li class="toc-item"><a href="#변동성" class="toc-anchor">변동성</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#범위" class="toc-anchor">범위</a></li>
+      <li class="toc-item"><a href="#분산-표준-편차" class="toc-anchor">분산, 표준 편차</a></li>
     </ul>
   </li>
-  <li><a href="#경험-법칙empirical-rule">경험 법칙(Empirical Rule)</a>
-    <ul>
-      <li><a href="#체비셰프의-정리">체비셰프의 정리</a></li>
+  <li class="toc-item"><a href="#경험-법칙empirical-rule" class="toc-anchor">경험 법칙(Empirical Rule)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#체비셰프의-정리" class="toc-anchor">체비셰프의 정리</a></li>
     </ul>
   </li>
-  <li><a href="#변동-계수coefficient-of-variation">변동 계수(Coefficient of Variation)</a></li>
+  <li class="toc-item"><a href="#변동-계수coefficient-of-variation" class="toc-anchor">변동 계수(Coefficient of Variation)</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

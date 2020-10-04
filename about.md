@@ -47,10 +47,10 @@ introduce: "안녕하세요. 최완식입니다."
 - Competition for selecting the best location for public bicycles
   - 3rd place (reward 1,000\$)
 
-<h2 style="margin-top:0;">Scholarships
+<h2 style="margin-top:0;">Scholarships</h2>
 
 - Software Festival
-  - 2nd place (reward 500 \$)
+  - 2nd place (reward 500\$)
 
 # Personal Projects
 

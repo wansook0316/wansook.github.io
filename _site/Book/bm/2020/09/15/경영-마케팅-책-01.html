@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -782,10 +806,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#배경단상">배경/단상</a></li>
-  <li><a href="#줄거리-주요-내용-요약">줄거리/ 주요 내용 요약</a></li>
-  <li><a href="#발췌-및-해석">발췌 및 해석</a></li>
-  <li><a href="#전체-느낌추천-대상추천-이유">전체 느낌/추천 대상/추천 이유</a></li>
+  <li class="toc-item"><a href="#배경단상" class="toc-anchor">배경/단상</a></li>
+  <li class="toc-item"><a href="#줄거리-주요-내용-요약" class="toc-anchor">줄거리/ 주요 내용 요약</a></li>
+  <li class="toc-item"><a href="#발췌-및-해석" class="toc-anchor">발췌 및 해석</a></li>
+  <li class="toc-item"><a href="#전체-느낌추천-대상추천-이유" class="toc-anchor">전체 느낌/추천 대상/추천 이유</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

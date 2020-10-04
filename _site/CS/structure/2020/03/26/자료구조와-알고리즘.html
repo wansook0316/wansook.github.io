@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -829,18 +853,18 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#자료를-정리해야-하는-이유">자료를 정리해야 하는 이유</a></li>
-  <li><a href="#어떻게-정리할까">어떻게 정리할까?</a></li>
-  <li><a href="#자료구조">자료구조</a>
-    <ul>
-      <li><a href="#선형-구조">선형 구조</a></li>
-      <li><a href="#비선형-구조">비선형 구조</a></li>
-      <li><a href="#선형-구조-비선형-구조-비교">선형 구조, 비선형 구조 비교</a></li>
+  <li class="toc-item"><a href="#자료를-정리해야-하는-이유" class="toc-anchor">자료를 정리해야 하는 이유</a></li>
+  <li class="toc-item"><a href="#어떻게-정리할까" class="toc-anchor">어떻게 정리할까?</a></li>
+  <li class="toc-item"><a href="#자료구조" class="toc-anchor">자료구조</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#선형-구조" class="toc-anchor">선형 구조</a></li>
+      <li class="toc-item"><a href="#비선형-구조" class="toc-anchor">비선형 구조</a></li>
+      <li class="toc-item"><a href="#선형-구조-비선형-구조-비교" class="toc-anchor">선형 구조, 비선형 구조 비교</a></li>
     </ul>
   </li>
-  <li><a href="#알고리즘">알고리즘</a>
-    <ul>
-      <li><a href="#sort">Sort</a></li>
+  <li class="toc-item"><a href="#알고리즘" class="toc-anchor">알고리즘</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#sort" class="toc-anchor">Sort</a></li>
     </ul>
   </li>
 </ul>

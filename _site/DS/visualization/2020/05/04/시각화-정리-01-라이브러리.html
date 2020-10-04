@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -865,11 +889,11 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#joypy">joypy</a></li>
-  <li><a href="#pywaffle">pywaffle</a></li>
-  <li><a href="#calmap">calmap</a></li>
-  <li><a href="#pandas">pandas</a></li>
-  <li><a href="#matplotlib">matplotlib</a></li>
+  <li class="toc-item"><a href="#joypy" class="toc-anchor">joypy</a></li>
+  <li class="toc-item"><a href="#pywaffle" class="toc-anchor">pywaffle</a></li>
+  <li class="toc-item"><a href="#calmap" class="toc-anchor">calmap</a></li>
+  <li class="toc-item"><a href="#pandas" class="toc-anchor">pandas</a></li>
+  <li class="toc-item"><a href="#matplotlib" class="toc-anchor">matplotlib</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

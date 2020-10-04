@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -881,15 +905,15 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#목적">목적</a></li>
-  <li><a href="#부팅-booting">부팅 (Booting)</a>
-    <ul>
-      <li><a href="#어떻게-실행할-수-있을까">어떻게 실행할 수 있을까?</a></li>
-      <li><a href="#부팅시-하는-작업엄밀한-정의의-부팅">부팅시 하는 작업(엄밀한 정의의 부팅)</a></li>
+  <li class="toc-item"><a href="#목적" class="toc-anchor">목적</a></li>
+  <li class="toc-item"><a href="#부팅-booting" class="toc-anchor">부팅 (Booting)</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#어떻게-실행할-수-있을까" class="toc-anchor">어떻게 실행할 수 있을까?</a></li>
+      <li class="toc-item"><a href="#부팅시-하는-작업엄밀한-정의의-부팅" class="toc-anchor">부팅시 하는 작업(엄밀한 정의의 부팅)</a></li>
     </ul>
   </li>
-  <li><a href="#구조">구조</a></li>
-  <li><a href="#위치">위치</a></li>
+  <li class="toc-item"><a href="#구조" class="toc-anchor">구조</a></li>
+  <li class="toc-item"><a href="#위치" class="toc-anchor">위치</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">

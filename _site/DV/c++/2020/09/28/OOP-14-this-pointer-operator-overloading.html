@@ -276,11 +276,35 @@
     }
   }
 </script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
 
 </head>
 
   <body>
-    <header class="site-header">
+    <a href="#" class="top"></a>
+ <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
@@ -893,26 +917,26 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li><a href="#pass-by-reference">Pass by Reference</a>
-    <ul>
-      <li><a href="#const">const</a></li>
+  <li class="toc-item"><a href="#pass-by-reference" class="toc-anchor">Pass by Reference</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#const" class="toc-anchor">const</a></li>
     </ul>
   </li>
-  <li><a href="#pointer-to-object">Pointer to Object</a>
-    <ul>
-      <li>*</li>
-      <li><a href="#-">-&gt;</a></li>
-      <li><a href="#동적할당-new-delete">동적할당 new, delete</a></li>
-      <li><a href="#this-pointer">this Pointer</a></li>
+  <li class="toc-item"><a href="#pointer-to-object" class="toc-anchor">Pointer to Object</a>
+    <ul class="submenu_class">
+      <li class="toc-item">*{:.toc-anchor}</li>
+      <li class="toc-item"><a href="#-" class="toc-anchor">-&gt;</a></li>
+      <li class="toc-item"><a href="#동적할당-new-delete" class="toc-anchor">동적할당 new, delete</a></li>
+      <li class="toc-item"><a href="#this-pointer" class="toc-anchor">this Pointer</a></li>
     </ul>
   </li>
-  <li><a href="#overloading">Overloading</a>
-    <ul>
-      <li><a href="#function-overloading">Function Overloading</a></li>
-      <li><a href="#operator-overloading">Operator Overloading</a></li>
+  <li class="toc-item"><a href="#overloading" class="toc-anchor">Overloading</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#function-overloading" class="toc-anchor">Function Overloading</a></li>
+      <li class="toc-item"><a href="#operator-overloading" class="toc-anchor">Operator Overloading</a></li>
     </ul>
   </li>
-  <li><a href="#여기까지-구현한-전체-코드">여기까지 구현한 전체 코드</a></li>
+  <li class="toc-item"><a href="#여기까지-구현한-전체-코드" class="toc-anchor">여기까지 구현한 전체 코드</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
