@@ -6,9 +6,373 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 04 Oct 2020 19:18:21 +0900</pubDate>
-    <lastBuildDate>Sun, 04 Oct 2020 19:18:21 +0900</lastBuildDate>
+    <pubDate>Tue, 06 Oct 2020 17:31:51 +0900</pubDate>
+    <lastBuildDate>Tue, 06 Oct 2020 17:31:51 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title> [Regular Expression] 02: 간단한 메타문자</title>
+        <description> 정규식의 메타문자는 무엇인가? : &lt;blockquote&gt;
+  &lt;p&gt;원래 그 문자가 가진 뜻이 아닌 특별한 용도로 사용하는 문자&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;문자-클래스-&quot;&gt;문자 클래스 []&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;[ ] 사이에 있는 각각의 문자들에 대해 적어도 하나가 매치가 되는가?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;즉, 정규 표현식이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[abc]&lt;/code&gt;라면 이 표현식의 의미는 “a, b, c 중 한 개의 문자와 매치”를 뜻한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“a”는 정규식과 일치하는 문자인 “a”가 있으므로 매치&lt;/li&gt;
+  &lt;li&gt;“before”는 정규식과 일치하는 문자인 “b”가 있으므로 매치&lt;/li&gt;
+  &lt;li&gt;“dude”는 정규식과 일치하는 문자인 a, b, c 중 어느 하나도 포함하고 있지 않으므로 매치되지 않음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[ ] 안의 두 문자 사이에 하이픈(-)을 사용하면 두 문자 사이의 범위(From - To)를 의미한다. 예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-c]&lt;/code&gt;라는 정규 표현식은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[abc]&lt;/code&gt;와 동일하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0-5]&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[012345]&lt;/code&gt;와 동일하다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-zA-Z]&lt;/code&gt; : 알파벳 모두&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0-9]&lt;/code&gt; : 숫자&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;문자 클래스([ ]) 안에는 어떤 문자나 메타 문자도 사용할 수 있다. 하지만..&lt;/p&gt;
+
+&lt;h2 id=&quot;주의사항&quot;&gt;주의사항&lt;/h2&gt;
+
+&lt;p&gt;주의해야 할 메타 문자가 1가지 있다. 그것은 바로 ^인데, 문자 클래스 안에 ^ 메타 문자를 사용할 경우에는 반대(not)라는 의미를 갖는다. 예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[^0-9]&lt;/code&gt;라는 정규 표현식은 숫자가 아닌 문자만 매치된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;자주-사용하는-문자-클래스&quot;&gt;자주 사용하는 문자 클래스&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;메타문자&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;동일 표현식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\d&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0-9]&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;숫자와 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\D&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[^0-9]&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;숫자가 아닌 것과 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[ \t\n\r\f\v]&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;whitespace 문자(스페이스, 공백, tab)와 매치(맨 앞의 빈 칸은 공백문자(space)를 의미한다.)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\S&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[^ \t\n\r\f\v]&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;whitespace 문자가 아닌 것과 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\w&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;[&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a-zA-Z0-9_]&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자+숫자(alphanumeric)와 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\W&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[^a-za-z0-9_]&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자+숫자(alphanumeric)가 아닌 문자와 매치&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;대문자 사용은 소문자의 반대이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;dot&quot;&gt;Dot(.)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;줄바꿈 문자인 \n을 제외한 모든 문자와 매치됨을 의미, 단 하나라도 있어야 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;사실, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.DOTALL&lt;/code&gt; 옵션을 주면 \n 문자와도 매치된다. 일단 예제를 보며 이해해보자.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;의미&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.b&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a + 모든문자 + b”&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;즉, a와 b라는 문자 사이에 어떤 문자가 들어가도 모두 매치된다는 의미이다. 문자열 “aab”, “a0b”, “abc”가 정규식 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.b&lt;/code&gt;와 어떻게 매치되는지 살펴보자.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“aab”는 가운데 문자 “a”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.&lt;/li&gt;
+  &lt;li&gt;“a0b”는 가운데 문자 “0”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.&lt;/li&gt;
+  &lt;li&gt;“abc”는 “a”문자와 “b”문자 사이에 &lt;strong&gt;어떤 문자라도 하나는 있어야 하는&lt;/strong&gt; 이 정규식과 일치하지 않으므로 매치되지 않는다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;마지막이 헷갈린다. 조심하도록 하자. 그런데 만약 “.” 문자 자체와 매칭이 되길 원한다면 어떻게 해야할까?&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;의미&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a[.]b&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a + Dot(.)문자 + b”&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;정규식 a[.]b는 “a.b” 문자열과 매치되고, “a0b” 문자열과는 매치되지 않는다. 혼동하지 말자.&lt;/p&gt;
+
+&lt;h1 id=&quot;반복&quot;&gt;반복(*)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;특정 문자가 0부터 무한대까지의 반복을 매칭한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;문자열&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Match 여부&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca*t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;ct&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 0번 반복되어 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca*t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;cat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 0번 이상 반복되어 매치 (1번 반복)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca*t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;caaat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 0번 이상 반복되어 매치 (3번 반복)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;반복-1&quot;&gt;반복(+)&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;특정 문자가 1부터 무한대까지의 반복을 매칭한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;문자열&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Match 여부&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca+t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;ct&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 0번 반복되어 매치되지 않음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca+t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;cat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 0번 이상 반복되어 매치 (1번 반복)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca+t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;caaat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 0번 이상 반복되어 매치 (3번 반복)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;반복nm&quot;&gt;반복({n,m})&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;특정 문자가 n이상 m이하 반복 횟수인 경우 매칭한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;{ } 메타 문자를 사용하면 반복 횟수를 고정할 수 있다. {m, n} 정규식을 사용하면 반복 횟수가 m부터 n까지 매치할 수 있다. 또한 m 또는 n을 생략할 수도 있다. 만약 {3,}처럼 사용하면 반복 횟수가 3 이상인 경우이고 {,3}처럼 사용하면 반복 횟수가 3 이하를 의미한다. 생략된 m은 0과 동일하며, 생략된 n은 무한대(2억 개 미만)의 의미를 갖는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;{1,}은 +와 동일하고, {0,}은 *와 동일하다.&lt;/strong&gt; 이 부분을 언급하는 이유는, 굳이 저런 표현보다는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;을 사용하는 것이 직관적이기 때문이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;n&quot;&gt;{n}&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;반드시 n번 반복.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;문자열&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Match 여부&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca{2}t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;cat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 1번만 반복되어 매치되지 않음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca{2}t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;caat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 2번 반복되어 매치&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;n-m&quot;&gt;{n, m}&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;n~m 번 반복.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;문자열&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Match 여부&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca{2,5}t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;cat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;No&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 1번만 반복되어 매치되지 않음&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca{2,5}t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;caat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 2번 반복되어 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ca{2,5}t&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;caaaaat&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“a”가 5번 반복되어 매치&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1&gt;?&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;있어도 되고 없어도 된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;정규식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;문자열&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Match 여부&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ab?c&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;abc&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“b”가 1번 사용되어 매치&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ab?c&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;ac&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Yes&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;“b”가 0번 사용되어 매치&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        <pubDate>Tue, 06 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/06/regex-02-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/06/regex-02-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>regex</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 01: 개념잡기</title>
+        <description> 정규표현식은 무엇이고 왜 사용하는가. : &lt;h1 id=&quot;개념&quot;&gt;개념&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;특정한 규칙을 가진 문자열의 집합을 표현하기 위해 쓰이는 형식언어&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;프로그래밍을 다루다 보면 가장 많이 만나게 되는 것이 문자열이다. 모든 것이 문자열로 나타나 있고, 이것을 기반으로 한 규칙으로 프로그램이 구동되기 때문이다. 또한 특정한 정보를 다루기 위해서라도 우리는 이 문자열을 다루고 추출해야 한다. 이러한 수요는 끊임없이 계속되어 왔다.&lt;/p&gt;
+
+&lt;h1 id=&quot;역사와-종류&quot;&gt;역사와 종류&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;개발 새발이다. 너무 다양해.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;정규 표현식은 다양한 분야에서 쓰였다. 그리고 각각의 분야에서 발생한 정규식은 서로에게 영향을 주었다. 보통 이러면 하나의 통일된 표준이 나올법도 한데, 그렇지 않다.&lt;/p&gt;
+
+&lt;p&gt;유닉스 명령줄 도구들에서 사용하던 정규 표현식은 후에 POSIX 표준에 편입되었다. 그러면서 이 시기의 표준으로 받아들여진 형식을 POSIX 정규식이라고 한다. 그리고 이후에 다시 POSIX 정규식은 POSIX BRE (POSIX 기본 정규식)와 POSIX ERE (POSIX 확장 정규식)으로 다른 버전이 나뉘게 된다. (grep에서 -e 스위치를 써서 확장 정규식을 쓰던 옵션이 바로 ERE를 쓴다는 의미이다.) 그 외에 BRE를 기본 골격으로 한 vim 정규식이 있다. 이 vim 정규식은 vim 편집기 내에서 찾기/바꾸기 등의 동작에서 범위를 지정하는데 사용된다. 하지만 오랜 역사를 따라 개선과 확장을 거듭하면서 이 vim 정규식 역시 POSIX 표준과는 좀 다른 규격으로 취급될 정도이다. (심지어 vim 내에서도 magic 모드, very magic 모드라는 것이 있어서 이후의 확장 정규식의 일부 기능을 사용하거나, 일부 punctuation 문자를 매칭하는 방법이 다시 갈리게 되는 지경이다.)&lt;/p&gt;
+
+&lt;p&gt;그리고 문자열을 다루는데 특화된 스크립트 언어인 펄(perl)이 등장했다. 펄의 정규식 체계는 역시나 기본은 POSIX와 비슷한 골격에서 디자인되어 있다. 그런데 엄청나게 많은 확장이 들어갔다. 펄의 정규식은 PCRE라는 규격으로 정리되었으며, 이후 많은 프로그래밍 언어들이 이 규격을 차용하거나 계승한다. 여기서 중요한 것은 “일부 차용”이다. 이 규격은 워낙 방대해서 PCRE를 그대로 가져다 쓰지 않는 이상, 구현할 게 너무 많기 때문이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://soooprmx.com/archives/7718&quot;&gt;정규표현식의 개념과 기초 문법&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 06 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/06/regex-01-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/06/regex-01-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>regex</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
     
       <item>
         <title> [Partial Differential Equations] 14: 함수의 복소적 표현 (Function in Complex Numbers)</title>
@@ -1036,76 +1400,6 @@ Power Cycle의 주 사용이유는 많은 일을 생산하기 위함이다. 그�
         <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-09-%EB%B6%80%EC%86%90%EC%8B%A4-%EC%9C%A0%EB%8F%99%EB%B0%95%EB%A6%AC.html</link>
         <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-09-%EB%B6%80%EC%86%90%EC%8B%A4-%EC%9C%A0%EB%8F%99%EB%B0%95%EB%A6%AC.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 08: 무디 차트 (Moddy Chart &amp; Colebrook Equation)</title>
-        <description> 무디 차트는 무엇인가? : &lt;p&gt;무디 차트는 압력강하식에서 사용되는 f의 정체이다. 파이프에서 이 식은&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922850-ddd2a400-04f5-11eb-8d39-7a7ace8f61e7.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;로 정의되었었지만 사실 그렇게 만만하지 않다. 왜냐하면 레이놀즈 수에서 배웠지만 이 레이놀즈 수는 정해진 수가 아니기 때문이다. 유체가 운동하는 방향에 따라 변한다. 저 수는 유체가 측류라 가정했을 때 도출되는 식이다. 그렇다면 어떻게 해야되는가? 파이프를 예로 들었을 때, 벽면으로부터 중심부로 갈수록 유체의 레이놀즈 수는 커진다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922868-e6c37580-04f5-11eb-88b8-d903a2ee7549.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;에서 속도가 빨라지기 때문이다. 속도가 빨라지면 어떤 문제가 생기냐 난류유동이 생긴다.(후…) 그렇기 때문에 이건 간단한 문제가 아니다. 따라서 우리는 유동이 흐를때 어디까지를 층류로 보고 난류로 볼건지 또, 어떤 특징 때문에 그렇게 되는지를 분명하게 알 필요가 있다. 즉, 측류와 난류를 간단하게 구분해보면,&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;유체의 특징상 Re의 태생은 정해져 있기 때문에 이놈이 더 난류처럼 움직일지, 층류처럼 움직일지는 알 수 있다.&lt;/li&gt;
-  &lt;li&gt;하지만 추가적으로 운동하게 되면 난류효과는 어떤 유체든 커질 수 밖에 없다.&lt;/li&gt;
-  &lt;li&gt;이 복잡한 것을 하나로 만들어 놓은 것이 무디 차트이다.&lt;/li&gt;
-  &lt;li&gt;벽면에서는 파이프의 매끄러움, 즉 거칠기의 영향을 받는다.&lt;/li&gt;
-  &lt;li&gt;유체가 파이프를 운동할 때 벽면에서는 층류처럼 행동하는 경향이 있는데, 레이놀즈 수가 작은 층류는 이 층의 두께가 두껍고 레이놀즈 수가 큰 난류는 이 층의 두께가 얇다.&lt;/li&gt;
-  &lt;li&gt;층류가 벽면에 작용할 때는 이 거칠기가 유동에 영향을 끼치지 않는다. 하지만 층류의 두께가 얇게 되면 이 거칠기를 무시하지 못한다.&lt;/li&gt;
-  &lt;li&gt;즉 두께가 상대적으로 얇은 난류에서는 이 거칠기에 따라 유동이 변화한다.&lt;/li&gt;
-  &lt;li&gt;따라서 그 때 f는 Re, 거칠기의 함수이다.&lt;/li&gt;
-  &lt;li&gt;f값에 따라 압력강하가 달라진다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922773-c1cf0280-04f5-11eb-9b6b-b25d6f80ea57.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922787-c4c9f300-04f5-11eb-99b2-a665a74705ca.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Colebrook Equation는 f를 수식적으로 구할 수 있는 식이다. 자, 그러면 여러개의 property가 주어졌을 때, 압력강하를 어떻게 구할 수 있는지 3가지 유형을 정리했다. 2번째, 3번째 방법은, 반복계산법을 통해서 해를 유추하는 방법으로 구한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922808-cabfd400-04f5-11eb-833e-a46b817c7dd0.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922813-cd222e00-04f5-11eb-866e-8e45968d50a6.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-08-%EB%AC%B4%EB%94%94%EC%B0%A8%ED%8A%B8.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-08-%EB%AC%B4%EB%94%94%EC%B0%A8%ED%8A%B8.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 07: 난류 유동 (Tubulent Flow)</title>
-        <description> 난류는 무엇이고, 어떻게 움직일까. : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922553-64d34c80-04f5-11eb-8fb9-6a2eb54b6f88.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922560-67ce3d00-04f5-11eb-83a5-2ba9597b6169.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922566-6ac92d80-04f5-11eb-85fc-3a078d326efd.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922570-6d2b8780-04f5-11eb-9679-e3409e6b854b.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922580-7157a500-04f5-11eb-867f-abb533176260.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922589-774d8600-04f5-11eb-9ec7-fb92ae2f2d72.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922584-74529580-04f5-11eb-8bb6-eb0d9552c687.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922598-7a487680-04f5-11eb-80ff-9605b782bee7.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94922604-7ddbfd80-04f5-11eb-8e83-e5dacfc0b4ea.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-07-%EB%82%9C%EB%A5%98%EC%9C%A0%EB%8F%99.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-07-%EB%82%9C%EB%A5%98%EC%9C%A0%EB%8F%99.html</guid>
         
         <category>Dynamics</category>
         

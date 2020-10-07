@@ -807,11 +807,11 @@
     <b><em>14</em></b> 편 중 <b><em>6</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                                     
+                                                       
     <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-01-%EC%97%B0%EC%86%8D%EB%B0%A9%EC%A0%95%EC%8B%9D.html'">
       <span>Part 1 - 01: 연속 방정식 & 나비에-스톡스 방정식 (Continuity Equation & Navier-Stokes Equation)</span>
     </li>
-                                                     
+                                                       
     <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-02-Velocity-Profile.html'">
       <span>Part 2 - 02: 완전발달유동에서 속도 윤곽 (Velocity Profile in Fully Developed Flow)</span>
     </li>
@@ -827,7 +827,7 @@
     <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-05-%EB%A0%88%EC%9D%B4%EB%86%80%EC%A6%88-%EC%88%98.html'">
       <span>Part 5 - 05: 레이놀즈 수 유도  (Derive Reynolds Number)</span>
     </li>
-                                             
+                                           
     <li class="current">
       <span>Part 6 - This Post</span>
     </li>
@@ -835,7 +835,7 @@
     <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-07-%EB%82%9C%EB%A5%98%EC%9C%A0%EB%8F%99.html'">
       <span>Part 7 - 07: 난류 유동 (Tubulent Flow)</span>
     </li>
-                                       
+                                         
     <li onclick="location.href='/cs/dynamics/2020/10/02/Fluid-Mechanics-08-%EB%AC%B4%EB%94%94%EC%B0%A8%ED%8A%B8.html'">
       <span>Part 8 - 08: 무디 차트 (Moddy Chart & Colebrook Equation)</span>
     </li>
@@ -922,7 +922,7 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                    
+                                                                                                                                                                                                                        
   <div
     id="previous-post"
     class="post-nav-post"
@@ -931,7 +931,7 @@
     <p>PREVIOUS SERIES</p>
     <p>05: 레이놀즈 수 유도  (Derive Reynolds Number)</p>
   </div>
-                                                                    
+                                                                  
   <div
     id="next-post"
     class="post-nav-post"
@@ -940,7 +940,7 @@
     <p>NEXT SERIES</p>
     <p>07: 난류 유동 (Tubulent Flow)</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                
 </div>
 
 
@@ -973,6 +973,141 @@
 </p>
 </footer>
 
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
 
   </body>
 </html>

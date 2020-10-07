@@ -697,6 +697,30 @@
 <script>
   window.store = {
     
+      "dv-tips-2020-10-06-regex-02-ea-b0-84-eb-8b-a8-ed-95-9c-eb-a9-94-ed-83-80-eb-ac-b8-ec-9e-90-html": {
+        "title": "02: 간단한 메타문자",
+        "tags": "Tips, regex",
+        "date": "October 6, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "  원래 그 문자가 가진 뜻이 아닌 특별한 용도로 사용하는 문자문자 클래스 []  [ ] 사이에 있는 각각의 문자들에 대해 적어도 하나가 매치가 되는가?즉, 정규 표현식이 [abc]라면 이 표현식의 의미는 “a, b, c 중 한 개의 문자와 매치”를 뜻한다.  “a”는 정규식과 일치하는 문자인 “a”가 있으므로 매치  “before”는 정규식과 일치하는 문자인 “b”가 있으므로 매치  “dude”는 정규식과 일치하는 문자인 a, b, c 중 어느 하나도 포함하고 있지 않으므로 매치되지 않음[ ] 안의 두 문자 사이에 하이픈(-)을 사용하면 두 문자 사이의 범위(From - To)를 의미한다. 예를 들어 [a-c]라는 정규 표현식은 [abc]와 동일하고 [0-5]는 [012345]와 동일하다.  [a-zA-Z] : 알파벳 모두  [0-9] : 숫자문자 클래스([ ]) 안에는 어떤 문자나 메타 문자도 사용할 수 있다. 하지만..주의사항주의해야 할 메타 문자가 1가지 있다. 그것은 바로 ^인데, 문자 클래스 안에 ^ 메타 문자를 사용할 경우에는 반대(not)라는 의미를 갖는다. 예를 들어 [^0-9]라는 정규 표현식은 숫자가 아닌 문자만 매치된다.자주 사용하는 문자 클래스            메타문자      동일 표현식      설명                  \\d      [0-9]      숫자와 매치              \\D      [^0-9]      숫자가 아닌 것과 매치              \\s      [ \\t\\n\\r\\f\\v]      whitespace 문자(스페이스, 공백, tab)와 매치(맨 앞의 빈 칸은 공백문자(space)를 의미한다.)              \\S      [^ \\t\\n\\r\\f\\v]      whitespace 문자가 아닌 것과 매치              \\w      [a-zA-Z0-9_]      문자+숫자(alphanumeric)와 매치              \\W      [^a-za-z0-9_]      문자+숫자(alphanumeric)가 아닌 문자와 매치      대문자 사용은 소문자의 반대이다.Dot(.)  줄바꿈 문자인 \\n을 제외한 모든 문자와 매치됨을 의미, 단 하나라도 있어야 한다.사실, re.DOTALL 옵션을 주면 \\n 문자와도 매치된다. 일단 예제를 보며 이해해보자.            정규식      의미                  a.b      “a + 모든문자 + b”      즉, a와 b라는 문자 사이에 어떤 문자가 들어가도 모두 매치된다는 의미이다. 문자열 “aab”, “a0b”, “abc”가 정규식 a.b와 어떻게 매치되는지 살펴보자.  “aab”는 가운데 문자 “a”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.  “a0b”는 가운데 문자 “0”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.  “abc”는 “a”문자와 “b”문자 사이에 어떤 문자라도 하나는 있어야 하는 이 정규식과 일치하지 않으므로 매치되지 않는다.마지막이 헷갈린다. 조심하도록 하자. 그런데 만약 “.” 문자 자체와 매칭이 되길 원한다면 어떻게 해야할까?            정규식      의미                  a[.]b      “a + Dot(.)문자 + b”      정규식 a[.]b는 “a.b” 문자열과 매치되고, “a0b” 문자열과는 매치되지 않는다. 혼동하지 말자.반복(*)  특정 문자가 0부터 무한대까지의 반복을 매칭한다.            정규식      문자열      Match 여부      설명                  ca*t      ct      Yes      “a”가 0번 반복되어 매치              ca*t      cat      Yes      “a”가 0번 이상 반복되어 매치 (1번 반복)              ca*t      caaat      Yes      “a”가 0번 이상 반복되어 매치 (3번 반복)      반복(+)  특정 문자가 1부터 무한대까지의 반복을 매칭한다.            정규식      문자열      Match 여부      설명                  ca+t      ct      No      “a”가 0번 반복되어 매치되지 않음              ca+t      cat      Yes      “a”가 0번 이상 반복되어 매치 (1번 반복)              ca+t      caaat      Yes      “a”가 0번 이상 반복되어 매치 (3번 반복)      반복({n,m})  특정 문자가 n이상 m이하 반복 횟수인 경우 매칭한다.{ } 메타 문자를 사용하면 반복 횟수를 고정할 수 있다. {m, n} 정규식을 사용하면 반복 횟수가 m부터 n까지 매치할 수 있다. 또한 m 또는 n을 생략할 수도 있다. 만약 {3,}처럼 사용하면 반복 횟수가 3 이상인 경우이고 {,3}처럼 사용하면 반복 횟수가 3 이하를 의미한다. 생략된 m은 0과 동일하며, 생략된 n은 무한대(2억 개 미만)의 의미를 갖는다.{1,}은 +와 동일하고, {0,}은 *와 동일하다. 이 부분을 언급하는 이유는, 굳이 저런 표현보다는 +, *을 사용하는 것이 직관적이기 때문이다.{n}  반드시 n번 반복.            정규식      문자열      Match 여부      설명                  ca{2}t      cat      No      “a”가 1번만 반복되어 매치되지 않음              ca{2}t      caat      Yes      “a”가 2번 반복되어 매치      {n, m}  n~m 번 반복.            정규식      문자열      Match 여부      설명                  ca{2,5}t      cat      No      “a”가 1번만 반복되어 매치되지 않음              ca{2,5}t      caat      Yes      “a”가 2번 반복되어 매치              ca{2,5}t      caaaaat      Yes      “a”가 5번 반복되어 매치      ?  있어도 되고 없어도 된다.            정규식      문자열      Match 여부      설명                  ab?c      abc      Yes      “b”가 1번 사용되어 매치              ab?c      ac      Yes      “b”가 0번 사용되어 매치      ",
+        
+        "url": "/dv/tips/2020/10/06/regex-02-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-06-regex-01-ea-b0-9c-eb-85-90-ec-9e-a1-ea-b8-b0-html": {
+        "title": "01: 개념잡기",
+        "tags": "Tips, regex",
+        "date": "October 6, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "개념  특정한 규칙을 가진 문자열의 집합을 표현하기 위해 쓰이는 형식언어프로그래밍을 다루다 보면 가장 많이 만나게 되는 것이 문자열이다. 모든 것이 문자열로 나타나 있고, 이것을 기반으로 한 규칙으로 프로그램이 구동되기 때문이다. 또한 특정한 정보를 다루기 위해서라도 우리는 이 문자열을 다루고 추출해야 한다. 이러한 수요는 끊임없이 계속되어 왔다.역사와 종류  개발 새발이다. 너무 다양해.정규 표현식은 다양한 분야에서 쓰였다. 그리고 각각의 분야에서 발생한 정규식은 서로에게 영향을 주었다. 보통 이러면 하나의 통일된 표준이 나올법도 한데, 그렇지 않다.유닉스 명령줄 도구들에서 사용하던 정규 표현식은 후에 POSIX 표준에 편입되었다. 그러면서 이 시기의 표준으로 받아들여진 형식을 POSIX 정규식이라고 한다. 그리고 이후에 다시 POSIX 정규식은 POSIX BRE (POSIX 기본 정규식)와 POSIX ERE (POSIX 확장 정규식)으로 다른 버전이 나뉘게 된다. (grep에서 -e 스위치를 써서 확장 정규식을 쓰던 옵션이 바로 ERE를 쓴다는 의미이다.) 그 외에 BRE를 기본 골격으로 한 vim 정규식이 있다. 이 vim 정규식은 vim 편집기 내에서 찾기/바꾸기 등의 동작에서 범위를 지정하는데 사용된다. 하지만 오랜 역사를 따라 개선과 확장을 거듭하면서 이 vim 정규식 역시 POSIX 표준과는 좀 다른 규격으로 취급될 정도이다. (심지어 vim 내에서도 magic 모드, very magic 모드라는 것이 있어서 이후의 확장 정규식의 일부 기능을 사용하거나, 일부 punctuation 문자를 매칭하는 방법이 다시 갈리게 되는 지경이다.)그리고 문자열을 다루는데 특화된 스크립트 언어인 펄(perl)이 등장했다. 펄의 정규식 체계는 역시나 기본은 POSIX와 비슷한 골격에서 디자인되어 있다. 그런데 엄청나게 많은 확장이 들어갔다. 펄의 정규식은 PCRE라는 규격으로 정리되었으며, 이후 많은 프로그래밍 언어들이 이 규격을 차용하거나 계승한다. 여기서 중요한 것은 “일부 차용”이다. 이 규격은 워낙 방대해서 PCRE를 그대로 가져다 쓰지 않는 이상, 구현할 게 너무 많기 때문이다.Reference정규표현식의 개념과 기초 문법",
+        
+        "url": "/dv/tips/2020/10/06/regex-01-%EA%B0%9C%EB%85%90%EC%9E%A1%EA%B8%B0.html"
+      }
+      ,
+    
       "ds-calculus-2020-10-02-partial-differential-equations-14-function-in-complex-numbers-html": {
         "title": "14: 함수의 복소적 표현 (Function in Complex Numbers)",
         "tags": "Math, Differential Equation",
@@ -2678,7 +2702,7 @@
       ,
     
       "ds-statistics-2020-05-15-ed-86-b5-ea-b3-84-ea-b0-9c-eb-85-90-ec-a0-95-eb-a6-ac-07-ed-99-95-eb-a5-a0-html": {
-        "title": "06: 확률",
+        "title": "07: 확률",
         "tags": "DS, Statistics, probability",
         "date": "May 15, 2020",
         "author": "",
@@ -2690,12 +2714,12 @@
       ,
     
       "ds-statistics-2020-05-15-ed-86-b5-ea-b3-84-ea-b0-9c-eb-85-90-ec-a0-95-eb-a6-ac-06-ed-91-9c-eb-b3-b8-ec-b6-94-ec-b6-9c-eb-b0-a9-eb-b2-95-html": {
-        "title": "05: 표본 추출 방법",
+        "title": "06: 표본 추출 방법",
         "tags": "DS, Statistics, sampling",
         "date": "May 15, 2020",
         "author": "",
         "category": "DS/Statistics",
-        "content": "모집단을 추정하기 위한 표본을 추출하는 방법에 대해 알아본다.표본 추출  단순 랜덤 추출          단순히 랜덤하게 모집단에서 추출하는 방법이다. 집단의 분포가 불균형할 경우 모집단의 특성을 대변하지 못한다는 단점이 있다.        층화 랜덤 추출          모집단의 분포를 고려하여 표본을 추출한다.        군집 추출법          대상의 클래스를 알 수 없을 때, 군집화를 한 상태에서 추출한다.      표본 추출 오차, 비표본 추출 오차      표본 추출 오차(sampling error)          표본을 선택하는 데 있어, 모집단을 대변하지 못하여 발생하는 오차이다.      추출하는 표본의 크기를 증가시키면 감소한다.            비표본 추출 오차(nonsampling error)          데이터 수집에 있어 발생하는 실수나 제어할 수 없는 에러를 의미한다.      이 부분은 제어할 수 없기 때문에 안고가야하는 부분이다. 최대한 좋은 데이터를 만드는 것이 좋다.      ",
+        "content": "모집단을 추정하기 위한 표본을 추출하는 방법에 대해 알아본다.표본 추출  단순 랜덤 추출          단순히 랜덤하게 모집단에서 추출하는 방법이다. 집단의 분포가 불균형할 경우 모집단의 특성을 대변하지 못한다는 단점이 있다.        층화 랜덤 추출          모집단의 분포를 고려하여 표본을 추출한다.        군집 추출법          대상의 클래스를 알 수 없을 때, 군집화를 한 상태에서 추출한다.      표본 추출 오차, 비표본 추출 오차  표본 추출 오차(sampling error)          표본을 선택하는 데 있어, 모집단을 대변하지 못하여 발생하는 오차이다.      추출하는 표본의 크기를 증가시키면 감소한다.        비표본 추출 오차(nonsampling error)          데이터 수집에 있어 발생하는 실수나 제어할 수 없는 에러를 의미한다.      이 부분은 제어할 수 없기 때문에 안고가야하는 부분이다. 최대한 좋은 데이터를 만드는 것이 좋다.      ",
         
         "url": "/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-06-%ED%91%9C%EB%B3%B8%EC%B6%94%EC%B6%9C%EB%B0%A9%EB%B2%95.html"
       }
@@ -4387,6 +4411,141 @@
 </p>
 </footer>
 
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
 
   </body>
 </html>

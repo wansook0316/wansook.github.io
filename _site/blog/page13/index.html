@@ -684,7 +684,7 @@
         뚜렷한 목표, 치밀한 계획, 우직한 실천
       </p>
       <p class="meta">
-        Total Number of Posts : 306
+        Total Number of Posts : 308
       </p>
     </div>
     </header>
@@ -705,6 +705,66 @@
 
 
   <div class="posts">
+    
+      <div class="post-teaser list-box" style="cursor: pointer;" onclick= "location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html';" >
+        <header>
+          <h2 class="categorized-post__title">
+            <a class="post-link" href="/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html">
+            
+              
+               05: Aspects of Matrix Multiplication (행렬 곱셈의 여러 측면)
+               </a>
+          </h2>
+          <p class="meta">
+            DS/LA 
+            
+                - Linear Algebra Basic
+            
+          </p>
+          <p class="meta">
+            
+            September 29, 2020
+          </p>
+        </header>
+        <div class="excerpt">
+          
+            
+              행렬을 분해하는 방법 중 하나인 LU Decomposition에 대해 알아보자.
+            
+          
+          
+        </div>
+      </div>
+    
+      <div class="post-teaser list-box" style="cursor: pointer;" onclick= "location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html';" >
+        <header>
+          <h2 class="categorized-post__title">
+            <a class="post-link" href="/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html">
+            
+              
+               04: LU Decomposition (LU 분해)
+               </a>
+          </h2>
+          <p class="meta">
+            DS/LA 
+            
+                - Linear Algebra Basic
+            
+          </p>
+          <p class="meta">
+            
+            September 29, 2020
+          </p>
+        </header>
+        <div class="excerpt">
+          
+            
+              행렬을 분해하는 방법 중 하나인 LU Decomposition에 대해 알아보자.
+            
+          
+          
+        </div>
+      </div>
     
       <div class="post-teaser list-box" style="cursor: pointer;" onclick= "location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html';" >
         <header>
@@ -796,66 +856,6 @@
         </div>
       </div>
     
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick= "location.href='/dv/tips/2020/09/28/Naming-Rules-03-%EB%93%A4%EC%97%AC%EC%93%B0%EA%B8%B0.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/dv/tips/2020/09/28/Naming-Rules-03-%EB%93%A4%EC%97%AC%EC%93%B0%EA%B8%B0.html">
-            
-              
-               03: 들여쓰기
-               </a>
-          </h2>
-          <p class="meta">
-            DV/Tips 
-            
-                - Naming Rules
-            
-          </p>
-          <p class="meta">
-            
-            September 28, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          
-            
-              코드를 작성할 때의 모양을 결정하는 들여쓰기 규칙을 알아본다.
-            
-          
-          
-        </div>
-      </div>
-    
-      <div class="post-teaser list-box" style="cursor: pointer;" onclick= "location.href='/dv/tips/2020/09/28/Naming-Rules-02-%ED%8A%B9%EC%A0%95-%EB%AA%85%EB%AA%85-%EA%B7%9C%EC%B9%99.html';" >
-        <header>
-          <h2 class="categorized-post__title">
-            <a class="post-link" href="/dv/tips/2020/09/28/Naming-Rules-02-%ED%8A%B9%EC%A0%95-%EB%AA%85%EB%AA%85-%EA%B7%9C%EC%B9%99.html">
-            
-              
-               02: 특정한 명명 규칙
-               </a>
-          </h2>
-          <p class="meta">
-            DV/Tips 
-            
-                - Naming Rules
-            
-          </p>
-          <p class="meta">
-            
-            September 28, 2020
-          </p>
-        </header>
-        <div class="excerpt">
-          
-            
-              일반적인 규칙을 제외하고, 특이한 경우를 알아본다.
-            
-          
-          
-        </div>
-      </div>
-    
   </div>
 
   
@@ -885,6 +885,141 @@
 </p>
 </footer>
 
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
 
   </body>
 </html>

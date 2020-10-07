@@ -807,11 +807,11 @@
     <b><em>13</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                                             
+                                                               
     <li onclick="location.href='/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-01-%EC%84%9C%EB%A1%A0.html'">
       <span>Part 1 - 01: 주요 개념</span>
     </li>
-                                                   
+                                                     
     <li onclick="location.href='/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-02-%EC%A4%91%EC%8B%AC%EC%9D%84-%EB%82%98%ED%83%80%EB%82%B4%EB%8A%94-%EB%B0%A9%EB%B2%95.html'">
       <span>Part 2 - 02: 중심을 나타내는 방법</span>
     </li>
@@ -827,15 +827,15 @@
     <li onclick="location.href='/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%EA%B4%80%EA%B3%84%EC%9D%98-%EC%B2%99%EB%8F%84.html'">
       <span>Part 5 - 05: 선형관계의 척도</span>
     </li>
-             
+                                           
     <li onclick="location.href='/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-06-%ED%91%9C%EB%B3%B8%EC%B6%94%EC%B6%9C%EB%B0%A9%EB%B2%95.html'">
-      <span>Part 6 - 05: 표본 추출 방법</span>
+      <span>Part 6 - 06: 표본 추출 방법</span>
     </li>
-                                       
+                                     
     <li onclick="location.href='/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-07-%ED%99%95%EB%A5%A0.html'">
-      <span>Part 7 - 06: 확률</span>
+      <span>Part 7 - 07: 확률</span>
     </li>
-                                                             
+                                 
     <li onclick="location.href='/ds/statistics/2020/05/15/%ED%86%B5%EA%B3%84%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC-08-%ED%99%95%EB%A5%A0%EB%B6%84%ED%8F%AC.html'">
       <span>Part 8 - 08: 확률 변수</span>
     </li>
@@ -976,7 +976,7 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                         
+                                                                                                             
   <div
     id="previous-post"
     class="post-nav-post"
@@ -1027,6 +1027,141 @@
 </p>
 </footer>
 
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
 
   </body>
 </html>
