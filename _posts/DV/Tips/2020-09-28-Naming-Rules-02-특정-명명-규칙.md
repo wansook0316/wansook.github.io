@@ -3,7 +3,7 @@ layout: post
 title: "02: 특정한 명명 규칙"
 category: "DV/Tips"
 comments: true
-tags: [Naming]
+tags: [Tips, Naming]
 feature-img: "assets/img/1.jpg"
 feature-title:
 use_math: true

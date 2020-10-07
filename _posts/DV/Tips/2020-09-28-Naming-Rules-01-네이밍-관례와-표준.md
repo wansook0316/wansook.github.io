@@ -3,7 +3,7 @@ layout: post
 title: "01: 네이밍 관례와 표준"
 category: "DV/Tips"
 comments: true
-tags: [Naming]
+tags: [Tips, Naming]
 feature-img: "assets/img/1.jpg"
 feature-title:
 use_math: true

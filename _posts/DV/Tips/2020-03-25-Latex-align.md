@@ -3,7 +3,7 @@ layout: post
 title: Latex equation 예쁘게 맞추기
 category: "DV/Tips"
 comments: true
-tags: [LaTex]
+tags: [Tips, LaTex]
 feature-img: "assets/img/31.jpg"
 feature-title:
 use_math: true
