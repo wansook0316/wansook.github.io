@@ -6,9 +6,814 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 07 Oct 2020 10:06:33 +0900</pubDate>
-    <lastBuildDate>Wed, 07 Oct 2020 10:06:33 +0900</lastBuildDate>
+    <pubDate>Thu, 08 Oct 2020 11:33:25 +0900</pubDate>
+    <lastBuildDate>Thu, 08 Oct 2020 11:33:25 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title> [Regular Expression] 08: Grouping(그루핑)</title>
+        <description> 그룹을 지어 검색을 진행할 수 있는 그루핑에 대해서 알아보자. : &lt;p&gt;특정 문자열이 반복되는지에 대해서 알기 위해서는 어떠한 정규식을 작성해야 할까? 우리가 앞에서 배운 내용으로는 할 수 없다. 이렇게 특정 문자열이 단위로 구성되어 검색을 진행하고 싶을 때 사용하는 것이 그루핑이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ABC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'(ABC)+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ABCABCABC OK?'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ABCABCABC'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ABCABCABC&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;()&lt;/code&gt;을 사용하여 간단하게 그루핑을 진행할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;의미론적으로-그루핑하기&quot;&gt;의미론적으로 그루핑하기&lt;/h1&gt;
+
+&lt;p&gt;이렇게 묶어서 무언가를 관리할 수 있다면 추가적으로 이점이 생긴다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;\w+\s+\d+[-]\d+[-]\d+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 작성하게 되면, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;이름 + &quot; &quot; + 전화번호&lt;/code&gt; 형태의 문자열을 찾을 수 있다. 그런데 여기서 이름만 뽑아내고 싶다면 어떻게 해야할까? 사실 위의 반복의 목적보다 이런 의미론적으로 묶어서 뽑아내고자 하는 목적인 경우가 더 많다. 이 때 그루핑을 사용해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;(\w+)\s+\d+[-]\d+[-]\d+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;park&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이름에 해당하는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\w+&lt;/code&gt; 부분을 그룹 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(\w+)&lt;/code&gt;으로 만들면 match 객체의 group(인덱스) 메서드를 사용하여 그루핑된 부분의 문자열만 뽑아낼 수 있다. group 메서드의 인덱스는 다음과 같은 의미를 갖는다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;group(인덱스)&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;group(0)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;매치된 전체 문자열&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;group(1)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;첫 번째 그룹에 해당되는 문자열&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;group(2)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;두 번째 그룹에 해당되는 문자열&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;group(n)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;n 번째 그룹에 해당되는 문자열&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;(\w+)\s+(\d+[-]\d+[-]\d+)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;010&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 하면 총 2개의 그룹이 발생하고, 전화번에 해당하는 부분에 접근하고 싶으면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;group(2)&lt;/code&gt;를 사용하면 된다. 그럼 전화번호에서 통신사 번호를 뽑아내고자 하면 어떻게 할까?&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;(\w+)\s+((\d+)[-]\d+[-]\d+)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;010&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 예제에서 알 수 있는 것은 group을 중첩하여 사용하는 것이 가능하다는 것이다. 이런 경우 바깥쪽에서 안쪽으로 들어갈 수록 group의 index가 증가한다. zero-width assertion이기 때문에 이 모든 작업이 가능하다는 것을 염두해두자.&lt;/p&gt;
+
+&lt;h1 id=&quot;그루핑된-문자열-재참조하기&quot;&gt;그루핑된 문자열 재참조하기&lt;/h1&gt;
+
+&lt;p&gt;그룹의 또 하나 좋은 점은 한 번 그루핑한 문자열을 재참조(Backreferences)할 수 있다는 점이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'(\b\w+)\s+\1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Paris in the the spring'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;'the the'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정규식 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(\b\w+)\s+\1&lt;/code&gt;은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(그룹) + &quot; &quot; + 그룹과 동일한 단어&lt;/code&gt;와 매치됨을 의미한다. 이렇게 정규식을 만들게 되면 2개의 동일한 단어를 연속적으로 사용해야만 매치된다. 이것을 가능하게 해주는 것이 바로 재참조 메타 문자인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\1&lt;/code&gt;이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\1&lt;/code&gt;은 정규식의 그룹 중 첫 번째 그룹을 가리킨다. 두 번째 그룹을 참조하려면 \2를 사용하면 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;그루핑된-문자열에-이름-붙이기&quot;&gt;그루핑된 문자열에 이름 붙이기&lt;/h1&gt;
+
+&lt;p&gt;정규식 안에 그룹이 무척 많아진다고 생각해 보자. 예를 들어 정규식 안에 그룹이 10개 이상만 되어도 매우 혼란스러울 것이다. 거기에 더해 정규식이 수정되면서 그룹이 추가, 삭제되면 그 그룹을 인덱스로 참조한 프로그램도 모두 변경해 주어야 하는 위험도 갖게 된다. 만약 그룹을 인덱스가 아닌 이름(Named Groups)으로 참조할 수 있다면 어떨까? 즉 딕셔너리와 같은 형식이다. 그렇다면 이런 문제에서 해방되지 않을까?&lt;/p&gt;
+
+&lt;p&gt;이러한 이유로 정규식은 그룹을 만들 때 그룹 이름을 지정할 수 있게 했다. 그 방법은 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(?P&amp;lt;name&amp;gt;\w+)\s+((\d+)[-]\d+[-]\d+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 정규식은 앞에서 본 이름과 전화번호를 추출하는 정규식이다. 기존과 달라진 부분은 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(\w+) --&amp;gt; (?P&amp;lt;name&amp;gt;\w+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;대단히 복잡해진 것처럼 보이지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(\w+)&lt;/code&gt;라는 그룹에 name이라는 이름을 붙인 것에 불과하다. 여기에서 사용한 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?...)&lt;/code&gt; 표현식은 정규 표현식의 확장 구문이다. 이 확장 구문을 사용하기 시작하면 가독성이 상당히 떨어지긴 하지만 반면에 강력함을 갖게 된다. 그룹에 이름을 지어 주려면 다음과 같은 확장 구문을 사용해야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(?P&amp;lt;그룹명&amp;gt;...)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그룹에 이름을 지정하고 참조하는 다음 예를 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;(?P&amp;lt;name&amp;gt;\w+)\s+((\d+)[-]\d+[-]\d+)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;park&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예에서 볼 수 있듯이 name이라는 그룹 이름으로 참조할 수 있다. 그룹 이름을 사용하면 정규식 안에서 재참조하는 것도 가능하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'(?P&amp;lt;word&amp;gt;\b\w+)\s+(?P=word)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Paris in the the spring'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;'the the'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예에서 볼 수 있듯이 재참조할 때에는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?P=그룹이름)&lt;/code&gt;이라는 확장 구문을 사용해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/08/regex-08-%EA%B7%B8%EB%A3%A8%ED%95%91.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/08/regex-08-%EA%B7%B8%EB%A3%A8%ED%95%91.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        <category>Assertions</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 07: 다양한 메타문자</title>
+        <description> 더 다양한 종류의 메타문자에 대해서 알아보자. : &lt;h1 id=&quot;문자열-소비&quot;&gt;문자열 소비&lt;/h1&gt;
+
+&lt;p&gt;정규식을 공부하다 보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Assertion&lt;/code&gt; 이라는 단어를 자주 보게된다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Assertion&lt;/code&gt;이라는 단어는 검사, 검증, 확인 이라는 의미를 갖고 있다. 결과적으로 어떤 것을 검사하겠다는 의미로 많이 사용한다. 그런데 Zero-width는 무엇인가? 너비가 없다는 의미인데 왜 이런 추상적인 단어를 썼는지는 아직도 모르겠다. 하지만 말을 끼워 맞춰서 연상을 쉽게 해보도록 하자.&lt;/p&gt;
+
+&lt;p&gt;이 개념을 알기 전에 우리가 알아야 할 것이 있다. 지금 이 글을 앞의 메타 문자와 따로 쓴 이유가 여기에 있다. 앞에서 배운 메타문자를 사용하게 되면 우리는 &lt;strong&gt;문자열을 소비&lt;/strong&gt;한다. 이게 무슨 소리일까.&lt;/p&gt;
+
+&lt;p&gt;이 굉장히 추상적인 개념은 예시를 들어 한번만 생각하면 굉장히 쉽게 이해가 가능하다. 예를 들어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;아버지가방에들어간다&lt;/code&gt; 라는 문자열이 있다고 해보자. 내가 궁금한 정보는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;가방&lt;/code&gt;을 찾고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;방에&lt;/code&gt; 를 찾고 싶다. 이러한 문제에 대해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[가방]&lt;/code&gt; 이렇게 정규식을 작성하고 검색을 진행했을 때, 정규식 엔진이 어떤 방식으로 구동하는지를 따라가 보자.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;아버지&lt;/code&gt; 부분 까지는 매치가 되지 않으므로 그냥 지나간다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;가방&lt;/code&gt;을 확인하고는 매치되었으므로 문자열을 &lt;strong&gt;소비&lt;/strong&gt;해 버린다. 즉 없애 버린다와 같은 개념으로 보는 것이다.&lt;/li&gt;
+  &lt;li&gt;소비된 문자열은 쳐다도 안보고 그 다음 문자열인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;에들어간다&lt;/code&gt; 라는 문자열에 대해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;가방&lt;/code&gt; 문자열을 찾는다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;가방&lt;/code&gt;을 찾는 정규표현식은 끝난다.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;방에&lt;/code&gt;를 찾는 정규표현식이 시작되고, 찾지 못한 상태로 끝난다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이 예시를 보다보면, 소비라는 것이 어떤 의미로 사용되었는지 이해할 수 있다. 즉, 매치가 되는 경우 해당 부분이 없어지게 된다. 정말 &lt;strong&gt;소비&lt;/strong&gt;라는 단어에 걸맞는 행동이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;zero-width-assertion&quot;&gt;Zero-width Assertion&lt;/h1&gt;
+
+&lt;p&gt;그렇다면, 너비가 없는 확인 이라는 의미의 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Zero-width Assertion&lt;/code&gt;은 무엇일까. 위에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;가방&lt;/code&gt;이라는 단어는 2의 너비를 가진다고 볼 수 있다. 그리고 매칭이 되었을 때, 이 2의 너비에 해당하는 문자열이 소비된다. 이러한 관점에서 보았을 때, 0의 너비를 가진다고 함은, 검증을 진행하는데 있어 &lt;strong&gt;소비가 되는 문자열이 없다&lt;/strong&gt;라는 의미로 와닿는다. 결과적으로 이러한 해석이 맞으며, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Zero-width Assertion&lt;/code&gt;는 검색을 진행하는데 있어 위에서 알아본 문자열 소비가 없는 방법을 말한다. 이제 이러한 종류의 메타 문자에 대해서 알아보자.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;^ 또는 $ 문자를 메타 문자가 아닌 문자 그 자체로 매치하고 싶은 경우에는 \^, $ 로 사용하면 된다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;메타문자&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt;또는 이라는 의미 (Or)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;^&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 맨 처음과 일치하는가?(옵션에 따라 의미가 다름)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 맨 끝과 일치하는가?(옵션에 따라 의미가 다름)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\A&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 맨 처음과 일치하는가?(옵션에 따라 의미가 다름)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\Z&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 맨 끝과 일치하는가?(옵션에 따라 의미가 다름)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\b&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;단어 구분자(whitespace)&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\B&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;whitespace가 양쪽에 없는(사실 단어라고 볼수는 없다) 경우에 해당 문자가 있는 경우 매치&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2&gt;|&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;메타 문자는 or과 동일한 의미로 사용된다. A&lt;/td&gt;
+      &lt;td&gt;B라는 정규식이 있다면 A 또는 B라는 의미가 된다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Crow|Servo'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'CrowHello'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Crow'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;-1&quot;&gt;^&lt;/h2&gt;
+
+&lt;p&gt;메타 문자는 문자열의 맨 처음과 일치함을 의미한다. 앞에서 살펴본 컴파일 옵션 re.MULTILINE을 사용할 경우에는 여러 줄의 문자열일 때 각 줄의 처음과 일치하게 된다.&lt;/p&gt;
+
+&lt;p&gt;다음 예를 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'^Life'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Life is too short'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Life'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'^Life'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'My Life'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^Life&lt;/code&gt; 정규식은 Life 문자열이 처음에 온 경우에는 매치하지만 처음 위치가 아닌 경우에는 매치되지 않음을 알 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;-2&quot;&gt;$&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt; 메타 문자는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt; 메타 문자와 반대의 경우이다. 즉 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;는 문자열의 끝과 매치함을 의미한다. 다음 예를 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'short$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Life is too short'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'short'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'short$'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Life is too short, you need python'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;short$&lt;/code&gt; 정규식은 검색할 문자열이 short로 끝난 경우에는 매치되지만 그 이외의 경우에는 매치되지 않음을 알 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;a&quot;&gt;\A&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\A&lt;/code&gt;는 문자열의 처음과 매치됨을 의미한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt; 메타 문자와 동일한 의미이지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.MULTILINE&lt;/code&gt; 옵션을 사용할 경우에는 다르게 해석된다. re.MULTILINE 옵션을 사용할 경우 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt;은 각 줄의 문자열의 처음과 매치되지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\A&lt;/code&gt;는 줄과 상관없이 전체 문자열의 처음하고만 매치된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;z&quot;&gt;\Z&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\Z&lt;/code&gt;는 문자열의 끝과 매치됨을 의미한다. 이것 역시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\A&lt;/code&gt;와 동일하게 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.MULTILINE&lt;/code&gt; 옵션을 사용할 경우 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt; 메타 문자와는 달리 전체 문자열의 끝과 매치된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;b&quot;&gt;\b&lt;/h2&gt;
+
+&lt;p&gt;\b는 단어 구분자(Word boundary)이다. 보통 단어는 whitespace에 의해 구분된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'\bclass\b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'no class at all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'class'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\bclass\b&lt;/code&gt; 정규식은 앞뒤가 whitespace로 구분된 class라는 단어와 매치됨을 의미한다. 따라서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;no class at all&lt;/code&gt;의 class라는 단어와 매치됨을 확인할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'the declassified algorithm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예의 the declassified algorithm 문자열 안에도 class 문자열이 포함되어 있긴 하지만 whitespace로 구분된 단어가 아니므로 매치되지 않는다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'one subclass is'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;subclass 문자열 역시 class 앞에 sub 문자열이 더해져 있으므로 매치되지 않음을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\b&lt;/code&gt; 메타 문자를 사용할 때 주의해야 할 점이 있다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\b&lt;/code&gt;는 파이썬 리터럴 규칙에 의하면 &lt;strong&gt;백스페이스(BackSpace)를 의미&lt;/strong&gt;하므로 백스페이스가 아닌 단어 구분자임을 알려 주기 위해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r'\bclass\b'&lt;/code&gt;처럼 Raw string임을 알려주는 기호 r을 반드시 붙여 주어야 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;b-1&quot;&gt;\B&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\B&lt;/code&gt; 메타 문자는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\b&lt;/code&gt; 메타 문자와 반대의 경우이다. 즉 whitespace로 구분된 단어가 아닌 경우에만 매치된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'\Bclass\B'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'no class at all'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'the declassified algorithm'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'class'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'one subclass is'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;class 단어의 앞뒤에 whitespace가 하나라도 있는 경우에는 매치가 안 되는 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/08/regex-07-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/08/regex-07-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        <category>Assertions</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 06: 파이썬 백슬래시 문제</title>
+        <description> 정규 표현식을 파이썬에서 사용할 때 발생하는 문제인 백슬래시 문제를 알아본다. : &lt;p&gt;앞에서 정규식을 표현할 때 우리는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt; 문자를 사용했다. 하지만 내가 정규식을 작성하는 데 있어서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt;문자 자체를 찾고 싶다면 어떻게 해야할까?&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;\section
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이렇게 정규식을 작성하게 되면 문제가 발생한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\s&lt;/code&gt; 부분이 whitespace로 해석되어 의도한 대로 매치가 이루어지지 않는다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[ \t\n\r\f\v]ection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;즉, 위와 같은 의미로 해석된다. 이러한 문제에 대해서 해결하고 싶다면 아래와 같게 작성해야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;\\section
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;파이썬의-문제&quot;&gt;파이썬의 문제&lt;/h1&gt;
+
+&lt;p&gt;위의 과정까지는 아무런 문제가 없다. 하지만 파이썬에서 정규식을 저렇게 작성하면 문제가 발생한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;section'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;파이썬 정규식 엔진에는 파이썬 문자열 리터럴 규칙에 따라 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\&lt;/code&gt;이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt;로 변경되어 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\section&lt;/code&gt;이 전달된다. 유닉스의 grep, vi 등에서는 이러한 문제가 없다. 파이썬에서 사용할 때만 발생한다(파이썬의 리터럴 규칙) 결국 정규식 엔진에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;//&lt;/code&gt;문자를 전달하기 위해서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\\\\&lt;/code&gt; 이렇게 전달해야 한다.(~~ㅠ~~) 정규식 엔진은 정규식을 해석하고 수행하는 모듈이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\\\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;section'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정말 번거롭다. 이쁘지도 않고. 이렇게 이해하기 어려운 정규식에 대해서 사람들은 짜증을 표현했다. 이러한 문제로 인해 파이썬 정규식에는 Raw String 규칙이 생겨나게 되었다. 즉 컴파일해야 하는 정규식이 Raw String임을 알려 줄 수 있도록 파이썬 문법을 만든 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'\\section'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위와 같이 정규식 문자열 앞에 r 문자를 삽입하면 이 정규식은 Raw String 규칙에 의하여 백슬래시 2개 대신 1개만 써도 2개를 쓴 것과 동일한 의미를 갖게 된다. 결과적으로 백슬래시를 사용하여 검색을 진행하고자 할때는 raw 표현을 쓰는 것이 좋다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/08/regex-06-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EB%B0%B1%EC%8A%AC%EB%9E%98%EC%8B%9C-%EB%AC%B8%EC%A0%9C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/08/regex-06-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EB%B0%B1%EC%8A%AC%EB%9E%98%EC%8B%9C-%EB%AC%B8%EC%A0%9C.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 05: Compile Option</title>
+        <description> 정규식을 컴파일 할 때, 추가적인 옵션을 주는 방법을 알아보자. : &lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
+
+&lt;p&gt;지금까지는 간단한 정규식을 살펴 보았지만, 실제로 존재하는 다양한 문자열에서 정보를 뽑아내기 위해서는 추가적인 옵션이 필요하다. 예를 들어 쇼핑몰의 상품 리뷰를 사용자가 작성했다고 한다. 우리는 여기서 핵심적인 단어를 뽑아내야 한다. 하지만 이런 리뷰는 문자열은 맞지만, 전체적으로 보았을 때 줄바꿈 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;)가 포함되어 있다. 줄바꿈 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;)는 이전에 배운 문자열에서 매치되지 않는 경우이다. 이렇게 어떤 문자열이냐에 따라서 우리는 검색 조건을 달리해야 한다. 이런 문제점을 기반으로 정규식을 컴파일할 때 사용할 수 있는 옵션을 소개한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;option&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;describtion&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;DOTALL(S)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;메타문자 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; 가 줄바꿈 문자를 포함하여 모든 문자와 매치할 수 있도록 한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;IGNORECASE(I)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;대소문자에 관계없이 매치할 수 있도록 한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;MULTILINE(M)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;여러줄과 매치할 수 있도록 한다. (^, $ 메타문자의 사용과 관계가 있는 옵션이다)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;VERBOSE(X)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;verbose 모드를 사용할 수 있도록 한다. (정규식을 보기 편하게 만들수 있고 주석등을 사용할 수 있게된다.)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;옵션을 사용할 때는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.DOTALL&lt;/code&gt;처럼 전체 옵션 이름을 써도 되고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.S&lt;/code&gt;처럼 약어를 써도 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;dotalls&quot;&gt;DOTALL(S)&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;메타문자 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; 가 줄바꿈 문자를 포함하여 모든 문자와 매치할 수 있도록 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; 메타 문자는 &lt;strong&gt;줄바꿈 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;)를 제외한&lt;/strong&gt; 모든 문자와 매치되는 규칙이 있다. 만약 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt; 문자도 포함하여 매치하고 싶다면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.DOTALL&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.S&lt;/code&gt; 옵션을 사용해 정규식을 컴파일하면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a.b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위의 예를 보면, 컴파일 옵션을 주지 않은 경우 메타문자 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt;는 줄바꿈 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;)와 매치되지 않음을 알 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a.b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DOTALL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01FCF3D8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이번에는 옵션을 준 경우이다. 줄바꿈 문자도 포함하여 결과에 반영한 것을 알 수 있다. 보통 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.DOTALL&lt;/code&gt; 옵션은 여러 줄로 이루어진 문자열에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;에 상관없이 검색할 때 많이 사용한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;ignorecase-i&quot;&gt;IGNORECASE, I&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;대소문자에 관계없이 매치할 수 있도록 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.IGNORECASE&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.I&lt;/code&gt; 옵션은 대소문자 구별 없이 매치를 수행할 때 사용하는 옵션이다. 다음 예제를 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[a-z]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;I&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'python'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01FCFA30&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Python'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01FCFA68&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'PYTHON'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01FCF9F8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-z]&lt;/code&gt; 정규식은 소문자만을 의미하지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.I&lt;/code&gt; 옵션으로 대소문자 구별 없이 매치된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;multiline-m&quot;&gt;MULTILINE, M&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;여러줄과 매치할 수 있도록 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;re.MULTILINE 또는 re.M 옵션은 다음 글에 설명할 메타 문자인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;와 연관된 옵션이다. 이 메타 문자에 대해 간단히 설명하자면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt;는 문자열의 처음을 의미하고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$&lt;/code&gt;는 문자열의 마지막을 의미한다. 예를 들어 정규식이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^python&lt;/code&gt;인 경우 문자열의 처음은 항상 python으로 시작해야 매치되고, 만약 정규식이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python$&lt;/code&gt;이라면 문자열의 마지막은 항상 python으로 끝나야 매치된다는 의미이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^python&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;w+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;python one
+life is too short
+python two
+you need python
+python three&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['python one']
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정규식 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^python\s\w+&lt;/code&gt;은 python이라는 문자열로 시작하고 그 뒤에 whitespace, 그 뒤에 단어가 와야 한다는 의미이다. 검색할 문자열 data는 여러 줄로 이루어져 있다.&lt;/p&gt;
+
+&lt;p&gt;결과를 보면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt; 메타 문자에 의해 python이라는 문자열을 사용한 첫 번째 줄만 매치된 것을 알 수 있다. 하지만 내가 원하는 결과는 해당 문자열의 처음에 조건이 걸리는 것이 아니고, &lt;strong&gt;라인이 변경될 때&lt;/strong&gt; 처음인 경우를 뜻하는 것이다. 이럴 때 사용하는 옵션이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.MULTILINE&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.M&lt;/code&gt;이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^python&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;w+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MULTILINE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;python one
+life is too short
+python two
+you need python
+python three&quot;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['python one', 'python two', 'python three']
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.MULTILINE&lt;/code&gt; 옵션으로 인해 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt; 메타 문자가 문자열 전체가 아닌 각 줄의 처음이라는 의미를 갖게 되었다. 즉, re.MULTILINE 옵션은 ^, $ 메타 문자를 문자열의 각 줄마다 적용해 주는 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;verbosex&quot;&gt;VERBOSE(X)&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;verbose 모드를 사용할 수 있도록 한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;고마운 옵션이다. 사실 정규식은 사용하기 까다롭다. 정규식은 마치 시와 같이 함축적인 단어들의 집합으로 구성되어 있다. 따라서 전문가들이 만들어 놓은 정규식을 보면 정말 섬세하게 다뤄서 해석해야 한다. 좀 더 좋은 방법이 없을까? 이렇게 이해하기 어려운 정규식을 주석 또는 줄 단위로 구분할 수 있다면 얼마나 보기 좋고 이해하기 쉬울까? 이러한 욕구를 해소해줄 수 있는 것이 바로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.VERBOSE&lt;/code&gt; 또는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.X&lt;/code&gt; 옵션이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;charref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'&amp;amp;[#](0[0-7]+|[0-9]+|x[0-9a-fA-F]+);'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;charref&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;&quot;&quot;
+ &amp;amp;[#]                # Start of a numeric entity reference
+ (
+     0[0-7]+         # Octal form
+   | [0-9]+          # Decimal form
+   | x[0-9a-fA-F]+   # Hexadecimal form
+ )
+ ;                   # Trailing semicolon
+&quot;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VERBOSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;첫 번째와 두 번째 예를 비교해 보면 컴파일된 패턴 객체인 charref는 모두 동일한 역할을 한다. 하지만 정규식이 복잡할 경우 두 번째처럼 주석을 적고 여러 줄로 표현하는 것이 훨씬 가독성이 좋다는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;re.VERBOSE&lt;/code&gt; 옵션을 사용하면 문자열에 사용된 whitespace는 컴파일할 때 제거된다(단 [ ] 안에 사용한 whitespace는 제외). 그리고 줄 단위로 #기호를 사용하여 주석문을 작성할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 06 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/06/regex-05-compile-option.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/06/regex-05-compile-option.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 04: match 객체의 메서드</title>
+        <description> 검색을 통해 결과로 받은 match 객체의 사용법을 알아본다. : &lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
+
+&lt;p&gt;앞의 글에서 우리는 컴파일 된 pattern 객체의 메서드를 공부했다. 이 메서드에는 match, search, findall, finditer가 있었다. 해당 메서드들은 검색이 된 경우 match 객체를 리턴했다.&lt;/p&gt;
+
+&lt;p&gt;하지만 우리가 원하는 결과는 이 match 객체 자체가 아니다. 우리는 다음과 같은 궁금증을 가지고 검색을 진행했을 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;어떤 문자열이 매치되었는가?&lt;/li&gt;
+  &lt;li&gt;매치된 문자열의 인덱스는 어디서부터 어디까지인가?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이러한 것들을 해결하기 위한 메서드를 소개한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;method&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;목적&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;group()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;매치된 문자열을 돌려준다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;start()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;매치된 문자열의 시작 위치를 돌려준다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;end()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;매치된 문자열의 끝 위치를 돌려준다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;span()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;매치된 문자열의 (시작, 끝)에 해당하는 튜플을 돌려준다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ab*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;python&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;group&quot;&gt;group()&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;매치된 문자열을 돌려준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;'python'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;start&quot;&gt;start()&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;매치된 문자열의 시작 위치를 돌려준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;end&quot;&gt;end()&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;매치된 문자열의 끝 위치를 돌려준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;span&quot;&gt;span()&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;매치된 문자열의 (시작, 끝)에 해당하는 튜플을 돌려준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 경우는 match를 사용했기 때문에 시작 위치는 항상 0일 것이다. 염두하자.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 06 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/06/regex-04-match-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%A9%94%EC%84%9C%EB%93%9C.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/06/regex-04-match-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%A9%94%EC%84%9C%EB%93%9C.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 03: re module</title>
+        <description> 파이썬에서 정규 표현식을 지원하는 re 모듈에 대해 공부하자. : &lt;p&gt;정규 표현식은 다양한 언어에서 사용이 가능하다. 이 글에서는 파이썬을 기반으로 정규 표현식을 확인해 보도록 하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ab*'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;re.compile을 사용하여 정규 표현식(위 예에서는 ab*)을 컴파일한다. re.compile의 결과로 돌려주는 객체 p(컴파일된 패턴 객체)를 사용하여 그 이후의 작업을 수행할 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정규식을 컴파일할 때 특정 옵션을 주는 것도 가능한데, 이에 대해서는 뒤에서 자세히 살펴본다.&lt;/li&gt;
+  &lt;li&gt;패턴이란 정규식을 컴파일한 결과이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;method&quot;&gt;Method&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Method&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;목적&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;match()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 &lt;strong&gt;처음부터&lt;/strong&gt; 정규식과 매치되는지 조사한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;search()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열 &lt;strong&gt;전체를 검색&lt;/strong&gt;하여 정규식과 매치되는지 조사한다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;findall()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;정규식과 &lt;strong&gt;매치되는 모든 문자열(substring)을 리스트로&lt;/strong&gt; 돌려준다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;finditer()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;정규식과 매치되는 모든 문자열(substring)을 &lt;strong&gt;반복 가능한 객체로&lt;/strong&gt; 돌려준다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;match, search는 정규식과 매치될 때는 match 객체를 돌려주고, 매치되지 않을 때는 None을 돌려준다. 각각의 예를 진행하기 전의 아래의 코드를 먼저 수행하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[a-z]+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;match&quot;&gt;Match&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;문자열의 처음부터 정규식과 매치되는지 조사한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;python&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3F9F8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Z&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;“python” 문자열은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-z]+&lt;/code&gt; 정규식에 부합되므로 match 객체를 돌려준다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;3 python&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;“3 python” 문자열은 처음에 나오는 문자 3이 정규식 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-z]+&lt;/code&gt;에 부합되지 않으므로 None을 돌려준다. match의 결과로 match 객체 또는 None을 돌려주기 때문에 파이썬 정규식 프로그램은 보통 다음과 같은 흐름으로 작성한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;정규표현식&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'string goes here'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Match found: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'No match'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;검색되지 않은 경우 작업을 수행하지 않는다.&lt;/p&gt;
+
+&lt;h2 id=&quot;search&quot;&gt;search&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;문자열 전체를 검색하여 정규식과 매치되는지 조사한다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;python&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3FA68&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;match와 동일한 결과이다. 하지만 아래의 예는 결과가 다르다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;3 python&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3FA30&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;“3 python” 문자열의 첫 번째 문자는 “3”이지만 search는 문자열의 처음부터 검색하는 것이 아니라 문자열 전체를 검색하기 때문에 “3 “ 이후의 “python” 문자열과 매치된다. 이렇듯 match 메서드와 search 메서드는 문자열의 처음부터 검색할지의 여부에 따라 &lt;strong&gt;다르게 사용&lt;/strong&gt;해야 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;findall&quot;&gt;findall&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;정규식과 매치되는 모든 문자열(substring)을 리스트로 돌려준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;life is too short&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'life'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'is'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'too'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'short'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;“life is too short” 문자열의 ‘life’, ‘is’, ‘too’, ‘short’ 단어를 각각 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[a-z]+&lt;/code&gt; 정규식과 매치해서 리스트로 돌려준다.&lt;/p&gt;
+
+&lt;h1 id=&quot;finditer&quot;&gt;finditer&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;정규식과 매치되는 모든 문자열(substring)을 반복 가능한 객체로 돌려준다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;findall과 마찬가지로 문자열에 해당하는 단어를 돌려준다. 하지만 우리가 이 정규 표현식을 사용하는 경우 중에서, 하나의 문자열에 존재하는 다양한 단어들에 대해 다시한번 검색을 진행하고 싶을 수 있다. 이런 경우 findall은 리스트를 결과값으로 뱉기 때문에 이러한 작업을 진행하기 어렵다. 이러한 필요성에서 finditer method는 굉장히 유용하다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finditer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;life is too short&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;callable_iterator&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F5E390&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3F9F8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3FAD8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3FAA0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_sre&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SRE_Match&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01F3F9F8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;match 객체를 리턴하기 때문에 우리는 이를 기반으로 다른 검색을 진행할 수 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 06 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/06/regex-03-re-module.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/06/regex-03-re-module.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
     
       <item>
         <title> [Regular Expression] 02: 간단한 메타문자</title>
@@ -321,6 +1126,10 @@
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 06 Oct 2020 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/dv/tips/2020/10/06/regex-02-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html</link>
@@ -328,7 +1137,7 @@
         
         <category>Tips</category>
         
-        <category>regex</category>
+        <category>정규표현식</category>
         
         
         <category>DV/Tips</category>
@@ -367,7 +1176,7 @@
         
         <category>Tips</category>
         
-        <category>regex</category>
+        <category>정규표현식</category>
         
         
         <category>DV/Tips</category>
@@ -1213,197 +2022,6 @@ Power Cycle의 주 사용이유는 많은 일을 생산하기 위함이다. 그�
         <category>Dynamics</category>
         
         <category>Thermodynamics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 14: 불완전 상사 (Incomplete Similarity)</title>
-        <description> 불완전 상사에 대해 알아본다. : &lt;p&gt;앞에서 완전상사가 되기 위해서는 3가지 조건을 만족해야 한다고 했다. 이 중 한가지 조건이라도 맞지 않을 경우 불완전상사라고 한다. 너무 작은 스케일에서 실험을 하려고 할 때 보통 발생한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924452-82ee7c00-04f8-11eb-96e8-754904ccdace.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924462-884bc680-04f8-11eb-9f86-7a8bc1cd0986.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-14-%EB%B6%88%EC%99%84%EC%A0%84%EC%83%81%EC%82%AC.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-14-%EB%B6%88%EC%99%84%EC%A0%84%EC%83%81%EC%82%AC.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 13: 변수반복법 (Dimension Analysis - Method of Repeating Variables)</title>
-        <description> 차원 해석의 변수 반복법을 배워본다. : &lt;p&gt;본격적으로 차원해석에 대해 알아보자. 차원해석은 변수반복법 이라는 것을 사용하는데, 반복법인 이유는 과정중에 변수를 선택하게 되는데, 이 변수로 차원을 재정렬하고 난 뒤의 변수를 반복해서 쓰기 때문이다. (이라는 뇌피셜이다. 정확하게 설명이 안나와있다 어디에도,,)&lt;/p&gt;
-
-&lt;p&gt;사실 책에는 어떤 물리현상을 기술하는 식을 모르는 상태에서 매개변수를 정하고 차원해석을 사용하면 지배방정식을 구할 수 있다. 이런 입장이지만 사실 물리학적 직관이 없다면 변수선정에 있어 이미 지고들어가는 선택이다..&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924315-3efb7700-04f8-11eb-8b4c-77a4e487c795.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924325-4458c180-04f8-11eb-8a68-7966449087da.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924330-46bb1b80-04f8-11eb-8628-db1d898fe49f.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924338-4a4ea280-04f8-11eb-8459-70e75dfd297b.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924346-4d499300-04f8-11eb-8a01-385cd8b8ea5f.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-13-%EB%B3%80%EC%88%98%EB%B0%98%EB%B3%B5%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-13-%EB%B3%80%EC%88%98%EB%B0%98%EB%B3%B5%EB%B2%95.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 12: 차원해석 개론 (Introduction of Dimensional Analysis)</title>
-        <description> 차원 해석이란 무엇인가? : &lt;p&gt;차원해석은 무차원수에 대한 내용이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;왜-무차원화를-하는가&quot;&gt;왜 무차원화를 하는가?&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;실험을 할 때에 여러가지 변수에 연관된 식을 소수의 변수를 이용한 식으로 변환하여 진행할 수 있기 때문&lt;/li&gt;
-  &lt;li&gt;또 차원해석을 함으로써 나오는 무차원수는 시스템에 대한 직관적인 통찰을 갖게 해준다.&lt;/li&gt;
-  &lt;li&gt;그리고 결정적으로 이 무차원화를 한 식은 스케일링이 된 식이기 때문에 우리가 프로토타입으로 실험을 하지 않고 이를 축소한 사이즈나, 다른 공간을 사용한 곳에서 실험을 진행하여 원래 값을 도출할 수 있다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924058-d14f4b00-04f7-11eb-8f2a-893a0190bf83.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그런데 이 축소(상사 similarity)를 하기 위해서는 몇가지 조건이 필요하다.&lt;/p&gt;
-
-&lt;p&gt;상식적인 내용이지만 이 3가지의 원칙이 적용되지 않을 때 근사를 하든, 다른 방법을 모색해야 되기 때문에 완전상사인지 꼭 확인해야한다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;기하학적 상사
-    &lt;ul&gt;
-      &lt;li&gt;길이비가 모두 일정한 비율을 가져야 한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;운동학적 상사
-    &lt;ul&gt;
-      &lt;li&gt;프로토타입에서 특정 포인트의 속도는 모형에서 속도와 비례관계가 있어야 한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;역학적 상사
-    &lt;ul&gt;
-      &lt;li&gt;대응되는 힘에서도 비례관계가 있어야 한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이 세가지 조건을 만족했을 때, 완전상사 (Complete Similarity) 라 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94924075-d8765900-04f7-11eb-932c-c64661ff2693.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-12-%EC%B0%A8%EC%9B%90%ED%95%B4%EC%84%9D.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-12-%EC%B0%A8%EC%9B%90%ED%95%B4%EC%84%9D.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 11: 유량 측정법 (Flow Rate Velocity Measurement)</title>
-        <description> 유량을 어떻게 측정할 수 있을까? : &lt;p&gt;유량을 측정하는 방법에 대한 얘기다. 지금까지 배운내용을 바탕으로 적용하는 것이므로 긴설명은 생략하도록 하겠다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923910-96e5ae00-04f7-11eb-9329-fc45a21d03f4.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923919-99e09e80-04f7-11eb-808d-d1598782ee9d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-11-%EC%9C%A0%EB%9F%89%EC%B8%A1%EC%A0%95%EB%B2%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-11-%EC%9C%A0%EB%9F%89%EC%B8%A1%EC%A0%95%EB%B2%95.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 10: 파이프 연결망(네트워크) &amp; 펌프선택 (Piping Network &amp;Pump Selection)</title>
-        <description> 파이프 네트워크에 따른 계산과, 그에 따른 펌프를 선택해보자. : &lt;p&gt;우리가 관을 매개로 한 시스템을 구성했을 때, 두 가지의 손실이 발생한다고 배웠다. 주손실과 부손실이 그것인데, 우리는 여기서 회로도와 관 네트워크의 유사성을 알 수 있다. 유동을 일으키는 압력은 전압과, 그에 따르는 유량은 전류와, 이를 방해하는 손실을 저항과 대응할 수 있을 것이다.&lt;/p&gt;
-
-&lt;p&gt;그렇다면 총 옴의 법칙과 같이 이 값도 대응이 될 것이다. 또한 회로에서 직렬, 병렬 개념도 같게 대응이 될 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923479-e4155000-04f6-11eb-9ddf-f4e93a8158cc.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;자, 그런데 유체는 일정한 압력차가 있어야 고정된 유량으로 계속 흐를 수 있다. 하지만 현실을 유체가 흐름에 따라 해당위치에서 압력(수두)는 감소한다. 초기부터 엄청나게 큰 P를 파이프 입구에서 주면 되겠지만 현실적으로 힘들다. 따라서 중간에 압력을 추가적으로 가해 유량을 증가시키는 행위가 필요하다. 이것이 펌프! 먼저 펌프의 원리와, 각각의 펌프가 갖는 효율을 구해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923499-ec6d8b00-04f6-11eb-95e3-f4c458054a29.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;결과적으로 펌프의 효율은 전기에너지가 축에너지로 바뀔때, 축에너지가 펌프로 전해지면 유체를 가속시킬 때의 효율과 연관이 있다.&lt;/p&gt;
-
-&lt;p&gt;그렇다면 시스템과 펌프사이에서 어떤 펌프를 고르는 것이 가장 효율적일까? 첫번째로 펌프자체가 갖는 압력과 유량의 관계가 있을 것이다. 예를 들어 h만큼의 수두를 제공할 수 있는 펌프가 있다고 하자. 그런데 펌프의 양쪽의 inlet, outlet이 막혀있다. 그렇다면 펌프가 하는 일은 모두 해당 포인트에서 압력을 높히는데 사용될 것이다. 만약 적당량의 유체가 흐르면, h만큼의 수두에서 유체를 흐르게 하는 양만큼의 수두가 감소하고 나머지는 여전히 압력을 증가시킬 것이다. 즉, 펌프의 입장에서 봤을 때, 수두와 압력간에는 일종의 -정비례 관계가 있다. 엄밀하게 알아보기 위해 간단한 유도를 해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923575-09a25980-04f7-11eb-9b61-f4eb358b6bc6.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923583-0c9d4a00-04f7-11eb-9cb3-b1f8af6d3418.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;다음과 같이 빨간 실선이 펌프의 압력손실, 즉, 유량을 생기게 한 양이다. 자, 그러면 펌프가 정해졌을 때, 수두와 유량간의 관계는 알았다. 그럼 이 펌프의 수두량은 어떻게 구해질까? (죄송합니다. 샤프트 일은 아래 식이 맞습니다.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923602-158e1b80-04f7-11eb-95c4-b240d2eff209.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923608-18890c00-04f7-11eb-83d2-929f76337c1b.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-내부에너지 항과 열항을 한데 묶어 역학적 손실항이라 한다. 아까 전체 식을 질량속도로 나누었으므로 여기서 W항은 w로 단위질량당 일이 된다. (이는 곧 압력이다! 밑에 유도식을 보자) w_pump를 구해보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923621-1e7eed00-04f7-11eb-86a0-34acbf9bf8dd.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923629-2179dd80-04f7-11eb-838f-bac182db99b2.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아! 펌프의 수두량은 로스항과 높이차로 구할 수 있다. 이렇게 펌프 수두를 구할 수 있다. 펌프 수두를 계산할 때 높이차를 감안하고 생각하면 쉽다는 얘기이다. 시스템에서 원하는 압력차는 기존에 배웠던 주손실 식을 사용하면 구할 수 있다. 이 두그래프의 교점이 최적의 펌프를 선택하는 방법이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923646-276fbe80-04f7-11eb-8b7c-1b8c908ad91f.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-10-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%8E%8C%ED%94%84%EC%84%A0%ED%83%9D.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-10-%ED%8C%8C%EC%9D%B4%ED%94%84%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%8E%8C%ED%94%84%EC%84%A0%ED%83%9D.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Fluid Mechanics] 09: 부손실 &amp; 유동 박리 (Minor Loss &amp; Flow Separation)</title>
-        <description> 주손실 말고 부손실은 무엇이고 유동 박리 현상은 무엇인가? : &lt;p&gt;주손실은 이미 공부했고, 이번에는 부손실에 대해 공부해보자. 부손실은 입구영역에서 발생하는 것도 포함하지만 더 주가 되는 유동박리에 의해서 일어난다. 유동이 관을 타고 지나갈 때, 관의 형태 때문에 부차적으로 생기는 손실을 의미한다. 낮은 속도에서 유체가 장애물을 지나갈 때는 만나는 면에서 유체의 초기속도가 작기 때문에&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923177-65b8ae00-04f6-11eb-8da4-27453aee1384.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;em&gt;벽면에서 속도 = 0, 그 바로위에서 속도가 작으므로 변화율도 작다&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;점성응력(마찰이다 사실) 이 작다. 그래서 끝면 까지 갈 수 있다. 그런데 빠른속도 일 경우 점성응력이 매우커진다. 그렇게 되면 끝점까지 가기전에 속도가 0이 되는 지점이 생기고 유체가 떨어져 나간다. 이 때, 역방향으로 작용하는 압력차를 역압력 구배(adverse pressure gradient) 라 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923197-6b15f880-04f6-11eb-9771-cb71f59ad39c.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;여기서 골프공이 움푹파인 이유를 알 수 있다. 움푹파이게 되면 표면적이 넓어져 점성효과가 커져 더 빨리 박리가 일어날 것 같지만 구멍은 거칠기 역할을 한다!! 거칠기가 커지게 되면 유체는 더 난류유동으로 운동하며 난류유동의 특징인 높은 관성효과, 즉 난류유동을 일으켜 압력 회복이 좋기 때문에 더 멀리 날아간다. 주손실과 부손실을 합친 항을 전체 손실이라 한다&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923220-75d08d80-04f6-11eb-972e-de0d66d83417.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94923226-79641480-04f6-11eb-9604-93a9cd67088d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-09-%EB%B6%80%EC%86%90%EC%8B%A4-%EC%9C%A0%EB%8F%99%EB%B0%95%EB%A6%AC.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Fluid-Mechanics-09-%EB%B6%80%EC%86%90%EC%8B%A4-%EC%9C%A0%EB%8F%99%EB%B0%95%EB%A6%AC.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Fluid Mechanics</category>
         
         
         <category>CS/Dynamics</category>

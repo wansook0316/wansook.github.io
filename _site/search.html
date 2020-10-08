@@ -447,6 +447,8 @@
                 
                 
                 
+                
+                
 -->
       <!-- Social icons from Font Awesome, if enabled  -->
       <!--                
@@ -481,6 +483,12 @@
 
 
 
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
 
 
 
@@ -539,6 +547,12 @@
 
 
 
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
 
 
 
@@ -697,13 +711,85 @@
 <script>
   window.store = {
     
-      "dv-tips-2020-10-06-regex-02-ea-b0-84-eb-8b-a8-ed-95-9c-eb-a9-94-ed-83-80-eb-ac-b8-ec-9e-90-html": {
-        "title": "02: 간단한 메타문자",
-        "tags": "Tips, regex",
+      "dv-tips-2020-10-08-regex-08-ea-b7-b8-eb-a3-a8-ed-95-91-html": {
+        "title": "08: Grouping(그루핑)",
+        "tags": "Tips, 정규표현식, Assertions",
+        "date": "October 8, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "특정 문자열이 반복되는지에 대해서 알기 위해서는 어떠한 정규식을 작성해야 할까? 우리가 앞에서 배운 내용으로는 할 수 없다. 이렇게 특정 문자열이 단위로 구성되어 검색을 진행하고 싶을 때 사용하는 것이 그루핑이다.(ABC)+&gt;&gt;&gt; p = re.compile('(ABC)+')&gt;&gt;&gt; m = p.search('ABCABCABC OK?')&gt;&gt;&gt; print(m)&lt;re.Match object; span=(0, 9), match='ABCABCABC'&gt;&gt;&gt;&gt; print(m.group())ABCABCABC()을 사용하여 간단하게 그루핑을 진행할 수 있다.의미론적으로 그루핑하기이렇게 묶어서 무언가를 관리할 수 있다면 추가적으로 이점이 생긴다.&gt;&gt;&gt; p = re.compile(r\"\\w+\\s+\\d+[-]\\d+[-]\\d+\")&gt;&gt;&gt; m = p.search(\"park 010-1234-1234\")이렇게 작성하게 되면, 이름 + \" \" + 전화번호 형태의 문자열을 찾을 수 있다. 그런데 여기서 이름만 뽑아내고 싶다면 어떻게 해야할까? 사실 위의 반복의 목적보다 이런 의미론적으로 묶어서 뽑아내고자 하는 목적인 경우가 더 많다. 이 때 그루핑을 사용해보자.&gt;&gt;&gt; p = re.compile(r\"(\\w+)\\s+\\d+[-]\\d+[-]\\d+\")&gt;&gt;&gt; m = p.search(\"park 010-1234-1234\")&gt;&gt;&gt; print(m.group(1))park이름에 해당하는 \\w+ 부분을 그룹 (\\w+)으로 만들면 match 객체의 group(인덱스) 메서드를 사용하여 그루핑된 부분의 문자열만 뽑아낼 수 있다. group 메서드의 인덱스는 다음과 같은 의미를 갖는다.            group(인덱스)      설명                  group(0)      매치된 전체 문자열              group(1)      첫 번째 그룹에 해당되는 문자열              group(2)      두 번째 그룹에 해당되는 문자열              group(n)      n 번째 그룹에 해당되는 문자열      &gt;&gt;&gt; p = re.compile(r\"(\\w+)\\s+(\\d+[-]\\d+[-]\\d+)\")&gt;&gt;&gt; m = p.search(\"park 010-1234-1234\")&gt;&gt;&gt; print(m.group(2))010-1234-1234이렇게 하면 총 2개의 그룹이 발생하고, 전화번에 해당하는 부분에 접근하고 싶으면 group(2)를 사용하면 된다. 그럼 전화번호에서 통신사 번호를 뽑아내고자 하면 어떻게 할까?&gt;&gt;&gt; p = re.compile(r\"(\\w+)\\s+((\\d+)[-]\\d+[-]\\d+)\")&gt;&gt;&gt; m = p.search(\"park 010-1234-1234\")&gt;&gt;&gt; print(m.group(3))010이 예제에서 알 수 있는 것은 group을 중첩하여 사용하는 것이 가능하다는 것이다. 이런 경우 바깥쪽에서 안쪽으로 들어갈 수록 group의 index가 증가한다. zero-width assertion이기 때문에 이 모든 작업이 가능하다는 것을 염두해두자.그루핑된 문자열 재참조하기그룹의 또 하나 좋은 점은 한 번 그루핑한 문자열을 재참조(Backreferences)할 수 있다는 점이다.&gt;&gt;&gt; p = re.compile(r'(\\b\\w+)\\s+\\1')&gt;&gt;&gt; p.search('Paris in the the spring').group()'the the'정규식 (\\b\\w+)\\s+\\1은 (그룹) + \" \" + 그룹과 동일한 단어와 매치됨을 의미한다. 이렇게 정규식을 만들게 되면 2개의 동일한 단어를 연속적으로 사용해야만 매치된다. 이것을 가능하게 해주는 것이 바로 재참조 메타 문자인 \\1이다. \\1은 정규식의 그룹 중 첫 번째 그룹을 가리킨다. 두 번째 그룹을 참조하려면 \\2를 사용하면 된다.그루핑된 문자열에 이름 붙이기정규식 안에 그룹이 무척 많아진다고 생각해 보자. 예를 들어 정규식 안에 그룹이 10개 이상만 되어도 매우 혼란스러울 것이다. 거기에 더해 정규식이 수정되면서 그룹이 추가, 삭제되면 그 그룹을 인덱스로 참조한 프로그램도 모두 변경해 주어야 하는 위험도 갖게 된다. 만약 그룹을 인덱스가 아닌 이름(Named Groups)으로 참조할 수 있다면 어떨까? 즉 딕셔너리와 같은 형식이다. 그렇다면 이런 문제에서 해방되지 않을까?이러한 이유로 정규식은 그룹을 만들 때 그룹 이름을 지정할 수 있게 했다. 그 방법은 다음과 같다.(?P&lt;name&gt;\\w+)\\s+((\\d+)[-]\\d+[-]\\d+)위 정규식은 앞에서 본 이름과 전화번호를 추출하는 정규식이다. 기존과 달라진 부분은 다음과 같다.(\\w+) --&gt; (?P&lt;name&gt;\\w+)대단히 복잡해진 것처럼 보이지만 (\\w+)라는 그룹에 name이라는 이름을 붙인 것에 불과하다. 여기에서 사용한 (?...) 표현식은 정규 표현식의 확장 구문이다. 이 확장 구문을 사용하기 시작하면 가독성이 상당히 떨어지긴 하지만 반면에 강력함을 갖게 된다. 그룹에 이름을 지어 주려면 다음과 같은 확장 구문을 사용해야 한다.(?P&lt;그룹명&gt;...)그룹에 이름을 지정하고 참조하는 다음 예를 보자.&gt;&gt;&gt; p = re.compile(r\"(?P&lt;name&gt;\\w+)\\s+((\\d+)[-]\\d+[-]\\d+)\")&gt;&gt;&gt; m = p.search(\"park 010-1234-1234\")&gt;&gt;&gt; print(m.group(\"name\"))park위 예에서 볼 수 있듯이 name이라는 그룹 이름으로 참조할 수 있다. 그룹 이름을 사용하면 정규식 안에서 재참조하는 것도 가능하다.&gt;&gt;&gt; p = re.compile(r'(?P&lt;word&gt;\\b\\w+)\\s+(?P=word)')&gt;&gt;&gt; p.search('Paris in the the spring').group()'the the'위 예에서 볼 수 있듯이 재참조할 때에는 (?P=그룹이름)이라는 확장 구문을 사용해야 한다.Reference07-2 정규 표현식 시작하기",
+        
+        "url": "/dv/tips/2020/10/08/regex-08-%EA%B7%B8%EB%A3%A8%ED%95%91.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-08-regex-07-eb-8b-a4-ec-96-91-ed-95-9c-eb-a9-94-ed-83-80-eb-ac-b8-ec-9e-90-html": {
+        "title": "07: 다양한 메타문자",
+        "tags": "Tips, 정규표현식, Assertions",
+        "date": "October 8, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "문자열 소비정규식을 공부하다 보면 Assertion 이라는 단어를 자주 보게된다. Assertion이라는 단어는 검사, 검증, 확인 이라는 의미를 갖고 있다. 결과적으로 어떤 것을 검사하겠다는 의미로 많이 사용한다. 그런데 Zero-width는 무엇인가? 너비가 없다는 의미인데 왜 이런 추상적인 단어를 썼는지는 아직도 모르겠다. 하지만 말을 끼워 맞춰서 연상을 쉽게 해보도록 하자.이 개념을 알기 전에 우리가 알아야 할 것이 있다. 지금 이 글을 앞의 메타 문자와 따로 쓴 이유가 여기에 있다. 앞에서 배운 메타문자를 사용하게 되면 우리는 문자열을 소비한다. 이게 무슨 소리일까.이 굉장히 추상적인 개념은 예시를 들어 한번만 생각하면 굉장히 쉽게 이해가 가능하다. 예를 들어 아버지가방에들어간다 라는 문자열이 있다고 해보자. 내가 궁금한 정보는 가방을 찾고 방에 를 찾고 싶다. 이러한 문제에 대해 [가방] 이렇게 정규식을 작성하고 검색을 진행했을 때, 정규식 엔진이 어떤 방식으로 구동하는지를 따라가 보자.  아버지 부분 까지는 매치가 되지 않으므로 그냥 지나간다.  가방을 확인하고는 매치되었으므로 문자열을 소비해 버린다. 즉 없애 버린다와 같은 개념으로 보는 것이다.  소비된 문자열은 쳐다도 안보고 그 다음 문자열인 에들어간다 라는 문자열에 대해 가방 문자열을 찾는다.  가방을 찾는 정규표현식은 끝난다.  방에를 찾는 정규표현식이 시작되고, 찾지 못한 상태로 끝난다.이 예시를 보다보면, 소비라는 것이 어떤 의미로 사용되었는지 이해할 수 있다. 즉, 매치가 되는 경우 해당 부분이 없어지게 된다. 정말 소비라는 단어에 걸맞는 행동이다.Zero-width Assertion그렇다면, 너비가 없는 확인 이라는 의미의 Zero-width Assertion은 무엇일까. 위에서 가방이라는 단어는 2의 너비를 가진다고 볼 수 있다. 그리고 매칭이 되었을 때, 이 2의 너비에 해당하는 문자열이 소비된다. 이러한 관점에서 보았을 때, 0의 너비를 가진다고 함은, 검증을 진행하는데 있어 소비가 되는 문자열이 없다라는 의미로 와닿는다. 결과적으로 이러한 해석이 맞으며, Zero-width Assertion는 검색을 진행하는데 있어 위에서 알아본 문자열 소비가 없는 방법을 말한다. 이제 이러한 종류의 메타 문자에 대해서 알아보자.  ^ 또는 $ 문자를 메타 문자가 아닌 문자 그 자체로 매치하고 싶은 경우에는 \\^, $ 로 사용하면 된다.            메타문자      설명                                       또는 이라는 의미 (Or)              ^      문자열의 맨 처음과 일치하는가?(옵션에 따라 의미가 다름)                     $      문자열의 맨 끝과 일치하는가?(옵션에 따라 의미가 다름)                     \\A      문자열의 맨 처음과 일치하는가?(옵션에 따라 의미가 다름)                     \\Z      문자열의 맨 끝과 일치하는가?(옵션에 따라 의미가 다름)                     \\b      단어 구분자(whitespace)                     \\B      whitespace가 양쪽에 없는(사실 단어라고 볼수는 없다) 경우에 해당 문자가 있는 경우 매치             |            메타 문자는 or과 동일한 의미로 사용된다. A      B라는 정규식이 있다면 A 또는 B라는 의미가 된다.      &gt;&gt;&gt; p = re.compile('Crow|Servo')&gt;&gt;&gt; m = p.match('CrowHello')&gt;&gt;&gt; print(m)&lt;re.Match object; span=(0, 4), match='Crow'&gt;^메타 문자는 문자열의 맨 처음과 일치함을 의미한다. 앞에서 살펴본 컴파일 옵션 re.MULTILINE을 사용할 경우에는 여러 줄의 문자열일 때 각 줄의 처음과 일치하게 된다.다음 예를 보자.&gt;&gt;&gt; print(re.search('^Life', 'Life is too short'))&lt;re.Match object; span=(0, 4), match='Life'&gt;&gt;&gt;&gt; print(re.search('^Life', 'My Life'))None^Life 정규식은 Life 문자열이 처음에 온 경우에는 매치하지만 처음 위치가 아닌 경우에는 매치되지 않음을 알 수 있다.$$ 메타 문자는 ^ 메타 문자와 반대의 경우이다. 즉 $는 문자열의 끝과 매치함을 의미한다. 다음 예를 보자.&gt;&gt;&gt; print(re.search('short$', 'Life is too short'))&lt;re.Match object; span=(12, 17), match='short'&gt;&gt;&gt;&gt; print(re.search('short$', 'Life is too short, you need python'))Noneshort$ 정규식은 검색할 문자열이 short로 끝난 경우에는 매치되지만 그 이외의 경우에는 매치되지 않음을 알 수 있다.\\A\\A는 문자열의 처음과 매치됨을 의미한다. ^ 메타 문자와 동일한 의미이지만 re.MULTILINE 옵션을 사용할 경우에는 다르게 해석된다. re.MULTILINE 옵션을 사용할 경우 ^은 각 줄의 문자열의 처음과 매치되지만 \\A는 줄과 상관없이 전체 문자열의 처음하고만 매치된다.\\Z\\Z는 문자열의 끝과 매치됨을 의미한다. 이것 역시 \\A와 동일하게 re.MULTILINE 옵션을 사용할 경우 $ 메타 문자와는 달리 전체 문자열의 끝과 매치된다.\\b\\b는 단어 구분자(Word boundary)이다. 보통 단어는 whitespace에 의해 구분된다.&gt;&gt;&gt; p = re.compile(r'\\bclass\\b')&gt;&gt;&gt; print(p.search('no class at all'))&lt;re.Match object; span=(3, 8), match='class'&gt;\\bclass\\b 정규식은 앞뒤가 whitespace로 구분된 class라는 단어와 매치됨을 의미한다. 따라서 no class at all의 class라는 단어와 매치됨을 확인할 수 있다.&gt;&gt;&gt; print(p.search('the declassified algorithm'))None위 예의 the declassified algorithm 문자열 안에도 class 문자열이 포함되어 있긴 하지만 whitespace로 구분된 단어가 아니므로 매치되지 않는다.&gt;&gt;&gt; print(p.search('one subclass is'))Nonesubclass 문자열 역시 class 앞에 sub 문자열이 더해져 있으므로 매치되지 않음을 알 수 있다.\\b 메타 문자를 사용할 때 주의해야 할 점이 있다. \\b는 파이썬 리터럴 규칙에 의하면 백스페이스(BackSpace)를 의미하므로 백스페이스가 아닌 단어 구분자임을 알려 주기 위해 r'\\bclass\\b'처럼 Raw string임을 알려주는 기호 r을 반드시 붙여 주어야 한다.\\B\\B 메타 문자는 \\b 메타 문자와 반대의 경우이다. 즉 whitespace로 구분된 단어가 아닌 경우에만 매치된다.&gt;&gt;&gt; p = re.compile(r'\\Bclass\\B')&gt;&gt;&gt; print(p.search('no class at all'))None&gt;&gt;&gt; print(p.search('the declassified algorithm'))&lt;re.Match object; span=(6, 11), match='class'&gt;&gt;&gt;&gt; print(p.search('one subclass is'))Noneclass 단어의 앞뒤에 whitespace가 하나라도 있는 경우에는 매치가 안 되는 것을 확인할 수 있다.Reference07-2 정규 표현식 시작하기",
+        
+        "url": "/dv/tips/2020/10/08/regex-07-%EB%8B%A4%EC%96%91%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-08-regex-06-ed-8c-8c-ec-9d-b4-ec-8d-ac-eb-b0-b1-ec-8a-ac-eb-9e-98-ec-8b-9c-eb-ac-b8-ec-a0-9c-html": {
+        "title": "06: 파이썬 백슬래시 문제",
+        "tags": "Tips, 정규표현식",
+        "date": "October 8, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "앞에서 정규식을 표현할 때 우리는 \\ 문자를 사용했다. 하지만 내가 정규식을 작성하는 데 있어서 \\문자 자체를 찾고 싶다면 어떻게 해야할까?\\section이렇게 정규식을 작성하게 되면 문제가 발생한다. \\s 부분이 whitespace로 해석되어 의도한 대로 매치가 이루어지지 않는다.[ \\t\\n\\r\\f\\v]ection즉, 위와 같은 의미로 해석된다. 이러한 문제에 대해서 해결하고 싶다면 아래와 같게 작성해야 한다.\\\\section파이썬의 문제위의 과정까지는 아무런 문제가 없다. 하지만 파이썬에서 정규식을 저렇게 작성하면 문제가 발생한다.&gt;&gt;&gt; p = re.compile('\\\\section')파이썬 정규식 엔진에는 파이썬 문자열 리터럴 규칙에 따라 \\\\이 \\로 변경되어 \\section이 전달된다. 유닉스의 grep, vi 등에서는 이러한 문제가 없다. 파이썬에서 사용할 때만 발생한다(파이썬의 리터럴 규칙) 결국 정규식 엔진에 //문자를 전달하기 위해서는 \\\\\\\\ 이렇게 전달해야 한다.(~~ㅠ~~) 정규식 엔진은 정규식을 해석하고 수행하는 모듈이다.&gt;&gt;&gt; p = re.compile('\\\\\\\\section')정말 번거롭다. 이쁘지도 않고. 이렇게 이해하기 어려운 정규식에 대해서 사람들은 짜증을 표현했다. 이러한 문제로 인해 파이썬 정규식에는 Raw String 규칙이 생겨나게 되었다. 즉 컴파일해야 하는 정규식이 Raw String임을 알려 줄 수 있도록 파이썬 문법을 만든 것이다.&gt;&gt;&gt; p = re.compile(r'\\\\section')위와 같이 정규식 문자열 앞에 r 문자를 삽입하면 이 정규식은 Raw String 규칙에 의하여 백슬래시 2개 대신 1개만 써도 2개를 쓴 것과 동일한 의미를 갖게 된다. 결과적으로 백슬래시를 사용하여 검색을 진행하고자 할때는 raw 표현을 쓰는 것이 좋다.Reference07-2 정규 표현식 시작하기",
+        
+        "url": "/dv/tips/2020/10/08/regex-06-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EB%B0%B1%EC%8A%AC%EB%9E%98%EC%8B%9C-%EB%AC%B8%EC%A0%9C.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-06-regex-05-compile-option-html": {
+        "title": "05: Compile Option",
+        "tags": "Tips, 정규표현식",
         "date": "October 6, 2020",
         "author": "",
         "category": "DV/Tips",
-        "content": "  원래 그 문자가 가진 뜻이 아닌 특별한 용도로 사용하는 문자문자 클래스 []  [ ] 사이에 있는 각각의 문자들에 대해 적어도 하나가 매치가 되는가?즉, 정규 표현식이 [abc]라면 이 표현식의 의미는 “a, b, c 중 한 개의 문자와 매치”를 뜻한다.  “a”는 정규식과 일치하는 문자인 “a”가 있으므로 매치  “before”는 정규식과 일치하는 문자인 “b”가 있으므로 매치  “dude”는 정규식과 일치하는 문자인 a, b, c 중 어느 하나도 포함하고 있지 않으므로 매치되지 않음[ ] 안의 두 문자 사이에 하이픈(-)을 사용하면 두 문자 사이의 범위(From - To)를 의미한다. 예를 들어 [a-c]라는 정규 표현식은 [abc]와 동일하고 [0-5]는 [012345]와 동일하다.  [a-zA-Z] : 알파벳 모두  [0-9] : 숫자문자 클래스([ ]) 안에는 어떤 문자나 메타 문자도 사용할 수 있다. 하지만..주의사항주의해야 할 메타 문자가 1가지 있다. 그것은 바로 ^인데, 문자 클래스 안에 ^ 메타 문자를 사용할 경우에는 반대(not)라는 의미를 갖는다. 예를 들어 [^0-9]라는 정규 표현식은 숫자가 아닌 문자만 매치된다.자주 사용하는 문자 클래스            메타문자      동일 표현식      설명                  \\d      [0-9]      숫자와 매치              \\D      [^0-9]      숫자가 아닌 것과 매치              \\s      [ \\t\\n\\r\\f\\v]      whitespace 문자(스페이스, 공백, tab)와 매치(맨 앞의 빈 칸은 공백문자(space)를 의미한다.)              \\S      [^ \\t\\n\\r\\f\\v]      whitespace 문자가 아닌 것과 매치              \\w      [a-zA-Z0-9_]      문자+숫자(alphanumeric)와 매치              \\W      [^a-za-z0-9_]      문자+숫자(alphanumeric)가 아닌 문자와 매치      대문자 사용은 소문자의 반대이다.Dot(.)  줄바꿈 문자인 \\n을 제외한 모든 문자와 매치됨을 의미, 단 하나라도 있어야 한다.사실, re.DOTALL 옵션을 주면 \\n 문자와도 매치된다. 일단 예제를 보며 이해해보자.            정규식      의미                  a.b      “a + 모든문자 + b”      즉, a와 b라는 문자 사이에 어떤 문자가 들어가도 모두 매치된다는 의미이다. 문자열 “aab”, “a0b”, “abc”가 정규식 a.b와 어떻게 매치되는지 살펴보자.  “aab”는 가운데 문자 “a”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.  “a0b”는 가운데 문자 “0”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.  “abc”는 “a”문자와 “b”문자 사이에 어떤 문자라도 하나는 있어야 하는 이 정규식과 일치하지 않으므로 매치되지 않는다.마지막이 헷갈린다. 조심하도록 하자. 그런데 만약 “.” 문자 자체와 매칭이 되길 원한다면 어떻게 해야할까?            정규식      의미                  a[.]b      “a + Dot(.)문자 + b”      정규식 a[.]b는 “a.b” 문자열과 매치되고, “a0b” 문자열과는 매치되지 않는다. 혼동하지 말자.반복(*)  특정 문자가 0부터 무한대까지의 반복을 매칭한다.            정규식      문자열      Match 여부      설명                  ca*t      ct      Yes      “a”가 0번 반복되어 매치              ca*t      cat      Yes      “a”가 0번 이상 반복되어 매치 (1번 반복)              ca*t      caaat      Yes      “a”가 0번 이상 반복되어 매치 (3번 반복)      반복(+)  특정 문자가 1부터 무한대까지의 반복을 매칭한다.            정규식      문자열      Match 여부      설명                  ca+t      ct      No      “a”가 0번 반복되어 매치되지 않음              ca+t      cat      Yes      “a”가 0번 이상 반복되어 매치 (1번 반복)              ca+t      caaat      Yes      “a”가 0번 이상 반복되어 매치 (3번 반복)      반복({n,m})  특정 문자가 n이상 m이하 반복 횟수인 경우 매칭한다.{ } 메타 문자를 사용하면 반복 횟수를 고정할 수 있다. {m, n} 정규식을 사용하면 반복 횟수가 m부터 n까지 매치할 수 있다. 또한 m 또는 n을 생략할 수도 있다. 만약 {3,}처럼 사용하면 반복 횟수가 3 이상인 경우이고 {,3}처럼 사용하면 반복 횟수가 3 이하를 의미한다. 생략된 m은 0과 동일하며, 생략된 n은 무한대(2억 개 미만)의 의미를 갖는다.{1,}은 +와 동일하고, {0,}은 *와 동일하다. 이 부분을 언급하는 이유는, 굳이 저런 표현보다는 +, *을 사용하는 것이 직관적이기 때문이다.{n}  반드시 n번 반복.            정규식      문자열      Match 여부      설명                  ca{2}t      cat      No      “a”가 1번만 반복되어 매치되지 않음              ca{2}t      caat      Yes      “a”가 2번 반복되어 매치      {n, m}  n~m 번 반복.            정규식      문자열      Match 여부      설명                  ca{2,5}t      cat      No      “a”가 1번만 반복되어 매치되지 않음              ca{2,5}t      caat      Yes      “a”가 2번 반복되어 매치              ca{2,5}t      caaaaat      Yes      “a”가 5번 반복되어 매치      ?  있어도 되고 없어도 된다.            정규식      문자열      Match 여부      설명                  ab?c      abc      Yes      “b”가 1번 사용되어 매치              ab?c      ac      Yes      “b”가 0번 사용되어 매치      ",
+        "content": "개요지금까지는 간단한 정규식을 살펴 보았지만, 실제로 존재하는 다양한 문자열에서 정보를 뽑아내기 위해서는 추가적인 옵션이 필요하다. 예를 들어 쇼핑몰의 상품 리뷰를 사용자가 작성했다고 한다. 우리는 여기서 핵심적인 단어를 뽑아내야 한다. 하지만 이런 리뷰는 문자열은 맞지만, 전체적으로 보았을 때 줄바꿈 문자(\\n)가 포함되어 있다. 줄바꿈 문자(\\n)는 이전에 배운 문자열에서 매치되지 않는 경우이다. 이렇게 어떤 문자열이냐에 따라서 우리는 검색 조건을 달리해야 한다. 이런 문제점을 기반으로 정규식을 컴파일할 때 사용할 수 있는 옵션을 소개한다.            option      describtion                  DOTALL(S)      메타문자 . 가 줄바꿈 문자를 포함하여 모든 문자와 매치할 수 있도록 한다.              IGNORECASE(I)      대소문자에 관계없이 매치할 수 있도록 한다.              MULTILINE(M)      여러줄과 매치할 수 있도록 한다. (^, $ 메타문자의 사용과 관계가 있는 옵션이다)              VERBOSE(X)      verbose 모드를 사용할 수 있도록 한다. (정규식을 보기 편하게 만들수 있고 주석등을 사용할 수 있게된다.)      옵션을 사용할 때는 re.DOTALL처럼 전체 옵션 이름을 써도 되고 re.S처럼 약어를 써도 된다.DOTALL(S)  메타문자 . 가 줄바꿈 문자를 포함하여 모든 문자와 매치할 수 있도록 한다.. 메타 문자는 줄바꿈 문자(\\n)를 제외한 모든 문자와 매치되는 규칙이 있다. 만약 \\n 문자도 포함하여 매치하고 싶다면 re.DOTALL 또는 re.S 옵션을 사용해 정규식을 컴파일하면 된다.&gt;&gt;&gt; import re&gt;&gt;&gt; p = re.compile('a.b')&gt;&gt;&gt; m = p.match('a\\nb')&gt;&gt;&gt; print(m)None위의 예를 보면, 컴파일 옵션을 주지 않은 경우 메타문자 .는 줄바꿈 문자(\\n)와 매치되지 않음을 알 수 있다.&gt;&gt;&gt; p = re.compile('a.b', re.DOTALL)&gt;&gt;&gt; m = p.match('a\\nb')&gt;&gt;&gt; print(m)&lt;_sre.SRE_Match object at 0x01FCF3D8&gt;이번에는 옵션을 준 경우이다. 줄바꿈 문자도 포함하여 결과에 반영한 것을 알 수 있다. 보통 re.DOTALL 옵션은 여러 줄로 이루어진 문자열에서 \\n에 상관없이 검색할 때 많이 사용한다.IGNORECASE, I  대소문자에 관계없이 매치할 수 있도록 한다.re.IGNORECASE 또는 re.I 옵션은 대소문자 구별 없이 매치를 수행할 때 사용하는 옵션이다. 다음 예제를 보자.&gt;&gt;&gt; p = re.compile('[a-z]', re.I)&gt;&gt;&gt; p.match('python')&lt;_sre.SRE_Match object at 0x01FCFA30&gt;&gt;&gt;&gt; p.match('Python')&lt;_sre.SRE_Match object at 0x01FCFA68&gt;&gt;&gt;&gt; p.match('PYTHON')&lt;_sre.SRE_Match object at 0x01FCF9F8&gt;[a-z] 정규식은 소문자만을 의미하지만 re.I 옵션으로 대소문자 구별 없이 매치된다.MULTILINE, M  여러줄과 매치할 수 있도록 한다.re.MULTILINE 또는 re.M 옵션은 다음 글에 설명할 메타 문자인 ^, $와 연관된 옵션이다. 이 메타 문자에 대해 간단히 설명하자면 ^는 문자열의 처음을 의미하고, $는 문자열의 마지막을 의미한다. 예를 들어 정규식이 ^python인 경우 문자열의 처음은 항상 python으로 시작해야 매치되고, 만약 정규식이 python$이라면 문자열의 마지막은 항상 python으로 끝나야 매치된다는 의미이다.import rep = re.compile(\"^python\\s\\w+\")data = \"\"\"python onelife is too shortpython twoyou need pythonpython three\"\"\"print(p.findall(data))['python one']정규식 ^python\\s\\w+은 python이라는 문자열로 시작하고 그 뒤에 whitespace, 그 뒤에 단어가 와야 한다는 의미이다. 검색할 문자열 data는 여러 줄로 이루어져 있다.결과를 보면 ^ 메타 문자에 의해 python이라는 문자열을 사용한 첫 번째 줄만 매치된 것을 알 수 있다. 하지만 내가 원하는 결과는 해당 문자열의 처음에 조건이 걸리는 것이 아니고, 라인이 변경될 때 처음인 경우를 뜻하는 것이다. 이럴 때 사용하는 옵션이 re.MULTILINE 또는 re.M이다.import rep = re.compile(\"^python\\s\\w+\", re.MULTILINE)data = \"\"\"python onelife is too shortpython twoyou need pythonpython three\"\"\"print(p.findall(data))['python one', 'python two', 'python three']re.MULTILINE 옵션으로 인해 ^ 메타 문자가 문자열 전체가 아닌 각 줄의 처음이라는 의미를 갖게 되었다. 즉, re.MULTILINE 옵션은 ^, $ 메타 문자를 문자열의 각 줄마다 적용해 주는 것이다.VERBOSE(X)  verbose 모드를 사용할 수 있도록 한다.고마운 옵션이다. 사실 정규식은 사용하기 까다롭다. 정규식은 마치 시와 같이 함축적인 단어들의 집합으로 구성되어 있다. 따라서 전문가들이 만들어 놓은 정규식을 보면 정말 섬세하게 다뤄서 해석해야 한다. 좀 더 좋은 방법이 없을까? 이렇게 이해하기 어려운 정규식을 주석 또는 줄 단위로 구분할 수 있다면 얼마나 보기 좋고 이해하기 쉬울까? 이러한 욕구를 해소해줄 수 있는 것이 바로 re.VERBOSE 또는 re.X 옵션이다.charref = re.compile(r'&amp;[#](0[0-7]+|[0-9]+|x[0-9a-fA-F]+);')charref = re.compile(r\"\"\" &amp;[#]                # Start of a numeric entity reference (     0[0-7]+         # Octal form   | [0-9]+          # Decimal form   | x[0-9a-fA-F]+   # Hexadecimal form ) ;                   # Trailing semicolon\"\"\", re.VERBOSE)첫 번째와 두 번째 예를 비교해 보면 컴파일된 패턴 객체인 charref는 모두 동일한 역할을 한다. 하지만 정규식이 복잡할 경우 두 번째처럼 주석을 적고 여러 줄로 표현하는 것이 훨씬 가독성이 좋다는 것을 알 수 있다.re.VERBOSE 옵션을 사용하면 문자열에 사용된 whitespace는 컴파일할 때 제거된다(단 [ ] 안에 사용한 whitespace는 제외). 그리고 줄 단위로 #기호를 사용하여 주석문을 작성할 수 있다.Reference07-2 정규 표현식 시작하기",
+        
+        "url": "/dv/tips/2020/10/06/regex-05-compile-option.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-06-regex-04-match-ea-b0-9d-ec-b2-b4-ec-9d-98-eb-a9-94-ec-84-9c-eb-93-9c-html": {
+        "title": "04: match 객체의 메서드",
+        "tags": "Tips, 정규표현식",
+        "date": "October 6, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "개요앞의 글에서 우리는 컴파일 된 pattern 객체의 메서드를 공부했다. 이 메서드에는 match, search, findall, finditer가 있었다. 해당 메서드들은 검색이 된 경우 match 객체를 리턴했다.하지만 우리가 원하는 결과는 이 match 객체 자체가 아니다. 우리는 다음과 같은 궁금증을 가지고 검색을 진행했을 것이다.  어떤 문자열이 매치되었는가?  매치된 문자열의 인덱스는 어디서부터 어디까지인가?이러한 것들을 해결하기 위한 메서드를 소개한다.            method      목적                  group()      매치된 문자열을 돌려준다.              start()      매치된 문자열의 시작 위치를 돌려준다.              end()      매치된 문자열의 끝 위치를 돌려준다.              span()      매치된 문자열의 (시작, 끝)에 해당하는 튜플을 돌려준다.      import rep = re.compile('ab*')m = p.match(\"python\")group()  매치된 문자열을 돌려준다.&gt;&gt;&gt; m.group()'python'start()  매치된 문자열의 시작 위치를 돌려준다.&gt;&gt;&gt; m.start()0end()  매치된 문자열의 끝 위치를 돌려준다.&gt;&gt;&gt; m.end()6span()  매치된 문자열의 (시작, 끝)에 해당하는 튜플을 돌려준다.&gt;&gt;&gt; m.span()(0, 6)위 경우는 match를 사용했기 때문에 시작 위치는 항상 0일 것이다. 염두하자.Reference07-2 정규 표현식 시작하기",
+        
+        "url": "/dv/tips/2020/10/06/regex-04-match-%EA%B0%9D%EC%B2%B4%EC%9D%98-%EB%A9%94%EC%84%9C%EB%93%9C.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-06-regex-03-re-module-html": {
+        "title": "03: re module",
+        "tags": "Tips, 정규표현식",
+        "date": "October 6, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "정규 표현식은 다양한 언어에서 사용이 가능하다. 이 글에서는 파이썬을 기반으로 정규 표현식을 확인해 보도록 하자.import rep = re.compile('ab*')re.compile을 사용하여 정규 표현식(위 예에서는 ab*)을 컴파일한다. re.compile의 결과로 돌려주는 객체 p(컴파일된 패턴 객체)를 사용하여 그 이후의 작업을 수행할 것이다.  정규식을 컴파일할 때 특정 옵션을 주는 것도 가능한데, 이에 대해서는 뒤에서 자세히 살펴본다.  패턴이란 정규식을 컴파일한 결과이다.Method            Method      목적                  match()      문자열의 처음부터 정규식과 매치되는지 조사한다.              search()      문자열 전체를 검색하여 정규식과 매치되는지 조사한다.              findall()      정규식과 매치되는 모든 문자열(substring)을 리스트로 돌려준다.              finditer()      정규식과 매치되는 모든 문자열(substring)을 반복 가능한 객체로 돌려준다.      match, search는 정규식과 매치될 때는 match 객체를 돌려주고, 매치되지 않을 때는 None을 돌려준다. 각각의 예를 진행하기 전의 아래의 코드를 먼저 수행하자.import rep = re.compile('[a-z]+')Match  문자열의 처음부터 정규식과 매치되는지 조사한다.&gt;&gt;&gt; m = p.match(\"python\")&gt;&gt;&gt; print(m)&lt;_sre.SRE_Match object at 0x01F3F9F8&gt;Z“python” 문자열은 [a-z]+ 정규식에 부합되므로 match 객체를 돌려준다.&gt;&gt;&gt; m = p.match(\"3 python\")&gt;&gt;&gt; print(m)None“3 python” 문자열은 처음에 나오는 문자 3이 정규식 [a-z]+에 부합되지 않으므로 None을 돌려준다. match의 결과로 match 객체 또는 None을 돌려주기 때문에 파이썬 정규식 프로그램은 보통 다음과 같은 흐름으로 작성한다.p = re.compile(정규표현식)m = p.match( 'string goes here' )if m:    print('Match found: ', m.group())else:    print('No match')검색되지 않은 경우 작업을 수행하지 않는다.search  문자열 전체를 검색하여 정규식과 매치되는지 조사한다.&gt;&gt;&gt; m = p.search(\"python\")&gt;&gt;&gt; print(m)&lt;_sre.SRE_Match object at 0x01F3FA68&gt;match와 동일한 결과이다. 하지만 아래의 예는 결과가 다르다.&gt;&gt;&gt; m = p.search(\"3 python\")&gt;&gt;&gt; print(m)&lt;_sre.SRE_Match object at 0x01F3FA30&gt;“3 python” 문자열의 첫 번째 문자는 “3”이지만 search는 문자열의 처음부터 검색하는 것이 아니라 문자열 전체를 검색하기 때문에 “3 “ 이후의 “python” 문자열과 매치된다. 이렇듯 match 메서드와 search 메서드는 문자열의 처음부터 검색할지의 여부에 따라 다르게 사용해야 한다.findall  정규식과 매치되는 모든 문자열(substring)을 리스트로 돌려준다.&gt;&gt;&gt; result = p.findall(\"life is too short\")&gt;&gt;&gt; print(result)['life', 'is', 'too', 'short']“life is too short” 문자열의 ‘life’, ‘is’, ‘too’, ‘short’ 단어를 각각 [a-z]+ 정규식과 매치해서 리스트로 돌려준다.finditer  정규식과 매치되는 모든 문자열(substring)을 반복 가능한 객체로 돌려준다.findall과 마찬가지로 문자열에 해당하는 단어를 돌려준다. 하지만 우리가 이 정규 표현식을 사용하는 경우 중에서, 하나의 문자열에 존재하는 다양한 단어들에 대해 다시한번 검색을 진행하고 싶을 수 있다. 이런 경우 findall은 리스트를 결과값으로 뱉기 때문에 이러한 작업을 진행하기 어렵다. 이러한 필요성에서 finditer method는 굉장히 유용하다.&gt;&gt;&gt; result = p.finditer(\"life is too short\")&gt;&gt;&gt; print(result)&lt;callable_iterator object at 0x01F5E390&gt;&gt;&gt;&gt; for r in result: print(r)...&lt;_sre.SRE_Match object at 0x01F3F9F8&gt;&lt;_sre.SRE_Match object at 0x01F3FAD8&gt;&lt;_sre.SRE_Match object at 0x01F3FAA0&gt;&lt;_sre.SRE_Match object at 0x01F3F9F8&gt;match 객체를 리턴하기 때문에 우리는 이를 기반으로 다른 검색을 진행할 수 있다.Reference07-2 정규 표현식 시작하기",
+        
+        "url": "/dv/tips/2020/10/06/regex-03-re-module.html"
+      }
+      ,
+    
+      "dv-tips-2020-10-06-regex-02-ea-b0-84-eb-8b-a8-ed-95-9c-eb-a9-94-ed-83-80-eb-ac-b8-ec-9e-90-html": {
+        "title": "02: 간단한 메타문자",
+        "tags": "Tips, 정규표현식",
+        "date": "October 6, 2020",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "  원래 그 문자가 가진 뜻이 아닌 특별한 용도로 사용하는 문자문자 클래스 []  [ ] 사이에 있는 각각의 문자들에 대해 적어도 하나가 매치가 되는가?즉, 정규 표현식이 [abc]라면 이 표현식의 의미는 “a, b, c 중 한 개의 문자와 매치”를 뜻한다.  “a”는 정규식과 일치하는 문자인 “a”가 있으므로 매치  “before”는 정규식과 일치하는 문자인 “b”가 있으므로 매치  “dude”는 정규식과 일치하는 문자인 a, b, c 중 어느 하나도 포함하고 있지 않으므로 매치되지 않음[ ] 안의 두 문자 사이에 하이픈(-)을 사용하면 두 문자 사이의 범위(From - To)를 의미한다. 예를 들어 [a-c]라는 정규 표현식은 [abc]와 동일하고 [0-5]는 [012345]와 동일하다.  [a-zA-Z] : 알파벳 모두  [0-9] : 숫자문자 클래스([ ]) 안에는 어떤 문자나 메타 문자도 사용할 수 있다. 하지만..주의사항주의해야 할 메타 문자가 1가지 있다. 그것은 바로 ^인데, 문자 클래스 안에 ^ 메타 문자를 사용할 경우에는 반대(not)라는 의미를 갖는다. 예를 들어 [^0-9]라는 정규 표현식은 숫자가 아닌 문자만 매치된다.자주 사용하는 문자 클래스            메타문자      동일 표현식      설명                  \\d      [0-9]      숫자와 매치              \\D      [^0-9]      숫자가 아닌 것과 매치              \\s      [ \\t\\n\\r\\f\\v]      whitespace 문자(스페이스, 공백, tab)와 매치(맨 앞의 빈 칸은 공백문자(space)를 의미한다.)              \\S      [^ \\t\\n\\r\\f\\v]      whitespace 문자가 아닌 것과 매치              \\w      [a-zA-Z0-9_]      문자+숫자(alphanumeric)와 매치              \\W      [^a-za-z0-9_]      문자+숫자(alphanumeric)가 아닌 문자와 매치      대문자 사용은 소문자의 반대이다.Dot(.)  줄바꿈 문자인 \\n을 제외한 모든 문자와 매치됨을 의미, 단 하나라도 있어야 한다.사실, re.DOTALL 옵션을 주면 \\n 문자와도 매치된다. 일단 예제를 보며 이해해보자.            정규식      의미                  a.b      “a + 모든문자 + b”      즉, a와 b라는 문자 사이에 어떤 문자가 들어가도 모두 매치된다는 의미이다. 문자열 “aab”, “a0b”, “abc”가 정규식 a.b와 어떻게 매치되는지 살펴보자.  “aab”는 가운데 문자 “a”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.  “a0b”는 가운데 문자 “0”가 모든 문자를 의미하는 .과 일치하므로 정규식과 매치된다.  “abc”는 “a”문자와 “b”문자 사이에 어떤 문자라도 하나는 있어야 하는 이 정규식과 일치하지 않으므로 매치되지 않는다.마지막이 헷갈린다. 조심하도록 하자. 그런데 만약 “.” 문자 자체와 매칭이 되길 원한다면 어떻게 해야할까?            정규식      의미                  a[.]b      “a + Dot(.)문자 + b”      정규식 a[.]b는 “a.b” 문자열과 매치되고, “a0b” 문자열과는 매치되지 않는다. 혼동하지 말자.반복(*)  특정 문자가 0부터 무한대까지의 반복을 매칭한다.            정규식      문자열      Match 여부      설명                  ca*t      ct      Yes      “a”가 0번 반복되어 매치              ca*t      cat      Yes      “a”가 0번 이상 반복되어 매치 (1번 반복)              ca*t      caaat      Yes      “a”가 0번 이상 반복되어 매치 (3번 반복)      반복(+)  특정 문자가 1부터 무한대까지의 반복을 매칭한다.            정규식      문자열      Match 여부      설명                  ca+t      ct      No      “a”가 0번 반복되어 매치되지 않음              ca+t      cat      Yes      “a”가 0번 이상 반복되어 매치 (1번 반복)              ca+t      caaat      Yes      “a”가 0번 이상 반복되어 매치 (3번 반복)      반복({n,m})  특정 문자가 n이상 m이하 반복 횟수인 경우 매칭한다.{ } 메타 문자를 사용하면 반복 횟수를 고정할 수 있다. {m, n} 정규식을 사용하면 반복 횟수가 m부터 n까지 매치할 수 있다. 또한 m 또는 n을 생략할 수도 있다. 만약 {3,}처럼 사용하면 반복 횟수가 3 이상인 경우이고 {,3}처럼 사용하면 반복 횟수가 3 이하를 의미한다. 생략된 m은 0과 동일하며, 생략된 n은 무한대(2억 개 미만)의 의미를 갖는다.{1,}은 +와 동일하고, {0,}은 *와 동일하다. 이 부분을 언급하는 이유는, 굳이 저런 표현보다는 +, *을 사용하는 것이 직관적이기 때문이다.{n}  반드시 n번 반복.            정규식      문자열      Match 여부      설명                  ca{2}t      cat      No      “a”가 1번만 반복되어 매치되지 않음              ca{2}t      caat      Yes      “a”가 2번 반복되어 매치      {n, m}  n~m 번 반복.            정규식      문자열      Match 여부      설명                  ca{2,5}t      cat      No      “a”가 1번만 반복되어 매치되지 않음              ca{2,5}t      caat      Yes      “a”가 2번 반복되어 매치              ca{2,5}t      caaaaat      Yes      “a”가 5번 반복되어 매치      ?  있어도 되고 없어도 된다.            정규식      문자열      Match 여부      설명                  ab?c      abc      Yes      “b”가 1번 사용되어 매치              ab?c      ac      Yes      “b”가 0번 사용되어 매치      Reference07-2 정규 표현식 시작하기",
         
         "url": "/dv/tips/2020/10/06/regex-02-%EA%B0%84%EB%8B%A8%ED%95%9C-%EB%A9%94%ED%83%80%EB%AC%B8%EC%9E%90.html"
       }
@@ -711,7 +797,7 @@
     
       "dv-tips-2020-10-06-regex-01-ea-b0-9c-eb-85-90-ec-9e-a1-ea-b8-b0-html": {
         "title": "01: 개념잡기",
-        "tags": "Tips, regex",
+        "tags": "Tips, 정규표현식",
         "date": "October 6, 2020",
         "author": "",
         "category": "DV/Tips",
