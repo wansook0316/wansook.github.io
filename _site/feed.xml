@@ -6,9 +6,225 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 08 Oct 2020 11:33:25 +0900</pubDate>
-    <lastBuildDate>Thu, 08 Oct 2020 11:33:25 +0900</lastBuildDate>
+    <pubDate>Fri, 09 Oct 2020 22:45:49 +0900</pubDate>
+    <lastBuildDate>Fri, 09 Oct 2020 22:45:49 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title> [Regular Expression] 11: Greedy 와 Non-Greedy</title>
+        <description> 정규식에서 Greedy는 무엇을 의미할까? : &lt;p&gt;Greedy는 알고리즘 문제를 풀 때 보았던 용어이다. 이 용어는 어떤 의미로 사용이 될까? 무언가 탐욕적으로 한다는 의미일 것이다. 다음과 같은 문자열에서 처음 나오는 tag를 검색하고 싶다 해보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;Title&amp;lt;/title&amp;gt;'&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;.*&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;.*&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;.*&amp;gt;&lt;/code&gt; 정규식의 매치 결과로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;html&amp;gt;&lt;/code&gt; 문자열을 돌려주기를 기대했지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt; 메타 문자는 매우 &lt;strong&gt;탐욕스러워서&lt;/strong&gt; 매치할 수 있는 최대한의 문자열인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;title&amp;gt;Title&amp;lt;/title&amp;gt;&lt;/code&gt; 문자열을 모두 소비해 버렸다. 어떻게 하면 이 탐욕스러움을 제한하고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;html&amp;gt;&lt;/code&gt; 문자열까지만 소비하도록 막을 수 있을까?&lt;/p&gt;
+
+&lt;p&gt;다음과 같이 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;non-greedy&lt;/code&gt; 문자인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?&lt;/code&gt;를 사용하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;의 탐욕을 제한할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;.*?&amp;gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;non-greedy 문자인 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?&lt;/code&gt;는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*?&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+?&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;??&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{m,n}?&lt;/code&gt;와 같이 사용할 수 있다. 가능한 한 가장 최소한의 반복을 수행하도록 도와주는 역할을 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/08/regex-11-Greedy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/08/regex-11-Greedy.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        <category>greedy</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 10: 문자열 바꾸기</title>
+        <description> 정규식을 사용하여 원하는 문자열을 바꾸어 보자. : &lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub&lt;/code&gt; 메서드를 사용하면 정규식과 매치되는 부분을 다른 문자로 쉽게 바꿀 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'(blue|white|red)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'colour'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'blue socks and red shoes'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;'colour socks and colour shoes'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;첫번째 변수는 바꿀 문자열, 두번째 변수는 대상 문자열이다. 그런데 만약 한번만 바꾸고 싶다면 어떻게 해야할까? 세번째 변수로 count를 넘기면 된다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'colour'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'blue socks and red shoes'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;'colour socks and red shoes'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;처음 일치한 부분만 변경된 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;subn&lt;/code&gt; 역시 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub&lt;/code&gt;와 동일한 기능을 하지만 반환 결과를 튜플로 돌려준다는 차이가 있다. 돌려준 튜플의 첫 번째 요소는 변경된 문자열이고, 두 번째 요소는 바꾸기가 발생한 횟수이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'(blue|white|red)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'colour'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'blue socks and red shoes'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'colour socks and colour shoes'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;참조-구문-사용하기&quot;&gt;참조 구문 사용하기&lt;/h2&gt;
+
+&lt;p&gt;참조 구문은 그루핑에서 검색된 것에 대해 네이밍을 하는 기능을 말했다. 이런 기능을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub&lt;/code&gt;와 함께 사용할 경우 포맷을 변경할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;(?P&amp;lt;name&amp;gt;\w+)\s+(?P&amp;lt;phone&amp;gt;(\d+)[-]\d+[-]\d+)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;g&amp;lt;phone&amp;gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;g&amp;lt;name&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;010&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;park&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;이름 + 전화번호&lt;/code&gt;의 문자열을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;전화번호 + 이름&lt;/code&gt;으로 바꾸는 예이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub&lt;/code&gt;의 바꿀 문자열 부분에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\g&amp;lt;그룹이름&amp;gt;&lt;/code&gt;을 사용하면 정규식의 그룹 이름을 참조할 수 있게 된다.&lt;/p&gt;
+
+&lt;p&gt;다음과 같이 그룹 이름 대신 참조 번호를 사용해도 마찬가지 결과를 돌려준다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r&quot;(?P&amp;lt;name&amp;gt;\w+)\s+(?P&amp;lt;phone&amp;gt;(\d+)[-]\d+[-]\d+)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;g&amp;lt;2&amp;gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;g&amp;lt;1&amp;gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;park 010-1234-1234&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;010&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1234&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;park&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;함수를-넣어-사용하기&quot;&gt;함수를 넣어 사용하기&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;hexrepl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;r'\d+'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexrepl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Call 65490 for printing, 49152 for user code.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;'Call 0xffd2 for printing, 0xc000 for user code.'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;hexrepl 함수는 match 객체(위에서 숫자에 매치되는)를 입력으로 받아 16진수로 변환하여 돌려주는 함수이다. sub의 첫 번째 매개변수로 함수를 사용할 경우 해당 함수의 첫 번째 매개변수에는 정규식과 매치된 match 객체가 입력된다. 그리고 매치되는 문자열은 함수의 반환 값으로 바뀌게 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/08/regex-10-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B0%94%EA%BE%B8%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/08/regex-10-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B0%94%EA%BE%B8%EA%B8%B0.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        <category>sub</category>
+        
+        <category>subn</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 09: 전방 탐색(Lookahead Assertions)</title>
+        <description> 문자열을 검색하는데 있어 추가적인 조건을 주는 Lookahead Assertions에 대해 알아보자. : &lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
+
+&lt;p&gt;Lookahead Assertions는 이해하기가 어렵다. 하지만 예시와 함께라면 어떤 경우에 이를 사용해야 하는지 알 수 있을 것이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.+:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://google.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정규식 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.+:&lt;/code&gt;과 일치하는 문자열로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http:&lt;/code&gt;를 돌려주었다. 만약 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http:&lt;/code&gt;라는 검색 결과에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt;을 제외하고 출력하려면 어떻게 해야 할까? 위 예는 그나마 간단하지만 훨씬 복잡한 정규식이어서 그루핑은 추가로 할 수 없다는 조건까지 더해진다면 어떻게 해야 할까?&lt;/p&gt;
+
+&lt;p&gt;이럴 때 사용할 수 있는 것이 바로 전방 탐색이다. 전방 탐색에는 긍정(Positive)과 부정(Negative)의 2종류가 있고 다음과 같이 표현한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;긍정형 전방 탐색(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?=...)&lt;/code&gt;) - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;...&lt;/code&gt; 에 해당되는 정규식과 매치되어야 하며 조건이 통과되어도 문자열이 소비되지 않는다.&lt;/li&gt;
+  &lt;li&gt;부정형 전방 탐색(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?!...)&lt;/code&gt;) - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;...&lt;/code&gt;에 해당되는 정규식과 매치되지 않아야 하며 조건이 통과되어도 문자열이 소비되지 않는다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;긍정형-전방-탐색&quot;&gt;긍정형 전방 탐색&lt;/h2&gt;
+
+&lt;p&gt;긍정형 전방 탐색을 사용하면 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http:&lt;/code&gt;의 결과를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http&lt;/code&gt;로 바꿀 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; p = re.compile(&quot;.+(?=:)&quot;)
+&amp;gt;&amp;gt;&amp;gt; m = p.search(&quot;http://google.com&quot;)
+&amp;gt;&amp;gt;&amp;gt; print(m.group())
+http
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정규식 중 :에 해당하는 부분에 긍정형 전방 탐색 기법을 적용하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(?=:)&lt;/code&gt;으로 변경하였다. 이렇게 되면 기존 정규식과 검색에서는 동일한 효과를 발휘하지만 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt; 에 해당하는 문자열이 정규식 엔진에 의해 소비되지 않아(검색에는 포함되지만 검색 결과에는 제외됨) 검색 결과에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:&lt;/code&gt;이 제거된 후 돌려주는 효과가 있다.&lt;/p&gt;
+
+&lt;p&gt;여기서 알 수 있는 사실은, Lookahead Assertions이 zero-width assertion이라는 사실이다. 실제 검색에 적용되기 위해서는 엔진이 이를 가지고 있어야 하는데 그렇지는 않고, 그저 있는지 확인만 해주는 역할이다. 이를 소비된다 라는 표현으로 적었다는 것은 앞 글에서 배웠다.&lt;/p&gt;
+
+&lt;h2 id=&quot;부정적-전방-탐색&quot;&gt;부정적 전방 탐색&lt;/h2&gt;
+
+&lt;p&gt;자, 이번에는 다음 정규식을 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 정규식은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;파일 이름 + . + 확장자&lt;/code&gt;를 나타내는 정규식이다. 이 정규식은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foo.bar&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;autoexec.bat&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendmail.cf&lt;/code&gt; 같은 형식의 파일과 매치될 것이다.&lt;/p&gt;
+
+&lt;p&gt;이 정규식에 확장자가 “bat인 파일은 제외해야 한다”는 조건을 추가해 보자. 가장 먼저 생각할 수 있는 정규식은 다음과 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;이 정규식은&lt;/td&gt;
+      &lt;td&gt;메타 문자를 사용하여 확장자의 첫 번째 문자가 b가 아니거나 두 번째 문자가 a가 아니거나 세 번째 문자가 t가 아닌 경우를 의미한다. 이 정규식에 의하여 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foo.bar&lt;/code&gt;는 제외되지 않고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;autoexec.bat&lt;/code&gt;은 제외되어 만족스러운 결과를 돌려준다. 하지만 이 정규식은 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendmail.cf&lt;/code&gt;처럼 확장자의 문자 개수가 2개인 케이스를 포함하지 못하는 오동작을 하기 시작한다.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;따라서 다음과 같이 바꾸어야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]([&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|..&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;확장자의 문자 개수가 2개여도 통과되는 정규식이 만들어졌다. 하지만 정규식은 점점 더 복잡해지고 이해하기 어려워진다.&lt;/p&gt;
+
+&lt;p&gt;그런데 여기에서 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat&lt;/code&gt; 파일말고 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exe&lt;/code&gt; 파일도 제외하라는 조건이 추가로 생긴다면 어떻게 될까? 이 모든 조건을 만족하는 정규식을 구현하려면 패턴은 더욱더 복잡해질 것이다. 이런 상황에서 우리는 부정적 전방 탐색을 사용한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bat&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;확장자가 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat&lt;/code&gt;가 아닌 경우에만 통과된다는 의미이다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat&lt;/code&gt; 문자열이 있는지 조사하는 과정에서 문자열이 소비되지 않으므로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bat&lt;/code&gt;가 아니라고 판단되면 그 이후 정규식 매치가 진행된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exe&lt;/code&gt; 역시 제외하라는 조건이 추가되더라도 다음과 같이 간단히 표현할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bat&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exe&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://wikidocs.net/4308&quot;&gt;07-2 정규 표현식 시작하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Oct 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2020/10/08/regex-09-%EC%A0%84%EB%B0%A9%ED%83%90%EC%83%89.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2020/10/08/regex-09-%EC%A0%84%EB%B0%A9%ED%83%90%EC%83%89.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>정규표현식</category>
+        
+        <category>Lookahead Assertions</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
     
       <item>
         <title> [Regular Expression] 08: Grouping(그루핑)</title>
@@ -393,7 +609,7 @@
       </item>
     
       <item>
-        <title> [Regular Expression] 05: Compile Option</title>
+        <title> [Regular Expression] 05: Compile Option(컴파일 옵션)</title>
         <description> 정규식을 컴파일 할 때, 추가적인 옵션을 주는 방법을 알아보자. : &lt;h1 id=&quot;개요&quot;&gt;개요&lt;/h1&gt;
 
 &lt;p&gt;지금까지는 간단한 정규식을 살펴 보았지만, 실제로 존재하는 다양한 문자열에서 정보를 뽑아내기 위해서는 추가적인 옵션이 필요하다. 예를 들어 쇼핑몰의 상품 리뷰를 사용자가 작성했다고 한다. 우리는 여기서 핵심적인 단어를 뽑아내야 한다. 하지만 이런 리뷰는 문자열은 맞지만, 전체적으로 보았을 때 줄바꿈 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;)가 포함되어 있다. 줄바꿈 문자(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\n&lt;/code&gt;)는 이전에 배운 문자열에서 매치되지 않는 경우이다. 이렇게 어떤 문자열이냐에 따라서 우리는 검색 조건을 달리해야 한다. 이런 문제점을 기반으로 정규식을 컴파일할 때 사용할 수 있는 옵션을 소개한다.&lt;/p&gt;
@@ -1778,246 +1994,6 @@ inlet과 outlet에서 질량이 같다고 가정하고, inlet의 vapor와 물의
         <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-04-Gas-Mixture-Property.html</link>
         <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-04-Gas-Mixture-Property.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Thermodynamics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Thermodynamics] 03: 맥스웰 관계식 &amp; 클라페이롱 식 (Maxwell Relations &amp; Clapeyron Equation)</title>
-        <description> 맥스웰 관계식과 클라페이롱 식을 알아보자. : &lt;h1 id=&quot;maxwell-relations&quot;&gt;Maxwell Relations&lt;/h1&gt;
-
-&lt;p&gt;Total Derivative 의 성질을 사용한다. 4가지 Equation에서 이 성질을 사용하는데, 그 종류는 다음과 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;내부에너지 U(T,V)&lt;/li&gt;
-  &lt;li&gt;엔탈피(Enthalpy) H(T, P)&lt;/li&gt;
-  &lt;li&gt;헬름홀츠 방정식 (Helmholtz) A(T, V)&lt;/li&gt;
-  &lt;li&gt;깁스 방정식 (Gibbs Equation) G(T, P)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917658-e7570e80-04eb-11eb-9f09-b57a4fef18d5.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;the-clapeyron-equation&quot;&gt;The Clapeyron Equation&lt;/h1&gt;
-
-&lt;p&gt;상변화할 때 압력과 온도를 가지고 h_fg 나 v_fg를 추정할 수 있다. Vapor일 때, 몇가지 가정을 추가해서 온도와 압력으로 h_fg를 구할 수 있다. 이 방정식을 The Clausius-Clapeyron Equation이라 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917667-ed4cef80-04eb-11eb-9532-69ddb0a2adb1.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917700-fb027500-04eb-11eb-9a54-43d0b6e7cd78.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917703-fe95fc00-04eb-11eb-9463-172599df929c.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-03-Maxwell-Relations.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-03-Maxwell-Relations.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Thermodynamics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Thermodynamics] 02: 열기관과 냉동 사이클 (Heat Engine &amp; Refrigerator Cycles)</title>
-        <description> 열기관과 냉동사이클의 관계를 알아본다. : &lt;h1 id=&quot;power-cycleengine-vs-refrigeration-cycle&quot;&gt;Power Cycle(Engine) vs Refrigeration Cycle&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;방향이 반대다!&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Engine (시계 방향) : 일을 생산
-    &lt;ul&gt;
-      &lt;li&gt;액체 압력 높힘 (Pump) -&amp;gt; 액체에서 기체로(고압) (Boiler) -&amp;gt; 기체 압력 낮춤 (Turbine) -&amp;gt; 기체에서 액체로 (Condenser)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Refrigeration Cycle (반시계 방향) : 열을 제거, 공급 (Refrigerator, Heat Pump)
-    &lt;ul&gt;
-      &lt;li&gt;액체에서 기체로(저압) (Evaporator) -&amp;gt; 기체 압력 높힘 (Compressor) -&amp;gt; 기체에서 액체로(고압) (Condenser) -&amp;gt; 액체 압력 낮춤 (Turbine or Throttling Valve)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917026-b7f3d200-04ea-11eb-84d0-04f48f3269b3.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;vapor-compression-refrigeneration-cycle&quot;&gt;Vapor-compression Refrigeneration Cycle&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;반대 방향으로 진행되는 수정된 Rankine Cycle(Vapor Power Cycle)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;기존의 Rankine Cycle을 반대로 운행시키면 된다. 그런데 여기서, 터빈을 사용하지 않고 Throttling Valve를 사용한다. Sat.liquid 상태에서 터빈을 돌리고 나면 Mixture상태가 된다. 즉 터빈이 운행하는 동안에 한가지 phase가 아니게 되어 효율이 감소한다. 일을 생산할 수는 있겠지만 전체적으로 보았을 때 이득이 아니다. 단가문제도 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Problem
-    &lt;ul&gt;
-      &lt;li&gt;원래 Turbine을 사용할 때는 Internally reversible 이었지만, 밸브로 변경하는 바람에 내적으로 비가역인 과정이다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917187-086b2f80-04eb-11eb-8037-908c4cbc6efe.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917194-0e611080-04eb-11eb-8564-49e9a42534f9.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;근본적으로 Heat Pump와 Refrigerator는 목적이 다를 뿐 원리는 동일하기 때문에, 중간에 밸브를 끼워넣어 모드를 변경할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917228-1d47c300-04eb-11eb-8855-90fb0b6eab2a.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;exergy-transfer&quot;&gt;Exergy Transfer&lt;/h1&gt;
-
-&lt;p&gt;엑서지란 특정 계의 상태가 환경의 상태까지 갔을 때 할 수 있는 잠재일 양이다.&lt;/p&gt;
-
-&lt;p&gt;그 System이 Closed, Open 일 때 엑서지는 다음과 같이 나타낼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917257-2b95df00-04eb-11eb-9e87-0b1b903ea045.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917268-305a9300-04eb-11eb-913d-f651e9c3da83.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그렇다면 이 계의 엑서지의 변화를 만들어내는 요인은 무엇이 있을까. 내가 특정 계를 잡았을 때, 이 시스템에 작용할 수 있는 에너지의 형태는, 열, 일, 질량이동 이 세가지 이다. 그런데 System에 이 세가지 형태의 엑서지가 전달이 곧 시스템의 엑서지 변화로 변하지 않는다. 열에 의한 엑서지 이동은 엔트로피 Term과 관련이 있는데, 엔트로피 증가의 원리 (특정 System의 엔트로피 변화량은 Sin와 Sout 이외에 생성되는 엔트로피 항을 더해야 함)에 의해, 생성되는 엔트로피항에 대응되는 엑서지 파괴량을 빼주어야 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917318-4700ea00-04eb-11eb-9f82-d4a7ac593032.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;2nd-law-efficiency&quot;&gt;2nd Law Efficiency&lt;/h1&gt;
-
-&lt;p&gt;2법칙 효율은 쉽게 말해 System에서 할 수 있는 최대에너지 (엑서지 양) 대비 실제로 한 나온 에너지양이다.
-이 설명은 엑서지 소비양 대비 엑서지 회복 양과도 같다.&lt;/p&gt;
-
-&lt;h2 id=&quot;compressor&quot;&gt;Compressor&lt;/h2&gt;
-
-&lt;p&gt;1-&amp;gt;2 과정, 압축기는 이상적으로 등엔트로피 과정이다. 이 때 1점과 2점을 비교하면, 질량변화(열전달 X, 환경에 해주는 일 말고 유용일 X) 밖에 없다. 즉, 1,2 점의 변화로 부터 얻어낼 수 있는 에너지 양은, 엔탈피만 변화했으므로 h2 - h1 이다. 실제로 이 과정에서 생기는 에너지 양은 엔트로피 생성으로 인한 항을 빼주어야 한다. 1,2지점에서 계의 엔트로피 변화는 없으므로, 2점에서 1점의 엔트로피를 빼준 것이 Sgen이 될 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;condenser&quot;&gt;Condenser&lt;/h2&gt;
-
-&lt;p&gt;2-&amp;gt;3 과정, 콘덴서를 System으로 잡았을 때, 이 계의 엑서지 변화량은 X2 - X3로 나타낼 수 있다. 이 과정에서 들어온 에너지의 형태는 열이다. 환경의 온도와 계에 들어온 온도와의 관계만큼의 열이 들어오므로 카르노 사이클 효율을 곱하여 나타 낸다. 이 과정동안 변화하는 계의 엔트로피양은 Qh/Th 이다. 이 계의 엔트로피 양은, 2에서의 엔트로피에서 3에서의 엔트로피를 뺀것에 Sgen을 더해주면 된다. 따라서 Sgen은 아래와 같이 표현될 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;expansion-valve&quot;&gt;Expansion Valve&lt;/h2&gt;
-
-&lt;p&gt;3-&amp;gt;4 과정 계의 엑서지 변화는 X3-X4로 나타내어 질 것이다. 계의 속도변화와 위치차가 없고 valve는 h3 = h4이므로 엔트로피항만 살아남을 것이다. 그 과정 이후 실제로 회복된 에너지는 없다. 따라서 2법칙 효율은 0이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;evaporator&quot;&gt;Evaporator&lt;/h2&gt;
-
-&lt;p&gt;4-&amp;gt;1과정 엑서지 변화는 X4-X1로 나타낼 수 있다. 이 과정에서 실제로 회복된 에너지는 열의 형태이다. Sgen으로도 동일하게 엔트로피 증가의 법칙을 사용해서 구할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;결과적으로 총합을 구해서 정리하게 되면 결국 사이클 전체에 대해 2법칙 효율은, 가역적 과정에서의 사이클 COP대비 실제 COP비율이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917375-626bf500-04eb-11eb-9d5f-6719e857536a.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917381-6566e580-04eb-11eb-9303-5cb3b7fbd5cc.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94917388-68fa6c80-04eb-11eb-8634-add1282a863b.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-02-Heat-engine.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-02-Heat-engine.html</guid>
-        
-        <category>Dynamics</category>
-        
-        <category>Thermodynamics</category>
-        
-        
-        <category>CS/Dynamics</category>
-        
-      </item>
-    
-      <item>
-        <title> [Thermodynamics] 01: 증기 원동 사이클 (Vapor Power Cycle)</title>
-        <description> 카르노 사이클을 변형한 현실적인 사이클을 배운다. : &lt;h1 id=&quot;vapor-power-cycle&quot;&gt;Vapor Power Cycle&lt;/h1&gt;
-
-&lt;p&gt;열역학에서 가장 먼저 다루는 사이클은 카르노 사이클이다. 이 사이클 내에서 효율이 극대화 되기 때문에 가장 이상적인 사이클이기 때문이다. (가역과정일때) 하지만 이것을 현실화하기는 매우 어렵다.&lt;/p&gt;
-
-&lt;h2 id=&quot;가정&quot;&gt;가정&lt;/h2&gt;
-
-&lt;p&gt;Turbine과 Compressor 안에는 2개 이상의 phase인 유체가 들어가는 것은 좋지 않다. 부식 발생, 효율적이지 못하기 때문이다.
-Power Cycle의 주 사용이유는 많은 일을 생산하기 위함이다. 그러기 위해서는 Tmax가 높아야하는데, 카르노 사이클은 근본적으로 그러기 힘들다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916303-6a2a9a00-04e9-11eb-9da7-9d942ad18b05.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;rankin-cycle&quot;&gt;Rankin Cycle&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Ideal cycle for capor power cycles&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;카르노 사이클의 단점을 보안한 이상적인 사이클&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Process
-    &lt;ul&gt;
-      &lt;li&gt;등엔트로피 압축(Compressor) -&amp;gt; 등압 팽창(Boiler) -&amp;gt; 등엔트로피 수축(Turbine) -&amp;gt; 등압 수축(Condenser)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Efficiency
-    &lt;ul&gt;
-      &lt;li&gt;카르노 사이클 보다 낮은 효율 (내적 가역과정이라 하더라도 외적 비가역성이 생김)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916371-875f6880-04e9-11eb-8656-d2c27a4b281d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916379-8af2ef80-04e9-11eb-89ac-24a7bc233a56.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;ideal-cycle-vs-acutal-cycle&quot;&gt;Ideal cycle vs Acutal cycle&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Irreversiblility&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;마찰로 인한 압력 강하&lt;/li&gt;
-  &lt;li&gt;열 손실로 인한 온도 저하&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;the-way-of-making-cycle-more-efficient&quot;&gt;The way of making cycle more Efficient&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Condensor의 압력을 낮춘다.
-    &lt;ul&gt;
-      &lt;li&gt;Problem : Turbine에 습기가 많아져 부식이 생길 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Tmax를 높힌다. 열을 더 추가한다.
-    &lt;ul&gt;
-      &lt;li&gt;Problem : 무한정 높힐 수 있는게 아니다. 터빈이 견딜 수 있는 온도까지만 높힐 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;높은 압력에서 Heating한다.
-    &lt;ul&gt;
-      &lt;li&gt;Problem : Turbine에 습기가 많아져 부식이 생길 수 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;REHEATING
-    &lt;ul&gt;
-      &lt;li&gt;터빈을 두개를 달고 온도를 높히는 장치를 하나 더 달아버린다.
-        &lt;ol&gt;
-          &lt;li&gt;Open Feed Water Heating&lt;/li&gt;
-        &lt;/ol&gt;
-        &lt;ul&gt;
-          &lt;li&gt;기존에 데우는 유체와 다시 데우려는 유체를 섞어서 운행.
-            &lt;ol&gt;
-              &lt;li&gt;Closed Feed Water Heating&lt;/li&gt;
-            &lt;/ol&gt;
-          &lt;/li&gt;
-          &lt;li&gt;기존에 데우는 유체와 다시 데우려는 유체가 서로 열교환만 한다.&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916410-99410b80-04e9-11eb-8a43-54fa1e818e30.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916420-9e05bf80-04e9-11eb-93ea-bd15cfe20577.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916427-a1994680-04e9-11eb-82d7-430af7e4f3a8.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916434-a4943700-04e9-11eb-8ef7-9fe676043ab6.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916446-a827be00-04e9-11eb-9aee-ce99beb18804.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94916456-abbb4500-04e9-11eb-826a-35996c6bf120.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-01-Vapor-Power-Cycle.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/dynamics/2020/10/02/Thermodynamics-01-Vapor-Power-Cycle.html</guid>
         
         <category>Dynamics</category>
         

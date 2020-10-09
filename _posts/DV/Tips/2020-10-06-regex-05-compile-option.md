@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "05: Compile Option"
+title: "05: Compile Option(컴파일 옵션)"
 category: "DV/Tips"
 comments: true
 tags: [Tips, 정규표현식]
