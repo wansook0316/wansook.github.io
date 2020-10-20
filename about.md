@@ -83,6 +83,8 @@ introduce: "안녕하세요. 최완식입니다."
 <h2 style="margin-top:0;">Deep Learning</h2>
 - [Deep Learning Specialization Course]()
 
+<h2 style="margin-top:0;">Google Cloud Platform</h2>
+
 # Skills
 
 ---
