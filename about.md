@@ -81,9 +81,14 @@ introduce: "안녕하세요. 최완식입니다."
 ---
 
 <h2 style="margin-top:0;">Deep Learning</h2>
-- [Deep Learning Specialization Course]()
+
+- [Deep Learning Specialization Course](https://wansook0316.github.io/cv/courses/2020/09/01/Updater-Deep_Learning_Specialization_Course.html)
 
 <h2 style="margin-top:0;">Google Cloud Platform</h2>
+
+# Qualification
+
+---
 
 # Skills
 
