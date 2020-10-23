@@ -13,7 +13,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 - KyungHee Univ.
   - Mechanical Engineering
-  - Software Conversion
+  - Software Convergence
 
 # Links
 
@@ -60,7 +60,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 - [Movie App(React)](https://wansook0316.github.io/movie_app_react/)
 - [kakaotalk clone](https://wansook0316.github.io/kakaotalkClone/chat.html)
-- [PyQt5를 사용한 Image Augmentator](https://github.com/wansook0316/data_augmentater)
+- [Image Augmentator Using PyQt5](https://github.com/wansook0316/data_augmentater)
 
 <h2 style="margin-top:0;">Implementation</h2>
 
