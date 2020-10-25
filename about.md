@@ -66,7 +66,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 <h2 style="margin-top:0;">Open source</h2>
 
-- [Data Science for COVID-19 (DS4C)](https://www.kaggle.com/kimjihoo/coronavirusdataset)
+- [Data Science for COVID-19 (DS4C)](<https://wansook0316.github.io/cv/projects/2020/02/01/Data-Science-for-COVID-19(DS4C).html>)
 
 <h2 style="margin-top:0;">Machine Learning</h2>
 
@@ -89,6 +89,14 @@ introduce: "안녕하세요. 최완식입니다."
 # Qualification
 
 ---
+
+# Extra Curricular Act.
+
+---
+
+- [Like Lion 6th](https://likelion.net/)(2017 ~ 2018)
+- [Like Lion 7th Lead](https://likelion.net/) (2018 ~ 2019)
+- [Big Leader 4th](http://bigleader.net/) (2017 ~ 2019)
 
 # Skills
 
