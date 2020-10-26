@@ -96,6 +96,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 - [Like Lion 6th](https://likelion.net/)(2017 ~ 2018)
 - [Like Lion 7th Lead](https://likelion.net/) (2018 ~ 2019)
+- Python Programming Course Assistant (2018.09 ~ 2018.12)
 - [Big Leader 4th](http://bigleader.net/) (2017 ~ 2019)
 
 # Skills

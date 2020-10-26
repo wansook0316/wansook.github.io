@@ -4,7 +4,7 @@ title: "Data Augmentation Using PyQt5"
 category: "CV/Projects"
 comments: true
 tags: [project, "CV"]
-feature-img: "assets/img/55.jpg"
+feature-img: "assets/img/23.jpg"
 feature-title:
 use_math: true
 summary: PyQt5를 사용하여 Gui기반 데이터 증대 프로그램을 제작하였다.
