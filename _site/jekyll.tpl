@@ -1,3 +1,4 @@
+{# /Users/Choiwansik/anaconda3/lib/python3.8/site-packages/nbconvert/templates #}
 {% extends 'markdown.tpl' %}
 
 {%- block header -%}
@@ -6,8 +7,8 @@ layout: post
 title: "{{resources['metadata']['name']}}"
 category: "DS/DL"
 comments: true
-tags: ["test"]
-feature-img: "assets/img/19.jpg"
+tags: ["jupeter notebook"]
+feature-img: "assets/img/26.jpg"
 feature-title: ""
 use_math: true
 series: ""
