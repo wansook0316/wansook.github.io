@@ -18,6 +18,7 @@ series: "Computer Vision"
 summary: "Spatial Pyramid Pooling Network을 리뷰해본다."
 ---
 
+
 ## 핵심 아이디어
 
 > 입력 이미지의 크기나 비율에 관계없이 CNN 학습은 불가한가?
