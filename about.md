@@ -69,6 +69,8 @@ introduce: "안녕하세요. 최완식입니다."
 - [Deep Learning Specialization Course](https://wansook0316.github.io/cv/courses/2020/10/27/Deep_Learning_Specialization_Course.html)
 
 # Qualification
+- Toeic: 895
+
 
 # Extra Curricular Act.
 
@@ -81,4 +83,4 @@ introduce: "안녕하세요. 최완식입니다."
 # Skills
 
 - Programming: Python, node.js, C++
-- Human Languages: English - Reading, speaking only, Korean - Native
+- Human Languages: English - Reading, listening only, Korean - Native
