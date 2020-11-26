@@ -69,7 +69,7 @@ introduce: "안녕하세요. 최완식입니다."
 - [Deep Learning Specialization Course](https://wansook0316.github.io/cv/courses/2020/10/27/Deep_Learning_Specialization_Course.html)
 
 # Qualification
-- Toeic: 895
+- TOEIC: 895
 
 
 # Extra Curricular Act.
@@ -79,6 +79,7 @@ introduce: "안녕하세요. 최완식입니다."
 - Python Programming Course Assistant (2018.09 ~ 2018.12)
 - [Big Leader 4th](http://bigleader.net/) (2017 ~ 2019)
 - [Naver HackDay](https://d2.naver.com/news/4972264) (2019.02)
+- [Google Machine Learning Developer Bootcamp](https://developers-kr.googleblog.com/2020/09/mlbootcamp_11.html) (2020.10 ~ )
 
 # Skills
 
