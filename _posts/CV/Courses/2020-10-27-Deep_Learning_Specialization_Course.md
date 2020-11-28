@@ -7,6 +7,7 @@ tags: ["Courses"]
 feature-img: "assets/img/25.jpg"
 feature-title:
 use_math: true
+series: "Deep Learning Specialization"
 summary: "Coursera의 딥러닝 특화 과정을 이수했다."
 ---
 
