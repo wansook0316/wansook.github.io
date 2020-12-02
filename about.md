@@ -69,8 +69,12 @@ introduce: "안녕하세요. 최완식입니다."
 - [Deep Learning Specialization Course](https://wansook0316.github.io/cv/courses/2020/10/27/Deep_Learning_Specialization_Course.html)
 - [Tensorflow Specialization Course](https://wansook0316.github.io/cv/courses/2020/11/26/Tensorflow-Specialization-Course.html)
 
+# Patents
+- [Prediction of number of meals at restaurants in Seoul City Hall](https://wansook0316.github.io/cv/patents/2020/12/02/식수-인원-예측-서버-동작-특허.html)
+
+
 # Qualification
-- TOEIC : 895
+- [TOEIC : 895](https://wansook0316.github.io/cv/qualification/2020/08/16/TOEIC.html)
 
 
 # Extra Curricular Act.
