@@ -23,5 +23,5 @@ summary: "Coursera의 Tensorflow 특화과정을 이수했다."
 
 
 # Natural Language Processing in TensorFlow
-![Coursera-JZXYF6YGMXTF](https://user-images.githubusercontent.com/37871541/100850496-38bd5300-34c7-11eb-897e-7262e3975ff8.jpg){: .center_small}_Natural Language Processing in TensorFlow_
+![Coursera-JZXYF6YGMXTF](https://user-images.githubusercontent.com/37871541/100850496-38bd5300-34c7-11eb-897e-7262e3975ff8.jpg){: .center-small }_Natural Language Processing in TensorFlow_
 
