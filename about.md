@@ -18,13 +18,9 @@ introduce: "안녕하세요. 최완식입니다."
 - [Github](<[wansook0316](https://github.com/wansook0316)>)
 - [LinkedIn](https://www.linkedin.com/in/wansik-choi-b065881aa/)
 
-# Research Experience
+<!-- # Research Experience -->
 
-# Work Experience
-
-- Updater
-  Software Intern (2020.09 ~ 2020.10)
-
+<!-- # Education -->
 # Awards
 
 <h3 style="margin-top:16px;">Machine Learning</h3>
@@ -71,6 +67,14 @@ introduce: "안녕하세요. 최완식입니다."
 
 - [Deep Learning Specialization Course](https://wansook0316.github.io/cv/courses/2020/10/27/Deep_Learning_Specialization_Course.html)
 - [Tensorflow Specialization Course](https://wansook0316.github.io/cv/courses/2020/11/26/Tensorflow-Specialization-Course.html)
+
+# Work Experience
+
+- Updater
+  Software Intern (2020.09 ~ 2020.10)
+
+
+<!-- # Paper -->
 
 # Patents
 - [Prediction of number of meals at restaurants in Seoul City Hall](https://wansook0316.github.io/cv/patents/2020/12/02/식수-인원-예측-서버-동작-특허.html)
