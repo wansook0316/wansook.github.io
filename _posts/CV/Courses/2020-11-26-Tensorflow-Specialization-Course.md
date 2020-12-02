@@ -20,3 +20,8 @@ summary: "Coursera의 Tensorflow 특화과정을 이수했다."
 
 # Convolutional Neural Networks in TensorFlow
 ![Coursera-EDZH49AP2QAE](https://user-images.githubusercontent.com/37871541/100528454-6765d000-3220-11eb-9af0-81d182fe64e8.jpg){: .center-small }*Convolutional Neural Networks in TensorFlow*
+
+
+# Natural Language Processing in TensorFlow
+![Coursera-JZXYF6YGMXTF](https://user-images.githubusercontent.com/37871541/100850496-38bd5300-34c7-11eb-897e-7262e3975ff8.jpg){: .center_small}_Natural Language Processing in TensorFlow_
+
