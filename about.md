@@ -95,5 +95,5 @@ introduce: "안녕하세요. 최완식입니다."
 
 # Skills
 
-- Programming: Python, node.js, C++
+- Programming Languages: Python, node.js, C++
 - Human Languages: English - Reading, listening only, Korean - Native
