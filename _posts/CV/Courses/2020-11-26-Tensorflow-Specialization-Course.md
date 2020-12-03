@@ -11,7 +11,7 @@ series: "Tensorflow Specialization"
 summary: "Coursera의 Tensorflow 특화과정을 이수했다."
 ---
 
-
+![Coursera-DCLTHUTDPRJ2](https://user-images.githubusercontent.com/37871541/101063302-00586a80-35d6-11eb-841c-4b5dfe24530d.jpg)*DeepLearning.AI TensorFlow Developer*
 
 
 # Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning
@@ -25,3 +25,6 @@ summary: "Coursera의 Tensorflow 특화과정을 이수했다."
 # Natural Language Processing in TensorFlow
 ![Coursera-JZXYF6YGMXTF](https://user-images.githubusercontent.com/37871541/100850496-38bd5300-34c7-11eb-897e-7262e3975ff8.jpg){: .center-small }_Natural Language Processing in TensorFlow_
 
+
+# Sequences, Time Series and Prediction
+![Coursera-TQ4H8G3NQGYB](https://user-images.githubusercontent.com/37871541/101063256-f6cf0280-35d5-11eb-8731-48398ce90ccc.jpg){: .center-small }_Sequences, Time Series and Prediction_
