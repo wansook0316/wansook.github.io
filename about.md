@@ -81,7 +81,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 
 # Qualification
-- [TOEIC : 895](https://wansook0316.github.io/cv/qualification/2020/08/16/TOEIC.html)
+- [TOEIC: 895](https://wansook0316.github.io/cv/qualification/2020/08/16/TOEIC.html)
 
 
 # Extra Curricular Act.
