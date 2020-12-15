@@ -74,7 +74,8 @@ introduce: "안녕하세요. 최완식입니다."
   Software Intern (2020.09 ~ 2020.10)
 
 
-<!-- # Paper -->
+# Publications
+- [J Kim, DH Jang, Sj Jang, Wc Lee, JK Lee. DS4C Patient Policy Province Dataset: a Comprehensive COVID-19 Dataset for Causal and Epidemiological Analysis, 2020](https://wansook0316.github.io/cv/publications/2020/12/15/DS4C-NeuralPS-COVID19-policy-dataset.html) (**NeualPS**)
 
 # Patents
 - [Prediction of number of meals at restaurants in Seoul City Hall](https://wansook0316.github.io/cv/patents/2020/12/02/식수-인원-예측-서버-동작-특허.html)

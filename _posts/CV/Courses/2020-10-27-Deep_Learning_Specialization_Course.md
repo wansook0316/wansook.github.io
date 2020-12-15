@@ -8,7 +8,7 @@ feature-img: "assets/img/25.jpg"
 feature-title:
 use_math: true
 series: "Deep Learning Specialization"
-summary: "Coursera의 딥러닝 특화 과정을 이수했다."
+summary: ""
 ---
 
 ![Coursera_Deep_Learning](https://user-images.githubusercontent.com/37871541/97710611-4e71de00-1aff-11eb-8c3b-67e330bf6b96.jpg){: .center }_Deep Learning Specialization Course_

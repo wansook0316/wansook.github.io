@@ -7,7 +7,7 @@ tags: ["Qualification", "CV"]
 feature-img: "assets/img/40.jpg"
 feature-title:
 use_math: true
-summary: "Tensorflow Certification"
+summary: ""
 ---
 
 

@@ -8,7 +8,7 @@ feature-img: "assets/img/37.jpg"
 feature-title:
 use_math: true
 series: "Tensorflow Specialization"
-summary: "Coursera의 Tensorflow 특화과정을 이수했다."
+summary: ""
 ---
 
 ![Coursera-DCLTHUTDPRJ2](https://user-images.githubusercontent.com/37871541/101063302-00586a80-35d6-11eb-841c-4b5dfe24530d.jpg)*DeepLearning.AI TensorFlow Developer*
