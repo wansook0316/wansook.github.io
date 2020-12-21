@@ -47,6 +47,7 @@ introduce: "안녕하세요. 최완식입니다."
 - [Dance copyright construction through key point extraction](https://wansook0316.github.io/cv/projects/2019/12/01/%EC%B6%A4-%EC%A0%80%EC%9E%91%EA%B6%8C-%EC%A0%9C%EC%9E%91-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.html) (2019.09 ~ 2019.12)
 - [Condensation Prediction for Hyundai Steel's Steel Products](https://wansook0316.github.io/cv/projects/2020/07/01/%EA%B2%B0%EB%A1%9C-%EB%B0%9C%EC%83%9D-%EC%98%88%EC%B8%A1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.html) (2020.07 ~ 2020.08)
 - [Selecting the best location for public bicycles](https://wansook0316.github.io/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-01-%EC%A0%84%EC%B2%98%EB%A6%AC.html) (2020.08 ~ 2020.09)
+- [AI Depression Self-diagnosis Service for Reading Minds](https://wansook0316.github.io/cv/projects/2020/12/21/Mind-detector.html) (2020.12)
 
 <h3 style="margin-top:16px;">Development</h3>
 
