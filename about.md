@@ -32,6 +32,8 @@ introduce: "안녕하세요. 최완식입니다."
   - Awarded by the Meteorological Administration (기상청장상)
 - Competition for selecting the best location for public bicycles
   - 3rd place (reward 1,000\$)
+- [Goverment Hackathon](http://www.civichack.or.kr/?)
+  - 2nd place (reward 1,000\$)
 
 <h3 style="margin-top:16px;">Scholarships</h3>
 
