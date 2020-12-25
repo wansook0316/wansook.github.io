@@ -87,7 +87,7 @@ introduce: "안녕하세요. 최완식입니다."
 # Qualification
 - [TOEIC: 895](https://wansook0316.github.io/cv/qualification/2020/08/16/TOEIC.html)
 - [Tensorflow Developer Certification](https://wansook0316.github.io/cv/qualification/2020/12/05/Tensorflow-Developer-Certification.html)
-
+- ADsP : Advanced Data Analytics Semi-Professional
 # Extra Curricular Act.
 
 - [Like Lion 6th](https://likelion.net/) (2017 ~ 2018)

@@ -31,7 +31,7 @@ summary: "프록시란 무엇인가?"
 
 ## Request Structure
 
-![image](https://user-images.githubusercontent.com/37871541/102862304-3ae65200-4474-11eb-8bab-d049ea66b6a3.png){: .center width="30%"}
+![image](https://user-images.githubusercontent.com/37871541/102958407-1f388580-4520-11eb-9136-a194b53623e2.png){: .center width="30%"}
 
 
 ```
@@ -118,7 +118,7 @@ Connection
 
 ## Responce 구조
 
-![image](https://user-images.githubusercontent.com/37871541/102957356-96204f00-451d-11eb-9f85-240bdcf12f8e.png){: .center width="30%"}
+![image](https://user-images.githubusercontent.com/37871541/102958423-2790c080-4520-11eb-8b23-30f2f3da92b9.png){: .center width="30%"}
 
 ```
 HTTP/1.1 404 Not Found
