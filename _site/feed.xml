@@ -6,9 +6,133 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 25 Dec 2020 09:48:39 +0900</pubDate>
-    <lastBuildDate>Fri, 25 Dec 2020 09:48:39 +0900</lastBuildDate>
+    <pubDate>Sun, 10 Jan 2021 23:25:47 +0900</pubDate>
+    <lastBuildDate>Sun, 10 Jan 2021 23:25:47 +0900</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title> [Backend Concept] Load Balancing</title>
+        <description> 로드 밸런싱이란 무엇인가? : &lt;h1 id=&quot;load-balancing&quot;&gt;Load Balancing?&lt;/h1&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;증가한 트래픽을 효과적으로 분산하기 위한 기술&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;현대 시대는 트래픽이 급속도로 증가하였다. 기업은 하나의 서버로 이 트래픽을 감당하기 어려웠고, 이를 해결할 수 있는 기술을 도입하였다. 쏟아지는 트래픽을 여러대의 서버로 분산해주는 기술이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-26 오후 12 24 03&quot; src=&quot;https://user-images.githubusercontent.com/37871541/103144947-3f14b700-4775-11eb-90fb-79cadead6c1e.png&quot; class=&quot;center&quot; /&gt;
+&lt;em&gt;로드 밸런서 아키텍처&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;로드밸런서는 서버에 가해지는 부하(=로드)를 분산(=밸런싱)해주는 장치 또는 기술을 통칭한다. 클라이언트와 서버풀(Server Pool, 분산 네트워크를 구성하는 서버들의 그룹) 사이에 위치하며, 한 대의 서버로 부하가 집중되지 않도록 트래픽을 관리해 각각의 서버가 최적의 퍼포먼스를 보일 수 있도록 한다.&lt;/p&gt;
+
+&lt;p&gt;항상 이런 로드 밸런싱이 필요하지는 않다. 서비스 제공 초기라면 클라이언트 수가 적기 때문에 서버 한 대로 요청에 응답하는 것이 쉽다. 하지만 규모가 확장될 경우, 기존 서버로는 펑펑 터져버리는 것을 경험할 수 있다. 이러한 문제에 대해 해결하는 방법은 크게 두가지 이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;scale-up--scale-out&quot;&gt;Scale-Up &amp;amp; Scale-out&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/103144965-9c106d00-4775-11eb-8309-1093fa6cc9f9.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;
+&lt;em&gt;Scale-up &amp;amp; Scale-out&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scale-Up&lt;/code&gt;은 서버 자체 성능을 늘리는 것을 말한다. 반대로 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Scale-Out&lt;/code&gt;은 기존 서버의 성능과 비슷하거나 낮은 서버를 두 대 이상으로 증설하는 것을 말한다. 만약 후자의 방법을 선택했다면, 이제 로드 밸런싱을 도입할 차례이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;load-balancing-algorithm&quot;&gt;Load Balancing Algorithm&lt;/h1&gt;
+
+&lt;h2 id=&quot;라운드로빈&quot;&gt;라운드로빈&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;서버에 들어온 요청을 순서대로 돌아가며 배정하는 방식&lt;/li&gt;
+  &lt;li&gt;서버와의 연결이 오래 지속되지 않는 경우 적합하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;가중-라운드로빈-방식&quot;&gt;가중 라운드로빈 방식&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;각 서버에 가중치를 매기고 가중치가 높은 서버에 요청을 우선적으로 배정하는 방식&lt;/li&gt;
+  &lt;li&gt;서버의 트래픽 처리 능력이 다른 경우 사용한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;최소-연결-방식&quot;&gt;최소 연결 방식&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;요청이 들어온 시점에 가장 적은 연결 상태를 보이는 서버에 트래픽을 배정하는 방식.&lt;/li&gt;
+  &lt;li&gt;서버에 분배된 트래픽들이 일정하지 않은 경우에 적합하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ip-해시-방식&quot;&gt;IP 해시 방식&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;클라이언트의 IP주소를 특정 서버로 매핑하여 요청을 처리하는 방식&lt;/li&gt;
+  &lt;li&gt;사용자가 항상 동일한 서버로 연결된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;최소-리스폰타임least-response-time-method&quot;&gt;최소 리스폰타임(Least Response Time Method)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;서버의 현재 연결 상태와 응답시간을 모두 고려하여 트래픽을 분배하는 방식&lt;/li&gt;
+  &lt;li&gt;최소 연결 방식과 가장 짧은 응답시간을 보이는 서버에 우선적으로 로드를 분배한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;type-of-load-balancer&quot;&gt;Type of Load Balancer&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/103145051-14c3f900-4777-11eb-9a67-5f34faa89378.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;l4-load-balancing&quot;&gt;L4 Load balancing&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/103145025-c6165f00-4776-11eb-847a-e218560ef7b5.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;L4 로드밸런서는 네트워크 계층(IP, IPX)이나 트랜스포트 계층(TCP, UDP)의 정보를 바탕으로 로드를 분산한다. IP주소나 포트번호, MAC주소, 전송 프로토콜에 따라 트래픽을 나누는 것이 가능하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/103145027-cc0c4000-4776-11eb-88ef-6c00e1178e6a.png&quot; alt=&quot;image&quot; class=&quot;center&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;L7 로드밸런서의 경우 애플리케이션 계층(HTTP, FTP, SMTP)에서 로드를 분산하기 때문에 HTTP 헤더, 쿠키 등과 같은 사용자의 요청을 기준으로 특정 서버에 트래픽을 분산하는 것이 가능하다. 쉽게 말해 패킷의 내용을 확인하고 그 내용에 따라 로드를 특정 서버에 분배하는 것이 가능한 것이다. 위 그림과 같이 URL에 따라 부하를 분산시키거나, HTTP 헤더의 쿠키값에 따라 부하를 분산하는 등 클라이언트의 요청을 보다 &lt;strong&gt;세분화&lt;/strong&gt;해 서버에 전달할 수 있다. 또한 L7 로드밸런서의 경우 특정한 패턴을 지닌 바이러스를 감지해 네트워크를 보호할 수 있으며, DoS/DDoS와 같은 비정상적인 트래픽을 필터링할 수 있어 네트워크 보안 분야에서도 활용되고 있다.&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://post.naver.com/viewer/postView.nhn?volumeNo=27046347&amp;amp;memberNo=2521903&quot;&gt;로드밸런서(Load Balancer)의 개념과 특징&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 26 Dec 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/ds/cloud/2020/12/26/Load-Balancer.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ds/cloud/2020/12/26/Load-Balancer.html</guid>
+        
+        <category>Terms</category>
+        
+        <category>Server</category>
+        
+        
+        <category>DS/Cloud</category>
+        
+      </item>
+    
+      <item>
+        <title> [Backend Concept] CDN</title>
+        <description> CDN이란 무엇인가? : &lt;h1 id=&quot;cdn&quot;&gt;CDN?&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Content Delivery Network&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;곳곳에 분산되어 있는 서버 그룹을 말한다. 이를 사용하게 되면 인터넷 콘텐츠를 빠르게 전달할 수 있다. CDN을 사용하면 HTML 페이지, 자바 스크립트 파일, 스타일 시트, 이미지 및 비디오를 비롯한 인터넷 콘텐츠로드에 필요한 리소스을 신속하게 전송할 수 있어 CDN 서비스의 인기는 계속해서 높아지고 있다.&lt;/p&gt;
+
+&lt;p&gt;추가적으로 제대로 구성된 CDN은 DDOS(Distributed Denial of Service) 공격과 같은 공격으로부터 웹사이트를 보호하는데 도움이 된다.&lt;/p&gt;
+
+&lt;h1 id=&quot;cdn의-장점&quot;&gt;CDN의 장점&lt;/h1&gt;
+
+&lt;p&gt;CDN 사용의 이점은 인터넷 자산의 규모와 필요에 따라 다르지만 대부분의 사용자에게 가장 큰 이점은 다음과 같은 4 가지 구성 요소로 나눌 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;웹-사이트로드-시간-개선&quot;&gt;웹 사이트로드 시간 개선&lt;/h2&gt;
+&lt;p&gt;다른 최적화 중에서도 가까운 CDN 서버를 사용하여 웹 사이트 방문자에게 더 &lt;strong&gt;가까운 컨텐츠를 배포&lt;/strong&gt;함으로써 방문자는 페이지로드 시간이 더 빨라진다. 방문자가 느린 로딩 사이트를 클릭 할 확률이 높을수록 CDN은 이탈률을 낮추고 사람들이 사이트에 머문 시간을 늘릴 수 있다. 즉, 웹 사이트가 빠를수록 더 많은 방문자가 머물러 오래 있을 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;대역폭-비용-절감&quot;&gt;대역폭 비용 절감&lt;/h2&gt;
+&lt;p&gt;웹 사이트 호스팅을 위한 대역폭 비용은 웹 사이트의 주요 소비 비용이다. 캐싱 및 기타 최적화를 통해 CDN은 원본 서버에서 &lt;strong&gt;제공해야하는 데이터 양을 줄여&lt;/strong&gt; 웹 사이트 소유자의 호스팅 비용을 줄인다.&lt;/p&gt;
+
+&lt;h2 id=&quot;콘텐츠-가용성-및-이중화-증가&quot;&gt;콘텐츠 가용성 및 이중화 증가&lt;/h2&gt;
+&lt;p&gt;대량의 트래픽 또는 하드웨어 오류로 인해 정상적인 웹 사이트 기능이 중단 될 수 있다. CDN은 분산되어 있다는 특성으로 인해 &lt;strong&gt;많은 트래픽을 처리&lt;/strong&gt; 할 수 있으며 많은 기점 서버보다 하드웨어 오류를 견딜 수 있다.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 26 Dec 2020 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/ds/cloud/2020/12/26/CDN.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ds/cloud/2020/12/26/CDN.html</guid>
+        
+        <category>Terms</category>
+        
+        <category>Server</category>
+        
+        
+        <category>DS/Cloud</category>
+        
+      </item>
     
       <item>
         <title> [Backend Concept] Proxy</title>
@@ -2397,47 +2521,6 @@ python three&quot;&quot;&quot;&lt;/span&gt;
         <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-10-Polar-Form-Of-Complex-Numbers.html</link>
         <guid isPermaLink="true">http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-10-Polar-Form-Of-Complex-Numbers.html</guid>
-        
-        <category>Math</category>
-        
-        <category>Differential Equation</category>
-        
-        
-        <category>DS/Calculus</category>
-        
-      </item>
-    
-      <item>
-        <title> [Partial Differential Equations] 09: 복소수 &amp; 복소평면 (Complex Number &amp; Complex Plane)</title>
-        <description> 복소수와 복소 평면에 대해 알아보자. : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908970-6bee6080-04dd-11eb-9d84-e34687f2619a.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908978-71e44180-04dd-11eb-89ca-6f928dcbeebe.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908991-77418c00-04dd-11eb-9529-b94dca5c0a97.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-09-Complex-Number-Complex-Plane.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-09-Complex-Number-Complex-Plane.html</guid>
-        
-        <category>Math</category>
-        
-        <category>Differential Equation</category>
-        
-        
-        <category>DS/Calculus</category>
-        
-      </item>
-    
-      <item>
-        <title> [Partial Differential Equations] 08: 극좌표에서 파동방정식 (Wave Equation in Polar Coordinates)</title>
-        <description> 2차원 막 파동 방정식을 풀어보자. : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908800-32b5f080-04dd-11eb-8f09-dfed77ec240c.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908819-36e20e00-04dd-11eb-9720-3a49b01b9ac2.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908836-3ba6c200-04dd-11eb-95a5-d0c8b24ea953.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908851-3fd2df80-04dd-11eb-947c-1fd8973be641.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908864-44979380-04dd-11eb-9303-dc25e2f9263d.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/94908878-48c3b100-04dd-11eb-8305-3cc634c9a3ee.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Oct 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-08-Wave-Equation-In-Polar-Coordinates.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ds/calculus/2020/10/02/Partial-Differential-Equations-08-Wave-Equation-In-Polar-Coordinates.html</guid>
         
         <category>Math</category>
         

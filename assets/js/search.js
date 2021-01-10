@@ -10,7 +10,7 @@
     return queryParameter === null ? fallback : queryParameter;
   };
 
-  const setSearchBoxValue = searchBoxValue => {
+  const setSearchBoxValue = (searchBoxValue) => {
     document
       .getElementById(SEARCH_BOX_ID)
       .setAttribute("value", searchBoxValue);
@@ -20,16 +20,18 @@
     document.getElementById(NO_RESULTS_MESSAGE_ID).style.display = "block";
   };
 
-  const setSearchResultsHtml = innerHtml => {
+  const setSearchResultsHtml = (innerHtml) => {
     document.getElementById(SEARCH_RESULTS_CONTAINER_ID).innerHTML = innerHtml;
   };
 
-  const createPostListingHtml = postItem => `
-  <div class="post-teaser" style="cursor: pointer;" onclick= "location.href='${
+  const createPostListingHtml = (postItem) => `
+  <div class="post-teaser" style="cursor: pointer; border-bottom: 1px solid #e9ecef; margin-top: 1.5em;" onclick= "location.href='${
     postItem.url
   }';" >
-    <h2 class="categorized-post__title">
-      <a class='search-link' href='${postItem.url}'>${postItem.title}</a>
+    <h2 class="categorized-post__title" style="border: 0; padding-bottom: 0;">
+      <a class='search-link' style="border-bottom: 0;transition: none;padding: 0;" href='${
+        postItem.url
+      }'>${postItem.title}</a>
     </h2>
 
     <div class='meta'>
@@ -40,23 +42,23 @@
       ${postItem.date}
     </div>
 
-    <p>
+    <p style="margin-top: 1em;">
       ${postItem.content.substring(0, 150)}...
     </p>
   </div>
 
   `;
 
-  const displaySearchResults = results => {
+  const displaySearchResults = (results) => {
     setSearchResultsHtml(
       results
-        .map(result => createPostListingHtml(window.store[result.ref]))
+        .map((result) => createPostListingHtml(window.store[result.ref]))
         .join("")
     );
   };
 
   const buildLunrIndex = () => {
-    return lunr(function() {
+    return lunr(function () {
       this.field("id");
       this.field("title", { boost: 10 });
       this.field("author");
@@ -69,7 +71,7 @@
           title: postJson.title,
           author: postJson.author,
           category: postJson.category,
-          content: postJson.content
+          content: postJson.content,
         });
       }
     });
