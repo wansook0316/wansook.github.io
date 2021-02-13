@@ -25,12 +25,12 @@ introduce: "안녕하세요. 최완식입니다."
 
 <h3 style="margin-top:16px;">Machine Learning</h3>
 
-- A competition for predicting delays by flight using air flight data (Big Contest)
+- [A competition for predicting delays by flight using air flight data (Big Contest)](https://wansook0316.github.io/cv/awards/2019/12/01/%EB%B9%85%EC%BD%98%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%93%A8%EC%B3%90%EC%8A%A4%EB%A6%AC%EA%B7%B8-%EC%9E%A5%EB%A0%A4%EC%83%81.html)
   - 3rd place
-- Condensation Prediction Competition for Hyundai Steel's Steel Products
+- [Condensation Prediction Competition for Hyundai Steel's Steel Products](https://wansook0316.github.io/cv/awards/2020/08/01/%EA%B8%B0%EC%83%81-%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%8C%80%ED%9A%8C-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EB%B6%84%EC%95%BC-%EC%9A%B0%EC%88%98%EC%83%81.html)
   - 2rd place (reward 2,000\$)
   - Awarded by the Meteorological Administration (기상청장상)
-- Competition for selecting the best location for public bicycles
+- [Competition for selecting the best location for public bicycles](https://wansook0316.github.io/cv/awards/2020/09/23/2020-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81-%EC%9C%84%EC%B9%98-%EC%84%A0%EC%A0%95.html)
   - 3rd place (reward 1,000\$)
 
 
@@ -40,7 +40,7 @@ introduce: "안녕하세요. 최완식입니다."
   - 2nd place (reward 500\$)
 
 <h3 style="margin-top:16px;">Development</h3>
-- [Goverment Hackathon](http://www.civichack.or.kr/?)
+- [Goverment Hackathon](https://wansook0316.github.io/cv/awards/2020/12/26/%EC%A0%9C4%ED%9A%8C-%EC%A0%95%EB%B6%80%ED%98%81%EC%8B%A0%EC%A0%9C%EC%95%88-%EB%81%9D%EC%9E%A5%EA%B0%9C%EB%B0%9C%EB%8C%80%ED%9A%8C.html)
   - 2nd place (reward 1,000\$)
 
 <h3 style="margin-top:16px;">Project Design</h3>
@@ -69,12 +69,13 @@ introduce: "안녕하세요. 최완식입니다."
 - [Data Augmentation Using PyQt5](https://wansook0316.github.io/cv/projects/2020/10/25/Data-Augmentation-using-pyqt5.html)(2020.10)
 
 <h3 style="margin-top:16px;">Product Design</h3>
-- [Helen, Your Sullivan teacher]()(2021.01)
-- [Lantern, To illuminate your dream]()(2021.02)
+- [Helen: Your Sullivan teacher](https://wansook0316.github.io/cv/projects/2021/01/10/헬렌.html)(2021.01)
+- [Lantern: To illuminate your dream](https://wansook0316.github.io/cv/projects/2021/02/01/랜턴.html)(2021.02)
+
 
 <h3 style="margin-top:16px;">Open source</h3>
 
-- [Data Science for COVID-19 (DS4C)](<https://wansook0316.github.io/cv/projects/2020/02/01/Data-Science-for-COVID-19(DS4C).html>) (2020.02 ~ 2020.12)
+- [Data Science for COVID-19 (DS4C)](https://wansook0316.github.io/cv/projects/2020/02/01/Data-Science-for-COVID-19(DS4C).html) (2020.02 ~ 2020.12)
 
 
 <h3 style="margin-top:16px;">Implementation</h3>
