@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Load Balancing"
-category: "DS/Cloud"
+category: "DV/Terms"
 comments: true
 tags: ["Terms", "Server"]
 feature-img: "assets/img/45.jpg"

@@ -1,8 +1,8 @@
 ---
 layout: category
 title: DV
-subtitle: JavaScript
-permalink: "DV/JavaScript"
+subtitle: Javascript
+permalink: "DV/Javascript"
 feature-img: "assets/img/javascript.jpg"
 hide: true
 ---

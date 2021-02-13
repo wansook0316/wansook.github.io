@@ -32,13 +32,24 @@ introduce: "안녕하세요. 최완식입니다."
   - Awarded by the Meteorological Administration (기상청장상)
 - Competition for selecting the best location for public bicycles
   - 3rd place (reward 1,000\$)
-- [Goverment Hackathon](http://www.civichack.or.kr/?)
-  - 2nd place (reward 1,000\$)
+
 
 <h3 style="margin-top:16px;">Scholarships</h3>
 
 - Software Festival
   - 2nd place (reward 500\$)
+
+<h3 style="margin-top:16px;">Development</h3>
+- [Goverment Hackathon](http://www.civichack.or.kr/?)
+  - 2nd place (reward 1,000\$)
+
+<h3 style="margin-top:16px;">Project Design</h3>
+- [Artificial Intelligence Data Utilization Idea Contest]()
+
+<h3 style="margin-top:16px;">Start-up</h3>
+- [Kyunghee Valley Program]()
+  - 3rd place (reward 500\$)
+
 
 # Personal Projects
 
@@ -57,10 +68,12 @@ introduce: "안녕하세요. 최완식입니다."
 - [kakaotalk clone](https://wansook0316.github.io/kakaotalkClone/chat.html)
 - [Data Augmentation Using PyQt5](https://wansook0316.github.io/cv/projects/2020/10/25/Data-Augmentation-using-pyqt5.html)
 
+<h3 style="margin-top:16px;">Product Design</h3>
+- [Helen, Your Sullivan teacher]()
 
 <h3 style="margin-top:16px;">Open source</h3>
 
-- [Data Science for COVID-19 (DS4C)](<https://wansook0316.github.io/cv/projects/2020/02/01/Data-Science-for-COVID-19(DS4C).html>)
+- [Data Science for COVID-19 (DS4C)](<https://wansook0316.github.io/cv/projects/2020/02/01/Data-Science-for-COVID-19(DS4C).html>) (2020.02 ~ 2020.12)
 
 
 <h3 style="margin-top:16px;">Implementation</h3>
@@ -95,7 +108,7 @@ introduce: "안녕하세요. 최완식입니다."
 - Python Programming Course Assistant (2018.09 ~ 2018.12)
 - [Big Leader 4th](http://bigleader.net/) (2017 ~ 2019)
 - [Naver HackDay](https://d2.naver.com/news/4972264) (2019.02)
-- [Google Machine Learning Developer Bootcamp](https://developers-kr.googleblog.com/2020/09/mlbootcamp_11.html) (2020.10 ~ )
+- [Google Machine Learning Developer Bootcamp](https://developers-kr.googleblog.com/2020/09/mlbootcamp_11.html) (2020.10 ~ 2021.02)
 
 # Skills
 
