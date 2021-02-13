@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,50 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [운영체제 정리] 11: 프로세스 동기화 Part 4 | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[운영체제 정리] 11: 프로세스 동기화 Part 4 | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/11.jpg"
-  />
+  <meta property="og:title" content="[운영체제 정리] 11: 프로세스 동기화 Part 4 | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html"
-  />
+  <link rel="canonical" href="/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +157,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +169,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +263,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +535,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +594,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +700,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/11.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/11.jpg')">
     <ul class="category-title">
       <h1 class="title">11: 교착 상태: Deadlock</h1>
       
@@ -854,13 +805,9 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 20 - 20: 디스크 스케쥴링 알고리즘</span>
     </li>
-                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                    
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -872,13 +819,14 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#deadlock-교착-상태" class="toc-anchor">Deadlock (교착 상태)</a>
+  <li class="toc-item">
+<a href="#deadlock-%EA%B5%90%EC%B0%A9-%EC%83%81%ED%83%9C" class="toc-anchor">Deadlock (교착 상태)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#1-교착상태-필요-조건necessary-conditions" class="toc-anchor">1. 교착상태 필요 조건(Necessary Conditions)</a></li>
-      <li class="toc-item"><a href="#2-자원resources" class="toc-anchor">2. 자원(Resources)</a></li>
-      <li class="toc-item"><a href="#4-교착상태-처리" class="toc-anchor">4. 교착상태 처리</a></li>
-      <li class="toc-item"><a href="#43-교착상태-검출-및-복구-deadlock-detection--recovery" class="toc-anchor">4.3 교착상태 검출 및 복구 (Deadlock Detection &amp; Recovery)</a></li>
-      <li class="toc-item"><a href="#34-교착상태-무시" class="toc-anchor">3.4 교착상태 무시</a></li>
+      <li class="toc-item"><a href="#1-%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C-%ED%95%84%EC%9A%94-%EC%A1%B0%EA%B1%B4necessary-conditions" class="toc-anchor">1. 교착상태 필요 조건(Necessary Conditions)</a></li>
+      <li class="toc-item"><a href="#2-%EC%9E%90%EC%9B%90resources" class="toc-anchor">2. 자원(Resources)</a></li>
+      <li class="toc-item"><a href="#4-%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C-%EC%B2%98%EB%A6%AC" class="toc-anchor">4. 교착상태 처리</a></li>
+      <li class="toc-item"><a href="#43-%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C-%EA%B2%80%EC%B6%9C-%EB%B0%8F-%EB%B3%B5%EA%B5%AC-deadlock-detection--recovery" class="toc-anchor">4.3 교착상태 검출 및 복구 (Deadlock Detection &amp; Recovery)</a></li>
+      <li class="toc-item"><a href="#34-%EA%B5%90%EC%B0%A9%EC%83%81%ED%83%9C-%EB%AC%B4%EC%8B%9C" class="toc-anchor">3.4 교착상태 무시</a></li>
     </ul>
   </li>
 </ul>
@@ -903,7 +851,8 @@
 <p>하지만 <strong>네가지 조건 중 하나라도 해당되지 않으면 교착 상태는 일어나지 않는다.</strong> 즉, 4가지 조건에 모두 해당되면 Deadlock의 가능성이 있으나, 그렇지 않다면 Deadlock은 일어나지 않는다.</p>
 
 <ol>
-  <li><strong>Mutual exclusion (상호배타)</strong>
+  <li>
+<strong>Mutual exclusion (상호배타)</strong>
     <ul>
       <li>한 프로세스가 자원을 사용하고 있다면, 다른 프로세스는 이 자원을 사용할 수 없다.
         <ul>
@@ -912,7 +861,8 @@
       </li>
     </ul>
   </li>
-  <li><strong>No Preemption (비선점)</strong>
+  <li>
+<strong>No Preemption (비선점)</strong>
     <ul>
       <li>한 프로세스가 자원을 수행하는 중에는 다른 프로세스가 중간에 끼어들 수 없다.
         <ul>
@@ -921,7 +871,8 @@
       </li>
     </ul>
   </li>
-  <li><strong>Hold and wait (보유 및 대기)</strong>
+  <li>
+<strong>Hold and wait (보유 및 대기)</strong>
     <ul>
       <li>한 프로세스가 자원을 가지고 있는 상태에서 대기한다.
         <ul>
@@ -930,7 +881,8 @@
       </li>
     </ul>
   </li>
-  <li><strong>Circular wait (환형대기)</strong>
+  <li>
+<strong>Circular wait (환형대기)</strong>
     <ul>
       <li>프로세스가 요구하는 자원의 방향이 원형을 이룬다.
         <ul>
@@ -985,11 +937,11 @@
   </tbody>
 </table>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472151-94391480-7771-11ea-8d55-09554e950cdd.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472151-94391480-7771-11ea-8d55-09554e950cdd.png" class="center"></p>
 
 <p>R1은 P1에 할당되어 있는 상태이고, P2는 R1을 요청하고 있는 상태이다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78472103-49b79800-7771-11ea-9ac0-4edac746123d.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78472103-49b79800-7771-11ea-9ac0-4edac746123d.png" class="center"></p>
 
 <p>자원 할당도를 사용하는 이유는 교착상태의 필요조건을 한 눈에 볼 수 있기 때문이다. 자원 할당도를 분석할 때 mutual exclusion(한번에 하나)과 no-preemption(강제로 못 뺏는다.)은 기본으로 적용된다.</p>
 
@@ -997,11 +949,11 @@
 
 <p>Circular wait 역시 화살표 방향이 원형을 이루고 있다면 이는 환형대기인 상태이다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472261-4e308080-7772-11ea-8fce-8de411567b55.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472261-4e308080-7772-11ea-8fce-8de411567b55.png" class="center"></p>
 
 <p>이런 그림을 보면 Circular wait 조건을 가지고 있어 교착 상태의 가능성을 가지고 있다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472610-47573d00-7775-11ea-9eb0-567f6692bff1.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472610-47573d00-7775-11ea-9eb0-567f6692bff1.png" class="center"></p>
 
 <p>위 그림은 식사하는 철학자 문제를 자원 할당도로 표현한 것이다. 그림을 보면 한 눈에 Circular wait 조건을 만족한 것을 알 수 있다. 그리고 모든 철학자(프로세스)는 한 젓가락(자원)을 할당(파란색 화살표)받고, 다른 젓가락을 요청(검은색 화살표)하고 있으므로 Hold and wait 조건 역시 만족한다.</p>
 
@@ -1039,13 +991,13 @@
 
 <h4 id="철학자-문제에-적용">철학자 문제에 적용</h4>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472610-47573d00-7775-11ea-9eb0-567f6692bff1.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472610-47573d00-7775-11ea-9eb0-567f6692bff1.png" class="center"></p>
 
 <p>위 그림은 식사하는 철학자 문제를 자원 할당도로 표현한 것이다. 그림을 보면 한 눈에 Circular wait 조건을 만족한 것을 알 수 있다. 그리고 모든 철학자(프로세스)는 한 젓가락(자원)을 할당(파란색 화살표)받고, 다른 젓가락을 요청(검은색 화살표)하고 있으므로 Hold and wait 조건 역시 만족한다.</p>
 
 <p>Circular wait 조건을 없애기 위해 짝수 번호 철학자는 왼쪽 젓가락, 오른쪽 젓가락 순서로, 홀수 번호 철학자는 반대 순서인 오른쪽 젓가락, 왼쪽 젓가락 순서로 집는다고 하자.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472763-6f936b80-7776-11ea-825c-1aae6243a708.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78472763-6f936b80-7776-11ea-825c-1aae6243a708.png" class="center"></p>
 
 <p>위 그림은 circular wait 조건을 없앤 식사하는 철학자 문제의 자원 할당도이다. 화살표가 원형을 만들지 않는 것을 볼 수 있다.</p>
 
@@ -1479,10 +1431,10 @@
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1490,23 +1442,11 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#os"
-      >#OS</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#synchronization"
-      >#Synchronization</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#synchronization">#Synchronization</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#deadlock"
-      >#Deadlock</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#deadlock">#Deadlock</a>
     
   </div>
 </footer>
@@ -1518,30 +1458,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <div id="post-nav">
            
                                                                                                                                                                                                                                                                                                                                                                                                                        
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html';">
     <p>PREVIOUS SERIES</p>
     <p>10: 프로세스 동기화 Part 3</p>
   </div>
                                             
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-12-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-5.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-12-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-5.html';">
     <p>NEXT SERIES</p>
     <p>12: 프로세스 동기화 Part 5</p>
   </div>
-                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                 
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1577,7 +1510,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

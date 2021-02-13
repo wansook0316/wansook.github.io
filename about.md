@@ -44,10 +44,10 @@ introduce: "안녕하세요. 최완식입니다."
   - 2nd place (reward 1,000\$)
 
 <h3 style="margin-top:16px;">Project Design</h3>
-- [Artificial Intelligence Data Utilization Idea Contest]()
+- [Artificial Intelligence Data Utilization Idea Contest](https://wansook0316.github.io/cv/awards/2021/01/15/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%EA%B3%B5%EB%AA%A8%EC%A0%84.html)
 
 <h3 style="margin-top:16px;">Start-up</h3>
-- [Kyunghee Valley Program]()
+- [Kyunghee Valley Program](https://wansook0316.github.io/cv/awards/2021/02/10/KVP-%EC%9E%A5%EB%A0%A4.html)
   - 3rd place (reward 500\$)
 
 
@@ -64,12 +64,13 @@ introduce: "안녕하세요. 최완식입니다."
 
 <h3 style="margin-top:16px;">Development</h3>
 
-- [Movie App(React)](https://wansook0316.github.io/movie_app_react/)
-- [kakaotalk clone](https://wansook0316.github.io/kakaotalkClone/chat.html)
-- [Data Augmentation Using PyQt5](https://wansook0316.github.io/cv/projects/2020/10/25/Data-Augmentation-using-pyqt5.html)
+- [Movie App(React)](https://wansook0316.github.io/movie_app_react/)(2020.01)
+- [kakaotalk clone](https://wansook0316.github.io/kakaotalkClone/chat.html)(2020.01)
+- [Data Augmentation Using PyQt5](https://wansook0316.github.io/cv/projects/2020/10/25/Data-Augmentation-using-pyqt5.html)(2020.10)
 
 <h3 style="margin-top:16px;">Product Design</h3>
-- [Helen, Your Sullivan teacher]()
+- [Helen, Your Sullivan teacher]()(2021.01)
+- [Lantern, To illuminate your dream]()(2021.02)
 
 <h3 style="margin-top:16px;">Open source</h3>
 

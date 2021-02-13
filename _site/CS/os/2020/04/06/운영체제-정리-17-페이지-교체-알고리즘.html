@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [운영체제 정리] 17: 페이지 교체 알고리즘 | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[운영체제 정리] 17: 페이지 교체 알고리즘 | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/11.jpg"
-  />
+  <meta property="og:title" content="[운영체제 정리] 17: 페이지 교체 알고리즘 | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html"
-  />
+  <link rel="canonical" href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/11.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/11.jpg')">
     <ul class="category-title">
       <h1 class="title">17: 페이지 교체 알고리즘</h1>
       
@@ -854,13 +804,9 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 20 - 20: 디스크 스케쥴링 알고리즘</span>
     </li>
-                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                    
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -873,20 +819,23 @@
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
   <li class="toc-item"><a href="#1-page-reference-string" class="toc-anchor">1. Page reference string</a></li>
-  <li class="toc-item"><a href="#2-first-in-first-outfifo" class="toc-anchor">2. First-In First-Out(FIFO)</a>
+  <li class="toc-item">
+<a href="#2-first-in-first-outfifo" class="toc-anchor">2. First-In First-Out(FIFO)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#21-예제" class="toc-anchor">2.1 예제</a></li>
+      <li class="toc-item"><a href="#21-%EC%98%88%EC%A0%9C" class="toc-anchor">2.1 예제</a></li>
       <li class="toc-item"><a href="#22-beladys-anomaly" class="toc-anchor">2.2 Belady’s Anomaly</a></li>
     </ul>
   </li>
-  <li class="toc-item"><a href="#3-optimalopt" class="toc-anchor">3. Optimal(OPT)</a>
+  <li class="toc-item">
+<a href="#3-optimalopt" class="toc-anchor">3. Optimal(OPT)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#31-예제" class="toc-anchor">3.1 예제</a></li>
+      <li class="toc-item"><a href="#31-%EC%98%88%EC%A0%9C" class="toc-anchor">3.1 예제</a></li>
     </ul>
   </li>
-  <li class="toc-item"><a href="#4-least-recently-usedlru" class="toc-anchor">4. Least-Recently-Used(LRU)</a>
+  <li class="toc-item">
+<a href="#4-least-recently-usedlru" class="toc-anchor">4. Least-Recently-Used(LRU)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#41-예제" class="toc-anchor">4.1 예제</a></li>
+      <li class="toc-item"><a href="#41-%EC%98%88%EC%A0%9C" class="toc-anchor">4.1 예제</a></li>
     </ul>
   </li>
 </ul>
@@ -1014,7 +963,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78565911-7d6ded00-7859-11ea-9118-aa6c7231d533.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78565911-7d6ded00-7859-11ea-9118-aa6c7231d533.png" class="center"></p>
 
 <table>
   <thead>
@@ -1189,11 +1138,11 @@
 
 <p>프레임 수가 증가하면(= 메모리 용량이 증가하면) page fault 수가 줄어드는 것이 정상적이다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78566093-b73ef380-7859-11ea-8256-1b3cf6722f03.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78566093-b73ef380-7859-11ea-8256-1b3cf6722f03.png" class="center"></p>
 
 <p>하지만 위의 FIFO를 사용했을 때, 그래프를 그려보면 다음과 같은 결과가 나온다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78566141-c160f200-7859-11ea-9513-bfddb0216a14.png" class="center" /></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78566141-c160f200-7859-11ea-9513-bfddb0216a14.png" class="center"></p>
 
 <p>이와 같이 특정한 페이지 참조열에 대해서는 프레임 수가 증가해도 page fault 수가 오히려 증가하는 이상 현상이 발생한다. 이를 Belady’s Anomaly라 한다.</p>
 
@@ -1264,7 +1213,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78566299-fa996200-7859-11ea-80c4-57a831a371a8.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78566299-fa996200-7859-11ea-80c4-57a831a371a8.png" class="center"></p>
 
 <table>
   <thead>
@@ -1441,16 +1390,16 @@
 
 <h2 id="41-예제">4.1 예제</h2>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78567504-c1fa8800-785b-11ea-9427-f6f611c2998e.png" class="center" /></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78567504-c1fa8800-785b-11ea-9427-f6f611c2998e.png" class="center"></p>
 
 <p>LRU는 근사 해를 구하므로 OPT보다는 page fault가 많이 발생하지만, FIFO보다는 일반적으로 적게 일어난다. 그러므로 현재 대부분 환경에서는 LRU를 사용하고 있다.</p>
 
 <h3 id="reference">Reference</h3>
 
 <p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1458,29 +1407,13 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#os"
-      >#OS</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#memory"
-      >#Memory</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#memory">#Memory</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#fifo"
-      >#FIFO</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#fifo">#FIFO</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#paging"
-      >#paging</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#paging">#paging</a>
     
   </div>
 </footer>
@@ -1492,30 +1425,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <div id="post-nav">
            
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html';">
     <p>PREVIOUS SERIES</p>
     <p>16: 가상 메모리 (Virtual Memory)</p>
   </div>
                 
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html';">
     <p>NEXT SERIES</p>
     <p>18: 프레임 할당 (Allocation of frame)</p>
   </div>
-                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                 
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1551,7 +1477,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

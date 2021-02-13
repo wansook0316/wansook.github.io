@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [Computer Vision] 08: Dilated Convolution | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Dilated Convolution을 리뷰해본다."
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Dilated Convolution을 리뷰해본다.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[Computer Vision] 08: Dilated Convolution | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Dilated Convolution을 리뷰해본다."
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/42.jpg"
-  />
+  <meta property="og:title" content="[Computer Vision] 08: Dilated Convolution | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Dilated Convolution을 리뷰해본다.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/42.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html"
-  />
+  <link rel="canonical" href="/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/42.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/42.jpg')">
     <ul class="category-title">
       <h1 class="title">08: Dilated Convolution</h1>
       
@@ -834,13 +784,9 @@
     <li onclick="location.href='/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html'">
       <span>Part 15 - 15: Gram Matrix</span>
     </li>
-                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                              
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -852,10 +798,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#개요" class="toc-anchor">개요</a></li>
-  <li class="toc-item"><a href="#핵심-아이디어" class="toc-anchor">핵심 아이디어</a></li>
+  <li class="toc-item"><a href="#%EA%B0%9C%EC%9A%94" class="toc-anchor">개요</a></li>
+  <li class="toc-item"><a href="#%ED%95%B5%EC%8B%AC-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4" class="toc-anchor">핵심 아이디어</a></li>
   <li class="toc-item"><a href="#structure" class="toc-anchor">Structure</a></li>
-  <li class="toc-item"><a href="#결과" class="toc-anchor">결과</a></li>
+  <li class="toc-item"><a href="#%EA%B2%B0%EA%B3%BC" class="toc-anchor">결과</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -877,18 +823,18 @@
 
 <p>segementation을 위해서는 결국 dense prediction을 얻어내야 하는데, 이는 <code class="language-plaintext highlighter-rouge">up-convolutions</code>와 <code class="language-plaintext highlighter-rouge">multi-scale inputs</code>를 통해 가능하다. <code class="language-plaintext highlighter-rouge">up-convolutions</code>는 <a href="https://wansook0316.github.io/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html">이전 글</a>에서 찾아볼 수 있다. <code class="language-plaintext highlighter-rouge">multi sclae inputs</code>은 이름에서도 유추가 가능하듯이 하나의 이미지에 대해서 여러 scale에서 test를 하는 방법을 의미한다.</p>
 
-<p><img src="https://hoya012.github.io/assets/img/object_detection_sixth/1.PNG" alt="" class="center" width="100%" /><em>multi scale inputs 예시</em></p>
+<p><img src="https://hoya012.github.io/assets/img/object_detection_sixth/1.PNG" alt="" class="center" width="100%"><em>multi scale inputs 예시</em></p>
 
 <p><code class="language-plaintext highlighter-rouge">Dilated Convolution</code>은 애초에 pooling을 해야돼? 라는 질문에서 출발한다.</p>
 
-<p><img src="https://t1.daumcdn.net/cfile/tistory/99448C335A014DD609" alt="" class="center" width="80%" /><em>Dilated Convolution</em>
+<p><img src="https://t1.daumcdn.net/cfile/tistory/99448C335A014DD609" alt="" class="center" width="80%"><em>Dilated Convolution</em>
 <code class="language-plaintext highlighter-rouge">Dilated Convolution</code>은 필터 내부에 <code class="language-plaintext highlighter-rouge">zero padding</code>을 추가해 강제로 <code class="language-plaintext highlighter-rouge">receptive field</code>를 늘리는 방법이다. 위 그림은 파란색이 인풋, 초록색이 아웃풋인데, 진한 파랑 부분에만 <code class="language-plaintext highlighter-rouge">weight</code>가 있고 나머지 부분은 0으로 채워진다. <code class="language-plaintext highlighter-rouge">receptive field</code>란 필터가 한 번의 보는 영영으로 볼 수 있는데, 결국 필터를 통해 어떤 사진의 전체적인 특징을 잡아내기 위해서는 <code class="language-plaintext highlighter-rouge">receptive field</code>는 높으면 높을 수록 좋다. 그렇다고 필터의 크기를 크게하면 연산의 양이 크게 늘어나고, 오버피팅의 우려가있다.</p>
 
 <p>그래서 일반적인 CNN에서는 이를 <code class="language-plaintext highlighter-rouge">conv-pooling</code>의 결합으로 해결한다. <code class="language-plaintext highlighter-rouge">pooling</code>을 통해 dimension을 줄이고 다시 작은 크기의 filter로 conv를 하면, 전체적인 특징을 잡아낼 수 있다. 하지만 <code class="language-plaintext highlighter-rouge">pooling</code>을 수행하면 기존 정보의 손실이 일어난다. 이를 해결하기 위한것이 <code class="language-plaintext highlighter-rouge">Dilated Convolution</code>으로 <code class="language-plaintext highlighter-rouge">Pooling</code>을 수행하지 않고도 <code class="language-plaintext highlighter-rouge">receptive field</code>의 크기를 크게 가져갈 수 있기 때문에 spatial dimension의 손실이 적고, 대부분의 <code class="language-plaintext highlighter-rouge">weight</code>가 0이기 때문에 연산의 효율도 좋다.</p>
 
 <h2 id="structure">Structure</h2>
 
-<p><img src="https://t1.daumcdn.net/cfile/tistory/99BD2B335A01526610" alt="" class="center" width="100%" /><em>Structure of using Dilated Convolution</em></p>
+<p><img src="https://t1.daumcdn.net/cfile/tistory/99BD2B335A01526610" alt="" class="center" width="100%"><em>Structure of using Dilated Convolution</em></p>
 
 <p>첫번째 그림은 classification을 위한 CNN VGG-16의 아키텍쳐이다. <code class="language-plaintext highlighter-rouge">conv-pooling</code>을 반복적으로 수행한 후, 마지막으로 <code class="language-plaintext highlighter-rouge">Fully Connected Layer</code>에 통과하여 최종 <code class="language-plaintext highlighter-rouge">classification</code> 결과를 얻는 과정을 보여주고있다. 그 아래의 그림은 <code class="language-plaintext highlighter-rouge">Dilated Convolution</code>을 통하여 이미지를 <code class="language-plaintext highlighter-rouge">segmentation</code>하는 예를 보여주고 있다. 이 아키텍쳐의 아웃풋의 사이즈는 28x28xN 이며, (N은 <code class="language-plaintext highlighter-rouge">segmentation</code> 원하는 클래스의 수) 이를 다시 <code class="language-plaintext highlighter-rouge">upsampling</code>하여 원래의 크기로 복원한다. (이부분에서 공간적 정보의 손실이 있다.)</p>
 
@@ -896,7 +842,7 @@
 
 <h2 id="결과">결과</h2>
 
-<p><img src="https://t1.daumcdn.net/cfile/tistory/99E713335A01509E2A" alt="" class="center" width="100%" /><em>comparison of whether using dilated conv</em></p>
+<p><img src="https://t1.daumcdn.net/cfile/tistory/99E713335A01509E2A" alt="" class="center" width="100%"><em>comparison of whether using dilated conv</em></p>
 
 <p>이 그림을 통해 <code class="language-plaintext highlighter-rouge">pooling-conv</code>후 <code class="language-plaintext highlighter-rouge">upsampling</code>을 하는 것과 <code class="language-plaintext highlighter-rouge">dilated convolution(astrous convolution)</code>을 하는 것의 차이를 볼 수 있다. 위 그림에서 볼 수 있듯 공간적 정보의 손실이 있는 것을 <code class="language-plaintext highlighter-rouge">upsampling</code> 하면 해상도가 떨어진다. 하지만 dilated convolution의 그림을 보면 <code class="language-plaintext highlighter-rouge">receptive field</code>를 크게 가져가면서 <code class="language-plaintext highlighter-rouge">convolution</code>을 하면 정보의 손실을 최대화하면서 해상도는 큰 <code class="language-plaintext highlighter-rouge">output</code>을 얻을 수 있다.</p>
 
@@ -909,35 +855,15 @@
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#datascience"
-      >#DataScience</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#datascience">#DataScience</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#deeplearning"
-      >#DeepLearning</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#deeplearning">#DeepLearning</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#computer-vision"
-      >#Computer-Vision</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#computer-vision">#Computer-Vision</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#paper-review"
-      >#Paper-Review</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#paper-review">#Paper-Review</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#segmentation"
-      >#Segmentation</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#segmentation">#Segmentation</a>
     
   </div>
 </footer>
@@ -949,30 +875,23 @@
 <div id="post-nav">
            
                                                                                                                                                                                                                                                                                                                 
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html';">
     <p>PREVIOUS SERIES</p>
     <p>07: Learning Deconvolution Network for Semantic Segmentation</p>
   </div>
                                                           
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/dl/2020/09/07/computer-vision-09-conditional-random-field.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/07/computer-vision-09-conditional-random-field.html';">
     <p>NEXT SERIES</p>
     <p>09: Conditional Random Field(CRF)</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                           
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1008,7 +927,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

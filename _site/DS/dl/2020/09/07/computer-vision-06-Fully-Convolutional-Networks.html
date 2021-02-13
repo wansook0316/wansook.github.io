@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [Computer Vision] 06: Fully Convolutional Networks | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Fully Convolutional Networks을 리뷰해본다."
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Fully Convolutional Networks을 리뷰해본다.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[Computer Vision] 06: Fully Convolutional Networks | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Fully Convolutional Networks을 리뷰해본다."
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/42.jpg"
-  />
+  <meta property="og:title" content="[Computer Vision] 06: Fully Convolutional Networks | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Fully Convolutional Networks을 리뷰해본다.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/42.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html"
-  />
+  <link rel="canonical" href="/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/42.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/42.jpg')">
     <ul class="category-title">
       <h1 class="title">06: Fully Convolutional Networks</h1>
       
@@ -834,13 +784,9 @@
     <li onclick="location.href='/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html'">
       <span>Part 15 - 15: Gram Matrix</span>
     </li>
-                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                              
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -853,7 +799,7 @@
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
   <li class="toc-item"><a href="#task" class="toc-anchor">Task</a></li>
-  <li class="toc-item"><a href="#알아두어야-할-것" class="toc-anchor">알아두어야 할 것</a></li>
+  <li class="toc-item"><a href="#%EC%95%8C%EC%95%84%EB%91%90%EC%96%B4%EC%95%BC-%ED%95%A0-%EA%B2%83" class="toc-anchor">알아두어야 할 것</a></li>
   <li class="toc-item"><a href="#fully-convolutional-networks" class="toc-anchor">Fully Convolutional Networks</a></li>
   <li class="toc-item"><a href="#upsampling" class="toc-anchor">Upsampling</a></li>
   <li class="toc-item"><a href="#skip-combining" class="toc-anchor">Skip Combining</a></li>
@@ -870,11 +816,11 @@
   <p>Segmentation</p>
 </blockquote>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLRsBh%2FbtqvFWzSkG4%2FzVFXbcqvOHsbDeQ9NlkTOK%2Fimg.png" alt="" class="center" width="100%" /><em>Types of Task</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbLRsBh%2FbtqvFWzSkG4%2FzVFXbcqvOHsbDeQ9NlkTOK%2Fimg.png" alt="" class="center" width="100%"><em>Types of Task</em></p>
 
 <p>semantic segmentation은 이미지 내에 있는 물체들을 의미 있는 단위로 분할해내는 것이다. 좀 더 구체적으로 이야기하면, 이미지의 각 픽셀이 어느 클래스에 속하는지 예측하는 것이다. 이렇게 이미지 내 모든 픽셀에 대해서 예측을 진행하기 때문에 이 과제를 dense prediction이라고 부르기도 한다. 어떤 이미지 내에는 사람, 자동차, 강아지, 고양이, 노트북, 선풍기 등 여러 종류의 물체가 포함되어 있을 수 있다. 이렇게 서로 다른 종류의 물체들을 깔끔하게 분할해내는 것이 semantic segmentation의 목적이다.</p>
 
-<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-6-638.jpg?cb=1509881698" alt="" class="center" width="100%" /><em>관련 논문들 <del>할거개많다</del></em></p>
+<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-6-638.jpg?cb=1509881698" alt="" class="center" width="100%"><em>관련 논문들 <del>할거개많다</del></em></p>
 
 <p>이 중에서 의미론적인 구분을 하는 <code class="language-plaintext highlighter-rouge">Sementic Segmentation</code> 중에서 Deep Lab에 대해 알아볼 것이다. 다음으로는 <code class="language-plaintext highlighter-rouge">U-Net</code>, 마지막으로 instance 단위로 segmentation을 진행하는 <code class="language-plaintext highlighter-rouge">instance segmentation</code>을 알아볼 것이다.</p>
 
@@ -914,22 +860,22 @@
 
 <p>CNN은 image classification을 잘한다. 그렇다면 Sememtation은 pixel 단위로 classification을 진행하면 되지 않을까? 하지만 굉장히 비효율적이다. 그렇다면, 최대한 기존 network의 구조를 변경하지 않으면서 이걸 가능하게 할 방법은?</p>
 
-<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-17-638.jpg?cb=1509881698" alt="" class="center" width="100%" />
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdYXtID%2FbtqvFhyuhNf%2FTf0TfXSNpXZmdbmQMzQRiK%2Fimg.png" alt="" class="center" width="100%" /><em>기존 VGG16 network</em></p>
+<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-17-638.jpg?cb=1509881698" alt="" class="center" width="100%">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdYXtID%2FbtqvFhyuhNf%2FTf0TfXSNpXZmdbmQMzQRiK%2Fimg.png" alt="" class="center" width="100%"><em>기존 VGG16 network</em></p>
 
 <p>AlexNet, VGGNet 등 이미지 분류(image classification)용 CNN 알고리즘들은 일반적으로 컨볼루션 층들과 fully connected 층들로 이뤄져있다. 입력이미지에 의존도가 크기 때문에 항상 입력이미지를 네트워크에 맞는 고정된 사이즈로 작게 만들어서 입력해준다. 그러면 네트워크는 그 이미지가 속할 클래스를 예측해서 알려준다. 아래 그림에서 네트워크는 입력된 이미지의 클래스를 얼룩무늬 고양이(tabby cat)라고 예측해냈다.</p>
 
 <p>이 분류용 CNN 알고리즘들은 이미지에 있는 물체가 어떤 클래스에 속하는지는 예측해낼 수 있지만, 그 물체가 어디에 존재하는지는 예측해낼 수 없다. 왜냐하면 네트워크 후반부의 fully connected 층에 들어서면서 위치정보가 소실되었기 때문이다. 따라서 AlexNet, VGGNet 등과 같은 알고리즘들을 수정함없이 Semantic segmentation 과제에 그대로 사용하는 것은 불가능하다.</p>
 
-<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-19-638.jpg?cb=1509881698" alt="" class="center" width="100%" />
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcSbIVE%2FbtqvI5YqCii%2Fk6AP2w27BjDtdEQYKgu5Tk%2Fimg.png" alt="" class="center" width="100%" /><em>Fully Convolutional Network</em></p>
+<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-19-638.jpg?cb=1509881698" alt="" class="center" width="100%">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcSbIVE%2FbtqvI5YqCii%2Fk6AP2w27BjDtdEQYKgu5Tk%2Fimg.png" alt="" class="center" width="100%"><em>Fully Convolutional Network</em></p>
 
 <p>그래서 저자들은 <code class="language-plaintext highlighter-rouge">1x1 filter</code>를 사용하여 위치정보를 살렸다. 마지막 단에는 <code class="language-plaintext highlighter-rouge">7x7 heatmap</code> 을 output으로 내고, 이를 원래 image size로 upsampling을 진행하여 문제를 해결하고자 하였다.</p>
 
 <p>결과적으로 네트워크 전체가 컨볼루션층들로 이뤄지게 되었다. fully connected 층들이 없어졌으므로 더 이상 입력 이미지의 크기에 제한을 받지 않게 되었다.</p>
 
-<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-20-638.jpg?cb=1509881698" alt="" class="center" width="100%" />
-<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFIfAW%2FbtqvHhd0D3s%2FFIyW7ZKEzL1DFOjk0EfFA1%2Fimg.png" alt="" class="center" width="100%" /><em>입력 크기에 대해 자유로워졌다.</em></p>
+<p><img src="https://image.slidesharecdn.com/pr045deeplabsemanticsegmentation-171105113047/95/pr045-deep-labsemanticsegmentation-20-638.jpg?cb=1509881698" alt="" class="center" width="100%">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFIfAW%2FbtqvHhd0D3s%2FFIyW7ZKEzL1DFOjk0EfFA1%2Fimg.png" alt="" class="center" width="100%"><em>입력 크기에 대해 자유로워졌다.</em></p>
 
 <p>저자들은 <code class="language-plaintext highlighter-rouge">Fully Convolutional Network</code>는 <code class="language-plaintext highlighter-rouge">1x1 filter</code>를 사용하기 때문에 input image에 대한 dependency가 작은 것도 장점이라 했다. <code class="language-plaintext highlighter-rouge">1x1 conv</code>는 Width, Height에 대해 의존도가 없기 때문에 channel 수를 마음대로 조정하여 원하는 output 모양을 맞출 수 있다. 여러 층의 컨볼루션층들을 거치고 나면 특성맵(feature map)의 크기가 H/32 x W/32가 되는데, 그 특성맵의 한 픽셀이 입력이미지의 32 x 32 크기를 대표한다. 즉, 입력이미지의 위치 정보를 ‘대략적으로’ 유지하고 있는 것이다.</p>
 
@@ -939,15 +885,15 @@
   <p>feature map을 키워서 image size로 만들자!</p>
 </blockquote>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc2rRKu%2FbtqvFhluGR4%2FL0t8Da4wcUNJzkxPmzH6tk%2Fimg.jpg" alt="" class="center" width="100%" /><em>Heatmap과 Upsampling</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc2rRKu%2FbtqvFhluGR4%2FL0t8Da4wcUNJzkxPmzH6tk%2Fimg.jpg" alt="" class="center" width="100%"><em>Heatmap과 Upsampling</em></p>
 
 <p>입력이미지의 위치 정보를 가지고 있는 Heapmap은 아직 대략적인 정보(Coarse)일 뿐이다. 이러한 정보를 기반으로 원래 이미지의 Pixel Size에서 class를 예측하는 dense Prediction을 수행해야 한다. 이 과정에서 Heat map을 원래 image size로 크기를 키워주는 과정을 <code class="language-plaintext highlighter-rouge">upsampling</code>이라 한다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwdTpY%2FbtqvHixmi52%2FBq3qFblKq2M59qH3DTQ6Xk%2Fimg.jpg" alt="" class="center" width="100%" /><em>FCN-32s 모델의 전체 과정</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbwdTpY%2FbtqvHixmi52%2FBq3qFblKq2M59qH3DTQ6Xk%2Fimg.jpg" alt="" class="center" width="100%"><em>FCN-32s 모델의 전체 과정</em></p>
 
 <p>하지만 단순히 <code class="language-plaintext highlighter-rouge">upsampling</code>을 진행하면 예상하겠지만 여전히 <code class="language-plaintext highlighter-rouge">Coarse</code>한 <code class="language-plaintext highlighter-rouge">segmentation map</code>을 얻게 된다. 단숨에 32배 한다면 <code class="language-plaintext highlighter-rouge">coarse</code> 할수 밖에 없다. 이렇게 단숨에 32배 <code class="language-plaintext highlighter-rouge">upsampling</code>한 네트워크를 <code class="language-plaintext highlighter-rouge">FCN-32s</code>라 소개하고 있다. 확실히 정확도가 많이 떨어진다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc8w6Q4%2FbtqvIl8hnlM%2FluT2LiEWwy1s6C6iBLOB9K%2Fimg.png" alt="" class="center" width="60%" /><em>FCN-32s : Coarse Output</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fc8w6Q4%2FbtqvIl8hnlM%2FluT2LiEWwy1s6C6iBLOB9K%2Fimg.png" alt="" class="center" width="60%"><em>FCN-32s : Coarse Output</em></p>
 
 <h2 id="skip-combining">Skip Combining</h2>
 
@@ -955,15 +901,15 @@
   <p>이전 단계의 컨볼루션층들의 특성맵을 참고하여 upsampling을 해주자!</p>
 </blockquote>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FIGdNu%2FbtqvIlt4uDG%2FfcPrxA9rRuGSK0k7urG1SK%2Fimg.jpg" alt="" class="center" width="100%" /><em>FCN-16s</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FIGdNu%2FbtqvIlt4uDG%2FfcPrxA9rRuGSK0k7urG1SK%2Fimg.jpg" alt="" class="center" width="100%"><em>FCN-16s</em></p>
 
 <p>컨볼루션과 풀링 단계로 이뤄진 이전 단계의 컨볼루션층들의 특성맵을 참고하여 upsampling을 해주면 좀 더 정확도를 높일 수 있지 않겠냐는 생각에서 Skip combining이라는 방법을 제안한다. 왜냐하면 이전 컨볼루션층들의 특성맵들이 해상도 면에서는 더 낫기 때문이다. 이렇게 바로 전 컨볼루션층의 특성맵(pool4)과 현재 층의 특성맵(conv7)을 2배 upsampling한 것을 더한다. 그 다음 그것(pool + 2x conv7)을 16배 upsampling으로 얻은 특성맵들로 segmentation map을 얻는 방법을 FCN-16s라고 부른다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcUvGlz%2FbtqvJ6CMaea%2FmhXVZg7xJk9rEdLR7KRgWk%2Fimg.jpg" alt="" class="center" width="100%" /><em>FCN-8s</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcUvGlz%2FbtqvJ6CMaea%2FmhXVZg7xJk9rEdLR7KRgWk%2Fimg.jpg" alt="" class="center" width="100%"><em>FCN-8s</em></p>
 
 <p>또 더 나아가서 전전 컨볼루션층의 결과도 참고해서 특성맵들을 얻고, 또 그 특성맵들로 segmentation map을 구할 수도 있다. 이 방법은 FCN-8s라고 부른다. 좀 더 구체적으로 이야기하면, 먼저 전전 단계의 특성맵(pool3)과 전 단계의 특성맵(pool4)을 2배 upsampling한 것과 현 단계의 특성맵(conv7)을 4배 upsampling 한 것을 모두 더한 다음에 8배 upsampling을 수행하므로 특성맵들을 얻는다. 이것을 모두 종합해서 최종 segmentation map을 산출한다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FpU9Xh%2FbtqvGCXt7hJ%2FyFa9DNVZi99eGvVoBXut8k%2Fimg.png" alt="" class="center" width="80%" /><em>skip combining의 depth에 따른 결과 비교</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FpU9Xh%2FbtqvGCXt7hJ%2FyFa9DNVZi99eGvVoBXut8k%2Fimg.png" alt="" class="center" width="80%"><em>skip combining의 depth에 따른 결과 비교</em></p>
 
 <h1 id="reference">Reference</h1>
 
@@ -974,35 +920,15 @@
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#datascience"
-      >#DataScience</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#datascience">#DataScience</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#deeplearning"
-      >#DeepLearning</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#deeplearning">#DeepLearning</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#computer-vision"
-      >#Computer-Vision</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#computer-vision">#Computer-Vision</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#paper-review"
-      >#Paper-Review</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#paper-review">#Paper-Review</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#segmentation"
-      >#Segmentation</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#segmentation">#Segmentation</a>
     
   </div>
 </footer>
@@ -1014,30 +940,23 @@
 <div id="post-nav">
            
                                                                                                                                                                                                                                     
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html';">
     <p>PREVIOUS SERIES</p>
     <p>05: Faster R-CNN</p>
   </div>
                                                                               
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html';">
     <p>NEXT SERIES</p>
     <p>07: Learning Deconvolution Network for Semantic Segmentation</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1073,7 +992,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

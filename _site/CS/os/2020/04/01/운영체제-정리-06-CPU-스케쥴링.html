@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,50 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [운영체제 정리] 06: CPU 스케쥴링 | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[운영체제 정리] 06: CPU 스케쥴링 | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/11.jpg"
-  />
+  <meta property="og:title" content="[운영체제 정리] 06: CPU 스케쥴링 | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html"
-  />
+  <link rel="canonical" href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +157,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +169,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +263,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +535,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +594,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +700,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/11.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/11.jpg')">
     <ul class="category-title">
       <h1 class="title">06: CPU 스케쥴링</h1>
       
@@ -854,13 +805,9 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 20 - 20: 디스크 스케쥴링 알고리즘</span>
     </li>
-                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                    
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -872,20 +819,22 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#1-스케쥴링의-유형" class="toc-anchor">1. 스케쥴링의 유형</a>
+  <li class="toc-item">
+<a href="#1-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81%EC%9D%98-%EC%9C%A0%ED%98%95" class="toc-anchor">1. 스케쥴링의 유형</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#11-preemptive" class="toc-anchor">1.1 Preemptive</a></li>
       <li class="toc-item"><a href="#12-non-preemptive" class="toc-anchor">1.2 Non-preemptive</a></li>
     </ul>
   </li>
   <li class="toc-item"><a href="#2-scheduling-criteria" class="toc-anchor">2. Scheduling criteria</a></li>
-  <li class="toc-item"><a href="#3-cpu-scheduling-algorithms" class="toc-anchor">3. CPU Scheduling Algorithms</a>
+  <li class="toc-item">
+<a href="#3-cpu-scheduling-algorithms" class="toc-anchor">3. CPU Scheduling Algorithms</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#31-first-come-first-servedfcfs" class="toc-anchor">3.1 First-Come, First-Served(FCFS)</a></li>
       <li class="toc-item"><a href="#32-shortest-job-firstsjf" class="toc-anchor">3.2 Shortest-Job-First(SJF)</a></li>
       <li class="toc-item"><a href="#33-priority" class="toc-anchor">3.3 Priority</a></li>
       <li class="toc-item"><a href="#34-round-robinrr" class="toc-anchor">3.4 Round-Robin(RR)</a></li>
-      <li class="toc-item"><a href="#한계-2" class="toc-anchor">한계</a></li>
+      <li class="toc-item"><a href="#%ED%95%9C%EA%B3%84-2" class="toc-anchor">한계</a></li>
       <li class="toc-item"><a href="#36-multilevel-feedback-queue" class="toc-anchor">3.6 Multilevel Feedback Queue</a></li>
     </ul>
   </li>
@@ -977,7 +926,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78102085-61ff7e00-7424-11ea-8df9-eafb8dfce216.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78102085-61ff7e00-7424-11ea-8df9-eafb8dfce216.png" class="center"></p>
 
 <p>위의 표를 아래의 그림으로 나타낸 것을 Gantt Chart라 한다. P1, P2, P3 순으로 메모리에 도착했다고 가정했을 때, P1, P2, P3의 총 대기시간의 평균을 구해보자.</p>
 
@@ -987,7 +936,7 @@
 
 <p>그런데 만약 P3, P2, P1 순으로 들어왔다고 생각해보자.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78102317-041f6600-7425-11ea-9ccd-094082d6b0d1.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78102317-041f6600-7425-11ea-9ccd-094082d6b0d1.png" class="center"></p>
 
 <ul>
   <li>Average Waiting Time = ${6+3+0\over 3} = 3msec$ 이다.</li>
@@ -1037,7 +986,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78102712-ee5e7080-7425-11ea-93f8-4948627e05fa.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78102712-ee5e7080-7425-11ea-93f8-4948627e05fa.png" class="center"></p>
 
 <ul>
   <li>Average Waiting Time(AWT) = ${3+16+9+0\over 4} = 7msec$ 이다.</li>
@@ -1089,7 +1038,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78103548-2ff01b00-7428-11ea-9a65-aad9caada41f.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78103548-2ff01b00-7428-11ea-9a65-aad9caada41f.png" class="center"></p>
 
 <h4 id="non-preemptive">non-preemptive</h4>
 
@@ -1102,7 +1051,7 @@
 
 <h4 id="preemptive">Preemptive</h4>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78103852-e18f4c00-7428-11ea-94fb-648871a903d6.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78103852-e18f4c00-7428-11ea-94fb-648871a903d6.png" class="center"></p>
 
 <p>이번에는 p]Preemptive이므로 <strong>프로세스가 도착할 때마다</strong>, 어느 프로세스가 가장 짧은 것인지 선택해야 한다. 주목할 점은 P2 프로세스가 도착했을 때, 현재 남은 burst time 중 가장 짧은 프로세스가 P2이므로 P1을 수행하던 것을 멈추고 P2가 수행을 시작한다.</p>
 
@@ -1165,7 +1114,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78104260-d8eb4580-7429-11ea-88f0-10e0b3bfd245.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78104260-d8eb4580-7429-11ea-88f0-10e0b3bfd245.png" class="center"></p>
 
 <p>표에서 우선순위 값이 가장 낮은 순서대로 수행한 모습을 간트 차트로 나타내었다.</p>
 
@@ -1237,7 +1186,7 @@
   </tbody>
 </table>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78105020-29af6e00-742b-11ea-8342-501d0e471ae9.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78105020-29af6e00-742b-11ea-8342-501d0e471ae9.png" class="center"></p>
 
 <p><strong class="center-text">time Quantum = 4msec</strong></p>
 
@@ -1249,7 +1198,7 @@
 
 <h2 id="한계-2">한계</h2>
 
-<p><img width="1000" alt="image" src="https://user-images.githubusercontent.com/37871541/78105871-2321f600-742d-11ea-9f30-9dc151db36ff.png" class="center" /></p>
+<p><img width="1000" alt="image" src="https://user-images.githubusercontent.com/37871541/78105871-2321f600-742d-11ea-9f30-9dc151db36ff.png" class="center"></p>
 
 <p>RR방식은 time quantum 크기에 따라 AWT와 같은 스케줄링 척도가 바뀐다. 그러므로 RR 방식은 <strong>time quantum에 매우 의존적</strong>인 것을 알 수 있다.</p>
 
@@ -1297,7 +1246,7 @@
 
 <p>위와 같이 여러 성격에 따라 프로세스 그룹을 나눌 수 있는데 이를 하나의 큐에 사용하는 것은 비효율적이라고 판단하였다. 그래서 각 그룹에 따라 큐를 두어 여러 개의 큐를 사용하는 것이 Muitilevel Queue 방식이다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78106173-d12da000-742d-11ea-82d9-f3010a2a1d7f.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78106173-d12da000-742d-11ea-82d9-f3010a2a1d7f.png" class="center"></p>
 
 <p>위 그림은 각 그룹에 따라 큐를 나눈 것이다. 그리고 각 큐마다 다른 규칙을 지정할 수도 있다.</p>
 
@@ -1318,7 +1267,7 @@
 
 <p>Multilevel Feedback Queue도 Multilevel Queue와 같이 여러 개의 큐를 사용한다는 점에서 유사하다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78106392-45684380-742e-11ea-9576-e1a34b4f661f.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78106392-45684380-742e-11ea-9576-e1a34b4f661f.png" class="center"></p>
 
 <p>위 그림을 보면 먼저 모든 프로세스는 가장 위의 큐에서 CPU의 점유를 대기한다. 이 상태로 진행하다가 이 큐에서 기다리는 시간이 너무 오래 걸린다면 아래의 큐로 프로세스를 옮긴다. 이와 같은 방식으로 대기 시간을 조정할 수 있다. 그리고 Multilevel Feedback Queue에서도 각 큐마다 다른 스케줄링, 다른 우선순위 등을 사용할 수 있다.</p>
 
@@ -1341,9 +1290,9 @@
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1351,23 +1300,11 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#os"
-      >#OS</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#cpu"
-      >#CPU</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#cpu">#CPU</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#scheduling"
-      >#Scheduling</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#scheduling">#Scheduling</a>
     
   </div>
 </footer>
@@ -1379,30 +1316,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <div id="post-nav">
            
                                                                                                                                                                                                                                                           
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html';">
     <p>PREVIOUS SERIES</p>
     <p>05: 프로세스와 관리</p>
   </div>
                                                                   
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html';">
     <p>NEXT SERIES</p>
     <p>07: 쓰레드(Thread)</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1438,7 +1368,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

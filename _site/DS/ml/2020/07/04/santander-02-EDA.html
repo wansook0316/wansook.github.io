@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [Kaggle::Santander Transaction] 02: EDA | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[Kaggle::Santander Transaction] 02: EDA | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/ds/ml/2020/07/04/santander-02-EDA.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/11.jpg"
-  />
+  <meta property="og:title" content="[Kaggle::Santander Transaction] 02: EDA | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/ds/ml/2020/07/04/santander-02-EDA.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/ds/ml/2020/07/04/santander-02-EDA.html"
-  />
+  <link rel="canonical" href="/ds/ml/2020/07/04/santander-02-EDA.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/11.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/11.jpg')">
     <ul class="category-title">
       <h1 class="title">02: EDA</h1>
       
@@ -776,19 +726,15 @@
   <ul class="side-nav" id="js-side_nav">
                                                        
     <li onclick="location.href='/ds/ml/2020/07/04/santander-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98%EC%99%80_%EC%A4%80%EB%B9%84.html'">
-      <span>Part 1 - 01: 문제 정의 & 준비</span>
+      <span>Part 1 - 01: 문제 정의 &amp; 준비</span>
     </li>
                              
     <li class="current">
       <span>Part 2 - This Post</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -800,18 +746,20 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#eda" class="toc-anchor">EDA</a>
+  <li class="toc-item">
+<a href="#eda" class="toc-anchor">EDA</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#check-the-data" class="toc-anchor">Check the data</a></li>
       <li class="toc-item"><a href="#missing-data" class="toc-anchor">Missing Data</a></li>
     </ul>
   </li>
-  <li class="toc-item"><a href="#describe" class="toc-anchor">Describe</a>
+  <li class="toc-item">
+<a href="#describe" class="toc-anchor">Describe</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#관찰의-결과" class="toc-anchor">관찰의 결과</a></li>
+      <li class="toc-item"><a href="#%EA%B4%80%EC%B0%B0%EC%9D%98-%EA%B2%B0%EA%B3%BC" class="toc-anchor">관찰의 결과</a></li>
     </ul>
   </li>
-  <li class="toc-item"><a href="#변수-상관도" class="toc-anchor">변수 상관도</a></li>
+  <li class="toc-item"><a href="#%EB%B3%80%EC%88%98-%EC%83%81%EA%B4%80%EB%8F%84" class="toc-anchor">변수 상관도</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -836,17 +784,17 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>((200000, 202), (200000, 201))
 </code></pre></div></div>
 
-<hr />
+<hr>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/86508006-708c7580-be17-11ea-8d82-7e7f1418249d.png" alt="image" class="center-text" /></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/86508006-708c7580-be17-11ea-8d82-7e7f1418249d.png" alt="image" class="center-text"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/86508017-800bbe80-be17-11ea-8158-60f918129420.png" alt="image" class="center-text" /></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/86508017-800bbe80-be17-11ea-8158-60f918129420.png" alt="image" class="center-text"></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Train contains:
 
@@ -859,7 +807,7 @@ ID_code (string);
 200 numerical variables, named from var_0 to var_199;
 </code></pre></div></div>
 
-<hr />
+<hr>
 
 <h2 id="missing-data">Missing Data</h2>
 
@@ -883,7 +831,7 @@ ID_code (string);
 Wall time: 2.2 s
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/86508089-3c658480-be18-11ea-9983-6aa6c5fe9aa2.png" alt="image" class="center-text" /></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/86508089-3c658480-be18-11ea-9983-6aa6c5fe9aa2.png" alt="image" class="center-text"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
 <span class="n">missing_data</span><span class="p">(</span><span class="n">test_df</span><span class="p">)</span>
@@ -893,7 +841,7 @@ Wall time: 2.2 s
 Wall time: 2.33 s
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/86508093-438c9280-be18-11ea-9dd8-293aa18d06b5.png" alt="image" class="center-text" /></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/86508093-438c9280-be18-11ea-9dd8-293aa18d06b5.png" alt="image" class="center-text"></p>
 
 <blockquote>
   <p>결측치가 없는 것을 확인했다.</p>
@@ -905,13 +853,13 @@ Wall time: 2.33 s
 <span class="n">train_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/86508117-746cc780-be18-11ea-9d09-87c17613e435.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/86508117-746cc780-be18-11ea-9d09-87c17613e435.png" alt="image"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">time</span>
 <span class="n">test_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/86508121-79ca1200-be18-11ea-8687-ca980dfe9aa1.png" alt="image" /></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/86508121-79ca1200-be18-11ea-8687-ca980dfe9aa1.png" alt="image"></p>
 
 <h2 id="관찰의-결과">관찰의 결과</h2>
 
@@ -933,23 +881,11 @@ Wall time: 2.33 s
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#data-science"
-      >#Data Science</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#data-science">#Data Science</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#machine-learning"
-      >#Machine Learning</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#machine-learning">#Machine Learning</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#kaggle"
-      >#kaggle</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#kaggle">#kaggle</a>
     
   </div>
 </footer>
@@ -961,21 +897,18 @@ Wall time: 2.33 s
 <div id="post-nav">
            
                                                     
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/ml/2020/07/04/santander-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98%EC%99%80_%EC%A4%80%EB%B9%84.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/07/04/santander-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98%EC%99%80_%EC%A4%80%EB%B9%84.html';">
     <p>PREVIOUS SERIES</p>
-    <p>01: 문제 정의 & 준비</p>
+    <p>01: 문제 정의 &amp; 준비</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1011,7 +944,7 @@ Wall time: 2.33 s
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [Computer Vision] 07: Learning Deconvolution Network for Semantic Segmentation | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Learning Deconvolution Network for Semantic Segmentation을 리뷰해본다."
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Learning Deconvolution Network for Semantic Segmentation을 리뷰해본다.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[Computer Vision] 07: Learning Deconvolution Network for Semantic Segmentation | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Learning Deconvolution Network for Semantic Segmentation을 리뷰해본다."
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/42.jpg"
-  />
+  <meta property="og:title" content="[Computer Vision] 07: Learning Deconvolution Network for Semantic Segmentation | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Learning Deconvolution Network for Semantic Segmentation을 리뷰해본다.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/42.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html"
-  />
+  <link rel="canonical" href="/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/42.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/42.jpg')">
     <ul class="category-title">
       <h1 class="title">07: Learning Deconvolution Network for Semantic Segmentation</h1>
       
@@ -834,13 +784,9 @@
     <li onclick="location.href='/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html'">
       <span>Part 15 - 15: Gram Matrix</span>
     </li>
-                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                              
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -852,11 +798,11 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#개요" class="toc-anchor">개요</a></li>
-  <li class="toc-item"><a href="#핵심-아이디어" class="toc-anchor">핵심 아이디어</a></li>
-  <li class="toc-item"><a href="#네트워크-구조의-변경" class="toc-anchor">네트워크 구조의 변경</a></li>
-  <li class="toc-item"><a href="#학습-방법" class="toc-anchor">학습 방법</a></li>
-  <li class="toc-item"><a href="#결과" class="toc-anchor">결과</a></li>
+  <li class="toc-item"><a href="#%EA%B0%9C%EC%9A%94" class="toc-anchor">개요</a></li>
+  <li class="toc-item"><a href="#%ED%95%B5%EC%8B%AC-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4" class="toc-anchor">핵심 아이디어</a></li>
+  <li class="toc-item"><a href="#%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EA%B5%AC%EC%A1%B0%EC%9D%98-%EB%B3%80%EA%B2%BD" class="toc-anchor">네트워크 구조의 변경</a></li>
+  <li class="toc-item"><a href="#%ED%95%99%EC%8A%B5-%EB%B0%A9%EB%B2%95" class="toc-anchor">학습 방법</a></li>
+  <li class="toc-item"><a href="#%EA%B2%B0%EA%B3%BC" class="toc-anchor">결과</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -880,43 +826,43 @@
 
 <h3 id="크기의-문제점">크기의 문제점</h3>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig1.jpg" alt="" class="center" width="80%" /></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig1.jpg" alt="" class="center" width="80%"></p>
 
 <p>위의 예시들처럼 FCN의 추론 결과를 보면, 대상 물체가 너무 큰 경우(a)에는 파편화되고, 너무 작은 경우(b)에는 배경으로 무시되는 경향이 있다. FCN에서는 receptive field(상위 레이어의 한 지점에서 참조하는 하위 레이어의 영역)의 크기가 고정되어, 단일 배율(scale)만을 학습하는 것이 이 문제의 원인이라고 본 논문은 지적한다. 여러 레이어의 결과를 조합하는 skip 구조가 이러한 현상을 완화시켜주기는 하지만, 근본적인 해법은 아니라는 주장한다.</p>
 
 <h3 id="디테일의-문제점">디테일의 문제점</h3>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig5.jpg" alt="" class="center" width="80%" /></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig5.jpg" alt="" class="center" width="80%"></p>
 
 <p>FCN이 비록 기존 기법들에 비해 큰 발전을 이루었지만, 세부적인 영역을 찾아내는 데에서는 아직 개선의 여지가 있다고 이 논문은 보고 있다. FCN에서는 deconvolution에 들어가는 입력부터 이미 세부 묘사가 떨어지고, deconvolution 과정 자체도 충분히 깊지 않고 너무 단순하다고 말한다.</p>
 
 <h2 id="네트워크-구조의-변경">네트워크 구조의 변경</h2>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig2.jpg" alt="" class="center" width="100%" /></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig2.jpg" alt="" class="center" width="100%"></p>
 
 <p>부족하면 더 넣으면 된다. FCN에서는 CNN의 결과를 입력이미지의 원래 차원으로 확대(upsampling)하는데 있어서 <code class="language-plaintext highlighter-rouge">deconvolution</code>을 사용했지만, 이 논문에서는 deconvolution시 차원을 유지하는 방법으로, CNN의 layer만큼 레이어 숫자를 늘렸다. 즉, 완전한 대칭 모양이다.</p>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig3.jpg" alt="" class="center" width="80%" /><em>uppooling</em></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig3.jpg" alt="" class="center" width="80%"><em>uppooling</em></p>
 
 <p>CNN으로 인해 원래 이미지보다 축소된 차원 크기는 <code class="language-plaintext highlighter-rouge">uppooling</code>으로 복원합니다. 여기서 unpooling이란 CNN의 max pooling 시의 위치 정보를 기억했다가, 원래 위치로 그대로 복원해주는 작업이다.</p>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig4.jpg" alt="" class="center" width="80%" /><em>uppooling 과정 (a-&gt;b)</em></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig4.jpg" alt="" class="center" width="80%"><em>uppooling 과정 (a-&gt;b)</em></p>
 
 <p>그 효과는 위의 그림과 같다. (b)에서 (c)로 갈 때의 unpooling에 의해, 해상도가 커지는 대신 신호가 흩어져서 희소(sparse)해진다. 이것을 (c)에서 (d)로 deconvolution을 거치면, 디테일을 살려내면서 신호가 고르게 밀집(dense)된다. 이러한 과정이 반복되자 노이즈도 점차 자연스럽게 사라지는 것을 볼 수 있다.</p>
 
 <h2 id="학습-방법">학습 방법</h2>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/edge-box.jpg" alt="" class="center" width="80%" /><em>edge-box</em></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/edge-box.jpg" alt="" class="center" width="80%"><em>edge-box</em></p>
 
 <p>단일 데이터셋에서 다양한 크기의 사례들을 학습하기 위해, 논문에서는 <code class="language-plaintext highlighter-rouge">edge-box</code>라는 <code class="language-plaintext highlighter-rouge">object proposal</code> 알고리즘을 사용하여 무언가 있을만한 영역을 다양한 크기의 상자로 골라낸다. 학습 시에는 우선 실제 정답이 가운데에 들어가도록 잘라낸(crop) 이미지들로 1차 학습을, 그 다음 <code class="language-plaintext highlighter-rouge">edge-box</code>의 결과물 중 실제 정답과 잘 겹치는 것들을 활용하여 조금 더 심도있는 2차 학습을 진행한다.</p>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig6.jpg" alt="" class="center" width="80%" /><em>edge-box inference</em></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig6.jpg" alt="" class="center" width="80%"><em>edge-box inference</em></p>
 
 <p>이렇게 학습에 사용된 edge-box는 추론 시에도 사용되는데, 추론 시 사용하는 object proposal의 수(상자 수)를 증가시킬 수록 성능은 좋아진다고 한다. 물론 그만큼 계산량과 시간은 늘어난다.</p>
 
 <h2 id="결과">결과</h2>
 
-<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig7.jpg" alt="" class="center" width="80%" /><em>result</em></p>
+<p><img src="https://modulabs-biomedical.github.io/assets/images/posts/2018-01-03-Learning_Deconvolution_Network_for_Semantic_Segmentation/fig7.jpg" alt="" class="center" width="80%"><em>result</em></p>
 
 <p>이렇게 세심하게 설계되고 학습된 결과는 FCN이 실수하는 물체들도 보다 세밀하게 잘 찾아내는 모습을 보인다. 다만 FCN이 잘 맞추는 곳에서 실수를 할 때도 있는데, 결국 둘을 앙상블하여 conditional random field로 후처리하면 두 가지 모델을 모두 뛰어넘게 되어, FCN과 상호 보완적인 관계에 있다고 논문은 맺는다.</p>
 
@@ -929,35 +875,15 @@
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#datascience"
-      >#DataScience</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#datascience">#DataScience</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#deeplearning"
-      >#DeepLearning</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#deeplearning">#DeepLearning</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#computer-vision"
-      >#Computer-Vision</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#computer-vision">#Computer-Vision</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#paper-review"
-      >#Paper-Review</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#paper-review">#Paper-Review</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#segmentation"
-      >#Segmentation</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#segmentation">#Segmentation</a>
     
   </div>
 </footer>
@@ -969,30 +895,23 @@
 <div id="post-nav">
            
                                                                                                                                                                                                                                                                          
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html';">
     <p>PREVIOUS SERIES</p>
     <p>06: Fully Convolutional Networks</p>
   </div>
                                                                     
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html';">
     <p>NEXT SERIES</p>
     <p>08: Dilated Convolution</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1028,7 +947,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

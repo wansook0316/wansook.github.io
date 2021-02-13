@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [Docker] 03: 데이터 저장 (Volume, Mount) | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Docker 컨테이너에 데이터 저장하는 방법을 알아보자."
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Docker 컨테이너에 데이터 저장하는 방법을 알아보자.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[Docker] 03: 데이터 저장 (Volume, Mount) | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Docker 컨테이너에 데이터 저장하는 방법을 알아보자."
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/dv/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/10.jpg"
-  />
+  <meta property="og:title" content="[Docker] 03: 데이터 저장 (Volume, Mount) | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Docker 컨테이너에 데이터 저장하는 방법을 알아보자.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/dv/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/10.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/dv/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html"
-  />
+  <link rel="canonical" href="/dv/docker/2020/09/01/Docker-03-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%A0%80%EC%9E%A5.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/10.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/10.jpg')">
     <ul class="category-title">
       <h1 class="title">03: 데이터 저장 (Volume, Mount)</h1>
       
@@ -790,13 +740,9 @@
     <li onclick="location.href='/dv/docker/2020/09/01/Docker-04-image%EC%83%9D%EC%84%B1-%EC%97%85%EB%A1%9C%EB%93%9C.html'">
       <span>Part 4 - 04: image 생성, 업로드</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -808,13 +754,14 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#volume" class="toc-anchor">Volume</a>
+  <li class="toc-item">
+<a href="#volume" class="toc-anchor">Volume</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#volume의-생성" class="toc-anchor">Volume의 생성</a></li>
-      <li class="toc-item"><a href="#volume의-조회" class="toc-anchor">Volume의 조회</a></li>
-      <li class="toc-item"><a href="#볼륨을-컨테이너에-마운트하기" class="toc-anchor">볼륨을 컨테이너에 마운트하기</a></li>
-      <li class="toc-item"><a href="#volume-삭제" class="toc-anchor">Volume 삭제</a></li>
-      <li class="toc-item"><a href="#volume-청소" class="toc-anchor">Volume 청소</a></li>
+      <li class="toc-item"><a href="#volume%EC%9D%98-%EC%83%9D%EC%84%B1" class="toc-anchor">Volume의 생성</a></li>
+      <li class="toc-item"><a href="#volume%EC%9D%98-%EC%A1%B0%ED%9A%8C" class="toc-anchor">Volume의 조회</a></li>
+      <li class="toc-item"><a href="#%EB%B3%BC%EB%A5%A8%EC%9D%84-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88%EC%97%90-%EB%A7%88%EC%9A%B4%ED%8A%B8%ED%95%98%EA%B8%B0" class="toc-anchor">볼륨을 컨테이너에 마운트하기</a></li>
+      <li class="toc-item"><a href="#volume-%EC%82%AD%EC%A0%9C" class="toc-anchor">Volume 삭제</a></li>
+      <li class="toc-item"><a href="#volume-%EC%B2%AD%EC%86%8C" class="toc-anchor">Volume 청소</a></li>
     </ul>
   </li>
   <li class="toc-item"><a href="#bind-mount" class="toc-anchor">Bind-Mount</a></li>
@@ -826,7 +773,7 @@
   </div>
 </div>
 
- <p><img src="https://docs.docker.com/storage/images/types-of-mounts-volume.png" alt="Volume과 Mount" class="center" /><em>Volume과 Mount</em></p>
+ <p><img src="https://docs.docker.com/storage/images/types-of-mounts-volume.png" alt="Volume과 Mount" class="center"><em>Volume과 Mount</em></p>
 
 <p>Docker Conatiner에 쓰여진 데이터는 컨테이너가 삭제될 때 함께 사라진다. 하지만 이에 관계없이 우리는 데이터를 영속적으로 저장할 필요가 있다. 또한 여러개의 컨테이너를 생성하여 사용할 경우, 하나의 폴더를 공유해야 하는 일이 빈번하다.</p>
 
@@ -852,7 +799,7 @@ hello
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker volume inspect hello
 <span class="o">[</span>
     <span class="o">{</span>
-        <span class="s2">"CreatedAt"</span>: <span class="s2">"2020-05-09T17:03:46Z"</span>,
+        <span class="s2">"CreatedAt"</span>: <span class="s2">"2020-05-09T17\:03\:46Z"</span>,
         <span class="s2">"Driver"</span>: <span class="s2">"local"</span>,
         <span class="s2">"Labels"</span>: <span class="o">{}</span>,
         <span class="s2">"Mountpoint"</span>: <span class="s2">"/var/lib/docker/volumes/our-vol/_data"</span>,
@@ -955,23 +902,11 @@ Are you sure you want to <span class="k">continue</span>? <span class="o">[</spa
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#dv"
-      >#DV</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#dv">#DV</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#docker"
-      >#Docker</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#docker">#Docker</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#cheet-sheet"
-      >#Cheet Sheet</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#cheet-sheet">#Cheet Sheet</a>
     
   </div>
 </footer>
@@ -983,30 +918,23 @@ Are you sure you want to <span class="k">continue</span>? <span class="o">[</spa
 <div id="post-nav">
            
                                                                                                          
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/dv/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/docker/2020/09/01/Docker-02-%EB%AA%85%EB%A0%B9%EC%96%B4-%EB%AA%A8%EC%9D%8C.html';">
     <p>PREVIOUS SERIES</p>
     <p>02: 명령어 모음</p>
   </div>
                                                                                           
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/dv/docker/2020/09/01/Docker-04-image%EC%83%9D%EC%84%B1-%EC%97%85%EB%A1%9C%EB%93%9C.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/dv/docker/2020/09/01/Docker-04-image%EC%83%9D%EC%84%B1-%EC%97%85%EB%A1%9C%EB%93%9C.html';">
     <p>NEXT SERIES</p>
     <p>04: image 생성, 업로드</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1042,7 +970,7 @@ Are you sure you want to <span class="k">continue</span>? <span class="o">[</spa
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

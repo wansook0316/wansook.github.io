@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -26,7 +28,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -38,86 +40,49 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
  
 </head>
-<html class="no-js">
+
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>
     [운영체제 정리] 07: 쓰레드(Thread) | 완숙의 에그머니🍳
   </title>
-  <meta
-    name="description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Open Graph -->
   <!--  -->
-  <meta
-    property="og:title"
-    content="[운영체제 정리] 07: 쓰레드(Thread) | 완숙의 에그머니🍳"
-  />
-  <meta
-    property="og:description"
-    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
-  />
-  <meta property="og:type" content="website" />
-  <meta
-    property="og:url"
-    content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html"
-  />
-  <meta
-    property="og:image"
-    content="http://localhost:4000/assets/img/11.jpg"
-  />
+  <meta property="og:title" content="[운영체제 정리] 07: 쓰레드(Thread) | 완숙의 에그머니🍳">
+  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html">
+  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link
-    rel="shortcut icon"
-    href="/assets/favicon.ico"
-    type="image/x-icon"
-  />
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 
   <!-- Canonical -->
-  <link
-    rel="canonical"
-    href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html"
-  />
+  <link rel="canonical" href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-07-%EC%93%B0%EB%A0%88%EB%93%9C.html">
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
   <!-- Google Fonts -->
   
-  <link
-    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
-    rel="stylesheet"
-    type="text/css"
-  />
+  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
   
 
   <!-- naver web mater tool -->
-  <meta
-    name="naver-site-verification"
-    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
-  />
+  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
 
   <!-- KaTeX -->
   <!--
@@ -191,7 +156,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-<head>
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -203,11 +168,8 @@
       }
     });
   </script>
-  <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-    type="text/javascript"
-  ></script>
-</head>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
   <script>
   console.log(window)
 
@@ -300,20 +262,17 @@
   });
 </script>
 
-</head>
 
-  <body>
+
+  </head>
+<body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img
-          class="avatar"
-          src="/assets/img/avatar.png"
-          alt=""
-        />
+        <img class="avatar" src="/assets/img/avatar.png" alt="">
       </a>
       
       <h1 class="site-title">
@@ -575,6 +534,7 @@
       <li>
 
 
+</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -633,17 +593,11 @@
 
 
 
-</li>
+
       
       <li>
         <form action="/search.html" method="get">
-          <input
-            type="text"
-            id="search-box"
-            name="query"
-            placeholder="Search"
-            class=""
-          />
+          <input type="text" id="search-box" name="query" placeholder="Search" class="">
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -745,13 +699,9 @@
   </ul>
 </div>
 
-    <div class="content"><article
-  class="feature-image main-category-feature"
-  
->
-  <header
-    style="background-image: url('/assets/img/11.jpg')"
-  >
+    <div class="content">
+<article class="feature-image main-category-feature">
+  <header style="background-image: url('/assets/img/11.jpg')">
     <ul class="category-title">
       <h1 class="title">07: 쓰레드(Thread)</h1>
       
@@ -854,13 +804,9 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 20 - 20: 디스크 스케쥴링 알고리즘</span>
     </li>
-                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                    
   </ul>
-  <div
-    class="side-nav-btn"
-    id="js-btn-side_nav"
-    onclick="handleSeriesNavShowing();"
-  >
+  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -872,9 +818,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#쓰레드thread" class="toc-anchor">쓰레드(Thread)</a>
+  <li class="toc-item">
+<a href="#%EC%93%B0%EB%A0%88%EB%93%9Cthread" class="toc-anchor">쓰레드(Thread)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#다중-쓰레드mulitithreads" class="toc-anchor">다중 쓰레드(Mulitithreads)</a></li>
+      <li class="toc-item"><a href="#%EB%8B%A4%EC%A4%91-%EC%93%B0%EB%A0%88%EB%93%9Cmulitithreads" class="toc-anchor">다중 쓰레드(Mulitithreads)</a></li>
       <li class="toc-item"><a href="#thread-vs-precess" class="toc-anchor">Thread VS Precess</a></li>
     </ul>
   </li>
@@ -911,7 +858,7 @@
 
 <h2 id="다중-쓰레드mulitithreads">다중 쓰레드(Mulitithreads)</h2>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78137531-73ff1200-7460-11ea-95ec-2f7db82f5c64.png" class="center" /></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78137531-73ff1200-7460-11ea-95ec-2f7db82f5c64.png" class="center"></p>
 
 <p>하나의 프로그램에 쓰레드가 2개 이상 존재하는 것을 다중 쓰레드라고 한다. 이렇게 한 프로그램에 여러 개의 쓰레드 즉, 흐름이 있을 수 있는 이유는 쓰레드가 빠른 시간 간격으로 스위칭되기 때문이다. 이러한 동작으로 사용자는 여러 쓰레드가 동시에 실행되는 것처럼 보인다.</p>
 
@@ -940,9 +887,9 @@
 
 <h2 id="thread-vs-precess">Thread VS Precess</h2>
 
-<p>이 부분을 제대로 이해하기 위해 process를 보고오자.<br />
-<a href="http://127.0.0.1:4000/cs/structure/2020/03/27/컴퓨터구조-운영-체제가-하는-일.html">가볍게 이해하는 컴퓨터 07: 운영 체제가 하는 일</a><br />
-<a href="http://127.0.0.1:4000/cs/os/2020/04/01/운영체제-정리-05-운영체제-프로세스-관리.html">운영체제 정리 05: 프로세스 관리</a></p>
+<p>이 부분을 제대로 이해하기 위해 process를 보고오자.<br>
+<a href="http://127.0.0.1:4000/cs/structure/2020/03/27/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html">가볍게 이해하는 컴퓨터 07: 운영 체제가 하는 일</a><br>
+<a href="http://127.0.0.1:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html">운영체제 정리 05: 프로세스 관리</a></p>
 
 <p>프로세스는 다른 프로세스와 완전히 독립적이다. 해당 프로세스가 가지는 구조로는 Code, Data, Heap, Stack이 있다. 이 때 쓰레드는 자기가 속한 프로세스의 일부 메모리를 공유한다. 집이라면 각 개인 구성원이 거실을 공유하는 셈이다.</p>
 
@@ -979,9 +926,9 @@
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -989,23 +936,11 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#os"
-      >#OS</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#cpu"
-      >#CPU</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#cpu">#CPU</a>
     
-    <a
-      class="tag"
-      href="http://localhost:4000/Works/tags#thread"
-      >#Thread</a
-    >
+    <a class="tag" href="http://localhost:4000/Works/tags#thread">#Thread</a>
     
   </div>
 </footer>
@@ -1017,30 +952,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <div id="post-nav">
            
                                                                                                                                                                                                                                                                    
-  <div
-    id="previous-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html';"
-  >
+  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html';">
     <p>PREVIOUS SERIES</p>
     <p>06: CPU 스케쥴링</p>
   </div>
                                                                                                 
-  <div
-    id="next-post"
-    class="post-nav-post"
-    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html';"
-  >
+  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html';">
     <p>NEXT SERIES</p>
     <p>08: 프로세스 동기화 Part 1</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                                                                                                 
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments"><div id="disqus_thread"></div>
+<div class="comments">
+<div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1076,7 +1004,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">
