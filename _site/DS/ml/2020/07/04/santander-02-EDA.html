@@ -778,7 +778,7 @@
 <h2 id="check-the-data">Check the data</h2>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 모양
-</span><span class="n">train_df</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">test_df</span><span class="o">.</span><span class="n">shape</span>
+</span><span class="n">train_df</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">test_df</span><span class="p">.</span><span class="n">shape</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>((200000, 202), (200000, 201))
@@ -786,12 +786,12 @@
 
 <hr>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">train_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/86508006-708c7580-be17-11ea-8d82-7e7f1418249d.png" alt="image" class="center-text"></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/86508017-800bbe80-be17-11ea-8158-60f918129420.png" alt="image" class="center-text"></p>
@@ -812,15 +812,15 @@ ID_code (string);
 <h2 id="missing-data">Missing Data</h2>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">missing_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">total</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
-    <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
-    <span class="n">tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">'Total'</span><span class="p">,</span> <span class="s">'Percent'</span><span class="p">])</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">()</span>
+    <span class="n">percent</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="nb">sum</span><span class="p">()</span><span class="o">/</span><span class="n">data</span><span class="p">.</span><span class="n">isnull</span><span class="p">().</span><span class="n">count</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">total</span><span class="p">,</span> <span class="n">percent</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">'Total'</span><span class="p">,</span> <span class="s">'Percent'</span><span class="p">])</span>
     <span class="n">types</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="n">dtype</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-        <span class="n">types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">data</span><span class="p">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">].</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">types</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
     <span class="n">tt</span><span class="p">[</span><span class="s">'Types'</span><span class="p">]</span> <span class="o">=</span> <span class="n">types</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tt</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">tt</span><span class="p">))</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
@@ -850,13 +850,13 @@ Wall time: 2.33 s
 <h1 id="describe">Describe</h1>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
-<span class="n">train_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">train_df</span><span class="p">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/86508117-746cc780-be18-11ea-9d09-87c17613e435.png" alt="image"></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">time</span>
-<span class="n">test_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<span class="n">test_df</span><span class="p">.</span><span class="n">describe</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/86508121-79ca1200-be18-11ea-8687-ca980dfe9aa1.png" alt="image"></p>

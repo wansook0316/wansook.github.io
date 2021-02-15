@@ -811,56 +811,56 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">"/kaggle/input/the-50-plot-challenge/mtcars.csv"</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # here we standarize the data
 # More info:
 # https://statisticsbyjim.com/glossary/standardization/
-</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">].</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">].</span><span class="n">std</span><span class="p">()</span>
 
 <span class="c1"># sort value and reset the index
 # sort를 하게되면 index가 제멋대로 배열된다.
 # 우리는 배열된 이후의 index를 다시 갖고 싶은 것이기 때문에 index를 정렬후 새로 만들어준다.
 # 이 때, drop = True, inplace = True가 있는데 drop은 재생성한 후 이전 것을 버리는 것을 의미한다.
 # inplace는 원본 데이터를 대체할 것인지, 아니면 변경된 객체를 반환할 것인지를 결정한다.
-</span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"x_plot"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</span><span class="n">df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"x_plot"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># create a color list, where if value is above &gt; 0 it's green otherwise red
 </span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]]</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">()</span>
 <span class="c1"># plot using horizontal lines and make it look like a column by changing the linewidth
 # 가로선을 그음으로써 원하는 그래프와 비슷한 모양을 만든다.
-</span><span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span>  <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">xmin</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span>  <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
 # set x and y axis
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Mileage"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Car Name"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Mileage"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Car Name"</span><span class="p">)</span>
 
 <span class="c1"># set a title
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Diverging plot in matplotlib"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Diverging plot in matplotlib"</span><span class="p">)</span>
 
 <span class="c1"># make a grid to help separate the lines
-</span><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="c1"># change the y ticks
 # first you set the yticks
 # 먼저 y에 index를 박고,
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
 
 <span class="c1"># then you change them using the car names
 # same can be achived using plt.yticks(df.index, df.cars)
 # 그 index에 맞는 차를 넣어준다.
 # 이 때, ;를 추가하여 output이 나오지 않게 만들어준다.
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">cars</span><span class="p">);</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">cars</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p class="center-text"><img src="https://user-images.githubusercontent.com/37871541/82284233-7ba85500-99d3-11ea-8958-e751b995326e.png" alt="다운로드 (13)"></p>

@@ -865,24 +865,24 @@
 
 <p>Box는 centerX, centerY, Width, Height로 표현된다.</p>
 
-<script type="math/tex; mode=display">P^i = (P^i_x, P^i_y, P^i_w, P^i_h) \\
+\[P^i = (P^i_x, P^i_y, P^i_w, P^i_h) \\
 \\\\
-G = (G_x, G_y, G_w, G_h)</script>
+G = (G_x, G_y, G_w, G_h)\]
 
 <p>우리의 목적은 $P^i$ 박스를 최대한 G에 가깝게 이동시키는 함수를 학습시키는 것이다. 이를 표현해보면 다음과 같다.</p>
 
-<script type="math/tex; mode=display">d_x(P), d_y(P), d_w(P), d_h(P)</script>
+\[d_x(P), d_y(P), d_w(P), d_h(P)\]
 
 <p>x, y의 경우는 평행이동이 연산의 전부이기 때문에 linear 연산으로 처리가 가능하다. 반면 너비와 높이는 확대, 축소 변환이 필요하다. 단순한 확대 축소 연산을 사용하게 되면, 추후에 backpropagation을 통한 학습이 어려워지기 때문에 여기서는 exp를 사용했다.</p>
 
-<script type="math/tex; mode=display">\hat{G_x} = P_wd_x(P) + P_x
+\[\hat{G_x} = P_wd_x(P) + P_x
 \hat{G_y} = P_hd_y(P) + P_y
 \hat{G_w} = P_wexp(d_w(P))
-\hat{G_h} = P_hexp(d_h(P))</script>
+\hat{G_h} = P_hexp(d_h(P))\]
 
 <p>왜 굳이 식을 이렇게 만들었냐 보다는, 이러한 방식으로 제안을 하려고 했다고 생각해보자. P에 대한 변수는 초기에 제안하는 것이므로, 우리는 함수 $d_*(P)$ 가 어떤 녀석인지 아는 것이 목표이다. 그리고 이 함수를 알아내는 과정은 deep learning network를 사용하여 만들 것이다.</p>
 
-<script type="math/tex; mode=display">d_*(P) =  {w}^T_*\phi_5(P)</script>
+\[d_*(P) =  {w}^T_*\phi_5(P)\]
 
 <p>여기서 $\phi_5(P)$는 pretraioned model의 가장 마지막 feature map을 의미한다. 결국 feature맵에 선형 연산을 추가하여 원하는 함수를 구한다.</p>
 
@@ -890,7 +890,7 @@ G = (G_x, G_y, G_w, G_h)</script>
 
 <p>ground truth에서 발생하는 값인 $t^i_*$는 각각의 사진 한장에 대해서 고정되어 있다. 이를 반영한 손실 함수는 다음과 같다. 저자들은 람다를 1000으로 설정하였다.</p>
 
-<script type="math/tex; mode=display">w_* = \underset{\hat{ w_*}}{argmin}\sum_i^N(t^i_*-{\hat{ w_*}^T}\phi_5(P))^2+\lambda \lVert {\hat{ w_*}^T} \rVert ^2</script>
+\[w_* = \underset{\hat{ w_*}}{argmin}\sum_i^N(t^i_*-{\hat{ w_*}^T}\phi_5(P))^2+\lambda \lVert {\hat{ w_*}^T} \rVert ^2\]
 
 <h2 id="한계">한계</h2>
 

@@ -790,64 +790,61 @@
 
 <p>하나의 행렬은 공간을 나타낸다고 볼 수 있다.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-1 & 0 & 0\\
-0 & 1 & 0\\
-0 & 0 & 1
+\[\begin{bmatrix}
+1 &amp; 0 &amp; 0\\
+0 &amp; 1 &amp; 0\\
+0 &amp; 0 &amp; 1
 \end{bmatrix}\;=\;\begin{bmatrix}
-\overset{\rightarrow}{i} & \overset{\rightarrow}{j} & \overset{\rightarrow}{k}\\
+\overset{\rightarrow}{i} &amp; \overset{\rightarrow}{j} &amp; \overset{\rightarrow}{k}\\
 
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>다음과 같은 행렬이 있다면, column 벡터를 보면, i, j, k를 나타냄을 알 수 있다.</p>
 
 <p>그런데 만약에 각각의 벡터가 서로의 상수배를 한 관계를 가지고 있다면, 이 공간은 행렬 사이즈에 해당하는 공간을 매핑하지 못한다. 이 경우 우리는 행렬이 <strong>선형 종속</strong> 이라 말한다. 반대로 공간을 매핑할 수 있다면 <strong>선형 독립</strong> 이라 말한다. 이것을 수식으로 판단해보면,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-\overset{\rightarrow}{a_1} & \overset{\rightarrow}{a_2} & \cdots & \overset{\rightarrow}{a_n}\\
+\[\begin{bmatrix}
+\overset{\rightarrow}{a_1} &amp; \overset{\rightarrow}{a_2} &amp; \cdots &amp; \overset{\rightarrow}{a_n}\\
 \end{bmatrix} \cdot
 \begin{bmatrix}
 e_1\\e_2\\ \vdots \\ e_n
 \end{bmatrix}
 \;=\;
-\overset{\rightarrow}{0} %]]></script>
+\overset{\rightarrow}{0}\]
 
-<script type="math/tex; mode=display">\mathbf{A}\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}</script>
+\[\mathbf{A}\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}\]
 
 <p>위 식을 만족하는 e 벡터가 0 벡터인 경우 a .. 벡터들은 <strong>선형 독립</strong> 이라 한다. 선형 독립이 되기 위해서는 위의 행렬식에서, <strong>Determinant 가 존재해야만 한다.</strong> 즉, <strong>비특이행렬</strong> 이어야 하고, 위 식의 해인 e 벡터는 0 벡터로 <strong>유일</strong> 해야 한다.</p>
 
-<script type="math/tex; mode=display">\mathbf{A}\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}\\
+\[\mathbf{A}\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}\\
 \;\\
 \mathbf{A}^{-1}\mathbf{A}\overset{\rightarrow}{e}\;=\;\mathbf{A}^{-1}\overset{\rightarrow}{0}\\
 \;\\
 \mathbf{I}\;\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}\\
 \;\\
-\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}\\</script>
+\overset{\rightarrow}{e}\;=\;\overset{\rightarrow}{0}\\\]
 
 <h1 id="rank">Rank</h1>
 
 <p>행렬은 하나의 공간을 매핑한다고 했다. 방금은 3 x 3 의 행렬에 대해 봤기 때문에, 열벡터 공간과 행벡터 공간이 동일하게 3차원 공간을 매핑하고 있었다. 하지만 행렬이 꼭 정사각행렬이라는 법은 없다. 따라서 우리는 행벡터와 열벡터에 대한 선형 독립성을 판단할 지표가 필요한데, 이 때 등장하는 개념이 <strong>Rank</strong> 이다.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\mathbf{A}\;=\;
+\[\mathbf{A}\;=\;
 \begin{bmatrix}
-a_{11} & a_{12} & \cdots & a_{1n}\\
-a_{21} & a_{22} & \cdots &a_{2n}\\
-\vdots & & & \vdots\\
-a_{m1} & a_{m2} & \cdots & a_{mn}
+a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n}\\
+a_{21} &amp; a_{22} &amp; \cdots &amp;a_{2n}\\
+\vdots &amp; &amp; &amp; \vdots\\
+a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn}
 \end{bmatrix}\;=\;
 \begin{bmatrix}
-\overset{\rightarrow}{a_1} & \overset{\rightarrow}{a_2} & \cdots & \overset{\rightarrow}{a_n}\\
+\overset{\rightarrow}{a_1} &amp; \overset{\rightarrow}{a_2} &amp; \cdots &amp; \overset{\rightarrow}{a_n}\\
 \end{bmatrix}\;=\;
 \begin{bmatrix}
 \overset{\rightarrow}{a_1}\\\overset{\rightarrow}{a_2}\\ \vdots \\\overset{\rightarrow}{a_m}
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>A 행렬이 다음과 같이 있을 때, 첫번째가 열벡터로 묶은 행렬, 두번째가 행벡터로 묶은 행렬이다. A 행렬의 모든 벡터들이 선형 독립이라 가정 할때, 열벡터들의 개수가 <strong>Column Rank(Nc)</strong> , 행벡터들의 개수가 <strong>Row Rank(Nr)</strong> 이다. 만약 정사각 행렬이라면, 아래와 같다.</p>
 
-<script type="math/tex; mode=display">N_c\;=\;N_r\;=\;N</script>
+\[N_c\;=\;N_r\;=\;N\]
 
 <h2 id="rank와-행렬식과의-관계">Rank와 행렬식과의 관계</h2>
 
@@ -877,10 +874,9 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 
 <p>현실의 값을 근사해서 매핑하는 컴퓨터의 한계 때문에, 우리는 <strong>Round Off Error</strong> 를 필연적으로 가질 수 밖에 없다. 이 에러를 줄이기 위해 우리는 Pivoting을 한다. 예제를 살펴보자.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-0.003 & 59.14 \\
-5.291 & -6.130 \\
+\[\begin{bmatrix}
+0.003 &amp; 59.14 \\
+5.291 &amp; -6.130 \\
 \end{bmatrix}
 \begin{bmatrix}
 x_1 \\
@@ -890,11 +886,11 @@ x_2 \\
 \begin{bmatrix}
 59.17 \\
 46.78 \\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>이 식의 정확한 값은,</p>
 
-<script type="math/tex; mode=display">Exact\;Solution\\
+\[Exact\;Solution\\
 \;\\
 \begin{bmatrix}
 x_1 \\
@@ -904,18 +900,17 @@ x_2 \\
 \begin{bmatrix}
 10.00 \\
 1.0 \\
-\end{bmatrix}</script>
+\end{bmatrix}\]
 
 <p>가우스 소거법을 사용해서 위 식을 계산해보자. 우리는 대각 요소를 1로 만드는 것에 관심이 있기 때문에, 1행 1열의 값을, 2행 1열의 값과 같게 만든뒤 빼줘야 한다. 그러기 위해서</p>
 
-<script type="math/tex; mode=display">{a_{11} \over a_{21}}\;=\;{0.003 \over 5.291}\;=\;1763.66\cdots</script>
+\[{a_{11} \over a_{21}}\;=\;{0.003 \over 5.291}\;=\;1763.66\cdots\]
 
 <p>이 값을 1행에 곱하고 2행을 더한 행을 2행과 바꿔주자. 결과 식은,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-0.003 & 59.14 \\
-0 & -104300\\
+\[\begin{bmatrix}
+0.003 &amp; 59.14 \\
+0 &amp; -104300\\
 \end{bmatrix}
 \begin{bmatrix}
 x_1 \\
@@ -925,11 +920,11 @@ x_2 \\
 \begin{bmatrix}
 59.17 \\
 -104400 \\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>이 때 계산된 해는,</p>
 
-<script type="math/tex; mode=display">Approximated\;Solution\\
+\[Approximated\;Solution\\
 \;\\
 \begin{bmatrix}
 x_1 \\
@@ -939,11 +934,11 @@ x_2 \\
 \begin{bmatrix}
 -10.00 \\
 1.001 \\
-\end{bmatrix}</script>
+\end{bmatrix}\]
 
 <p>다음과 같이 현저히 다른 해가 도출된다. 결국 우리는 대각 요소의 값과 밑의 행이 비율이 큰 것을 피하면 된다!</p>
 
-<script type="math/tex; mode=display">m_{jk}\;=\;{a_{jk}\over a_{kk}}>>1</script>
+\[m_{jk}\;=\;{a_{jk}\over a_{kk}}&gt;&gt;1\]
 
 <p>j는 행의 번호를 말하고, k는 대각 요소의 행번호를 의미한다. 우리는 이 값이 1보다 클경우 Round Off 에러가 발생한다는 것을 알았으므로 이것을 막으면 된다.</p>
 
@@ -958,16 +953,15 @@ x_2 \\
 
 <p>가장 간단한 방법은, 저 값이 1보다 훨씬 클 경우 아래 행과 위의 행을 바꾸는 것이다!</p>
 
-<script type="math/tex; mode=display">|a\_{pk}|\;=\;Loop\(k \le i \le n)\;max \;|a\_{ik}|</script>
+\[|a\_{pk}|\;=\;Loop\(k \le i \le n)\;max \;|a\_{ik}|\]
 
 <p>k는 현재 있는 행을 의미한다. n은 마지막 행을 의미한다. 그 사이에 있는 i 라는 값을 가지면서 각 행의 요소들을 조사하면서 가장 큰 값을 리턴한다. 이때, 행의 index를 저장하고, 만약 해당 행의 대각 요소의 값이 가장 크다면 <strong>p = k</strong> 가 될 것이다. 만약 그렇지 않다면 <strong>p != k</strong> 일 것이다. 이 경우 <strong>p 행과 k 행을 Pivoting</strong> 한다. 그렇게 되면 필연적으로 m_jk 값은 1보다 작아지므로 Round Off Error 를 피할 수 있다.</p>
 
 <h3 id="적용">적용</h3>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-5.291 & -6.130 \\
-0.003 & 59.14 \\
+\[\begin{bmatrix}
+5.291 &amp; -6.130 \\
+0.003 &amp; 59.14 \\
 \end{bmatrix}
 \begin{bmatrix}
 x_1 \\
@@ -977,14 +971,13 @@ x_2 \\
 \begin{bmatrix}
 46.78 \\
 59.17 \\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
-<script type="math/tex; mode=display">m_{jk}\;=\;m_{21}\;=\;{a_{21}\over a_{11}}\;=\;{5.291 \over 0.003}\;=\;0.000567</script>
+\[m_{jk}\;=\;m_{21}\;=\;{a_{21}\over a_{11}}\;=\;{5.291 \over 0.003}\;=\;0.000567\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-5.291 & -6.130 \\
-0 & 59.14 \\
+\[\begin{bmatrix}
+5.291 &amp; -6.130 \\
+0 &amp; 59.14 \\
 \end{bmatrix}
 \begin{bmatrix}
 x_1 \\
@@ -994,9 +987,9 @@ x_2 \\
 \begin{bmatrix}
 46.78 \\
 59.14 \\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
-<script type="math/tex; mode=display">Approximated\;Solution\\
+\[Approximated\;Solution\\
 \;\\
 \begin{bmatrix}
 x_1 \\
@@ -1006,16 +999,15 @@ x_2 \\
 \begin{bmatrix}
 10.00 \\
 1 \\
-\end{bmatrix}</script>
+\end{bmatrix}\]
 
 <h2 id="scaled-pivoting">Scaled Pivoting</h2>
 
 <p>만약 m 값이 1에서 크게 차이가 없다면 이 방법은 사실의미가 없다. 따라서 이 경우에는 각 행에 특정 같은 값을 곱한뒤, 답을 구하는 방법을 사용해야 한다. 가우스 소거법의 특성상, 밑의 값부터 올라오기 때문에, 특정 행의 계수들의 크기가 균등하다면 값의 변화가 크다. 따라서 우리는 행의 계수들의 비율이 큰 행을 아래로 피보팅 해야한다.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-30 & 591400 \\
-5.291 & -6.130 \\
+\[\begin{bmatrix}
+30 &amp; 591400 \\
+5.291 &amp; -6.130 \\
 \end{bmatrix}
 \begin{bmatrix}
 x_1 \\
@@ -1025,20 +1017,19 @@ x_2 \\
 \begin{bmatrix}
 591700 \\
 46.78 \\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
-<script type="math/tex; mode=display">S\_1\;=\;max\[|30|, |591400|] \; =\;591400\
-S\_2\;=\;max\[|5.291|, |-6.130|] \; =\;6.130</script>
+\[S\_1\;=\;max\[|30|, |591400|] \; =\;591400\
+S\_2\;=\;max\[|5.291|, |-6.130|] \; =\;6.130\]
 
-<script type="math/tex; mode=display">{|a\_{11}| \over S\_1}\;=\; {30 \over 591400}\;=\;0.5073\times10^{-4}\
-{|a\_{21}| \over S\_2}\;=\; {5.291 \over 6.130}\;=\;0.8631</script>
+\[{|a\_{11}| \over S\_1}\;=\; {30 \over 591400}\;=\;0.5073\times10^{-4}\
+{|a\_{21}| \over S\_2}\;=\; {5.291 \over 6.130}\;=\;0.8631\]
 
 <p>따라서 1행과 2행을 피보팅한다.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
-5.291 & -6.130 \\
-30 & 591400 \\
+\[\begin{bmatrix}
+5.291 &amp; -6.130 \\
+30 &amp; 591400 \\
 \end{bmatrix}
 \begin{bmatrix}
 x_1 \\
@@ -1048,7 +1039,7 @@ x_2 \\
 \begin{bmatrix}
 46.78 \\
 591700 \\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
   </section>
   

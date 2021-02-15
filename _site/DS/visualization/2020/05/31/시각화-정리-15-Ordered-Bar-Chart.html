@@ -811,31 +811,31 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">"/kaggle/input/the-50-plot-challenge/mpg_ggplot2.csv"</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # groupby and create the target x and y
-</span><span class="n">gb_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">"manufacturer"</span><span class="p">])[</span><span class="s">"cyl"</span><span class="p">,</span> <span class="s">"displ"</span><span class="p">,</span> <span class="s">"cty"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">gb_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"cty"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</span><span class="n">gb_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">"manufacturer"</span><span class="p">])[</span><span class="s">"cyl"</span><span class="p">,</span> <span class="s">"displ"</span><span class="p">,</span> <span class="s">"cty"</span><span class="p">].</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">gb_df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"cty"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 <span class="c1"># fitler x and y
-</span><span class="n">x</span> <span class="o">=</span> <span class="n">gb_df</span><span class="o">.</span><span class="n">index</span>
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">gb_df</span><span class="p">.</span><span class="n">index</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">gb_df</span><span class="p">[</span><span class="s">"cty"</span><span class="p">]</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data
 </span><span class="k">for</span> <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="c1"># this is very cool, since we can pass a function to matplotlib
 </span>    <span class="c1"># and it will plot the color based on the result of the evaluation
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">y_</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">y_</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
 
      <span class="c1"># add some text
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">y_</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">horizontalalignment</span> <span class="o">=</span> <span class="s">'center'</span><span class="p">)</span>
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">y_</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">horizontalalignment</span> <span class="o">=</span> <span class="s">'center'</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
@@ -843,21 +843,21 @@
 <span class="c1"># Add a patch below the x axis line to enphasize that they are below the mean
 # I had to copy and paste this code, since I didn't manage to figure it out.
 # red one
-</span><span class="n">p2</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">.124</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.005</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">.360</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">.13</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'red'</span><span class="p">,</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">transFigure</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+</span><span class="n">p2</span> <span class="o">=</span> <span class="n">patches</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">((.</span><span class="mi">124</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.005</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="p">.</span><span class="mi">360</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="p">.</span><span class="mi">13</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'red'</span><span class="p">,</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">transFigure</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
 
 <span class="c1"># green one
-</span><span class="n">p1</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">.124</span> <span class="o">+</span> <span class="mf">.360</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.005</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">.42</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mf">.13</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'green'</span><span class="p">,</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">transFigure</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+</span><span class="n">p1</span> <span class="o">=</span> <span class="n">patches</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">((.</span><span class="mi">124</span> <span class="o">+</span> <span class="p">.</span><span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.005</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="p">.</span><span class="mi">42</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="p">.</span><span class="mi">13</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'green'</span><span class="p">,</span> <span class="n">transform</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">transFigure</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
 
 <span class="c1"># rotate the x ticks 90 degrees
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 
 <span class="c1"># add an y label
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Average Miles per Gallon by Manufacturer"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Average Miles per Gallon by Manufacturer"</span><span class="p">)</span>
 
 <span class="c1"># set a title
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Bar Chart for Highway Mileage"</span><span class="p">);</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Bar Chart for Highway Mileage"</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/83345564-8a85f480-a34f-11ea-801e-a0146a864368.png" alt="다운로드 (19)" class="center-text"></p>

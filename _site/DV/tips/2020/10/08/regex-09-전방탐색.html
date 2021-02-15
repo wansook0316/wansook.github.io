@@ -802,9 +802,9 @@
 
 <p>Lookahead Assertions는 이해하기가 어렵다. 하지만 예시와 함께라면 어떤 경우에 이를 사용해야 하는지 알 수 있을 것이다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">".+:"</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">"http://google.com"</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">())</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">".+:"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">"http://google.com"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="n">group</span><span class="p">())</span>
 <span class="n">http</span><span class="p">:</span>
 </code></pre></div></div>
 
@@ -835,14 +835,14 @@ http
 
 <p>자, 이번에는 다음 정규식을 보자.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.*</span><span class="p">[</span><span class="o">.</span><span class="p">]</span><span class="o">.*</span><span class="err">$</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="o">*</span><span class="p">[.].</span><span class="o">*</span><span class="err">$</span>
 </code></pre></div></div>
 
 <p>이 정규식은 <code class="language-plaintext highlighter-rouge">파일 이름 + . + 확장자</code>를 나타내는 정규식이다. 이 정규식은 <code class="language-plaintext highlighter-rouge">foo.bar</code>, <code class="language-plaintext highlighter-rouge">autoexec.bat</code>, <code class="language-plaintext highlighter-rouge">sendmail.cf</code> 같은 형식의 파일과 매치될 것이다.</p>
 
 <p>이 정규식에 확장자가 “bat인 파일은 제외해야 한다”는 조건을 추가해 보자. 가장 먼저 생각할 수 있는 정규식은 다음과 같다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.*</span><span class="p">[</span><span class="o">.</span><span class="p">][</span><span class="o">^</span><span class="n">b</span><span class="p">]</span><span class="o">.*</span><span class="err">$</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="o">*</span><span class="p">[.][</span><span class="o">^</span><span class="n">b</span><span class="p">].</span><span class="o">*</span><span class="err">$</span>
 </code></pre></div></div>
 
 <table>
@@ -856,21 +856,21 @@ http
 
 <p>따라서 다음과 같이 바꾸어야 한다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.*</span><span class="p">[</span><span class="o">.</span><span class="p">]([</span><span class="o">^</span><span class="n">b</span><span class="p">]</span><span class="o">.</span><span class="err">?</span><span class="o">.</span><span class="err">?</span><span class="o">|.</span><span class="p">[</span><span class="o">^</span><span class="n">a</span><span class="p">]</span><span class="err">?</span><span class="o">.</span><span class="err">?</span><span class="o">|..</span><span class="err">?</span><span class="p">[</span><span class="o">^</span><span class="n">t</span><span class="p">]</span><span class="err">?</span><span class="p">)</span><span class="err">$</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="o">*</span><span class="p">[.]([</span><span class="o">^</span><span class="n">b</span><span class="p">].</span><span class="err">?</span><span class="p">.</span><span class="err">?</span><span class="o">|</span><span class="p">.[</span><span class="o">^</span><span class="n">a</span><span class="p">]</span><span class="err">?</span><span class="p">.</span><span class="err">?</span><span class="o">|</span><span class="p">..</span><span class="err">?</span><span class="p">[</span><span class="o">^</span><span class="n">t</span><span class="p">]</span><span class="err">?</span><span class="p">)</span><span class="err">$</span>
 </code></pre></div></div>
 
 <p>확장자의 문자 개수가 2개여도 통과되는 정규식이 만들어졌다. 하지만 정규식은 점점 더 복잡해지고 이해하기 어려워진다.</p>
 
 <p>그런데 여기에서 <code class="language-plaintext highlighter-rouge">bat</code> 파일말고 <code class="language-plaintext highlighter-rouge">exe</code> 파일도 제외하라는 조건이 추가로 생긴다면 어떻게 될까? 이 모든 조건을 만족하는 정규식을 구현하려면 패턴은 더욱더 복잡해질 것이다. 이런 상황에서 우리는 부정적 전방 탐색을 사용한다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.*</span><span class="p">[</span><span class="o">.</span><span class="p">](</span><span class="err">?!</span><span class="n">bat</span><span class="err">$</span><span class="p">)</span><span class="o">.*</span><span class="err">$</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="o">*</span><span class="p">[.](</span><span class="err">?!</span><span class="n">bat</span><span class="err">$</span><span class="p">).</span><span class="o">*</span><span class="err">$</span>
 </code></pre></div></div>
 
 <p>확장자가 <code class="language-plaintext highlighter-rouge">bat</code>가 아닌 경우에만 통과된다는 의미이다. <code class="language-plaintext highlighter-rouge">bat</code> 문자열이 있는지 조사하는 과정에서 문자열이 소비되지 않으므로 <code class="language-plaintext highlighter-rouge">bat</code>가 아니라고 판단되면 그 이후 정규식 매치가 진행된다.</p>
 
 <p><code class="language-plaintext highlighter-rouge">exe</code> 역시 제외하라는 조건이 추가되더라도 다음과 같이 간단히 표현할 수 있다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.*</span><span class="p">[</span><span class="o">.</span><span class="p">](</span><span class="err">?!</span><span class="n">bat</span><span class="err">$</span><span class="o">|</span><span class="n">exe</span><span class="err">$</span><span class="p">)</span><span class="o">.*</span><span class="err">$</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">.</span><span class="o">*</span><span class="p">[.](</span><span class="err">?!</span><span class="n">bat</span><span class="err">$</span><span class="o">|</span><span class="n">exe</span><span class="err">$</span><span class="p">).</span><span class="o">*</span><span class="err">$</span>
 </code></pre></div></div>
 
 <h1 id="reference">Reference</h1>

@@ -817,7 +817,7 @@
 <p>Python과 같은 프로그래밍 언어에서는 화일을 열고 닫는 문법을 제공하는데, 연 화일은 반드시 닫아야 한다. 열기만 하고 닫지 않은 화일은 프로그램의 동작시에 작업한 내용이 제대로 반영이 안되거나, 최악의 경우는 화일에 오류가 생겨서 사용이 불가할 수도 있다. Python에서 화일을 여는 문법은 <code class="language-plaintext highlighter-rouge">open()</code> 함수이다. 반대로 닫는 문법은 <code class="language-plaintext highlighter-rouge">close()</code> 함수이다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
-<span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>두번째 파라미터는, 파일을 여는 용도를 의미한다. <code class="language-plaintext highlighter-rouge">'r'</code>은 <code class="language-plaintext highlighter-rouge">read-only</code>를 의미하여, 읽기만 하고 수정은 불가능하게 하겠다는 의미이다. 자세한 사용법은, <a href="https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files">Input and Output</a> 여기에 가보자.</p>
@@ -825,8 +825,8 @@
 <h1 id="파일-통째로-읽기">파일 통째로 읽기</h1>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
-<span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">read()</code> 함수를 사용하면 연 파일에 대한 모든 내용을 받아올 수 있다.</p>
@@ -836,7 +836,7 @@
 <p><code class="language-plaintext highlighter-rouge">close()</code> 를 까먹는 경우가 있기 때문에 with문을 사용해서 파일을 열고 닫을 수 있다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
-    <span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ID,Python,C++,Javascript,Go
@@ -855,7 +855,7 @@
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">lineContent</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">:</span> <span class="c1"># Point.1
-</span>        <span class="n">fileMatrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineContent</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">))</span> <span class="c1"># Point.2
+</span>        <span class="n">fileMatrix</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineContent</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">))</span> <span class="c1"># Point.2
 </span>
 <span class="k">print</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
 </code></pre></div></div>
@@ -879,14 +879,14 @@
 
 <span class="nb">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
 
-<span class="n">lineContent</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+<span class="n">lineContent</span> <span class="o">=</span> <span class="nb">file</span><span class="p">.</span><span class="n">readline</span><span class="p">()</span>
 
 <span class="k">while</span> <span class="n">lineContent</span> <span class="o">!=</span> <span class="s">''</span><span class="p">:</span>
-    <span class="n">fileMatrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineContent</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">))</span>
-    <span class="n">lineContent</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="n">fileMatrix</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineContent</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">))</span>
+    <span class="n">lineContent</span> <span class="o">=</span> <span class="nb">file</span><span class="p">.</span><span class="n">readline</span><span class="p">()</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
-<span class="nb">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nb">file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[['ID', 'Python', 'C++', 'Javascript', 'Go'], ['20190001', 'A', 'A', 'A', 'A'], ['20190002', 'A', 'B', 'A', 'C'], ['20190003', 'C', 'B', 'C', 'A']]
@@ -907,15 +907,15 @@
 <p>이 때, 파일을 쓰는 것이니 <code class="language-plaintext highlighter-rouge">w</code> 를 쓰면 큰일 난다. 컴퓨터는 단순하기 때문에 파일 이름에 해당 하는 파일을 그냥 <strong>써버린다</strong> 이 얘기가 뭐냐면 <strong>덮어쓴다</strong> 는 이야기이다. 어떠한 경고도 없이 덮어써 버린다. 따라서 우리는 주의할 필요가 있다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
-    <span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"[Before append]"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'a'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span> <span class="c1"># Point.1
-</span>    <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"20190004,B,B,B,B</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span> <span class="c1"># Point.2
+</span>    <span class="nb">file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">"20190004,B,B,B,B</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span> <span class="c1"># Point.2
 </span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
-    <span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="nb">file</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"[After append]"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
 </code></pre></div></div>
@@ -950,7 +950,7 @@ ID,Python,C++,Javascript,Go
 </span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'filename'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fileRead</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">lineContent</span> <span class="ow">in</span> <span class="n">fileRead</span><span class="p">:</span>
-        <span class="n">fileMatrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineContent</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">))</span>
+        <span class="n">fileMatrix</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">lineContent</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">).</span><span class="n">split</span><span class="p">(</span><span class="s">','</span><span class="p">))</span>
 <span class="c1"># fileMatrix에 내가 원하는 파일을 리스트 형태로 정리해 두자.
 # 이렇게 csv 라이브러리를 사용해서 나타낼 수 도 있다.
 #with open('Step_13_SampleFile_score.csv', 'r') as fileRead:
@@ -962,7 +962,7 @@ ID,Python,C++,Javascript,Go
 <span class="k">print</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
 
 
-<span class="n">fileMatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">"HTML5"</span><span class="p">,</span> <span class="s">"CSS3"</span><span class="p">])</span>
+<span class="n">fileMatrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">extend</span><span class="p">([</span><span class="s">"HTML5"</span><span class="p">,</span> <span class="s">"CSS3"</span><span class="p">])</span>
 <span class="c1"># Array 원소자체를 추가한다.
 # Array상태로 추가하는 것이 아님
 </span>
@@ -971,16 +971,16 @@ ID,Python,C++,Javascript,Go
 </span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lenFileMatrix</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">"_"</span><span class="p">,</span> <span class="s">"_"</span><span class="p">])</span>
+    <span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">extend</span><span class="p">([</span><span class="s">"_"</span><span class="p">,</span> <span class="s">"_"</span><span class="p">])</span>
 <span class="c1"># 아직 성적이 입력이 안되어 있으므로, 다 초기화 해준다.
 </span>
 <span class="k">print</span><span class="p">(</span><span class="s">"[After]"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'Step_13_SampleFile_newScore.csv'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">fileWrite</span><span class="p">:</span>
-    <span class="n">myWriter</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">fileWrite</span><span class="p">)</span>
+    <span class="n">myWriter</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">writer</span><span class="p">(</span><span class="n">fileWrite</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lenFileMatrix</span><span class="p">):</span>
-        <span class="n">myWriter</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">myWriter</span><span class="p">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="c1"># 여기서 csv 라이브러리를 가져온 이유가 나온다.
 </span>    <span class="c1"># 먼저, 내가 쓸 파일을 'w' 로 연다.
 </span>    <span class="c1"># 그리고 그 객체를 csv.writer 라는 객체의 input으로 주고,
@@ -1008,9 +1008,9 @@ ID,Python,C++,Javascript,Go
 <span class="n">fileMatrix</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'SampleFile.csv'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
-    <span class="n">read_file</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">myfile</span><span class="p">)</span>
+    <span class="n">read_file</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">reader</span><span class="p">(</span><span class="n">myfile</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">read_file</span><span class="p">:</span>
-        <span class="n">fileMatrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">fileMatrix</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">"[Before]"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
@@ -1018,15 +1018,15 @@ ID,Python,C++,Javascript,Go
 <span class="n">lenfileMatrix</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">lenfileMatrix</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">"_"</span><span class="p">,</span> <span class="s">"_"</span><span class="p">])</span>
+    <span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">extend</span><span class="p">([</span><span class="s">"_"</span><span class="p">,</span> <span class="s">"_"</span><span class="p">])</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">"[After]"</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'SampleFile_new.csv'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">newfile</span><span class="p">:</span>
-    <span class="n">write_file</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">newfile</span><span class="p">)</span>
+    <span class="n">write_file</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">writer</span><span class="p">(</span><span class="n">newfile</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">lenfileMatrix</span><span class="p">):</span>
-        <span class="n">write_file</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">write_file</span><span class="p">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">fileMatrix</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
 </code></pre></div></div>
 

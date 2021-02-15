@@ -801,7 +801,7 @@
  <p>Scatter Plot에 각각의 boxplot을 추가해보자.<br>
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">"whitegrid"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sns</span><span class="p">.</span><span class="n">set_style</span><span class="p">(</span><span class="s">"whitegrid"</span><span class="p">)</span>
 
 <span class="c1"># Useful for:
 # A box plot or boxplot is a method for graphically depicting groups of numerical data through their quartiles.
@@ -813,7 +813,7 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/mpg_ggplot2.csv'</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
@@ -822,15 +822,15 @@
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"hwy"</span><span class="p">]</span>
 
 <span class="c1"># in this plot we create the colors separatly
-</span><span class="n">colors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"manufacturer"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">"category"</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+</span><span class="n">colors</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"manufacturer"</span><span class="p">].</span><span class="n">astype</span><span class="p">(</span><span class="s">"category"</span><span class="p">).</span><span class="n">cat</span><span class="p">.</span><span class="n">codes</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="c1"># in this case we use gridspec.
 # check the basics section of this kernel if you need help.
-</span><span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</span><span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data
@@ -838,44 +838,44 @@
 <span class="c1"># main axis: scatter plot
 # this line is very nice c = df.manufacturer.astype('category').cat.codes
 # since it basically generate a color for each category
-</span><span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">manufacturer</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">'category'</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="p">)</span>
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">manufacturer</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="s">'category'</span><span class="p">).</span><span class="n">cat</span><span class="p">.</span><span class="n">codes</span><span class="p">)</span>
 
 <span class="c1"># set the labels for x and y
-</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Dist"</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Hwy"</span><span class="p">)</span>
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Dist"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Hwy"</span><span class="p">)</span>
 
 <span class="c1"># set the title for the main plot
-</span><span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Scatter plot with marginal histograms"</span><span class="p">)</span>
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Scatter plot with marginal histograms"</span><span class="p">)</span>
 
 <span class="c1"># prettify the plot
 # get rid of some of the spines to make the plot nicer
-</span><span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+</span><span class="n">ax1</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
 
 <span class="c1"># using familiar slicing, get the left axes and plot
-</span><span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">4</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+</span><span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">4</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
             <span class="n">vert</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
             <span class="n">whis</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="c1"># make the boxplot lines shorter
 </span>           <span class="p">)</span>
 <span class="c1"># prettify the plot
 # set the ticks to null
-</span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+</span><span class="n">ax2</span><span class="p">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
 
 <span class="c1"># left plot
-</span><span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span>
+</span><span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax3</span><span class="p">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span>
             <span class="n">whis</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="c1"># make the boxplot lines shorter
 </span>           <span class="p">)</span>
 <span class="c1"># prettify the plot
 # set the ticks to null
-</span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
-<span class="n">ax3</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+</span><span class="n">ax3</span><span class="p">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+<span class="n">ax3</span><span class="p">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
 <span class="c1"># make all the figures look nicier
-</span><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span><span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p class="center-text"><img src="https://user-images.githubusercontent.com/37871541/82113906-4c57d500-9794-11ea-9d57-4b64f45b0fb7.png" alt="다운로드 (8)"></p>

@@ -825,18 +825,18 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">"/kaggle/input/the-50-plot-challenge/mtcars.csv"</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # here we standarize the data
 # More info:
 # https://statisticsbyjim.com/glossary/standardization/
-</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">].</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">].</span><span class="n">std</span><span class="p">()</span>
 
 <span class="c1"># sort value and reset the index
-</span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"x_plot"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class="n">df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"x_plot"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># create a color list, where if value is above &gt; 0 it's green otherwise red
 </span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]]</span>
@@ -844,17 +844,17 @@
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data
 # iterate over x and y and annotate text and plot the data
-</span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+</span><span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span> <span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">):</span>
 
     <span class="c1"># make a horizontal line from the y till the x value
 </span>    <span class="c1"># this doesn't appear in the original 50 plot challenge
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span>
                <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>
                <span class="n">xmax</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span>
                <span class="n">linewidth</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
@@ -862,7 +862,7 @@
                <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">)</span>
 
     <span class="c1"># annotate text
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
              <span class="n">y</span><span class="p">,</span>
              <span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
              <span class="n">color</span> <span class="o">=</span> <span class="s">"black"</span><span class="p">,</span>
@@ -871,7 +871,7 @@
              <span class="n">size</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
 
     <span class="c1"># plot the points
-</span>    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span>
                 <span class="n">y</span><span class="p">,</span>
                 <span class="n">color</span> <span class="o">=</span> <span class="s">"red"</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s">"green"</span><span class="p">,</span>
                 <span class="n">s</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
@@ -880,28 +880,28 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
 # set title
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Diverging plot in matplotlib"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Diverging plot in matplotlib"</span><span class="p">)</span>
 
 <span class="c1"># change x lim
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># set labels
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Mileage"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Car Name"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Mileage"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Car Name"</span><span class="p">)</span>
 
 <span class="c1"># instead of y = 1, 2, 3...
 # put the car makers on the y axis
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">cars</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">cars</span><span class="p">)</span>
 
 <span class="c1"># change the spines to make it nicer
-</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"left"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
 
 <span class="c1"># with this line, we change the right spine to be in the middle
 # as a vertical line from the origin
-</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'right'</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s">'data'</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'right'</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">'grey'</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'right'</span><span class="p">].</span><span class="n">set_position</span><span class="p">((</span><span class="s">'data'</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">'right'</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">'grey'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/83345472-6c6bc480-a34e-11ea-9e14-edc3774cc14a.png" alt="다운로드 (17)" class="center-text"></p>
@@ -919,41 +919,41 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">"/kaggle/input/the-50-plot-challenge/mtcars.csv"</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # here we standarize the data
 # More info:
 # https://statisticsbyjim.com/glossary/standardization/
-</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</span><span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">].</span><span class="n">mean</span><span class="p">())</span><span class="o">/</span><span class="n">df</span><span class="p">[</span><span class="s">"mpg"</span><span class="p">].</span><span class="n">std</span><span class="p">()</span>
 
 <span class="c1"># sort value and reset the index
-</span><span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"x_plot"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</span><span class="n">df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">"x_plot"</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># we plot everything with a black color except a specific Fiat model
 # this way we visually communicate something to the user
-</span><span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"cars"</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">car_name</span><span class="p">:</span> <span class="s">"orange"</span> <span class="k">if</span> <span class="n">car_name</span> <span class="o">==</span> <span class="s">"Fiat X1-9"</span> <span class="k">else</span> <span class="s">"black"</span><span class="p">)</span>
+</span><span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"cars"</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">car_name</span><span class="p">:</span> <span class="s">"orange"</span> <span class="k">if</span> <span class="n">car_name</span> <span class="o">==</span> <span class="s">"Fiat X1-9"</span> <span class="k">else</span> <span class="s">"black"</span><span class="p">)</span>
 
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data
 # plot horizontal lines from the origin to each data point
-</span><span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">,</span>
           <span class="n">xmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
           <span class="n">xmax</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span>
           <span class="n">color</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">],</span>
           <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">)</span>
 
 <span class="c1"># plot the dots
-</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span>
-          <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"x_plot"</span><span class="p">],</span>
+          <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">,</span>
           <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
           <span class="n">color</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">"color"</span><span class="p">],</span>
           <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">)</span>
@@ -961,13 +961,13 @@
 <span class="c1"># add patches more easily
 # It's easier to draw shapes like rectangles or squares, since this way
 # we only must specify 2 points, and matplotlib does all the job
-</span><span class="n">p1</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">.3</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'red'</span><span class="p">)</span>
-<span class="n">p2</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">.8</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">.2</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'green'</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
+</span><span class="n">p1</span> <span class="o">=</span> <span class="n">patches</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="p">.</span><span class="mi">3</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'red'</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">patches</span><span class="p">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span> <span class="o">=</span> <span class="p">.</span><span class="mi">8</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="p">.</span><span class="mi">2</span><span class="p">,</span> <span class="n">facecolor</span> <span class="o">=</span> <span class="s">'green'</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span>
 
 <span class="c1"># annotate text
-</span><span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">'Mercedes Models'</span><span class="p">,</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">'Mercedes Models'</span><span class="p">,</span>
             <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span>
             <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
             <span class="n">xycoords</span> <span class="o">=</span> <span class="s">'data'</span><span class="p">,</span>
@@ -980,29 +980,29 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
 # set title
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Diverging Lollipop of Car Mileage"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Diverging Lollipop of Car Mileage"</span><span class="p">)</span>
 
 <span class="c1"># autoscale
-</span><span class="n">ax</span><span class="o">.</span><span class="n">autoscale_view</span><span class="p">()</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">autoscale_view</span><span class="p">()</span>
 
 <span class="c1"># change x lim
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># set labels
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Mileage"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Car Name"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Mileage"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Car Name"</span><span class="p">)</span>
 
 <span class="c1"># instead of y = 1, 2, 3...
 # put the car makers on the y axis
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">cars</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">cars</span><span class="p">)</span>
 
 <span class="c1"># change the spines to make it nicer
-</span><span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"right"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">spines</span><span class="p">[</span><span class="s">"top"</span><span class="p">].</span><span class="n">set_color</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
 
 <span class="c1"># add a grid
-</span><span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="n">linestyle</span><span class="o">=</span><span class="s">'--'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/83345465-61189900-a34e-11ea-9a19-d4f0f30b5076.png" alt="다운로드 (16)" class="center-text"></p>

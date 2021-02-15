@@ -836,39 +836,37 @@
 
 <p>이미지 $\vec{x}$ 가 있다고 하자. 해당 벡터는 2차원 이미지가 있을 때, 이를 1차원으로 faltten 한 것이다. 이 이미지의 크기를 M=3이라 하자.</p>
 
-<script type="math/tex; mode=display">\vec{x}=[x_0, x_1, x_2]</script>
+\[\vec{x}=[x_0, x_1, x_2]\]
 
 <p>각 이미지가 통과하는 필터(M=2)가 2개 있다고 하자. 해당 필터는 $F$로 표기한다. 각각의 filter에 image를 통과시킨 결과를 $\vec{F}$라 하자.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\mathbf{F} =
+\[\mathbf{F} =
 \begin{bmatrix}
-   F_1(x_0) & F_1(x_1) & F_1(x_2) \\
-   F_2(x_0) & F_2(x_1) & F_2(x_2)
-\end{bmatrix} %]]></script>
+   F_1(x_0) &amp; F_1(x_1) &amp; F_1(x_2) \\
+   F_2(x_0) &amp; F_2(x_1) &amp; F_2(x_2)
+\end{bmatrix}\]
 
-<script type="math/tex; mode=display">F_{ik} = F_i(x_k)</script>
+\[F_{ik} = F_i(x_k)\]
 
 <p>$F_{ik}$는 $F_i$ 필터에 $x_k$ 픽셀을 넣었을 때의 activation(response)이다. 그렇다면 Gram Matrix의 의미가 무엇인지 알아보자. 일단</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align}
+\[\begin{align}
    G^l_{ij}
-   &=
+   &amp;=
    \sum_{\text{all term}}
    \begin{bmatrix}
-      F_{00}F_{00} + F_{01}F_{01} + F_{11}F_{11} & F_{00}F_{10} + F_{01}F_{11} + F_{02}F_{12} \\
-      F_{10}F_{00} + F_{10}F_{01} + F_{12}F_{02} & F_{10}F_{10} + F_{11}F_{11} + F_{12}F_{12}
+      F_{00}F_{00} + F_{01}F_{01} + F_{11}F_{11} &amp; F_{00}F_{10} + F_{01}F_{11} + F_{02}F_{12} \\
+      F_{10}F_{00} + F_{10}F_{01} + F_{12}F_{02} &amp; F_{10}F_{10} + F_{11}F_{11} + F_{12}F_{12}
    \end{bmatrix}
    \\
 
-   &=
+   &amp;=
    \sum_{\text{all term}} \sum_k
    \begin{bmatrix}
-      {F_{0k}}^2 & F_{0k}F_{1k} \\
-      F_{0k}F_{1k} & {F_{0k}}^2
+      {F_{0k}}^2 &amp; F_{0k}F_{1k} \\
+      F_{0k}F_{1k} &amp; {F_{0k}}^2
    \end{bmatrix}
-\end{align} %]]></script>
+\end{align}\]
 
 <p>어디서 많이 본 모양이다. pixel별 filter activation의 Covariance이다! 결과적으로 발생하는 모든 항을 더하게되면 다음의 의미이다.</p>
 
@@ -878,7 +876,7 @@
 
 <p>이렇게 발생한 값을 가지고 input의 filter가 원하는 target filter의 gram matrix 값과 같도록 학습을 진행한다.</p>
 
-<script type="math/tex; mode=display">E_{l}= {1\over4{N_e}^2{M_e}^2}\sum_{ij}(G_{ij}^l - \hat{G_{ij}^l})^2</script>
+\[E_{l}= {1\over4{N_e}^2{M_e}^2}\sum_{ij}(G_{ij}^l - \hat{G_{ij}^l})^2\]
 
 <p>최종적으로는 밀도로 나누어서 사용해야 한다.</p>
 

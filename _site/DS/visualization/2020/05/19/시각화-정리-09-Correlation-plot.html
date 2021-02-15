@@ -810,18 +810,18 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/mtcars.csv'</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">()</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">()</span>
 
 <span class="c1"># plot using matplotlib
 # https://matplotlib.org/3.2.1/api/_as_gen/matplotlib.axes.Axes.imshow.html
-</span><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">'viridis'</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="s">'nearest'</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">'viridis'</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="s">'nearest'</span><span class="p">)</span>
 <span class="c1"># set the title for the figure
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Heatmap using matplotlib"</span><span class="p">);</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Heatmap using matplotlib"</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/82282399-b1970a80-99ce-11ea-878a-861cf187499c.png" alt="다운로드 (9)" class="center-text" width="500"></p>
@@ -837,30 +837,30 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/mtcars.csv'</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # calculate the correlation between all variables
-</span><span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</span><span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">corr</span><span class="p">()</span>
 <span class="c1"># create a mask to pass it to seaborn and only show half of the cells
 # because corr between x and y is the same as the y and x
 # it's only for estetic reasons
-</span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span> <span class="c1"># 0행렬을 만든다.
-</span><span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># upper triangle 부분을 true로 바꾼다.
+</span><span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">)</span> <span class="c1"># 0행렬을 만든다.
+</span><span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># upper triangle 부분을 true로 바꾼다.
 </span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # instanciate the figure
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 <span class="c1"># plot the data using seaborn
-</span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span>
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span>
                  <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">,</span>
                  <span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span>
                  <span class="n">square</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
                  <span class="n">cmap</span> <span class="o">=</span> <span class="s">"viridis"</span><span class="p">)</span>
 <span class="c1"># set the title for the figure
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Heatmap using seaborn"</span><span class="p">);</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Heatmap using seaborn"</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/82282656-587ba680-99cf-11ea-9121-87599c2c7613.png" alt="다운로드 (10)" class="center-text" width="500"></p>

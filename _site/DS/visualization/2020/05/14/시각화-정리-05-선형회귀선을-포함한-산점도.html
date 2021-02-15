@@ -824,19 +824,19 @@
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/mpg_ggplot2.csv'</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # filter only 2 clases to separate it more easily on the plot
 # cyl이 4, 8인 두 그룹에 대해 회귀를 진행한다.
-</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"cyl"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">])]</span>
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"cyl"</span><span class="p">].</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">])]</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data using seaborn
 # hue가 구분을 결정해주는 변수
 # x = "displ", y = "hwy"
-</span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s">"displ"</span><span class="p">,</span> <span class="s">"hwy"</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">"cyl"</span><span class="p">)</span>
+</span><span class="n">sns</span><span class="p">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s">"displ"</span><span class="p">,</span> <span class="s">"hwy"</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">"cyl"</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prettify the plot
@@ -845,14 +845,14 @@
 # you can call plt.gca (get current axes) and use all the familiar matplotlib commands
 # 저 위까지만 해도 그릴 수 있다. 하지만 내가 plot의 꾸미는 부분을 바꾸고 싶다면,
 # matplotlib의 axis 단계에 접근하여 수정할 수 있다.
-</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">gca</span><span class="p">()</span>
 
 <span class="c1"># change the upper limit of the plot to make it more pleasant
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 
 <span class="c1"># set title
-</span><span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Scatter plot with regression"</span><span class="p">);</span>
+</span><span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Scatter plot with regression"</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/81907071-2c90a780-9602-11ea-8960-fd586a4bc4dc.png" alt="__results___45_0" class="center-text"></p>
@@ -868,21 +868,21 @@
 # https://visual.ly/m/scatter-plots-regression-lines/
 </span>
 <span class="c1"># sns의 테마 정하기
-</span><span class="n">sns</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">color_codes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class="n">sns</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">color_codes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # get the data
 </span><span class="n">PATH</span> <span class="o">=</span> <span class="s">'/kaggle/input/the-50-plot-challenge/mpg_ggplot2.csv'</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # prepare the data for plotting
 # filter only 2 clases to separate it more easily on the plot
-</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"cyl"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">])]</span>
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">"cyl"</span><span class="p">].</span><span class="n">isin</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">])]</span>
 
 
 <span class="c1"># ----------------------------------------------------------------------------------------------------
 # plot the data using seaborn
-</span><span class="n">axes</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s">"displ"</span><span class="p">,</span>
+</span><span class="n">axes</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s">"displ"</span><span class="p">,</span>
                   <span class="s">"hwy"</span><span class="p">,</span>
                   <span class="n">df</span><span class="p">,</span>
                   <span class="n">hue</span> <span class="o">=</span> <span class="s">"cyl"</span><span class="p">,</span>
@@ -894,10 +894,10 @@
 # prettify the plot
 </span>
 <span class="c1"># change the upper limit of the plot to make it more pleasant
-</span><span class="n">axes</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span> <span class="n">xlim</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+</span><span class="n">axes</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span> <span class="n">xlim</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">ylim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
 
 <span class="c1"># set title for all axes using plt
-</span><span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">"Scatter plot with regression lines on different axes"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
+</span><span class="n">plt</span><span class="p">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">"Scatter plot with regression lines on different axes"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/81907517-da03bb00-9602-11ea-8668-0b5ff7a77596.png" alt="다운로드"></p>

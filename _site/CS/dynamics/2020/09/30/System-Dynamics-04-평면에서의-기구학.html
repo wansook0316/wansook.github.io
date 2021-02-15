@@ -791,27 +791,25 @@
 
 <p>i번째에서 정의된 좌표계는, 내가 원하는 global 좌표계에서 좌표로 다음과 같은 관계를 갖는다.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{bmatrix}
+\[\begin{bmatrix}
 x_p\\
 y_p
 \end{bmatrix}\;=\;
 \begin{bmatrix}
-cos\theta & -sin\theta\\
-sin\theta & cos\theta\\
+cos\theta &amp; -sin\theta\\
+sin\theta &amp; cos\theta\\
 \end{bmatrix}
 \begin{bmatrix}
 x_p^i\\
 y_p^i
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>이 행렬을 A라 정의하자.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-A^i\;=\;\begin{bmatrix}
-cos\theta & -sin\theta\\
-sin\theta & cos\theta\\
-\end{bmatrix} %]]></script>
+\[A^i\;=\;\begin{bmatrix}
+cos\theta &amp; -sin\theta\\
+sin\theta &amp; cos\theta\\
+\end{bmatrix}\]
 
 <h1 id="위치-벡터의-표현">위치 벡터의 표현</h1>
 
@@ -819,67 +817,65 @@ sin\theta & cos\theta\\
 
 <p>다음과 같이 global 좌표계가 있고, 특정 body에서 정의된 좌표계가 있을 때, 우리는 이 두 좌표계를 변환할 필요가 있다. global 좌표계에서 body의 움직임을 알고 싶다. 강체라 가정하고, body의 좌표계에서 중심점이 되는 곳을 우리는 <strong>reference point</strong> 라 부른다. 또 그곳에서 정의되는 좌표계를 <strong>body frame, local coordinate</strong> 라 한다. 그리고 global 좌표계의 중심이 되는 곳을 <strong>reference frame</strong> 이라 부를 것이다. 이 두좌표계를 변환하는 관계식은 다음과 같다.</p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{R}^i\;+\;\overset{\rightarrow}{u_p}^i</script>
+\[\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{R}^i\;+\;\overset{\rightarrow}{u_p}^i\]
 
 <p>이 표기법을 말로 정의해보면, <strong>global 좌표계에서 표현된 p점의 벡터</strong> 는, <strong>reference point까지의 벡터</strong> 와 <strong>reference point로 부터 global 좌표계에서 표현된 특정 위치의 벡터</strong> 를 더한 것이다. 라는 의미이다. 이 때, reference point로 부터 global 좌표계에서 표현된 특정 위치의 벡터는 <strong>local coordinate</strong> 로 부터 <strong>global coordinate</strong> 로 회전 변환 한 것이므로,</p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{R}^i\;+\;A^i \overset{\rightarrow}{\overset{-}{u_p} }^i</script>
+\[\overset{\rightarrow}{r_p}^i\;=\;\overset{\rightarrow}{R}^i\;+\;A^i \overset{\rightarrow}{\overset{-}{u_p} }^i\]
 
 <p>여기서 맨 오른쪽에 표현된 term은, local coordinate에서 표현된 특정 좌표이다.</p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
+\[\overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
 \begin{bmatrix}
 {\overset{-}{x_p} }^i\\
 {\overset{-}{y_p} }^i
-\end{bmatrix}</script>
+\end{bmatrix}\]
 
 <h1 id="속도-벡터의-표현">속도 벡터의 표현</h1>
 
 <p>위치벡터를 미분하면, 얻을 수 있다.</p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{r_p}^i\;={d\over dt }\overset{\rightarrow}{r_p}^i\;=\;
+\[\overset{\rightarrow}{r_p}^i\;={d\over dt }\overset{\rightarrow}{r_p}^i\;=\;
 
 
-\;\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{A^i} \overset{\rightarrow}{\overset{-}{u_p} }^i\;+\;A^i \overset{\cdot}{\overset{\rightarrow}{\overset{-}{u_p} }^i}</script>
+\;\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{A^i} \overset{\rightarrow}{\overset{-}{u_p} }^i\;+\;A^i \overset{\cdot}{\overset{\rightarrow}{\overset{-}{u_p} }^i}\]
 
 <p>여기서 의미를 파악해보면, 시간에 흐름에 따라, <strong>Rigid body assumption</strong> 에 의해 <strong>local coordinate 안에서 p점의 속도는 0이다.</strong> <strong>따라서 마지막 항은 0이다.</strong></p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{r_p}^i\;={d\over dt }\overset{\rightarrow}{r_p}^i\;=\;
+\[\overset{\rightarrow}{r_p}^i\;={d\over dt }\overset{\rightarrow}{r_p}^i\;=\;
 
 
-\;\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{A^i} \overset{\rightarrow}{\overset{-}{u_p} }^i</script>
+\;\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{A^i} \overset{\rightarrow}{\overset{-}{u_p} }^i\]
 
 <p>여기서 행렬 미분을 생각해보면, A는 theta 만의 함수이므로 이녀석을 시간 t에 대해 미분하면, <strong>chain rule</strong> 에 의해,</p>
 
-<script type="math/tex; mode=display">\overset{\cdot}{A^i} \;=\;{d\over dt}{A^i(\theta^i)} \;=\;{d\theta^i\over dt}({d\over d\theta^i}{A^i})\;=\;\overset{\cdot}{\theta^i}A^i_{,\theta}</script>
+\[\overset{\cdot}{A^i} \;=\;{d\over dt}{A^i(\theta^i)} \;=\;{d\theta^i\over dt}({d\over d\theta^i}{A^i})\;=\;\overset{\cdot}{\theta^i}A^i_{,\theta}\]
 
 <p>이렇게 표현되고, A를 theta에 대해 미분한 행렬은,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-A^i_{,\theta}\;=\;\begin{bmatrix}
--sin\theta^i & -cos\theta^i\\
-cos\theta^i & -sin\theta^i\\
+\[A^i_{,\theta}\;=\;\begin{bmatrix}
+-sin\theta^i &amp; -cos\theta^i\\
+cos\theta^i &amp; -sin\theta^i\\
 
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <h2 id="transform-to-cross-product-form">Transform to Cross product form</h2>
 
 <p>결과적으로, <strong>강체에서</strong> 속도 벡터는,</p>
 
-<script type="math/tex; mode=display">\overset{\cdot}{\overset{\rightarrow}{r_p}^i}\;=\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i</script>
+\[\overset{\cdot}{\overset{\rightarrow}{r_p}^i}\;=\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\]
 
 <p>2D에서 각속도 벡터는,</p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{\omega}^i\;=\;\overset{\cdot}{\theta^i}\hat{k}\;=\;[0\;\;\;\;0\;\;\;\;\overset{\cdot}{\theta^i}]^T</script>
+\[\overset{\rightarrow}{\omega}^i\;=\;\overset{\cdot}{\theta^i}\hat{k}\;=\;[0\;\;\;\;0\;\;\;\;\overset{\cdot}{\theta^i}]^T\]
 
 <p>이 때,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
+\[\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
 \overset{\cdot}{\theta^i}
 \begin{bmatrix}
--sin\theta^i & -cos\theta^i\\
-cos\theta^i & -sin\theta^i\\
+-sin\theta^i &amp; -cos\theta^i\\
+cos\theta^i &amp; -sin\theta^i\\
 \end{bmatrix}
 \begin{bmatrix}
 \overset{-}{x_p}^i\\
@@ -889,16 +885,15 @@ cos\theta^i & -sin\theta^i\\
 \overset{\cdot}{\theta^i}\begin{bmatrix}
 -\overset{-}{x_p}^isin\theta^i-\overset{-}{y_p}^icos\theta^i\\
 \overset{-}{x_p}^icos\theta^i-\overset{-}{y_p}^isin\theta^i
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>로 정리될 수 있다. 여기서 Up 벡터는 다음과 같이 표현 될 수 있다.</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\overset{\rightarrow}{ {u_p} }^i\;
+\[\overset{\rightarrow}{ {u_p} }^i\;
 =\;A^i\overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;
 \begin{bmatrix}
-cos\theta^i & -sin\theta^i\\
-sin\theta^i & cos\theta^i\\
+cos\theta^i &amp; -sin\theta^i\\
+sin\theta^i &amp; cos\theta^i\\
 \end{bmatrix}
 \begin{bmatrix}
 \overset{-}{x_p}^i\\
@@ -912,59 +907,58 @@ sin\theta^i & cos\theta^i\\
 \begin{bmatrix}
 u_x^i\\
 u_y^i\\
-\end{bmatrix} %]]></script>
+\end{bmatrix}\]
 
 <p>각속도 백터와 Up 벡터를 내적하면,</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i\;=\;
+\[\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i\;=\;
 \begin{vmatrix}
-\hat{i} & \hat{j} & \hat{k} \\
-0 & 0 & \overset{\cdot}{\theta^i}\\
-u_x^i & u_y^i & 0
+\hat{i} &amp; \hat{j} &amp; \hat{k} \\
+0 &amp; 0 &amp; \overset{\cdot}{\theta^i}\\
+u_x^i &amp; u_y^i &amp; 0
 \end{vmatrix}
 \\
 \;\\
 \;=\;
-\begin{vmatrix} 0 & \overset{\cdot}{\theta^i} \\ u_y^i & 0 \end{vmatrix}\hat{i}
--\begin{vmatrix} 0 & \overset{\cdot}{\theta^i} \\ u_x^i & 0 \end{vmatrix}\hat{j}
-+\begin{vmatrix} 0 & 0 \\ u_x^i & u_y^i \end{vmatrix}\hat{k}\\
+\begin{vmatrix} 0 &amp; \overset{\cdot}{\theta^i} \\ u_y^i &amp; 0 \end{vmatrix}\hat{i}
+-\begin{vmatrix} 0 &amp; \overset{\cdot}{\theta^i} \\ u_x^i &amp; 0 \end{vmatrix}\hat{j}
++\begin{vmatrix} 0 &amp; 0 \\ u_x^i &amp; u_y^i \end{vmatrix}\hat{k}\\
 \;\\
 \;=\;-\overset{\cdot}{\theta^i}u_y^i\hat i\;+\;\overset{\cdot}{\theta^i}u_x^i\hat j
 \\
 \;\\
-\;\\ %]]></script>
+\;\\\]
 
 <p>이 식을 행렬식으로 표현하면,</p>
 
-<script type="math/tex; mode=display">\overset{\cdot}{\theta^i}\begin{bmatrix}
+\[\overset{\cdot}{\theta^i}\begin{bmatrix}
 -u_y^i\\
 u_x^i\\
 \end{bmatrix}\;=\;
 \overset{\cdot}{\theta^i}\begin{bmatrix}
 -\overset{-}{x_p}^isin\theta^i-\overset{-}{y_p}^icos\theta^i\\
 \overset{-}{x_p}^icos\theta^i-\overset{-}{y_p}^isin\theta^i
-\end{bmatrix}\;=\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i</script>
+\end{bmatrix}\;=\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\]
 
 <p>따라서,</p>
 
-<script type="math/tex; mode=display">\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i</script>
+\[\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i\]
 
 <h2 id="summary">Summary</h2>
 
 <p>결론적으로 속도 벡터는 다음과 같이 표현된다.</p>
 
-<script type="math/tex; mode=display">\overset{\rightarrow}{r_p}^i\;=\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;\overset{\cdot}{\overset{\rightarrow}{R}^i}+\;\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i</script>
+\[\overset{\rightarrow}{r_p}^i\;=\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i\;=\;\overset{\cdot}{\overset{\rightarrow}{R}^i}+\;\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i\]
 
 <h1 id="가속도-벡터의-표현">가속도 벡터의 표현</h1>
 
-<script type="math/tex; mode=display">\overset{\cdot \cdot}{\overset{\rightarrow}{r_p}^i}
+\[\overset{\cdot \cdot}{\overset{\rightarrow}{r_p}^i}
 \;=\;{d\over dt }\overset{\cdot}{\overset{\rightarrow}{r_p}^i}\;=\;
-{d\over dt}[\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i]</script>
+{d\over dt}[\overset{\cdot}{\overset{\rightarrow}{R}^i}\;+\;\overset{\cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i]\]
 
 <p>정리하면,</p>
 
-<script type="math/tex; mode=display">\overset{\cdot \cdot}{\overset{\rightarrow}{r_p}^i}\;=\;
+\[\overset{\cdot \cdot}{\overset{\rightarrow}{r_p}^i}\;=\;
 \overset{\cdot \cdot}{\overset{\rightarrow}{R}^i}
 -(\overset{\cdot}{\theta^i})^2A^i \overset{\rightarrow}{\overset{-}{u_p} }^i
 +\overset{\cdot \cdot}{\theta^i}A^i_{,\theta} \overset{\rightarrow}{\overset{-}{u_p} }^i
@@ -973,11 +967,11 @@ u_x^i\\
 \;=\;
 \overset{\cdot \cdot}{\overset{\rightarrow}{R}^i}+
 [\overset{\rightarrow}{\omega}^i\times(\overset{\rightarrow}{\omega}^i\times\overset{\rightarrow}{ {u_p} }^i)]
-+[\alpha^i \times\overset{\rightarrow}{ {u_p} }^i]</script>
++[\alpha^i \times\overset{\rightarrow}{ {u_p} }^i]\]
 
 <p>여기서 alpha는,</p>
 
-<script type="math/tex; mode=display">\alpha^i\;=\;[0\;\;\;\;0\;\;\;\;\overset{\cdot \cdot}{\theta^i}]^T</script>
+\[\alpha^i\;=\;[0\;\;\;\;0\;\;\;\;\overset{\cdot \cdot}{\theta^i}]^T\]
 
 <p>이다.</p>
 

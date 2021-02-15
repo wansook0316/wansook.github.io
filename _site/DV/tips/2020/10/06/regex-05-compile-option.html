@@ -841,18 +841,18 @@
 <p><code class="language-plaintext highlighter-rouge">.</code> 메타 문자는 <strong>줄바꿈 문자(<code class="language-plaintext highlighter-rouge">\n</code>)를 제외한</strong> 모든 문자와 매치되는 규칙이 있다. 만약 <code class="language-plaintext highlighter-rouge">\n</code> 문자도 포함하여 매치하고 싶다면 <code class="language-plaintext highlighter-rouge">re.DOTALL</code> 또는 <code class="language-plaintext highlighter-rouge">re.S</code> 옵션을 사용해 정규식을 컴파일하면 된다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">re</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'a.b'</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'a</span><span class="se">\n</span><span class="s">b'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'a.b'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">'a</span><span class="se">\n</span><span class="s">b'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="bp">None</span>
 </code></pre></div></div>
 
 <p>위의 예를 보면, 컴파일 옵션을 주지 않은 경우 메타문자 <code class="language-plaintext highlighter-rouge">.</code>는 줄바꿈 문자(<code class="language-plaintext highlighter-rouge">\n</code>)와 매치되지 않음을 알 수 있다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'a.b'</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'a</span><span class="se">\n</span><span class="s">b'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'a.b'</span><span class="p">,</span> <span class="n">re</span><span class="p">.</span><span class="n">DOTALL</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">'a</span><span class="se">\n</span><span class="s">b'</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCF3D8</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">_sre</span><span class="p">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCF3D8</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
 <p>이번에는 옵션을 준 경우이다. 줄바꿈 문자도 포함하여 결과에 반영한 것을 알 수 있다. 보통 <code class="language-plaintext highlighter-rouge">re.DOTALL</code> 옵션은 여러 줄로 이루어진 문자열에서 <code class="language-plaintext highlighter-rouge">\n</code>에 상관없이 검색할 때 많이 사용한다.</p>
@@ -865,13 +865,13 @@
 
 <p><code class="language-plaintext highlighter-rouge">re.IGNORECASE</code> 또는 <code class="language-plaintext highlighter-rouge">re.I</code> 옵션은 대소문자 구별 없이 매치를 수행할 때 사용하는 옵션이다. 다음 예제를 보자.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'[a-z]'</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'python'</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCFA30</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'Python'</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCFA68</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">'PYTHON'</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCF9F8</span><span class="o">&gt;</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'[a-z]'</span><span class="p">,</span> <span class="n">re</span><span class="p">.</span><span class="n">I</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">'python'</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">_sre</span><span class="p">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCFA30</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">'Python'</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">_sre</span><span class="p">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCFA68</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">match</span><span class="p">(</span><span class="s">'PYTHON'</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">_sre</span><span class="p">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x01FCF9F8</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">[a-z]</code> 정규식은 소문자만을 의미하지만 <code class="language-plaintext highlighter-rouge">re.I</code> 옵션으로 대소문자 구별 없이 매치된다.</p>
@@ -885,7 +885,7 @@
 <p>re.MULTILINE 또는 re.M 옵션은 다음 글에 설명할 메타 문자인 <code class="language-plaintext highlighter-rouge">^</code>, <code class="language-plaintext highlighter-rouge">$</code>와 연관된 옵션이다. 이 메타 문자에 대해 간단히 설명하자면 <code class="language-plaintext highlighter-rouge">^</code>는 문자열의 처음을 의미하고, <code class="language-plaintext highlighter-rouge">$</code>는 문자열의 마지막을 의미한다. 예를 들어 정규식이 <code class="language-plaintext highlighter-rouge">^python</code>인 경우 문자열의 처음은 항상 python으로 시작해야 매치되고, 만약 정규식이 <code class="language-plaintext highlighter-rouge">python$</code>이라면 문자열의 마지막은 항상 python으로 끝나야 매치된다는 의미이다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">"^python</span><span class="err">\</span><span class="s">s</span><span class="err">\</span><span class="s">w+"</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">"^python\s\w+"</span><span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="s">"""python one
 life is too short
@@ -893,7 +893,7 @@ python two
 you need python
 python three"""</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['python one']
@@ -904,7 +904,7 @@ python three"""</span>
 <p>결과를 보면 <code class="language-plaintext highlighter-rouge">^</code> 메타 문자에 의해 python이라는 문자열을 사용한 첫 번째 줄만 매치된 것을 알 수 있다. 하지만 내가 원하는 결과는 해당 문자열의 처음에 조건이 걸리는 것이 아니고, <strong>라인이 변경될 때</strong> 처음인 경우를 뜻하는 것이다. 이럴 때 사용하는 옵션이 <code class="language-plaintext highlighter-rouge">re.MULTILINE</code> 또는 <code class="language-plaintext highlighter-rouge">re.M</code>이다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">"^python</span><span class="err">\</span><span class="s">s</span><span class="err">\</span><span class="s">w+"</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">MULTILINE</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">"^python\s\w+"</span><span class="p">,</span> <span class="n">re</span><span class="p">.</span><span class="n">MULTILINE</span><span class="p">)</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="s">"""python one
 life is too short
@@ -912,7 +912,7 @@ python two
 you need python
 python three"""</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">findall</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 </code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['python one', 'python two', 'python three']
@@ -928,10 +928,10 @@ python three"""</span>
 
 <p>고마운 옵션이다. 사실 정규식은 사용하기 까다롭다. 정규식은 마치 시와 같이 함축적인 단어들의 집합으로 구성되어 있다. 따라서 전문가들이 만들어 놓은 정규식을 보면 정말 섬세하게 다뤄서 해석해야 한다. 좀 더 좋은 방법이 없을까? 이렇게 이해하기 어려운 정규식을 주석 또는 줄 단위로 구분할 수 있다면 얼마나 보기 좋고 이해하기 쉬울까? 이러한 욕구를 해소해줄 수 있는 것이 바로 <code class="language-plaintext highlighter-rouge">re.VERBOSE</code> 또는 <code class="language-plaintext highlighter-rouge">re.X</code> 옵션이다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">charref</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">r'&amp;[#](0[0-7]+|[0-9]+|x[0-9a-fA-F]+);'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">charref</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="sa">r</span><span class="s">'&amp;[#](0[0-7]+|[0-9]+|x[0-9a-fA-F]+);'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">charref</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">r"""
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">charref</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="sa">r</span><span class="s">"""
  &amp;[#]                # Start of a numeric entity reference
  (
      0[0-7]+         # Octal form
@@ -939,7 +939,7 @@ python three"""</span>
    | x[0-9a-fA-F]+   # Hexadecimal form
  )
  ;                   # Trailing semicolon
-"""</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+"""</span><span class="p">,</span> <span class="n">re</span><span class="p">.</span><span class="n">VERBOSE</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>첫 번째와 두 번째 예를 비교해 보면 컴파일된 패턴 객체인 charref는 모두 동일한 역할을 한다. 하지만 정규식이 복잡할 경우 두 번째처럼 주석을 적고 여러 줄로 표현하는 것이 훨씬 가독성이 좋다는 것을 알 수 있다.</p>
