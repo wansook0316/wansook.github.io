@@ -60,7 +60,7 @@ DeepSort에 대해서 이해하기 위해서는 먼저 SORT 알고리즘에 대�
 
 
 ## SORT Algoritm
-![Untitled Diagram](https://user-images.githubusercontent.com/37871541/111637945-3942e500-883d-11eb-962d-23aaadf57d6a.jpg)
+![Untitled Diagram](https://user-images.githubusercontent.com/37871541/111637945-3942e500-883d-11eb-962d-23aaadf57d6a.jpg){: .center }_SORT flowchart_
 
 SORT 알고리즘은 이 두가지 방법을 기반으로 작동한다. 제대로 된 알고리즘의 흐름을 이해하기 전에 용어를 정리하고 가자.
 
@@ -113,7 +113,7 @@ SORT 알고리즘은 이 두가지 방법을 기반으로 작동한다. 제대�
 
 ## Process
 
-![DEEPSORT (2)](https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg)
+![DEEPSORT (2)](https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg){: .center }_DeepSort flowchart_
 
 
 1. Detection
@@ -155,7 +155,7 @@ SORT 알고리즘은 이 두가지 방법을 기반으로 작동한다. 제대�
 
 ## Matching Cascade
 
-![Matching_cascade](https://user-images.githubusercontent.com/37871541/111673780-aadf5b00-885e-11eb-93b8-d7ca6529b035.jpg)
+![Matching_cascade (1)](https://user-images.githubusercontent.com/37871541/111721973-4646ef00-88a4-11eb-9ff0-50c16ce16fb3.jpg){: .center }_Matching Cascade flowchart_
 
 
 $$
@@ -171,8 +171,8 @@ Matching cascade에서 사용하는 헝가리안 알고리즘의 Metric은 위�
 
 분산이 크다는 것은 값이 불확실하다는 의미를 갖는다. 이럴 경우 평균과의 거리를 표준편차로  나눈다면 분산이 큰 경우가 분산이 작은 경우보다 작은 값이 나올 것이다. 마할라노비스 거리가 작은 값을 갖는다는 것은 매우 이상한 값이라는 의미를 갖는다.
 
-![image](https://user-images.githubusercontent.com/37871541/111670335-1293a700-885b-11eb-9335-44beff832295.png)
-![image](https://user-images.githubusercontent.com/37871541/111670346-16272e00-885b-11eb-9ff5-0e04c19cb5ee.png)
+![image](https://user-images.githubusercontent.com/37871541/111670335-1293a700-885b-11eb-9335-44beff832295.png){: .center-verysmall}
+![image](https://user-images.githubusercontent.com/37871541/111670346-16272e00-885b-11eb-9ff5-0e04c19cb5ee.png){: .center-verysmall}
 
 혹은 첫번째 그림에서 정규화를 통한 거리를 측정한다고 이해해도 되겠다.
 
@@ -194,7 +194,7 @@ Matching cascade에서 사용하는 헝가리안 알고리즘의 Metric은 위�
 
 ### What Cascade means
 
-<img width="660" alt="스크린샷 2021-03-19 오전 2 18 45" src="https://user-images.githubusercontent.com/37871541/111668786-72894e00-8859-11eb-8457-8cbd49d76c53.png">
+<img width="660" alt="스크린샷 2021-03-19 오전 2 18 45" src="https://user-images.githubusercontent.com/37871541/111668786-72894e00-8859-11eb-8457-8cbd49d76c53.png">{: .center-small}_Matching Cascade pesudo code_
 
 그런데 왜 Cascade일까? 5번 line을 보면, Age_max일 때까지 loop를 돌고, track 중에 해당 age와 일치하는 track부터 매칭을 시작한다. 먼저 age는 해당 track이 생성된 이후부터 몇개의 frame에서 나타났는지를 의미하는 변수이다. 즉, 생성된 지가 얼마 안되면 나이가 가장 어리다.
 
@@ -206,7 +206,7 @@ Matching cascade에서 사용하는 헝가리안 알고리즘의 Metric은 위�
 
 
 ## Class Diagram
-![image](https://user-images.githubusercontent.com/37871541/111674019-e712bb80-885e-11eb-85b3-4f943ed64ae7.png)
+![image](https://user-images.githubusercontent.com/37871541/111674019-e712bb80-885e-11eb-85b3-4f943ed64ae7.png){: .center}_Class Diagram_
 
 이 클래스 다이어그램을 보고 코드 리딩을 하면, 보다 쉽게 구현을 이해할 수 있다.
 
@@ -215,10 +215,10 @@ Matching cascade에서 사용하는 헝가리안 알고리즘의 Metric은 위�
 
 
 # Reference
-[DeepSort Paper](https://arxiv.org/abs/1703.07402)  
-[SORT Paper](https://arxiv.org/pdf/1602.00763.pdf)  
-[DeepSort Implementation](https://github.com/nwojke/deep_sort/tree/280b8bdb255f223813ff4a8679f3e1321b08cdfc)
-[Mahalanobis distance intuitive explanation](https://darkpgmr.tistory.com/41)  
-[DeepSort Explanation Video](https://www.youtube.com/watch?v=LbyqsoLJu5Q&t=786s)  
-[Kalman Filter Explanation](https://www.youtube.com/watch?v=0GrF_IaFCPQ&t=2s)  
-[Hungarian Algorithm Explanation](https://gazelle-and-cs.tistory.com/29)  
+* [DeepSort Paper](https://arxiv.org/abs/1703.07402)  
+* [SORT Paper](https://arxiv.org/pdf/1602.00763.pdf)  
+* [DeepSort Implementation](https://github.com/nwojke/deep_sort/tree/280b8bdb255f223813ff4a8679f3e1321b08cdfc)
+* [Mahalanobis distance intuitive explanation](https://darkpgmr.tistory.com/41)  
+* [DeepSort Explanation Video](https://www.youtube.com/watch?v=LbyqsoLJu5Q&t=786s)  
+* [Kalman Filter Explanation](https://www.youtube.com/watch?v=0GrF_IaFCPQ&t=2s)  
+* [Hungarian Algorithm Explanation](https://gazelle-and-cs.tistory.com/29)  

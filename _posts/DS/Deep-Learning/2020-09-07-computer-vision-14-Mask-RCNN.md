@@ -141,5 +141,5 @@ update 방법은 상당히 단순한데, 일단 전체 mask loss는 모든 클�
 
 # Reference
 
-[Mask R-CNN 정리](https://mylifemystudy.tistory.com/82)
-[PR-057: Mask R-CNN](https://www.youtube.com/watch?v=RtSZALC9DlU&t=248s)
+* [Mask R-CNN 정리](https://mylifemystudy.tistory.com/82)
+* [PR-057: Mask R-CNN](https://www.youtube.com/watch?v=RtSZALC9DlU&t=248s)

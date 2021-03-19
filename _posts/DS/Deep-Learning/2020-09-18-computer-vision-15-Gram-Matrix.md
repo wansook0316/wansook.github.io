@@ -97,4 +97,4 @@ $$
 
 # Reference
 
-[Gram Matrix 설명](https://m.blog.naver.com/PostView.nhn?blogId=atelierjpro&logNo=221180412283&proxyReferer=https:%2F%2Fwww.google.com%2F)
+* [Gram Matrix 설명](https://m.blog.naver.com/PostView.nhn?blogId=atelierjpro&logNo=221180412283&proxyReferer=https:%2F%2Fwww.google.com%2F)

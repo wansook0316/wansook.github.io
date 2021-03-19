@@ -17,17 +17,22 @@ series: "Face Detection and Tracking with SSD Network"
 
 
 # Schedule
-| Contents | March | April |  May  | June  |   Progress   |
-|----------|-------|-------|-------|-------|--------------|
-|  Paper Research  |   O   |       |       |       |         |
-|  Set Development Environment  |   O    |       |       |       |         |
-|  Test Each Model  |       |    O   |       |       |         |
-|  Preprocess Dataset  |       |   O    |       |       |         |
-|  Train SSD  |       |    O   |       |       |         |
-|  Train DeepSort Appearance Extractor  |       |   O    |       |       |         |
-|  Link Detector and Tracker   |       |       |   O    |       |         |
-|  Construct Realtime Tracking Demo  |       |       |   O    |       |         |
-|  Final Result Summary  |       |       |       |   O    |         |
+
+![image](https://user-images.githubusercontent.com/37871541/111738770-44415800-88c5-11eb-81cc-0ed03c6b162d.png){: .center}
+
+<!-- 
+| Contents | March | April |  May  | June  | Progress   |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+|  Paper Research  |   O   |   -  |   -    |  -     |  -       |
+|  Set Development Environment  |   O    |      - |     -  |   -    |        - |
+|  Test Each Model  |    -   |    O   |     -  |    -   |    -     |
+|  Preprocess Dataset  |     -  |   O    |    -   |   -    |     -    |
+|  Train SSD  |    -   |    O   |    -   |    -   |     -    |
+|  Train DeepSort Appearance Extractor  |   -    |   O    |  -     |     -  |  -       |
+|  Link Detector and Tracker   |    -   |  -     |   O    |    -   |    -     |
+|  Construct Realtime Tracking Demo  |     -  |  -     |   O    |   -    |      -   |
+|  Final Result Summary  |   -    |    -   |    -   |   O    |  -       | 
+-->
 
 
 # Dataset
