@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "15: Gram Matrix"
+title: "15: Gram Matrix "
 category: "DS/DL"
 comments: true
 tags:

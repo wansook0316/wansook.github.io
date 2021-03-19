@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [시각화 정리] 07: Counts plot | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[시각화 정리] 07: Counts plot | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-07-Count-plot.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/9.jpg">
+  <meta
+    property="og:title"
+    content="[시각화 정리] 07: Counts plot | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-07-Count-plot.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/9.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-07-Count-plot.html">
+  <link
+    rel="canonical"
+    href="/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-07-Count-plot.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/9.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/9.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">07: Counts plot</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
-                                                     
+                                                       
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-02-matplotlib-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.html'">
       <span>Part 2 - 02: matplotlib 알아보기</span>
     </li>
-                                                                         
+                                                                           
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
       <span>Part 3 - 03: 산점도</span>
     </li>
@@ -788,9 +838,13 @@
     <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html'">
       <span>Part 16 - 15: Ordered Bar Chart</span>
     </li>
-                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -798,7 +852,7 @@
 </div>
  
    
- <p>카테고리 변수에 대한 y 갯수를 그려주는 Counts plot에 대해 알아보자.<br>
+ <p>카테고리 변수에 대한 y 갯수를 그려주는 Counts plot에 대해 알아보자.<br />
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
 
 <blockquote>
@@ -869,7 +923,7 @@
 
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81914857-ce1cf680-960c-11ea-8650-905daba5d36b.png" alt="다운로드 (4)" class="center-text"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81914857-ce1cf680-960c-11ea-8650-905daba5d36b.png" alt="다운로드 (4)" class="center-text" /></p>
 
 <h3 id="reference">Reference</h3>
 
@@ -880,13 +934,29 @@
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#ds">#DS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#ds"
+      >#DS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#python">#python</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#python"
+      >#python</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#matplotlib">#matplotlib</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#matplotlib"
+      >#matplotlib</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#counts-plot">#Counts plot</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#counts-plot"
+      >#Counts plot</a
+    >
     
   </div>
 </footer>
@@ -897,24 +967,31 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                   
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html';">
+                                                                                                                                                                                                                                                                                       
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-06-Stripplot.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>06: Strip plot</p>
   </div>
                                                                 
-  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/16/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-08-Marginal-Histogram.html';"
+  >
     <p>NEXT SERIES</p>
     <p>08: Marginal Histogram</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                                                                                                                                                                           
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -950,7 +1027,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,50 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
- 
-<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
 </head>
-
+ 
+</head>
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [가볍게 이해하는 컴퓨터] 03: CPU 작동 원리 | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[가볍게 이해하는 컴퓨터] 03: CPU 작동 원리 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/structure/2020/03/23/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/5.jpg">
+  <meta
+    property="og:title"
+    content="[가볍게 이해하는 컴퓨터] 03: CPU 작동 원리 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/structure/2020/03/23/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/5.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/structure/2020/03/23/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html">
+  <link
+    rel="canonical"
+    href="/cs/structure/2020/03/23/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-CPU.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -157,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -169,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -263,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -535,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -594,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -700,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/5.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/5.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">03: CPU 작동 원리</h1>
       
@@ -729,7 +778,7 @@
     <li onclick="location.href='/cs/structure/2020/03/21/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html'">
       <span>Part 1 - 01: 용어 정리</span>
     </li>
-                                       
+                                         
     <li onclick="location.href='/cs/structure/2020/03/22/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html'">
       <span>Part 2 - 02: bit, 진법 변환</span>
     </li>
@@ -737,7 +786,7 @@
     <li class="current">
       <span>Part 3 - This Post</span>
     </li>
-                                                                       
+                                                                         
     <li onclick="location.href='/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html'">
       <span>Part 4 - 04: 기억장치에 대한 이해</span>
     </li>
@@ -753,9 +802,13 @@
     <li onclick="location.href='/cs/structure/2020/03/27/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%B4%EC%98%81-%EC%B2%B4%EC%A0%9C%EA%B0%80-%ED%95%98%EB%8A%94-%EC%9D%BC.html'">
       <span>Part 7 - 07: 운영 체제가 하는 일</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                                  
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -767,17 +820,16 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#%EB%94%94%EC%A7%80%ED%84%B8-%ED%9A%8C%EB%A1%9C" class="toc-anchor">디지털 회로</a></li>
-  <li class="toc-item">
-<a href="#%EC%97%B0%EC%82%B0-%EB%B0%A9%EB%B2%95" class="toc-anchor">연산 방법</a>
+  <li class="toc-item"><a href="#디지털-회로" class="toc-anchor">디지털 회로</a></li>
+  <li class="toc-item"><a href="#연산-방법" class="toc-anchor">연산 방법</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#%EA%B0%80%EC%82%B0%EA%B8%B0" class="toc-anchor">가산기</a></li>
-      <li class="toc-item"><a href="#%EB%BA%84%EC%85%88%EC%9D%80" class="toc-anchor">뺄셈은..?</a></li>
-      <li class="toc-item"><a href="#%EA%B3%B1%EC%85%88%EC%9D%80" class="toc-anchor">곱셈은..?</a></li>
-      <li class="toc-item"><a href="#%EB%82%98%EB%88%97%EC%85%88%EC%9D%80" class="toc-anchor">나눗셈은?</a></li>
+      <li class="toc-item"><a href="#가산기" class="toc-anchor">가산기</a></li>
+      <li class="toc-item"><a href="#뺄셈은" class="toc-anchor">뺄셈은..?</a></li>
+      <li class="toc-item"><a href="#곱셈은" class="toc-anchor">곱셈은..?</a></li>
+      <li class="toc-item"><a href="#나눗셈은" class="toc-anchor">나눗셈은?</a></li>
     </ul>
   </li>
-  <li class="toc-item"><a href="#%EA%B2%B0%EB%A1%A0" class="toc-anchor">결론</a></li>
+  <li class="toc-item"><a href="#결론" class="toc-anchor">결론</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -792,7 +844,7 @@
 <h1 id="디지털-회로">디지털 회로</h1>
 
 <p>기본적으로 연산을 수행하도록 가능하게 하는 것은 이 디지털 회로가 있기 때문이다. 이 디지털 회로는 반도체의 특징을 이용하면 가능하다. 반도체는 조건에 따라 도체가 될 수도, 부도체가 될 수도 있다. 이 성격을 이용하여 우리는 연산을 가능하게 만들 수 있다.
-<img src="https://image.shutterstock.com/image-vector/digital-logic-gate-symbols-black-600w-449422498.jpg" alt="논리 게이트" class="center-text"> <a href="https://www.shutterstock.com/ko/image-vector/digital-logic-gate-symbols-black-isolated-449422498" class="center-text">출처 : https://www.shutterstock.com</a></p>
+<img src="https://image.shutterstock.com/image-vector/digital-logic-gate-symbols-black-600w-449422498.jpg" alt="논리 게이트" class="center-text" /> <a href="https://www.shutterstock.com/ko/image-vector/digital-logic-gate-symbols-black-isolated-449422498" class="center-text">출처 : https://www.shutterstock.com</a></p>
 
 <h1 id="연산-방법">연산 방법</h1>
 
@@ -811,8 +863,8 @@
 +0011\\
 \;\;\;\;0101\]
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/77505245-fb1f1980-6ea5-11ea-858c-6bfb716b7c5d.png" class="center">
-<img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/77505254-01ad9100-6ea6-11ea-97ca-548cbdfc1a0a.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/77505245-fb1f1980-6ea5-11ea-858c-6bfb716b7c5d.png" class="center" />
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/77505254-01ad9100-6ea6-11ea-97ca-548cbdfc1a0a.png" class="center" /></p>
 
 <p>3개의 input의 결과로 <strong><em>자리올림을 나타내는 변수, 더한 뒤 값을 나타내는 변수</em></strong> 이렇게 두개의 값을 뽑아낸다. 위의 4자리 2진수의 덧셈을 수행하기 위해서는 전가산기 4개가 필요하며, 각 연산을 수행한 결과는 다음 자리수의 input으로 들어가게 된다. $C_0$는 0이다.</p>
 
@@ -877,9 +929,17 @@
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#%EC%BB%B4%ED%93%A8%ED%84%B0-%EA%B5%AC%EC%A1%B0">#컴퓨터 구조</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#%EC%BB%B4%ED%93%A8%ED%84%B0-%EA%B5%AC%EC%A1%B0"
+      >#컴퓨터 구조</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#cpu">#CPU</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#cpu"
+      >#CPU</a
+    >
     
   </div>
 </footer>
@@ -890,24 +950,31 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                               
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/structure/2020/03/22/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html';">
+                                                                                                 
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/structure/2020/03/22/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-bit-%EC%A7%84%EB%B2%95%EB%B3%80%ED%99%98.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>02: bit, 진법 변환</p>
   </div>
-                                                                                                            
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html';">
+                                                                                                              
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/structure/2020/03/24/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%EC%97%90-%EB%8C%80%ED%95%9C-%EC%9D%B4%ED%95%B4.html';"
+  >
     <p>NEXT SERIES</p>
     <p>04: 기억장치에 대한 이해</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -943,7 +1010,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

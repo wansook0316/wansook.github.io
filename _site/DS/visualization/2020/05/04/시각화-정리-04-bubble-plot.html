@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [시각화 정리] 04: Circling을 통한 버블 플롯 | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[시각화 정리] 04: Circling을 통한 버블 플롯 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-04-bubble-plot.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/9.jpg">
+  <meta
+    property="og:title"
+    content="[시각화 정리] 04: Circling을 통한 버블 플롯 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-04-bubble-plot.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/9.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-04-bubble-plot.html">
+  <link
+    rel="canonical"
+    href="/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-04-bubble-plot.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/9.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/9.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">04: Circling을 통한 버블 플롯</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-01-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC.html'">
       <span>Part 1 - 01: 라이브러리</span>
     </li>
-                                                     
+                                                       
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-02-matplotlib-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.html'">
       <span>Part 2 - 02: matplotlib 알아보기</span>
     </li>
-                                                                         
+                                                                           
     <li onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html'">
       <span>Part 3 - 03: 산점도</span>
     </li>
@@ -788,9 +838,13 @@
     <li onclick="location.href='/ds/visualization/2020/05/31/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-15-Ordered-Bar-Chart.html'">
       <span>Part 16 - 15: Ordered Bar Chart</span>
     </li>
-                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -802,7 +856,7 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#%EC%B6%94%EA%B0%80%EC%A0%81%EC%9D%B8-bubble-plot" class="toc-anchor">추가적인 bubble plot</a></li>
+  <li class="toc-item"><a href="#추가적인-bubble-plot" class="toc-anchor">추가적인 bubble plot</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -810,7 +864,7 @@
   </div>
 </div>
 
- <p>산점도 그래프의 응용인 버블 플롯을 그려보자.<br>
+ <p>산점도 그래프의 응용인 버블 플롯을 그려보자.<br />
 <a href="https://www.kaggle.com/wansook0316/plotting-with-python-learn-80-plots-step-by-step/edit">연습 kaggle notebook</a></p>
 
 <blockquote>
@@ -864,7 +918,7 @@
 <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81772169-1d392d80-9520-11ea-8268-fe3e6942f6bc.png" alt="__results___42_0" class="center-text"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81772169-1d392d80-9520-11ea-8268-fe3e6942f6bc.png" alt="__results___42_0" class="center-text" /></p>
 
 <h2 id="추가적인-bubble-plot">추가적인 bubble plot</h2>
 
@@ -953,7 +1007,7 @@
 <span class="n">ax</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">"upper left"</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81772550-21197f80-9521-11ea-910c-9e07c5ff4298.png" alt="__results___43_0" class="center-text"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81772550-21197f80-9521-11ea-910c-9e07c5ff4298.png" alt="__results___43_0" class="center-text" /></p>
 
 <h3 id="reference">Reference</h3>
 
@@ -964,15 +1018,35 @@
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#ds">#DS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#ds"
+      >#DS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#python">#python</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#python"
+      >#python</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#matplotlib">#matplotlib</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#matplotlib"
+      >#matplotlib</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#scatter-plot">#scatter plot</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#scatter-plot"
+      >#scatter plot</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#bubble-plot">#bubble plot</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#bubble-plot"
+      >#bubble plot</a
+    >
     
   </div>
 </footer>
@@ -983,24 +1057,31 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                        
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
+                                                                                                                                                                            
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/04/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-03-%EC%82%B0%EC%A0%90%EB%8F%84.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>03: 산점도</p>
   </div>
                                                                               
-  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/visualization/2020/05/14/%EC%8B%9C%EA%B0%81%ED%99%94-%EC%A0%95%EB%A6%AC-05-%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80%EC%84%A0%EC%9D%84-%ED%8F%AC%ED%95%A8%ED%95%9C-%EC%82%B0%EC%A0%90%EB%8F%84.html';"
+  >
     <p>NEXT SERIES</p>
     <p>05: 선형 회귀 선을 포함한 산점도</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1036,7 +1117,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,50 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
- 
-<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
 </head>
-
+ 
+</head>
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [운영체제 정리] 19: 파일 할당 (Allocation of file) | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[운영체제 정리] 19: 파일 할당 (Allocation of file) | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
+  <meta
+    property="og:title"
+    content="[운영체제 정리] 19: 파일 할당 (Allocation of file) | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/11.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html">
+  <link
+    rel="canonical"
+    href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -157,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -169,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -263,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -535,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -594,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -700,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/11.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/11.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">19: 파일 할당 (Allocation of file)</h1>
       
@@ -729,11 +778,11 @@
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
       <span>Part 1 - 01: 운영체제란 무엇인가?</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
       <span>Part 2 - 02: 운영체제의 역사</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
       <span>Part 3 - 03: 이중모드와 보호</span>
     </li>
@@ -785,11 +834,11 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
       <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
       <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 17 - 17: 페이지 교체 알고리즘</span>
     </li>
@@ -807,7 +856,11 @@
     </li>
                                                                                                                                                                                                                                     
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -819,13 +872,12 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#1-hdd-%EA%B5%AC%EC%A1%B0" class="toc-anchor">1. HDD 구조</a></li>
-  <li class="toc-item">
-<a href="#2-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9" class="toc-anchor">2. 파일 할당</a>
+  <li class="toc-item"><a href="#1-hdd-구조" class="toc-anchor">1. HDD 구조</a></li>
+  <li class="toc-item"><a href="#2-파일-할당" class="toc-anchor">2. 파일 할당</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#21-%EC%97%B0%EC%86%8D-%ED%95%A0%EB%8B%B9-contiguous-allocation" class="toc-anchor">2.1 연속 할당 (Contiguous Allocation)</a></li>
-      <li class="toc-item"><a href="#22-%EC%97%B0%EA%B2%B0-%ED%95%A0%EB%8B%B9-linked-allocation" class="toc-anchor">2.2 연결 할당 (Linked Allocation)</a></li>
-      <li class="toc-item"><a href="#23-%EC%83%89%EC%9D%B8-%ED%95%A0%EB%8B%B9-indexed-allocation" class="toc-anchor">2.3 색인 할당 (Indexed Allocation)</a></li>
+      <li class="toc-item"><a href="#21-연속-할당-contiguous-allocation" class="toc-anchor">2.1 연속 할당 (Contiguous Allocation)</a></li>
+      <li class="toc-item"><a href="#22-연결-할당-linked-allocation" class="toc-anchor">2.2 연결 할당 (Linked Allocation)</a></li>
+      <li class="toc-item"><a href="#23-색인-할당-indexed-allocation" class="toc-anchor">2.3 색인 할당 (Indexed Allocation)</a></li>
     </ul>
   </li>
 </ul>
@@ -845,7 +897,7 @@
 
 <h1 id="1-hdd-구조">1. HDD 구조</h1>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574512-0d656400-7865-11ea-9b48-ccb8e23b1d65.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574512-0d656400-7865-11ea-9b48-ccb8e23b1d65.png" class="center" /></p>
 
 <p>위 그림은 하드디스크의 구조이다.</p>
 
@@ -880,7 +932,7 @@
 
 <h1 id="2-파일-할당">2. 파일 할당</h1>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574790-79e06300-7865-11ea-8871-317826c3f865.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574790-79e06300-7865-11ea-8871-317826c3f865.png" class="center" /></p>
 
 <p>위 그림은 pool of free blocks를 논리적인 그림으로 나타낸 모습이고 블록마다 인덱스 번호를 설정하였다. 블록들이 위와 같이 있을 때 파일을 할당하는 방법은 크게 연속 할당, 연결 할당, 색인 할당 세 가지가 존재한다.</p>
 
@@ -888,7 +940,7 @@
 
 <p>연속 할당은 말그대로 <strong>연속된 블록에 파일을 할당</strong> 하는 것이다. 예를 들어, 블록 크기가 1KB이고, 할당할 파일은 f1, f2, f3 3개가 있고 각각의 크기는 5KB, 3KB, 4KB이다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574911-a3998a00-7865-11ea-82bb-0354d4700b7d.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574911-a3998a00-7865-11ea-82bb-0354d4700b7d.png" class="center" /></p>
 
 <p>앞선 예제로 연속 할당을 수행하면 위의 그림과 같은 모습이 나온다.</p>
 
@@ -945,7 +997,7 @@ block number: 0
 
 <p>연결 할당은 연속 할당의 문제점을 해결하기 위해 나온 방법으로, 연속적으로 할당하는 것이 아니라 링크드 리스트(linked list) 와 같은 방식으로 파일을 할당한다</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574943-abf1c500-7865-11ea-925b-b56f70ec6dd5.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574943-abf1c500-7865-11ea-925b-b56f70ec6dd5.png" class="center" /></p>
 
 <p>위 그림은 block 크기가 1 byte, 파일 f1의 크기가 5 bytes 일 때 연결 할당을 수행한 모습이다. 각 블록의 마지막에 <strong>주소를 저장하는 포인터 공간(4bytes)</strong>이 존재하며, 여기서 다음 블록을 가리키고 있다. 마지막 블록의 포인터 공간에는 끝임을 나타내는 값이 저장되어 있다.</p>
 
@@ -995,7 +1047,7 @@ block number: 6
 
 <p>위 문제점을 개선하기 위해 나온 것이 같은 연결 할당 방식인 FAT(File Allocation Table) 시스템이다. FAT 시스템은 다음 블록으르 가리키는 포인터들만 모아서 하나의 테이블(FAT)을 만들어 한 블록에 저장한다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574974-b3b16980-7865-11ea-8889-b32c54adfd52.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78574974-b3b16980-7865-11ea-8889-b32c54adfd52.png" class="center" /></p>
 
 <p>위 그림은 앞선 예제의 f1 파일을 FAT 파일 시스템 방식으로 저장한 모습이다. 0번 블록에 저장된 FAT를 보면 테이블의 인덱스는 전체 디스크의 블록 번호이며, 각 <strong>인덱스마다 다음 블록 번호를 저장</strong>하고 있다.</p>
 
@@ -1026,7 +1078,7 @@ block number: 6
   </tbody>
 </table>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78575000-bc09a480-7865-11ea-9c93-3287ea0e764f.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78575000-bc09a480-7865-11ea-9c93-3287ea0e764f.png" class="center" /></p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file name: f1
 file size: 5 bytes
@@ -1063,12 +1115,12 @@ index block number: 27
 
 <p>이 방식은 인덱스 블록을 여러 개 만들어 연결 할당을 하는 것과 같다. 즉, 각 인덱스 블록의 마지막은 다음 인덱스 블록을 가리키는 포인터가 저장되어 있다.</p>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78577110-8dd99400-7868-11ea-8731-7e6acf48c817.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78577110-8dd99400-7868-11ea-8731-7e6acf48c817.png" class="center" /></p>
 
 <h4 id="2322-multilevel-index">2.3.2.2 Multilevel index</h4>
 
 <p>이 방식은 계층을 두는 방법으로 하나의 인덱스 블록의 모든 포인터가 다른 인덱스 블록을 가리킨다. 만약 이것으로 부족하면 계층을 더 만들어 간다.
-<img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78577132-97fb9280-7868-11ea-968e-43c95f7d7ccb.png" class="center"></p>
+<img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78577132-97fb9280-7868-11ea-968e-43c95f7d7ccb.png" class="center" /></p>
 
 <h4 id="2323-combined">2.3.2.3 Combined</h4>
 
@@ -1077,9 +1129,9 @@ index block number: 27
 <h3 id="reference">Reference</h3>
 
 <p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1087,11 +1139,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#os"
+      >#OS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#memory">#Memory</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#memory"
+      >#Memory</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#frame-allocation">#frame allocation</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#frame-allocation"
+      >#frame allocation</a
+    >
     
   </div>
 </footer>
@@ -1102,13 +1166,21 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html';">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>18: 프레임 할당 (Allocation of frame)</p>
   </div>
                 
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-20-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';"
+  >
     <p>NEXT SERIES</p>
     <p>20: 디스크 스케쥴링 알고리즘</p>
   </div>
@@ -1118,8 +1190,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1155,7 +1226,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

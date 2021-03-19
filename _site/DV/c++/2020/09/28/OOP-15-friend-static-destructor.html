@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [Object Oriented Programming] 15: friend, static, destructor | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="각종 키워드에 대해서 알아보자.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="각종 키워드에 대해서 알아보자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Object Oriented Programming] 15: friend, static, destructor | 완숙의 에그머니🍳">
-  <meta property="og:description" content="각종 키워드에 대해서 알아보자.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/2.jpg">
+  <meta
+    property="og:title"
+    content="[Object Oriented Programming] 15: friend, static, destructor | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="각종 키워드에 대해서 알아보자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/2.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html">
+  <link
+    rel="canonical"
+    href="/dv/c++/2020/09/28/OOP-15-friend-static-destructor.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/2.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/2.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">15: friend, static, destructor</h1>
       
@@ -724,19 +774,19 @@
     <b><em>23</em></b> 편 중 <b><em>15</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                         
+                           
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-01-Introduction.html'">
       <span>Part 1 - 01: Introduction</span>
     </li>
-                                                                   
+                                                                 
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-02-Identifier-Variable-constant-Std-IO-Operator.html'">
       <span>Part 2 - 02: Identifier, Variable, constant, Std IO, Operator</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-03-Function-1.html'">
       <span>Part 3 - 03: Functions #1 - Calling (호출)</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-04-Function-2.html'">
       <span>Part 4 - 04: Functions #2 - Local, Global Variable</span>
     </li>
@@ -758,7 +808,7 @@
     </li>
                                
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-09-File-Input-Output.html'">
-      <span>Part 9 - 09: File Input &amp; Output (파일입출력)</span>
+      <span>Part 9 - 09: File Input & Output (파일입출력)</span>
     </li>
                                  
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-10-rand-srand.html'">
@@ -788,7 +838,7 @@
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-16-Inherence.html'">
       <span>Part 16 - 16: Inherence (상속)</span>
     </li>
-           
+               
     <li onclick="location.href='/dv/c++/2020/09/28/OOP-17-Static-binding-Dynamic-Binding-Header-file.html'">
       <span>Part 17 - 17: Static Binding, Dynamic Binding, Header File</span>
     </li>
@@ -818,7 +868,11 @@
     </li>
                                                                                                                                                                                                                               
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -834,7 +888,7 @@
   <li class="toc-item"><a href="#static-members" class="toc-anchor">static Members</a></li>
   <li class="toc-item"><a href="#class-vs-structure" class="toc-anchor">Class vs Structure</a></li>
   <li class="toc-item"><a href="#destructor" class="toc-anchor">Destructor</a></li>
-  <li class="toc-item"><a href="#%EC%A7%80%EA%B8%88%EA%B9%8C%EC%A7%80-%EC%A7%A0-%EC%86%8C%EC%8A%A4%EC%BD%94%EB%93%9C-%EC%A0%95%EB%A6%AC" class="toc-anchor">지금까지 짠 소스코드 정리</a></li>
+  <li class="toc-item"><a href="#지금까지-짠-소스코드-정리" class="toc-anchor">지금까지 짠 소스코드 정리</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -930,10 +984,8 @@ Program ended with exit code: 0
 <p>때때로는, 클래스의 객체들이 모두 공유하는 변수를 가지는 것이 용이하다. 전역변수와는 조금 다른 점이 있는데,</p>
 
 <ul>
-  <li>
-<strong>공통점</strong> : 특정 함수나 클래스가 끝나고 나서 변수가 사라지지 않는다.</li>
-  <li>
-<strong>차이점</strong> : 특정 클래스에 구속되어 있다.</li>
+  <li><strong>공통점</strong> : 특정 함수나 클래스가 끝나고 나서 변수가 사라지지 않는다.</li>
+  <li><strong>차이점</strong> : 특정 클래스에 구속되어 있다.</li>
 </ul>
 
 <p>이것을 구현하고 싶으면 <strong>Static</strong> 키워드를 붙여주면 된다. 특이한 점은, 이 변수를 사용하기 전에 초기화는, 클래스 내부에서 하지 않고, <strong>전역변수처럼 main 함수 밖에서 한다.</strong></p>
@@ -1000,10 +1052,8 @@ Program ended with exit code: 0
 <h3 id="example">Example</h3>
 
 <ul>
-  <li>
-<strong>생성자</strong> : new, file open</li>
-  <li>
-<strong>소멸자</strong> : delete, file close</li>
+  <li><strong>생성자</strong> : new, file open</li>
+  <li><strong>소멸자</strong> : delete, file close</li>
 </ul>
 
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Point</span><span class="p">{</span>
@@ -1238,9 +1288,17 @@ Program ended with exit code: 0
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#c">#c++</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#c"
+      >#c++</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#oop">#OOP</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#oop"
+      >#OOP</a
+    >
     
   </div>
 </footer>
@@ -1251,24 +1309,31 @@ Program ended with exit code: 0
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html';">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/dv/c++/2020/09/28/OOP-14-this-pointer-operator-overloading.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>14: this, operator overloading</p>
   </div>
                         
-  <div id="next-post" class="post-nav-post" onclick="location.href='/dv/c++/2020/09/28/OOP-16-Inherence.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/dv/c++/2020/09/28/OOP-16-Inherence.html';"
+  >
     <p>NEXT SERIES</p>
     <p>16: Inherence (상속)</p>
   </div>
-                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                              
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1304,7 +1369,7 @@ Program ended with exit code: 0
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

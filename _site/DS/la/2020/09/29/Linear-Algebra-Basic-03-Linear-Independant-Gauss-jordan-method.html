@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [Linear Algebra Basic] 03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅) | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="선형 대수에서 중요한 선형 독립에 대해 이해하고, 해를 구하자.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="선형 대수에서 중요한 선형 독립에 대해 이해하고, 해를 구하자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Linear Algebra Basic] 03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅) | 완숙의 에그머니🍳">
-  <meta property="og:description" content="선형 대수에서 중요한 선형 독립에 대해 이해하고, 해를 구하자.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/4.jpg">
+  <meta
+    property="og:title"
+    content="[Linear Algebra Basic] 03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅) | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="선형 대수에서 중요한 선형 독립에 대해 이해하고, 해를 구하자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/4.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html">
+  <link
+    rel="canonical"
+    href="/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/4.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/4.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅)</h1>
       
@@ -724,19 +774,19 @@
     <b><em>6</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                   
+                                     
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-01-Types-Of-Matrix.html'">
       <span>Part 1 - 01: Types of Matrix (행렬의 종류)</span>
     </li>
-                                                 
+                                               
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html'">
       <span>Part 2 - 02: Determinant, Inverse Matrix, Orthogonal Matrix (행렬식, 역행렬, 직교행렬)</span>
     </li>
-                                                                       
+                                                                         
     <li class="current">
       <span>Part 3 - This Post</span>
     </li>
-                                                     
+                                                       
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html'">
       <span>Part 4 - 04: LU Decomposition (LU 분해)</span>
     </li>
@@ -748,9 +798,13 @@
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html'">
       <span>Part 6 - 06: QR Decomposition (QR 분해)</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                              
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -763,16 +817,14 @@
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
   <li class="toc-item"><a href="#linear-independence" class="toc-anchor">Linear Independence</a></li>
-  <li class="toc-item">
-<a href="#rank" class="toc-anchor">Rank</a>
+  <li class="toc-item"><a href="#rank" class="toc-anchor">Rank</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#rank%EC%99%80-%ED%96%89%EB%A0%AC%EC%8B%9D%EA%B3%BC%EC%9D%98-%EA%B4%80%EA%B3%84" class="toc-anchor">Rank와 행렬식과의 관계</a></li>
+      <li class="toc-item"><a href="#rank와-행렬식과의-관계" class="toc-anchor">Rank와 행렬식과의 관계</a></li>
     </ul>
   </li>
   <li class="toc-item"><a href="#gauss-elimination" class="toc-anchor">Gauss Elimination</a></li>
   <li class="toc-item"><a href="#gauss---jordan-method" class="toc-anchor">Gauss - Jordan Method</a></li>
-  <li class="toc-item">
-<a href="#pivoting" class="toc-anchor">Pivoting</a>
+  <li class="toc-item"><a href="#pivoting" class="toc-anchor">Pivoting</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#motivation-of-pivoting" class="toc-anchor">Motivation of Pivoting</a></li>
       <li class="toc-item"><a href="#remedy" class="toc-anchor">Remedy</a></li>
@@ -953,7 +1005,7 @@ x_2 \\
 
 <p>가장 간단한 방법은, 저 값이 1보다 훨씬 클 경우 아래 행과 위의 행을 바꾸는 것이다!</p>
 
-\[|a\_{pk}|\;=\;Loop\(k \le i \le n)\;max \;|a\_{ik}|\]
+\[|a_{pk}|\;=\;Loop(k \le i \le n)\;max \;|a_{ik}|\]
 
 <p>k는 현재 있는 행을 의미한다. n은 마지막 행을 의미한다. 그 사이에 있는 i 라는 값을 가지면서 각 행의 요소들을 조사하면서 가장 큰 값을 리턴한다. 이때, 행의 index를 저장하고, 만약 해당 행의 대각 요소의 값이 가장 크다면 <strong>p = k</strong> 가 될 것이다. 만약 그렇지 않다면 <strong>p != k</strong> 일 것이다. 이 경우 <strong>p 행과 k 행을 Pivoting</strong> 한다. 그렇게 되면 필연적으로 m_jk 값은 1보다 작아지므로 Round Off Error 를 피할 수 있다.</p>
 
@@ -1019,11 +1071,11 @@ x_2 \\
 46.78 \\
 \end{bmatrix}\]
 
-\[S\_1\;=\;max\[|30|, |591400|] \; =\;591400\
-S\_2\;=\;max\[|5.291|, |-6.130|] \; =\;6.130\]
+\[S_1\;=\;max[|30|, |591400|] \; =\;591400\\
+S_2\;=\;max[|5.291|, |-6.130|] \; =\;6.130\]
 
-\[{|a\_{11}| \over S\_1}\;=\; {30 \over 591400}\;=\;0.5073\times10^{-4}\
-{|a\_{21}| \over S\_2}\;=\; {5.291 \over 6.130}\;=\;0.8631\]
+\[{|a_{11}| \over S_1}\;=\; {30 \over 591400}\;=\;0.5073\times10^{-4}\\
+{|a_{21}| \over S_2}\;=\; {5.291 \over 6.130}\;=\;0.8631\]
 
 <p>따라서 1행과 2행을 피보팅한다.</p>
 
@@ -1046,9 +1098,17 @@ x_2 \\
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#math">#Math</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#math"
+      >#Math</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#linear-algebra">#Linear Algebra</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#linear-algebra"
+      >#Linear Algebra</a
+    >
     
   </div>
 </footer>
@@ -1060,23 +1120,30 @@ x_2 \\
 <div id="post-nav">
            
                                                                              
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html';">
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>02: Determinant, Inverse Matrix, Orthogonal Matrix (행렬식, 역행렬, 직교행렬)</p>
   </div>
-                                                                                                                      
-  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html';">
+                                                                                                                          
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html';"
+  >
     <p>NEXT SERIES</p>
     <p>04: LU Decomposition (LU 분해)</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1112,7 +1179,7 @@ x_2 \\
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

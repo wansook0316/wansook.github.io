@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [운영체제 정리] 05: 프로세스와 관리 | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[운영체제 정리] 05: 프로세스와 관리 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
+  <meta
+    property="og:title"
+    content="[운영체제 정리] 05: 프로세스와 관리 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/11.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html">
+  <link
+    rel="canonical"
+    href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-05-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B4%80%EB%A6%AC.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/11.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/11.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">05: 프로세스와 관리</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
       <span>Part 1 - 01: 운영체제란 무엇인가?</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
       <span>Part 2 - 02: 운영체제의 역사</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
       <span>Part 3 - 03: 이중모드와 보호</span>
     </li>
@@ -784,11 +834,11 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
       <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
       <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 17 - 17: 페이지 교체 알고리즘</span>
     </li>
@@ -806,7 +856,11 @@
     </li>
                                                                                                                                                                                                                                     
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -818,23 +872,21 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#1-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4process" class="toc-anchor">1. 프로세스(Process)</a>
+  <li class="toc-item"><a href="#1-프로세스process" class="toc-anchor">1. 프로세스(Process)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%9D%98-%EC%83%9D%EC%84%B1%EA%B3%BC-%EC%A2%85%EB%A3%8C" class="toc-anchor">1.1 프로세스의 생성과 종료</a></li>
-      <li class="toc-item"><a href="#12-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%9D%98-%EA%B5%AC%EC%A1%B0" class="toc-anchor">1.2 프로세스의 구조</a></li>
-      <li class="toc-item"><a href="#13-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EC%83%81%ED%83%9C" class="toc-anchor">1.3 프로세스 상태</a></li>
+      <li class="toc-item"><a href="#11-프로세스의-생성과-종료" class="toc-anchor">1.1 프로세스의 생성과 종료</a></li>
+      <li class="toc-item"><a href="#12-프로세스의-구조" class="toc-anchor">1.2 프로세스의 구조</a></li>
+      <li class="toc-item"><a href="#13-프로세스-상태" class="toc-anchor">1.3 프로세스 상태</a></li>
       <li class="toc-item"><a href="#14-pcbprocess-control-block" class="toc-anchor">1.4 PCB(Process Control Block)</a></li>
-      <li class="toc-item"><a href="#15-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%ED%81%90queue" class="toc-anchor">1.5 프로세스 큐(Queue)</a></li>
+      <li class="toc-item"><a href="#15-프로세스-큐queue" class="toc-anchor">1.5 프로세스 큐(Queue)</a></li>
     </ul>
   </li>
-  <li class="toc-item">
-<a href="#2-%EB%A9%80%ED%8B%B0-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D" class="toc-anchor">2. 멀티 프로그래밍</a>
+  <li class="toc-item"><a href="#2-멀티-프로그래밍" class="toc-anchor">2. 멀티 프로그래밍</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#21-degree-of-multiprogramming" class="toc-anchor">2.1 Degree of multiprogramming</a></li>
       <li class="toc-item"><a href="#22-io-bound-process-vs-cpu-bound-process" class="toc-anchor">2.2. I/O bound process VS CPU bound process</a></li>
       <li class="toc-item"><a href="#23-medium-term-scheduler" class="toc-anchor">2.3 Medium-term scheduler</a></li>
-      <li class="toc-item"><a href="#24-context-switching%EB%AC%B8%EB%A7%A5-%EC%A0%84%ED%99%98" class="toc-anchor">2.4 Context Switching(문맥 전환)</a></li>
+      <li class="toc-item"><a href="#24-context-switching문맥-전환" class="toc-anchor">2.4 Context Switching(문맥 전환)</a></li>
     </ul>
   </li>
 </ul>
@@ -854,7 +906,7 @@
 
 <p>프로세스는 프로세스에 의해 만들어진다. 컴퓨터가 부팅이 되면 운영체제가 메모리에 올라오는데 <strong>운영체제가 처음으로 수행하는 일 중에 하나는 최초의 프로세스를 생성하는 것</strong>이다. 이렇게 처음 만들어진 프로세스가 다른 프로세스를 만들고 그 프로세스가 또 다른 프로세스를 만드는 과정을 반복한다.</p>
 
-<p><img width="1000" alt="image" src="https://user-images.githubusercontent.com/37871541/78107398-57e37c80-7430-11ea-821d-38e28c8f0b6a.png" class="center"></p>
+<p><img width="1000" alt="image" src="https://user-images.githubusercontent.com/37871541/78107398-57e37c80-7430-11ea-821d-38e28c8f0b6a.png" class="center" /></p>
 
 <p>위와 같이 최초의 프로세스는 <strong>Init</strong>이다. 이 이름은 운영체제마다 다르고, init은 UNIX 운영체제 기준 이름이다. 여기서 여러 다른 프로세스들이 생성되면 위와 같은 그림처럼 트리 모양으로 나타낼 수 있다.여기서 프로세스를 생성한 쪽을 부모 프로세스, 만들어진 프로세스를 자식 프로세스라고 한다. 같은 부모를 갖는 자식 프로세스 끼리는 서로 Sibling(형제) 프로세스라고 한다.</p>
 
@@ -870,11 +922,11 @@
 
 <h2 id="12-프로세스의-구조">1.2 프로세스의 구조</h2>
 
-<p><img width="1690" alt="image" src="https://user-images.githubusercontent.com/37871541/78095078-0a0b4c00-7411-11ea-9716-9dc0f2c2a88a.png" class="center"><br>
+<p><img width="1690" alt="image" src="https://user-images.githubusercontent.com/37871541/78095078-0a0b4c00-7411-11ea-9716-9dc0f2c2a88a.png" class="center" /><br />
 <a href="https://mintnlatte.tistory.com/396" class="center-text">출처 : https://mintnlatte.tistory.com/</a></p>
 
-<p><img src="https://rookieboxsite.files.wordpress.com/2017/10/c_memmap_exam_vs.png?w=540&zoom=2" alt="" class="center"><br>
-<a href="https://rookieboxsite.wordpress.com/2017/10/20/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/" class="center-text">출처 : https://rookieboxsite.wordpress.com</a></p>
+<p><img src="https://rookieboxsite.files.wordpress.com/2017/10/c_memmap_exam_vs.png?w=540&amp;zoom=2" alt="" class="center" /><br />
+<a href="https://rookieboxsite.wordpress.com/2017/10/20/프로세스-메모리-구조/" class="center-text">출처 : https://rookieboxsite.wordpress.com</a></p>
 
 <h3 id="121-stack">1.2.1 Stack</h3>
 
@@ -984,7 +1036,7 @@
   <li>Terminated: 프로세스가 완전히 종료된다.</li>
 </ul>
 
-<p><img width="1122" alt="image" src="https://user-images.githubusercontent.com/37871541/78094481-9a489180-740f-11ea-93b9-ae4c3e5a78f2.png" class="center"></p>
+<p><img width="1122" alt="image" src="https://user-images.githubusercontent.com/37871541/78094481-9a489180-740f-11ea-93b9-ae4c3e5a78f2.png" class="center" /></p>
 
 <p>위 그림은 <strong>프로세스 상태 전이도</strong>의 모습이다. new에서부터 프로세스가 어떤 작업에 의해 상태가 변하는지 나타낸다. running에서 ready로 변할 때는 time sharing system에서 해당 프로세스가 CPU시간을 모두 소진하였을 때 인터럽트에 의해 강제로 ready상태로 변하고, CPU는 다른 프로세스를 실행시킨다.</p>
 
@@ -992,7 +1044,7 @@
 
 <p>PCB는 <strong>프로세스에 대한 모든 정보가 모여있는 곳</strong>으로, Task Control Block(TCB) 이라고도 한다. PCB안에는 프로세스의 상태, 프로세스 번호(PID), 해당 프로세스의 program counter(pc), register값, MMU(Memory Management Unit)정보, CPU점유 시간 등이 포함되어 있다. PCB는 <strong>운영체제 내부</strong>의 프로세스를 관리하는 코드 부분에 저장되어 있다.</p>
 
-<p><img width="1000" alt="image" src="https://user-images.githubusercontent.com/37871541/78096444-86ebf500-7414-11ea-80e3-4f6f4be7403a.png" class="center"></p>
+<p><img width="1000" alt="image" src="https://user-images.githubusercontent.com/37871541/78096444-86ebf500-7414-11ea-80e3-4f6f4be7403a.png" class="center" /></p>
 
 <p>CPU는 한 프로세스가 종료될 때까지 수행하는 것이 아니라 여러 프로세스를 중간 중간에 바꿔가면서 수행한다. 그러므로 CPU는 수행중인 프로세스를 나갈 때, 이 프로세스의 정보를 어딘가에 저장하고 있어야 다음에 이 프로세스를 수행할 때 이전에 수행한 그 다음부터 이어서 작업할 수 있다. 이러한 정보를 저장하는 곳이 PCB이다.</p>
 
@@ -1000,7 +1052,7 @@
 
 <p>프로세스의 생애 주기를 생각해보면, DISK, Memory, cpu등을 거치게 된다. 갈수록 좁아지는 공간과, 한정된 자원 때문에 <strong>병목현상</strong>이 발생할 수 밖에 없다. 그렇기 때문에 우리는 먼저 실행된 프로세스와 같은 <strong>규칙에 따라 이 프로세스들을 줄세워 관리</strong>해야 한다. 이러한 순서를 Queue로 관리한다.</p>
 
-<p><img width="1202" alt="image" src="https://user-images.githubusercontent.com/37871541/78097269-d4696180-7416-11ea-919b-b6fb06952fb3.png" class="center"></p>
+<p><img width="1202" alt="image" src="https://user-images.githubusercontent.com/37871541/78097269-d4696180-7416-11ea-919b-b6fb06952fb3.png" class="center" /></p>
 
 <ul>
   <li>Job Queue: 하드디스크에 있는 프로그램이 실행되기 위해 메인 메모리의 할당 순서를 기다리는 큐이다.</li>
@@ -1074,8 +1126,7 @@
       <li>실제 context switching이 발생하면 CPU의 내부 데이터를 새로 시작되는 데이터로 바꿔준다. 이 과정에서 현재 실행하고 있는 프로세스의 PCB에 현재까지 작업과정으로 갱신하고, 새로 시작되는 프로세스의 PCB 데이터를 CPU로 복원(Restore)하는 작업을 한다.</li>
     </ul>
   </li>
-  <li>
-<strong>Context switching overhead</strong>
+  <li><strong>Context switching overhead</strong>
     <ul>
       <li>Context switching이 발생할 때마다, dispatcher에서 수행하는 작업을 매번 수행해야하며 이 모든 것은 overhead(부담)이다. 그리고 문맥 전환은 매우 자주 발생하는 작업이므로 overhead를 줄이기 위해서는 dispatcher를 구현하는 코드에 대한 효율을 최대한 높여주어야한다.</li>
     </ul>
@@ -1084,10 +1135,10 @@
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
-<a href="https://velog.io/@pa324/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0-18k3jfidll">프로세스의 구조</a><br>
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://velog.io/@pa324/운영체제-프로세스-메모리-구조-18k3jfidll">프로세스의 구조</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1095,13 +1146,29 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#os"
+      >#OS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#process">#process</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#process"
+      >#process</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0">#메모리 구조</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0"
+      >#메모리 구조</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B5%AC%EC%A1%B0">#프로세스 구조</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EA%B5%AC%EC%A1%B0"
+      >#프로세스 구조</a
+    >
     
   </div>
 </footer>
@@ -1112,24 +1179,31 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                     
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html';">
+                                                                                                                                                                                                                         
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-04-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>04: 운영체제 서비스</p>
   </div>
                                                   
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-06-CPU-%EC%8A%A4%EC%BC%80%EC%A5%B4%EB%A7%81.html';"
+  >
     <p>NEXT SERIES</p>
     <p>06: CPU 스케쥴링</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1165,7 +1239,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

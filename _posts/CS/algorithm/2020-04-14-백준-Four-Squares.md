@@ -80,6 +80,48 @@ int main(){
 }
 
 ```
+```c++
+//
+//  main.cpp
+//  test
+//
+//  Created by 최완식 on 2021/03/15.
+//
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+const int INF = 1e9;
+
+int main(){
+    int n;
+    int dp[50001];
+    
+    cin >> n;
+    fill(dp, dp+n+1, INF);
+    
+    int i = 1;
+    while(true) {
+        if (i*i > 50000) {
+            break;
+        }
+        dp[i*i] = 1;
+        i++;
+    }
+    
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= int(sqrt(i)); j++) {
+            dp[i] = min(dp[i], dp[i-j*j] + dp[j*j]);
+        }
+    }
+    cout << dp[n] << endl;
+    
+    return 0;
+}
+
+```
 
 # Reference
 

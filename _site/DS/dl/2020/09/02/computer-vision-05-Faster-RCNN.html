@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [Computer Vision] 05: Faster R-CNN | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Faster R-CNN을 리뷰해본다.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Faster R-CNN을 리뷰해본다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Computer Vision] 05: Faster R-CNN | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Faster R-CNN을 리뷰해본다.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/42.jpg">
+  <meta
+    property="og:title"
+    content="[Computer Vision] 05: Faster R-CNN | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Faster R-CNN을 리뷰해본다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/42.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html">
+  <link
+    rel="canonical"
+    href="/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/42.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/42.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">05: Faster R-CNN</h1>
       
@@ -721,18 +771,18 @@
 <div class="series-nav">
   <p>
     이 포스팅은 <b><em>Computer Vision</em></b> 시리즈
-    <b><em>15</em></b> 편 중 <b><em>5</em></b> 번째 글 입니다.
+    <b><em>17</em></b> 편 중 <b><em>5</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
                                                                          
     <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html'">
       <span>Part 1 - 01: 컴퓨터 비전 용어 정리</span>
     </li>
-                       
+                         
     <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-02-RCNN.html'">
       <span>Part 2 - 02: R-CNN</span>
     </li>
-                                                               
+                                                                 
     <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html'">
       <span>Part 3 - 03: Spatial Pyramid Pooling Network</span>
     </li>
@@ -782,11 +832,23 @@
     </li>
                  
     <li onclick="location.href='/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html'">
-      <span>Part 15 - 15: Gram Matrix</span>
+      <span>Part 15 - 15: Gram Matrix </span>
     </li>
-                                                                                                                                                                                                                                                              
+                 
+    <li onclick="location.href='/ds/dl/2021/03/14/computer-vision-16-Single-Shot-Multibox-Detector.html'">
+      <span>Part 16 - 16: Single Shot Multibox Detector</span>
+    </li>
+           
+    <li onclick="location.href='/ds/dl/2021/03/14/computer-vision-17-DeepSort.html'">
+      <span>Part 17 - 17: Deep Sort</span>
+    </li>
+                                                                                                                                                                                                                                                    
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -798,10 +860,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#%ED%95%B5%EC%8B%AC-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4" class="toc-anchor">핵심 아이디어</a></li>
+  <li class="toc-item"><a href="#핵심-아이디어" class="toc-anchor">핵심 아이디어</a></li>
   <li class="toc-item"><a href="#training-method" class="toc-anchor">Training Method</a></li>
-  <li class="toc-item"><a href="#%EC%9D%98%EC%9D%98" class="toc-anchor">의의</a></li>
-  <li class="toc-item"><a href="#%ED%95%9C%EA%B3%84" class="toc-anchor">한계</a></li>
+  <li class="toc-item"><a href="#의의" class="toc-anchor">의의</a></li>
+  <li class="toc-item"><a href="#한계" class="toc-anchor">한계</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -817,17 +879,17 @@
 
 <p>Faster R-CNN의 핵심 아이디어는 Resion Proposal Network(이하 RPN)이다. 기존 Fast R-CNN구조를 계승하면서 <code class="language-plaintext highlighter-rouge">selective search</code>를 제거하고 RPN을 통해서 <code class="language-plaintext highlighter-rouge">Roi</code>를 계산한다. 이를 통해서 GPU를 통해 <code class="language-plaintext highlighter-rouge">Roi</code>를 계산할 수 있게 되었고, 이 <code class="language-plaintext highlighter-rouge">RoI</code>를 추출하는 것 역시 학습시켜 정확도를 높일 수 있다. 결과적으로 <code class="language-plaintext highlighter-rouge">selective search</code>가 2000개 <code class="language-plaintext highlighter-rouge">RoI</code>를 계산하는데 반해, 800개 정도로 더 높은 정확도를 가진다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbUjRYz%2FbtqAWb0p8cv%2Fdx8Ky33sdZtb2RKQ8sQxZK%2Fimg.png" alt="" class="center" width="60%"><em>Faster R-CNN structure</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbUjRYz%2FbtqAWb0p8cv%2Fdx8Ky33sdZtb2RKQ8sQxZK%2Fimg.png" alt="" class="center" width="60%" /><em>Faster R-CNN structure</em></p>
 
 <p>그림을 보면 알겠지만, <code class="language-plaintext highlighter-rouge">feature map</code>으로 부터 <code class="language-plaintext highlighter-rouge">selective search</code>를 거치치 않고 이를 RPN에 전달하여 계산을 진행한다. 여기서 얻은 <code class="language-plaintext highlighter-rouge">RoI</code>로 <code class="language-plaintext highlighter-rouge">RoI Pooling</code>을 진행한 다음 object detection을 진행한다.</p>
 
 <h1 id="region-proposal-network">Region Proposal Network</h1>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo7PTm%2FbtqAXir1rPy%2FVbzsfY9JMY9N3ixCe3zxb0%2Fimg.png" alt="" class="center" width="60%"><em>Region Proposal Network structure</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fo7PTm%2FbtqAXir1rPy%2FVbzsfY9JMY9N3ixCe3zxb0%2Fimg.png" alt="" class="center" width="60%" /><em>Region Proposal Network structure</em></p>
 
 <p>이 그림보다는 순차적으로 된 그림으로 이해하는 것이 쉽다.</p>
 
-<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7xNNb%2FbtqAYHyrFDU%2FJDkko5dBYTMzZV96AcpakK%2Fimg.png" alt="" class="center" width="100%"><em>Region Proposal Network structure</em></p>
+<p><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7xNNb%2FbtqAYHyrFDU%2FJDkko5dBYTMzZV96AcpakK%2Fimg.png" alt="" class="center" width="100%" /><em>Region Proposal Network structure</em></p>
 
 <p>CNN을 통해 뽑아낸 <code class="language-plaintext highlighter-rouge">feature map</code>을 입력으로 받는다. 어떤 pretrained model을 사용할 지 모르므로 이를 <code class="language-plaintext highlighter-rouge">HxWxC</code>로 둔다.</p>
 
@@ -835,7 +897,7 @@
 
 <p>전 과정에서 나온 <code class="language-plaintext highlighter-rouge">feature map</code>을 가지고 <code class="language-plaintext highlighter-rouge">classification</code>을 위한 확률값과, <code class="language-plaintext highlighter-rouge">bounding box regression</code> 값을 뽑아낸다. 이 과정에서 너무 많은 연산을 진행하게 되면 모델이 지나치게 무거워 진다. 저자들은 <code class="language-plaintext highlighter-rouge">1 x 1 conv</code>만을 수행하여 예측값을 뽑아내고자 하였다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/92203883-385bee80-eebd-11ea-9782-e8e3c0e5c95d.png" alt="image" class="center" width="60%"><em>Anchor</em></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/92203883-385bee80-eebd-11ea-9782-e8e3c0e5c95d.png" alt="image" class="center" width="60%" /><em>Anchor</em></p>
 
 <p>먼저 <code class="language-plaintext highlighter-rouge">Classification</code>의 경우, 더욱 가볍게 진행하기 위해 물체인지 아닌지를 구분하는 binary <code class="language-plaintext highlighter-rouge">classification</code>을 진행하고자 하였다. 하지만 이 문제는 bounding box와 엮어서 이를 생각해야 하는데, 저자들은 이 단계에서 <code class="language-plaintext highlighter-rouge">Anchor</code>라는 개념을 도입하여 이를 진행하였다. <code class="language-plaintext highlighter-rouge">Anchor</code>는 간단하게 사전에 정의해 둔 Box들이다. 총 9개를 사용하였다.</p>
 
@@ -864,8 +926,7 @@
 <p>하지만 전체 모델을 한번에 학습시키기란 매우 어려운 작업이다. RPN이 제대로 RoI를 계산해내지 못하는데 뒷 단의 Classification 레이어가 학습될 리가 없다. 여기서 저자들은 4단계에 걸쳐서 모델을 번갈아서 학습시키는 Alternating Training 기법을 취한다. 말이 어렵지 그냥 따로 하고 지지고 볶으면서 학습시킨거다.</p>
 
 <ol>
-  <li>
-<code class="language-plaintext highlighter-rouge">ImageNet pretrained</code> 모델을 불러온 다음, <code class="language-plaintext highlighter-rouge">RPN</code>을 학습시킨다.</li>
+  <li><code class="language-plaintext highlighter-rouge">ImageNet pretrained</code> 모델을 불러온 다음, <code class="language-plaintext highlighter-rouge">RPN</code>을 학습시킨다.</li>
   <li>1 단계에서 학습시킨 <code class="language-plaintext highlighter-rouge">RPN</code>에서 기본 CNN을 제외한 <code class="language-plaintext highlighter-rouge">Region Proposal 레이어</code>만 가져온다. 이를 활용하여 Fast RCNN을 학습시킨다. 이 때 , 처음 피쳐맵을 추출하는 CNN까지 <code class="language-plaintext highlighter-rouge">fine tune</code> 시킨다.</li>
   <li>앞서 학습시킨 <code class="language-plaintext highlighter-rouge">Fast RCNN</code>과 <code class="language-plaintext highlighter-rouge">RPN</code>을 불러온 다음, 다른 웨이트들은 고정하고 <code class="language-plaintext highlighter-rouge">RPN</code>에 해당하는 레이어들만 <code class="language-plaintext highlighter-rouge">fine tune</code> 시킨다. 여기서부터 <code class="language-plaintext highlighter-rouge">RPN</code>과 <code class="language-plaintext highlighter-rouge">Fast RCNN</code>이 컨볼루션 웨이트를 공유하게 된다.</li>
   <li>마지막으로 공유하는 CNN과 <code class="language-plaintext highlighter-rouge">RPN</code>은 고정시킨 채, <code class="language-plaintext highlighter-rouge">Fast R-CNN</code>에 해당하는 레이어만 <code class="language-plaintext highlighter-rouge">fine tune</code> 시킨다.</li>
@@ -874,8 +935,7 @@
 <h2 id="의의">의의</h2>
 
 <ol>
-  <li>
-<code class="language-plaintext highlighter-rouge">region proposal</code>을 한번에 수행</li>
+  <li><code class="language-plaintext highlighter-rouge">region proposal</code>을 한번에 수행</li>
 </ol>
 
 <h2 id="한계">한계</h2>
@@ -894,15 +954,35 @@
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#datascience">#DataScience</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#datascience"
+      >#DataScience</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#deeplearning">#DeepLearning</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#deeplearning"
+      >#DeepLearning</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#computer-vision">#Computer-Vision</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#computer-vision"
+      >#Computer-Vision</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#paper-review">#Paper-Review</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#paper-review"
+      >#Paper-Review</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#object-detection">#Object-Detection</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#object-detection"
+      >#Object-Detection</a
+    >
     
   </div>
 </footer>
@@ -913,24 +993,31 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                           
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html';">
+                                                                                                                                                                                               
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>04: Fast R-CNN</p>
   </div>
                                                                                   
-  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html';"
+  >
     <p>NEXT SERIES</p>
     <p>06: Fully Convolutional Networks</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -966,7 +1053,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

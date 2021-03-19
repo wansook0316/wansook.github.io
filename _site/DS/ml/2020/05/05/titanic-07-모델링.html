@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [Kaggle::Titanic] 07: 모델링 | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Kaggle::Titanic] 07: 모델링 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/36.jpg">
+  <meta
+    property="og:title"
+    content="[Kaggle::Titanic] 07: 모델링 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/36.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html">
+  <link
+    rel="canonical"
+    href="/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/36.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/36.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">07: 모델링</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98.html'">
       <span>Part 1 - 01: 문제 정의</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91.html'">
       <span>Part 2 - 02: 데이터 수집</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-03-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%A1%9C%EB%93%9C.html'">
       <span>Part 3 - 03: 라이브러리 로드</span>
     </li>
@@ -764,9 +814,13 @@
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-10-Ensemble.html'">
       <span>Part 10 - 10: Ensemble</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                    
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -778,11 +832,10 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#modeling" class="toc-anchor">Modeling</a>
+  <li class="toc-item"><a href="#modeling" class="toc-anchor">Modeling</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#%EA%B8%B0%EA%B3%84%ED%95%99%EC%8A%B5-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%EC%9D%84-%EA%B3%A0%EB%A5%B4%EB%8A%94-%EB%B0%A9%EB%B2%95" class="toc-anchor">기계학습 알고리즘을 고르는 방법</a></li>
-      <li class="toc-item"><a href="#%EB%A8%B8%EC%8B%A0-%EB%9F%AC%EB%8B%9D-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%84%A0%ED%83%9D-%EB%B0%8F-%EC%B4%88%EA%B8%B0%ED%99%94" class="toc-anchor">머신 러닝 알고리즘 선택 및 초기화</a></li>
+      <li class="toc-item"><a href="#기계학습-알고리즘을-고르는-방법" class="toc-anchor">기계학습 알고리즘을 고르는 방법</a></li>
+      <li class="toc-item"><a href="#머신-러닝-알고리즘-선택-및-초기화" class="toc-anchor">머신 러닝 알고리즘 선택 및 초기화</a></li>
     </ul>
   </li>
 </ul>
@@ -804,22 +857,22 @@
 
 <p>타이타닉 문제는 연속적인 값을 예측하는 것이 아닌, 이진 분류 문제이다. 따라서 지금부터 sklearn 라이브러리의 분류 알고리즘을 사용하여 분석을 시작한다.</p>
 
-<p><img src="https://scikit-learn.org/stable/_static/ml_map.png" alt="sklearn Mindmap" class="center"></p>
+<p><img src="https://scikit-learn.org/stable/_static/ml_map.png" alt="sklearn Mindmap" class="center" /></p>
 
-<p><a href="http://scikit-learn.org/stable/user_guide.html">Sklearn Estimator Overview</a><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html">Sklearn Estimator Detail</a><br>
-<a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">Choosing Estimator Mind Map</a><br>
+<p><a href="http://scikit-learn.org/stable/user_guide.html">Sklearn Estimator Overview</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html">Sklearn Estimator Detail</a><br />
+<a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">Choosing Estimator Mind Map</a><br />
 <a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf">Choosing Estimator Cheat Sheet</a></p>
 
 <p>지도 학습 중, 분류 문제에 대한 알고리즘에 대해 알아보자.</p>
 
-<p><strong>Machine Learning Classification Algorithms:</strong><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.ensemble">Ensemble Methods</a><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.linear_model">Generalized Linear Models (GLM)</a><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.naive_bayes">Naive Bayes</a><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.neighbors">Nearest Neighbors</a><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.svm">Support Vector Machines (SVM)</a><br>
-<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.tree">Decision Trees</a><br>
+<p><strong>Machine Learning Classification Algorithms:</strong><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.ensemble">Ensemble Methods</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.linear_model">Generalized Linear Models (GLM)</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.naive_bayes">Naive Bayes</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.neighbors">Nearest Neighbors</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.svm">Support Vector Machines (SVM)</a><br />
+<a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.tree">Decision Trees</a><br />
 <a href="http://scikit-learn.org/stable/modules/classes.html#module-sklearn.discriminant_analysis">Discriminant Analysis</a></p>
 
 <h2 id="기계학습-알고리즘을-고르는-방법">기계학습 알고리즘을 고르는 방법</h2>
@@ -924,12 +977,12 @@
 <span class="n">MLA_compare</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81290326-d6bc7c80-90a2-11ea-9e43-7e898b23d80c.png" alt="image" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81290326-d6bc7c80-90a2-11ea-9e43-7e898b23d80c.png" alt="image" class="center" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MLA_predict</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81290468-171bfa80-90a3-11ea-9eee-35456da7b01c.png" alt="image" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81290468-171bfa80-90a3-11ea-9eee-35456da7b01c.png" alt="image" class="center" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html
 </span><span class="n">sns</span><span class="p">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'MLA Test Accuracy Mean'</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">'MLA Name'</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">MLA_compare</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">'m'</span><span class="p">)</span>
@@ -940,7 +993,7 @@
 <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Algorithm'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81290877-c22cb400-90a3-11ea-92e6-01e0ada98c7c.png" alt="Unknown-12" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81290877-c22cb400-90a3-11ea-92e6-01e0ada98c7c.png" alt="Unknown-12" class="center" /></p>
 
 <h3 id="reference">Reference</h3>
 
@@ -951,11 +1004,23 @@
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#data-science">#Data Science</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#data-science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#machine-learning">#Machine Learning</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#machine-learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#kaggle">#kaggle</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>
@@ -966,24 +1031,31 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                         
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html';">
+                                                                                                                                                                                                                                                                             
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/ml/2020/05/05/titanic-06-EDA.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>06: EDA (Exploratory Data Analysis)</p>
   </div>
                                                                                       
-  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-08-%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%ED%95%98%EA%B8%B0.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/ml/2020/05/05/titanic-08-%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%ED%95%98%EA%B8%B0.html';"
+  >
     <p>NEXT SERIES</p>
     <p>08: 모델링 평가하기</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                                                                                             
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1019,7 +1091,7 @@
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

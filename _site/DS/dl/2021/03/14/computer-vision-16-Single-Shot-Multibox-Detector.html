@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,50 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
- 
-<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
 </head>
-
+ 
+</head>
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
-    [Google Analytics] 01: 구글 애널리틱스 시험(GAIQ) 개요 | 완숙의 에그머니🍳
+    [Computer Vision] 16: Single Shot Multibox Detector | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="구글의 데이터 분석 도구에 대해 알아본다.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Faster RCNN 이후 1 stage model을 구현한 SDD에 대해 리뷰해본다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Google Analytics] 01: 구글 애널리틱스 시험(GAIQ) 개요 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="구글의 데이터 분석 도구에 대해 알아본다.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/dv/tips/2021/02/15/GA.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/70.jpg">
+  <meta
+    property="og:title"
+    content="[Computer Vision] 16: Single Shot Multibox Detector | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Faster RCNN 이후 1 stage model을 구현한 SDD에 대해 리뷰해본다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/dl/2021/03/14/computer-vision-16-Single-Shot-Multibox-Detector.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/70.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/dv/tips/2021/02/15/GA.html">
+  <link
+    rel="canonical"
+    href="/ds/dl/2021/03/14/computer-vision-16-Single-Shot-Multibox-Detector.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -157,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -169,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -263,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -535,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -594,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -700,17 +745,21 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/70.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/70.jpg')"
+  >
     <ul class="category-title">
-      <h1 class="title">01: 구글 애널리틱스 시험(GAIQ) 개요</h1>
+      <h1 class="title">16: Single Shot Multibox Detector</h1>
       
       <p class="meta">
-        DV/Tips  : Google Analytics 
+        DS/DL  : Computer Vision 
       </p>
       <p class="meta">
-        February 15, 2021 
+        March 14, 2021 
       </p>
     </ul>
   </header>
@@ -718,14 +767,110 @@
   
 
   <section class="post-content">
-          
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Computer Vision</em></b> 시리즈
+    <b><em>17</em></b> 편 중 <b><em>16</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                                                         
+    <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-01-%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC.html'">
+      <span>Part 1 - 01: 컴퓨터 비전 용어 정리</span>
+    </li>
+                         
+    <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-02-RCNN.html'">
+      <span>Part 2 - 02: R-CNN</span>
+    </li>
+                                                                 
+    <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-03-Spatial-Pyramid-Pooling-Network.html'">
+      <span>Part 3 - 03: Spatial Pyramid Pooling Network</span>
+    </li>
+                                           
+    <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-04-Fast-RCNN.html'">
+      <span>Part 4 - 04: Fast R-CNN</span>
+    </li>
+                                               
+    <li onclick="location.href='/ds/dl/2020/09/02/computer-vision-05-Faster-RCNN.html'">
+      <span>Part 5 - 05: Faster R-CNN</span>
+    </li>
+                                         
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-06-Fully-Convolutional-Networks.html'">
+      <span>Part 6 - 06: Fully Convolutional Networks</span>
+    </li>
+                                           
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-07-Learning-Deconvolutional-Network-for-Semantic-Segmentation.html'">
+      <span>Part 7 - 07: Learning Deconvolution Network for Semantic Segmentation</span>
+    </li>
+                               
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-08-Dilated-Convolution.html'">
+      <span>Part 8 - 08: Dilated Convolution</span>
+    </li>
+                                 
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-09-conditional-random-field.html'">
+      <span>Part 9 - 09: Conditional Random Field(CRF)</span>
+    </li>
+                                         
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-10-U-Net.html'">
+      <span>Part 10 - 10: U-Net</span>
+    </li>
+                         
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-11-Inception.html'">
+      <span>Part 11 - 11: Inception</span>
+    </li>
+                           
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-12-Xception.html'">
+      <span>Part 12 - 12: Xception</span>
+    </li>
+                   
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-13-deep-lab.html'">
+      <span>Part 13 - 13: Deep Lab</span>
+    </li>
+                     
+    <li onclick="location.href='/ds/dl/2020/09/07/computer-vision-14-Mask-RCNN.html'">
+      <span>Part 14 - 14: Mask R-CNN</span>
+    </li>
+                 
+    <li onclick="location.href='/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html'">
+      <span>Part 15 - 15: Gram Matrix </span>
+    </li>
+                 
+    <li class="current">
+      <span>Part 16 - This Post</span>
+    </li>
+           
+    <li onclick="location.href='/ds/dl/2021/03/14/computer-vision-17-DeepSort.html'">
+      <span>Part 17 - 17: Deep Sort</span>
+    </li>
+                                                                                                                                                                                                                                                    
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
    
 <div class="toc-whole-nav">
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#%EC%8B%9C%ED%97%98-%EC%A0%95%EB%B3%B4" class="toc-anchor">시험 정보</a></li>
-  <li class="toc-item"><a href="#%EC%9E%A5%EC%A0%90" class="toc-anchor">장점</a></li>
+  <li class="toc-item"><a href="#개요" class="toc-anchor">개요</a></li>
+  <li class="toc-item"><a href="#model" class="toc-anchor">Model</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#convolution-predictors" class="toc-anchor">Convolution Predictors</a></li>
+      <li class="toc-item"><a href="#multi-scale-feature-maps" class="toc-anchor">Multi-scale Feature Maps</a></li>
+      <li class="toc-item"><a href="#default-boxes-and-aspect-ratios" class="toc-anchor">Default Boxes and Aspect Ratios</a></li>
+      <li class="toc-item"><a href="#process" class="toc-anchor">Process</a></li>
+    </ul>
+  </li>
+  <li class="toc-item"><a href="#training" class="toc-anchor">Training</a></li>
+  <li class="toc-item"><a href="#reference" class="toc-anchor">Reference</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -733,167 +878,94 @@
   </div>
 </div>
 
- <h1 id="시험-정보">시험 정보</h1>
+ <h1 id="개요">개요</h1>
+<p><img src="https://user-images.githubusercontent.com/37871541/111717614-bd2bba00-889b-11eb-987b-74c4afca8eda.png" alt="image" /></p>
 
-<p>이름 : GAIQ
-100점 만점
-자격증은 다운로드 하는 거임
-이력서에 추가하면 댐</p>
+<p>이제는 오랜 시간이 지난 논문인 SSD를 <strong>간단하게</strong> 리뷰 해보려 한다. 매우 직관적인 구조를 가지고 있어 많은 구조가 이 SSD를 기반으로 만들어지고 있다. YOLO v1 이후에 나온 논문으로 1 stage detector의 성격을 가지나 아키텍쳐는 전혀 다른, 오히려 RCNN 계열과 비슷한 특징을 가진다. SSD 알고리즘을 한 문장으로 정리하면, feature map을 만드는 공간을 나누어 진행한다. 그리고 각 feature map에서 다른 비율과 스케일로 default box를 생성하고, 이 box를 기반으로 모델을 통과 시켜 좌표와 클래스를 계산한다. 마지막으로 이 값을 기반으로 최종 bounding box를 생성한다.</p>
 
-<p>100점 만점 80점 이상 받으면 합격
-70문제
-시간 90분
-전부 이론 문제
-객관식
-오픈북
-시험비 무료
-순서대로 문제를 풀어야 함
-<strong>70문제 모두 풀고 제출해야 함</strong></p>
+<h1 id="model">Model</h1>
+<p>Image Detection은 이미지가 있을 때, 이미지 안에 들어있는 사물을 찾는 문제이다. 여기서 찾는다는 것은 사물들의 위치와 크기를 알아내고, 물체를 검출하는 것이다. 즉, image pixel이 들어갔을 때, 사물이 어떤 class인지 나타내는 class 점수와, 사물의 offset(x, y, w, h)를 output으로 뱉는 함수를 만들면 된다.</p>
 
-<h1 id="장점">장점</h1>
-<p>분석 가능
-인공지능 도움 받을 수 있음</p>
+<p><img src="https://user-images.githubusercontent.com/37871541/111717964-7b4f4380-889c-11eb-980d-02b4ef1fb041.png" alt="image" /></p>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center" colspan="3">Fruits || Food</th>
-      
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">Apple
-<br>
-Banana
-<br>
-Orange</td>
-      <td style="text-align: center">Apple
-<br>
-Banana
-<br>
-Orange</td>
-      <td style="text-align: left">Apple
-<br>
-Banana
-<br>
-Orange</td>
-    </tr>
-    
-    
-    <tr>
-      <td style="text-align: center" colspan="2" rowspan="4">Rowspan is 4
-<br>
-A. Peach
-<br>
-B. Orange
-<br>
-C. Banana</td>
-      <td style="text-align: left">How’s it?</td>
-      
-    </tr>
-    <tr>
-      
-      <td style="text-align: right" rowspan="2">
+<p>SSD의 아키텍쳐는 위와 같다. 직관적으로 이해가 될 만큼 간단한 구조이다. 먼저 SSD는 Transfer learning을 위해 FC layer를 제외한 VGG-16아키텍쳐를 사용했다. 그 뒤의 추가적인 네트워크로는 <strong>CONV</strong>를 사용하여 <strong>다양한 크기</strong>로 feature를 추출하고 이 feature에서 각각 detection을 수행한다.</p>
+
+<h2 id="convolution-predictors">Convolution Predictors</h2>
+
+<p>마지막 예측 단계에서 과감하게 FC later를 삭제하고 CONV만을 이용하여 예측을 진행한다.  그렇기 때문에 굉장히 빠른 속도를 보여준다.</p>
+
+<h2 id="multi-scale-feature-maps">Multi-scale Feature Maps</h2>
+<p>다양한 크기의 물체에 대해 정답을 맞출 수 있다. feature map은 깊어질 수록 보다 추상적인 정보를 담는다. 다양한 feature에서 scale에 덜 민감하도록 예측하는 방식은 크기에 상관없이 물체의 특징을 잡아낼 수 있는 방법이다.</p>
+
+<h2 id="default-boxes-and-aspect-ratios">Default Boxes and Aspect Ratios</h2>
+<p><img src="https://user-images.githubusercontent.com/37871541/111719434-34af1880-889f-11eb-8a1c-98e14bc19303.png" alt="image" /></p>
+
+<p>위의 아키텍쳐를 보게되면 각각의 feature map에서 추출하는 class의 개수가 표현되어 있다. 어떤 의미인지 알아보자.</p>
+
+<blockquote>
+  <p>classifier : CONV: 3x3(6x(classes+4))</p>
+</blockquote>
+
+<p>분류기로 CONV를 사용하고, 3x3의 필터를 사용할 것이고 (channel은 어차피 이전 네트워크의 channel과 같아야 하니 표현하지 않은 듯) default box를 기준으로(사전에 정의해둔 box들) 6개의 box를 뽑을 것이며, 그리고 class의 개수 만큼 예측하고, 각각의 bounding box의 예측값(x, y, w, h)를 포함한 개수만큼을 뽑을 거야. 라는 이야기다.</p>
+
+<p>예를 들어 설명해보자. 만약 내가 사전에 모양을 잡아둔 default box가 6개라고 해보자. 그리고 물체의 class 종류는 21개이다. 그렇다면 convolution 필터의 개수는 6개의 box에 대해서 각각 21+4개의 값을 예측해야 하므로 150 x (21+4) = 150 개의 채널이 필요하다.</p>
+
+<h2 id="process">Process</h2>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/111718760-dfbed280-889d-11eb-8415-c50bbc7b3395.png" alt="image" /></p>
+
 <ol>
-  <li>Fine
-<br>
-</li>
-  <li>Bad</li>
+  <li>300x300x3짜리 이미지를 VGG-16를 통과시켜 38x38x512의 feature map을 생성한다.</li>
+  <li>다양한 크기의 feature map을 크기를 줄여가면서 생성한다.</li>
+  <li>각각의 feature map에서 사전에 정의된 default box를 적용하여 y값을 예측한다.
+    <ul>
+      <li>이 때, 각각의 default box와 gt box와의 최적 매칭을 진행하기 위한 metric으로 IoU(Jaccard overlap)을 사용한다.</li>
+      <li>threshold를 도입하여 일정 이하의 매칭은 제거한다.</li>
+    </ul>
+  </li>
+  <li>threshold를 통과한 모든 아웃풋을 한데 묶어 NMS을 진행하고 결과를 생성한다.</li>
 </ol>
-</td>
-      
-    </tr>
-    <tr>
-      
-      
-      
-    </tr>
-    <tr>
-      
-      <td style="text-align: left">It’s OK!</td>
-      
-    </tr>
-  </tbody>
-</table>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center" colspan="3">MathJax || Image</th>
-      
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">Apple
-<br>
-Banana
-<br>
-Orange</td>
-      <td style="text-align: center">Apple
-<br>
-Banana
-<br>
-Orange</td>
-      <td style="text-align: left">Apple
-<br>
-Banana
-<br>
-Orange</td>
-    </tr>
-    
-    
-    <tr>
-      <td style="text-align: center" colspan="2" rowspan="4">Rowspan is 4
-<br>
-A. Peach
-<br>
-B. Orange
-<br>
-C. Banana</td>
-      <td style="text-align: center">How’s it?</td>
-      
-    </tr>
-    <tr>
-      
-      <td style="text-align: left" rowspan="2">
-<ol>
-  <li>![example][cell-image]
-<br>
-</li>
-  <li>$I = \int \rho R^{2} dV$</li>
-</ol>
-</td>
-      
-    </tr>
-    <tr>
-      
-      
-      
-    </tr>
-    <tr>
-      
-      <td style="text-align: left"><strong>It’s OK!</strong></td>
-      
-    </tr>
-  </tbody>
-</table>
+<h1 id="training">Training</h1>
+<p>찬찬히 알아보자…</p>
 
-<p><img class="plantuml" src="http://www.plantuml.com/plantuml/svg/~h407374617274756d6c0a426f62202d3e20416c696365203a2068656c6c6f0a40656e64756d6c"></p>
+<h1 id="reference">Reference</h1>
 
-<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoicGllIHRpdGxlIFBldHMgYWRvcHRlZCBieSB2b2x1bnRlZXJzXG5cIkRvZ3NcIiA6IDM4NlxuXCJDYXRzXCIgOiA4NVxuXCJSYXRzXCIgOiAzNSIsIm1lcm1haWQiOm51bGx9"></p>
 
   </section>
   
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#ga">#GA</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#datascience"
+      >#DataScience</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#google-analytics">#Google Analytics</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#deeplearning"
+      >#DeepLearning</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#computer-vision"
+      >#Computer-Vision</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#paper-review"
+      >#Paper-Review</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#detection"
+      >#Detection</a
+    >
     
   </div>
 </footer>
@@ -904,14 +976,31 @@ C. Banana</td>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/dl/2020/09/18/computer-vision-15-Gram-Matrix.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>15: Gram Matrix </p>
+  </div>
+                      
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/dl/2021/03/14/computer-vision-17-DeepSort.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>17: Deep Sort</p>
+  </div>
+                                                                                                                                                                                                                                                   
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -947,7 +1036,7 @@ C. Banana</td>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

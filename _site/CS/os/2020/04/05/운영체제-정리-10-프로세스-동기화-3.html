@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [운영체제 정리] 10: 프로세스 동기화 Part 3 | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[운영체제 정리] 10: 프로세스 동기화 Part 3 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
+  <meta
+    property="og:title"
+    content="[운영체제 정리] 10: 프로세스 동기화 Part 3 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/11.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html">
+  <link
+    rel="canonical"
+    href="/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/11.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/11.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">10: 전통적인 동기화 문제들</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
       <span>Part 1 - 01: 운영체제란 무엇인가?</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
       <span>Part 2 - 02: 운영체제의 역사</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
       <span>Part 3 - 03: 이중모드와 보호</span>
     </li>
@@ -784,11 +834,11 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
       <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
       <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 17 - 17: 페이지 교체 알고리즘</span>
     </li>
@@ -806,7 +856,11 @@
     </li>
                                                                                                                                                                                                                                     
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -818,22 +872,19 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#1-producer-consumer-problem" class="toc-anchor">1. Producer-Consumer Problem</a>
+  <li class="toc-item"><a href="#1-producer-consumer-problem" class="toc-anchor">1. Producer-Consumer Problem</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#11-code" class="toc-anchor">1.1 Code</a></li>
-      <li class="toc-item"><a href="#12-%EB%8F%99%EA%B8%B0%ED%99%94-%ED%95%B4%EA%B2%B0" class="toc-anchor">1.2 동기화 해결</a></li>
+      <li class="toc-item"><a href="#12-동기화-해결" class="toc-anchor">1.2 동기화 해결</a></li>
       <li class="toc-item"><a href="#13-busy-waiting" class="toc-anchor">1.3 Busy waiting</a></li>
     </ul>
   </li>
-  <li class="toc-item">
-<a href="#2-readers-writers-problem" class="toc-anchor">2. Readers-Writers Problem</a>
+  <li class="toc-item"><a href="#2-readers-writers-problem" class="toc-anchor">2. Readers-Writers Problem</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#21-%EB%B6%84%EB%A5%98" class="toc-anchor">2.1 분류</a></li>
+      <li class="toc-item"><a href="#21-분류" class="toc-anchor">2.1 분류</a></li>
     </ul>
   </li>
-  <li class="toc-item">
-<a href="#3-dining-philosopher-problem" class="toc-anchor">3. Dining Philosopher Problem</a>
+  <li class="toc-item"><a href="#3-dining-philosopher-problem" class="toc-anchor">3. Dining Philosopher Problem</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#31-code" class="toc-anchor">3.1 Code</a></li>
     </ul>
@@ -853,7 +904,7 @@
 
 <p>생산자-소비자 문제는 생산자가 데이터를 생산하면 소비자는 그 데이터를 소비하는 형태의 문제이다. 컴퓨터 환경에서 예를 보면, 컴파일러 -&gt; 어셈블러, 웹 서버 -&gt; 웹 클라이언트 등이 있다. 컴파일러에서 생성한 어셈블리어는 어셈블러에서 이를 소비하여 기계어를 만든다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78469893-1fa9aa00-7760-11ea-8374-a2ab5727ffd9.png" class="center"></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78469893-1fa9aa00-7760-11ea-8374-a2ab5727ffd9.png" class="center" /></p>
 
 <p>생산자-소비자 관계를 간단히 그림으로 나타내면 위와 같다. 이 관계의 대부분은 생산자에서 생산한 데이터 양을 소비자가 한 번에 소비하는 경우는 드물다. 생산한 데이터는 중간의 <strong>buffer</strong> 라는 저장 공간(메모리 공간)에 저장해두고 소비자는 여기서 필요한 만큼 가져간다. 창고와 같다.</p>
 
@@ -1126,7 +1177,7 @@
 
 <p>식사하는 철학자 문제는 원형 테이블에 5명의 철학자와 5개의 젓가락이 있는 상황이 있다고 하자. 각 철학자는 생각하고 식사하고 생각하고 식사하고를 반복한다. 단, 식사를 하기 위해서는 2개의 젓가락이 필요하다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78470305-5b923e80-7763-11ea-9e84-3da8a934774c.png" class="center"></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78470305-5b923e80-7763-11ea-9e84-3da8a934774c.png" class="center" /></p>
 
 <p>이 상황을 프로그래밍을 해보자. 젓가락은 한 철학자가 가져가면 다른 철학자는 이 젓가락을 사용할 수 없다. 즉, 한 젓가락에 동시에 접근할 수 있는 철학자는 <strong>한 명</strong>뿐이므로 젓가락은 세마포로 만들 수 있다.<strong>(number of permit = 1)</strong> 한 철학자가 식사를 하려고 하면, <strong>왼쪽 젓가락과 오른쪽 젓가락 순서</strong>로 가져가고, 식사가 끝나면 동일하게 <strong>왼쪽 젓가락, 오른쪽 젓가락 순서</strong>로 내려놓는다.</p>
 
@@ -1195,10 +1246,10 @@
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1206,11 +1257,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#os"
+      >#OS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#synchronization">#Synchronization</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#synchronization"
+      >#Synchronization</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#deadlock">#Deadlock</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#deadlock"
+      >#Deadlock</a
+    >
     
   </div>
 </footer>
@@ -1221,24 +1284,31 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                                                  
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html';">
+                                                                                                                                                                                                                                                                                                                                                                                                      
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>09: 프로세스 동기화 Part 2</p>
   </div>
                                                 
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-11-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-4.html';"
+  >
     <p>NEXT SERIES</p>
     <p>11: 프로세스 동기화 Part 4</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1274,7 +1344,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

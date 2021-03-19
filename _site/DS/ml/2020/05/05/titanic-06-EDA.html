@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [Kaggle::Titanic] 06: EDA (Exploratory Data Analysis) | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Kaggle::Titanic] 06: EDA (Exploratory Data Analysis) | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/ml/2020/05/05/titanic-06-EDA.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/36.jpg">
+  <meta
+    property="og:title"
+    content="[Kaggle::Titanic] 06: EDA (Exploratory Data Analysis) | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/ml/2020/05/05/titanic-06-EDA.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/36.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/ml/2020/05/05/titanic-06-EDA.html">
+  <link
+    rel="canonical"
+    href="/ds/ml/2020/05/05/titanic-06-EDA.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/36.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/36.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">06: EDA (Exploratory Data Analysis)</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-01-%EB%AC%B8%EC%A0%9C%EC%A0%95%EC%9D%98.html'">
       <span>Part 1 - 01: 문제 정의</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91.html'">
       <span>Part 2 - 02: 데이터 수집</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-03-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%A1%9C%EB%93%9C.html'">
       <span>Part 3 - 03: 라이브러리 로드</span>
     </li>
@@ -764,9 +814,13 @@
     <li onclick="location.href='/ds/ml/2020/05/05/titanic-10-Ensemble.html'">
       <span>Part 10 - 10: Ensemble</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                    
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -778,20 +832,19 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#eda" class="toc-anchor">EDA</a>
+  <li class="toc-item"><a href="#eda" class="toc-anchor">EDA</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#%EC%9D%B4%EC%82%B0%EC%A0%81-%EB%B3%80%EC%88%98%EC%99%80-y%EC%99%80%EC%9D%98-%EA%B4%80%EA%B3%84" class="toc-anchor">이산적 변수와 y와의 관계</a></li>
-      <li class="toc-item"><a href="#%EC%9D%B4%EC%82%B0-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%97%90-%EB%8C%80%ED%95%9C-plot" class="toc-anchor">이산 데이터에 대한 plot</a></li>
-      <li class="toc-item"><a href="#%EB%B2%94%EC%A3%BC%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%97%90-%EB%8C%80%ED%95%9C-plot" class="toc-anchor">범주형 데이터에 대한 plot</a></li>
-      <li class="toc-item"><a href="#%EC%83%9D%EC%A1%B4-%EC%97%AC%EB%B6%80-%ED%81%B4%EB%9E%98%EC%8A%A4%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%B6%94%EA%B0%80-%EB%B3%80%EC%88%98%EC%9D%98-%EB%B6%84%ED%8F%AC" class="toc-anchor">생존 여부, 클래스에 따른 추가 변수의 분포</a></li>
-      <li class="toc-item"><a href="#%EC%84%B1%EB%B3%84%EA%B3%BC-2nd-feature%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%83%9D%EC%A1%B4%EB%A5%A0" class="toc-anchor">성별과 2nd feature에 따른 생존률</a></li>
-      <li class="toc-item"><a href="#%EA%B0%80%EC%A1%B1-%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%84%B1%EB%B3%84%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%83%9D%EC%A1%B4%EB%A5%A0-%EB%B9%84%EA%B5%90" class="toc-anchor">가족 구조와 성별에 따른 생존률 비교</a></li>
-      <li class="toc-item"><a href="#%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%B6%9C%ED%95%AD-%ED%95%AD%EA%B5%AC%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%83%9D%EC%A1%B4%EB%A5%A0" class="toc-anchor">클래스, 출항 항구에 따른 생존률</a></li>
-      <li class="toc-item"><a href="#%EB%82%98%EC%9D%B4%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%83%9D%EC%A1%B4-%ED%99%95%EB%A5%A0-%EB%B6%84%ED%8F%AC" class="toc-anchor">나이에 따른 생존 확률 분포</a></li>
-      <li class="toc-item"><a href="#%EC%84%B1%EB%B3%84-%ED%81%B4%EB%9E%98%EC%8A%A4%EC%97%90-%EB%94%B0%EB%A5%B8-%EB%82%98%EC%9D%B4%EC%97%90-%EB%8C%80%ED%95%9C-%EC%82%AC%EB%9E%8C-%EB%B6%84%ED%8F%AC" class="toc-anchor">성별, 클래스에 따른 나이에 대한 사람 분포</a></li>
-      <li class="toc-item"><a href="#%EC%A0%84%EC%B2%B4-feature%EB%93%A4%EC%97%90-%EB%8C%80%ED%95%9C-plot" class="toc-anchor">전체 feature들에 대한 plot</a></li>
-      <li class="toc-item"><a href="#%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84-%ED%9E%88%ED%8A%B8%EB%A7%B5" class="toc-anchor">상관관계 히트맵</a></li>
+      <li class="toc-item"><a href="#이산적-변수와-y와의-관계" class="toc-anchor">이산적 변수와 y와의 관계</a></li>
+      <li class="toc-item"><a href="#이산-데이터에-대한-plot" class="toc-anchor">이산 데이터에 대한 plot</a></li>
+      <li class="toc-item"><a href="#범주형-데이터에-대한-plot" class="toc-anchor">범주형 데이터에 대한 plot</a></li>
+      <li class="toc-item"><a href="#생존-여부-클래스에-따른-추가-변수의-분포" class="toc-anchor">생존 여부, 클래스에 따른 추가 변수의 분포</a></li>
+      <li class="toc-item"><a href="#성별과-2nd-feature에-따른-생존률" class="toc-anchor">성별과 2nd feature에 따른 생존률</a></li>
+      <li class="toc-item"><a href="#가족-구조와-성별에-따른-생존률-비교" class="toc-anchor">가족 구조와 성별에 따른 생존률 비교</a></li>
+      <li class="toc-item"><a href="#클래스-출항-항구에-따른-생존률" class="toc-anchor">클래스, 출항 항구에 따른 생존률</a></li>
+      <li class="toc-item"><a href="#나이에-따른-생존-확률-분포" class="toc-anchor">나이에 따른 생존 확률 분포</a></li>
+      <li class="toc-item"><a href="#성별-클래스에-따른-나이에-대한-사람-분포" class="toc-anchor">성별, 클래스에 따른 나이에 대한 사람 분포</a></li>
+      <li class="toc-item"><a href="#전체-feature들에-대한-plot" class="toc-anchor">전체 feature들에 대한 plot</a></li>
+      <li class="toc-item"><a href="#상관관계-히트맵" class="toc-anchor">상관관계 히트맵</a></li>
     </ul>
   </li>
 </ul>
@@ -900,8 +953,8 @@ Mr        436   81
 Mrs        26   99
 </code></pre></div></div>
 
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html">group by aka pivot table</a><br>
-<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.crosstab.html">using crosstabs</a><br>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.groupby.html">group by aka pivot table</a><br />
+<a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.crosstab.html">using crosstabs</a><br />
 <a href="https://3months.tistory.com/194">빈도표 만들기</a></p>
 
 <h2 id="이산-데이터에-대한-plot">이산 데이터에 대한 plot</h2>
@@ -951,9 +1004,9 @@ Mrs        26   99
 <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81252717-9a1c6100-9061-11ea-85a2-6b582b85de91.png" alt="image" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81252717-9a1c6100-9061-11ea-85a2-6b582b85de91.png" alt="image" class="center" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81252728-a0aad880-9061-11ea-84da-b2118f3672ab.png" alt="image" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81252728-a0aad880-9061-11ea-84da-b2118f3672ab.png" alt="image" class="center" /></p>
 
 <h2 id="범주형-데이터에-대한-plot">범주형 데이터에 대한 plot</h2>
 
@@ -971,8 +1024,8 @@ Mrs        26   99
 <span class="n">sns</span><span class="p">.</span><span class="n">pointplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">'FamilySize'</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">'Survived'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data1</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">saxis</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81252862-04cd9c80-9062-11ea-98c2-2a2fb1e373c6.png" alt="image" class="center">
-<img src="https://user-images.githubusercontent.com/37871541/81252869-0ac37d80-9062-11ea-8f2d-d10e38212324.png" alt="image" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81252862-04cd9c80-9062-11ea-98c2-2a2fb1e373c6.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/81252869-0ac37d80-9062-11ea-8f2d-d10e38212324.png" alt="image" class="center" /></p>
 
 <p>이 단계에서 우리는 Pclass에 따른 생존률의 차이가 있다는 것을 알 수 있다. 조금더 자세하게 비교해보자.</p>
 
@@ -995,9 +1048,9 @@ Mrs        26   99
 <span class="n">axis3</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Pclass vs Family Size Survival Comparison'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81253817-7575b880-9064-11ea-99dc-e7776a58750d.png" alt="Unknown" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81253817-7575b880-9064-11ea-99dc-e7776a58750d.png" alt="Unknown" class="center" /></p>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81253868-8d4d3c80-9064-11ea-8f53-b78a7f85f7d3.png" alt="Unknown-2" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81253868-8d4d3c80-9064-11ea-8f53-b78a7f85f7d3.png" alt="Unknown-2" class="center" /></p>
 
 <p>위는 boxplot을 사용했을 때이고, 아래는 violin을 사용했을 때이다. 분포만 보는 경우 아래 경우가 더 수월하다는 것을 알 수 있다. 이 때 option split를 False로 할 경우, 현재 3개의 violin이 나왔지만 이것을 6개로 나누어서 보여준다.</p>
 
@@ -1017,7 +1070,7 @@ Mrs        26   99
 <span class="n">axis1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">'Sex vs IsAlone Survival Comparison'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81254211-680cfe00-9065-11ea-9236-7abac5318fb1.png" alt="Unknown-3" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81254211-680cfe00-9065-11ea-9236-7abac5318fb1.png" alt="Unknown-3" class="center" /></p>
 
 <h2 id="가족-구조와-성별에-따른-생존률-비교">가족 구조와 성별에 따른 생존률 비교</h2>
 
@@ -1035,7 +1088,7 @@ Mrs        26   99
               <span class="n">markers</span><span class="o">=</span><span class="p">[</span><span class="s">"*"</span><span class="p">,</span> <span class="s">"o"</span><span class="p">],</span> <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s">"-"</span><span class="p">,</span> <span class="s">"--"</span><span class="p">],</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">maxis2</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81254334-c934d180-9065-11ea-8af1-e19d1c10e912.png" alt="Unknown-4" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81254334-c934d180-9065-11ea-8af1-e19d1c10e912.png" alt="Unknown-4" class="center" /></p>
 
 <h2 id="클래스-출항-항구에-따른-생존률">클래스, 출항 항구에 따른 생존률</h2>
 
@@ -1046,7 +1099,7 @@ Mrs        26   99
 </span><span class="n">e</span><span class="p">.</span><span class="n">add_legend</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81255201-0732f500-9068-11ea-93b6-106b16042eff.png" alt="Unknown-5" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81255201-0732f500-9068-11ea-93b6-106b16042eff.png" alt="Unknown-5" class="center" /></p>
 
 <h2 id="나이에-따른-생존-확률-분포">나이에 따른 생존 확률 분포</h2>
 
@@ -1058,7 +1111,7 @@ Mrs        26   99
 <span class="n">a</span><span class="p">.</span><span class="n">add_legend</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81255855-c045ff00-9069-11ea-8c4d-6eee00dca8e2.png" alt="Unknown-6" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81255855-c045ff00-9069-11ea-8c4d-6eee00dca8e2.png" alt="Unknown-6" class="center" /></p>
 
 <h2 id="성별-클래스에-따른-나이에-대한-사람-분포">성별, 클래스에 따른 나이에 대한 사람 분포</h2>
 
@@ -1070,7 +1123,7 @@ Mrs        26   99
 <span class="n">h</span><span class="p">.</span><span class="n">add_legend</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81256047-482c0900-906a-11ea-98fc-70fd7f94aefd.png" alt="Unknown-7" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81256047-482c0900-906a-11ea-98fc-70fd7f94aefd.png" alt="Unknown-7" class="center" /></p>
 
 <h2 id="전체-feature들에-대한-plot">전체 feature들에 대한 plot</h2>
 
@@ -1081,7 +1134,7 @@ Mrs        26   99
 
 <p>feature를 2개씩 묶어 plot해준다. 이 때, kws은 keyword argument로 dictionary 자료형으로 넣어주면 된다. plot에 있어 설정들을 넘겨줄 수 있다. shade는 밀도함수의 안을 채워서 보여주는 역할을 한다. kde는 kernel density estimation을 의미하며, 커널을 씌워 밀도함수의 모양으로 plot한다.</p>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81256540-c5a44900-906b-11ea-8168-c92443bd91d1.png" alt="Unknown-8" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81256540-c5a44900-906b-11ea-8168-c92443bd91d1.png" alt="Unknown-8" class="center" /></p>
 
 <h2 id="상관관계-히트맵">상관관계 히트맵</h2>
 
@@ -1108,7 +1161,7 @@ Mrs        26   99
 <span class="n">correlation_heatmap</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="https://user-images.githubusercontent.com/37871541/81260296-b249ab80-9074-11ea-857f-11bacf199b07.png" alt="Unknown-10" class="center"></p>
+<p><img src="https://user-images.githubusercontent.com/37871541/81260296-b249ab80-9074-11ea-857f-11bacf199b07.png" alt="Unknown-10" class="center" /></p>
 
 <h3 id="reference">Reference</h3>
 
@@ -1119,11 +1172,23 @@ Mrs        26   99
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#data-science">#Data Science</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#data-science"
+      >#Data Science</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#machine-learning">#Machine Learning</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#machine-learning"
+      >#Machine Learning</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#kaggle">#kaggle</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#kaggle"
+      >#kaggle</a
+    >
     
   </div>
 </footer>
@@ -1134,24 +1199,31 @@ Mrs        26   99
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                              
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%A0%9C.html';">
+                                                                                                                                                                                                                                                  
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/ml/2020/05/05/titanic-05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%95%EC%A0%9C.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>05: 데이터 정제</p>
   </div>
                                                                               
-  <div id="next-post" class="post-nav-post" onclick="location.href='/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/ml/2020/05/05/titanic-07-%EB%AA%A8%EB%8D%B8%EB%A7%81.html';"
+  >
     <p>NEXT SERIES</p>
     <p>07: 모델링</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1187,7 +1259,7 @@ Mrs        26   99
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

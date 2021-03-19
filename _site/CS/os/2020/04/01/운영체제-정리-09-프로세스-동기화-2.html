@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [운영체제 정리] 09: 프로세스 동기화 Part 2 | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[운영체제 정리] 09: 프로세스 동기화 Part 2 | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
+  <meta
+    property="og:title"
+    content="[운영체제 정리] 09: 프로세스 동기화 Part 2 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/11.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html">
+  <link
+    rel="canonical"
+    href="/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-09-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/11.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/11.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">09: 동기화 도구: Semaphore</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
       <span>Part 1 - 01: 운영체제란 무엇인가?</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
       <span>Part 2 - 02: 운영체제의 역사</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
       <span>Part 3 - 03: 이중모드와 보호</span>
     </li>
@@ -784,11 +834,11 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
       <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
       <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 17 - 17: 페이지 교체 알고리즘</span>
     </li>
@@ -806,7 +856,11 @@
     </li>
                                                                                                                                                                                                                                     
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -818,10 +872,9 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#semaphore%EC%84%B8%EB%A7%88%ED%8F%AC" class="toc-anchor">Semaphore(세마포)</a>
+  <li class="toc-item"><a href="#semaphore세마포" class="toc-anchor">Semaphore(세마포)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#1-%EA%B5%AC%ED%98%84" class="toc-anchor">1. 구현</a></li>
+      <li class="toc-item"><a href="#1-구현" class="toc-anchor">1. 구현</a></li>
       <li class="toc-item"><a href="#2-ordering" class="toc-anchor">2. Ordering</a></li>
     </ul>
   </li>
@@ -836,7 +889,7 @@
 
 <h1 id="semaphore세마포">Semaphore(세마포)</h1>
 
-<p><img width="801" alt="image" src="https://user-images.githubusercontent.com/37871541/78143768-a95c2d80-7469-11ea-81b6-5ff62292d1f0.png" class="center">
+<p><img width="801" alt="image" src="https://user-images.githubusercontent.com/37871541/78143768-a95c2d80-7469-11ea-81b6-5ff62292d1f0.png" class="center" />
 Semaphoresms 깃발이라는 네덜란드 단어이다. 옛날에는 기찻길에서 공유하는 길이 있을 때, 깃발 표식으로 오고감의 신호를 주고 받았다. 이러한 맥락에서, Critical section을 사용하는 쓰레드에 사용하는 방법의 이름으로 붙게 되었다.</p>
 
 <p>위의 그림을 보면 공유하는 기찻길이 하나이다. 이 경우 공유 자원이 1이라 볼 수 있다. 하나의 기차가 지나갈 때 1을 감소시키고, 다 지나간 뒤에 1을 증가시키는 일을 반복한다. 그리고 다른 기차가 지나가려고 할 때, Semaphore가 0인 경우에는 정지하고 1인 경우에 순차적으로 지나가게 하면 해결된다. 이렇게 Semaphore가 0, 1인 경우를 Binary Semaphore라 한다.</p>
@@ -845,7 +898,7 @@ Semaphoresms 깃발이라는 네덜란드 단어이다. 옛날에는 기찻길�
 
 <h2 id="1-구현">1. 구현</h2>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78479060-1cbeb180-7780-11ea-9d5b-6d9350b51d67.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78479060-1cbeb180-7780-11ea-9d5b-6d9350b51d67.png" class="center" /></p>
 
 <p>위의 예시에서 보듯, 깃발은 총 두가지가 필요하다. 지나가는 경우에는 감소, 지나간 뒤에는 증가이다. 초기에는 P, V로 불렸다.(네덜란드에서 만들어져 네덜란드어의 약자이다.) 현재에는 P는 test를 의미하며 <code class="language-plaintext highlighter-rouge">acquire()</code> 로 사용하고, V는 increment를 의미하며 <code class="language-plaintext highlighter-rouge">release()</code> 로 사용한다. <code class="language-plaintext highlighter-rouge">acquire()</code>는 자원이 사용가능한지 확인하고, 사용가능하다면 사용하고 그렇지 않다면 대기한다. <code class="language-plaintext highlighter-rouge">release()</code>는 자원을 내놓고, 다음 자원을 실행시킨다.</p>
 
@@ -873,18 +926,18 @@ Semaphoresms 깃발이라는 네덜란드 단어이다. 옛날에는 기찻길�
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><img src="https://mblogthumb-phinf.pstatic.net/20140527_265/wndrlf2003_1401125270012DhChu_PNG/1.png?type=w2" alt="세마포 간단한 그림" class="center-text"></p>
+<p><img src="https://mblogthumb-phinf.pstatic.net/20140527_265/wndrlf2003_1401125270012DhChu_PNG/1.png?type=w2" alt="세마포 간단한 그림" class="center-text" /></p>
 
 <p>위 코드에서 acquire() 는 value값을 감소시키고 만약 <strong>value값이 0보다 작으면(가용자원을 모두 사용함) 이미 해당 임계구역에 어느 프로세스가 존재</strong>한다는 의미이므로 현재 프로세스는 접근하지 못하도록 막아야한다. 이를 list라는 기다리는 줄에 추가한 뒤 block을 걸어준다.(list는 일반적으로 큐로 되어있다.)</p>
 
 <p>release() 는 value값을 증가시키고, 만약 <strong>value값이 0보다 같거나 작으면 임계구역에 진입하려고 대기하는 프로세스가 list에 남아있다는 의미</strong>이므로 그 중에서 하나를 꺼내어 임계구역을 수행할 수 있도록 해주어야 한다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78147073-f8a45d00-746d-11ea-923c-9767bbb82cb5.png" class="center"></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78147073-f8a45d00-746d-11ea-923c-9767bbb82cb5.png" class="center" /></p>
 
 <p>세마포를 그림으로 나타내면 위와 같다. list는 실제로 큐로 볼 수 있다. acquire()에 의해 block되는 프로세스는 세마포 내부에 있는 큐에 삽입된 후, 다른 프로세스가 임계구역을 나오면서 release()를 호출하여 <strong>세마포 큐에 있는 프로세스를 깨워야 한다.</strong>(다시 ready queue로 보낸다.)</p>
 
-<p>위에서 살펴본 것처럼 세마포는 일반적으로 <strong>Mutual exclusion</strong>을 위해 사용된다.<br>
-<a href="https://wansook0316.github.io/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html">운영체제 정리 08: 프로세스 동기화 &lt;1. 발생 이유와 목적&gt;</a></p>
+<p>위에서 살펴본 것처럼 세마포는 일반적으로 <strong>Mutual exclusion</strong>을 위해 사용된다.<br />
+<a href="https://wansook0316.github.io/cs/os/2020/04/01/운영체제-정리-08-프로세스-동기화-1.html">운영체제 정리 08: 프로세스 동기화 &lt;1. 발생 이유와 목적&gt;</a></p>
 
 <h3 id="bank-account-problem은행-계좌-문제-해결">Bank Account Problem(은행 계좌 문제) 해결</h3>
 
@@ -1075,10 +1128,10 @@ balance = 0
 
 <h3 id="reference">Reference</h3>
 
-<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
+<p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a><br />
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1086,11 +1139,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#os"
+      >#OS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#synchronization">#Synchronization</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#synchronization"
+      >#Synchronization</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#semaphore">#Semaphore</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#semaphore"
+      >#Semaphore</a
+    >
     
   </div>
 </footer>
@@ -1101,24 +1166,31 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                   
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html';">
+                                                                                                                                                                                                                                                                                                                                                                       
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/01/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-08-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>08: 프로세스 동기화 Part 1</p>
   </div>
                                                         
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-10-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3.html';"
+  >
     <p>NEXT SERIES</p>
     <p>10: 프로세스 동기화 Part 3</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                                                                               
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1154,7 +1226,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

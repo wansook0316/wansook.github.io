@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,50 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
- 
-<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
 </head>
-
+ 
+</head>
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [운영체제 정리] 18: 프레임 할당 (Allocation of frame) | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[운영체제 정리] 18: 프레임 할당 (Allocation of frame) | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
+  <meta
+    property="og:title"
+    content="[운영체제 정리] 18: 프레임 할당 (Allocation of frame) | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/11.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html">
+  <link
+    rel="canonical"
+    href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-18-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -157,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -169,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -263,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -535,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -594,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -700,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/11.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/11.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">18: 프레임 할당 (Allocation of frame)</h1>
       
@@ -729,11 +778,11 @@
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
       <span>Part 1 - 01: 운영체제란 무엇인가?</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
       <span>Part 2 - 02: 운영체제의 역사</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
       <span>Part 3 - 03: 이중모드와 보호</span>
     </li>
@@ -785,11 +834,11 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
       <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
       <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 17 - 17: 페이지 교체 알고리즘</span>
     </li>
@@ -807,7 +856,11 @@
     </li>
                                                                                                                                                                                                                                     
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -820,18 +873,16 @@
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
   <li class="toc-item"><a href="#1-global-vs-local-replacement" class="toc-anchor">1. Global VS Local Replacement</a></li>
-  <li class="toc-item">
-<a href="#2-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9allocation-of-frames" class="toc-anchor">2. 프레임 할당(Allocation of Frames)</a>
+  <li class="toc-item"><a href="#2-프레임-할당allocation-of-frames" class="toc-anchor">2. 프레임 할당(Allocation of Frames)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#21-%EC%93%B0%EB%A0%88%EC%8B%B1thrashing" class="toc-anchor">2.1. 쓰레싱(Thrashing)</a></li>
-      <li class="toc-item"><a href="#22-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9%EC%9D%98-%EB%B0%A9%EB%B2%95" class="toc-anchor">2.2 프레임 할당의 방법</a></li>
+      <li class="toc-item"><a href="#21-쓰레싱thrashing" class="toc-anchor">2.1. 쓰레싱(Thrashing)</a></li>
+      <li class="toc-item"><a href="#22-프레임-할당의-방법" class="toc-anchor">2.2 프레임 할당의 방법</a></li>
     </ul>
   </li>
-  <li class="toc-item">
-<a href="#3-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%81%AC%EA%B8%B0page-size" class="toc-anchor">3. 페이지 크기(Page Size)</a>
+  <li class="toc-item"><a href="#3-페이지-크기page-size" class="toc-anchor">3. 페이지 크기(Page Size)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#31-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%81%AC%EA%B8%B0%EC%97%90-%EB%94%B0%EB%A5%B8-%EC%84%B1%EB%8A%A5" class="toc-anchor">3.1 페이지 크기에 따른 성능</a></li>
-      <li class="toc-item"><a href="#32-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%85%8C%EC%9D%B4%EB%B8%94" class="toc-anchor">3.2 페이지 테이블</a></li>
+      <li class="toc-item"><a href="#31-페이지-크기에-따른-성능" class="toc-anchor">3.1 페이지 크기에 따른 성능</a></li>
+      <li class="toc-item"><a href="#32-페이지-테이블" class="toc-anchor">3.2 페이지 테이블</a></li>
     </ul>
   </li>
 </ul>
@@ -870,7 +921,7 @@
 
 <p>일반적으로 메모리에 올라가는 프로세스 개수가 증가할수록 CPU의 이용률은 올라갈 것이라 예상한다. 왜냐하면 프로세스가 많을 수록 CPU의 할 일 역시 증가하기때문이다. 이는 일정 범위까지는 맞는 예상이지만, 그 범위를 넘어서면 오히려 CPU 이용률이 감소하는 현상이 나타난다.</p>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78570069-6cc07580-785f-11ea-9baf-9b31b77dc452.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78570069-6cc07580-785f-11ea-9baf-9b31b77dc452.png" class="center" /></p>
 
 <p>위 그림은 이러한 현상을 그래프로 나타낸 것이다. 이와 같은 현상이 발생하는 이유는 프로세스가 증가할수록 메인 메모리의 비어있는 프레임 개수는 줄어들게 되고 결국 모든 프레임이 가득 차게 된다. 그 후에도 계속 프로세스가 증가한다면 <strong>메모리와 backing store 사이에 page in/out 작업이 발생</strong>하는데, 프로세스가 많아질수록 이 작업 역시 증가한다. p<strong>age in/out은 디스크 I/O 작업</strong>으로 CPU를 사용하지 않는 작업이다. 그러므로 이 작업이 많아질수록 CPU는 그동안 아무것도 하지 않게 된다.</p>
 
@@ -918,7 +969,7 @@
 
 <p>프로세스가 실행 중일 때 어느 페이지를 사용하는지 실험한 결과에서 Locality 성질이 성립한다는 것을 발견할 수 있었다. 즉, 특정 시간 대에 참고하는 부분은 일부분이다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78571424-2409bc00-7861-11ea-9385-e411e0c69f4f.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78571424-2409bc00-7861-11ea-9385-e411e0c69f4f.png" class="center" /></p>
 
 <p>위 그래프는 프로세스가 실행 중에 어떤 프로세스를 사용하는지 표시한 것으로, 특정 시간에는 일정 범위의 페이지를 주로 참조하는 것을 알 수 있다. 이러한 성질은 캐시에서도 볼 수 있다. 이를 통해 <strong>특정 시간에 따라 사용하는 페이지의 개수만큼 프레임을 할당</strong>해줄 수 있다.</p>
 
@@ -926,7 +977,7 @@
 
 <p>이를 해결하기 위해 나온 것이 <strong>working set</strong> 이다. working set은 위의 locality의 방식과 유사한데, 미래가 아닌 과거를 보는 것이다.</p>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78572017-e48f9f80-7861-11ea-8ef0-df1a62f20411.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78572017-e48f9f80-7861-11ea-8ef0-df1a62f20411.png" class="center" /></p>
 
 <p>위 그림은 working set을 사용하는 모습이다. working set은 현재 시간에서 일정 시간($\Delta$) 이전동안 사용되었던 페이지의 집합이다. $\Delta$(델타)는 운영체제 내부에서 정하는 기준에 따라 다르며, 이를 working set window 라 한다. 마지막으로 working set의 개수만큼 프레임을 할당한다.</p>
 
@@ -936,7 +987,7 @@
 
 <p>페이지 부재의 비율은 프로세스에 할당된 프레임의 수에 반비례한다. 즉, 할당된 프레임의 수가 적을수록 페이지 부재 비율은 늘어난다.</p>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78572483-7dbeb600-7862-11ea-9bbd-1b5afdcf91eb.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78572483-7dbeb600-7862-11ea-9bbd-1b5afdcf91eb.png" class="center" /></p>
 
 <p>위 그림은 이와 같은 현상을 그래프로 나타낸 것이다. 세로축은 페이지 부재 비율이고, 가로축은 할당된 프레임의 수이다. 여기서 운영체제 내부에서 해당 프로세스의 페이지 부재 횟수를 계속 검사한다. 그러면 위와 같은 그래프처럼 나오는데, 여기서 <strong>상한선(upper bound)과 하한선(lower bound)</strong>를 설정한다.</p>
 
@@ -973,8 +1024,7 @@
   </li>
   <li>Page fault 발생 확률
     <ul>
-      <li>Page fault 발생 확률을 줄이려면 페이지 크기가 큰 것이 좋다. 이는 locality 성질과도 관련이 있는데, 대부분 프로세스는 필요한 부분이 일정 범위 이내인 경우가 많으므로 <strong>페이지 크기가 클수록 필요한 부분이 있을 확률이 크다.</strong>
-</li>
+      <li>Page fault 발생 확률을 줄이려면 페이지 크기가 큰 것이 좋다. 이는 locality 성질과도 관련이 있는데, 대부분 프로세스는 필요한 부분이 일정 범위 이내인 경우가 많으므로 <strong>페이지 크기가 클수록 필요한 부분이 있을 확률이 크다.</strong></li>
     </ul>
   </li>
 </ul>
@@ -1009,9 +1059,9 @@
 <h3 id="reference">Reference</h3>
 
 <p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -1019,11 +1069,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#os"
+      >#OS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#memory">#Memory</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#memory"
+      >#Memory</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#frame-allocation">#frame allocation</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#frame-allocation"
+      >#frame allocation</a
+    >
     
   </div>
 </footer>
@@ -1034,13 +1096,21 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>17: 페이지 교체 알고리즘</p>
   </div>
                 
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-19-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9.html';"
+  >
     <p>NEXT SERIES</p>
     <p>19: 파일 할당 (Allocation of file)</p>
   </div>
@@ -1050,8 +1120,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1087,7 +1156,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

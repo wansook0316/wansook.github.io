@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [System Dynamics] 06: Newton Raphson Method | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="비선형 방정식의 해를 구하기 위한 수치적 방법인 뉴턴 랩슨 메서드를 알아본다.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="비선형 방정식의 해를 구하기 위한 수치적 방법인 뉴턴 랩슨 메서드를 알아본다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[System Dynamics] 06: Newton Raphson Method | 완숙의 에그머니🍳">
-  <meta property="og:description" content="비선형 방정식의 해를 구하기 위한 수치적 방법인 뉴턴 랩슨 메서드를 알아본다.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/7.jpg">
+  <meta
+    property="og:title"
+    content="[System Dynamics] 06: Newton Raphson Method | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="비선형 방정식의 해를 구하기 위한 수치적 방법인 뉴턴 랩슨 메서드를 알아본다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/7.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html">
+  <link
+    rel="canonical"
+    href="/cs/dynamics/2020/09/30/System-Dynamics-06-Newton-Raphson-Method.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/7.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/7.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">06: Newton Raphson Method</h1>
       
@@ -728,7 +778,7 @@
     <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-01-%EB%8B%A4%EB%AC%BC%EC%B2%B4-%EB%8F%99%EC%97%AD%ED%95%99-%EA%B0%9C%EB%A1%A0.html'">
       <span>Part 1 - 01: 다물체 동역학 개론</span>
     </li>
-                                                                                 
+                                                                                   
     <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-02-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C-%EB%8B%A4%EB%AC%BC%EC%B2%B4%EA%B3%84%EC%9D%98-%EC%9A%B4%EB%8F%99%ED%95%99.html'">
       <span>Part 2 - 02: 평면에서 다물체계의 운동학</span>
     </li>
@@ -736,7 +786,7 @@
     <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-03-%EC%A7%81%EA%B5%90%EC%84%B1-%EB%B2%A1%ED%84%B0%EB%AF%B8%EB%B6%84-%EC%9E%90%EC%BD%94%EB%B9%84%EC%9D%B4%EB%A1%A0.html'">
       <span>Part 3 - 03: Orthogonality, Vector Differentiation, Jacobi's Theorem</span>
     </li>
-                                                                         
+                                                                           
     <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-04-%ED%8F%89%EB%A9%B4%EC%97%90%EC%84%9C%EC%9D%98-%EA%B8%B0%EA%B5%AC%ED%95%99.html'">
       <span>Part 4 - 04: 평면에서의 기구학</span>
     </li>
@@ -756,9 +806,13 @@
     <li onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-08-Newton-Euler-Algorithm.html'">
       <span>Part 8 - 08: Newton-Euler Equations, D'Alembert's Principle</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                                  
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -771,15 +825,13 @@
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
   <li class="toc-item"><a href="#tayler-series" class="toc-anchor">Tayler Series</a></li>
-  <li class="toc-item">
-<a href="#newton-rahpson-method" class="toc-anchor">Newton-Rahpson method</a>
+  <li class="toc-item"><a href="#newton-rahpson-method" class="toc-anchor">Newton-Rahpson method</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#1%EB%B3%80%EC%88%98-%ED%95%A8%EC%88%98%EC%97%90%EC%84%9C-newton-rahpson-method" class="toc-anchor">1변수 함수에서 Newton-Rahpson method</a></li>
-      <li class="toc-item"><a href="#%EC%9D%BC%EB%B0%98%ED%99%94%EB%90%9C-newton-rahpson-method" class="toc-anchor">일반화된 Newton-Rahpson method</a></li>
+      <li class="toc-item"><a href="#1변수-함수에서-newton-rahpson-method" class="toc-anchor">1변수 함수에서 Newton-Rahpson method</a></li>
+      <li class="toc-item"><a href="#일반화된-newton-rahpson-method" class="toc-anchor">일반화된 Newton-Rahpson method</a></li>
     </ul>
   </li>
-  <li class="toc-item">
-<a href="#position-analysis" class="toc-anchor">Position Analysis</a>
+  <li class="toc-item"><a href="#position-analysis" class="toc-anchor">Position Analysis</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#notice" class="toc-anchor">Notice</a></li>
     </ul>
@@ -809,7 +861,7 @@
 
 <h2 id="1변수-함수에서-newton-rahpson-method">1변수 함수에서 Newton-Rahpson method</h2>
 
-<p><img width="80%" alt="스크린샷 2019-05-07 오후 1 18 53" src="https://user-images.githubusercontent.com/37871541/57271504-ab3b3680-70ca-11e9-822a-455f9d3349b8.png" class="center"></p>
+<p><img width="80%" alt="스크린샷 2019-05-07 오후 1 18 53" src="https://user-images.githubusercontent.com/37871541/57271504-ab3b3680-70ca-11e9-822a-455f9d3349b8.png" class="center" /></p>
 
 <p>다음과 같은 함수가 있다고 하자. 우리가 하고 싶은 것은 이 함수의 <strong>근</strong> 을 찾는 것이다. 그러기 위해서 테일러 시리즈를 사용해보자. 이 함수 f는 1차까지만 근사하면 다음과 같다.</p>
 
@@ -925,15 +977,15 @@ y_{i+1}\;=\;y_i\;+\;\Delta y_i\]
 
 <p>로 q벡터를 구할 수 있다. 이를 반복하다가 특정 조건일 때, 우리는 반복을 멈추고 return 하면되는데,</p>
 
-\[|\Delta \overset{\rightarrow}{q\_i}|\;&lt;\;\epsilon\_1\
+\[|\Delta \overset{\rightarrow}{q_i}|\;&lt;\;\epsilon_1\\
 \;\\
 OR\\
 \;\\
-|\overset{\rightarrow}{C}\(\overset{\rightarrow}{q\_{i}}\;,t)|\;&lt;\;\epsilon\_2\]
+|\overset{\rightarrow}{C}(\overset{\rightarrow}{q_{i}}\;,t)|\;&lt;\;\epsilon_2\]
 
 <p>두 식의 의미는, 하나는 다가가는 step size이고, 두번째는 함수값의 size 차이이다.</p>
 
-<p><img width="80%" alt="스크린샷 2019-05-07 오후 2 24 47" src="https://user-images.githubusercontent.com/37871541/57273735-e3934280-70d3-11e9-8b20-05b30f88ef64.png" class="center"></p>
+<p><img width="80%" alt="스크린샷 2019-05-07 오후 2 24 47" src="https://user-images.githubusercontent.com/37871541/57273735-e3934280-70d3-11e9-8b20-05b30f88ef64.png" class="center" /></p>
 
 <p>해답을 찾아가는 과정에는 다음과 같이 두가지의 기준을 세울 수 있으므로, 두 기준에 대해서 iteration을 멈춘다.</p>
 
@@ -1003,11 +1055,23 @@ n_c\;=\;제약식의 \;갯수\]
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#math">#Math</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#math"
+      >#Math</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#dynamics">#Dynamics</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#dynamics"
+      >#Dynamics</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#linear-algebra">#Linear Algebra</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#linear-algebra"
+      >#Linear Algebra</a
+    >
     
   </div>
 </footer>
@@ -1018,24 +1082,31 @@ n_c\;=\;제약식의 \;갯수\]
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                            
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html';">
+                                                                                                                                                                                                                                                
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-05-%EA%B8%B0%EA%B5%AC%ED%95%99%EC%A0%81-%EC%A0%9C%EC%95%BD.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>05: 기구학적 제약</p>
   </div>
                                                                   
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-07-Computational-Algorithm.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/dynamics/2020/09/30/System-Dynamics-07-Computational-Algorithm.html';"
+  >
     <p>NEXT SERIES</p>
     <p>07: Computational Algorithm</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                        
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1071,7 +1142,7 @@ n_c\;=\;제약식의 \;갯수\]
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

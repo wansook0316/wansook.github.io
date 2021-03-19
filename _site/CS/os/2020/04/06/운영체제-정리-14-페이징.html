@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [운영체제 정리] 14: 페이징 (Paging) | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[운영체제 정리] 14: 페이징 (Paging) | 완숙의 에그머니🍳">
-  <meta property="og:description" content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-14-%ED%8E%98%EC%9D%B4%EC%A7%95.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/11.jpg">
+  <meta
+    property="og:title"
+    content="[운영체제 정리] 14: 페이징 (Paging) | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="Be On My Wave 🌊 | 뚜렷한 목표, 치밀한 계획, 우직한 실천"
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-14-%ED%8E%98%EC%9D%B4%EC%A7%95.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/11.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-14-%ED%8E%98%EC%9D%B4%EC%A7%95.html">
+  <link
+    rel="canonical"
+    href="/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-14-%ED%8E%98%EC%9D%B4%EC%A7%95.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/11.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/11.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">14: 페이징 (Paging)</h1>
       
@@ -728,11 +778,11 @@
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-01-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80.html'">
       <span>Part 1 - 01: 운영체제란 무엇인가?</span>
     </li>
-                                                         
+                                                           
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-02-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%EC%9D%98-%EC%97%AD%EC%82%AC.html'">
       <span>Part 2 - 02: 운영체제의 역사</span>
     </li>
-                                                             
+                                                               
     <li onclick="location.href='/cs/os/2020/03/30/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-03-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8.html'">
       <span>Part 3 - 03: 이중모드와 보호</span>
     </li>
@@ -784,11 +834,11 @@
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html'">
       <span>Part 15 - 15: 세그멘테이션 (Segmentation)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-16-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC.html'">
       <span>Part 16 - 16: 가상 메모리 (Virtual Memory)</span>
     </li>
-           
+             
     <li onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-17-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html'">
       <span>Part 17 - 17: 페이지 교체 알고리즘</span>
     </li>
@@ -806,7 +856,11 @@
     </li>
                                                                                                                                                                                                                                     
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -818,14 +872,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#1-%ED%8E%98%EC%9D%B4%EC%A7%95paging" class="toc-anchor">1. 페이징(Paging)</a>
+  <li class="toc-item"><a href="#1-페이징paging" class="toc-anchor">1. 페이징(Paging)</a>
     <ul class="submenu_class">
-      <li class="toc-item"><a href="#11-%EC%A3%BC%EC%86%8C-%EB%B3%80%ED%99%98address-translation" class="toc-anchor">1.1. 주소 변환(Address Translation)</a></li>
-      <li class="toc-item"><a href="#12-%EB%82%B4%EB%B6%80%EB%8B%A8%ED%8E%B8%ED%99%94internal-fragment" class="toc-anchor">1.2 내부단편화(Internal Fragment)</a></li>
-      <li class="toc-item"><a href="#13-%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%85%8C%EC%9D%B4%EB%B8%94-%EB%A7%8C%EB%93%A4%EA%B8%B0" class="toc-anchor">1.3 페이지 테이블 만들기</a></li>
-      <li class="toc-item"><a href="#14-%EB%B3%B4%ED%98%B8protection" class="toc-anchor">1.4 보호(Protection)</a></li>
-      <li class="toc-item"><a href="#15-%EA%B3%B5%EC%9C%A0sharing" class="toc-anchor">1.5 공유(Sharing)</a></li>
+      <li class="toc-item"><a href="#11-주소-변환address-translation" class="toc-anchor">1.1. 주소 변환(Address Translation)</a></li>
+      <li class="toc-item"><a href="#12-내부단편화internal-fragment" class="toc-anchor">1.2 내부단편화(Internal Fragment)</a></li>
+      <li class="toc-item"><a href="#13-페이지-테이블-만들기" class="toc-anchor">1.3 페이지 테이블 만들기</a></li>
+      <li class="toc-item"><a href="#14-보호protection" class="toc-anchor">1.4 보호(Protection)</a></li>
+      <li class="toc-item"><a href="#15-공유sharing" class="toc-anchor">1.5 공유(Sharing)</a></li>
     </ul>
   </li>
 </ul>
@@ -847,7 +900,7 @@
 
 <p>페이징으로 작은 크기로 나눈 것도 위와 같은 방법으로 할 수 있다. 만약 50byte 크기의 프로세스가 있다고 하자. 페이징의 크기는 각 10byte로 나눈다.</p>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78529761-4da0f400-781d-11ea-955b-697e56b2e6bc.png" class="center"></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78529761-4da0f400-781d-11ea-955b-697e56b2e6bc.png" class="center" /></p>
 
 <p>위 그림과 같이 프로세스 P1은 5개의 페이지로 나눌 수 있다. 이를 메인 메모리 5곳에 나눠서 할당하였다. CPU는 논리 주소로 프로그램이 설정한대로 연속적인 주소값으로 명령을 내리고 이는 메모리로 가기전에 각 페이지의 실제 메모리 주소가 저장되어 있는 테이블에서 물리 주소로 변경되어야 한다.</p>
 
@@ -859,7 +912,7 @@
 
 <h3 id="111-논리-주소logical-address">1.1.1 논리 주소(Logical address)</h3>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78530376-7ecdf400-781e-11ea-8d7d-d3d0995b55ec.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78530376-7ecdf400-781e-11ea-8d7d-d3d0995b55ec.png" class="center" /></p>
 
 <p>CPU가 내는 주소는 2진수로 표현된다. 이 주소가 m비트로 표현된다고 가정하자. 여기서 하위 n비트는 오프셋(offset) 또는 변위(displacement)라고 한다. 그리고 상위 m-n 비트는 페이지의 번호에 해당한다.(n = d, m-n = p)</p>
 
@@ -869,13 +922,13 @@
 
 <h3 id="112-동작-예시">1.1.2 동작 예시</h3>
 
-<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78530526-c3598f80-781e-11ea-8445-14bca2d5b5e2.png" class="center"></p>
+<p><img width="800" alt="image" src="https://user-images.githubusercontent.com/37871541/78530526-c3598f80-781e-11ea-8445-14bca2d5b5e2.png" class="center" /></p>
 
 <p>위 그림을 보면, 어떻게 동작하는 지 한눈에 확인 할 수 있다. 우리가 해야할 일은, 논리 주고가 들어왔을 때, 이것을 <code class="language-plaintext highlighter-rouge">page</code>, <code class="language-plaintext highlighter-rouge">displacement</code>로 나누고, <code class="language-plaintext highlighter-rouge">page</code> 변수를 <code class="language-plaintext highlighter-rouge">frame</code> 변수로 바꿔주는 <code class="language-plaintext highlighter-rouge">page table</code>을 통과하여 나온 값을 가지고 물리 주소를 찾으면 된다.</p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78530736-2c410780-781f-11ea-8186-50e4a90a2691.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78530736-2c410780-781f-11ea-8186-50e4a90a2691.png" class="center" /></p>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78531119-cdc85900-781f-11ea-8dee-72647ea0ca01.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78531119-cdc85900-781f-11ea-8dee-72647ea0ca01.png" class="center" /></p>
 
 <p>위 그림으로 부터 따라해 볼 수 있다. p와 d만 잘 생각하면 쉬운 아이디어임을 알 수 있다. 이 페이징으로부터 연속 메모리 할당을 하면서 외부 단편화가 발생하는 문제는 해결했다. <del>하지만..</del></p>
 
@@ -958,11 +1011,11 @@
 
 <h2 id="14-보호protection">1.4 보호(Protection)</h2>
 
-<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78532750-bccd1700-7822-11ea-8cac-9418512d3e39.png" class="center"></p>
+<p><img width="500" alt="image" src="https://user-images.githubusercontent.com/37871541/78532750-bccd1700-7822-11ea-8cac-9418512d3e39.png" class="center" /></p>
 
 <p>모든 주소는 페이지 테이블을 경유하므로, 테이블을 이용해서 보호 기능을 수행할 수 있다. 접근이 유효한지 그렇지 않은지를 구분하는 bit를 추가하여 켜져있을 때 수행하도록 한다. 대표적으로 페이지 테이블마다 r(read), w(write), x(execute) 비트를 두어, 해당 비트가 켜져있을 때 그 수행이 가능하도록한다.</p>
 
-<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78532908-fa31a480-7822-11ea-9bf2-b7b9fdbfad3a.png" class="center"></p>
+<p><img width="600" alt="image" src="https://user-images.githubusercontent.com/37871541/78532908-fa31a480-7822-11ea-9bf2-b7b9fdbfad3a.png" class="center" /></p>
 
 <p>위 그림은 페이지 테이블에 r,w,x 비트를 추가한 모습이다. 만약, 1번 페이지 엔트리처럼 쓰기 비트가 꺼져있는 페이지에 쓰기 작업을 시도하면 CPU에 인터럽트가 발생하여 ISR에서 강제로 해당 프로세스를 종료시킨다.</p>
 
@@ -973,9 +1026,9 @@
 <h3 id="reference">Reference</h3>
 
 <p><a href="http://www.kocw.net/home/search/kemView.do?kemId=978503">KOCW 양희재 교수님 - 운영체제</a>
-<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br>
-<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br>
-<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br>
+<a href="https://m.blog.naver.com/PostList.nhn?blogId=hjyang0&amp;categoryNo=13">양희재 교수님 블로그(시험 기출 문제)</a><br />
+<a href="https://velog.io/@codemcd/">codemcd 님의 정리글</a><br />
+<a href="https://m.blog.naver.com/wndrlf2003/220011819891">세마포 사진</a><br />
 Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 
   </section>
@@ -983,11 +1036,23 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#os">#OS</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#os"
+      >#OS</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#memory">#Memory</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#memory"
+      >#Memory</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#paging">#Paging</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#paging"
+      >#Paging</a
+    >
     
   </div>
 </footer>
@@ -998,24 +1063,31 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-13-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC.html';">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/05/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-13-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>13: 주기억 장치 관리</p>
   </div>
                               
-  <div id="next-post" class="post-nav-post" onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html';">
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cs/os/2020/04/06/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%A0%95%EB%A6%AC-15-%EC%84%B8%EA%B7%B8%EB%A9%98%ED%85%8C%EC%9D%B4%EC%85%98.html';"
+  >
     <p>NEXT SERIES</p>
     <p>15: 세그멘테이션 (Segmentation)</p>
   </div>
-                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                          
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1051,7 +1123,7 @@ Operating System Concepts, 9th Edition - Abraham Silberschatz</p>
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">

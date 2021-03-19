@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <!-- <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
       TeX: {
@@ -28,7 +26,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -40,49 +38,86 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
  
 </head>
-
+<html class="no-js">
   <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>
     [Linear Algebra Basic] 06: QR Decomposition (QR 분해) | 완숙의 에그머니🍳
   </title>
-  <meta name="description" content="행렬을 분해하는 방법 중 하나인 QR Decomposition에 대해 알아보자.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="행렬을 분해하는 방법 중 하나인 QR Decomposition에 대해 알아보자."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Open Graph -->
   <!--  -->
-  <meta property="og:title" content="[Linear Algebra Basic] 06: QR Decomposition (QR 분해) | 완숙의 에그머니🍳">
-  <meta property="og:description" content="행렬을 분해하는 방법 중 하나인 QR Decomposition에 대해 알아보자.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="http://localhost:4000/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html">
-  <meta property="og:image" content="http://localhost:4000/assets/img/4.jpg">
+  <meta
+    property="og:title"
+    content="[Linear Algebra Basic] 06: QR Decomposition (QR 분해) | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="행렬을 분해하는 방법 중 하나인 QR Decomposition에 대해 알아보자."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/4.jpg"
+  />
 
   <!-- CSS -->
   <link rel="stylesheet" href="/assets/css/main.css">
 
   <!--Favicon-->
-  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
 
   <!-- Canonical -->
-  <link rel="canonical" href="/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html">
+  <link
+    rel="canonical"
+    href="/ds/la/2020/09/29/Linear-Algebra-Basic-06-QR-Decomposition.html"
+  />
 
   <!-- RSS -->
-  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml">
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
 
   <!-- Google Fonts -->
   
-  <link href="//fonts.googleapis.com/css?family=Nanum+Gothic%7CJua%7CNanum+Gothic+Coding%7CSource+Code+Pro%7CNanum+Myeongjo:400,700,800%7CNoto+Sans+KR:100,300,400,500,700,900%7Cmonospace" rel="stylesheet" type="text/css">
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
   
 
   <!-- naver web mater tool -->
-  <meta name="naver-site-verification" content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5">
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
 
   <!-- KaTeX -->
   <!--
@@ -156,7 +191,7 @@
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
 ></script> -->
 
-
+<head>
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
   </script>
@@ -168,8 +203,11 @@
       }
     });
   </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
   <script>
   console.log(window)
 
@@ -262,17 +300,20 @@
   });
 </script>
 
+</head>
 
-
-  </head>
-<body>
+  <body>
     <a href="#" class="top"></a>
  <header class="site-header">
   <div class="site-title-nav">
     <div class="branding">
       
       <a href="/">
-        <img class="avatar" src="/assets/img/avatar.png" alt="">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
       </a>
       
       <h1 class="site-title">
@@ -534,7 +575,6 @@
       <li>
 
 
-</li>
 <li>
 	<a href="mailto:wansook0316@gmail.com" title="Email">
 		<i class="fas fa-fw fa-envelope"></i>
@@ -593,11 +633,17 @@
 
 
 
-
+</li>
       
       <li>
         <form action="/search.html" method="get">
-          <input type="text" id="search-box" name="query" placeholder="Search" class="">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
           <button type="submit" class="">
             <i class="fa fa-fw fa-search"></i>
           </button>
@@ -699,9 +745,13 @@
   </ul>
 </div>
 
-    <div class="content">
-<article class="feature-image main-category-feature">
-  <header style="background-image: url('/assets/img/4.jpg')">
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/4.jpg')"
+  >
     <ul class="category-title">
       <h1 class="title">06: QR Decomposition (QR 분해)</h1>
       
@@ -724,19 +774,19 @@
     <b><em>6</em></b> 편 중 <b><em>6</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
-                                   
+                                     
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-01-Types-Of-Matrix.html'">
       <span>Part 1 - 01: Types of Matrix (행렬의 종류)</span>
     </li>
-                                                 
+                                               
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-02-Determinant-Inver.html'">
       <span>Part 2 - 02: Determinant, Inverse Matrix, Orthogonal Matrix (행렬식, 역행렬, 직교행렬)</span>
     </li>
-                                                                       
+                                                                         
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-03-Linear-Independant-Gauss-jordan-method.html'">
       <span>Part 3 - 03: Linear Independent, Guass-Jordan Method, Pivoting (선형 독립, 가우스-조르당 방법, 피보팅)</span>
     </li>
-                                                     
+                                                       
     <li onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-04-LU-Decomposition.html'">
       <span>Part 4 - 04: LU Decomposition (LU 분해)</span>
     </li>
@@ -748,9 +798,13 @@
     <li class="current">
       <span>Part 6 - This Post</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                              
   </ul>
-  <div class="side-nav-btn" id="js-btn-side_nav" onclick="handleSeriesNavShowing();">
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
     <div class="side-nav-btn__content" id="js-side-btn-content">
       ▼ 목록 보기
     </div>
@@ -762,14 +816,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item">
-<a href="#qr-decomposition" class="toc-anchor">QR Decomposition</a>
+  <li class="toc-item"><a href="#qr-decomposition" class="toc-anchor">QR Decomposition</a>
     <ul class="submenu_class">
       <li class="toc-item"><a href="#assumption" class="toc-anchor">Assumption</a></li>
       <li class="toc-item"><a href="#idea" class="toc-anchor">Idea</a></li>
       <li class="toc-item"><a href="#process" class="toc-anchor">Process</a></li>
       <li class="toc-item"><a href="#transform-to-matrix-form" class="toc-anchor">Transform to Matrix form</a></li>
-      <li class="toc-item"><a href="#a%EA%B0%80-%EC%A0%95%EC%82%AC%EA%B0%81%ED%96%89%EB%A0%AC%EC%9D%BC-%EB%95%8C" class="toc-anchor">A가 정사각행렬일 때,</a></li>
+      <li class="toc-item"><a href="#a가-정사각행렬일-때" class="toc-anchor">A가 정사각행렬일 때,</a></li>
     </ul>
   </li>
 </ul>
@@ -783,7 +836,7 @@
 
 <p>QR 분해의 근본적인 이유는 무엇일까? 기존의 선형대수에 대한 글에서, 행렬은 하나의 공간을 매핑한다고 했다. 그리고 행렬 size가 정사각행렬이고, full rank일 때 n차원 공간을 매핑한다. 그런데 공간을 매핑하는데 있어, 굳이 <strong>orthogonal</strong> 할 필요는 없다. 즉, 직교하는 축으로 공간이 매핑될 필요는 없다. 하지만, 우리는 직교축에 익숙하다! 또한 다루기도 매우 쉽다!</p>
 
-<p><img width="800" alt="스크린샷 2019-05-04 오후 4 47 23" src="https://user-images.githubusercontent.com/37871541/57175898-4d211000-6e8c-11e9-8c57-48e8a7a15470.png" class="center" wdth="80%"><em>Vector</em></p>
+<p><img width="800" alt="스크린샷 2019-05-04 오후 4 47 23" src="https://user-images.githubusercontent.com/37871541/57175898-4d211000-6e8c-11e9-8c57-48e8a7a15470.png" class="center" wdth="80%" /><em>Vector</em></p>
 
 <p>따라서 우리는 특정 행렬이 Orthogonal 한 행렬로 나타내어 진다면 다루기 굉장히 수월할 것이다! 필요성이 생겼으니 만들어보자.</p>
 
@@ -804,7 +857,7 @@ size\;=\;n\times m\]
 
 <p>그렇다면, 우리는 b1에 직교하는 축, b2를 만들어야 하는데, 이녀석은 어떻게 정의할 수 있을까? <strong>a2 벡터의 방향으로 부터, a1 벡터의 성분을 제거</strong> 해준다면 그 남은 벡터가 b2 벡터라 할 수 있을 것이다.</p>
 
-<p><img width="800" alt="스크린샷 2019-05-04 오후 5 08 15" src="https://user-images.githubusercontent.com/37871541/57176148-38924700-6e8f-11e9-96a5-d809e41ba6ac.png" class="center" wdth="80%"><em>Orthogonal Vector</em></p>
+<p><img width="800" alt="스크린샷 2019-05-04 오후 5 08 15" src="https://user-images.githubusercontent.com/37871541/57176148-38924700-6e8f-11e9-96a5-d809e41ba6ac.png" class="center" wdth="80%" /><em>Orthogonal Vector</em></p>
 
 <p>그 다음 3차원 벡터는, a3 벡터에서, b1벡터의 성분을 빼고, b2벡터의 성분을 빼면 된다!</p>
 
@@ -814,7 +867,7 @@ size\;=\;n\times m\]
 
 \[\overset{\rightarrow}{b_1}\;=\;{\overset{\rightarrow}{a_1}}\]
 
-\[\hat{\overset{\rightarrow}{b\_1}}\;=\;{\overset{\rightarrow}{a\_1}\over|\overset{\rightarrow}{a\_1}|}\]
+\[\hat{\overset{\rightarrow}{b_1}}\;=\;{\overset{\rightarrow}{a_1}\over|\overset{\rightarrow}{a_1}|}\]
 
 <p>두번째 요소는,</p>
 
@@ -844,12 +897,12 @@ size\;=\;n\times m\]
 
 <p>여기서,</p>
 
-\[\hat{\overset{\rightarrow}{b\_i}}\;=\;{\overset{\rightarrow}{b\_i}\over|\overset{\rightarrow}{b\_i}|}\]
+\[\hat{\overset{\rightarrow}{b_i}}\;=\;{\overset{\rightarrow}{b_i}\over|\overset{\rightarrow}{b_i}|}\]
 
 <p>이므로,</p>
 
 \[\overset{\rightarrow}{a_i}\;=\;
-|\overset{\rightarrow}{b\_i}|\hat{\overset{\rightarrow}{b\_i}}
+|\overset{\rightarrow}{b_i}|\hat{\overset{\rightarrow}{b_i}}
 
 +\sum_{j=1}^{i-1}
 (\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}\]
@@ -857,7 +910,7 @@ size\;=\;n\times m\]
 <p>이 식을 <strong>A</strong> 식이라 하자. 여기서 양쪽에 b의 단위 벡터를 곱하자.</p>
 
 \[\hat{\overset{\rightarrow}{b_i}}^T\overset{\rightarrow}{a_i}\;=\;
-|\overset{\rightarrow}{b\_i}|\hat{\overset{\rightarrow}{b\_i}}^T\hat{\overset{\rightarrow}{b_i}}
+|\overset{\rightarrow}{b_i}|\hat{\overset{\rightarrow}{b_i}}^T\hat{\overset{\rightarrow}{b_i}}
 
 +\sum_{j=1}^{i-1}
 (\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_i}}^T\hat{\overset{\rightarrow}{b_j}}\]
@@ -872,17 +925,17 @@ size\;=\;n\times m\]
 
 <p><strong>시그마로 표시된 우측항은 0 이다.</strong> 또한, 그 왼쪽항도 1이 되어 b벡터의 크기만 남는다.</p>
 
-\[\hat{\overset{\rightarrow}{b\_i}}^T\overset{\rightarrow}{a\_i}\;=\;|\overset{\rightarrow}{b\_i}|\]
+\[\hat{\overset{\rightarrow}{b_i}}^T\overset{\rightarrow}{a_i}\;=\;|\overset{\rightarrow}{b_i}|\]
 
 <p>여기서 왼쪽항을 전치행렬의 특징을 사용해서 뒤바꾸면,</p>
 
 \[\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_i}}\;=\;
-|\overset{\rightarrow}{b\_i}|\]
+|\overset{\rightarrow}{b_i}|\]
 
 <p>이 결과를 <strong>A</strong> 식에 대입하면,</p>
 
 \[\overset{\rightarrow}{a_i}\;=\;
-|\overset{\rightarrow}{b\_i}|\hat{\overset{\rightarrow}{b\_i}}
+|\overset{\rightarrow}{b_i}|\hat{\overset{\rightarrow}{b_i}}
 
 +\sum_{j=1}^{i-1}
 (\overset{\rightarrow}{a_i}^T\hat{\overset{\rightarrow}{b_j}})\hat{\overset{\rightarrow}{b_j}}\\
@@ -952,9 +1005,17 @@ R\overset{\rightarrow}{x}\;=\;Q^T\overset{\rightarrow}{b}\\\]
 <footer>
   <div class="tags">
     
-    <a class="tag" href="http://localhost:4000/Works/tags#math">#Math</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#math"
+      >#Math</a
+    >
     
-    <a class="tag" href="http://localhost:4000/Works/tags#linear-algebra">#Linear Algebra</a>
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#linear-algebra"
+      >#Linear Algebra</a
+    >
     
   </div>
 </footer>
@@ -965,19 +1026,22 @@ R\overset{\rightarrow}{x}\;=\;Q^T\overset{\rightarrow}{b}\\\]
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                
-  <div id="previous-post" class="post-nav-post" onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html';">
+                                                                                                                                                                                                                                    
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/la/2020/09/29/Linear-Algebra-Basic-05-Aspects-of-Matrix-Multiplication.html';"
+  >
     <p>PREVIOUS SERIES</p>
     <p>05: Aspects of Matrix Multiplication (행렬 곱셈의 여러 측면)</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 </div>
 
 
 <!-- Disqus -->
 
-<div class="comments">
-<div id="disqus_thread"></div>
+<div class="comments"><div id="disqus_thread"></div>
 <script type="text/javascript">
 	var disqus_shortname = 'wansook0316';
 	(function() {
@@ -1013,7 +1077,7 @@ R\overset{\rightarrow}{x}\;=\;Q^T\overset{\rightarrow}{b}\\\]
 	  </div>
 
 	<div class="powered-by">
-	Powered by <a class="theme-link" href="https://jekyllrb.com">Jekyll</a>
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
 	</div>
 
 	<div class="prev-blog-info">
