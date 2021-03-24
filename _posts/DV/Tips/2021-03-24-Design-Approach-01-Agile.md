@@ -89,7 +89,7 @@ Agile 가치를 기반으로 실행할 수 있는 Framework중 하나이다. 가
 * 스프린트 백로그(sprint backlog)
   * 1개의 스프린트에서 개발할 백로그들을 스프린트 백로그라 한다.
 
-# Agile, Scrum 사례 - Spotify
+# Agile, Scrum 사례 - Spotify  
 
 * 스웨덴의 온라인 뮤직 서비스 업체
 * 30여개의 팀에 3개의 도시에 분산되어 있음
@@ -99,9 +99,11 @@ Agile 가치를 기반으로 실행할 수 있는 Framework중 하나이다. 가
 
 <p align="middle">
 <iframe width="660" height="360" src="https://www.youtube.com/embed/4GK1NDTWbkY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
 
 ![image](https://user-images.githubusercontent.com/37871541/112300192-e903d100-8cdb-11eb-8ac0-754852ac25a1.png){: .center}*spotify squad*
 
+ 
 ## Squad
 * Spotify에서는 개발 기본 단위인 팀을 Squad라고 부른다.
 * 스크럼 팀과 유사하며, 그 자체로 미니 스타트업처럼 구성되어 있다.
