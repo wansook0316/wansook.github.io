@@ -135,7 +135,5 @@ Agile 가치를 기반으로 실행할 수 있는 Framework중 하나이다. 가
 * Guild Coordinator는 Guild의 전반적인 리더 역할을 한다.
 * 공개적으로 같은 관심 사항에 대해 토론하고 해결책을 모색한다.
 
-
-
-* # Reference
+# Reference
 [애자일이 무엇인가요?](https://brunch.co.kr/@insuk/5)
