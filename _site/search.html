@@ -399,6 +399,8 @@
                 
                 
                 
+                
+                
 -->
       <!-- Social icons from Font Awesome, if enabled  -->
       <!--                
@@ -663,6 +665,90 @@
 
 <script>
   window.store = {
+    
+      "cs-algorithm-2021-03-31-eb-b0-b1-ec-a4-80-ed-8f-ac-eb-8f-84-ec-a3-bc-ec-8b-9c-ec-8b-9d-html": {
+        "title": "백준(2156번): 포도주 시식",
+        "tags": "백준, 알고리즘, 동적계획법",
+        "date": "March 31, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버1 : 동적계획법 문제이다.생각  dp[i] : i번째 포도주의 위치에서 마실 수 있는 최대 포도주 양i번째 포도주의 포도주 양은 세가지 경로에서 답을 찾을 수 있다.  dp[i-3] + input[i-1] + input[i]  dp[i-2] + input[i]  dp[i-1]Code////  main.cpp//  test2////  Created by 최완식 on 2021/03/29.//#include &lt;iostream&gt;#include &lt;vector&gt;#include &lt;algorithm&gt;#include &lt;cmath&gt;using namespace std;int N = 0;int input[10002];int dp[10002];int max_value(int a, int b){    if (a &gt; b) {        return a;    }    return b;}int main(){    cin &gt;&gt; N;    for (int i = 1; i &lt;= N; i++) {        cin &gt;&gt; input[i];    }        dp[1] = input[1];    dp[2] = input[1] + input[2];    dp[3] = max(max(dp[1] + input[3], input[2] + input[3]), dp[2]);        for (int i = 4; i &lt;= N; i++) {        dp[i] = max(max(dp[i-3] + input[i-1] + input[i],dp[i-2] + input[i]), dp[i-1]);    }        cout &lt;&lt; dp[N] &lt;&lt; endl;        return 0;}Reference백준(2156번) - 포도주 시식",
+        
+        "url": "/cs/algorithm/2021/03/31/%EB%B0%B1%EC%A4%80-%ED%8F%AC%EB%8F%84%EC%A3%BC-%EC%8B%9C%EC%8B%9D.html"
+      }
+      ,
+    
+      "cs-algorithm-2021-03-31-eb-b0-b1-ec-a4-80-ea-b2-bd-eb-a1-9c-ec-b0-be-ea-b8-b0-html": {
+        "title": "백준(11403번): 경로 찾기",
+        "tags": "백준, 알고리즘, 동적계획법",
+        "date": "March 31, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버1 : 최단거리 문제이다.생각  모든 경로에 대한 최단 거리를 구해야 한다.  가중치는 양수이자 동일  정점 개수 100개모든 경로에 대해 최단 거리를 구해야 한다는 점에서 플루이드를 사용할 것이고, $O(V^3)$ 알고리즘에도 통과한 노드 개수이므로 진행한다. (제한시간 1초)Codeimport sysdef read_input():    n = int(sys.stdin.readline().rstrip())    w = [        [int(x) if int(x) != 0 else 100000 for x in sys.stdin.readline().split()]        for y in range(n)    ]    d = w    p = [[int(0) for x in range(n)] for y in range(n)]    return n, w, d, pdef allShortestPath(n, w, d, p):    for k in range(n):        for i in range(n):            for j in range(n):                if d[i][j] &gt; d[i][k - 1] + d[k - 1][j]:                    p[i][j] = k                    d[i][j] = d[i][k - 1] + d[k - 1][j]    for i in range(n):        for j in range(n):            if d[i][j] == 100000:                d[i][j] = 0            else:                d[i][j] = 1    return d, pdef path(start, end, p):    returndef printOutput(mat):    n = len(mat)    m = len(mat[0])    for i in range(n):        for j in range(m):            print(mat[i][j], end=\" \")        print()n, w, d, p = read_input()d, p = allShortestPath(n, w, d, p)printOutput(d)Reference백준(11403번) - 포도주 시식",
+        
+        "url": "/cs/algorithm/2021/03/31/%EB%B0%B1%EC%A4%80-%EA%B2%BD%EB%A1%9C%EC%B0%BE%EA%B8%B0.html"
+      }
+      ,
+    
+      "dv-tips-2021-03-30-protobuf-html": {
+        "title": "Protobuf: Google Protocol Buffer란?",
+        "tags": "Tips, anaconda, error, trouble shooting",
+        "date": "March 30, 2021",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "protocprotobuf documentationprotobuf는 데이터를 구조화하고, 이를 전송하고자 하는데 있어서 유연하고 효율적으로 작성하고 파싱하도록 지원하는 자동화 솔루션이다. json이나 xml을 생각하면 이해가 쉬운데, 사실 조금 다른 부분이 있다. protobuf는 데이터 구조를 .proto라는 파일로 작성하면, 이를 컴파일 해서 C++/C#/Python 등의 다양한 언어 코드 형태로 변환이 가능하다. 또한 변환된 언어 형태로 모듈까지 생성되어, 해당 언어로 데이터 구조를 전송하고 받아올 수 있도록 해준다.C언어로 예를 들어 구조체를 정의하고, 이를 소켓을 통해 전송할 수 있게 Serialize(전송할 수 있도록 변환)하고, 변환된 데이터를 받은 후 Deserialize(파싱해서 다시 구조체의 형태로 저장) 하던 과정이 있다면, 이를 직접 코드로 다 작성해야 한다. 하지만 ProtoBuf는 데이터 구조만 정의하면 이 과정은 전부 지원해준다.",
+        
+        "url": "/dv/tips/2021/03/30/protobuf.html"
+      }
+      ,
+    
+      "cv-projects-2021-03-30-face-detection-and-tracking-with-ssd-network-04-trial-and-error-01-html": {
+        "title": "04: Trial and Error - 01",
+        "tags": "project, CV",
+        "date": "March 30, 2021",
+        "author": "",
+        "category": "CV/Projects",
+        "content": "Tensorflow object detection api 사용  tensorflow models위의 레포를 기반으로 작업한다.가상환경 설정먼저, python 3.7버전으로 가상환경을 만들자. object detection이 돌아가는 환경을 만들기 위함이다.conda create -n myvenv python=3.7다음으로 object detection 모델을 clone한다.git clone https://github.com/tensorflow/models.git마지막으로 필요한 기본 라이브러리를 설치한다.pip install TensorFlow==1.15 lxml pillow matplotlib jupyter contextlib2 cython tf_slimprotoc  protobuf documentationprotobuf는 데이터를 구조화하고, 이를 전송하고자 하는데 있어서 유연하고 효율적으로 작성하고 파싱하도록 지원하는 자동화 솔루션이다. json이나 xml을 생각하면 이해가 쉬운데, 사실 조금 다른 부분이 있다. protobuf는 데이터 구조를 .proto라는 파일로 작성하면, 이를 컴파일 해서 C++/C#/Python 등의 다양한 언어 코드 형태로 변환이 가능하다. 또한 변환된 언어 형태로 모듈까지 생성되어, 해당 언어로 데이터 구조를 전송하고 받아올 수 있도록 해준다.C언어로 예를 들어 구조체를 정의하고, 이를 소켓을 통해 전송할 수 있게 Serialize(전송할 수 있도록 변환)하고, 변환된 데이터를 받은 후 Deserialize(파싱해서 다시 구조체의 형태로 저장) 하던 과정이 있다면, 이를 직접 코드로 다 작성해야 한다. 하지만 ProtoBuf는 데이터 구조만 정의하면 이 과정은 전부 지원해준다.  protocbuf 3.4vwindow 10 환경에서 잘 작동하는 버전은 3.4v이다. 다양한 버전 테스트를 해봤지만 당장 제대로 돌아가는 버전을 사용하는 것이 맞다는 판단을 했다. 페이지 안에서 win32버전을 선택하자. 파일을 받았다면 압축을 풀고, bin 폴더 안에 있는 protoc.exe를 models/research안에 넣어주자. 그리고 cmd를 킨다.protoc object_detection/protos/*.proto --python_out=.이 작업을 하면, 모두 컴파일이 되어 나오게 된다.Object detection setup/models/research/object_detection/packages/tf1 에 있는 setup.py를 복사해서 object_detection 폴더로 이동한다. tensorflow 1.15버전을 사용할 것이기 때문에 예전 setup을 사용해야 한다.python setup.py buildpython setup.py installpip install pycocotools-windows여기서 윈도우 유저라면 pycocotools를 설치하면 에러가 날 것이다. 다른 운영체제 사용자는 기존대로 설치해도 괜찮다. window 사용자라면 꼭 뒤에 -windows를 추가해주자.Deepsort 사용  Deep SORT위의 레포를 기반으로 작업한다.sklearn version switchinglinear_assignment_은 해당 레포에서 사용했던 버전에서 더이상 작동하지 않는다.sklearn.utils.linear_assignment_을 from scipy.optimize import linear_sum_assignment as linear_assignment 으로 변경하거나, sklearn version을 0.22.2 버전으로 변경하자.pip install scikit-learn==0.22.2Demo먼저 tracking 결과를 간단히 확인하고, result file을 만들기 위해서는 아래의 커맨드를 입력한다. 이 때, mot test 폴더에 있는 각각의 sequence folder의 이름과 output file의 이름을 같게 해주어야 한다. 그래야 나중에 tracking file을 기반으로 동영상을 추출할 수 있다.python deep_sort_app.py \\    --sequence_dir=./MOT16/test/MOT16-06 \\    --detection_file=./resources/detections/MOT16_POI_test/MOT16-06.npy \\    --min_confidence=0.3 \\    --nn_budget=100 \\    --display=True \\    --output_file=./output/MOT16-06.txttracking이 잘 되었다면, 비디오를 생성하자.python generate_videos.py \\    --mot_dir=./MOT16/test \\    --result_dir=./output \\    --output_dir=./output_videos문제점해당 repo의 소스코드를 뜯어본 결과 문제점들을 확인할 수 있었다.  Deepsort를 작동 시키기 위해서는 detection model이 필요하다.  tracking을 진행할 video가 frame 단위로 존재해야 한다.  본격적인 tracking을 진행하기 전에, detection이 된 결과를 기반으로 각각의 물체에 대한 appearence feature를 만들어 두어야 한다.          이게 정말 실시간인가 하는 의문이 든다.      appearence feature를 만들기 위해 feature extractor를 학습해야 한다.      최종적으로 실시간으로 작동하는 tracking 모델을 만드는 것이 목적이지만, 당장은 face detector와 deepsort를 연결하여 동작하는지를 확인해야 할 듯하다.Cosine-metric-learningDeepsort를 사용하기 위해서는 appearence metric을 사용해야 한다. 그러기 위해서는 원하는 이미지에 대해서 feature extraction을 하기 위한 모델을 훈련해야 한다.cosine-metric-learning위의 레포를 기반으로 훈련할 수 있다. 다만 사용하는 dataset이 달라 변환하는 과정을 거쳐야 할 것으로 보인다.실행 계획  face detection pretrained model 테스트하기  Deepsort cosine-metric-learning 테스트하기          Dataset을 WIDER-face dataset으로 변경후 학습      gpu 학습 설정      tensorboard 사용        Trained model Deepsort repo로 옮기기  detection output을 deepsort detection result와 양식을 맞춘다.  tracking result 생성          inference time per frame 계산 후 확인        tracking video 생성Face Detection Pretrained ModelTensorflow Face Detector해당 모델을 사용하려 했으나, 다양한 input에 대해 inference를 해본 결과, 생각보다 물체를 많이 못잡는다는 점을 파악했다. MTCNN을 사용하려 했지만, inference 속도가 너무 나오지 않아서 사용하는 것을 포기했다.ssd_mobile_net으로, 속도에 주안점을 둔 모델이라 이런 성능이 나온 것으로 보인다. 다른 모델로 변경할 수도 있지만 당장은 이 정도의 output을 가지고 Deepsort와 연동하는 방법을 고민하기로 했다.tensorflow gpu settingReferenceHow to Install TensorFlow Object Detection in 2020 (Webcam and Images!)",
+        
+        "url": "/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html"
+      }
+      ,
+    
+      "cs-algorithm-2021-03-30-eb-b0-b1-ec-a4-80-ed-86-b5-ea-b3-84-ed-95-99-html": {
+        "title": "백준(2108번): 통계학",
+        "tags": "백준, 알고리즘, 정렬",
+        "date": "March 30, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "실버4 : 정렬생각최빈값 구할 때, 머리를 좀 써야한다. map구조를 잘 써볼 것. 그리고 정렬하는 방법도 고민해볼 것.Code////  main.cpp//  test2////  Created by 최완식 on 2021/03/29.//#include &lt;iostream&gt;#include &lt;vector&gt;#include &lt;algorithm&gt;#include &lt;cmath&gt;using namespace std;int N = 0;int input[500001] = {0,};int temp[500001] = {0,};int a = 0;int b = 0;int c = 0;int d = 0;bool comp(const pair&lt;int, int&gt; &amp;p1, const pair&lt;int, int&gt; &amp;p2){    if (p1.second == p2.second) {        return p1.first &lt; p2.first;    }    return p1.second &gt; p2.second;}void merge(int left, int right){    int mid = int((left+right)/2);    int i = left, j = mid+1, k = left;        while (i &lt;= mid &amp;&amp; j &lt;= right) {        if (input[i] &lt;= input[j]) {            temp[k] = input[i];            i++;        } else {            temp[k] = input[j];            j++;        }        k++;    }        int tmp = (i &gt; mid) ? j : i;        while(k &lt;= right){        temp[k] = input[tmp];        k++;        tmp++;    }        for (int i = left; i &lt;= right; i++) {        input[i] = temp[i];    }}void partition(int left, int right){    if (left &gt;= right) {        return;    }    int mid = int((left+right)/2);    partition(left, mid);    partition(mid+1, right);    merge(left, right);}int main(){    cin &gt;&gt; N;    for (int i = 0; i &lt; N; i++) {        cin &gt;&gt; input[i];        a += input[i];    }    a = int(round(float(a)/N)); // 산술 평균        partition(0, N-1); // 정렬        b = input[int(N/2)]; // 중앙값        // 최빈값    vector&lt;pair&lt;int, int&gt;&gt; st;    for (int i = 0; i &lt; N; i++) {        if (st.empty()) {            st.push_back(pair&lt;int, int&gt;(input[i], 1));            continue;        }        if (st.back().first == input[i]) {            pair&lt;int, int&gt; tmp = st.back();            tmp.second++;            st.pop_back();            st.push_back(tmp);        } else {            st.push_back(pair&lt;int, int&gt;(input[i], 1));        }    }    sort(st.begin(), st.end(), comp);    if (st[0].second == st[1].second) {        c = st[1].first;    } else {        c = st[0].first;    }        // 범위    d = input[N-1] - input[0];        cout &lt;&lt; a &lt;&lt; '\\n';    cout &lt;&lt; b &lt;&lt; '\\n';    cout &lt;&lt; c &lt;&lt; '\\n';    cout &lt;&lt; d &lt;&lt; '\\n';    return 0;}Reference백준(2108번) - 통계학",
+        
+        "url": "/cs/algorithm/2021/03/30/%EB%B0%B1%EC%A4%80-%ED%86%B5%EA%B3%84%ED%95%99.html"
+      }
+      ,
+    
+      "dv-tips-2021-03-25-window-anaconda-ec-84-a4-ec-b9-98-ec-98-a4-eb-a5-98-html": {
+        "title": "anaconda trouble shooting",
+        "tags": "Tips, anaconda, error, trouble shooting",
+        "date": "March 25, 2021",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "Git과 Anaconda 설치 후 Git Bash 설정conda activate, source activateimportError: DLL load failed while importing win32api: 지정된 모듈을 찾을 수 없습니다. 에러 해결 하기",
+        
+        "url": "/dv/tips/2021/03/25/window-anaconda-%EC%84%A4%EC%B9%98%EC%98%A4%EB%A5%98.html"
+      }
+      ,
+    
+      "dv-tips-2021-03-24-design-approach-01-agile-html": {
+        "title": "01: Agile",
+        "tags": "Tips, Design Pattern, Design Approach",
+        "date": "March 24, 2021",
+        "author": "",
+        "category": "DV/Tips",
+        "content": "Agile이란?Agile이라는 단어는 많이 쓰지만 정작 제대로된 이해는 부족한 경우가 많다. Agile의 핵심은 원리, 가치, 원칙에 더 가깝다. 프로젝트에 참가하는 팀이 어떠한 신념을 가지고 일을 진행시키겠냐는 약속에 가까운 것이다. 프로젝트를 진행하게되면 의사 결정의 순간에 팀만의 가치 우선순위가 없을 경우 일을 진행시키는 것이 매우 어렵다. 이러한 부분에서 Agile 원칙이 한가지 예로 존재하는 것. 아래에 서술할 Agile 개발 방법론으로부터 이 개념은 파생되어, 무언가 좋은 제품을 만드는데 있어서 빠르고, 낭비없이 만드는 원칙과 같은 관용어로 사용하게 되었다.Agile의 전제  세상에 확실한 것은 아무것도 없다.  고객도 자신이 원하는 바를 정확히 모른다.Agile menifesto우리는 소프트웨어를 개발하고, 또 다른 사람의 개발을 도와주면서 소프트웨어 개발의 더 나은 방법들을 찾아가고 있다.이 작업을 통해 우리는 다음을 가치있게 여기게 되었다:  공정과 도구보다 개인과 상호작용을  포괄적인 문서보다 작동하는 소프트웨어를  계약 협상보다 고객과의 협력을  계획을 따르기보다 변화에 대응하기를가치있게 여긴다. 이 말은, 왼쪽에 있는 것들도 가치가 있지만, 우리는 오른쪽에 있는 것들에 더 높은 가치를 둔다는 것이다.Agile Principles  우리의 최우선 순위는 귀중한 소프트웨어를 조기에 지속적으로 제공하여 고객을 만족시키는 것입니다.  개발 후반에도 변화하는 요구 사항을 환영합니다. 애자일 프로세스는 고객의 경쟁 우위를 위해 변화를 활용합니다.  짧은 기간을 선호하여 2 주에서 2 개월까지 작업 소프트웨어를 자주 제공합니다.  비즈니스맨과 개발자는 프로젝트 전체에서 매일 함께 작업해야합니다.  동기 부여 된 개인을 중심으로 프로젝트를 구축하십시오. 그들에게 필요한 환경과 지원을 제공하고 그들이 일을 완수 할 수 있도록 신뢰하십시오.  개발 팀과 정보를 전달하는 가장 효율적이고 효과적인 방법은 대면 대화입니다.  작업 소프트웨어는 진행 상황의 주요 척도입니다.  애자일 프로세스는 지속 가능한 개발을 촉진합니다. 스폰서, 개발자 및 사용자는 무한정 일정한 속도를 유지할 수 있어야합니다.  기술적 우수성과 우수한 디자인에 대한 지속적인 관심은 민첩성을 향상시킵니다.  단순성 (완료하지 않은 작업량을 극대화하는 기술)은 필수적입니다.  최상의 아키텍처, 요구 사항 및 디자인은 자체 구성 팀에서 나옵니다.  정기적으로 팀은 더 효과적인 방법을 고려한 다음 그에 따라 행동을 조정하고 적용합니다.왜 사용하는가?agile 방법론의 태동은 기존의 소프트웨어 방법론에서 발생한 문제점으로 부터 시사되었다. 계획에 의존하는 경우는 형식에 얽매이게 되고, 빠르게 방향을 변경하는 것이 어렵다. 그와 반대로 계획이 없는 경우 앞으로의 일을 예측하기 힘들고 효율적이지 못하다. 이러한 두가지 방법론 사이에서 타협을 찾았다고 볼 수 있다.가장 큰 변화는 documentation보다 code를 기반하도록 변경된 것이다. 일정한 주기를 가지고 프로젝트의 생명 주기가 끝나기 전까지 그때 그때 고객과의 소통을 통해 요구를 더하고 수정하여 하나의 커다란 소프트웨어를 개발하는 방법이다.Scrum이란?Football Scrum스크럼은 럭비에서 진형을 갖추고 있는 모습을 말한다. 이 그림을 보면 팀단위로 똘똘뭉쳐서 하나의 목표를 달성하기 위해 진형이 구축되어 있다. 스크럼 개발 방식은 이 주도적인 팀 수행이 핵심이다.Agile 가치를 기반으로 실행할 수 있는 Framework중 하나이다. 가치를 말하는 Agile을 이러한 틀을 기반으로 진행시키면 쉽게 할 수 있다를 제안한다. 사실 이 방법이 매력적인 이유는 보통 소규모 프로젝트를 진행했을 때 팀단위가 3~10명 사이이기 때문이다. 쉽게 회의를 진행할 수 있고, 그렇기 때문에 의사소통이 편하다.TermsScrum process  스크럼팀(scrum team)          프로젝트 수행에 필요한 모든 역량을 갖춘 팀      팀원은 전문 영역에 고정되지 않고 다같이 팀 과제를 수행함        제품 책임자(product owner)          제품의 백로그를 관리, 통제할 수 있는 권한을 가진 사람.      단 한명이어야 한다.      고객 및 조직 가치에 기반하여 제품 백로그 항목들의 우선순위를 결정하고 매 스트린트의 결과를 검토하여 우선순위를 지속적으로 조정, 관리한다.        스크럼 마스터(Scrum Master)          현장에 맞는 실천법을 정립하여 실행할 수 있도록 이끈다.      일일 스크럼 회의를 주관하여 진척도를 모니터링하고, 생산성에 악영향을 미치는 정책, 절차, 구조를 공론화하여 처리한다.      PM과 달리 업무를 지시, 통제하지 않는다.      목표달성을 위해 필요한 자원을 지원하거나 장애물을 제거하는 조력자 역할이다.        백로그(Backlog)          요구 사항 리스트, 제품의 개발 대상 목록      Agile에서는 User Story라 부른다.        스프린트(Sprint)          Agile은 짧은 기간 동안 동작하는 SW를 만들고 피드백을 통해 고쳐나가는 방법을 사용한다. 이 짧은 기간을 iteration이라 한다.      Scrum에서는 sprint라 한다.      보통 1~4주의 기간을 선정한다.        스프린트 백로그(sprint backlog)          1개의 스프린트에서 개발할 백로그들을 스프린트 백로그라 한다.      Agile, Scrum 사례 - Spotify  스웨덴의 온라인 뮤직 서비스 업체  30여개의 팀에 3개의 도시에 분산되어 있음  설립된지 6년  초기 2년동안 엄청난 자금난에 시달렸음  1,500만 명의 액티브 유저가 서비스를 이용 중이고, 그 중 400만명이 유료 사용자spotify squadSquad  Spotify에서는 개발 기본 단위인 팀을 Squad라고 부른다.  스크럼 팀과 유사하며, 그 자체로 미니 스타트업처럼 구성되어 있다.  물리적으로 한 공간에서 일하며, 한 Squad 내부에 기획, 개발, 테스트, 배포 등이 가능한 모든 기술과 자원을 갖추고 있다.  일하는 방식은 스스로 결정한다.  린 스타트업의 MVP 원칙을 지킨다. 간단히 말해서, 제품을 최대한 일찍 자주 릴리스한다는 의미.  각 Squad는 커다란 제품의 한 부분을 담당한다.  Squad에는 각각 별도로, 업무를 위한 공간, 함께 모일 수 있는 라운지, 휴식 공간이 제공되며, 모든 벽이 화이트보드  업무 시간의 10%를 학습과 혁신을 위한 ‘hack day’로 사용  임명된 리더는 존재하지 않는다. 다만 Product Owner에게 팀 업무의 우선순위를 정하고, 로드맵을 유지하는 책임이 있다.  애자일 코치가 배정되어 있어서 일하는 방식을 지속적으로 개선한다.Tribe  Tribe는 Squad의 집합이고 필요한 Squad를 키워내는 인큐베이터의 역할을 함.  Tribe Lead에게는 최상의 업무 공간을 유지할 책임이 있다.  모든 Tribe는 협업을 위해 물리적으로 같은 공간을 사용  한 Tribe의 크기는 한 사람이 사회적 관계를 유지할 수 있는 최대치인 100명을 초과하지 않는다.  Squad 끼리의 업무 종속성을 해소하기 위해 필요에 의해 ‘Scrum of scrum’을 진행한다.  운영 조직과 개발 조직은 서로 다른 Squad로 구성한다.Chapter  Chapter는 한 Tribe 내에 존재하는 같은 직군의 조직. (예를 들어, 웹 개발자 챕터, 테스터 챕터, 백엔드 챕터 등)  각 Chapter는 정기적으로 모여서 해당 분야의 전문적인 내용들을 다룬다.  Chapter Lead는 자신의 Chapter 구성원을 관리한다. (임금, 인력 개발 등의 동적 자원 관리) 그러나 Chapter Lead도 한 Squad의 구성원Guild  Guild는 Tribe를 넘나드는 공통의 관심 분야를 가진 사람들의 커뮤니티라고 할 수 있다. (예를 들어, 웹 기술 길드, 테스터 길드, 애자일 코치 길드 등)  해당 분야에 속한 구성원은 Guild에 무조건 소속되게 되지만, 그렇지 않더라도 관심이 있는 사람이라면 누구나 참여할 수 있다.  Guild Coordinator는 Guild의 전반적인 리더 역할을 한다.  공개적으로 같은 관심 사항에 대해 토론하고 해결책을 모색한다.Reference애자일이 무엇인가요?",
+        
+        "url": "/dv/tips/2021/03/24/Design-Approach-01-Agile.html"
+      }
+      ,
     
       "dv-tips-2021-03-19-language-comparision-html": {
         "title": "언어별 특징 비교",

@@ -6,9 +6,719 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 19 Mar 2021 21:46:05 +0900</pubDate>
-    <lastBuildDate>Fri, 19 Mar 2021 21:46:05 +0900</lastBuildDate>
+    <pubDate>Mon, 05 Apr 2021 10:07:45 +0900</pubDate>
+    <lastBuildDate>Mon, 05 Apr 2021 10:07:45 +0900</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title> [Algorithm Problem Solving] 백준(2156번): 포도주 시식</title>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 동적계획법 문제이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;dp[i] : i번째 포도주의 위치에서 마실 수 있는 최대 포도주 양&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;i번째 포도주의 포도주 양은 세가지 경로에서 답을 찾을 수 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;dp[i-3] + input[i-1] + input[i]&lt;/li&gt;
+  &lt;li&gt;dp[i-2] + input[i]&lt;/li&gt;
+  &lt;li&gt;dp[i-1]&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  main.cpp&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  test2&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  Created by 최완식 on 2021/03/29.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;max_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/2156&quot; target=&quot;\_blank&quot;&gt;백준(2156번) - 포도주 시식&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 31 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/cs/algorithm/2021/03/31/%EB%B0%B1%EC%A4%80-%ED%8F%AC%EB%8F%84%EC%A3%BC-%EC%8B%9C%EC%8B%9D.html</link>
+        <guid isPermaLink="true">http://localhost:4000/cs/algorithm/2021/03/31/%EB%B0%B1%EC%A4%80-%ED%8F%AC%EB%8F%84%EC%A3%BC-%EC%8B%9C%EC%8B%9D.html</guid>
+        
+        <category>백준</category>
+        
+        <category>알고리즘</category>
+        
+        <category>동적계획법</category>
+        
+        
+        <category>CS/Algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title> [Algorithm Problem Solving] 백준(11403번): 경로 찾기</title>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 최단거리 문제이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;모든 경로에 대한 최단 거리를 구해야 한다.&lt;/li&gt;
+  &lt;li&gt;가중치는 양수이자 동일&lt;/li&gt;
+  &lt;li&gt;정점 개수 100개&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;모든 경로에 대해 최단 거리를 구해야 한다는 점에서 플루이드를 사용할 것이고, $O(V^3)$ 알고리즘에도 통과한 노드 개수이므로 진행한다. (제한시간 1초)&lt;/p&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rstrip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100000&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stdin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;allShortestPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;printOutput&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;allShortestPath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printOutput&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/11403&quot; target=&quot;\_blank&quot;&gt;백준(11403번) - 포도주 시식&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 31 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/cs/algorithm/2021/03/31/%EB%B0%B1%EC%A4%80-%EA%B2%BD%EB%A1%9C%EC%B0%BE%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/cs/algorithm/2021/03/31/%EB%B0%B1%EC%A4%80-%EA%B2%BD%EB%A1%9C%EC%B0%BE%EA%B8%B0.html</guid>
+        
+        <category>백준</category>
+        
+        <category>알고리즘</category>
+        
+        <category>동적계획법</category>
+        
+        
+        <category>CS/Algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title> [] Protobuf: Google Protocol Buffer란?</title>
+        <description> Google Protocol Buffer를 알아본다. : &lt;h1 id=&quot;protoc&quot;&gt;protoc&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developers.google.com/protocol-buffers&quot;&gt;protobuf documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;protobuf는 데이터를 구조화하고, 이를 전송하고자 하는데 있어서 유연하고 효율적으로 작성하고 파싱하도록 지원하는 자동화 솔루션이다. json이나 xml을 생각하면 이해가 쉬운데, 사실 조금 다른 부분이 있다. protobuf는 데이터 구조를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.proto&lt;/code&gt;라는 파일로 작성하면, 이를 컴파일 해서 C++/C#/Python 등의 다양한 언어 코드 형태로 변환이 가능하다. 또한 변환된 언어 형태로 모듈까지 생성되어, 해당 언어로 데이터 구조를 전송하고 받아올 수 있도록 해준다.&lt;/p&gt;
+
+&lt;p&gt;C언어로 예를 들어 구조체를 정의하고, 이를 소켓을 통해 전송할 수 있게 Serialize(전송할 수 있도록 변환)하고, 변환된 데이터를 받은 후 Deserialize(파싱해서 다시 구조체의 형태로 저장) 하던 과정이 있다면, 이를 직접 코드로 다 작성해야 한다. 하지만 ProtoBuf는 데이터 구조만 정의하면 이 과정은 전부 지원해준다.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2021/03/30/protobuf.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2021/03/30/protobuf.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>anaconda</category>
+        
+        <category>error</category>
+        
+        <category>trouble shooting</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Face Detection and Tracking with SSD Network] 04: Trial and Error - 01</title>
+        <description> 프로젝트 진행 사항을 적고 시행착오를 적는다. : &lt;h1 id=&quot;tensorflow-object-detection-api-사용&quot;&gt;Tensorflow object detection api 사용&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/tensorflow/models&quot;&gt;tensorflow models&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위의 레포를 기반으로 작업한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;가상환경-설정&quot;&gt;가상환경 설정&lt;/h2&gt;
+
+&lt;p&gt;먼저, python 3.7버전으로 가상환경을 만들자. object detection이 돌아가는 환경을 만들기 위함이다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;conda create &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; myvenv &lt;span class=&quot;nv&quot;&gt;python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3.7
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;다음으로 object detection 모델을 clone한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/tensorflow/models.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;마지막으로 필요한 기본 라이브러리를 설치한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TensorFlow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;1.15 lxml pillow matplotlib jupyter contextlib2 cython tf_slim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;protoc&quot;&gt;protoc&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.google.com/protocol-buffers&quot;&gt;protobuf documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;protobuf는 데이터를 구조화하고, 이를 전송하고자 하는데 있어서 유연하고 효율적으로 작성하고 파싱하도록 지원하는 자동화 솔루션이다. json이나 xml을 생각하면 이해가 쉬운데, 사실 조금 다른 부분이 있다. protobuf는 데이터 구조를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.proto&lt;/code&gt;라는 파일로 작성하면, 이를 컴파일 해서 C++/C#/Python 등의 다양한 언어 코드 형태로 변환이 가능하다. 또한 변환된 언어 형태로 모듈까지 생성되어, 해당 언어로 데이터 구조를 전송하고 받아올 수 있도록 해준다.&lt;/p&gt;
+
+&lt;p&gt;C언어로 예를 들어 구조체를 정의하고, 이를 소켓을 통해 전송할 수 있게 Serialize(전송할 수 있도록 변환)하고, 변환된 데이터를 받은 후 Deserialize(파싱해서 다시 구조체의 형태로 저장) 하던 과정이 있다면, 이를 직접 코드로 다 작성해야 한다. 하지만 ProtoBuf는 데이터 구조만 정의하면 이 과정은 전부 지원해준다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/protocolbuffers/protobuf/releases/tag/v3.4.0&quot;&gt;protocbuf 3.4v&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;window 10 환경에서 잘 작동하는 버전은 3.4v이다. 다양한 버전 테스트를 해봤지만 당장 제대로 돌아가는 버전을 사용하는 것이 맞다는 판단을 했다. 페이지 안에서 win32버전을 선택하자. 파일을 받았다면 압축을 풀고, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bin&lt;/code&gt; 폴더 안에 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;protoc.exe&lt;/code&gt;를 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;models/research&lt;/code&gt;안에 넣어주자. 그리고 cmd를 킨다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cmd&quot;&gt;protoc object_detection/protos/*.proto --python_out=.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이 작업을 하면, 모두 컴파일이 되어 나오게 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;object-detection-setup&quot;&gt;Object detection setup&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/models/research/object_detection/packages/tf1&lt;/code&gt; 에 있는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setup.py&lt;/code&gt;를 복사해서 object_detection 폴더로 이동한다. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tensorflow 1.15&lt;/code&gt;버전을 사용할 것이기 때문에 예전 setup을 사용해야 한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python setup.py build
+python setup.py &lt;span class=&quot;nb&quot;&gt;install
+&lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;pycocotools-windows
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;여기서 윈도우 유저라면 pycocotools를 설치하면 에러가 날 것이다. 다른 운영체제 사용자는 기존대로 설치해도 괜찮다. window 사용자라면 꼭 뒤에 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-windows&lt;/code&gt;를 추가해주자.&lt;/p&gt;
+
+&lt;h1 id=&quot;deepsort-사용&quot;&gt;Deepsort 사용&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nwojke/deep_sort&quot;&gt;Deep SORT&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위의 레포를 기반으로 작업한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;sklearn-version-switching&quot;&gt;sklearn version switching&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;linear_assignment_&lt;/code&gt;은 해당 레포에서 사용했던 버전에서 더이상 작동하지 않는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sklearn.utils.linear_assignment_&lt;/code&gt;을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from scipy.optimize import linear_sum_assignment as linear_assignment&lt;/code&gt; 으로 변경하거나, sklearn version을 0.22.2 버전으로 변경하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install scikit-learn==0.22.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;demo&quot;&gt;Demo&lt;/h2&gt;
+
+&lt;p&gt;먼저 tracking 결과를 간단히 확인하고, result file을 만들기 위해서는 아래의 커맨드를 입력한다. 이 때, mot test 폴더에 있는 각각의 sequence folder의 이름과 output file의 이름을 같게 해주어야 한다. 그래야 나중에 tracking file을 기반으로 동영상을 추출할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python deep_sort_app.py &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--sequence_dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./MOT16/test/MOT16-06 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--detection_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./resources/detections/MOT16_POI_test/MOT16-06.npy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--min_confidence&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.3 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--nn_budget&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;100 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;True &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--output_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./output/MOT16-06.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;tracking이 잘 되었다면, 비디오를 생성하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python generate_videos.py &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--mot_dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./MOT16/test &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--result_dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./output &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;--output_dir&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./output_videos
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;문제점&quot;&gt;문제점&lt;/h2&gt;
+
+&lt;p&gt;해당 repo의 소스코드를 뜯어본 결과 문제점들을 확인할 수 있었다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Deepsort를 작동 시키기 위해서는 detection model이 필요하다.&lt;/li&gt;
+  &lt;li&gt;tracking을 진행할 video가 frame 단위로 존재해야 한다.&lt;/li&gt;
+  &lt;li&gt;본격적인 tracking을 진행하기 전에, detection이 된 결과를 기반으로 각각의 물체에 대한 appearence feature를 만들어 두어야 한다.
+    &lt;ul&gt;
+      &lt;li&gt;이게 정말 실시간인가 하는 의문이 든다.&lt;/li&gt;
+      &lt;li&gt;appearence feature를 만들기 위해 feature extractor를 학습해야 한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;최종적으로 실시간으로 작동하는 tracking 모델을 만드는 것이 목적이지만, 당장은 face detector와 deepsort를 연결하여 동작하는지를 확인해야 할 듯하다.&lt;/p&gt;
+
+&lt;h1 id=&quot;cosine-metric-learning&quot;&gt;Cosine-metric-learning&lt;/h1&gt;
+
+&lt;p&gt;Deepsort를 사용하기 위해서는 appearence metric을 사용해야 한다. 그러기 위해서는 원하는 이미지에 대해서 feature extraction을 하기 위한 모델을 훈련해야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/nwojke/cosine_metric_learning&quot;&gt;cosine-metric-learning&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 레포를 기반으로 훈련할 수 있다. 다만 사용하는 dataset이 달라 변환하는 과정을 거쳐야 할 것으로 보인다.&lt;/p&gt;
+
+&lt;h1 id=&quot;실행-계획&quot;&gt;실행 계획&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;face detection pretrained model 테스트하기&lt;/li&gt;
+  &lt;li&gt;Deepsort cosine-metric-learning 테스트하기
+    &lt;ol&gt;
+      &lt;li&gt;Dataset을 WIDER-face dataset으로 변경후 학습&lt;/li&gt;
+      &lt;li&gt;gpu 학습 설정&lt;/li&gt;
+      &lt;li&gt;tensorboard 사용&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Trained model Deepsort repo로 옮기기&lt;/li&gt;
+  &lt;li&gt;detection output을 deepsort detection result와 양식을 맞춘다.&lt;/li&gt;
+  &lt;li&gt;tracking result 생성
+    &lt;ul&gt;
+      &lt;li&gt;inference time per frame 계산 후 확인&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;tracking video 생성&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;face-detection-pretrained-model&quot;&gt;Face Detection Pretrained Model&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/yeephycho/tensorflow-face-detection&quot;&gt;Tensorflow Face Detector&lt;/a&gt;&lt;br /&gt;
+해당 모델을 사용하려 했으나, 다양한 input에 대해 inference를 해본 결과, 생각보다 물체를 많이 못잡는다는 점을 파악했다. MTCNN을 사용하려 했지만, inference 속도가 너무 나오지 않아서 사용하는 것을 포기했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;892&quot; alt=&quot;KakaoTalk_Photo_2021-03-30-12-47-44&quot; src=&quot;https://user-images.githubusercontent.com/37871541/112931052-59847500-9156-11eb-8e57-a7b0d4d3d91e.png&quot; class=&quot;center-small&quot; /&gt;
+&lt;img width=&quot;892&quot; alt=&quot;KakaoTalk_Photo_2021-03-30-12-47-39&quot; src=&quot;https://user-images.githubusercontent.com/37871541/112931058-5ee1bf80-9156-11eb-88fa-a37235907eaa.png&quot; class=&quot;center-small&quot; /&gt;
+&lt;img width=&quot;1086&quot; alt=&quot;KakaoTalk_Photo_2021-03-30-12-47-29&quot; src=&quot;https://user-images.githubusercontent.com/37871541/112931061-6012ec80-9156-11eb-955c-518bb4a5356b.png&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ssd_mobile_net으로, 속도에 주안점을 둔 모델이라 이런 성능이 나온 것으로 보인다. 다른 모델로 변경할 수도 있지만 당장은 이 정도의 output을 가지고 Deepsort와 연동하는 방법을 고민하기로 했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;tensorflow-gpu-setting&quot;&gt;tensorflow gpu setting&lt;/h1&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=usR2LQuxhL4&amp;amp;t=786s&quot;&gt;How to Install TensorFlow Object Detection in 2020 (Webcam and Images!)&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html</link>
+        <guid isPermaLink="true">http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html</guid>
+        
+        <category>project</category>
+        
+        <category>CV</category>
+        
+        
+        <category>CV/Projects</category>
+        
+      </item>
+    
+      <item>
+        <title> [Algorithm Problem Solving] 백준(2108번): 통계학</title>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버4&lt;/em&gt;&lt;/strong&gt; : 정렬&lt;/p&gt;
+
+&lt;h1 id=&quot;생각&quot;&gt;생각&lt;/h1&gt;
+
+&lt;p&gt;최빈값 구할 때, 머리를 좀 써야한다. map구조를 잘 써볼 것. 그리고 정렬하는 방법도 고민해볼 것.&lt;/p&gt;
+
+&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  main.cpp&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  test2&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//  Created by 최완식 on 2021/03/29.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,};&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,};&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;comp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 산술 평균&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 정렬&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 중앙값&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;// 최빈값&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+    &lt;span class=&quot;c1&quot;&gt;// 범위&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/2108&quot; target=&quot;\_blank&quot;&gt;백준(2108번) - 통계학&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/cs/algorithm/2021/03/30/%EB%B0%B1%EC%A4%80-%ED%86%B5%EA%B3%84%ED%95%99.html</link>
+        <guid isPermaLink="true">http://localhost:4000/cs/algorithm/2021/03/30/%EB%B0%B1%EC%A4%80-%ED%86%B5%EA%B3%84%ED%95%99.html</guid>
+        
+        <category>백준</category>
+        
+        <category>알고리즘</category>
+        
+        <category>정렬</category>
+        
+        
+        <category>CS/Algorithm</category>
+        
+      </item>
+    
+      <item>
+        <title> [trouble shooting] anaconda trouble shooting</title>
+        <description> 아나콘다 에러를 잡자. : &lt;p&gt;&lt;a href=&quot;https://azanewta.tistory.com/29&quot;&gt;Git과 Anaconda 설치 후 Git Bash 설정&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://willbesoon.tistory.com/119&quot;&gt;conda activate, source activate&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://gentlesark.tistory.com/112&quot;&gt;importError: DLL load failed while importing win32api: 지정된 모듈을 찾을 수 없습니다. 에러 해결 하기&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Thu, 25 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2021/03/25/window-anaconda-%EC%84%A4%EC%B9%98%EC%98%A4%EB%A5%98.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2021/03/25/window-anaconda-%EC%84%A4%EC%B9%98%EC%98%A4%EB%A5%98.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>anaconda</category>
+        
+        <category>error</category>
+        
+        <category>trouble shooting</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
+    
+      <item>
+        <title> [Design Approach] 01: Agile</title>
+        <description> Agile 개발 방법론에 대해 알아보자. : &lt;h1 id=&quot;agile이란&quot;&gt;Agile이란?&lt;/h1&gt;
+
+&lt;p&gt;Agile이라는 단어는 많이 쓰지만 정작 제대로된 이해는 부족한 경우가 많다. Agile의 핵심은 원리, 가치, 원칙에 더 가깝다. 프로젝트에 참가하는 팀이 어떠한 신념을 가지고 일을 진행시키겠냐는 약속에 가까운 것이다. 프로젝트를 진행하게되면 의사 결정의 순간에 팀만의 가치 우선순위가 없을 경우 일을 진행시키는 것이 매우 어렵다. 이러한 부분에서 Agile 원칙이 한가지 예로 존재하는 것. 아래에 서술할 Agile 개발 방법론으로부터 이 개념은 파생되어, 무언가 좋은 제품을 만드는데 있어서 빠르고, 낭비없이 만드는 원칙과 같은 관용어로 사용하게 되었다.&lt;/p&gt;
+
+&lt;h2 id=&quot;agile의-전제&quot;&gt;Agile의 전제&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;세상에 확실한 것은 아무것도 없다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;고객도 자신이 원하는 바를 정확히 모른다.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;agile-menifesto&quot;&gt;Agile menifesto&lt;/h2&gt;
+
+&lt;p&gt;우리는 소프트웨어를 개발하고, 또 다른 사람의 개발을 도와주면서 소프트웨어 개발의 더 나은 방법들을 찾아가고 있다.&lt;/p&gt;
+
+&lt;p&gt;이 작업을 통해 우리는 다음을 가치있게 여기게 되었다:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;공정과 도구보다 &lt;strong&gt;개인과 상호작용&lt;/strong&gt;을&lt;/li&gt;
+  &lt;li&gt;포괄적인 문서보다 &lt;strong&gt;작동하는 소프트웨어&lt;/strong&gt;를&lt;/li&gt;
+  &lt;li&gt;계약 협상보다 &lt;strong&gt;고객과의 협력&lt;/strong&gt;을&lt;/li&gt;
+  &lt;li&gt;계획을 따르기보다 &lt;strong&gt;변화에 대응하기&lt;/strong&gt;를&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;가치있게 여긴다. 이 말은, 왼쪽에 있는 것들도 가치가 있지만, 우리는 오른쪽에 있는 것들에 더 높은 가치를 둔다는 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;agile-principles&quot;&gt;Agile Principles&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;우리의 최우선 순위는 귀중한 소프트웨어를 &lt;strong&gt;조기에 지속적으로 제공하여 고객을 만족&lt;/strong&gt;시키는 것입니다.&lt;/li&gt;
+  &lt;li&gt;개발 후반에도 &lt;strong&gt;변화하는 요구 사항을 환영&lt;/strong&gt;합니다. 애자일 프로세스는 고객의 경쟁 우위를 위해 변화를 활용합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;짧은 기간을 선호&lt;/strong&gt;하여 2 주에서 2 개월까지 작업 소프트웨어를 자주 제공합니다.&lt;/li&gt;
+  &lt;li&gt;비즈니스맨과 개발자는 프로젝트 전체에서 &lt;strong&gt;매일 함께 작업&lt;/strong&gt;해야합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;동기 부여 된 개인을 중심으로 프로젝트를 구축&lt;/strong&gt;하십시오. 그들에게 필요한 환경과 지원을 제공하고 그들이 일을 완수 할 수 있도록 신뢰하십시오.&lt;/li&gt;
+  &lt;li&gt;개발 팀과 정보를 전달하는 가장 효율적이고 효과적인 방법은 &lt;strong&gt;대면 대화&lt;/strong&gt;입니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;작업 소프트웨어&lt;/strong&gt;는 진행 상황의 주요 척도입니다.&lt;/li&gt;
+  &lt;li&gt;애자일 프로세스는 &lt;strong&gt;지속 가능한 개발을 촉진&lt;/strong&gt;합니다. 스폰서, 개발자 및 사용자는 무한정 일정한 속도를 유지할 수 있어야합니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;기술적 우수성과 우수한 디자인&lt;/strong&gt;에 대한 지속적인 관심은 민첩성을 향상시킵니다.&lt;/li&gt;
+  &lt;li&gt;단순성 (완료하지 않은 작업량을 극대화하는 기술)은 필수적입니다.&lt;/li&gt;
+  &lt;li&gt;최상의 아키텍처, 요구 사항 및 디자인은 자체 구성 팀에서 나옵니다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;정기적&lt;/strong&gt;으로 팀은 더 효과적인 방법을 고려한 다음 그에 따라 &lt;strong&gt;행동을 조정&lt;/strong&gt;하고 적용합니다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;왜-사용하는가&quot;&gt;왜 사용하는가?&lt;/h2&gt;
+
+&lt;p&gt;agile 방법론의 태동은 기존의 소프트웨어 방법론에서 발생한 문제점으로 부터 시사되었다. 계획에 의존하는 경우는 형식에 얽매이게 되고, 빠르게 방향을 변경하는 것이 어렵다. 그와 반대로 계획이 없는 경우 앞으로의 일을 예측하기 힘들고 효율적이지 못하다. 이러한 두가지 방법론 사이에서 타협을 찾았다고 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;가장 큰 변화는 &lt;strong&gt;documentation보다 code를 기반&lt;/strong&gt;하도록 변경된 것이다. 일정한 주기를 가지고 프로젝트의 생명 주기가 끝나기 전까지 그때 그때 고객과의 소통을 통해 요구를 더하고 수정하여 하나의 커다란 소프트웨어를 개발하는 방법이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;scrum이란&quot;&gt;Scrum이란?&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/112299235-f4a2c800-8cda-11eb-9aab-5d4132f16ab7.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;em&gt;Football Scrum&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;스크럼은 럭비에서 진형을 갖추고 있는 모습을 말한다. 이 그림을 보면 팀단위로 똘똘뭉쳐서 하나의 목표를 달성하기 위해 진형이 구축되어 있다. 스크럼 개발 방식은 이 주도적인 팀 수행이 핵심이다.&lt;/p&gt;
+
+&lt;p&gt;Agile 가치를 기반으로 실행할 수 있는 Framework중 하나이다. 가치를 말하는 Agile을 이러한 틀을 기반으로 진행시키면 쉽게 할 수 있다를 제안한다. 사실 이 방법이 매력적인 이유는 보통 소규모 프로젝트를 진행했을 때 팀단위가 3~10명 사이이기 때문이다. 쉽게 회의를 진행할 수 있고, 그렇기 때문에 의사소통이 편하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;terms&quot;&gt;Terms&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/112297271-0a16f280-8cd9-11eb-834e-40f4dfb33dac.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;em&gt;Scrum process&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;스크럼팀(scrum team)
+    &lt;ul&gt;
+      &lt;li&gt;프로젝트 수행에 필요한 모든 역량을 갖춘 팀&lt;/li&gt;
+      &lt;li&gt;팀원은 전문 영역에 고정되지 않고 다같이 팀 과제를 수행함&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;제품 책임자(product owner)
+    &lt;ul&gt;
+      &lt;li&gt;제품의 백로그를 관리, 통제할 수 있는 권한을 가진 사람.&lt;/li&gt;
+      &lt;li&gt;단 한명이어야 한다.&lt;/li&gt;
+      &lt;li&gt;고객 및 조직 가치에 기반하여 제품 백로그 항목들의 우선순위를 결정하고 매 스트린트의 결과를 검토하여 우선순위를 지속적으로 조정, 관리한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;스크럼 마스터(Scrum Master)
+    &lt;ul&gt;
+      &lt;li&gt;현장에 맞는 실천법을 정립하여 실행할 수 있도록 이끈다.&lt;/li&gt;
+      &lt;li&gt;일일 스크럼 회의를 주관하여 진척도를 모니터링하고, 생산성에 악영향을 미치는 정책, 절차, 구조를 공론화하여 처리한다.&lt;/li&gt;
+      &lt;li&gt;PM과 달리 업무를 지시, 통제하지 않는다.&lt;/li&gt;
+      &lt;li&gt;목표달성을 위해 필요한 자원을 지원하거나 장애물을 제거하는 조력자 역할이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;백로그(Backlog)
+    &lt;ul&gt;
+      &lt;li&gt;요구 사항 리스트, 제품의 개발 대상 목록&lt;/li&gt;
+      &lt;li&gt;Agile에서는 User Story라 부른다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;스프린트(Sprint)
+    &lt;ul&gt;
+      &lt;li&gt;Agile은 짧은 기간 동안 동작하는 SW를 만들고 피드백을 통해 고쳐나가는 방법을 사용한다. 이 짧은 기간을 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iteration&lt;/code&gt;이라 한다.&lt;/li&gt;
+      &lt;li&gt;Scrum에서는 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sprint&lt;/code&gt;라 한다.&lt;/li&gt;
+      &lt;li&gt;보통 1~4주의 기간을 선정한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;스프린트 백로그(sprint backlog)
+    &lt;ul&gt;
+      &lt;li&gt;1개의 스프린트에서 개발할 백로그들을 스프린트 백로그라 한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;agile-scrum-사례---spotify&quot;&gt;Agile, Scrum 사례 - Spotify&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;스웨덴의 온라인 뮤직 서비스 업체&lt;/li&gt;
+  &lt;li&gt;30여개의 팀에 3개의 도시에 분산되어 있음&lt;/li&gt;
+  &lt;li&gt;설립된지 6년&lt;/li&gt;
+  &lt;li&gt;초기 2년동안 엄청난 자금난에 시달렸음&lt;/li&gt;
+  &lt;li&gt;1,500만 명의 액티브 유저가 서비스를 이용 중이고, 그 중 400만명이 유료 사용자&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p align=&quot;middle&quot;&gt;
+&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/4GK1NDTWbkY&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/112300192-e903d100-8cdb-11eb-8ac0-754852ac25a1.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;em&gt;spotify squad&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;squad&quot;&gt;Squad&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Spotify에서는 개발 기본 단위인 팀을 Squad라고 부른다.&lt;/li&gt;
+  &lt;li&gt;스크럼 팀과 유사하며, 그 자체로 미니 스타트업처럼 구성되어 있다.&lt;/li&gt;
+  &lt;li&gt;물리적으로 한 공간에서 일하며, 한 Squad 내부에 기획, 개발, 테스트, 배포 등이 가능한 모든 기술과 자원을 갖추고 있다.&lt;/li&gt;
+  &lt;li&gt;일하는 방식은 스스로 결정한다.&lt;/li&gt;
+  &lt;li&gt;린 스타트업의 MVP 원칙을 지킨다. 간단히 말해서, 제품을 최대한 일찍 자주 릴리스한다는 의미.&lt;/li&gt;
+  &lt;li&gt;각 Squad는 커다란 제품의 한 부분을 담당한다.&lt;/li&gt;
+  &lt;li&gt;Squad에는 각각 별도로, 업무를 위한 공간, 함께 모일 수 있는 라운지, 휴식 공간이 제공되며, 모든 벽이 화이트보드&lt;/li&gt;
+  &lt;li&gt;업무 시간의 10%를 학습과 혁신을 위한 ‘hack day’로 사용&lt;/li&gt;
+  &lt;li&gt;임명된 리더는 존재하지 않는다. 다만 Product Owner에게 팀 업무의 우선순위를 정하고, 로드맵을 유지하는 책임이 있다.&lt;/li&gt;
+  &lt;li&gt;애자일 코치가 배정되어 있어서 일하는 방식을 지속적으로 개선한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tribe&quot;&gt;Tribe&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Tribe는 Squad의 집합이고 필요한 Squad를 키워내는 인큐베이터의 역할을 함.&lt;/li&gt;
+  &lt;li&gt;Tribe Lead에게는 최상의 업무 공간을 유지할 책임이 있다.&lt;/li&gt;
+  &lt;li&gt;모든 Tribe는 협업을 위해 물리적으로 같은 공간을 사용&lt;/li&gt;
+  &lt;li&gt;한 Tribe의 크기는 한 사람이 사회적 관계를 유지할 수 있는 최대치인 100명을 초과하지 않는다.&lt;/li&gt;
+  &lt;li&gt;Squad 끼리의 업무 종속성을 해소하기 위해 필요에 의해 ‘Scrum of scrum’을 진행한다.&lt;/li&gt;
+  &lt;li&gt;운영 조직과 개발 조직은 서로 다른 Squad로 구성한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;chapter&quot;&gt;Chapter&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Chapter는 한 Tribe 내에 존재하는 같은 직군의 조직. (예를 들어, 웹 개발자 챕터, 테스터 챕터, 백엔드 챕터 등)&lt;/li&gt;
+  &lt;li&gt;각 Chapter는 정기적으로 모여서 해당 분야의 전문적인 내용들을 다룬다.&lt;/li&gt;
+  &lt;li&gt;Chapter Lead는 자신의 Chapter 구성원을 관리한다. (임금, 인력 개발 등의 동적 자원 관리) 그러나 Chapter Lead도 한 Squad의 구성원&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;guild&quot;&gt;Guild&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Guild는 Tribe를 넘나드는 공통의 관심 분야를 가진 사람들의 커뮤니티라고 할 수 있다. (예를 들어, 웹 기술 길드, 테스터 길드, 애자일 코치 길드 등)&lt;/li&gt;
+  &lt;li&gt;해당 분야에 속한 구성원은 Guild에 무조건 소속되게 되지만, 그렇지 않더라도 관심이 있는 사람이라면 누구나 참여할 수 있다.&lt;/li&gt;
+  &lt;li&gt;Guild Coordinator는 Guild의 전반적인 리더 역할을 한다.&lt;/li&gt;
+  &lt;li&gt;공개적으로 같은 관심 사항에 대해 토론하고 해결책을 모색한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://brunch.co.kr/@insuk/5&quot;&gt;애자일이 무엇인가요?&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 24 Mar 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/tips/2021/03/24/Design-Approach-01-Agile.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/tips/2021/03/24/Design-Approach-01-Agile.html</guid>
+        
+        <category>Tips</category>
+        
+        <category>Design Pattern</category>
+        
+        <category>Design Approach</category>
+        
+        
+        <category>DV/Tips</category>
+        
+      </item>
     
       <item>
         <title> [Language Comparison] 언어별 특징 비교</title>
@@ -2056,475 +2766,6 @@ Referrer-Policy: no-referrer
         
         
         <category>CV/Projects</category>
-        
-      </item>
-    
-      <item>
-        <title> [GCP Fundamentals] 03: Virtul Machine in Cloud</title>
-        <description> 가상 머신이 무엇인지 알아보자. : &lt;h1 id=&quot;학습-목표&quot;&gt;학습 목표&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;Google Compute Engine의 목적 및 사용 사례 파악한다.&lt;/li&gt;
-  &lt;li&gt;다양한 Google Cloud Platform 네트워킹 및 운영 툴 및 서비스 요약&lt;/li&gt;
-  &lt;li&gt;GCP(Google Cloud Platform) 콘솔을 사용하여 컴퓨팅 엔진 가상 시스템을 구축&lt;/li&gt;
-  &lt;li&gt;gcloud 명령줄 인터페이스를 사용하여 Compute Engine 가상 시스템을 빌드한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;클라우드에서 워크로드를 실행할 수 있는 모든 방법 중에서 가상 시스템이 가장 익숙할 수 있습니다. 컴퓨팅 엔진을 사용하면 구글의 글로벌 인프라에서 가상 머신을 실행할 수 있습니다. 이 모듈에서는 Google Compute Engine이 Google 가상 네트워킹에 중점을 두고 작동하는 방법에 대해 알아보겠습니다. 가상 머신의 좋은 점 중 하나는 가상 머신이 각각 &lt;strong&gt;완전한 운영 체제의 파워와 일반성&lt;/strong&gt;을 가지고 있다는 것입니다. CPU 전원 및 메모리 양, 스토리지 양과 유형을 지정하고 운영 체제를 구축하듯이 가상 시스템을 구성할 수 있습니다. 유연하게 재구성할 수 있으며, 구글 클라우드에서 실행되는 VM의 네트워크 연결성은 전 세계적으로 비교할 수 없을 정도로 뛰어납니다.&lt;/p&gt;
-
-&lt;h1 id=&quot;virtual-private-cloud-vpc-network&quot;&gt;Virtual Private Cloud (VPC) Network&lt;/h1&gt;
-
-&lt;p&gt;많은 사람들이 첫 GCP 프로젝트에서 자체 Virtual Private Cloud를 정의하거나 기본 VPC를 선택하여 시작할 수 있습니다. 그럼에도 불구하고 VPC 네트워크는 Google Cloud 플랫폼 리소스를 서로 연결하고 인터넷에 연결합니다. 네트워크를 분할하고 방화벽 규칙을 사용하여 인스턴스에 대한 액세스를 제한하며 정적 경로를 생성하여 트래픽을 특정 대상으로 전달할 수 있습니다. GCP에 처음 온 많은 사람들을 놀라게 하는 것이 있습니다. 정의한 Virtual Private Cloud 네트워크에는 글로벌 범위가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;871&quot; alt=&quot;스크린샷 2020-12-18 오후 3 58 43&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102584494-e8dabf00-4149-11eb-96cb-aa2f27e372dc.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;전 세계 모든 GCP 영역에 서브넷을 가질 수 있으며 서브넷은 영역을 구성하는 영역에 걸쳐 있을 수 있습니다. 이 아키텍처를 사용하면 글로벌 범위에서 자신만의 네트워크 레이아웃을 쉽게 정의할 수 있습니다. 동일한 서브넷의 서로 다른 영역에 리소스를 가질 수도 있습니다. 서브넷에 할당된 IP 주소 범위를 확장하여 사용자 지정 네트워크에서 서브넷의 크기를 동적으로 늘릴 수 있습니다. 이 작업은 이미 구성된 VM에는 영향을 주지 않습니다. 이 예에서는 VPC에 네트워크가 하나 있습니다. 지금까지, GCPu s-east1 영역에 정의된 하나의 서브넷을 가지고 있다. 두 개의 컴퓨팅 엔진 VM이 연결되어 있습니다. 서로 다른 영역에 있더라도 동일한 서브넷에 있는 인접 네트워크입니다. 이 기능을 사용하여 복원력이 뛰어나지만 네트워크 레이아웃이 단순한 솔루션을 구축할 수 있습니다.&lt;/p&gt;
-
-&lt;h1 id=&quot;compute-engine&quot;&gt;Compute Engine&lt;/h1&gt;
-
-&lt;p&gt;Compute Engine을 사용하면 Google 인프라에서 가상 시스템을 생성하고 실행할 수 있습니다. 초기 투자도 없으며, 빠르고 일관된 성능을 제공하도록 설계된 시스템에서 수천 개의 가상 CPU를 실행할 수 있습니다. Google Cloud Platform 콘솔 또는 GCloud 명령줄 도구를 사용하여 가상 시스템 인스턴스를 생성할 수 있습니다. VM은 Google에서 제공하는 Linux 및 윈도우즈 Server 이미지 또는 이러한 이미지의 사용자 지정 버전을 실행할 수 있으며, 대부분의 물리적 서버에 대한 이미지를 가져올 수도 있습니다. VM을 생성할 때 메모리 양과 가상 CPU 수를 결정하는 시스템 유형을 선택합니다. 이 종류들은 매우 작은 것에서부터 매우 큰 것까지 다양합니다. 요구 사항을 완벽하게 충족하는 미리 정의된 유형을 찾을 수 없는 경우 사용자 지정 VM을 만들 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;처리 능력에 대해 말하자면, GPU를 활용할 수 있는 기계 학습 및 데이터 처리와 같은 워크로드가 있는 경우 많은 GCP 영역에 GPU를 사용할 수 있습니다. 물리적 컴퓨터에 디스크가 필요한 것처럼 VM도 디스크가 필요합니다. 표준 스토리지와 SSD 중 두 가지 종류의 영구 스토리지를 선택할 수 있습니다. 애플리케이션에 고성능 스크래치 공간이 필요한 경우 로컬 SSD를 연결할 수 있지만 VM이 종료될 때 로컬 SSD 콘텐츠가 오래가지 않으므로 영구적인 가치를 지닌 데이터를 다른 곳에 저장해야 합니다. 이것이 다른 종류의 디스크를 영구 디스크라고 부르는 이유입니다. 어쨌든 대부분의 사용자는 표준 영구 디스크로 시작하며 이것이 기본값입니다.&lt;/p&gt;
-
-&lt;p&gt;부팅 이미지도 선택할 수 있습니다. GCP는 다양한 버전의 Linux와 Windows를 사용할 수 있으며 자신만의 이미지를 가져올 수도 있습니다. 많은 GCP 고객은 VM이 처음 부팅 시 소프트웨어 패키지 설치와 같은 특정 구성을 항상 제안하기를 원합니다. GCP VM 시작 스크립트를 전달하는 것은 매우 일반적입니다. 다른 종류의 메타데이터도 전달할 수 있습니다. VM이 실행되면 해당 디스크의 지속적 스냅샷을 쉽게 만들 수 있습니다. 이를 백업으로 유지하거나 VM을 다른 영역으로 마이그레이션해야 할 때 사용할 수 있습니다. 어떤 사람도 작업을 완료하기 위해 대기하고 있지 않은 워크로드, 예를 들어 대규모 데이터 집합을 분석하는 배치 작업을 예로 들 수 있습니다. 작업을 실행하기 위한 사전 예방적 VM을 선택하면 비용을 절감할 수 있습니다. 사전 예방적 VM은 한 가지 측면에서 일반 컴퓨팅 엔진 VM과 다릅니다. 다른 곳에 리소스가 필요한 경우 해당 리소스를 종료할 수 있는 컴퓨팅 엔진 사용 권한을 부여했습니다. 사전 예방적 VM을 사용하면 많은 비용을 절약할 수 있지만 작업을 중지하고 재시작할 수 있습니다. 미리 정의된 시스템 유형 집합을 사용하거나 사용자 지정 시스템 유형을 생성하여 가상 CPU 수 및 메모리 양과 같은 인스턴스의 시스템 속성을 선택할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;871&quot; alt=&quot;스크린샷 2020-12-21 오전 11 43 43&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102733887-c9c67200-4381-11eb-89e6-5dc1a6ff3c9e.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;조금 전에 컴퓨팅 엔진에서 매우 큰 VM을 만들 수 있다고 언급했습니다. 이 비디오가 생성될 당시 최대 가상 CPU 수와 VM은 96개였으며 최대 메모리 크기는 624GB의 베타 버전이었습니다. GCP 웹 사이트를 확인하여 현재 이 최대값이 어디에 있는지 확인하십시오. 이러한 대용량 VM은 인메모리 데이터베이스나 CPU 집약적 분석과 같은 워크로드에 적합하지만 대부분의 GCP 고객은 스케일업하지 않고 스케일아웃하는 것으로 시작합니다. 컴퓨팅 엔진에는 로드 메트릭을 기반으로 애플리케이션에서 VM을 추가하고 제거할 수 있는 자동 확장이라는 기능이 있습니다. 이 작업의 또 다른 부분은 VM 간에 들어오는 트래픽의 균형을 조정하는 것이며, Google VPC는 여러 가지 종류의 로드 밸런싱을 지원합니다. 다음 섹션에 있는 것들을 고려해 보겠습니다.&lt;/p&gt;
-
-&lt;h1 id=&quot;important-vpc-capabilities&quot;&gt;Important VPC capabilities&lt;/h1&gt;
-
-&lt;p&gt;물리적 네트워크와 마찬가지로 VPC에도 라우팅 테이블이 있습니다. 이 옵션은 동일한 네트워크 내의 한 인스턴스에서 다른 인스턴스로 트래픽을 전달하는 데 사용됩니다. 외부 IP 주소를 요구하지 않고 하위 네트워크 및 GCP 영역 사이에서도 가능합니다. VPC 라우팅 테이블은 기본 제공되므로 라우터를 프로비저닝하거나 관리할 필요가 없습니다. GCP에 대해 프로비저닝하거나 관리할 필요가 없는 또 다른 기능, 방화벽 인스턴스입니다. VPC는 글로벌 분산 방화벽을 제공합니다. 제어하여 수신 트래픽과 송신 트래픽 모두에 대한 액세스를 제한할 수 있습니다. Compute Engine 인스턴스의 메타데이터 태그 측면에서 방화벽 규칙을 정의할 수 있으므로 매우 편리합니다. 예를 들어 모든 웹 서버에 “web”이라는 태그를 지정하고 포트 80 또는 443의 트래픽이 “web” 태그로 모든 VM에 허용된다는 방화벽 규칙을 작성할 수 있습니다. 기억하세요, VPC는 GCP 프로젝트에 속합니다. 하지만 귀사의 GCP 프로젝트가 여러 개 있는데 VPC가 서로 의견을 교환해야 한다면 어떻겠습니까? 걱정마세요, 그건 완전히 실행 가능하고 다루기 쉽거든요. 두 VPC가 트래픽을 교환할 수 있도록 피어 관계를 설정하기만 하면 됩니다. 한편, IAM의 모든 기능을 사용하여 한 프로젝트에서 VPC와 상호 작용할 수 있는 사람과 대상을 제어하려는 경우 이를 위한 공유 VPC가 제공됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;871&quot; alt=&quot;스크린샷 2020-12-21 오전 11 46 43&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102734056-35104400-4382-11eb-820b-6dcefd8c39c4.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;몇 개의 슬라이드에서는 변화하는 로드에 대응하기 위해 가상 머신이 자동으로 확장되는 방법에 대해 설명했습니다. 하지만 고객이 VM 4개와 VM 40개를 동시에 제공할 수 있는데 어떻게 애플리케이션을 이용할 수 있습니까? 클라우드 로드 밸런싱이 그 해답입니다. 클라우드 로드 밸런싱은 모든 트래픽을 위한 완전한 분산 소프트웨어 정의 관리 서비스입니다. 또한 로드 밸런싱 장치는 관리해야 하는 VM에서 실행되지 않으므로 확장이나 관리에 대해 걱정할 필요가 없습니다. HTTP 및 HTTPS, 기타 TCP 및 SSL 트래픽, UDP 트래픽 등 모든 트래픽 앞에 클라우드 로드 밸런싱을 배치할 수 있습니다. 클라우드 로드 밸런싱을 사용하면 단일 anycast IP 프론트가 전 세계 지역의 모든 백엔드 인스턴스를 종료합니다. 이 기능은 자동 다중 영역 페일오버를 포함하여 영역 간 로드 밸런싱을 제공하며, 백엔드가 정상 상태가 되지 않을 경우 트래픽을 분수 단위로 이동합니다. 클라우드 로드 밸런싱은 사용자, 트래픽, 백엔드 상태, 네트워크 상태 및 기타 관련 조건의 변화에 신속하게 대응합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;871&quot; alt=&quot;스크린샷 2020-12-21 오후 12 07 13&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102735177-12cbf580-4385-11eb-9141-e713e8cbe74a.png&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102735474-e95f9980-4385-11eb-9ed3-81be6892474f.png&quot; alt=&quot;0_filoFgWcpVAm5ere&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;수요가 크게 증가할 것으로 예상하면 어떻게 될까요? 말하자면, 온라인 게임이 히트를 칠 것 같아요. Google에 수신 로드를 경고하기 위해 지원 티켓을 신청해야 합니까? 아니요. 사전 경고는 필요하지 않습니다. 웹 응용 프로그램에 대해 국가 간 로드 밸런싱이 필요한 경우 HTTPS 로드 밸런싱을 사용합니다. HTTP가 아닌 Secure Sockets Layer 트래픽의 경우 글로벌 SSL 프록시 로드 밸런서를 사용합니다. Secure Sockets Layer를 사용하지 않는 다른 TCP 트래픽인 경우 글로벌 TCP 프록시 로드 밸런서를 사용합니다. 이러한 두 가지 프록시 서비스는 특정 포트 번호에서만 작동하고 TCP에서만 작동합니다. 포트 번호에 UDP 트래픽 또는 트래픽을 로드 밸런싱하려면 지역 로드 밸런서를 사용하여 GCP 영역에 걸쳐 로드 밸런싱이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;마지막으로, 이러한 모든 서비스의 공통점은 인터넷에서 구글 네트워크로 들어오는 트래픽을 위한 것이라는 점입니다. 하지만 프로젝트 내에서 트래픽의 균형을 맞추려면 어떻게 해야 합니까? 예를 들어, 애플리케이션의 프레젠테이션 계층과 비즈니스 논리 계층 사이에서? 이를 위해 내부 로드 밸런서를 사용합니다. GCP 내부 IP 주소의 트래픽을 수락하고 컴퓨팅 엔진 VM 간에 로드 밸런싱을 수행합니다. 사람들이 지불하지 않는 가장 유명한 구글 서비스 중 하나는 8.8.8.8로, 전 세계에 퍼블릭 도메인 이름 서비스를 제공합니다. DNS는 인터넷 호스트 이름을 주소로 변환합니다. 여러분이 상상하듯이, 구글은 고도로 발달된 DNS 인프라를 가지고 있습니다. 8.8.8.8을 사용할 수 있으므로 모든 사용자가 이용할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만 GCP에 구축한 애플리케이션의 인터넷 호스트 이름과 주소는 어떻게 됩니까? GCP는 클라우드 DNS를 제공하여 전 세계가 이를 찾을 수 있도록 지원합니다. 구글과 동일한 인프라에서 실행되는 관리형 DNS 서비스입니다. 이 제품은 대기 시간이 짧고 가용성이 높으며 사용자가 애플리케이션과 서비스를 사용할 수 있게 하는 비용 효율적인 방법입니다. 게시하는 DNS 정보는 전 세계 중복 위치에서 제공됩니다. 클라우드 DNS도 프로그래밍할 수 있습니다. GCP 콘솔, 명령줄 인터페이스 또는 API를 사용하여 수백만 개의 DNS 영역과 레코드를 게시하고 관리할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;구글은 전세계적인 에지 캐시 시스템을 가지고 있습니다. 이 시스템을 사용하여 Google Cloud CDN을 사용하여 프로그램에서 콘텐츠 전송을 가속화할 수 있습니다. 고객은 네트워크 지연 시간을 줄일 수 있습니다. 콘텐츠의 원본은 로드가 줄어들고 비용도 절약할 수 있습니다. HTTPS 로드 밸런싱을 설정한 후에는 확인란 하나로 클라우드 CDN을 활성화하기만 하면 됩니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 15 Dec 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/ds/cloud/2020/12/15/GCP-Fundamentals-03-Virtual-machine-in-the-cloud.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ds/cloud/2020/12/15/GCP-Fundamentals-03-Virtual-machine-in-the-cloud.html</guid>
-        
-        <category>Cloud</category>
-        
-        <category>GCP</category>
-        
-        <category>Google</category>
-        
-        
-        <category>DS/Cloud</category>
-        
-      </item>
-    
-      <item>
-        <title> [GCP Fundamentals] 02: Getting Started with GCP</title>
-        <description> 본격적으로 시작해보자! : &lt;h1 id=&quot;학습-목표&quot;&gt;학습 목표&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Google Cloud Platform에서 프로젝트, 폴더 및 조직 노드의 용도를 알기&lt;/li&gt;
-  &lt;li&gt;ID 및 액세스 관리의 목적 및 사용 사례 설명&lt;/li&gt;
-  &lt;li&gt;Google Cloud Platform과 상호 작용하는 방법을 알기&lt;/li&gt;
-  &lt;li&gt;Cloud Launcher를 사용하여 솔루션 배포를 구축하기&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;GCP에서 워크로드를 실행할 때 프로젝트를 사용하여 워크로드를 구성한다. Google Cloud Identity와 액세스 관리(IM 또는 IAM이라고도 함)를 사용하여 누가 무엇을 할 수 있는지 제어할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;또 이러한 기능을 여러 인터페이스를 선택하여 연결할 수 있다. 이번에는 이러한 기본 사항을 사용해 보는 것을 기반으로 시작한다.&lt;/p&gt;
-
-&lt;p&gt;프로젝트는 GCP에서 사용하는 리소스를 구성하는 주요 방법이다. 일반적으로 공통적인 비즈니스 목표를 기반으로 관련 리소스를 그룹화하는 데 사용한다. 최소한의 특권의 원칙은 클라우드든 사내든 모든 종류의 컴퓨팅 인프라를 관리하는 데 매우 중요하다. 이 원칙은 각 &lt;strong&gt;사용자가 자신의 작업을 수행하는 데 필요한 권한&lt;/strong&gt;만 가지는 것을 말한다. 최소 권한 환경에서 사람들은 전체 종류의 오류로부터 보호된다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어보자. 내 동료가 우연히 실행 중인 생산 데이터베이스를 삭제한 적이 있다. 그러지 말았어야 했는데 시스템에서 루트 사용자로 일하고 있었기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 02 21&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102321037-78546680-3fc0-11eb-807f-d7ad7e74d35f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;GCP 고객은 IM을 사용하여 최소한의 특권을 구현하고, 모든 사람이 더 생산적으로 일할 수 있도록 한다. GCP의 관리 계층과 상호 작용하는 네 가지 방법은 웹 기반 콘솔, SDK 및 SDK 및 명령줄 툴, API, 모바일 애플리케이션 등이다. 이번 챕터에서는 콘솔과 명령줄 도구를 이용한다.&lt;/p&gt;
-
-&lt;p&gt;사내 인프라에 애플리케이션을 구축하면 전체 스택 보안을 책임져야 한다. 하드웨어의 물리적 보안과 해당 하드웨어가 있는 시설에서 디스크에 있는 데이터를 암호화하여 네트워크의 무결성에 이르기까지 애플리케이션에 저장된 컨텐츠를 안전하게 보호해야 한다.&lt;/p&gt;
-
-&lt;p&gt;애플리케이션을 Google Cloud Platform으로 이동하면 Google은 많은 하위 보안 계층을 처리한다. 그것의 규모 때문에, 구글은 대부분의 고객들이 스스로 할 수 있는 것보다 더 높은 수준의 보안을 제공할 수 있다. 보안 스택의 상위 계층은 고객의 책임으로 남는다. 구글은 IAM과 같은 도구를 제공하여 고객이 이러한 계층에서 선택한 정책을 구현할 수 있도록 지원한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;the-google-cloud-platform-resource-hierarchy&quot;&gt;The Google Cloud Platform resource hierarchy&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 20 46&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102322836-0af60500-3fc3-11eb-99cc-6bd7f7312ccc.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Bottom-up 방식으로 GCP 리소스 계층을 가장 쉽게 이해할 수 있다. 가상 시스템, 클라우드 스토리지 버킷, 테이블 및 빅 쿼리 등 GCP에서 사용하는 모든 리소스가 프로젝트로 구성된다.&lt;/p&gt;
-
-&lt;p&gt;선택적으로 이러한 프로젝트를 폴더로 구성할 수 있다. 폴더는 다른 폴더를 포함할 수 있다. 조직에서 사용하는 모든 폴더와 프로젝트를 조직 노드 아래에 가져올 수 있다. 프로젝트, 폴더 및 조직 노드는 모두 정책을 정의할 수 있는 위치이다. 일부 GCP 리소스를 사용하면 앞서 언급한 클라우드 스토리지 버킷과 같이 개별 리소스에 정책도 적용할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;한편 정책은 계층에서 &lt;strong&gt;아래로 상속&lt;/strong&gt;된다. 모든 Google Cloud 플랫폼 리소스는 프로젝트에 속해 있다. 프로젝트는 API 관리, 빌링 및 공동작업자 추가/제거, 기타 Google 서비스 등과 같은 GCP 서비스를 활성화 및 사용하기 위한 기반이다. 각 프로젝트는 별도의 구획이며 각 리소스는 정확히 하나의 구획에 속한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 21 31&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102322917-25c87980-3fc3-11eb-9d82-1d5eeecede5e.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;프로젝트 소유자와 사용자는 서로 다를 수 있다. 프로젝트 소유자와 사용자는 별도로 작성되고 개별적으로 관리된다. 각 GCP 프로젝트에는 사용자가 할당하는 &lt;strong&gt;프로젝트 ID와 이름&lt;/strong&gt;이 있다. 프로젝트 ID는 영구적이고 변경 불가능한 식별자로 GCP 전체에서 고유해야 한다. 여러 컨텍스트에서 프로젝트 ID를 사용하여 GCP와 함께 작업할 프로젝트를 지정할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;반면에 프로젝트 이름은 사용자의 편의를 위해 지정되며 지정할 수 있다. 또한 GCP에는 각 프로젝트에 고유한 프로젝트 번호가 할당되어 다양한 컨텍스트에서 디스플레이가 표시된다. 하지만 그것을 사용하는 것은 대부분 이 과정의 범위를 벗어난다. 일반적으로 프로젝트 ID는 사람이 읽을 수 있는 문자열로 만들어지며 프로젝트를 참조하기 위해 자주 사용한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 22 10&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102322980-3c6ed080-3fc3-11eb-9ca0-47bf33d2997d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그럴 필요는 없지만 프로젝트를 폴더로 구성할 수 있다. 폴더를 사용하면 더 관리를 효율적으로 할 수 있다. 예를 들어 폴더를 사용하여 조직의 여러 부서, 팀, 응용프로그램 또는 환경을 나타낼 수 있다. 폴더를 통해 팀은 독립적으로 작업할 수 있도록 관리 권한을 위임할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 22 37&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102323032-4c86b000-3fc3-11eb-9d62-5b4c28d2116b.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;폴더의 리소스는 폴더에서 IAM 정책을 상속한다. 따라서 프로젝트 3과 4를 동일한 팀에서 설계로 관리하는 경우 IAM 정책을 B 폴더에 넣을 수 있다. 반대로 이러한 정책의 중복 사본을 프로젝트 3과 프로젝트 4에 넣는 것은 지루하고 오류가 발생하기 쉽다.  폴더를 사용하려면 계층 맨 위에 조직 노드가 필요하다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 23 13&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102323099-61fbda00-3fc3-11eb-9eae-e4fd08a46091.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;뭔가 어려워 보인다. 하지만 그렇지 않다. 효율적으로 관리하기 위한 계층도에 대해서 설명하는 것이다. 회사의 모든 프로젝트를 하나의 구조로 구성하는 것이 좋다. 대부분의 기업은 리소스가 사용되는 방식에 대한 중앙 집중식 가시성을 확보하고 정책을 중앙에서 적용하기를 원한다. 이것이 바로 조직 노드의 용도이다. 이런 계층도의 최상층이라 생각하면 된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 23 55&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102323165-7a6bf480-3fc3-11eb-8558-77ec8219fe6f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이러한 조직을 관리하기 위해서는 특별한 권한을 가진 사람들이 필요하다. 예를 들어 권한이 있는 사용자만 정책을 변경할 수 있도록 조직 정책 관리자를 지정할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;또한 프로젝트 작성자 역할을 할당할 수도 있다. 이것은 누가 비용을 지출할 수 있는지 제어할 수 있는 좋은 방법이다. 그러면 조직 노드를 어떻게 확보할 수 있을까?&lt;/p&gt;
-
-&lt;p&gt;사실, G Suite의 고객인지 여부에 따라 답이 달라진다. G Suite 도메인이 있는 경우 GCP 프로젝트는 자동으로 조직 노드에 속하게 된다. 그렇지 않으면 Google Cloud Identity를 사용하여 생성할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 5 25 42&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102323358-ba32dc00-3fc3-11eb-9b67-89f95f60064d.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;명심해야 할 중요한 규칙이 하나 있다. 상위 수준에서 구현된 정책은 하위 수준에서 부여된 액세스 권한을 제거할 수 없다. 예를 들어, 책장 프로젝트에 적용된 정책이 사용자에게 클라우드 저장소 버킷을 수정할 수 있는 권한을 Pat에게 부여하지만 조직 수준의 정책은 Pat이 클라우드 저장소 버킷을 변경하지 않고 볼 수만 있다고 가정해 보자. 더 관대한 정책(읽기/쓰기 권한) 이 효력을 발휘한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;identity-and-access-management-iam&quot;&gt;Identity and Access Management (IAM)&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-17 오후 3 18 55&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102451085-30dee080-407b-11eb-8c87-99ffa51b3b9a.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;IAM을 통해 관리자는 특정 리소스에 대한 작업을 수행할 수 있는 사용자를 인증할 수 있다. IAM 정책에는 “누구” 부분, “무엇을 할 수 있는지” 부분 및 “어떤 리소스에서” 부분이 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-17 오후 3 20 07&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102451177-5a980780-407b-11eb-8672-07291e16b960.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;“누구” 부분은 &lt;strong&gt;사용자 이름&lt;/strong&gt;을 지정한다. IAM 정책의 “누구” 부분은 Google 계정, Google 그룹, Service 계정, 전체 G Suite 또는 Cloud Identity 도메인으로 정의할 수 있다. “할 수 있는 일” 부분은 IAM &lt;strong&gt;역할&lt;/strong&gt;에 의해 정의된다. IAM 역할은 &lt;strong&gt;사용 권한 모음&lt;/strong&gt;이다. 대부분의 경우 의미 있는 작업을 수행하려면 둘 이상의 권한이 필요하다. 예를 들어 프로젝트의 인스턴스를 관리하려면 인스턴스를 생성, 삭제, 시작, 중지 및 변경해야 한다. 따라서 사용 권한은 관리하기 쉬운 역할로 함께 그룹화된다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-17 오후 3 22 14&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102451353-a64ab100-407b-11eb-81e6-c5a0549f4058.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;IAM 정책의 “누구” 부분은 Google 계정, Google 그룹, Service 계정 또는 전체 G Suite 또는 Cloud Identity 도메인일 수 있습니다. Cloud IAM에는 세 가지 역할이 있다. 각자 차례대로 이야기합시다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-17 오후 3 24 03&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102451483-e6aa2f00-407b-11eb-9117-833debd4989c.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;원시적 역할은 광범위합니다. GCP 프로젝트에 적용하면 해당 프로젝트의 모든 리소스에 영향을 미칩니다. &lt;strong&gt;소유자, 편집자 및 뷰어&lt;/strong&gt; 역할이다.&lt;/p&gt;
-
-&lt;p&gt;지정된 리소스의 &lt;strong&gt;뷰어&lt;/strong&gt;인 경우 상태를 검사하지만 변경할 수는 없다. &lt;strong&gt;편집자&lt;/strong&gt;인 경우 뷰어가 수행할 수 있는 모든 작업을 수행할 수 있으며 뷰어의 상태를 변경할 수도 있다. 또한 &lt;strong&gt;소유자&lt;/strong&gt;인 경우 편집자가 할 수 있는 모든 작업을 수행할 수 있으며 리소스에 대한 역할 및 사용 권한도 관리할 수 있다. 프로젝트의 소유자 역할도 청구 설정을 한 가지 더 수행할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;기업들은 누군가가 프로젝트의 리소스를 변경할 권리 없이 프로젝트에 대한 청구서를 관리할 수 있기를 바란다. 그렇기 때문에 다른 사용자에게 &lt;strong&gt;청구 관리자 역할을 부여&lt;/strong&gt;할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-17 오후 3 26 13&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102451630-34bf3280-407c-11eb-8f54-7aa170363c8c.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;또한 너무 한 담당자의 역할이 커지는 것을 방지하기 위해서 세분화된 유형까지 역할 분배가 가능하다. 이런 경우에 대한 유형이 predefined role이다. 예를 들어 이 과정 후반부에서 가상 머신을 서비스로 제공하는 컴퓨팅 엔진에 대해 살펴보자. Compute Engine은 미리 정의된 역할 집합을 제공하며 이러한 역할을 특정 프로젝트, 지정된 폴더 또는 전체 조직의 Compute Engine 리소스에 적용할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;interacting-with-google-cloud-platform&quot;&gt;Interacting with Google Cloud Platform&lt;/h1&gt;
-
-&lt;p&gt;Google Cloud Platform과 상호 작용할 수 있는 4가지 방법이 있다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Console&lt;/li&gt;
-  &lt;li&gt;SDK, Cloud Shell&lt;/li&gt;
-  &lt;li&gt;Mobile App&lt;/li&gt;
-  &lt;li&gt;REST API&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;GCP 콘솔은 웹 기반 관리 인터페이스이다. 사용하는 모든 프로젝트와 리소스를 보고 관리할 수 있다. 또한 GCP 서비스의 API를 활성화, 비활성화 및 탐색할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;또한 Cloud Shell에 액세스할 수 있다. GCP에 대한 &lt;strong&gt;명령줄 인터페이스&lt;/strong&gt;로 브라우저에서 쉽게 액세스할 수 있다. Cloud Shell에서는 Google Cloud Software Development Kit SDK에서 제공하는 툴을 먼저 설치할 필요 없이 사용할 수 있다. Google Cloud SDK는 GCP에서 리소스 및 애플리케이션을 관리하는 데 사용할 수 있는 도구 세트이다. 여기에는 Google Cloud Platform 제품 및 서비스에 대한 기본 명령줄 인터페이스를 제공하는 gcloud 툴이 포함된다. 구글 클라우드 스토리지용 gsutil과 BigQuery용 bq도 있다. SDK 명령을 실행하는 가장 쉬운 방법은 GCP 콘솔에서 Cloud Shell 버튼을 클릭하는 것이다. 이러한 모든 명령이 이미 설치되어 있는 가상 시스템의 &lt;strong&gt;웹 브라우저&lt;/strong&gt;에 명령줄이 표시된다. 또한 랩톱, 가상 시스템 및 기타 클라우드의 온사이트 서버 등 자신의 컴퓨터에 SDK를 설치할 수 있다. SDK는 &lt;strong&gt;도커&lt;/strong&gt; 이미지로도 사용할 수 있어 사용하기 쉽고 깔끔한 방법이다.&lt;/p&gt;
-
-&lt;p&gt;GCP를 구성하는 서비스는 사용자가 &lt;strong&gt;작성하는 코드가 이를 제어할 수 있도록&lt;/strong&gt; 애플리케이션 프로그래밍 인터페이스를 제공한다. 이러한 API를 RESTful이라고 합니다. 다시 말해, 그들은 대표적인 상태 전이 패러다임을 따른다. 우리는 그것이 무엇을 의미하는지 자세히 말할 필요가 없다. 기본적으로, 코드는 웹 브라우저가 웹 서버와 대화하는 것과 같은 방식으로 구글 서비스를 사용할 수 있다는 것을 의미한다. API는 리소스 및 GCP의 이름을 URL로 지정합니다. 코드는 JSON을 사용하여 API에 정보를 전달할 수 있으며, 이는 웹을 통해 텍스트 정보를 전달하는 매우 일반적인 방법입니다. 또한 사용자 로그인 및 액세스 제어를 위한 개방형 시스템이 있습니다. GCP 콘솔을 사용하여 API를 설정 및 해제할 수 있습니다. 많은 API는 기본적으로 해제되어 있으며, 많은 API는 할당량 및 제한과 연관되어 있습니다. 이러한 제한사항은 자원을 실수로 사용하지 않도록 보호합니다. 필요한 API만 사용하도록 설정할 수 있으며 리소스가 더 필요할 때 할당량 증가를 요청할 수 있습니다. 예를 들어 GCP 리소스를 제어해야 하는 애플리케이션을 작성하는 경우 API를 올바르게 사용해야 합니다. 그러기 위해서는 APIs Explorer를 사용해야 합니다. GCP 콘솔에는 APIs Explorer라는 도구가 포함되어 있어 API에 대해 대화식으로 배울 수 있습니다. 이를 통해 사용 가능한 API와 버전을 확인할 수 있습니다. 이러한 API는 매개 변수와 해당 API에 대한 설명서가 내장되어 있어야 합니다. 사용자 인증으로도 API를 대화식으로 사용해 볼 수 있습니다. API를 탐색했으며 이 API를 사용하는 애플리케이션을 만들 준비가 되었다고 가정해 보십시오. 처음부터 코딩 작업을 시작해야 합니까? 아니오. 구글은 당신의 코드에서 GCP를 호출하는 업무에서 많은 번거로움을 덜어주는 클라이언트 라이브러리를 제공합니다. 도서관에는 두가지 종류가 있다. Cloud Client Libraries는 최신 Google 클라우드이며 API에 권장되는 라이브러리입니다. 그들은 각 언어의 고유 스타일과 관용구를 채택한다. 반면에 Cloud Client Library는 최신 서비스와 기능을 지원하지 않는 경우도 있습니다. 이 경우 Google API 클라이언트 라이브러리를 사용하여 원하는 언어를 사용할 수 있습니다. 이 도서관은 일반성과 완전성을 위해 설계되었다. 마지막으로, 개발자들뿐만 아니라 모든 사람들이 관심을 가질 수 있는 한 가지 툴이 더 있습니다. GCP에서 사용하는 리소스를 검사하고 관리할 수 있는 Android 및 iOS용 모바일 앱이 있습니다. 대시보드를 작성하여 필요한 정보를 한 눈에 볼 수 있습니다.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 15 Dec 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/ds/cloud/2020/12/15/GCP-Fundamentals-02-Getting-started-with-GCP.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ds/cloud/2020/12/15/GCP-Fundamentals-02-Getting-started-with-GCP.html</guid>
-        
-        <category>Cloud</category>
-        
-        <category>GCP</category>
-        
-        <category>Google</category>
-        
-        
-        <category>DS/Cloud</category>
-        
-      </item>
-    
-      <item>
-        <title> [GCP Fundamentals] 01: Introdution</title>
-        <description> 클라우드 서비스를 사용하는 이점이 무엇일까? : &lt;h1 id=&quot;학습-목표&quot;&gt;학습 목표&lt;/h1&gt;
-&lt;ol&gt;
-  &lt;li&gt;Google 클라우드 플랫폼의 이점에 대해 이해하기.&lt;/li&gt;
-  &lt;li&gt;위치, 데이터 센터, 지역 및 구역을 포함한 Google 네트워크 인프라의 구성요소를 정의하기.&lt;/li&gt;
-  &lt;li&gt;서비스형 인프라(IaaS)와 서비스형 플랫폼(PaaS) 비교하기&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;google-cloud-platform&quot;&gt;Google Cloud Platform&lt;/h1&gt;
-
-&lt;p&gt;GCP는 총 4가지의 주요 서비스를 제공한다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Computing&lt;/li&gt;
-  &lt;li&gt;Storage&lt;/li&gt;
-  &lt;li&gt;Bigdata&lt;/li&gt;
-  &lt;li&gt;Machine Learning&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;먼저 Computing과 Starage의 관점에서 진행해 본다. 클라우드 서비스를 사용하는 것은 애플리케이션과 데이터 관점에서 매우 좋은 툴이다. 클라우드를 사용하게 되면 인프라를 구축하는데 드는 매우 다양한 잡일로 부터 해방된다. 앞으로 아래에 적힌 것들에 대해 집중적으로 알아보자.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;GCP란?&lt;/li&gt;
-  &lt;li&gt;어떻게 구성되어 있는가?&lt;/li&gt;
-  &lt;li&gt;왜 GCP인가?&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;what-is-cloud-computing&quot;&gt;What is Cloud Computing?&lt;/h1&gt;
-&lt;p&gt;말만 많이 들었지 사실 어떠한 특성을 기반으로 클라우드 컴퓨팅이라 부르는지 몰랐기 떄문에 정확한 정의를 이해할 필요가 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-15 오후 5 00 23&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102187205-06fcb100-3ef7-11eb-8288-f62493252a71.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;클라우드 컴퓨팅은 이 다섯 가지 중요한 특성을 가진 정보 기술(IT)을 사용하는 방법이다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;on-demand 또는 self-service 방식으로 컴퓨팅 리소스를 확보한다.
-    &lt;ul&gt;
-      &lt;li&gt;이 때, 인간의 개입이 필요 없이 Computing power, storage, network를 얻을 수 있다면 된다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;원하는 곳에서 인터넷을 통해 이러한 리소스에 접근이 가능하다.&lt;/li&gt;
-  &lt;li&gt;리소스 제공자는 큰 pool을 가지고 있고, 이것들을 고객에 할당한다.
-    &lt;ul&gt;
-      &lt;li&gt;할당 과정에서 고객들은 자원의 정확한 물리적 위치에 대해 알거나 신경쓸 필요가 없다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;자원은 탄력적이다.
-    &lt;ul&gt;
-      &lt;li&gt;더 많은 자원이 필요하다면 쉽게 얻을 수 있다. 적은 자원이 필요하면 이를 줄일 수도 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;고객은 사용하는 것, 또는 예약한 것에 대해서만 돈을 지불한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;발전-과정&quot;&gt;발전 과정&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-15 오후 5 11 43&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102188422-9ce50b80-3ef8-11eb-8432-4681cbe9bd66.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;왜 요즘 클라우드가 그렇게 중요한 걸까? 이유를 이해하기 위해서는 역사를 살펴봐야 한다. 클라우드 컴퓨팅을 향한 첫번째 wave는 it 업체들이 수십년 동안 해온 colocation 방법이다. 기존에 인프라를 구축하기 위해서는 땅을 빌리고, 그곳에 데이터 센터를 건설해야 했다. 이로부터 발생하는 비용은 부동산이 지배적이기 때문에 자본이 집중되는 단점이 있었다. 이러한 이유로 부터 colocation 제공 업체로 부터 물리적인 공간을 임대받게 되면 보다 유연한 사용이 가능하다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Colocation이란?
-    &lt;ul&gt;
-      &lt;li&gt;서버, 하드웨어 및 기타 장비를 위한 물리적 공간을 임대한다.&lt;/li&gt;
-      &lt;li&gt;장비는 사용자가 가져오는 것.&lt;/li&gt;
-      &lt;li&gt;현재 하드웨어에 만족한다면, colocation은 가장 좋은 선택이다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이후, 2000년대의 첫 10년 동안 효율성 필요성으로 인해 가상화를 사용하게 되었다. 가상화란 한 대의 서버가 여러대의 서버를 운영하는 것처럼 사용할 수 있게 하는 기술을 말한다. 가상화는 자원을 더 효율적으로 사용할 수 있게 해준다. 하지만 여전히 사용자는 인프라를 구입하고, 유지해야 한다는 문제가 발생한다. 어느정도의 리소스가 필요한지, 언제 필요한지를 예상하고, 끊임없이 작동시켜야 한다.&lt;/p&gt;
-
-&lt;p&gt;약 10년 전 구글은 가상화 모델의 한계 때문에, 충분히 빠르게 움직일 수 없다는 것을 깨달았다. 그래서 구글은 자동화된 서비스로 만들어진 자동화되고 탄력적인 클라우드, 즉 컨테이너 기반 아키텍처로 전환했다. 컨테이너에 대해서는 추후에 다시 설명하겠다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;데이터 센터란?
-    &lt;ul&gt;
-      &lt;li&gt;데이터 센터는 서버 컴퓨터와 네트워크 회선 등을 제공하는 건물이나 시설을 말한다. 서버 호텔이라고도 부른다. 데이터 센터는 인터넷의 보급과 함께 폭발적으로 성장하기 시작했다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;gcp-computing-architectures&quot;&gt;GCP computing architectures&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-15 오후 5 42 02&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102191502-d91a6b00-3efc-11eb-92a4-d9921855c94f.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아키텍쳐는 크게 3가지로 구분된다. Infra a a Service(IaaS), Platform as a Service(PaaS), Service as a Service(SaaS)가 그것이다. 차례차례 알아보자.&lt;/p&gt;
-
-&lt;p&gt;먼저, IaaS는 기존의 데이터 센터에서 익숙한 방식으로 구성된 컴퓨팅 자원, 스토리지, 네트워크를 제공하는 방향이다. 즉, 할당된 서버 자체의 비용을 지불한다.&lt;/p&gt;
-
-&lt;p&gt;두번째로 PaaS 방식은, 사용자가 작성하는 애플리케이션 코드 자체를 인프라 액세서를 제공하는 라이브러리에 바인딩하는 것을 말한다. 즉, 코드를 작성하고, 이를 자원을 알아서 분배해주는 라이브러리와 연결하면 알아서 이를 관리해주는 것이다. 이런 방법을 사용하면 프로그래머는 오직 애플리케이션 코드를 작성하는데 집중할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;마지막으로 SaaS는 구글이 제공하는 Gmail, Docs, Drive 같은 최종 사용자에게 제공되는 서비스를 말한다. 이런 서비스 자체를 사용자가 구매, 혹은 구독하여 사용하는 것을 SaaS라 한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;google-network&quot;&gt;Google Network&lt;/h1&gt;
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 2 53 35&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102310529-7b465b80-3fae-11eb-86b5-222a82afdd22.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;구글의 네트워크망은 지구상에서 가장 큰 네트워크이다. 약 세계 인터넷 트래픽의 40%를 차지한다. 이 네트워크는 사용자들에게 가능한 한 가장 높은 처리량, 그리고 낮은 latency를 감안하여 고안되었다. 인터넷 사용자가 Google 리소스로 트래픽을 전송할 경우, 구글은 가장 낮은 latency를 가지는 Edge Network에서 사용자 요청에 응답한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;gcp-regions-and-zones&quot;&gt;GCP Regions and Zones&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 2 56 46&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102310739-ec860e80-3fae-11eb-8b7b-6452ac4c3472.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그렇다면 어떻게 GCP가 구성되어 있는지 알아보자. 가장 낮은 level인 Zone부터 시작하자. zone은 GCP 리소스의 배포 영역이다. 예를 들어, Compute Engine을 사용하여 GCP에서 가상 컴퓨터를 실행한다면, 내가 지정한 zone에서 실행된다. 그렇다면 이 zone을 설정하는 것은 GCP 데이터 센터에 할당되는 물리적 기기를 의미할까? 엄밀히 말하면 틀렸다. 하나의 zone은 물리적 단위로 나눠져있지 않다. 물리적 단위로 나눠질 수도 있겠지만, 기본적인 설계는 논리적 단위로 구성되어 있다. 즉, 여러 다른 지역에 위치한 물리적 서버를 묶어서 하나의 zone이라 명명지을 수 있다는 것. 하지만 이 zone의 이름이 어떤 특정 지역을 나타내는 것처럼 되어 있는 이유는 그 논리적 그룹을 묶는 경계가 있기 때문이다. 이 그룹을 region이라 하며, 이 기준은 해당 구역 사이에서 빠른 네트워크 연결성을 가지느냐에 따라 달려있다. region 내에서 네트워크 대기시간은 보통 왕복 5밀리초 정도 이다.&lt;/p&gt;
-
-&lt;p&gt;zone은 region 내의 single failure domain으로 생각한다. 즉, 어떤 프로그램을 배포하는데 있어서 최소 단위가 zone이라는 것. 장애가 없는 애플리케이션을 구축한다고 생각해보자. 예상치 못한 문제에 대해 보호하기 위해 우리는 여러 zone에 내 프로그램을 배포할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 09 59&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102311757-c5304100-3fb0-11eb-9eb6-021763db8bbb.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;또한 Multi region역시 가능하다. 전체 region 자체가 자연재해와 같은 문제가 발생했을 때를 대비하여 만들어진 개념이다. Google Cloud Storage와 같은 서비스는 적어도 지리적으로 두 개 이상의 region에 저장되어 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;environmental-responsibility&quot;&gt;Environmental Responsibility&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 11 13&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102311862-f1e45880-3fb0-11eb-8015-64d32683dbfd.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이러한 가상화 기술에 대해서 설명했지만, 기본적으로 이러한 가상화 기술을 물리적 인프라를 기반으로 구축된다. 이러한 점에서 여전히 모든 데이터 센터에서 돌아가는 서버는 방대한 양의 에너지를 사용중이다. 기존 데이터 센터는 모든 전 세계 전력의 약 2%를 사용하고 있다. 구글은 이러한 데이터 센터를 가능한 한 효율적으로 운영하기 위해 노력한다. 구글의 데이터 센터는 자원 효율 향상과 폐기물 저감을 위한 표준인 ISO 14001 인증을 처음으로 달성했다.&lt;/p&gt;
-
-&lt;p&gt;핀란드에 하미나에 있는 구글 데이터 센터는 해수를 사용하여 에너지 사용을 줄이고 있다. 풍력, 태양 에너지도 적극적으로 사용하여 100% 탄소 중립을 향해 나아가고 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;customer-friendly-pricing&quot;&gt;Customer friendly pricing&lt;/h1&gt;
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 16 33&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102312254-b007e200-3fb1-11eb-808d-600674de51ca.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;~&lt;del&gt;흠..&lt;/del&gt;~ 구글은 IaaS에 속하는 Google Compute Engine에 대해 초당 청구서를 발송한 최초 클라우드 업체이다. 이렇게 세분화된 비용 청구를 통해 큰 비용 절감 효과를 가져왔다. 또한 자동으로 적용되는 지속적인 할인을 제공한다. 특히, 한 달에 25% 이상 인스턴스를 실행하면 컴퓨팅 엔진이 해당 인스턴스에 대해 사용하는 매 분마다 자동으로 할인을 제공한다. 컴퓨팅 엔진 사용자 지정 가상 시스템 유형을 사용하면 해당 애플리케이션에 맞게 가상 시스템을 미세 조정할 수 있으며, 이를 통해 워크로드에 대한 가격을 조정할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;open-apis&quot;&gt;Open APIs&lt;/h1&gt;
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 20 15&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102312515-345a6500-3fb2-11eb-91f3-ec087a718863.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이런 좋은 점 때문에 workload를 cloud로 전환할 생각을 하지만, 이 때문에 업체에 종속될까봐 전환하는 것을 두려워 한다. 하지만 구글은 우리 제품을 사용했다가, 맘에 안들면 이를 다른 곳에서 실행하기 쉽도록 기능을 제공한다.&lt;/p&gt;
-
-&lt;p&gt;먼저, GCP 제품은 open source 제품과 호환된다. 예를 들어 Cloud Bigtable이 있다. 데이터 베이스 제품인 Bigtable은 오픈 소스 데이터 베이스인 Apache HBase의 인터페이스를 제공하여 코드 이동이 간편하도록 한다. 두번째로, Cloud Dataproc은 오픈 소스 빅데이터 환경인 Hadoop을 관리 서비스로 제공한다.&lt;/p&gt;
-
-&lt;p&gt;이와 같이 구글은 오픈 소스 생태계를 구축하여 구글 이외의 옵션을 제공한다. tensorflow, kubernetes, stackdriver와 같은 모든 서비스는 이러한 상호 운영성을 고려하여 제작되었다.&lt;/p&gt;
-
-&lt;h1 id=&quot;why-choose-gcp&quot;&gt;Why Choose GCP?&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 27 08&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102313031-2a853180-3fb3-11eb-9a1b-bc0922c50c1c.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Google Cloud Platform을 사용하면 웹, 모바일, 분석 및 백엔드 솔루션에 대한 컴퓨팅, 스토리지, 빅데이터, 머신러닝 및 애플리케이션 서비스 중에서 선택할 수 있다. 글로벌하고 비용 효율적이며 오픈 소스 친화적이며 보안을 위해 설계되었다.&lt;/p&gt;
-
-&lt;p&gt;요약해 보자. Google Cloud Platform의 제품 및 서비스는 컴퓨팅, 스토리지, 빅 데이터, 머신러닝, 네트워킹, 운영 및 툴로 광범위하게 분류할 수 있다. 이제 부터는 해당 서비스를 이해하고, 어떠한 상황에 어떤 제품을 적시적소에 이용하는 것이 좋은지 공부하게 될 것이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;multi-layered-security-approach&quot;&gt;Multi-layered security approach&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 29 47&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102313213-894aab00-3fb3-11eb-80de-31a698cb79ec.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;구글은 10억 명 이상의 사용자를 가진 7개의 서비스를 가지고 있기 때문에, 보안은 항상 구글 직원들의 마음에 달려있다고 장담할 수 있다. 보안을 위한 설계가 널리 보급되어 있으며, 인프라 전반에 걸쳐 GCP 및 Google 서비스가 실행되고 있다. 아래쪽에서 시작하여 위로 이동하면서 고객의 데이터를 안전하게 유지하기 위해 구글이 진행하는 과정에 대해 알아보자.&lt;/p&gt;
-
-&lt;p&gt;구글 데이터 센터의 서버 보드와 네트워킹 장비는 모두 구글이 맞춤 설계한 것이다. 구글은 또한 현재 서버와 주변기기 모두에 배포되고 있는 타이탄이라는 하드웨어 보안 칩을 포함하여 맞춤형 칩을 설계하고 있다. Google 서버 컴퓨터는 암호화 서명을 사용하여 올바른 소프트웨어를 부팅하고 있는지 확인한다.&lt;/p&gt;
-
-&lt;p&gt;구글은 여러 계층의 물리적 보안 보호를 통합한 자체 데이터 센터를 설계하고 구축한다. 이러한 데이터 센터에 대한 액세스는 Google 직원 중 극소수에 불과하다. 구글의 인프라는 암호화 개인 정보 보호와 네트워크상의 데이터라고 불리는 원격 프로시저에 대한 무결성을 제공합니다. 이것이 구글 서비스들이 서로 통신하는 방법입니다.&lt;/p&gt;
-
-&lt;p&gt;인프라는 데이터 센터 간에 전송 중인 PC 트래픽을 자동으로 암호화한다. 보통 최종 사용자에게 구글 로그인 페이지로 나타나는 구글 중앙 아이덴티티 서비스는 단순한 사용자 이름과 비밀번호를 요구하는 것 이상의 역할을 한다. 또한 사용자가 과거에 동일한 장치 또는 유사한 위치에서 로그인했는지 여부와 같은 위험 요소에 기초한 추가 정보를 사용자에게 지능적으로 제공한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;budgets-and-billing&quot;&gt;Budgets and Billing&lt;/h1&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 33 56&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102313514-1db50d80-3fb4-11eb-8bd3-529718213040.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;어떻게 하면 비용 절감을 할 수 있을까? 좋긴 좋은데. GCP는 예산 및 알림, 청구서 발송, 보고서 및 할당량 등 4가지 툴을 제공한다.&lt;/p&gt;
-
-&lt;p&gt;먼저 예산 및 경고에 대해 살펴보자. 계정별 또는 GCP 프로젝트별로 예산을 정의할 수 있다. 고정으로 할 수도 있고, 다른 수치를 기반으로 설정할 수도 있다. 예를 들어 전원 지출 금액의 백분율이다. 비용이 예산 한계에 도달하면 알림을 생성한다. 예를 들어, 예산 제한액이 20,000달러이고 경고가 90%로 설정되어 있으면 지출액이 18,000달러에 도달하면 알림 알림이 수신된다. 경고는 일반적으로 50%, 90% 및 100%로 설정됩니다. 그러나 사용자 정의도 가능하다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 38 11&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102313846-b64b8d80-3fb4-11eb-9948-6f2ff95fd783.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;청구서 내보내기를 통해 BigQuery 데이터 세트 또는 클라우드 스토리지 버킷과 같이 더 자세한 분석을 위해 검색하기 쉬운 곳에 자세한 청구 정보를 저장할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 39 22&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102313931-e09d4b00-3fb4-11eb-819b-cdd7177fbf11.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;보고서는 GCP 콘솔의 시각적 도구로서 지출 내역을 모니터링할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;80%&quot; alt=&quot;스크린샷 2020-12-16 오후 3 39 49&quot; src=&quot;https://user-images.githubusercontent.com/37871541/102313972-f0b52a80-3fb4-11eb-9600-5c9a14704cab.png&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;또한 GCP는 할당량을 구현하여 계정 소유자와 GCP 커뮤니티 전체를 보호한다. 할당량은 &lt;em&gt;오류 또는 악의적인 공격으로 인한 리소스 과소비 방지를 위해 설계&lt;/em&gt;되었다. 할당량에는 두 가지 유형이 있다: Rate quota 및 Allocation quota. 두 가지 모두 GCP 프로젝트 수준에서 적용된다. 특정 시간 후 할당량을 재설정한다. 예를 들어, 기본적으로 Kubernetes Engine 서비스는 100초마다 각 GCP 프로젝트에서 API로 1000개의 호출 할당량을 설정한다. 100초 후 제한값이 재설정됩니다. 반면에 Allocation quota은 프로젝트에서 가질 수 있는 리소스 수를 제어한다. 예를 들어, 기본적으로 각 GCP 프로젝트에는 할당량이 있어 5개 이하의 Virtual Private Cloud 네트워크만 사용할 수 있다. 모든 프로젝트는 동일한 할당량으로 시작되지만 Google Cloud 지원에서 증가하도록 요청하여 일부 프로젝트를 변경할 수 있다.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 15 Dec 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/ds/cloud/2020/12/15/GCP-Fundamentals-01-Introduction.html</link>
-        <guid isPermaLink="true">http://localhost:4000/ds/cloud/2020/12/15/GCP-Fundamentals-01-Introduction.html</guid>
-        
-        <category>Cloud</category>
-        
-        <category>GCP</category>
-        
-        <category>Google</category>
-        
-        
-        <category>DS/Cloud</category>
-        
-      </item>
-    
-      <item>
-        <title>DS4C Patient Policy Province Dataset</title>
-        <description> A Comprehensive COVID-19 Dataset for Causal and Epidemiological Analysis : &lt;p&gt;&lt;a href=&quot;https://www.cmu.edu/dietrich/causality/neurips20ws/&quot;&gt;NeuralPS20 Accepted Papers&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158131-1c0c1c80-3ec4-11eb-85eb-5a03681cb476.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-0&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158141-20383a00-3ec4-11eb-8050-d7c468a23f38.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-1&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158145-2201fd80-3ec4-11eb-8e37-c9b82317afa4.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-2&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158148-229a9400-3ec4-11eb-99da-1791f88a2a1e.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-3&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158150-23332a80-3ec4-11eb-83d1-96865e48f34c.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-4&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158154-24fcee00-3ec4-11eb-8289-276898bb0c93.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-5&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/102158155-25958480-3ec4-11eb-98a0-ab2041ae64cd.jpg&quot; alt=&quot;91f484aca6984f98fc4aa71bb36522dajoqmwF2Oy6KwpEea-6&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 15 Dec 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/publications/2020/12/15/DS4C-NeuralPS-COVID19-policy-dataset.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/publications/2020/12/15/DS4C-NeuralPS-COVID19-policy-dataset.html</guid>
-        
-        <category>Publications</category>
-        
-        <category>CV</category>
-        
-        
-        <category>CV/Publications</category>
-        
-      </item>
-    
-      <item>
-        <title>Tensorflow Developer Certification</title>
-        <description>  : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/101233363-dac58100-36fb-11eb-9489-60b8637db137.jpg&quot; alt=&quot;adok7o6a&quot; /&gt;&lt;em&gt;Tensorflow Developer Certification&lt;/em&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 05 Dec 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/qualification/2020/12/05/Tensorflow-Developer-Certification.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/qualification/2020/12/05/Tensorflow-Developer-Certification.html</guid>
-        
-        <category>Qualification</category>
-        
-        <category>CV</category>
-        
-        
-        <category>CV/Qualification</category>
-        
-      </item>
-    
-      <item>
-        <title>식수 인원 예측을 수행하는 서버 및 이의 동작 방법</title>
-        <description>  : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/100846833-5805b180-34c2-11eb-9f82-19c02237a019.jpg&quot; alt=&quot;955596c27dc9442eff76b6c998d51b6aW9CMdEk5Vx4FJPzl-0&quot; class=&quot;center-small&quot; /&gt;
-&lt;!-- ![955596c27dc9442eff76b6c998d51b6aW9CMdEk5Vx4FJPzl-1](https://user-images.githubusercontent.com/37871541/100846848-5b00a200-34c2-11eb-988f-d8086f12faf6.jpg){: .center-small } --&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 02 Dec 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/patents/2020/12/02/%EC%8B%9D%EC%88%98-%EC%9D%B8%EC%9B%90-%EC%98%88%EC%B8%A1-%EC%84%9C%EB%B2%84-%EB%8F%99%EC%9E%91-%ED%8A%B9%ED%97%88.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/patents/2020/12/02/%EC%8B%9D%EC%88%98-%EC%9D%B8%EC%9B%90-%EC%98%88%EC%B8%A1-%EC%84%9C%EB%B2%84-%EB%8F%99%EC%9E%91-%ED%8A%B9%ED%97%88.html</guid>
-        
-        <category>Patents</category>
-        
-        <category>CV</category>
-        
-        
-        <category>CV/Patents</category>
-        
-      </item>
-    
-      <item>
-        <title> [Tensorflow Specialization] Tensorflow Specialization Course</title>
-        <description>  : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/101063302-00586a80-35d6-11eb-841c-4b5dfe24530d.jpg&quot; alt=&quot;Coursera-DCLTHUTDPRJ2&quot; /&gt;&lt;em&gt;DeepLearning.AI TensorFlow Developer&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;introduction-to-tensorflow-for-artificial-intelligence-machine-learning-and-deep-learning&quot;&gt;Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/100361928-1c8c6280-303e-11eb-8446-1ba2afec67d8.jpg&quot; alt=&quot;Coursera-M9FXTRCA298Y&quot; class=&quot;center-small&quot; /&gt;&lt;em&gt;Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;convolutional-neural-networks-in-tensorflow&quot;&gt;Convolutional Neural Networks in TensorFlow&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/100528454-6765d000-3220-11eb-9af0-81d182fe64e8.jpg&quot; alt=&quot;Coursera-EDZH49AP2QAE&quot; class=&quot;center-small&quot; /&gt;&lt;em&gt;Convolutional Neural Networks in TensorFlow&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;natural-language-processing-in-tensorflow&quot;&gt;Natural Language Processing in TensorFlow&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/100850496-38bd5300-34c7-11eb-897e-7262e3975ff8.jpg&quot; alt=&quot;Coursera-JZXYF6YGMXTF&quot; class=&quot;center-small&quot; /&gt;&lt;em&gt;Natural Language Processing in TensorFlow&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;sequences-time-series-and-prediction&quot;&gt;Sequences, Time Series and Prediction&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/101063256-f6cf0280-35d5-11eb-8731-48398ce90ccc.jpg&quot; alt=&quot;Coursera-TQ4H8G3NQGYB&quot; class=&quot;center-small&quot; /&gt;&lt;em&gt;Sequences, Time Series and Prediction&lt;/em&gt;&lt;/p&gt;
-</description>
-        <pubDate>Thu, 26 Nov 2020 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/courses/2020/11/26/Tensorflow-Specialization-Course.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/courses/2020/11/26/Tensorflow-Specialization-Course.html</guid>
-        
-        <category>Courses</category>
-        
-        
-        <category>CV/Courses</category>
         
       </item>
     
