@@ -49,11 +49,11 @@
   <head>
   <meta charset="utf-8" />
   <title>
-    [Face Detection and Tracking with SSD Network] 04: Trial and Error - 01 | 완숙의 에그머니🍳
+    [Face Detection and Tracking with SSD Network] 05: Project Design | 완숙의 에그머니🍳
   </title>
   <meta
     name="description"
-    content="프로젝트 진행 사항을 적고 시행착오를 적는다."
+    content="시행착오 후 프로젝트 설계를 진행한다."
   />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -61,16 +61,16 @@
   <!--  -->
   <meta
     property="og:title"
-    content="[Face Detection and Tracking with SSD Network] 04: Trial and Error - 01 | 완숙의 에그머니🍳"
+    content="[Face Detection and Tracking with SSD Network] 05: Project Design | 완숙의 에그머니🍳"
   />
   <meta
     property="og:description"
-    content="프로젝트 진행 사항을 적고 시행착오를 적는다."
+    content="시행착오 후 프로젝트 설계를 진행한다."
   />
   <meta property="og:type" content="website" />
   <meta
     property="og:url"
-    content="http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html"
+    content="http://localhost:4000/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-05-Project-Design.html"
   />
   <meta
     property="og:image"
@@ -90,7 +90,7 @@
   <!-- Canonical -->
   <link
     rel="canonical"
-    href="/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html"
+    href="/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-05-Project-Design.html"
   />
 
   <!-- RSS -->
@@ -757,13 +757,13 @@
     style="background-image: url('/assets/img/72.jpg')"
   >
     <ul class="category-title">
-      <h1 class="title">04: Trial and Error - 01</h1>
+      <h1 class="title">05: Project Design</h1>
       
       <p class="meta">
         CV/Projects  : Face Detection and Tracking with SSD Network 
       </p>
       <p class="meta">
-        March 30, 2021 
+        April 8, 2021 
       </p>
     </ul>
   </header>
@@ -775,7 +775,7 @@
 <div class="series-nav">
   <p>
     이 포스팅은 <b><em>Face Detection and Tracking with SSD Network</em></b> 시리즈
-    <b><em>4</em></b> 편 중 <b><em>4</em></b> 번째 글 입니다.
+    <b><em>5</em></b> 편 중 <b><em>5</em></b> 번째 글 입니다.
   </p>
   <ul class="side-nav" id="js-side_nav">
                                      
@@ -791,10 +791,14 @@
       <span>Part 3 - 03: Paper Research - DeepSort</span>
     </li>
                                                      
-    <li class="current">
-      <span>Part 4 - This Post</span>
+    <li onclick="location.href='/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error.html'">
+      <span>Part 4 - 04: Trial and Error</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                                             
+    <li class="current">
+      <span>Part 5 - This Post</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
   </ul>
   <div
     class="side-nav-btn"
@@ -812,28 +816,13 @@
   <p>목차</p>
   <!-- <ul class="toc-nav" id="js-toc_nav"> -->
   <ul id="js-toc_nav" class="toc-nav">
-  <li class="toc-item"><a href="#tensorflow-object-detection-api-사용" class="toc-anchor">Tensorflow object detection api 사용</a>
-    <ul class="submenu_class">
-      <li class="toc-item"><a href="#가상환경-설정" class="toc-anchor">가상환경 설정</a></li>
-      <li class="toc-item"><a href="#protoc" class="toc-anchor">protoc</a></li>
-      <li class="toc-item"><a href="#object-detection-setup" class="toc-anchor">Object detection setup</a></li>
-    </ul>
-  </li>
-  <li class="toc-item"><a href="#deepsort-사용" class="toc-anchor">Deepsort 사용</a>
-    <ul class="submenu_class">
-      <li class="toc-item"><a href="#sklearn-version-switching" class="toc-anchor">sklearn version switching</a></li>
-      <li class="toc-item"><a href="#demo" class="toc-anchor">Demo</a></li>
-      <li class="toc-item"><a href="#문제점" class="toc-anchor">문제점</a></li>
-    </ul>
-  </li>
-  <li class="toc-item"><a href="#cosine-metric-learning" class="toc-anchor">Cosine-metric-learning</a></li>
-  <li class="toc-item"><a href="#실행-계획" class="toc-anchor">실행 계획</a>
-    <ul class="submenu_class">
-      <li class="toc-item"><a href="#face-detection-pretrained-model" class="toc-anchor">Face Detection Pretrained Model</a></li>
-    </ul>
-  </li>
-  <li class="toc-item"><a href="#tensorflow-gpu-setting" class="toc-anchor">tensorflow gpu setting</a></li>
-  <li class="toc-item"><a href="#reference" class="toc-anchor">Reference</a></li>
+  <li class="toc-item"><a href="#feature-appearance-training" class="toc-anchor">Feature Appearance Training</a></li>
+  <li class="toc-item"><a href="#deepsort-debugging" class="toc-anchor">Deepsort Debugging</a></li>
+  <li class="toc-item"><a href="#face-detection-algorithm-성능-비교" class="toc-anchor">Face Detection Algorithm 성능 비교</a></li>
+  <li class="toc-item"><a href="#project-design" class="toc-anchor">Project Design</a></li>
+  <li class="toc-item"><a href="#environment-setting" class="toc-anchor">Environment Setting</a></li>
+  <li class="toc-item"><a href="#file-structure" class="toc-anchor">File Structure</a></li>
+  <li class="toc-item"><a href="#input-video-설정" class="toc-anchor">input video 설정</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -841,158 +830,118 @@
   </div>
 </div>
 
- <h1 id="tensorflow-object-detection-api-사용">Tensorflow object detection api 사용</h1>
+ <h1 id="feature-appearance-training">Feature Appearance Training</h1>
 
-<ul>
-  <li><a href="https://github.com/tensorflow/models">tensorflow models</a></li>
-</ul>
+<p>Deepsort repository에 있는 Cosine Similarity extractor를 학습하려 했으나, 내 Gpu에서 Session을 열지 못하여 계속해서 에러가 났다. 추가로 Cpu로 학습을 시도하며 디버깅을 했을 때, 코드가 학습하고 싶은 데이터셋에 너무 적합해 있어서 사용하기가 까다로웠다.</p>
 
-<p>위의 레포를 기반으로 작업한다.</p>
+<h1 id="deepsort-debugging">Deepsort Debugging</h1>
 
-<h2 id="가상환경-설정">가상환경 설정</h2>
+<p>대안을 찾기 위해 Deepsort 코드를 디버깅을 진행하여, 정확하게 Appearance Feature가 무엇인지 확인해 보았다. Apperance Feature는 특정 이미지에서 보행자를 탐지했을 때, 그 탐지한 Patch image를 기반으로 Feature를 추출하는 것이었다. 저자들은 이 부분에 있어서 custom으로 학습을 진행하여 추출한 것이 전부였다. 그래서 Tensorflow에서 제공하는 Pretrain model에서 Head를 제거한 상태로 먼저 Feature Extraction을 진행하기로 했다.</p>
 
-<p>먼저, python 3.7버전으로 가상환경을 만들자. object detection이 돌아가는 환경을 만들기 위함이다.</p>
+<h1 id="face-detection-algorithm-성능-비교">Face Detection Algorithm 성능 비교</h1>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> myvenv <span class="nv">python</span><span class="o">=</span>3.7
-</code></pre></div></div>
+<p>논문에서 Detection 성능에 따라 추적 알고리즘의 성능이 달라진다고 명시되어 있었다. 지난 주 SSD를 사용해본 결과 성능이 좋지 않아 실제로 사용하기가 굉장히 어렵다는 생각을 했다. 아래는 Face Detection Algorithm 성능 비교 영상이다.</p>
 
-<p>다음으로 object detection 모델을 clone한다.</p>
+<iframe width="660" height="360" src="https://www.youtube.com/embed/GZ2p2hj2H5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/tensorflow/models.git
-</code></pre></div></div>
-<p>마지막으로 필요한 기본 라이브러리를 설치한다.</p>
+<p>영상을 보면 처음에는 MTCNN과 SSD 모두 잘 탐색하는 것을 보인다. 하지만 SSD의 경우 측면의 경우 잘 탐지하지 못하고, 프레임마다 흔들림이 큰 모양새를 보인다. Deepsort알고리즘은 이전 프레임에서의 Detection 결과를 기반으로 다음 프레임을 예측하기 때문에 이러한 점은 알고리즘이 정상 작동하는데 무리를 준다. 속도면에서 SSD가 상당히 우위에 있으나, Tracking 성능을 유지하기 위해 MTCNN을 사용하는 것은 피할 수 없다고 판단했다.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span><span class="nv">TensorFlow</span><span class="o">==</span>1.15 lxml pillow matplotlib jupyter contextlib2 cython tf_slim
-</code></pre></div></div>
+<h1 id="project-design">Project Design</h1>
 
-<h2 id="protoc">protoc</h2>
-
-<ul>
-  <li><a href="https://developers.google.com/protocol-buffers">protobuf documentation</a></li>
-</ul>
-
-<p>protobuf는 데이터를 구조화하고, 이를 전송하고자 하는데 있어서 유연하고 효율적으로 작성하고 파싱하도록 지원하는 자동화 솔루션이다. json이나 xml을 생각하면 이해가 쉬운데, 사실 조금 다른 부분이 있다. protobuf는 데이터 구조를 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일로 작성하면, 이를 컴파일 해서 C++/C#/Python 등의 다양한 언어 코드 형태로 변환이 가능하다. 또한 변환된 언어 형태로 모듈까지 생성되어, 해당 언어로 데이터 구조를 전송하고 받아올 수 있도록 해준다.</p>
-
-<p>C언어로 예를 들어 구조체를 정의하고, 이를 소켓을 통해 전송할 수 있게 Serialize(전송할 수 있도록 변환)하고, 변환된 데이터를 받은 후 Deserialize(파싱해서 다시 구조체의 형태로 저장) 하던 과정이 있다면, 이를 직접 코드로 다 작성해야 한다. 하지만 ProtoBuf는 데이터 구조만 정의하면 이 과정은 전부 지원해준다.</p>
-
-<ul>
-  <li><a href="https://github.com/protocolbuffers/protobuf/releases/tag/v3.4.0">protocbuf 3.4v</a></li>
-</ul>
-
-<p>window 10 환경에서 잘 작동하는 버전은 3.4v이다. 다양한 버전 테스트를 해봤지만 당장 제대로 돌아가는 버전을 사용하는 것이 맞다는 판단을 했다. 페이지 안에서 win32버전을 선택하자. 파일을 받았다면 압축을 풀고, <code class="language-plaintext highlighter-rouge">bin</code> 폴더 안에 있는 <code class="language-plaintext highlighter-rouge">protoc.exe</code>를 <code class="language-plaintext highlighter-rouge">models/research</code>안에 넣어주자. 그리고 cmd를 킨다.</p>
-
-<pre><code class="language-cmd">protoc object_detection/protos/*.proto --python_out=.
-</code></pre>
-
-<p>이 작업을 하면, 모두 컴파일이 되어 나오게 된다.</p>
-
-<h2 id="object-detection-setup">Object detection setup</h2>
-
-<p><code class="language-plaintext highlighter-rouge">/models/research/object_detection/packages/tf1</code> 에 있는 <code class="language-plaintext highlighter-rouge">setup.py</code>를 복사해서 object_detection 폴더로 이동한다. <code class="language-plaintext highlighter-rouge">tensorflow 1.15</code>버전을 사용할 것이기 때문에 예전 setup을 사용해야 한다.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python setup.py build
-python setup.py <span class="nb">install
-</span>pip <span class="nb">install </span>pycocotools-windows
-</code></pre></div></div>
-<p>여기서 윈도우 유저라면 pycocotools를 설치하면 에러가 날 것이다. 다른 운영체제 사용자는 기존대로 설치해도 괜찮다. window 사용자라면 꼭 뒤에 <code class="language-plaintext highlighter-rouge">-windows</code>를 추가해주자.</p>
-
-<h1 id="deepsort-사용">Deepsort 사용</h1>
-
-<ul>
-  <li><a href="https://github.com/nwojke/deep_sort">Deep SORT</a></li>
-</ul>
-
-<p>위의 레포를 기반으로 작업한다.</p>
-
-<h2 id="sklearn-version-switching">sklearn version switching</h2>
-
-<p><code class="language-plaintext highlighter-rouge">linear_assignment_</code>은 해당 레포에서 사용했던 버전에서 더이상 작동하지 않는다.</p>
-
-<p><code class="language-plaintext highlighter-rouge">sklearn.utils.linear_assignment_</code>을 <code class="language-plaintext highlighter-rouge">from scipy.optimize import linear_sum_assignment as linear_assignment</code> 으로 변경하거나, sklearn version을 0.22.2 버전으로 변경하자.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install scikit-learn==0.22.2
-</code></pre></div></div>
-
-<h2 id="demo">Demo</h2>
-
-<p>먼저 tracking 결과를 간단히 확인하고, result file을 만들기 위해서는 아래의 커맨드를 입력한다. 이 때, mot test 폴더에 있는 각각의 sequence folder의 이름과 output file의 이름을 같게 해주어야 한다. 그래야 나중에 tracking file을 기반으로 동영상을 추출할 수 있다.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python deep_sort_app.py <span class="se">\</span>
-    <span class="nt">--sequence_dir</span><span class="o">=</span>./MOT16/test/MOT16-06 <span class="se">\</span>
-    <span class="nt">--detection_file</span><span class="o">=</span>./resources/detections/MOT16_POI_test/MOT16-06.npy <span class="se">\</span>
-    <span class="nt">--min_confidence</span><span class="o">=</span>0.3 <span class="se">\</span>
-    <span class="nt">--nn_budget</span><span class="o">=</span>100 <span class="se">\</span>
-    <span class="nt">--display</span><span class="o">=</span>True <span class="se">\</span>
-    <span class="nt">--output_file</span><span class="o">=</span>./output/MOT16-06.txt
-</code></pre></div></div>
-
-<p>tracking이 잘 되었다면, 비디오를 생성하자.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python generate_videos.py <span class="se">\</span>
-    <span class="nt">--mot_dir</span><span class="o">=</span>./MOT16/test <span class="se">\</span>
-    <span class="nt">--result_dir</span><span class="o">=</span>./output <span class="se">\</span>
-    <span class="nt">--output_dir</span><span class="o">=</span>./output_videos
-</code></pre></div></div>
-
-<h2 id="문제점">문제점</h2>
-
-<p>해당 repo의 소스코드를 뜯어본 결과 문제점들을 확인할 수 있었다.</p>
+<p><img src="https://user-images.githubusercontent.com/37871541/113891923-7bd65c80-9800-11eb-8854-00033661b651.jpg" alt="Untitled Diagram (1)" class="center" /><em>Face Tracking Project Design</em></p>
 
 <ol>
-  <li>Deepsort를 작동 시키기 위해서는 detection model이 필요하다.</li>
-  <li>tracking을 진행할 video가 frame 단위로 존재해야 한다.</li>
-  <li>본격적인 tracking을 진행하기 전에, detection이 된 결과를 기반으로 각각의 물체에 대한 appearence feature를 만들어 두어야 한다.
+  <li>Video -&gt; images 변환
     <ul>
-      <li>이게 정말 실시간인가 하는 의문이 든다.</li>
-      <li>appearence feature를 만들기 위해 feature extractor를 학습해야 한다.</li>
+      <li>Frame 번호 명시</li>
+      <li>Image width, height</li>
+      <li>image 수</li>
     </ul>
   </li>
-</ol>
-
-<p>최종적으로 실시간으로 작동하는 tracking 모델을 만드는 것이 목적이지만, 당장은 face detector와 deepsort를 연결하여 동작하는지를 확인해야 할 듯하다.</p>
-
-<h1 id="cosine-metric-learning">Cosine-metric-learning</h1>
-
-<p>Deepsort를 사용하기 위해서는 appearence metric을 사용해야 한다. 그러기 위해서는 원하는 이미지에 대해서 feature extraction을 하기 위한 모델을 훈련해야 한다.</p>
-
-<p><a href="https://github.com/nwojke/cosine_metric_learning">cosine-metric-learning</a></p>
-
-<p>위의 레포를 기반으로 훈련할 수 있다. 다만 사용하는 dataset이 달라 변환하는 과정을 거쳐야 할 것으로 보인다.</p>
-
-<h1 id="실행-계획">실행 계획</h1>
-<ol>
-  <li>face detection pretrained model 테스트하기</li>
-  <li>Deepsort cosine-metric-learning 테스트하기
-    <ol>
-      <li>Dataset을 WIDER-face dataset으로 변경후 학습</li>
-      <li>gpu 학습 설정</li>
-      <li>tensorboard 사용</li>
-    </ol>
-  </li>
-  <li>Trained model Deepsort repo로 옮기기</li>
-  <li>detection output을 deepsort detection result와 양식을 맞춘다.</li>
-  <li>tracking result 생성
+  <li>MTCNN
     <ul>
-      <li>inference time per frame 계산 후 확인</li>
+      <li>Bounding box</li>
+      <li>frame number</li>
     </ul>
   </li>
-  <li>tracking video 생성</li>
+  <li>Feature Extractor : <code class="language-plaintext highlighter-rouge">RESNET50</code>
+    <ul>
+      <li>output vector size : 128</li>
+      <li>output format : [<code class="language-plaintext highlighter-rouge">frame no</code>. , <code class="language-plaintext highlighter-rouge">object_id</code> , <code class="language-plaintext highlighter-rouge">bb_left</code> , <code class="language-plaintext highlighter-rouge">bb_top</code> , <code class="language-plaintext highlighter-rouge">bb_width</code> , <code class="language-plaintext highlighter-rouge">bb_height</code> , <code class="language-plaintext highlighter-rouge">score</code>, <code class="language-plaintext highlighter-rouge">X</code>, <code class="language-plaintext highlighter-rouge">Y</code>, <code class="language-plaintext highlighter-rouge">Z</code>]</li>
+      <li>example : 1, 3, 280, 100, 200, 180, 0.98, -1, -1, -1</li>
+      <li>.npy file format</li>
+    </ul>
+  </li>
+  <li>Deepsort</li>
 </ol>
 
-<h2 id="face-detection-pretrained-model">Face Detection Pretrained Model</h2>
-<p><a href="https://github.com/yeephycho/tensorflow-face-detection">Tensorflow Face Detector</a><br />
-해당 모델을 사용하려 했으나, 다양한 input에 대해 inference를 해본 결과, 생각보다 물체를 많이 못잡는다는 점을 파악했다. MTCNN을 사용하려 했지만, inference 속도가 너무 나오지 않아서 사용하는 것을 포기했다.</p>
+<h1 id="environment-setting">Environment Setting</h1>
 
-<p><img width="892" alt="KakaoTalk_Photo_2021-03-30-12-47-44" src="https://user-images.githubusercontent.com/37871541/112931052-59847500-9156-11eb-8e57-a7b0d4d3d91e.png" class="center-small" />
-<img width="892" alt="KakaoTalk_Photo_2021-03-30-12-47-39" src="https://user-images.githubusercontent.com/37871541/112931058-5ee1bf80-9156-11eb-88fa-a37235907eaa.png" class="center-small" />
-<img width="1086" alt="KakaoTalk_Photo_2021-03-30-12-47-29" src="https://user-images.githubusercontent.com/37871541/112931061-6012ec80-9156-11eb-955c-518bb4a5356b.png" class="center-small" /></p>
+<ul>
+  <li>tensorflow 2.4</li>
+  <li>numpy latest version</li>
+  <li>sklearn 0.2.22</li>
+  <li>python 3.7</li>
+  <li>MTCNN</li>
+</ul>
 
-<p>ssd_mobile_net으로, 속도에 주안점을 둔 모델이라 이런 성능이 나온 것으로 보인다. 다른 모델로 변경할 수도 있지만 당장은 이 정도의 output을 가지고 Deepsort와 연동하는 방법을 고민하기로 했다.</p>
+<h1 id="file-structure">File Structure</h1>
+<ul>
+  <li>application_util
+    <ul>
+      <li>image_viewer.py : opencv로 local에서 이미지를 보기 위한 코드</li>
+      <li>preprocessing.py : 이미지 전처리 (NMS 등) 코드</li>
+      <li>visualization.py : 시각화를 위한 코드가 작성</li>
+    </ul>
+  </li>
+  <li>resources
+    <ul>
+      <li>detections : frame별 detection과 feature가 존재하는 공간</li>
+      <li>networks : pretrained model(descriptor)를 저장하는 공간</li>
+      <li>output : 추적한 뒤의 txt file, video file이 저장되는 공간</li>
+      <li>sequences : video의 frame별 이미지가 저장되는 공간</li>
+      <li>video : 추적을 진행하고 싶은 비디오를 넣는 폴더</li>
+    </ul>
+  </li>
+  <li>tools
+    <ul>
+      <li>append_descriptor.py : MTCNN의 결과 txt파일에 feature 정보를 붙이기 위한 파일</li>
+      <li>freeze_model.py : descriptor를 만들기 위한 모델의 파라미터를 고정시키는 작업을 수행</li>
+      <li>generate_detections.py : MTCNN을 기반으로 image에 대해 detection을 수행</li>
+      <li>video_to_images.py : video input file을 frame별 image파일로 변경한다.</li>
+    </ul>
+  </li>
+  <li>deep_sort
+    <ul>
+      <li>detection.py</li>
+      <li>iou_matching.py</li>
+      <li>kalman_filter.py</li>
+      <li>linear_assignment.py</li>
+      <li>nn_matching.py</li>
+      <li>track.py</li>
+      <li>tracker.py</li>
+    </ul>
+  </li>
+  <li>deep_sort_app.py : 실행하기 위한 코드</li>
+  <li>generate_videos.py : tracking video를 만들기 위한 코드. resource/output에 저장된다.</li>
+</ul>
 
-<h1 id="tensorflow-gpu-setting">tensorflow gpu setting</h1>
+<h1 id="input-video-설정">input video 설정</h1>
 
-<h1 id="reference">Reference</h1>
-<p><a href="https://www.youtube.com/watch?v=usR2LQuxhL4&amp;t=786s">How to Install TensorFlow Object Detection in 2020 (Webcam and Images!)</a></p>
+<p>가장 구분이 잘되는 쉬운 영상에 대해 테스트하기 위해 다음의 영상을 첫번째로 선택하였다.</p>
+
+<iframe width="660" height="360" src="https://www.youtube.com/embed/g5v2Mst78uA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>화상 통화에서 같은 얼굴이 꾸준히 보이는 상황에서 잘 작동하는지 판단한다.</p>
+
+<iframe width="660" height="360" src="https://www.youtube.com/embed/sCy-VSbfQKw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>라이브 방송에서 tracking이 유지되는지 확인한다.</p>
+
+<iframe width="660" height="360" src="https://www.youtube.com/embed/rmve1k_f4Tk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>얼굴이 많이 나오면서, 가려짐이 많이 발생하는 영상을 찾았다.</p>
+<iframe width="660" height="360" src="https://www.youtube.com/embed/kfy2rn62yEc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 
   </section>
   
@@ -1020,16 +969,16 @@ python setup.py <span class="nb">install
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                        
+                                                                                                                                                                                                         
   <div
     id="previous-post"
     class="post-nav-post"
-    onclick="location.href='/cv/projects/2021/03/19/Face-Detection-and-tracking-with-ssd-network-03-Paper-Research-2.html';"
+    onclick="location.href='/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error.html';"
   >
     <p>PREVIOUS SERIES</p>
-    <p>03: Paper Research - DeepSort</p>
+    <p>04: Trial and Error</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 </div>
 
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "04: Trial and Error - 01"
+title: "04: Trial and Error"
 category: "CV/Projects"
 comments: true
 tags: [project, "CV"]
@@ -165,8 +165,6 @@ Deepsort를 사용하기 위해서는 appearence metric을 사용해야 한다. 
 ssd_mobile_net으로, 속도에 주안점을 둔 모델이라 이런 성능이 나온 것으로 보인다. 다른 모델로 변경할 수도 있지만 당장은 이 정도의 output을 가지고 Deepsort와 연동하는 방법을 고민하기로 했다.
 
 
-
-# tensorflow gpu setting
 
 
 # Reference

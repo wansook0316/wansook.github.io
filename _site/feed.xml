@@ -6,9 +6,137 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 07 Apr 2021 17:20:48 +0900</pubDate>
-    <lastBuildDate>Wed, 07 Apr 2021 17:20:48 +0900</lastBuildDate>
+    <pubDate>Fri, 09 Apr 2021 15:49:31 +0900</pubDate>
+    <lastBuildDate>Fri, 09 Apr 2021 15:49:31 +0900</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title> [Face Detection and Tracking with SSD Network] 05: Project Design</title>
+        <description> 시행착오 후 프로젝트 설계를 진행한다. : &lt;h1 id=&quot;feature-appearance-training&quot;&gt;Feature Appearance Training&lt;/h1&gt;
+
+&lt;p&gt;Deepsort repository에 있는 Cosine Similarity extractor를 학습하려 했으나, 내 Gpu에서 Session을 열지 못하여 계속해서 에러가 났다. 추가로 Cpu로 학습을 시도하며 디버깅을 했을 때, 코드가 학습하고 싶은 데이터셋에 너무 적합해 있어서 사용하기가 까다로웠다.&lt;/p&gt;
+
+&lt;h1 id=&quot;deepsort-debugging&quot;&gt;Deepsort Debugging&lt;/h1&gt;
+
+&lt;p&gt;대안을 찾기 위해 Deepsort 코드를 디버깅을 진행하여, 정확하게 Appearance Feature가 무엇인지 확인해 보았다. Apperance Feature는 특정 이미지에서 보행자를 탐지했을 때, 그 탐지한 Patch image를 기반으로 Feature를 추출하는 것이었다. 저자들은 이 부분에 있어서 custom으로 학습을 진행하여 추출한 것이 전부였다. 그래서 Tensorflow에서 제공하는 Pretrain model에서 Head를 제거한 상태로 먼저 Feature Extraction을 진행하기로 했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;face-detection-algorithm-성능-비교&quot;&gt;Face Detection Algorithm 성능 비교&lt;/h1&gt;
+
+&lt;p&gt;논문에서 Detection 성능에 따라 추적 알고리즘의 성능이 달라진다고 명시되어 있었다. 지난 주 SSD를 사용해본 결과 성능이 좋지 않아 실제로 사용하기가 굉장히 어렵다는 생각을 했다. 아래는 Face Detection Algorithm 성능 비교 영상이다.&lt;/p&gt;
+
+&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/GZ2p2hj2H5k&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;영상을 보면 처음에는 MTCNN과 SSD 모두 잘 탐색하는 것을 보인다. 하지만 SSD의 경우 측면의 경우 잘 탐지하지 못하고, 프레임마다 흔들림이 큰 모양새를 보인다. Deepsort알고리즘은 이전 프레임에서의 Detection 결과를 기반으로 다음 프레임을 예측하기 때문에 이러한 점은 알고리즘이 정상 작동하는데 무리를 준다. 속도면에서 SSD가 상당히 우위에 있으나, Tracking 성능을 유지하기 위해 MTCNN을 사용하는 것은 피할 수 없다고 판단했다.&lt;/p&gt;
+
+&lt;h1 id=&quot;project-design&quot;&gt;Project Design&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/113891923-7bd65c80-9800-11eb-8854-00033661b651.jpg&quot; alt=&quot;Untitled Diagram (1)&quot; class=&quot;center&quot; /&gt;&lt;em&gt;Face Tracking Project Design&lt;/em&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Video -&amp;gt; images 변환
+    &lt;ul&gt;
+      &lt;li&gt;Frame 번호 명시&lt;/li&gt;
+      &lt;li&gt;Image width, height&lt;/li&gt;
+      &lt;li&gt;image 수&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;MTCNN
+    &lt;ul&gt;
+      &lt;li&gt;Bounding box&lt;/li&gt;
+      &lt;li&gt;frame number&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Feature Extractor : &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RESNET50&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;output vector size : 128&lt;/li&gt;
+      &lt;li&gt;output format : [&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;frame no&lt;/code&gt;. , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object_id&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bb_left&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bb_top&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bb_width&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bb_height&lt;/code&gt; , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;X&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Y&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Z&lt;/code&gt;]&lt;/li&gt;
+      &lt;li&gt;example : 1, 3, 280, 100, 200, 180, 0.98, -1, -1, -1&lt;/li&gt;
+      &lt;li&gt;.npy file format&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Deepsort&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;environment-setting&quot;&gt;Environment Setting&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;tensorflow 2.4&lt;/li&gt;
+  &lt;li&gt;numpy latest version&lt;/li&gt;
+  &lt;li&gt;sklearn 0.2.22&lt;/li&gt;
+  &lt;li&gt;python 3.7&lt;/li&gt;
+  &lt;li&gt;MTCNN&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;file-structure&quot;&gt;File Structure&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;application_util
+    &lt;ul&gt;
+      &lt;li&gt;image_viewer.py : opencv로 local에서 이미지를 보기 위한 코드&lt;/li&gt;
+      &lt;li&gt;preprocessing.py : 이미지 전처리 (NMS 등) 코드&lt;/li&gt;
+      &lt;li&gt;visualization.py : 시각화를 위한 코드가 작성&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;resources
+    &lt;ul&gt;
+      &lt;li&gt;detections : frame별 detection과 feature가 존재하는 공간&lt;/li&gt;
+      &lt;li&gt;networks : pretrained model(descriptor)를 저장하는 공간&lt;/li&gt;
+      &lt;li&gt;output : 추적한 뒤의 txt file, video file이 저장되는 공간&lt;/li&gt;
+      &lt;li&gt;sequences : video의 frame별 이미지가 저장되는 공간&lt;/li&gt;
+      &lt;li&gt;video : 추적을 진행하고 싶은 비디오를 넣는 폴더&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;tools
+    &lt;ul&gt;
+      &lt;li&gt;append_descriptor.py : MTCNN의 결과 txt파일에 feature 정보를 붙이기 위한 파일&lt;/li&gt;
+      &lt;li&gt;freeze_model.py : descriptor를 만들기 위한 모델의 파라미터를 고정시키는 작업을 수행&lt;/li&gt;
+      &lt;li&gt;generate_detections.py : MTCNN을 기반으로 image에 대해 detection을 수행&lt;/li&gt;
+      &lt;li&gt;video_to_images.py : video input file을 frame별 image파일로 변경한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;deep_sort
+    &lt;ul&gt;
+      &lt;li&gt;detection.py&lt;/li&gt;
+      &lt;li&gt;iou_matching.py&lt;/li&gt;
+      &lt;li&gt;kalman_filter.py&lt;/li&gt;
+      &lt;li&gt;linear_assignment.py&lt;/li&gt;
+      &lt;li&gt;nn_matching.py&lt;/li&gt;
+      &lt;li&gt;track.py&lt;/li&gt;
+      &lt;li&gt;tracker.py&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;deep_sort_app.py : 실행하기 위한 코드&lt;/li&gt;
+  &lt;li&gt;generate_videos.py : tracking video를 만들기 위한 코드. resource/output에 저장된다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;input-video-설정&quot;&gt;input video 설정&lt;/h1&gt;
+
+&lt;p&gt;가장 구분이 잘되는 쉬운 영상에 대해 테스트하기 위해 다음의 영상을 첫번째로 선택하였다.&lt;/p&gt;
+
+&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/g5v2Mst78uA&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;화상 통화에서 같은 얼굴이 꾸준히 보이는 상황에서 잘 작동하는지 판단한다.&lt;/p&gt;
+
+&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/sCy-VSbfQKw&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;라이브 방송에서 tracking이 유지되는지 확인한다.&lt;/p&gt;
+
+&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/rmve1k_f4Tk&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;얼굴이 많이 나오면서, 가려짐이 많이 발생하는 영상을 찾았다.&lt;/p&gt;
+&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/kfy2rn62yEc&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+</description>
+        <pubDate>Thu, 08 Apr 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-05-Project-Design.html</link>
+        <guid isPermaLink="true">http://localhost:4000/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-05-Project-Design.html</guid>
+        
+        <category>project</category>
+        
+        <category>CV</category>
+        
+        
+        <category>CV/Projects</category>
+        
+      </item>
     
       <item>
         <title>런타임(Run Time)과 컴파일타임(Compile Time)</title>
@@ -221,6 +349,7 @@
     
     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -228,6 +357,7 @@
     
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -715,7 +845,7 @@
       </item>
     
       <item>
-        <title> [Face Detection and Tracking with SSD Network] 04: Trial and Error - 01</title>
+        <title> [Face Detection and Tracking with SSD Network] 04: Trial and Error</title>
         <description> 프로젝트 진행 사항을 적고 시행착오를 적는다. : &lt;h1 id=&quot;tensorflow-object-detection-api-사용&quot;&gt;Tensorflow object detection api 사용&lt;/h1&gt;
 
 &lt;ul&gt;
@@ -864,14 +994,12 @@ python setup.py &lt;span class=&quot;nb&quot;&gt;install
 
 &lt;p&gt;ssd_mobile_net으로, 속도에 주안점을 둔 모델이라 이런 성능이 나온 것으로 보인다. 다른 모델로 변경할 수도 있지만 당장은 이 정도의 output을 가지고 Deepsort와 연동하는 방법을 고민하기로 했다.&lt;/p&gt;
 
-&lt;h1 id=&quot;tensorflow-gpu-setting&quot;&gt;tensorflow gpu setting&lt;/h1&gt;
-
 &lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=usR2LQuxhL4&amp;amp;t=786s&quot;&gt;How to Install TensorFlow Object Detection in 2020 (Webcam and Images!)&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 30 Mar 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error-01.html</guid>
+        <link>http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error.html</link>
+        <guid isPermaLink="true">http://localhost:4000/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error.html</guid>
         
         <category>project</category>
         
@@ -2694,23 +2822,6 @@ banana 1 Array(2) 0: &quot;apple&quot;1: &quot;banana&quot;length: 2__proto__: A
         
         
         <category>DV/Javascript</category>
-        
-      </item>
-    
-      <item>
-        <title>인공지능 데이터 활용 아이디어 공모전 - 입상</title>
-        <description> 청각 장애인의 효과적인 발음 교육을 위한 애플리케이션을 기획하였다. : 
-</description>
-        <pubDate>Fri, 15 Jan 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/awards/2021/01/15/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%EA%B3%B5%EB%AA%A8%EC%A0%84.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/awards/2021/01/15/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%EA%B3%B5%EB%AA%A8%EC%A0%84.html</guid>
-        
-        <category>awards</category>
-        
-        <category>CV</category>
-        
-        
-        <category>CV/Awards</category>
         
       </item>
     
