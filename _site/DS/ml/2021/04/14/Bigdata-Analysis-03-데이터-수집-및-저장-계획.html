@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [빅데이터분석기사 - 필기] 03: 데이터 수집 및 저장 계획 | 완숙의 에그머니🍳
+  </title>
+  <meta
+    name="description"
+    content="데이터 수집, 변환, 저장과 같은 방법을 알아본다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[빅데이터분석기사 - 필기] 03: 데이터 수집 및 저장 계획 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="데이터 수집, 변환, 저장과 같은 방법을 알아본다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/ds/ml/2021/04/14/Bigdata-Analysis-03-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91-%EB%B0%8F-%EC%A0%80%EC%9E%A5-%EA%B3%84%ED%9A%8D.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/77.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/ds/ml/2021/04/14/Bigdata-Analysis-03-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%88%98%EC%A7%91-%EB%B0%8F-%EC%A0%80%EC%9E%A5-%EA%B3%84%ED%9A%8D.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 750) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "space-around"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
+
+</head>
+
+  <body>
+    <a href="#" class="top"></a>
+ <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Courses">Courses</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Publications">Publications</a></li>
+        <li><a href="/CV/Patents">Patents</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/Cloud">Cloud</a></li>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/Javascript">Javascript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/Concept">Concept</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Trouble-Shooting">Trouble Shooting</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/77.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">03: 데이터 수집 및 저장 계획</h1>
+      
+      <p class="meta">
+        DS/ML  : 빅데이터분석기사 - 필기 
+      </p>
+      <p class="meta">
+        April 14, 2021 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>빅데이터분석기사 - 필기</em></b> 시리즈
+    <b><em>10</em></b> 편 중 <b><em>3</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                                                   
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-01-%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98-%EC%9D%B4%ED%95%B4.html'">
+      <span>Part 1 - 01: 빅데이터의 이해</span>
+    </li>
+                                                       
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-%EA%B3%84%ED%9A%8D.html'">
+      <span>Part 2 - 02: 데이터 분석 계획</span>
+    </li>
+                                                                 
+    <li class="current">
+      <span>Part 3 - This Post</span>
+    </li>
+                                                       
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC.html'">
+      <span>Part 4 - 04: 데이터 전처리</span>
+    </li>
+                                           
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-05-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%90%EC%83%89.html'">
+      <span>Part 5 - 05: 데이터 탐색</span>
+    </li>
+                                                       
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-06-%ED%86%B5%EA%B3%84%EA%B8%B0%EB%B2%95-%EC%9D%B4%ED%95%B4.html'">
+      <span>Part 6 - 06: 통계 기법 이해</span>
+    </li>
+                                   
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-07-%EB%B6%84%EC%84%9D%EB%AA%A8%ED%98%95-%EC%84%A4%EA%B3%84.html'">
+      <span>Part 7 - 07: 분석 모형 설계</span>
+    </li>
+                                           
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-08-%EB%B6%84%EC%84%9D%EA%B8%B0%EB%B2%95-%EC%A0%81%EC%9A%A9.html'">
+      <span>Part 8 - 08: 분석 기법 적용</span>
+    </li>
+                                   
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-09-%EB%B6%84%EC%84%9D%EA%B2%B0%EA%B3%BC%ED%95%B4%EC%84%9D-%EB%B0%8F-%ED%99%9C%EC%9A%A9.html'">
+      <span>Part 9 - 09: 분석결과 해석 및 활용</span>
+    </li>
+                             
+    <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-10-%EB%B6%84%EC%84%9D%EB%AA%A8%ED%98%95%ED%8F%89%EA%B0%80-%EB%B0%8F-%EA%B0%9C%EC%84%A0.html'">
+      <span>Part 10 - 10: 분석모형 평가 및 개선</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                                              
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li class="toc-item"><a href="#데이터-수집-방식-및-기술" class="toc-anchor">데이터 수집 방식 및 기술</a></li>
+  <li class="toc-item"><a href="#데이터-유형" class="toc-anchor">데이터 유형</a></li>
+  <li class="toc-item"><a href="#데이터-속성" class="toc-anchor">데이터 속성</a></li>
+  <li class="toc-item"><a href="#데이터-속성에-따른-측정-척도" class="toc-anchor">데이터 속성에 따른 측정 척도</a></li>
+  <li class="toc-item"><a href="#데이터-변환" class="toc-anchor">데이터 변환</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#데이터-변환-기술" class="toc-anchor">데이터 변환 기술</a></li>
+    </ul>
+  </li>
+  <li class="toc-item"><a href="#데이터-적재" class="toc-anchor">데이터 적재</a></li>
+  <li class="toc-item"><a href="#데이터-저장" class="toc-anchor">데이터 저장</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#gfsgoogle-file-system" class="toc-anchor">GFS(Google File System)</a></li>
+      <li class="toc-item"><a href="#hdfs" class="toc-anchor">HDFS</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <p><img src="https://user-images.githubusercontent.com/37871541/114716586-27d2f700-9d6f-11eb-9222-51b8f43f12b5.png" alt="image" class="center-small" /></p>
+
+<h1 id="데이터-수집-방식-및-기술">데이터 수집 방식 및 기술</h1>
+
+<ul>
+  <li>데이터 웨어하우스
+    <ul>
+      <li>오지게 저장하는 공간</li>
+    </ul>
+  </li>
+  <li>데이터 마트
+    <ul>
+      <li>웨어하우스로 부터 팀단위, 조직 단위로 뽑아서 사용함</li>
+    </ul>
+  </li>
+  <li>정형 데이터
+    <ul>
+      <li>ETL(Extract Transform Load) - 추출, 변환, 저장</li>
+      <li>FTP(File Transfer Protocol)</li>
+      <li>API</li>
+      <li>Sqoop
+        <ul>
+          <li>벌크 임포트 지원 - 전체를 한번에 전송</li>
+          <li>데이터 전송 병렬화</li>
+          <li>직접 입력</li>
+          <li>프로그래밍 방식의 데이터 상호작용 - 클래스</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>비정형 데이터
+    <ul>
+      <li>크롤링</li>
+      <li>RSS</li>
+      <li>Open API</li>
+      <li>Scrapy - 웹 사이트 크롤링</li>
+      <li>아파치 카프카 - 대용량 실시간 로그처리</li>
+    </ul>
+  </li>
+  <li>반정형 데이터
+    <ul>
+      <li>센싱</li>
+      <li>스트리밍</li>
+      <li>Flume - 로그 데이터 수집</li>
+      <li>Scribe - 로그 데이터 수집</li>
+      <li>Chukwa - 비정형, 반정형 모두 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="데이터-유형">데이터 유형</h1>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/114696744-f864c000-9d57-11eb-9cfd-74eae0b117af.png" alt="image" class="center-small" /></p>
+
+<ul>
+  <li>구조적
+    <ul>
+      <li>정형
+        <ul>
+          <li>RDBMS</li>
+          <li>spread sheet</li>
+        </ul>
+      </li>
+      <li>비정형
+        <ul>
+          <li>SNS</li>
+          <li>웹 게시판</li>
+          <li>텍스트/오디오/비디오/이미지</li>
+        </ul>
+      </li>
+      <li>반정형
+        <ul>
+          <li>XML</li>
+          <li>HTML</li>
+          <li>JSON</li>
+          <li>RSS</li>
+          <li>로그</li>
+          <li>센서 데이터</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="데이터-속성">데이터 속성</h1>
+<ul>
+  <li>범주형(질적 변수)
+    <ul>
+      <li>연산 의미 없음</li>
+      <li>순서형
+        <ul>
+          <li>단순히 의미론적으로 숫자를 달아놓은 경우</li>
+        </ul>
+      </li>
+      <li>명목형
+        <ul>
+          <li>평점, 상태점수</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>수치형(양적 변수)
+    <ul>
+      <li>사칙연산 가능</li>
+      <li>연속형</li>
+      <li>이산형</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="데이터-속성에-따른-측정-척도">데이터 속성에 따른 측정 척도</h1>
+
+<p>데이터 속성에 따라 어떤 척도를 기준으로 측정할지가 달라진다.</p>
+
+<ul>
+  <li>명목 척도
+    <ul>
+      <li>단순히 구분을 위해 군집에 숫자를 매핑하는 경우</li>
+      <li><code class="language-plaintext highlighter-rouge">=</code>, <code class="language-plaintext highlighter-rouge">!=</code></li>
+      <li>이메일 주소, 인터넷 계정, 옷 색깔, 성별</li>
+    </ul>
+  </li>
+  <li>서열/순위 척도
+    <ul>
+      <li>순위가 필요할 때.</li>
+      <li><code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">&gt;</code></li>
+      <li>직급, 영화 평점, 선호도</li>
+    </ul>
+  </li>
+  <li>등간/간격/거리 척도
+    <ul>
+      <li>동일 간격으로 나누어서 비교할 수 있게 만든 척도</li>
+      <li><code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code></li>
+      <li>온도, 지능지수</li>
+    </ul>
+  </li>
+  <li>비율 척도
+    <ul>
+      <li>절대 0점</li>
+      <li>순서 &amp; 간격 의미 있음</li>
+      <li><code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">/</code></li>
+      <li>질량, 나이, 개수, 길이</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="데이터-변환">데이터 변환</h1>
+
+<ul>
+  <li>전처리
+    <ul>
+      <li>저장소에 적재하기위한 작업</li>
+      <li>데이터 필터링, 유형 변환, 정제</li>
+    </ul>
+  </li>
+  <li>후처리
+    <ul>
+      <li>분석이 용이하도록 가공하는 작업</li>
+      <li>변환, 통합, 축소</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="데이터-변환-기술">데이터 변환 기술</h2>
+
+<ul>
+  <li>평활화
+    <ul>
+      <li>들쭉날쭉한 녀석들을 군집화, 구간화를 통해 매끄럽게 만듦</li>
+    </ul>
+  </li>
+  <li>집계
+    <ul>
+      <li>데이터를 요약하는 방법</li>
+    </ul>
+  </li>
+  <li>일반화</li>
+  <li>정규화
+    <ul>
+      <li>데이터를 정해진 구간 내에 들어가도록 하는 방법</li>
+      <li>최소-최대 정규화 - 최소값 0 최댓값 1</li>
+      <li>z 스코어 정규화</li>
+      <li>소수 스케일링</li>
+    </ul>
+  </li>
+  <li>속성 생성
+    <ul>
+      <li>새로운 feature를 활용</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="데이터-적재">데이터 적재</h1>
+
+<ul>
+  <li>적재 소프트웨어 종류
+    <ul>
+      <li>Fluentd</li>
+      <li>Flume</li>
+      <li>Scribe</li>
+      <li>Logstash</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="데이터-저장">데이터 저장</h1>
+
+<ul>
+  <li>분산 파일 시스템
+    <ul>
+      <li>GFS</li>
+      <li>HDFS</li>
+      <li>Lustre</li>
+    </ul>
+  </li>
+  <li>데이터베이스 클러스터 - 하나의 데이터베이스를 여러 개의 서버상에 구축(가상화, RDBMS)</li>
+  <li>NoSQL (Not only SQL)
+    <ul>
+      <li>테이블 스키마 X, join X</li>
+      <li>빅테이블</li>
+      <li>HBase</li>
+      <li>SimpleDB - Amazon</li>
+      <li>SSDS - MS</li>
+      <li>Cloudata</li>
+      <li>Cassandra</li>
+    </ul>
+  </li>
+  <li>병렬 DBMS</li>
+  <li>네트워크 구성 저장 시스템</li>
+  <li>클라우드 파일 저장 시스템
+    <ul>
+      <li>Amazon S3</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="gfsgoogle-file-system">GFS(Google File System)</h2>
+<p><img src="https://user-images.githubusercontent.com/37871541/114718463-f824ee80-9d70-11eb-9acd-f60a0677cb60.png" alt="image" class="center-small" /></p>
+
+<ul>
+  <li>구글의 대규모 클러스터 서비스 플랫폼 기반 파일 시스템</li>
+  <li>
+    <p>64m의 청크로 나누고 복제본을 청크서버에 분산하여 저장</p>
+  </li>
+  <li>구성 요소
+    <ul>
+      <li>Client
+        <ul>
+          <li>파일 읽기/쓰기 요청 애플리케이션</li>
+        </ul>
+      </li>
+      <li>Master
+        <ul>
+          <li>매핑 정보, 저장 서버 위치 정보를 메모리상에서 관리</li>
+          <li>청크 서버의 하트비트 메시지를 통해 상태관리</li>
+        </ul>
+      </li>
+      <li>청크 서버
+        <ul>
+          <li>로컬 디스크에 청크 저장</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="hdfs">HDFS</h2>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/114718791-50f48700-9d71-11eb-98e4-c6271d7ef783.png" alt="image" class="center-small" /></p>
+
+<ul>
+  <li>구성 요소
+    <ul>
+      <li>네임 노드
+        <ul>
+          <li>모든 메타데이터 관리</li>
+          <li>마스터 역할</li>
+          <li>블록 상태 체크</li>
+        </ul>
+      </li>
+      <li>보조 네임 노드
+        <ul>
+          <li>상태 모니터링 보조</li>
+          <li>파일 시스템 이미지 스냅샷으로 생성</li>
+        </ul>
+      </li>
+      <li>데이터 노드
+        <ul>
+          <li>슬레이브 역할</li>
+          <li>데이터 입출력 요청 처리</li>
+          <li>3중 복제 저장</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#data-science"
+      >#Data Science</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#machine-learning"
+      >#Machine Learning</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EA%B8%B0%EC%82%AC"
+      >#빅데이터분석기사</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                   
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-02-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%84%EC%84%9D-%EA%B3%84%ED%9A%8D.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>02: 데이터 분석 계획</p>
+  </div>
+                                                                                                                  
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-04-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>04: 데이터 전처리</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+
+
+
+<footer class="site-footer">
+	<div class="copyright">
+		© 
+		<span itemprop="copyrightYear">2018</span>
+		<span class="with-love">
+		  <i class="fa fa-heart"></i>
+		</span>
+		<span class="author" itemprop="copyrightHolder">Wansook</span>
+	  </div>
+
+	<div class="powered-by">
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	</div>
+
+	<div class="prev-blog-info">
+		Prev Blog -
+		<a class="theme-link" href="https://egg-money.tistory.com/127?category=822389">
+		  완숙의 블로그
+		</a>
+	</div>
+
+	<div class="saying">What I cannot create, I do not understand. <br> - Richard Phillips Feynman -</div>
+</footer>
+
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
+
+  </body>
+</html>
