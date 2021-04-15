@@ -836,7 +836,291 @@
 </div>
  
    
- 
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li class="toc-item"><a href="#분석-모형-평가" class="toc-anchor">분석 모형 평가</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#예측-모형" class="toc-anchor">예측 모형</a></li>
+      <li class="toc-item"><a href="#분류-모형" class="toc-anchor">분류 모형</a></li>
+      <li class="toc-item"><a href="#교차-검증" class="toc-anchor">교차 검증</a></li>
+      <li class="toc-item"><a href="#모수-유의성-검증" class="toc-anchor">모수 유의성 검증</a></li>
+      <li class="toc-item"><a href="#적합도-검정" class="toc-anchor">적합도 검정</a></li>
+    </ul>
+  </li>
+  <li class="toc-item"><a href="#분석-모형-개선" class="toc-anchor">분석 모형 개선</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#과대-적합-방지" class="toc-anchor">과대 적합 방지</a></li>
+      <li class="toc-item"><a href="#매개변수-최적화" class="toc-anchor">매개변수 최적화</a></li>
+      <li class="toc-item"><a href="#분석-모형-융합" class="toc-anchor">분석 모형 융합</a></li>
+    </ul>
+  </li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <h1 id="분석-모형-평가">분석 모형 평가</h1>
+
+<p>모델을 평가하는데 사용하는 평가 지표에 대해 알아보자.</p>
+<h2 id="예측-모형">예측 모형</h2>
+
+<p><img width="713" alt="스크린샷 2021-04-15 오후 4 48 23" src="https://user-images.githubusercontent.com/37871541/114833308-67025600-9e0a-11eb-814c-af59842d6f67.png" class="center-small" /></p>
+
+<ul>
+  <li>SSE(Error Sum of Square) - 오차 제곱합 : 예측값과 실제값 차이</li>
+  <li>SST(Total Sum of Squares) - 전체 제곱합 : 평균과 실제값 차이</li>
+  <li>SSR(Regression Sum of Square) - 회귀 제곱합 : 예측값과 평균 차이</li>
+  <li>AR(Average Error) - 평균 오차 : 부호 있음</li>
+  <li>MAE(Mean Absolute Error) - 평균 절대 오차 : 부호 없음(절댓값)</li>
+  <li>RMSE(Root Mean Squared Error) - MSE(SSE 평균 낸 것)에 루트</li>
+  <li>MAPE(Mean Absolute Percentage Error) - 절대값으로 백분율</li>
+  <li>MPE(Mean Percentage Error) - 오차 부호 있음, 백분율</li>
+  <li>결정계수(R Square) - $SSR \over SST$
+    <ul>
+      <li>수정된 결정계수</li>
+      <li>결정 계수는 변수가 증가하기만 하면 증가함</li>
+      <li>적절하지 않은 변수에 대해 페널티를 부과한 지표</li>
+      <li>그래서 항상 결정계수보다 값은 작을 수 밖에 없음</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="분류-모형">분류 모형</h2>
+
+<p>혼동 행렬에 대해 알아보자.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">실제(▼) 예측(▶)</th>
+      <th style="text-align: center">O</th>
+      <th style="text-align: center">X</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">O</td>
+      <td style="text-align: center">True Positive</td>
+      <td style="text-align: center">False Negative</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">X</td>
+      <td style="text-align: center">False Positive</td>
+      <td style="text-align: center">True Negative</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>정확도
+    <ul>
+      <li>T, F를 정확하게 예측한 비율</li>
+      <li>${TP + FN} \over {TP + TN + FP + FN}$</li>
+    </ul>
+  </li>
+  <li>민감도(Recall)
+    <ul>
+      <li>실제 예측 중 잘맞춘 비율</li>
+      <li>$TP \over {TP + FN}$</li>
+    </ul>
+  </li>
+  <li>특이도
+    <ul>
+      <li>실제 부정 중 잘맞춘 비율</li>
+      <li>$TN \over {FP + TN}$</li>
+    </ul>
+  </li>
+  <li>정밀도
+    <ul>
+      <li>예측 긍정 중 잘맞춘 비율</li>
+      <li>$TP \over {TP + FP}$</li>
+    </ul>
+  </li>
+  <li>F1 Score
+    <ul>
+      <li>정밀도와 민감도 조화평균</li>
+      <li>$2\times{Precision \times Recall} \over {Precision + Recall}$</li>
+    </ul>
+  </li>
+  <li>ROC 곡선
+    <ul>
+      <li>가로 : 1-특이도</li>
+      <li>세로 : 민감도(Recall)</li>
+      <li>왼쪽 위로 갈수록 좋음</li>
+      <li>그래서 넓이(AUC)로 판단, 1이면 좋은 모형</li>
+      <li>AUC는 0.5~1.0 사이 값 가짐</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="교차-검증">교차 검증</h2>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/114836896-155bca80-9e0e-11eb-8dca-260eb30f0632.png" alt="image" class="center-small" /></p>
+
+<ul>
+  <li>홀드 아웃 교차 검증
+    <ul>
+      <li>전체 데이터 비복원 추출로 Training/Test로 나눔</li>
+      <li>5:5, 3:7, 2:1</li>
+      <li>데이터 손실 발생</li>
+    </ul>
+  </li>
+  <li>랜덤 서브샘플링</li>
+  <li>K-Fold
+    <ul>
+      <li>K의 부분집합으로 나누고 1개를 Test, 나머지는 Training</li>
+    </ul>
+  </li>
+  <li>LOOCV
+    <ul>
+      <li>1개의 샘플만 TEST</li>
+    </ul>
+  </li>
+  <li>LpOCV
+    <ul>
+      <li>p개의 샘플만 TEST</li>
+    </ul>
+  </li>
+  <li>부트스트랩
+    <ul>
+      <li><strong>복원 추출</strong></li>
+      <li>전체 데이터가 N개, N개 부트스트랩 -&gt; 한번도 안뽑히는 녀석 37.8%</li>
+      <li>그녀석을 test로 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="모수-유의성-검증">모수 유의성 검증</h2>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/114837090-489e5980-9e0e-11eb-948b-53fd0536b86d.png" alt="image" class="center-small" /></p>
+
+<ul>
+  <li>기본 통계 내용이라 생략</li>
+</ul>
+
+<h2 id="적합도-검정">적합도 검정</h2>
+
+<ul>
+  <li>
+    <p>표본 집단 분포가 주어진 이론을 따르는지 검정한다.</p>
+  </li>
+  <li>카이제곱 검정
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">chisq.test()</code></li>
+    </ul>
+  </li>
+  <li>정규성 검정
+    <ul>
+      <li>샤피로-윌크 검정
+        <ul>
+          <li>정규 분포를 따르는가?</li>
+          <li><code class="language-plaintext highlighter-rouge">sharpiro.test()</code></li>
+        </ul>
+      </li>
+      <li>콜모고로프-스미르노프 적합성 검정
+        <ul>
+          <li>특정 분포를 따르는지 검정하는 방법</li>
+        </ul>
+      </li>
+      <li>Q-Q plot
+        <ul>
+          <li>시각적으로 검정</li>
+          <li>대각선 참조선을 따라서 분포하면 만족</li>
+          <li>해석은 값이 아니기 때문에 주관적</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="분석-모형-개선">분석 모형 개선</h1>
+
+<ul>
+  <li>고도화 방법을 알아본다.
+    <h2 id="과대-적합-방지">과대 적합 방지</h2>
+  </li>
+  <li>데이터 증강</li>
+  <li>복잡도 감소
+    <ul>
+      <li>은닉층 수 감소</li>
+      <li>수용력 감소</li>
+    </ul>
+  </li>
+  <li>가중치 규제
+    <ul>
+      <li>하이퍼 파라미터임</li>
+      <li>L1</li>
+      <li>L2</li>
+    </ul>
+  </li>
+  <li>드롭아웃</li>
+</ul>
+
+<h2 id="매개변수-최적화">매개변수 최적화</h2>
+
+<ul>
+  <li>경사하강법
+    <ul>
+      <li>SGD</li>
+      <li>모멘텀 - 관성 사용</li>
+      <li>AdaGrad - 학습률 점점 줄이는 방법</li>
+      <li>Adam - 모멘텀, AdaGrad 둘다적용</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="분석-모형-융합">분석 모형 융합</h2>
+
+<ul>
+  <li>취합 방법론
+    <ul>
+      <li>다수결
+        <ul>
+          <li>직접 투표 - 단순 투표</li>
+          <li>간접 투표 - 가중치</li>
+        </ul>
+      </li>
+      <li>배깅
+        <ul>
+          <li>복원추출 학습 데이터 셋 분리</li>
+        </ul>
+      </li>
+      <li>페이스팅
+        <ul>
+          <li>비복원 추출 학습 데이터 셋 분리</li>
+        </ul>
+      </li>
+      <li>랜덤 서브스페이스
+        <ul>
+          <li>다차원 독립 변수중 일부 차원을 선택</li>
+          <li>데이터는 모두 사용, 특성 샘플링</li>
+        </ul>
+      </li>
+      <li>랜덤 패치
+        <ul>
+          <li>학습 데이터, 변수 모두 랜덤 사용</li>
+        </ul>
+      </li>
+      <li>랜덤 포레스트
+        <ul>
+          <li>의사결정나무를 개별 모형으로 합침</li>
+          <li>독립 변수를 모두 비교하여 최선의 독립변수 선택</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>부스팅 방법론
+    <ul>
+      <li>AdaBoost</li>
+      <li>Gradient Boost</li>
+    </ul>
+  </li>
+</ul>
+
 
   </section>
   

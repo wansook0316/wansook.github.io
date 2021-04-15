@@ -6,8 +6,8 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 15 Apr 2021 02:16:15 +0900</pubDate>
-    <lastBuildDate>Thu, 15 Apr 2021 02:16:15 +0900</lastBuildDate>
+    <pubDate>Thu, 15 Apr 2021 17:40:28 +0900</pubDate>
+    <lastBuildDate>Thu, 15 Apr 2021 17:40:28 +0900</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -31,7 +31,264 @@
     
       <item>
         <title> [빅데이터분석기사 - 필기] 09: 분석결과 해석 및 활용</title>
-        <description> 모델의 평가 방법, 개선 방법에 대해 알아보자. : 
+        <description> 모델의 평가 방법, 개선 방법에 대해 알아보자. : &lt;h1 id=&quot;분석-모형-평가&quot;&gt;분석 모형 평가&lt;/h1&gt;
+
+&lt;p&gt;모델을 평가하는데 사용하는 평가 지표에 대해 알아보자.&lt;/p&gt;
+&lt;h2 id=&quot;예측-모형&quot;&gt;예측 모형&lt;/h2&gt;
+
+&lt;p&gt;&lt;img width=&quot;713&quot; alt=&quot;스크린샷 2021-04-15 오후 4 48 23&quot; src=&quot;https://user-images.githubusercontent.com/37871541/114833308-67025600-9e0a-11eb-814c-af59842d6f67.png&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SSE(Error Sum of Square) - 오차 제곱합 : 예측값과 실제값 차이&lt;/li&gt;
+  &lt;li&gt;SST(Total Sum of Squares) - 전체 제곱합 : 평균과 실제값 차이&lt;/li&gt;
+  &lt;li&gt;SSR(Regression Sum of Square) - 회귀 제곱합 : 예측값과 평균 차이&lt;/li&gt;
+  &lt;li&gt;AR(Average Error) - 평균 오차 : 부호 있음&lt;/li&gt;
+  &lt;li&gt;MAE(Mean Absolute Error) - 평균 절대 오차 : 부호 없음(절댓값)&lt;/li&gt;
+  &lt;li&gt;RMSE(Root Mean Squared Error) - MSE(SSE 평균 낸 것)에 루트&lt;/li&gt;
+  &lt;li&gt;MAPE(Mean Absolute Percentage Error) - 절대값으로 백분율&lt;/li&gt;
+  &lt;li&gt;MPE(Mean Percentage Error) - 오차 부호 있음, 백분율&lt;/li&gt;
+  &lt;li&gt;결정계수(R Square) - $SSR \over SST$
+    &lt;ul&gt;
+      &lt;li&gt;수정된 결정계수&lt;/li&gt;
+      &lt;li&gt;결정 계수는 변수가 증가하기만 하면 증가함&lt;/li&gt;
+      &lt;li&gt;적절하지 않은 변수에 대해 페널티를 부과한 지표&lt;/li&gt;
+      &lt;li&gt;그래서 항상 결정계수보다 값은 작을 수 밖에 없음&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;분류-모형&quot;&gt;분류 모형&lt;/h2&gt;
+
+&lt;p&gt;혼동 행렬에 대해 알아보자.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;실제(▼) 예측(▶)&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;O&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;X&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;O&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;True Positive&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;False Negative&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;X&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;False Positive&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;True Negative&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정확도
+    &lt;ul&gt;
+      &lt;li&gt;T, F를 정확하게 예측한 비율&lt;/li&gt;
+      &lt;li&gt;${TP + FN} \over {TP + TN + FP + FN}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;민감도(Recall)
+    &lt;ul&gt;
+      &lt;li&gt;실제 예측 중 잘맞춘 비율&lt;/li&gt;
+      &lt;li&gt;$TP \over {TP + FN}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;특이도
+    &lt;ul&gt;
+      &lt;li&gt;실제 부정 중 잘맞춘 비율&lt;/li&gt;
+      &lt;li&gt;$TN \over {FP + TN}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;정밀도
+    &lt;ul&gt;
+      &lt;li&gt;예측 긍정 중 잘맞춘 비율&lt;/li&gt;
+      &lt;li&gt;$TP \over {TP + FP}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;F1 Score
+    &lt;ul&gt;
+      &lt;li&gt;정밀도와 민감도 조화평균&lt;/li&gt;
+      &lt;li&gt;$2\times{Precision \times Recall} \over {Precision + Recall}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ROC 곡선
+    &lt;ul&gt;
+      &lt;li&gt;가로 : 1-특이도&lt;/li&gt;
+      &lt;li&gt;세로 : 민감도(Recall)&lt;/li&gt;
+      &lt;li&gt;왼쪽 위로 갈수록 좋음&lt;/li&gt;
+      &lt;li&gt;그래서 넓이(AUC)로 판단, 1이면 좋은 모형&lt;/li&gt;
+      &lt;li&gt;AUC는 0.5~1.0 사이 값 가짐&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;교차-검증&quot;&gt;교차 검증&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/114836896-155bca80-9e0e-11eb-8dca-260eb30f0632.png&quot; alt=&quot;image&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;홀드 아웃 교차 검증
+    &lt;ul&gt;
+      &lt;li&gt;전체 데이터 비복원 추출로 Training/Test로 나눔&lt;/li&gt;
+      &lt;li&gt;5:5, 3:7, 2:1&lt;/li&gt;
+      &lt;li&gt;데이터 손실 발생&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;랜덤 서브샘플링&lt;/li&gt;
+  &lt;li&gt;K-Fold
+    &lt;ul&gt;
+      &lt;li&gt;K의 부분집합으로 나누고 1개를 Test, 나머지는 Training&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LOOCV
+    &lt;ul&gt;
+      &lt;li&gt;1개의 샘플만 TEST&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;LpOCV
+    &lt;ul&gt;
+      &lt;li&gt;p개의 샘플만 TEST&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;부트스트랩
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;복원 추출&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;전체 데이터가 N개, N개 부트스트랩 -&amp;gt; 한번도 안뽑히는 녀석 37.8%&lt;/li&gt;
+      &lt;li&gt;그녀석을 test로 사용&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;모수-유의성-검증&quot;&gt;모수 유의성 검증&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/114837090-489e5980-9e0e-11eb-948b-53fd0536b86d.png&quot; alt=&quot;image&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;기본 통계 내용이라 생략&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;적합도-검정&quot;&gt;적합도 검정&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;표본 집단 분포가 주어진 이론을 따르는지 검정한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;카이제곱 검정
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chisq.test()&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;정규성 검정
+    &lt;ul&gt;
+      &lt;li&gt;샤피로-윌크 검정
+        &lt;ul&gt;
+          &lt;li&gt;정규 분포를 따르는가?&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sharpiro.test()&lt;/code&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;콜모고로프-스미르노프 적합성 검정
+        &lt;ul&gt;
+          &lt;li&gt;특정 분포를 따르는지 검정하는 방법&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Q-Q plot
+        &lt;ul&gt;
+          &lt;li&gt;시각적으로 검정&lt;/li&gt;
+          &lt;li&gt;대각선 참조선을 따라서 분포하면 만족&lt;/li&gt;
+          &lt;li&gt;해석은 값이 아니기 때문에 주관적&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;분석-모형-개선&quot;&gt;분석 모형 개선&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;고도화 방법을 알아본다.
+    &lt;h2 id=&quot;과대-적합-방지&quot;&gt;과대 적합 방지&lt;/h2&gt;
+  &lt;/li&gt;
+  &lt;li&gt;데이터 증강&lt;/li&gt;
+  &lt;li&gt;복잡도 감소
+    &lt;ul&gt;
+      &lt;li&gt;은닉층 수 감소&lt;/li&gt;
+      &lt;li&gt;수용력 감소&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;가중치 규제
+    &lt;ul&gt;
+      &lt;li&gt;하이퍼 파라미터임&lt;/li&gt;
+      &lt;li&gt;L1&lt;/li&gt;
+      &lt;li&gt;L2&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;드롭아웃&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;매개변수-최적화&quot;&gt;매개변수 최적화&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;경사하강법
+    &lt;ul&gt;
+      &lt;li&gt;SGD&lt;/li&gt;
+      &lt;li&gt;모멘텀 - 관성 사용&lt;/li&gt;
+      &lt;li&gt;AdaGrad - 학습률 점점 줄이는 방법&lt;/li&gt;
+      &lt;li&gt;Adam - 모멘텀, AdaGrad 둘다적용&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;분석-모형-융합&quot;&gt;분석 모형 융합&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;취합 방법론
+    &lt;ul&gt;
+      &lt;li&gt;다수결
+        &lt;ul&gt;
+          &lt;li&gt;직접 투표 - 단순 투표&lt;/li&gt;
+          &lt;li&gt;간접 투표 - 가중치&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;배깅
+        &lt;ul&gt;
+          &lt;li&gt;복원추출 학습 데이터 셋 분리&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;페이스팅
+        &lt;ul&gt;
+          &lt;li&gt;비복원 추출 학습 데이터 셋 분리&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;랜덤 서브스페이스
+        &lt;ul&gt;
+          &lt;li&gt;다차원 독립 변수중 일부 차원을 선택&lt;/li&gt;
+          &lt;li&gt;데이터는 모두 사용, 특성 샘플링&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;랜덤 패치
+        &lt;ul&gt;
+          &lt;li&gt;학습 데이터, 변수 모두 랜덤 사용&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;랜덤 포레스트
+        &lt;ul&gt;
+          &lt;li&gt;의사결정나무를 개별 모형으로 합침&lt;/li&gt;
+          &lt;li&gt;독립 변수를 모두 비교하여 최선의 독립변수 선택&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;부스팅 방법론
+    &lt;ul&gt;
+      &lt;li&gt;AdaBoost&lt;/li&gt;
+      &lt;li&gt;Gradient Boost&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 </description>
         <pubDate>Wed, 14 Apr 2021 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/ds/ml/2021/04/14/Bigdata-Analysis-09-%EB%B6%84%EC%84%9D%EA%B2%B0%EA%B3%BC%ED%95%B4%EC%84%9D-%EB%B0%8F-%ED%99%9C%EC%9A%A9.html</link>
@@ -343,7 +600,93 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h1 id=&quot;범주형-자료-분석&quot;&gt;범주형 자료 분석&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;상대위험도
+    &lt;ul&gt;
+      &lt;li&gt;$관심집단의위험률 \over 비교집단의위험률$&lt;/li&gt;
+      &lt;li&gt;${a \over {a+b}} / {c \over {c+d}}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Odds
+    &lt;ul&gt;
+      &lt;li&gt;$p \over {1-p}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Odds Ratio
+    &lt;ul&gt;
+      &lt;li&gt;$관심집단의승산 \over 비교집단의승산$&lt;/li&gt;
+      &lt;li&gt;관심집단의 승산 = ${a \over {a+b}} / {b \over {a+b}} ={a \over b}$&lt;/li&gt;
+      &lt;li&gt;비교집단의 승산 = ${c \over {c+d}} / {d \over {c+d}} ={c \over d}$&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h1 id=&quot;시계열-분석&quot;&gt;시계열 분석&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정상성
+    &lt;ul&gt;
+      &lt;li&gt;시점에 상관없이 특성이 일정하다는 의미&lt;/li&gt;
+      &lt;li&gt;평균 일정&lt;/li&gt;
+      &lt;li&gt;분산이 시점에 의존하지 않는다.&lt;/li&gt;
+      &lt;li&gt;공분산은 시차에만 의존&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;모형
+    &lt;ul&gt;
+      &lt;li&gt;자기 회귀 모형 (AR)
+        &lt;ul&gt;
+          &lt;li&gt;현재가 p개의 이전 자료로 설명 가능&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;이동평균모형(Moving Average Model)
+        &lt;ul&gt;
+          &lt;li&gt;시간이 지날수록 평균값이 지속적인 증가 혹은 감소&lt;/li&gt;
+          &lt;li&gt;정상성 가정 필요 없음&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;자기 회귀 누적 이동평균모형(ARIMA)
+        &lt;ul&gt;
+          &lt;li&gt;비정상 시계열 모델&lt;/li&gt;
+          &lt;li&gt;차분, 변환을 통해 AR, MA, ARMA 모형으로 정상화 가능&lt;/li&gt;
+          &lt;li&gt;ARIMA(p, d, q)
+            &lt;ul&gt;
+              &lt;li&gt;p : AR 모형&lt;/li&gt;
+              &lt;li&gt;q : MA 모형&lt;/li&gt;
+              &lt;li&gt;d : ARIMA -&amp;gt; ARMA 과정에서 차분의 횟수&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;분해 시계열
+        &lt;ul&gt;
+          &lt;li&gt;추세 요인
+            &lt;ul&gt;
+              &lt;li&gt;선형적 추세, 이차식 형태, 지수적 형태&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;계절 요인
+            &lt;ul&gt;
+              &lt;li&gt;요일마다 반복, 월에 의한 변화, 분기마다 변화&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;순환 요인
+            &lt;ul&gt;
+              &lt;li&gt;잘 모르는 주기를 가지고 변화&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;불규칙 요인
+            &lt;ul&gt;
+              &lt;li&gt;위의 세 요인으로 설명할 수 없는 오차&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h1 id=&quot;베이지안-기법---생략&quot;&gt;베이지안 기법 - 생략&lt;/h1&gt;
 
@@ -352,6 +695,59 @@
 &lt;h1 id=&quot;앙상블-분석---생략&quot;&gt;앙상블 분석 - 생략&lt;/h1&gt;
 
 &lt;h1 id=&quot;비모수-통계&quot;&gt;비모수 통계&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;단일 표본 부호 검정
+    &lt;ul&gt;
+      &lt;li&gt;부호 검정
+        &lt;ul&gt;
+          &lt;li&gt;중위수와의 차이 부호만을 이용하여 중위수 위치 검정&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;단일 표본 부호 순위 검정
+    &lt;ul&gt;
+      &lt;li&gt;윌콕슨 부호 순위 검정
+        &lt;ul&gt;
+          &lt;li&gt;단일 표본 중위수 검정에 사용&lt;/li&gt;
+          &lt;li&gt;두개 표본의 중위수 차이 검정에 사용&lt;/li&gt;
+          &lt;li&gt;부호 검정에서 부호 뿐만 아니라 차이도 고려함&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;두 표본 검정
+    &lt;ul&gt;
+      &lt;li&gt;윌콕슨 순위 합 검정
+        &lt;ul&gt;
+          &lt;li&gt;두 표본 중위수 검정&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;대응 표본 검정
+    &lt;ul&gt;
+      &lt;li&gt;같은 표본에서 다른 처리를 한 두 집단의 중위수 차이를 검정함&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;분산 분석
+    &lt;ul&gt;
+      &lt;li&gt;크루스칼 왈리스 검정
+        &lt;ul&gt;
+          &lt;li&gt;세 집단 이상의 분포 비교&lt;/li&gt;
+          &lt;li&gt;평균이 아닌 중위수가 같은지 검점&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;런 검정
+    &lt;ul&gt;
+      &lt;li&gt;두 개의 값(앞면, 뒷면)을 가지는 연속적인 측정값(101001)이 패턴이 있는지를 검정&lt;/li&gt;
+      &lt;li&gt;1/0/1/00/1로 끊고, 5개의 연속적인 런이라 함&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Wed, 14 Apr 2021 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/ds/ml/2021/04/14/Bigdata-Analysis-08-%EB%B6%84%EC%84%9D%EA%B8%B0%EB%B2%95-%EC%A0%81%EC%9A%A9.html</link>
