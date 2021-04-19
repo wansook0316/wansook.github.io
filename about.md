@@ -7,7 +7,15 @@ feature-img: "assets/img/about.jpg"
 introduce: "안녕하세요. 최완식입니다."
 ---
 
-<h1 style="margin-top:0;">Profile</h1>
+<h1 style="margin-top:0;">About me 🙋🏻</h1>
+
+- 안녕하세요! 2년차 머신러닝 엔지니어 최완식입니다.
+- 개발자가 되기 전부터 도전이라는 가치를 따라 살다가, 지금은 개발에 도전하여 살고 있습니다.
+- 뚜렷한 목표, 치밀한 계획, 꾸준한 실천이라는 말을 좌우명으로 기술 블로그에 프로젝트 진행사항을 남기고 있습니다.
+- Clean code와 일의 효율에 대한 고민이 생활화되어 있습니다.
+- 사람, 커피, 그리고 함께 성장하는 것에 관심이 많습니다.
+
+# Profile
 
 - KyungHee Univ.
   - Mechanical Engineering
