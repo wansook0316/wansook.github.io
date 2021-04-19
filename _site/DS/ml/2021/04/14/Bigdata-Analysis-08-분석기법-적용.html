@@ -806,7 +806,7 @@
     <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-06-%ED%86%B5%EA%B3%84%EA%B8%B0%EB%B2%95-%EC%9D%B4%ED%95%B4.html'">
       <span>Part 6 - 06: 통계 기법 이해</span>
     </li>
-                                   
+                                     
     <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-07-%EB%B6%84%EC%84%9D%EB%AA%A8%ED%98%95-%EC%84%A4%EA%B3%84.html'">
       <span>Part 7 - 07: 분석 모형 설계</span>
     </li>
@@ -822,7 +822,7 @@
     <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-10-%EB%B6%84%EC%84%9D%EB%AA%A8%ED%98%95%ED%8F%89%EA%B0%80-%EB%B0%8F-%EA%B0%9C%EC%84%A0.html'">
       <span>Part 10 - 10: 분석모형 평가 및 개선</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                  
   </ul>
   <div
     class="side-nav-btn"
@@ -850,8 +850,8 @@
       <li class="toc-item"><a href="#의사결정나무의-장단점" class="toc-anchor">의사결정나무의 장단점</a></li>
     </ul>
   </li>
-  <li class="toc-item"><a href="#인공-신경망---생략" class="toc-anchor">인공 신경망 - 생략</a></li>
-  <li class="toc-item"><a href="#svm---생략" class="toc-anchor">SVM - 생략</a></li>
+  <li class="toc-item"><a href="#인공-신경망" class="toc-anchor">인공 신경망</a></li>
+  <li class="toc-item"><a href="#svm" class="toc-anchor">SVM</a></li>
   <li class="toc-item"><a href="#연관-분석" class="toc-anchor">연관 분석</a></li>
   <li class="toc-item"><a href="#군집-분석" class="toc-anchor">군집 분석</a>
     <ul class="submenu_class">
@@ -866,7 +866,11 @@
   <li class="toc-item"><a href="#베이지안-기법---생략" class="toc-anchor">베이지안 기법 - 생략</a></li>
   <li class="toc-item"><a href="#딥러닝---생략" class="toc-anchor">딥러닝 - 생략</a></li>
   <li class="toc-item"><a href="#앙상블-분석---생략" class="toc-anchor">앙상블 분석 - 생략</a></li>
-  <li class="toc-item"><a href="#비모수-통계" class="toc-anchor">비모수 통계</a></li>
+  <li class="toc-item"><a href="#비모수-통계" class="toc-anchor">비모수 통계</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#비지도-학습" class="toc-anchor">비지도 학습</a></li>
+    </ul>
+  </li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -891,7 +895,7 @@
       </li>
       <li>설명력은?
         <ul>
-          <li>결정 계수</li>
+          <li>결정 계수 - 총 변동 중 회귀식이 설명하는 정도</li>
         </ul>
       </li>
       <li>데이터를 잘 적합하는가?
@@ -922,6 +926,8 @@
 <ul>
   <li>y가 범주일 때 사용</li>
   <li>odds를 사용함</li>
+  <li>회귀 부호가 0보다 작다 -&gt; 역 S</li>
+  <li>회귀 부호가 0보다 크다 -&gt; S</li>
 </ul>
 
 <h1 id="의사결정나무">의사결정나무</h1>
@@ -956,13 +962,18 @@
   </li>
   <li>타당성 평가
     <ul>
-      <li>이익 도표, 위험 도표, 시험 자료를 이용하여 평가 진행</li>
+      <li><strong>이익 도표</strong>, 위험 도표, 시험 자료를 이용하여 평가 진행</li>
     </ul>
   </li>
-  <li>해석 및 예측</li>
+  <li>
+    <p>해석 및 예측</p>
+  </li>
+  <li>부모 마디</li>
+  <li>중간 마디</li>
+  <li>자식 마디
+    <h2 id="불순도-계산">불순도 계산</h2>
+  </li>
 </ul>
-
-<h2 id="불순도-계산">불순도 계산</h2>
 
 <p><img src="https://user-images.githubusercontent.com/37871541/114745230-71304000-9d89-11eb-8974-485a776761c5.png" alt="image" class="center-small" /></p>
 
@@ -974,27 +985,30 @@
   <li>CART(Classification And Regression Tree)
     <ul>
       <li>가장 널리 사용됨</li>
-      <li>범주형인 경우 지니 지수, 연속형인 경우 이진 분리</li>
+      <li>범주형인 경우 <strong>지니 지수</strong>, 연속형인 경우 이진 분리</li>
     </ul>
   </li>
   <li>C4.5, C5.0
     <ul>
       <li>목표 변수는 <strong>범주형이어야만 함</strong></li>
       <li>다지 분리 가능</li>
+      <li><strong>엔트로피 지수</strong>만 가능</li>
     </ul>
   </li>
   <li>CHAID
     <ul>
       <li>AID 발전 알고리즘</li>
-      <li>가지치기 하지 않음. 적당한 크기에서 중지</li>
+      <li><strong>가지치기 하지 않음.</strong> 적당한 크기에서 중지</li>
       <li>입력 변수가 범주형이어야만 함</li>
+      <li>분리 기준 : 불순도로 카이제곱 통계량 사용</li>
+      <li>다지 분리 : 다지 분리</li>
     </ul>
   </li>
   <li>QUEST
     <ul>
       <li>CART 개선</li>
       <li>변수 편향 없음</li>
-      <li>불순도로 카이제곱 통계량 사용</li>
+      <li>불순도로 <strong>카이제곱 통계량 사용</strong></li>
     </ul>
   </li>
 </ul>
@@ -1034,7 +1048,11 @@
   </li>
   <li>단점
     <ul>
-      <li>비연속성</li>
+      <li>비연속성
+        <ul>
+          <li>분리의 경계점 근방에서 예측 오류가 클 가능성 있음. (연속형 변수를 비연속적으로 취급)</li>
+        </ul>
+      </li>
       <li>선형성 결여</li>
       <li>비안정성
         <ul>
@@ -1045,9 +1063,36 @@
   </li>
 </ul>
 
-<h1 id="인공-신경망---생략">인공 신경망 - 생략</h1>
+<h1 id="인공-신경망">인공 신경망</h1>
 
-<h1 id="svm---생략">SVM - 생략</h1>
+<ul>
+  <li>1세대
+    <ul>
+      <li>퍼셉트론</li>
+      <li>순방향 신경말</li>
+      <li>XOR 문제</li>
+    </ul>
+  </li>
+  <li>2세대
+    <ul>
+      <li>다층 퍼셉트론</li>
+      <li>역전파</li>
+      <li>과적합 문제</li>
+      <li>기울기 소실</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="svm">SVM</h1>
+
+<ul>
+  <li>커널 함수 니맘대로 설정</li>
+  <li>커널 함수를 사용하면 저차원에서 고차원으로 매핑할 경우 증가하는 연산량 커버 가능</li>
+  <li>훈련속도 느림</li>
+  <li>선형 분리 어려운 경우는 차원을 고차원으로 매핑하여 해결</li>
+  <li>과대 적합 가능성 낮음</li>
+  <li>슬랙 변수를 통해 소프트하게 선형적으로 분리를 돕는다.</li>
+</ul>
 
 <h1 id="연관-분석">연관 분석</h1>
 
@@ -1065,6 +1110,8 @@
   </li>
   <li>향상도
     <ul>
+      <li>두 품목의 상관관계를 기준으로 도출된 규칙의 예측력을 평가</li>
+      <li>1보다 크면 좋다고 판단</li>
       <li>$P(B \mid A) \over P(B)$</li>
       <li>$신뢰도 \over P(B)$</li>
       <li>$P(A \cap B) \over P(A)P(B)$</li>
@@ -1269,6 +1316,7 @@
       <li>부호 검정
         <ul>
           <li>중위수와의 차이 부호만을 이용하여 중위수 위치 검정</li>
+          <li>가정 : 연속적이고 독립적인 분포에서 나왔는가?</li>
         </ul>
       </li>
     </ul>
@@ -1280,6 +1328,7 @@
           <li>단일 표본 중위수 검정에 사용</li>
           <li>두개 표본의 중위수 차이 검정에 사용</li>
           <li>부호 검정에서 부호 뿐만 아니라 차이도 고려함</li>
+          <li>가정 : 연속적이고 독립적인 분포에서 나왔는가?, 대칭성</li>
         </ul>
       </li>
     </ul>
@@ -1311,7 +1360,24 @@
   <li>런 검정
     <ul>
       <li>두 개의 값(앞면, 뒷면)을 가지는 연속적인 측정값(101001)이 패턴이 있는지를 검정</li>
+      <li>혹은 랜덤하게 추출되었는지 검증하고 싶을 때 사용</li>
       <li>1/0/1/00/1로 끊고, 5개의 연속적인 런이라 함</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="비지도-학습">비지도 학습</h2>
+
+<ul>
+  <li>다차원 척도법
+    <ul>
+      <li>자료의 관계를 파악하는 시각화 방법</li>
+      <li>거리가 주어져 있을 때, 동일한 상대적 거리를 가진 실수 공간의 점들로 배치</li>
+    </ul>
+  </li>
+  <li>주성분 분석
+    <ul>
+      <li>누적 기여율</li>
     </ul>
   </li>
 </ul>
@@ -1348,7 +1414,7 @@
 <!-- Post navigation -->
 <div id="post-nav">
            
-                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                              
   <div
     id="previous-post"
     class="post-nav-post"
@@ -1366,7 +1432,7 @@
     <p>NEXT SERIES</p>
     <p>09: 분석결과 해석 및 활용</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                                                                          
 </div>
 
 

@@ -806,7 +806,7 @@
     <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-06-%ED%86%B5%EA%B3%84%EA%B8%B0%EB%B2%95-%EC%9D%B4%ED%95%B4.html'">
       <span>Part 6 - 06: 통계 기법 이해</span>
     </li>
-                                   
+                                     
     <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-07-%EB%B6%84%EC%84%9D%EB%AA%A8%ED%98%95-%EC%84%A4%EA%B3%84.html'">
       <span>Part 7 - 07: 분석 모형 설계</span>
     </li>
@@ -822,7 +822,7 @@
     <li onclick="location.href='/ds/ml/2021/04/14/Bigdata-Analysis-10-%EB%B6%84%EC%84%9D%EB%AA%A8%ED%98%95%ED%8F%89%EA%B0%80-%EB%B0%8F-%EA%B0%9C%EC%84%A0.html'">
       <span>Part 10 - 10: 분석모형 평가 및 개선</span>
     </li>
-                                                                                                                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                                                                                                                  
   </ul>
   <div
     class="side-nav-btn"
@@ -852,10 +852,12 @@
   <li class="toc-item"><a href="#데이터-적재" class="toc-anchor">데이터 적재</a></li>
   <li class="toc-item"><a href="#데이터-저장" class="toc-anchor">데이터 저장</a>
     <ul class="submenu_class">
+      <li class="toc-item"><a href="#cap-이론" class="toc-anchor">Cap 이론</a></li>
       <li class="toc-item"><a href="#gfsgoogle-file-system" class="toc-anchor">GFS(Google File System)</a></li>
       <li class="toc-item"><a href="#hdfs" class="toc-anchor">HDFS</a></li>
     </ul>
   </li>
+  <li class="toc-item"><a href="#그냥-용어-정리" class="toc-anchor">그냥 용어 정리</a></li>
 </ul>
   <!-- </ul> -->
   <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
@@ -889,6 +891,7 @@
           <li>데이터 전송 병렬화</li>
           <li>직접 입력</li>
           <li>프로그래밍 방식의 데이터 상호작용 - 클래스</li>
+          <li>커넥터를 사용하여 데이터 전송 기능을 제공</li>
         </ul>
       </li>
     </ul>
@@ -907,8 +910,21 @@
       <li>센싱</li>
       <li>스트리밍</li>
       <li>Flume - 로그 데이터 수집</li>
-      <li>Scribe - 로그 데이터 수집</li>
-      <li>Chukwa - 비정형, 반정형 모두 사용</li>
+      <li>Scribe - 로그 데이터 수집
+        <ul>
+          <li>실시간 스트리밍 수집</li>
+          <li>데이터 수집 다양성</li>
+          <li>고가용성</li>
+        </ul>
+      </li>
+      <li>Chukwa - 비정형, 반정형 모두 사용
+        <ul>
+          <li>에이전트 - 데이터 수집</li>
+          <li>컬렉터 - 주기적으로 HDFS에 저장</li>
+          <li>아카이빙 - 시간 순서로 로그파일을 묶음</li>
+          <li>디먹스 - 로그를 파싱 후 Key-value로 만들고 저장함</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -1004,14 +1020,11 @@
       <li>절대 0점</li>
       <li>순서 &amp; 간격 의미 있음</li>
       <li><code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">/</code></li>
-      <li>질량, 나이, 개수, 길이</li>
+      <li>질량, 나이, 개수, 길이
+        <h1 id="데이터-변환">데이터 변환</h1>
+      </li>
     </ul>
   </li>
-</ul>
-
-<h1 id="데이터-변환">데이터 변환</h1>
-
-<ul>
   <li>전처리
     <ul>
       <li>저장소에 적재하기위한 작업</li>
@@ -1073,14 +1086,32 @@
 <ul>
   <li>분산 파일 시스템
     <ul>
-      <li>GFS</li>
-      <li>HDFS</li>
+      <li>GFS
+        <ul>
+          <li>Master</li>
+        </ul>
+      </li>
+      <li>HDFS
+        <ul>
+          <li>Name Node</li>
+          <li>Secondary Name Node</li>
+          <li>Data Node</li>
+        </ul>
+      </li>
       <li>Lustre</li>
     </ul>
   </li>
   <li>데이터베이스 클러스터 - 하나의 데이터베이스를 여러 개의 서버상에 구축(가상화, RDBMS)</li>
   <li>NoSQL (Not only SQL)
     <ul>
+      <li>유형
+        <ul>
+          <li>Key-Value Store</li>
+          <li>Column Family Store</li>
+          <li>Documnet Store</li>
+          <li>Graph Store</li>
+        </ul>
+      </li>
       <li>테이블 스키마 X, join X</li>
       <li>빅테이블</li>
       <li>HBase</li>
@@ -1095,6 +1126,29 @@
   <li>클라우드 파일 저장 시스템
     <ul>
       <li>Amazon S3</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="cap-이론">Cap 이론</h2>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/114997988-6eddfb00-9edb-11eb-8bb8-21357a020c7a.png" alt="image" class="center-small" /></p>
+
+<ul>
+  <li>어떠한 분산 시스템도 다음의 세가지 특성을 모두 만족시킬 수 없다.</li>
+  <li>일관성(Consistency)
+    <ul>
+      <li>모든 노드들은 같은 시간에 동일한 항목에 대해 같은 내용의 데이터를 보여준다.</li>
+    </ul>
+  </li>
+  <li>가용성(Availability)
+    <ul>
+      <li>모든 사용자들이 읽기 및 쓰기가 가능해야 한다.</li>
+    </ul>
+  </li>
+  <li>분할내성(생존성, Partition tolerance)
+    <ul>
+      <li>시스템 일부가 망가져도 시스템이 계속 동작해야 한다.</li>
     </ul>
   </li>
 </ul>
@@ -1160,6 +1214,27 @@
   </li>
 </ul>
 
+<h1 id="그냥-용어-정리">그냥 용어 정리</h1>
+
+<ul>
+  <li>Hive
+    <ul>
+      <li>SQL과 유사한 구조</li>
+      <li>데이터 요약, 쿼리 수행과 분석</li>
+      <li>데이터 웨어하우징 솔루션</li>
+    </ul>
+  </li>
+  <li>Avro
+    <ul>
+      <li>이 기종간 데이터 타입 교환 체계 제공</li>
+    </ul>
+  </li>
+  <li>Zookeeper
+    <ul>
+      <li>분산 환경에서 노드간 정보 공유, 락, 이벤트 기능 제공</li>
+    </ul>
+  </li>
+</ul>
 
   </section>
   
@@ -1211,7 +1286,7 @@
     <p>NEXT SERIES</p>
     <p>04: 데이터 전처리</p>
   </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 </div>
 
 
