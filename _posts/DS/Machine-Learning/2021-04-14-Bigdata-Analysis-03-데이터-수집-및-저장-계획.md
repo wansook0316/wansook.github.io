@@ -31,6 +31,7 @@ series: "빅데이터분석기사 - 필기"
     * 데이터 전송 병렬화
     * 직접 입력
     * 프로그래밍 방식의 데이터 상호작용 - 클래스
+    * 커넥터를 사용하여 데이터 전송 기능을 제공
 * 비정형 데이터
   * 크롤링
   * RSS
@@ -42,7 +43,14 @@ series: "빅데이터분석기사 - 필기"
   * 스트리밍
   * Flume - 로그 데이터 수집
   * Scribe - 로그 데이터 수집
+    * 실시간 스트리밍 수집
+    * 데이터 수집 다양성
+    * 고가용성
   * Chukwa - 비정형, 반정형 모두 사용
+    * 에이전트 - 데이터 수집
+    * 컬렉터 - 주기적으로 HDFS에 저장
+    * 아카이빙 - 시간 순서로 로그파일을 묶음
+    * 디먹스 - 로그를 파싱 후 Key-value로 만들고 저장함
 
 # 데이터 유형
 
@@ -97,7 +105,6 @@ series: "빅데이터분석기사 - 필기"
   * 순서 & 간격 의미 있음
   * `x`, `/`
   * 질량, 나이, 개수, 길이
-
 # 데이터 변환
 
 * 전처리
@@ -137,10 +144,19 @@ series: "빅데이터분석기사 - 필기"
 
 * 분산 파일 시스템
   * GFS
+    * Master
   * HDFS
+    * Name Node
+    * Secondary Name Node
+    * Data Node
   * Lustre
 * 데이터베이스 클러스터 - 하나의 데이터베이스를 여러 개의 서버상에 구축(가상화, RDBMS)
 * NoSQL (Not only SQL)
+  * 유형
+    * Key-Value Store
+    * Column Family Store
+    * Documnet Store
+    * Graph Store
   * 테이블 스키마 X, join X
   * 빅테이블
   * HBase
@@ -152,6 +168,21 @@ series: "빅데이터분석기사 - 필기"
 * 네트워크 구성 저장 시스템
 * 클라우드 파일 저장 시스템
   * Amazon S3
+
+## Cap 이론
+
+![image](https://user-images.githubusercontent.com/37871541/114997988-6eddfb00-9edb-11eb-8bb8-21357a020c7a.png){: .center-small}
+
+
+
+* 어떠한 분산 시스템도 다음의 세가지 특성을 모두 만족시킬 수 없다.
+* 일관성(Consistency)
+  * 모든 노드들은 같은 시간에 동일한 항목에 대해 같은 내용의 데이터를 보여준다.
+* 가용성(Availability)
+  * 모든 사용자들이 읽기 및 쓰기가 가능해야 한다.
+* 분할내성(생존성, Partition tolerance)
+  * 시스템 일부가 망가져도 시스템이 계속 동작해야 한다.
+
 
 ## GFS(Google File System)
 ![image](https://user-images.githubusercontent.com/37871541/114718463-f824ee80-9d70-11eb-9acd-f60a0677cb60.png){: .center-small}
@@ -189,4 +220,13 @@ series: "빅데이터분석기사 - 필기"
     * 데이터 입출력 요청 처리
     * 3중 복제 저장
 
+# 그냥 용어 정리
 
+* Hive
+  * SQL과 유사한 구조
+  * 데이터 요약, 쿼리 수행과 분석
+  * 데이터 웨어하우징 솔루션
+* Avro
+  * 이 기종간 데이터 타입 교환 체계 제공
+* Zookeeper
+  * 분산 환경에서 노드간 정보 공유, 락, 이벤트 기능 제공
