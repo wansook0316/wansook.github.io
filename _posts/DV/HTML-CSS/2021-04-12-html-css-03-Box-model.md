@@ -63,3 +63,29 @@ http2 프로토콜이 나오면서 이러한 부담은 조금 줄어들었다. �
 ```
 
 
+# border-box, content-box
+
+기본적으로 css는 content, padding, border를 다른 것으로 친다. 그런데 이렇게 되면 내가 하고 싶은 건 border까지 포함한 width, height를 책정하고 싶은 것인데, 일일히 계산해야 한다. 그래서 다음과 같이 변경하여 사용한다.
+
+```css
+box-sizing: border-box;
+```
+
+
+# asterisk
+
+모든 태그에 적용할 수 있는 태그이다. border-box같은 경우 모든 태그에 적용시키고 사용하는 것이 편한데, 이런 경우 적용하면 좋다.
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+# outline
+
+input태그를 만들게 되면, focus가 자동으로 잡힌다. 이것을 없애고 싶으면
+
+```css
+  outline: none;
+```
+
