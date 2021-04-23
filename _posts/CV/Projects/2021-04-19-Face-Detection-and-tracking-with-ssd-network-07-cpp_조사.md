@@ -12,6 +12,13 @@ series: "Face Detection and Tracking with SSD Network"
 ---
 # 동작 확인
 
+<img width="748" alt="KakaoTalk_Photo_2021-04-23-13-11-49" src="https://user-images.githubusercontent.com/37871541/115817337-9da52580-a435-11eb-9863-8df910c092b7.png">{: .center-small }
+<img width="748" alt="KakaoTalk_Photo_2021-04-23-13-11-55" src="https://user-images.githubusercontent.com/37871541/115817339-9ed65280-a435-11eb-9a27-82d583bf3271.png">{: .center-small }
+<img width="747" alt="KakaoTalk_Photo_2021-04-23-13-12-01" src="https://user-images.githubusercontent.com/37871541/115817343-a138ac80-a435-11eb-8f30-e4a23a53f49a.png">{: .center-small }
+<img width="746" alt="KakaoTalk_Photo_2021-04-23-13-12-06" src="https://user-images.githubusercontent.com/37871541/115817345-a3027000-a435-11eb-9afa-b979b9b53166.png">{: .center-small }
+<img width="754" alt="KakaoTalk_Photo_2021-04-23-13-12-14" src="https://user-images.githubusercontent.com/37871541/115817353-a695f700-a435-11eb-9e8e-57932cdf2ebc.png">{: .center-small }
+<img width="744" alt="KakaoTalk_Photo_2021-04-23-13-12-20" src="https://user-images.githubusercontent.com/37871541/115817356-a85fba80-a435-11eb-8cfe-bea0660d927b.png">{: .center-small }
+
 
 
 ## 문제점
