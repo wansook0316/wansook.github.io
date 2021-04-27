@@ -19,18 +19,17 @@ series: "Face Detection and Tracking with SSD Network"
 
 ## SORT(Simple Online and Realtime Tracking)
 
-SORT(Simple Online and Realtime Tracking)은 매우 알고리즘이 간단함에도 불구하고 효과적이고 실용적인 다중 대상 추적 알고리즘이다. IOU를 기반으로 추적된 물체에 대해 association(할당)을 진행하기 때문에 매우 빠르다. 하지만 Id Switching(원래의 타겟을 잡지 못하고 다른 id를 배정하는 문제)가 여전히 많이 발생한다는 문제가 있다. IoU를 기반으로 매칭할 경우 여럿 문제점이 여전히 존재한다.
+SORT(Simple Online and Realtime Tracking)은 매우 알고리즘이 간단함에도 불구하고 효과적이고 실용적인 다중 대상 추적 알고리즘이다. IOU를 기반으로 추적된 물체에 대해 association(할당)을 진행하기 때문에 매우 빠르다. 하지만 Id Switching(원래의 타겟을 잡지 못하고 다른 id를 배정하는 문제)가 여전히 많이 발생한다는 문제가 있다. 그 원인으로는 아래의 요인이 있다.
 
 1. 물체가 빠르게 움직였을 경우 IoU는 작게 판단될 수 있다.
 2. Occulusion(가려짐)이 발생했을 때 Detector가 Box를 작게 탐지했다면 IoU가 작게 나와 결과가 무시될 수 있다.
 
-![DEEPSORT (2)](https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg){: .center }_DeepSort flowchart_
-
+![Untitled Diagram](https://user-images.githubusercontent.com/37871541/111637945-3942e500-883d-11eb-962d-23aaadf57d6a.jpg){: .center }_SORT flowchart_
 
 
 ## DeepSort(Simple Online and Realtime Tracking with A Deep association metric)
 
-DeepSort는 이러한 Sort의 단점을 개선한 알고리즘으로 Cascade Matching 전략을 통해 이를 해결한다. 보행자 추적을 위해 구현된 이 알고리즘은 IoU이외에도 보행자를 기반으로 한 Feature Discriptor를 제작하여 정확도를 높혔다.
+DeepSort는 이러한 SORT의 단점을 개선한 알고리즘으로 Cascade Matching 전략을 통해 이를 해결한다. 보행자 추적을 위해 구현된 이 알고리즘은 IoU이외에도 보행자를 기반으로 한 Feature Discriptor를 제작하여 정확도를 높혔다. 칼만 필터로 예측한 Track에 담겨 있는 이전 프레임의 외형 정보(128dim feature)를 기반으로 현재 탐지된 객체와의 유사도를 검증한다. 이 때 두 객체의유사도를 판단하는데 있어 Cosine similarity를 사용하며, 최종 매칭은 헝가리안 알고리즘을 사용한다. Track 객체를 삭제하는데 있어서 생애주기라는 개념을 도입한다.
 
 ![DEEPSORT (2)](https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg){: .center }_DeepSort flowchart_
 
@@ -60,7 +59,7 @@ MTCNN은 CNN을 활용하여 얼굴 검출 분야에서 정확도와 성능을 �
 
 1. Face Detector
 2. Feature Extractor
-3. Deepsort 실시간으로 재구현
+3. Deepsort 재구현 및 기여 방안
 
 
 ## Face Detector
@@ -89,13 +88,13 @@ Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor
 
 
 
-## 실시간 구현
+## Deepsort 재구현 및 기여 방안
 
 
-### Skip Frame
 
-실시간 구현을 위해 모든 프레임을 사용하지 않고, 예측 프레임이 작은 정도를 예측한다면 이를 한번 Skip하는 방법이다. 추가적인 하이퍼 파라미터를 도입한다.
+### 생애주기 변경
 
+기존 Deepsort에서 물체를 탐지하지 못한 경우 30Frame이 지날 경우 삭제하고 새로운 id를 부여했다. 하지만 이 주기가 너무 짧아 얼굴이 등장하는 영상에서 지속적으로 탐색을 실패하는 경향을 보였다. 하지만 생애주기를 지나치게 길게 잡을 경우, 하나의 Detection에 대해 여러개의 Track객체가 형성될 수 있어 공간적, 의미론적으로 옳지 않은 결과가 도출된다. 따라서 이 생애주기의 최적점을 선정하고, Track이 지나치게 많아지지 않는 방법을 반영한다.
 
 
 ### 내부 구조 변화
@@ -112,4 +111,8 @@ Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor
 
 # 최종 제안 방향
 
+[실시간 구현](https://www.youtube.com/watch?v=zi-62z-3c4U)
+
 > Skip frame 방법과 Face Metric Learning을 통한 Realtime Face Tracker 제작
+
+최종적으로 본 연구에서는 Skip frame 방법을 통해 실시간 Face Tracking 방법을 제안하며, 이 때 SOT의 Face Recognition Network인 Arcface를 통해 학습된 weight를 통해 Feature extration을 진행한다.
