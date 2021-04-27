@@ -28,7 +28,7 @@ SORT(Simple Online and Realtime Tracking)은 매우 알고리즘이 간단함에
 
 
 
-## DeepSort(SIMPLE ONLINE AND REALTIME TRACKING WITH A DEEP ASSOCIATION METRIC)
+## DeepSort(Simple Online and Realtime Tracking with A Deep association metric)
 
 DeepSort는 이러한 Sort의 단점을 개선한 알고리즘으로 Cascade Matching 전략을 통해 이를 해결한다. 보행자 추적을 위해 구현된 이 알고리즘은 IoU이외에도 보행자를 기반으로 한 Feature Discriptor를 제작하여 정확도를 높혔다.
 
@@ -38,7 +38,7 @@ DeepSort는 이러한 Sort의 단점을 개선한 알고리즘으로 Cascade Mat
 
 ## ArcFace
 
-ArcFace는 Face Recognition에 있어 triplet loss기반을 사용한 방법이다. Open set(얼굴에 대해 지도학습을 한 것이 아닌 embeding vector를 학습하기 위한 방법)으로, 데이터가 추가되더라도 reconition이 가능하다는 특징이 있다. alignment후 학습 시작
+ArcFace는 Face Recognition에 있어 triplet loss기반을 사용한 방법이다. Open set(얼굴에 대해 지도학습을 한 것이 아닌 embeding vector를 학습하기 위한 방법)으로, 데이터가 추가되더라도 reconition이 가능하다는 특징이 있다. 
 
 ![image](https://user-images.githubusercontent.com/37871541/116079880-550a9800-a6d3-11eb-8b42-c293810aacb6.png){ .center }_Arcface architecture_
 
@@ -47,6 +47,8 @@ ArcFace는 Face Recognition에 있어 triplet loss기반을 사용한 방법이�
 ## MTCNN
 
 MTCNN은 CNN을 활용하여 얼굴 검출 분야에서 정확도와 성능을 끌어올린 논문이다. Face Detection, Face Alignment, Bounding box regression 세가지 테스크를 동시에 학습시켜 각각의 시너지를 발휘하는 방법이다. 
+
+![image](https://user-images.githubusercontent.com/37871541/116232735-79c74400-a795-11eb-8655-3646863c6b5f.png){ .center }_MTCNN architecture_
 
 
 
@@ -105,3 +107,9 @@ Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor
 4. 2, 3의 결과를 묶은 numpy 배열 전달
 5. Track 객체 생성 및 매칭
 6. 실시간 화면 표시 및 fps 모니터링
+
+
+
+# 최종 제안 방향
+
+> Skip frame 방법과 Face Metric Learning을 통한 Realtime Face Tracker 제작
