@@ -11,6 +11,9 @@ summary: "추후 방향성을 정립한다."
 series: "Face Detection and Tracking with SSD Network"
 ---
 # 동작 확인
+```
+
+```
 
 <img width="748" alt="KakaoTalk_Photo_2021-04-23-13-11-49" src="https://user-images.githubusercontent.com/37871541/115817337-9da52580-a435-11eb-9863-8df910c092b7.png">{: .center-small }
 <img width="748" alt="KakaoTalk_Photo_2021-04-23-13-11-55" src="https://user-images.githubusercontent.com/37871541/115817339-9ed65280-a435-11eb-9a27-82d583bf3271.png">{: .center-small }

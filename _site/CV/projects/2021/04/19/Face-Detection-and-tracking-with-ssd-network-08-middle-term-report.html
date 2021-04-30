@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [Face Detection and Tracking with SSD Network] 08: 중간 보고서 | 완숙의 에그머니🍳
+  </title>
+  <meta
+    name="description"
+    content="프로젝트 중간 점검과 진행 방향을 결정한다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[Face Detection and Tracking with SSD Network] 08: 중간 보고서 | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="프로젝트 중간 점검과 진행 방향을 결정한다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-08-middle-term-report.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/72.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-08-middle-term-report.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 750) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "space-around"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
+
+</head>
+
+  <body>
+    <a href="#" class="top"></a>
+ <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Courses">Courses</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Publications">Publications</a></li>
+        <li><a href="/CV/Patents">Patents</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/Cloud">Cloud</a></li>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/Javascript">Javascript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/Concept">Concept</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Trouble-Shooting">Trouble Shooting</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/72.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">08: 중간 보고서</h1>
+      
+      <p class="meta">
+        CV/Projects  : Face Detection and Tracking with SSD Network 
+      </p>
+      <p class="meta">
+        April 19, 2021 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Face Detection and Tracking with SSD Network</em></b> 시리즈
+    <b><em>8</em></b> 편 중 <b><em>8</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                     
+    <li onclick="location.href='/cv/projects/2021/03/14/Face-Detection-and-tracking-with-ssd-network-01-Report.html'">
+      <span>Part 1 - 01: Overview & Plans</span>
+    </li>
+                                                                     
+    <li onclick="location.href='/cv/projects/2021/03/19/Face-Detection-and-tracking-with-ssd-network-02-Paper-Research-1.html'">
+      <span>Part 2 - 02: Paper Research - SSD</span>
+    </li>
+                                                                           
+    <li onclick="location.href='/cv/projects/2021/03/19/Face-Detection-and-tracking-with-ssd-network-03-Paper-Research-2.html'">
+      <span>Part 3 - 03: Paper Research - DeepSort</span>
+    </li>
+                                                         
+    <li onclick="location.href='/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error.html'">
+      <span>Part 4 - 04: Trial and Error</span>
+    </li>
+                                               
+    <li onclick="location.href='/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-05-Project-Design.html'">
+      <span>Part 5 - 05: Project Design</span>
+    </li>
+                                                     
+    <li onclick="location.href='/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-06-Writing-code.html'">
+      <span>Part 6 - 06: Writing Code</span>
+    </li>
+                                                         
+    <li onclick="location.href='/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-07-cpp_%EC%A1%B0%EC%82%AC.html'">
+      <span>Part 7 - 07: 중간 점검 및 추후 방향성 검토</span>
+    </li>
+                                     
+    <li class="current">
+      <span>Part 8 - This Post</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                      
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li class="toc-item"><a href="#introduction" class="toc-anchor">Introduction</a></li>
+  <li class="toc-item"><a href="#논문-조사" class="toc-anchor">논문 조사</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#sortsimple-online-and-realtime-tracking" class="toc-anchor">SORT(Simple Online and Realtime Tracking)</a></li>
+      <li class="toc-item"><a href="#deepsortsimple-online-and-realtime-tracking-with-a-deep-association-metric" class="toc-anchor">DeepSort(Simple Online and Realtime Tracking with A Deep association metric)</a></li>
+      <li class="toc-item"><a href="#arcface" class="toc-anchor">ArcFace</a></li>
+      <li class="toc-item"><a href="#mtcnn" class="toc-anchor">MTCNN</a></li>
+    </ul>
+  </li>
+  <li class="toc-item"><a href="#연구-방향" class="toc-anchor">연구 방향</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#face-detector" class="toc-anchor">Face Detector</a></li>
+      <li class="toc-item"><a href="#feature-extractor" class="toc-anchor">Feature Extractor</a></li>
+      <li class="toc-item"><a href="#deepsort-재구현-및-기여-방안" class="toc-anchor">Deepsort 재구현 및 기여 방안</a></li>
+    </ul>
+  </li>
+  <li class="toc-item"><a href="#최종-제안-방향" class="toc-anchor">최종 제안 방향</a></li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <h1 id="introduction">Introduction</h1>
+
+<p>얼굴 탐지 및 추적은 AR, VR등 뿐만 아니라 CCTV, 온라인 광고 판의 마케팅 지표로 사용될 만큼 중요하게 여겨지는 연구 주제이다. 하지만 여러 사람이 한 프레임 안에서 활동하고 있을 때, 가려짐을 해소할 수 없다는 문제가 여전히 남아있다. 또한 저가형 카메라와 같은 장비에서 위와 같은 기능을 하기 위해서 GPU를 사용할 수 없다는 단점이 존재한다. 따라서 아래의 연구에서는 CPU만을 통한 Object detection의 최적화를 통해 Face Tracking을 구현하는데 그 목적을 둔다.</p>
+
+<h1 id="논문-조사">논문 조사</h1>
+
+<h2 id="sortsimple-online-and-realtime-tracking">SORT(Simple Online and Realtime Tracking)</h2>
+
+<p>SORT(Simple Online and Realtime Tracking)은 매우 알고리즘이 간단함에도 불구하고 효과적이고 실용적인 다중 대상 추적 알고리즘이다. IOU를 기반으로 추적된 물체에 대해 association(할당)을 진행하기 때문에 매우 빠르다. 하지만 Id Switching(원래의 타겟을 잡지 못하고 다른 id를 배정하는 문제)가 여전히 많이 발생한다는 문제가 있다. 그 원인으로는 아래의 요인이 있다.</p>
+
+<ol>
+  <li>물체가 빠르게 움직였을 경우 IoU는 작게 판단될 수 있다.</li>
+  <li>Occulusion(가려짐)이 발생했을 때 Detector가 Box를 작게 탐지했다면 IoU가 작게 나와 결과가 무시될 수 있다.</li>
+</ol>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/111637945-3942e500-883d-11eb-962d-23aaadf57d6a.jpg" alt="Untitled Diagram" class="center" /><em>SORT flowchart</em></p>
+
+<h2 id="deepsortsimple-online-and-realtime-tracking-with-a-deep-association-metric">DeepSort(Simple Online and Realtime Tracking with A Deep association metric)</h2>
+
+<p>DeepSort는 이러한 SORT의 단점을 개선한 알고리즘으로 Cascade Matching 전략을 통해 이를 해결한다. 보행자 추적을 위해 구현된 이 알고리즘은 IoU이외에도 보행자를 기반으로 한 Feature Discriptor를 제작하여 정확도를 높혔다. 칼만 필터로 예측한 Track에 담겨 있는 이전 프레임의 외형 정보(128dim feature)를 기반으로 현재 탐지된 객체와의 유사도를 검증한다. 이 때 두 객체의유사도를 판단하는데 있어 Cosine similarity를 사용하며, 최종 매칭은 헝가리안 알고리즘을 사용한다. Track 객체를 삭제하는데 있어서 생애주기라는 개념을 도입한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg" alt="DEEPSORT (2)" class="center" /><em>DeepSort flowchart</em></p>
+
+<h2 id="arcface">ArcFace</h2>
+
+<p>ArcFace는 Face Recognition에 있어 triplet loss기반을 사용한 방법이다. Open set(얼굴에 대해 지도학습을 한 것이 아닌 embeding vector를 학습하기 위한 방법)으로, 데이터가 추가되더라도 reconition이 가능하다는 특징이 있다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/116079880-550a9800-a6d3-11eb-8b42-c293810aacb6.png" alt="image" />{ .center }<em>Arcface architecture</em></p>
+
+<h2 id="mtcnn">MTCNN</h2>
+
+<p>MTCNN은 CNN을 활용하여 얼굴 검출 분야에서 정확도와 성능을 끌어올린 논문이다. Face Detection, Face Alignment, Bounding box regression 세가지 테스크를 동시에 학습시켜 각각의 시너지를 발휘하는 방법이다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/116232735-79c74400-a795-11eb-8655-3646863c6b5f.png" alt="image" />{ .center }<em>MTCNN architecture</em></p>
+
+<h1 id="연구-방향">연구 방향</h1>
+
+<p>실시간 Face Detector를 구현하기 위해서 필요한 것은 다음과 같다.</p>
+
+<ol>
+  <li>Face Detector</li>
+  <li>Feature Extractor</li>
+  <li>Deepsort 재구현 및 기여 방안</li>
+</ol>
+
+<h2 id="face-detector">Face Detector</h2>
+
+<iframe width="660" height="360" src="https://www.youtube.com/embed/GZ2p2hj2H5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<p>CPU 기반 성능을 담보하기 위해 다양한 알고리즘을 검토한 결과 SSD network를 사용하였다. 하지만, 영상에서 보듯 속도는 빠르지만 Detection 성능에 있어서 깜빡깜빡하는 양상을 보인다. Deepsort 연구진들은 Detection 성능에 따라 Tracking 성능이 좌우된다고 말한바 있다. 따라서 이 부분에서 MTCNN으로 방향을 변경하였다.</p>
+
+<p>하지만 MTCNN의 경우 사진 한장당 Inference time이 0.5초로 python으로 구현된 경우 상당히 느려 사용할 수 없었다. 이에 MTCNN을 C++ 구현을 통해 빌드하고, CPython을 사용하여 C++ 확장하여 Python에서 이를 호출하는 방식으로 구현 방향을 잡았다.</p>
+
+<h2 id="feature-extractor">Feature Extractor</h2>
+
+<p>Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor는 5개의 CNN 아키텍쳐를 기반으로 해당 patch(Detection이 된 객체)를 128차원의 Feature 공간으로 Embedding하는 것을 의미한다. 기존의 방법으로 Face Tracking을 해본 결과, image 공간이 제대로 추출되지 않아 쉬운 상황임에도 두개의 Track 물체가 잡힘을 확인할 수 있었다.</p>
+
+<p>// 여기에 사진 들어가야 함 지금 상태로 돌렸을 때, 쉬운 상황임에도 두개의 물체가 잡히는 중</p>
+
+<p>기존의 Sort 방법과 달리, 마할라노비스 거리를 Metric으로 사용하지 않았기 때문에(SORT 알고리즘에서 매칭을 할 때 사용한 Metric. Deepsort에서는 Appearance Descriptor만을 사용해도 결과가 잘 나와 값을 0으로 줌)이 Feature 가 굉장히 중요하다.</p>
+
+<p>이 부분에서 기존의 Face Recognition에서 사용하는 SOT 방법인 Arcface의 Model을 feature extraction에 사용한다. Arcface는 Open set에 대해 Face Recognition을 진행하는 방법으로 기본적으로 Metric Learning을 지향하는 방법이다. 저자들은 Additive Angular Margin Loss를 사용하여 기존의 Loss function보다 정확도를 높힘과 동시에 negligible computational overhead를 달성했다.</p>
+
+<h2 id="deepsort-재구현-및-기여-방안">Deepsort 재구현 및 기여 방안</h2>
+
+<h3 id="생애주기-변경">생애주기 변경</h3>
+
+<p>기존 Deepsort에서 물체를 탐지하지 못한 경우 30Frame이 지날 경우 삭제하고 새로운 id를 부여했다. 하지만 이 주기가 너무 짧아 얼굴이 등장하는 영상에서 지속적으로 탐색을 실패하는 경향을 보였다. 하지만 생애주기를 지나치게 길게 잡을 경우, 하나의 Detection에 대해 여러개의 Track객체가 형성될 수 있어 공간적, 의미론적으로 옳지 않은 결과가 도출된다. 따라서 이 생애주기의 최적점을 선정하고, Track이 지나치게 많아지지 않는 방법을 반영한다.</p>
+
+<h3 id="내부-구조-변화">내부 구조 변화</h3>
+<p>현재 Deepsort는 정적 파일에 대해 Tracking을 진행하는 방식이다. 이를 실시간으로 변용하기 위해서는 기존의 파일을 변경해야 한다.</p>
+
+<ol>
+  <li>Opencv를 통한 Frame by Frame Load</li>
+  <li>MTCNN을 통한 Detection</li>
+  <li>Patching 후 Arcface Network를 통한 Feature Extraction</li>
+  <li>2, 3의 결과를 묶은 numpy 배열 전달</li>
+  <li>Track 객체 생성 및 매칭</li>
+  <li>실시간 화면 표시 및 fps 모니터링</li>
+</ol>
+
+<h1 id="최종-제안-방향">최종 제안 방향</h1>
+
+<p><a href="https://www.youtube.com/watch?v=zi-62z-3c4U">실시간 구현</a></p>
+
+<blockquote>
+  <p>Skip frame 방법과 Face Metric Learning을 통한 Realtime Face Tracker 제작</p>
+</blockquote>
+
+<p>최종적으로 본 연구에서는 Skip frame 방법을 통해 실시간 Face Tracking 방법을 제안하며, 이 때 SOT의 Face Recognition Network인 Arcface를 통해 학습된 weight를 통해 Feature extration을 진행한다.</p>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#project"
+      >#project</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#cv"
+      >#CV</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                                                                                                                                                                                                                                                                                
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-07-cpp_%EC%A1%B0%EC%82%AC.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>07: 중간 점검 및 추후 방향성 검토</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+
+
+
+<footer class="site-footer">
+	<div class="copyright">
+		© 
+		<span itemprop="copyrightYear">2018</span>
+		<span class="with-love">
+		  <i class="fa fa-heart"></i>
+		</span>
+		<span class="author" itemprop="copyrightHolder">Wansook</span>
+	  </div>
+
+	<div class="powered-by">
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	</div>
+
+	<div class="prev-blog-info">
+		Prev Blog -
+		<a class="theme-link" href="https://egg-money.tistory.com/127?category=822389">
+		  완숙의 블로그
+		</a>
+	</div>
+
+	<div class="saying">What I cannot create, I do not understand. <br> - Richard Phillips Feynman -</div>
+</footer>
+
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
+
+  </body>
+</html>
