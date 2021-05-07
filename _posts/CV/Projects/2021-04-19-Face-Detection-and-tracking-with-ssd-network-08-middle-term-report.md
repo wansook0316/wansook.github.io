@@ -75,10 +75,13 @@ CPU 기반 성능을 담보하기 위해 다양한 알고리즘을 검토한 결
 
 ## Feature Extractor
 
-Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor는 5개의 CNN 아키텍쳐를 기반으로 해당 patch(Detection이 된 객체)를 128차원의 Feature 공간으로 Embedding하는 것을 의미한다. 기존의 방법으로 Face Tracking을 해본 결과, image 공간이 제대로 추출되지 않아 쉬운 상황임에도 두개의 Track 물체가 잡힘을 확인할 수 있었다.
+Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor는 5개의 CNN 아키텍쳐를 기반으로 해당 patch(Detection이 된 객체)를 128차원의 Feature 공간으로 Embedding하는 것을 의미한다. 기존의 방법으로 Face Tracking을 해본 결과, image 공간이 제대로 추출되지 않아 쉬운 상황임에도 같은 Track 물체가 잡힘을 확인할 수 있었다.
 
 
-// 여기에 사진 들어가야 함 지금 상태로 돌렸을 때, 쉬운 상황임에도 두개의 물체가 잡히는 중
+![KakaoTalk_Photo_2021-04-30-15-20-11](https://user-images.githubusercontent.com/37871541/116656908-75cf3800-a9c8-11eb-8f4f-03738054662d.png){: .center}
+![KakaoTalk_Photo_2021-04-30-15-20-06](https://user-images.githubusercontent.com/37871541/116656916-7962bf00-a9c8-11eb-9504-036446a5c57e.png){: .center}
+![KakaoTalk_Photo_2021-04-30-15-20-01](https://user-images.githubusercontent.com/37871541/116656919-7a93ec00-a9c8-11eb-8ab7-6f7365496817.png){: .center}
+
 
 
 
