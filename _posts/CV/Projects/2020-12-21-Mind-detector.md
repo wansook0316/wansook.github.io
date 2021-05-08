@@ -13,7 +13,9 @@ series: "MindDetector"
 
 > Google NMT api와 kobert를 사용하여 감성 분석을 진행하고, 서비스에 탑재하였다.
 
-[마음을 읽는 AI 우울감 자가진단 서비스, 마인드디텍터](https://github.com/sarah5398/mind-detector)
+[마음을 읽는 AI 우울감 자가진단 서비스, 마인드디텍터](http://minddetector.me/)  
+[server github](https://github.com/sarah5398/mind-detector)  
+[emotion analysis github](https://github.com/wansook0316/emotion_analysis_)  
 
 
 ![f9180a50826347d9ad4db726f6d58a74NgzvkNaAgUePc86E-0](https://user-images.githubusercontent.com/37871541/102734570-810fb880-4383-11eb-9bff-bb8a403cb7ac.jpg){: .center width="100%"}
