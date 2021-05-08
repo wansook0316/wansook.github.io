@@ -65,6 +65,7 @@ introduce: "안녕하세요. 최완식입니다."
 - [현대 제철 결로 예측 과제](https://wansook0316.github.io/cv/projects/2020/07/01/%EA%B2%B0%EB%A1%9C-%EB%B0%9C%EC%83%9D-%EC%98%88%EC%B8%A1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.html) (2020.07 ~ 2020.08)
 - [고양시 공공자전거 최적 위치 선정 과제](https://wansook0316.github.io/cv/projects/2020/09/11/%EA%B3%A0%EC%96%91%EC%8B%9C-%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0-%EC%B5%9C%EC%A0%81-%EC%9E%85%EC%A7%80-%EC%84%A0%EC%A0%95-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-09-%EB%B3%B4%EA%B3%A0%EC%84%9C.html) (2020.08 ~ 2020.09)
 - [자연어처리 모델 기반 우울감 자가진단 서비스 '마인드디텍터'](https://wansook0316.github.io/cv/projects/2020/12/21/Mind-detector.html) (2020.12)
+- [Yolov3, Arcface, Deepsort를 활용한 Face Tracker]() (2021.03 ~ 2021.06)
 
 <h3 style="margin-top:16px;">Development</h3>
 

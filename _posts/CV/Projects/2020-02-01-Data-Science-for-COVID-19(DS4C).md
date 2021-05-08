@@ -13,9 +13,19 @@ summary: "COVID-19가 발생한 이후, 관련 데이터를 제공하는 프로�
 
 > COVID-19의 환자들에 대한 정보와 이동경로를 제공하는 데이터셋 제작 프로젝트이다.
 
+
+
 [KAGGLE : Data Science for COVID-19 (DS4C)](https://www.kaggle.com/kimjihoo/coronavirusdataset)
 [CORONAWHY : DS4C: Data Science for COVID-19 in South Korea](https://datasets.coronawhy.org/dataset.xhtml?persistentId=doi:10.5072/FK2/A82DGJ)
 
+- 2020.02~2020.12(10개월)
+- beautifulsoup
+- DS4C - 국내 코로나19 감염자 및 동선 정보 정제 데이터셋을 제작하는 프로젝트
+- 경상 지역의 환자 데이터 업데이트와 경기 지역 동선 정보 크롤링 담당
+- 국내 언론 사이트에서 제공하는 데이터 제공 페이지로부터 동선 데이터를 크롤링
+- 환자 데이터의 경우 비식별화 조치 후 일련번호로 증상 업데이트
+- Kaggle Dataset 금메달
+- NeuralPS 논문 Broader Impact
 # Databricks Tech Talk
 
 ![34bf5de96ad249d4a43b482324b66d56onginSULHcUFdPvI-0](https://user-images.githubusercontent.com/37871541/97108654-52be8580-1712-11eb-9df6-12b2a1c865ce.jpg)
