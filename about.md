@@ -48,7 +48,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 <h3 style="margin-top:16px;">Project Design</h3>
 
-- [인공지능 데이터 활용 아이디어톤](https://wansook0316.github.io/cv/projects/2021/01/10/헬렌.html) - 4위
+- [인공지능 데이터 활용 아이디어톤](https://wansook0316.github.io/cv/awards/2021/01/15/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%99%9C%EC%9A%A9-%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%EA%B3%B5%EB%AA%A8%EC%A0%84.html) - 4위
 
 <h3 style="margin-top:16px;">Start-up</h3>
 

@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<head>
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+ 
+</head>
+<html class="no-js">
+  <head>
+  <meta charset="utf-8" />
+  <title>
+    [Face Detection and Tracking with SSD Network] 10: Arcface | 완숙의 에그머니🍳
+  </title>
+  <meta
+    name="description"
+    content="프로젝트 중간 점검과 진행 방향을 결정한다."
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <!--  -->
+  <meta
+    property="og:title"
+    content="[Face Detection and Tracking with SSD Network] 10: Arcface | 완숙의 에그머니🍳"
+  />
+  <meta
+    property="og:description"
+    content="프로젝트 중간 점검과 진행 방향을 결정한다."
+  />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:url"
+    content="http://localhost:4000/cv/projects/2021/05/10/Face-Detection-and-tracking-with-ssd-network-10-arcface.html"
+  />
+  <meta
+    property="og:image"
+    content="http://localhost:4000/assets/img/72.jpg"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css">
+
+  <!--Favicon-->
+  <link
+    rel="shortcut icon"
+    href="/assets/favicon.ico"
+    type="image/x-icon"
+  />
+
+  <!-- Canonical -->
+  <link
+    rel="canonical"
+    href="/cv/projects/2021/05/10/Face-Detection-and-tracking-with-ssd-network-10-arcface.html"
+  />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="완숙의 에그머니🍳" href="/feed.xml" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+    crossorigin="anonymous"
+  />
+
+  <!-- Google Fonts -->
+  
+  <link
+    href="//fonts.googleapis.com/css?family=Nanum+Gothic|Jua|Nanum+Gothic+Coding|Source+Code+Pro|Nanum+Myeongjo:400,700,800|Noto+Sans+KR:100,300,400,500,700,900|monospace"
+    rel="stylesheet"
+    type="text/css"
+  />
+  
+
+  <!-- naver web mater tool -->
+  <meta
+    name="naver-site-verification"
+    content="da86adfc2aa8cdd5f1d573b50497f3e29de44cd5"
+  />
+
+  <!-- KaTeX -->
+  <!--
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+		integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+
+	<script src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"
+		integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ"
+		crossorigin="anonymous"></script>
+	
+
+    -->
+  <!-- Google Analytics -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function () {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "//www.google-analytics.com/analytics.js",
+      "ga"
+    );
+
+    ga("create", "UA-156961472-1", "auto");
+    ga("send", "pageview");
+  </script>
+  
+
+  <!-- Latex -->
+  <!--
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+   <!-- <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script
+  type="text/javascript"
+  async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"
+></script> -->
+
+<head>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } });
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["$$","$$"] ],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    type="text/javascript"
+  ></script>
+</head>
+  <script>
+  console.log(window)
+
+  window.addEventListener("resize", changeContent);
+  window.addEventListener("load", changeContent);
+
+  function changeContent(event){
+    const width = window.innerWidth;
+    console.log(event);
+    const cat = document.getElementById("js-cat");
+    const cv = document.getElementById("category-cv");
+    const book= document.getElementById("category-book");
+    const ds = document.getElementById("category-ds");
+    const cs = document.getElementById("category-cs");
+    const dv = document.getElementById("category-dv");
+    const works = document.getElementById("category-works");
+    const about = document.getElementById("category-about");
+    if (width < 750) {
+      cv.innerText = "📜"
+      book.innerText = "💡"
+      ds.innerText = "📈"
+      cs.innerText = "💾"
+      dv.innerText = "📱"
+      works.innerText = "🎨"
+      about.innerText = "😎"
+      cat.style.justifyContent = "space-around"
+    } else {
+      cv.innerText = "CV"
+      book.innerText = "Book"
+      ds.innerText = "Data Science"
+      cs.innerText = "Computer Science"
+      dv.innerText = "Development"
+      works.innerText = "Works"
+      about.innerText = "About"
+      cat.style.justifyContent = "space-around"
+    }
+
+  }
+  
+</script>
+  <script>
+  function handleSeriesNavShowing() {
+    var side_nav = document.getElementById("js-side_nav");
+    var side_nav_button_title = document.getElementById("js-side-btn-content");
+
+    if (side_nav.style.display == "block") {
+      side_nav.style.display = "none";
+      side_nav_button_title.innerHTML = "▼ 목록 보기";
+    } else {
+      side_nav.style.display = "block";
+      side_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+  <script>
+  function handleTocNavShowing() {
+    var toc_nav = document.getElementById("js-toc_nav");
+    var toc_nav_button_title = document.getElementById("js-toc-btn-content");
+
+    if (toc_nav.style.display == "block") {
+      toc_nav.style.display = "none";
+      toc_nav_button_title.innerHTML = "▼ 내리기";
+    } else {
+      toc_nav.style.display = "block";
+      toc_nav_button_title.innerHTML = "▲ 숨기기";
+    }
+  }
+</script>
+ <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $(".top").fadeIn();
+      } else {
+        $(".top").fadeOut();
+      }
+    });
+
+    $(".top").click(function () {
+      $(".top").css("background", "#e7eceb");
+      $(".top").css("color", "rgba(1, 53, 63, 0.8)");
+      $("html, body").animate({ scrollTop: 0 }, 400);
+      setTimeout(
+        '$(".top").css("background", "rgba(1, 53, 63, 0.8)"); $(".top").css("color", "#e7eceb");',
+        1000
+      );
+      return false;
+    });
+  });
+</script>
+
+</head>
+
+  <body>
+    <a href="#" class="top"></a>
+ <header class="site-header">
+  <div class="site-title-nav">
+    <div class="branding">
+      
+      <a href="/">
+        <img
+          class="avatar"
+          src="/assets/img/avatar.png"
+          alt=""
+        />
+      </a>
+      
+      <h1 class="site-title">
+        <a href="/">완숙의 에그머니🍳</a>
+      </h1>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <!--
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <li>
+                    <a class="page-link" href="/about/">
+                        About Me
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+-->
+      <!-- Social icons from Font Awesome, if enabled  -->
+      <!--                
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-->
+
+      <!-- Search bar -->
+      <li>
+
+
+<li>
+	<a href="mailto:wansook0316@gmail.com" title="Email">
+		<i class="fas fa-fw fa-envelope"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/wansook0316" title="Follow on GitHub">
+		<i class="fab fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="https://www.linkedin.com/in/wansik-choi-b065881aa/" title="Follow on LinkedIn">
+		<i class="fab fa-fw fa-linkedin"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+      
+      <li>
+        <form action="/search.html" method="get">
+          <input
+            type="text"
+            id="search-box"
+            name="query"
+            placeholder="Search"
+            class=""
+          />
+          <button type="submit" class="">
+            <i class="fa fa-fw fa-search"></i>
+          </button>
+        </form>
+      </li>
+      
+    </ul>
+  </nav>
+</header>
+
+<div class="site-category">
+  <ul class="cat1" id="js-cat">
+    <li>
+      <a id="category-cv" href="/"> </a>
+      <ul>
+        <li><a href="/CV/Projects">Projects</a></li>
+        <li><a href="/CV/Awards">Awards</a></li>
+        <li><a href="/CV/ExtraAct">ExtraCurricular Act</a></li>
+        <li><a href="/CV/InternShip">Internship</a></li>
+        <li><a href="/CV/Language">Language</a></li>
+        <li><a href="/CV/Courses">Courses</a></li>
+        <li><a href="/CV/Education">Education</a></li>
+        <li><a href="/CV/Publications">Publications</a></li>
+        <li><a href="/CV/Patents">Patents</a></li>
+        <li><a href="/CV/Qualification">Qualification</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-book" href="/"> </a>
+      <ul>
+        <li><a href="/Book/Finance">Finance</a></li>
+        <li><a href="/Book/BM">Business/Marketing</a></li>
+        <li><a href="/Book/SM">Self Management</a></li>
+        <li><a href="/Book/CH">Culture/History</a></li>
+        <li><a href="/Book/Leadership">Leadership</a></li>
+        <li><a href="/Book/Classics">Classics</a></li>
+        <li><a href="/Book/Think">Think</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-ds" href="/"> </a>
+      <ul>
+        <li><a href="/DS/Cloud">Cloud</a></li>
+        <li><a href="/DS/DL">Deep Learning</a></li>
+        <li><a href="/DS/ML">Machine Learning</a></li>
+        <li><a href="/DS/Visualization">Visualization</a></li>
+        <li><a href="/DS/Statistics">Statistics</a></li>
+        <li><a href="/DS/LA">Linear Algebra</a></li>
+        <li><a href="/DS/Calculus">Calculus</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-cs" href="/"> </a>
+      <ul class="category-cs-ul">
+        <li class="category-cs-li"><a href="/CS/Dynamics">Dynamics</a></li>
+        <li class="category-cs-li"><a href="/CS/Network">Network</a></li>
+        <li class="category-cs-li"><a href="/CS/Database">Database</a></li>
+        <li class="category-cs-li"><a href="/CS/Algorithm">Algorithm</a></li>
+        <li class="category-cs-li"><a href="/CS/Structure">Structure</a></li>
+        <li class="category-cs-li"><a href="/CS/Parallel">Parallel</a></li>
+        <li class="category-cs-li"><a href="/CS/OS">OS</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-dv" href="/"> </a>
+      <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
+        <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
+        <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
+        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <li class="category-dv-li"><a href="/DV/Javascript">Javascript</a></li>
+        <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
+        <li class="category-dv-li"><a href="/DV/Concept">Concept</a></li>
+        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
+        <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
+        <li class="category-dv-li"><a href="/DV/Trouble-Shooting">Trouble Shooting</a></li>
+        <li class="category-dv-li"><a href="/DV/SP">Side Project</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a id="category-works" href="/"> </a>
+      <ul class="category-works-ul">
+        <li class="category-works-li"><a href="/Works/Tags">Tags</a></li>
+        <li class="category-works-li"><a href="/Works/Series">Series</a></li>
+      </ul>
+    </li>
+
+    <li><a id="category-about" href="/about/"> </a></li>
+
+    <!--    <ul class="cat2">-->
+
+    <!--  </ul>-->
+  </ul>
+</div>
+
+    <div class="content"><article
+  class="feature-image main-category-feature"
+  
+>
+  <header
+    style="background-image: url('/assets/img/72.jpg')"
+  >
+    <ul class="category-title">
+      <h1 class="title">10: Arcface</h1>
+      
+      <p class="meta">
+        CV/Projects  : Face Detection and Tracking with SSD Network 
+      </p>
+      <p class="meta">
+        May 10, 2021 
+      </p>
+    </ul>
+  </header>
+
+  
+
+  <section class="post-content">
+         
+<div class="series-nav">
+  <p>
+    이 포스팅은 <b><em>Face Detection and Tracking with SSD Network</em></b> 시리즈
+    <b><em>11</em></b> 편 중 <b><em>10</em></b> 번째 글 입니다.
+  </p>
+  <ul class="side-nav" id="js-side_nav">
+                                     
+    <li onclick="location.href='/cv/projects/2021/03/14/Face-Detection-and-tracking-with-ssd-network-01-Report.html'">
+      <span>Part 1 - 01: Overview & Plans</span>
+    </li>
+                                                                       
+    <li onclick="location.href='/cv/projects/2021/03/19/Face-Detection-and-tracking-with-ssd-network-02-Paper-Research-1.html'">
+      <span>Part 2 - 02: Paper Research - SSD</span>
+    </li>
+                                                                             
+    <li onclick="location.href='/cv/projects/2021/03/19/Face-Detection-and-tracking-with-ssd-network-03-Paper-Research-2.html'">
+      <span>Part 3 - 03: Paper Research - DeepSort</span>
+    </li>
+                                                           
+    <li onclick="location.href='/cv/projects/2021/03/30/Face-Detection-and-tracking-with-ssd-network-04-trial_and_error.html'">
+      <span>Part 4 - 04: Trial and Error</span>
+    </li>
+                                                 
+    <li onclick="location.href='/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-05-Project-Design.html'">
+      <span>Part 5 - 05: Project Design</span>
+    </li>
+                                                       
+    <li onclick="location.href='/cv/projects/2021/04/08/Face-Detection-and-tracking-with-ssd-network-06-Writing-code.html'">
+      <span>Part 6 - 06: Writing Code</span>
+    </li>
+                                                             
+    <li onclick="location.href='/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-07-cpp_%EC%A1%B0%EC%82%AC.html'">
+      <span>Part 7 - 07: 중간 점검 및 추후 방향성 검토</span>
+    </li>
+                                     
+    <li onclick="location.href='/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-08-middle-term-report.html'">
+      <span>Part 8 - 08: 중간 보고서</span>
+    </li>
+                             
+    <li onclick="location.href='/cv/projects/2021/05/06/Face-Detection-and-tracking-with-ssd-network-09-yolov3.html'">
+      <span>Part 9 - 09: Yolov3 사용</span>
+    </li>
+                       
+    <li class="current">
+      <span>Part 10 - This Post</span>
+    </li>
+                                 
+    <li onclick="location.href='/cv/projects/2021/05/10/Face-Detection-and-tracking-with-ssd-network-11-Face-Recognition-with-tracking.html'">
+      <span>Part 11 - 11: Face Recognition with Tracking</span>
+    </li>
+                                                                                                                                                                                                                                                                                                                                                                                          
+  </ul>
+  <div
+    class="side-nav-btn"
+    id="js-btn-side_nav"
+    onclick="handleSeriesNavShowing();"
+  >
+    <div class="side-nav-btn__content" id="js-side-btn-content">
+      ▼ 목록 보기
+    </div>
+  </div>
+</div>
+ 
+   
+<div class="toc-whole-nav">
+  <p>목차</p>
+  <!-- <ul class="toc-nav" id="js-toc_nav"> -->
+  <ul id="js-toc_nav" class="toc-nav">
+  <li class="toc-item"><a href="#feature-apperance-model-변경" class="toc-anchor">Feature Apperance Model 변경</a>
+    <ul class="submenu_class">
+      <li class="toc-item"><a href="#arcface" class="toc-anchor">Arcface</a></li>
+    </ul>
+  </li>
+  <li class="toc-item"><a href="#작동" class="toc-anchor">작동</a></li>
+  <li class="toc-item"><a href="#오류-해결-추가-방향" class="toc-anchor">오류 해결 추가 방향</a></li>
+</ul>
+  <!-- </ul> -->
+  <div class="toc-nav-btn" id="js-btn-toc_nav" onclick="handleTocNavShowing();">
+    <div class="toc-nav-btn__content" id="js-toc-btn-content">▼ 내리기</div>
+  </div>
+</div>
+
+ <h1 id="feature-apperance-model-변경">Feature Apperance Model 변경</h1>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg" alt="DEEPSORT (2)" class="center" /><em>DeepSort flowchart</em></p>
+
+<p>물체 추적을 담당하는 Deepsort의 구조는 위와 같다. 새롭게 탐지된 객체들의 매칭을 수행하기 위해 Matching Cascade라는 방법을 사용한다. 가장 적합한 객체와 새롭게 탐지된 객체를 매칭하기 위해서는 이를 표현할 Metric이 필요하다. 위 논문에서는 다음과 같은 Feature Appearance Model을 사용하여 해당 그림를 표현하는 128차원 벡터를 추출한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/117616181-be93a780-b1a5-11eb-86dd-69a9d97d29a0.png" alt="image" class="center-small" /></p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/117616257-d539fe80-b1a5-11eb-9ae0-cdba5b50effa.png" alt="image" class="center-small" /></p>
+
+<p>2개의 Conv layer와 Residual 네트워크를 사용하여 128차원 Vector를 추출하였다. 하지만 기본적으로 Deep sort는 보행자를 구분하기 위해 제작된 바, 입력의 크기가 128x64로 세로로 긴 직사각형의 형태를 띈다. 이는 현재 제작하려는 Face Tracker에 문제가 되는 부분이다. 얼굴의 형태는 보행자의 모양처럼 2:1의 aspect ratio를 가지지 않는다. 1:1에 비율에 맞는 input size에 대해 Feature extraction을 하는 것이 보다 이 과제에 적합한 방향이다.</p>
+
+<h2 id="arcface">Arcface</h2>
+
+<p>Arcface는 Face Recognition을 위해 제작된 Feature Extractor이다. Resnet34를 backborn으로 사용하고, 이를 기반으로 Additive Angular Margin Penalty 기반으로 학습을 진행하여 512차원의 벡터를 추출한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/117617147-14b51a80-b1a7-11eb-8c1f-e82c280fb479.png" alt="image" class="center-verysmall" /></p>
+
+<p>이러한 방법을 사용했을 때, 기본 Softmax를 사용했을 때 보다 각각의 id를 구분하는 Feature가 생성된다고 한다. 얼굴의 특징을 추출하고, 이를 구분하기 위해서는 보다 정확한 feature extractor가 필요하다고 판단, 현재 구성된 보행자 기반 모델을 이를 사용하여 대체하는 작업을 진행했다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/117641745-7b473200-b1c1-11eb-95aa-d210c4e3e2e7.jpg" alt="DEEPSORT_with_Arcface" class="center" /></p>
+
+<p>순서는 다음과 같다.</p>
+
+<ol>
+  <li>정적인 파일로 존재하는 사진으로 부터 파일을 읽는다.</li>
+  <li>이를 Yolov3를 통과하여 얼굴을 탐지한다.</li>
+  <li>탐지된 Detection box를 기반으로 이미지를 patching한다.</li>
+  <li>patching된 이미지를 바탕으로 Arcface를 통해 Feature Extraction을 진행한다.</li>
+  <li>이를 지정된 얼굴의 이름을 기반으로 Key-map 구조로 가지고 있는다.</li>
+  <li>Track 객체가 생성될 때, Feature를 이미지의 Feature와의 Cosine 값을 구한다.</li>
+  <li>이 값들 중 가장 작은 값(이전 프레임으로부터 생성된 Feature들과 이미지 Feature가 가지는 가장 작은 값 = 넣은 input이미지와 가장 비슷했을 때 유사도)을 추출한다.</li>
+  <li>7번의 값이 일정 threshold보다 작을 경우 face_name을 추가한다.</li>
+</ol>
+
+<h1 id="작동">작동</h1>
+
+<p><img src="https://user-images.githubusercontent.com/37871541/117655512-206a0680-b1d2-11eb-91ba-c1ed9b758ae5.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/117655539-28c24180-b1d2-11eb-8ef9-98b216cfea13.png" alt="image" class="center" />
+<img src="https://user-images.githubusercontent.com/37871541/117655571-337cd680-b1d2-11eb-99d5-41e380ab81c1.png" alt="image" class="center" /></p>
+
+<p><img width="788" alt="KakaoTalk_Photo_2021-05-10-21-00-33" src="https://user-images.githubusercontent.com/37871541/117656024-c7e73900-b1d2-11eb-87d5-9376826da7dd.png" class="center" /></p>
+
+<p>하지만 잘 작동이 되지 않았다. 다른 Track 객체가 생성되었을 때, cosine 유사도를 검증했을 때, 대부분 0.3근처의 값이 도출되었다. 두 가지 문제라 생각할 수 있다. 1) Metric을 매칭하는 방법이 잘못되었다, 2) 객체가 생성될 때 face_name을 매칭하는 것이 오류를 부르는 방법이다. 추가로 이러한 방향을 테스트하여 Identification이 되는 Tracker를 제작한다.</p>
+
+<h1 id="오류-해결-추가-방향">오류 해결 추가 방향</h1>
+
+<ol>
+  <li>Track 객체가 생성될 때 비교하지 말고, Matching이 되었을 때 비교한다.</li>
+  <li>Cosine metric이 가장 작을 때가 아닌 다른 metric을 사용하여 face_name을 매핑한다.</li>
+  <li>다른 영상에도 적용하여 결과를 파악한다.</li>
+</ol>
+
+  </section>
+  
+<footer>
+  <div class="tags">
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#project"
+      >#project</a
+    >
+    
+    <a
+      class="tag"
+      href="http://localhost:4000/Works/tags#cv"
+      >#CV</a
+    >
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Post navigation -->
+<div id="post-nav">
+           
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='/cv/projects/2021/05/06/Face-Detection-and-tracking-with-ssd-network-09-yolov3.html';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>09: Yolov3 사용</p>
+  </div>
+                                                  
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='/cv/projects/2021/05/10/Face-Detection-and-tracking-with-ssd-network-11-Face-Recognition-with-tracking.html';"
+  >
+    <p>NEXT SERIES</p>
+    <p>11: Face Recognition with Tracking</p>
+  </div>
+                                                                                                                                                                                                                                                                                                                                                                                         
+</div>
+
+
+<!-- Disqus -->
+
+<div class="comments"><div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'wansook0316';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+</div>
+
+
+<!-- Post navigation -->
+
+</div>
+
+    
+<script src="/assets/js/katex_init.js"></script>
+
+
+
+
+
+
+<footer class="site-footer">
+	<div class="copyright">
+		© 
+		<span itemprop="copyrightYear">2018</span>
+		<span class="with-love">
+		  <i class="fa fa-heart"></i>
+		</span>
+		<span class="author" itemprop="copyrightHolder">Wansook</span>
+	  </div>
+
+	<div class="powered-by">
+	Powered by <a class="theme-link" href="https://jekyllrb.com" >Jekyll</a>
+	</div>
+
+	<div class="prev-blog-info">
+		Prev Blog -
+		<a class="theme-link" href="https://egg-money.tistory.com/127?category=822389">
+		  완숙의 블로그
+		</a>
+	</div>
+
+	<div class="saying">What I cannot create, I do not understand. <br> - Richard Phillips Feynman -</div>
+</footer>
+
+ <script>
+  /**
+   * Animate scrolling to a target position
+   * @param {string} _selector Target selector
+   * @param {number} _duration (Option) Duration time(ms) (Default. 800ms)
+   * @param {number} _adjust (Option) Adjustment value of position
+   */
+  /**
+  animteScrollTo = function (_selector, _duration, _adjust) {
+    const targetEle = document.querySelector(_selector);
+    if (!targetEle) return;
+
+    // - Get current &amp; target positions
+    const scrollEle = document.documentElement || window.scrollingElement,
+      currentY = scrollEle.scrollTop,
+      targetY = targetEle.offsetTop - (_adjust || 0);
+    animateScrollTo(currentY, targetY, _duration);
+
+    // - Animate and scroll to target position
+    function animateScrollTo(_startY, _endY, _duration) {
+      _duration = _duration ? _duration : 600;
+      const unitY = (targetY - currentY) / _duration;
+      const startTime = new Date().getTime();
+      const endTime = new Date().getTime() + _duration;
+
+      const scrollTo = function () {
+        let now = new Date().getTime();
+        let passed = now - startTime;
+        if (now <= endTime) {
+          scrollEle.scrollTop = currentY + unitY * passed;
+          requestAnimationFrame(scrollTo);
+        } else {
+          console.log("End off.");
+        }
+      };
+      requestAnimationFrame(scrollTo);
+    }
+  };
+
+  anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  console.log(anchorArray);
+  for (var i = 0; i < anchorArray.length; i++) {
+    (function (m) {
+      anchorId = String(anchorArray[m].innerText)
+        .toLowerCase()
+        .replace(/\s/g, "-");
+      // console.log(anchorId);
+      target = $(
+        '.toc-whole-nav .toc-nav .toc-item a[href="#' + anchorId + '"]'
+      );
+      console.log(target);
+      // console.log(anchorArray[m]);
+      target.click(function () {
+        name = String(target[0].innerText).toLowerCase().replace(/\s/g, "-");
+        // name = name.replace(/\./, "-");
+        console.log("#" + name);
+        animteScrollTo("#" + name);
+      }, false);
+    })(i);
+  }
+**/
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // // console.log(anchorArray);
+
+  // anchorArray.map((anchor) => {
+  //   $(anchor).click(function () {
+  //     console.log(anchor["innerText"]);
+  //     name = anchor["innerText"];
+  //     name = name.replace(/\./, "-");
+  //     // console.log(name);
+
+  //     animteScrollTo("#" + name);
+  //   });
+  //   return anchor;
+  // });
+
+  // var headings = $("h1, h2, h3, h4, h5, h6").toArray()
+  //         , headingToListElementLinkMap = getHeadingToListElementLinkMap(headings)
+  //         , listElementLinks = $.map(headingToListElementLinkMap, (function(value, key) {
+  //           return value
+  //       }
+  //       ))
+  //         , scrollOffset = getScrollOffset();
+
+  //   function getEzTocListElementLinkByHeading(heading) {
+  //     return $('.toc-whole-nav .toc-nav .toc-item a[href="#' + $(heading).attr("id") + '"]')
+  //   }
+
+  //   function getHeadingToListElementLinkMap(headings) {
+  //           return headings.reduce((function(map, heading) {
+  //               return map[heading.id] = getEzTocListElementLinkByHeading(heading),
+  //               map
+  //           }
+  //           ), {})
+  //       }
+  //   });
+  //   function getScrollOffset() {
+  //     var scrollOffset = 5;
+  //     void 0 !== ezTOC.smooth_scroll && 1 === parseInt(ezTOC.smooth_scroll) && (scrollOffset = void 0 !== ezTOC.scroll_offset ? parseInt(ezTOC.scroll_offset) : 30);
+  //     var adminbar = $("#wpadminbar");
+  //     return adminbar.length && (scrollOffset += adminbar.height()),
+  //     scrollOffset
+  //   }
+
+  // $(document).ready(function() {
+  //   $('.user-list').append(_.map(users, function(user) {
+  //     var button = $('<button type="button" class="btn btn-primary">').text(user.name);
+  //     button.click(function() {
+  //         if (confirm(user.name + "님을팔로잉하시겠습니까?")) follow(user);
+  //     });
+  //     return button;
+  //   }));
+  // });
+
+  // function follow(user) {
+  //     alert("이제 " + user.name + "님의소식을보실수있습니다.");
+  // }
+  // str.replace(/\./, "-")
+  // anchorArray = Array.from(document.querySelectorAll(".toc-anchor"));
+  // console.log(anchorArray);
+  // anchorArray.map((anchor) => {
+  //   console.log(anchor);
+  //   // $(anchor).click(function () {
+  //   //   console.log($("anchor"));
+  //   // });
+  //   // return anchor;
+  // });
+
+  //   var t = document.getElementById("target");
+  //   const toc = document.querySelectorAll(".toc_nav > ul > li");
+  //   console.log(toc);
+  // t.addEventListener('click', function(event){
+  //     alert('Hello world, '+event.target.value);
+  // });
+</script>
+
+  </body>
+</html>
