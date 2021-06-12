@@ -308,6 +308,8 @@
                 
                 
                 
+                
+                
                 <li>
                     <a class="page-link" href="/about/">
                         About Me
@@ -621,6 +623,7 @@
     <li>
       <a id="category-dv" href="/"> </a>
       <ul class="category-dv-ul">
+        <li class="category-dv-li"><a href="/DV/Swift">Swift</a></li>
         <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
         <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
         <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
@@ -678,6 +681,66 @@
 <script>
   window.store = {
     
+      "cs-algorithm-2021-06-04-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-12-ec-8a-a4-ed-83-80-ec-88-98-ec-97-b4-html": {
+        "title": "12: 스타 수열",
+        "tags": "프로그래머스, 알고리즘",
+        "date": "June 4, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "풀이어떻게 해야 이런 문제를 풀 수 있을까.  일단 조합과 같은 생각은 n이 작을 때 한다.  완전 탐색 방법을 먼저 생각한다.  순차적인 방법 (indexing) 생각  문제를 제대로 읽기일단 처음에는 모든 가지수를 만들고, 이에 대해 2씩 접근하여 문제를 해결하려 했다. 하지만 당연히 시간초과가 나기 때문에 다른 방법을 생각해야 했다. 그리고 처음에 글을 잘못읽어서 2씩 보는 것이 아니고 2의 배수만큼 모두 확인했을 때 결정이 되는 줄 알았다.애초에 그리디한 문제라는 것이 좀 눈에 보였다. 그리디 문제를 많이 안풀어봐서 어떻게 해야할 지 감을 못잡은 것 같다.일단 2씩 보면서, 적어도 하나의 교집합 원소가 있다는 것에서 키워드를 찾아야 한다. 그래서 이 키를 제안한다는 생각을 해야 한다. 그리고 그 제안한 key에 대해 가능한 후보를 찾아야 한다.그런데, 해당 문제는 가능한 후보를 찾는 것이 아닌 길이를 제안하는 것이다. 그렇기 때문에 특정 문자에 대해 부분 수열을 찾았을 때, 발생할 수 있는 다른 부분 수열과 서로 길이가 같은지 판단해야 한다.1 0 0 1 0 0 1 01 0 0 1 0 11 0 0 1 1 01을 교집합 원소로 가정했을 때 가장 긴 부분 수열의 후보는 위와 같다. 수열은 달라도 길이는 같다. 이 부분을 짚고 넘어가야 한다.만약 이부분이 확립이 되었다면, 배열안에 존재하는 모든 원소에 대해 순차적으로 진행하며 가장 긴 수열을 만들면 된다. 이 때 2 pointer로 진행하면서 값을 넣어준다. 이 부분이 그리디 하다. 즉 답이 정해져있다는 것. 모든 가지수를 판단할 필요가 없이, 특정 수열이 정해져 있다.. 이런 생각을 하는 것이 아직 너무 어렵다.하지만 이렇게 될 경우 시간 초과가 난다. 그렇기 때문에 굳이 볼 필요가 없는 원소에 대해서는 거를 필요가 있는데, 그런 부분을 넣어주면 시간안에 들어올 수 있다.Codefrom collections import Counterdef solution(a):    cand = dict(Counter(a).most_common())    ans = 0    for num in cand:        if ans &gt; cand[num]*2: continue        temp = []        i, j = 0, 1        while i &lt; len(a) and j &lt; len(a):            if a[i] == num:                if a[i] == a[j]: # 다음 것도 num일 경우                    j += 1                else:                    temp.append(a[i])                    temp.append(a[j])                    i = j+1                    j += 2            else:                if a[j] == num:                    temp.append(a[i])                    temp.append(a[j])                    i = j+1                    j += 2                else:                    j += 1        ans = max(ans,len(temp))    return ans",
+        
+        "url": "/cs/algorithm/2021/06/04/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-12-%EC%8A%A4%ED%83%80-%EC%88%98%EC%97%B4.html"
+      }
+      ,
+    
+      "cs-algorithm-2021-05-31-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-11-ed-95-a9-ec-8a-b9-ed-83-9d-ec-8b-9c-ec-9a-94-ea-b8-88-html": {
+        "title": "11: 합승 택시 요금",
+        "tags": "프로그래머스, 알고리즘",
+        "date": "May 31, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "풀이다익스트라로 한번에 성공했다. 그래도 발전이 있나보네..Code# AB가 함께 모든 노드까지 가는데 걸리는 최단 거리를 구한다.# 그리고 그 거리 각각에서 출발하여    # 1. A가 다른 노드까지 방문하는데 걸리는 최단 거리를 구한다.    # 2. B 상동    # 3. A의 거리중 집까지 가는데 걸리는 최단 거리를 구한다.    # 4. B의 거리중 상동    # 시간 복잡도 : # 첫번쨰 다익스트라 n^2 * logn# 각각에서 걸리는 다익스트라 n^2 * logn# 전체 : n^2 * logn * (2 n^2 * logn) = n^4 = 200^4 = 1,600,000,000 16억..# 일단 시도해보자.import heapqdef dijkstra(start, distance):    global graph    q = []    heapq.heappush(q, (0, start))    distance[start] = 0        while q:        dist, now = heapq.heappop(q)        if dist &gt; distance[now]:            continue                for _next, w in graph[now]:            cost = dist + w            if cost &lt; distance[_next]:                distance[_next] = cost                heapq.heappush(q, (cost, _next))def solution(n, s, a, b, fares):    INF = 1e7    global graph        graph = [ [] for _ in range(n+1)]    distance_with = [INF] * (n+1)        for f in fares:        u, v, w = f[0], f[1], f[2]        graph[u].append((v, w))        graph[v].append((u, w))        dijkstra(s, distance_with) # start에서 시작해서 모든 노드 최단 거리를 구한다.    # print(distance_with)    ans = 1e7    for node in range(1, len(distance_with)):        if distance_with[node] == INF: continue                cost = distance_with[node]        distance_a = [INF] * (n+1)        distance_b = [INF] * (n+1)        dijkstra(node, distance_a)        dijkstra(node, distance_b)        a_dist = distance_a[a]        b_dist = distance_b[b]        # print(cost, a_dist, b_dist)        total_cost = cost + a_dist + b_dist        ans = min(ans, total_cost)        return ans",
+        
+        "url": "/cs/algorithm/2021/05/31/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-11-%ED%95%A9%EC%8A%B9-%ED%83%9D%EC%8B%9C-%EC%9A%94%EA%B8%88.html"
+      }
+      ,
+    
+      "cs-algorithm-2021-05-31-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-10-eb-b2-a0-ec-8a-a4-ed-8a-b8-ec-95-a8-eb-b2-94-html": {
+        "title": "10: 베스트 앨범",
+        "tags": "프로그래머스, 알고리즘",
+        "date": "May 31, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "풀이아니, 갑자기 딕셔너리 소트 안되는게 말이냐구.. 왜 다 풀줄 아는데 꼭 저런거 때매 문제일까. 더 많이 풀어서 오류를 판단하는 눈을 길러야 한다.Codedef solution(genres, plays):    # 속한 노래가 많이 재생된 장르를 먼저 수록..    # 그니까 장르중에 많이 재생된 장르부터 선택    # 그리고 장르별로 2곡씩 모을 것. 근데 장르 수록곡이 한개면 하나만 넣는다.    # 만약에 재생 횟수가 같으면 고유번호가 낮은 것부터 넣는다.        # 장르 : [재생 횟수대로 정렬, 그다음 id로 정렬]    # 장르 돌면서 0, 1 뽑는다. 근데 이때 장르안에 들어간 개수가 1이하인 경우 하나만 넣는다.        play_dict = dict()    genre_dict = dict()    for i, (g, p) in enumerate(zip(genres, plays)):                if g not in genre_dict:            genre_dict[g] = 0        genre_dict[g] += p                if g not in play_dict:            play_dict[g] = []        play_dict[g].append((p, i))            order = dict(sorted(genre_dict.items(), key=lambda x: x[1], reverse=True)).keys()        for a in play_dict:        play_dict[a] = sorted(play_dict[a], key=lambda x: (-x[0], x[1]))        answer = []    for o in order:        answer.append(play_dict[o][0][1])        if len(play_dict[o]) &gt;= 2:            answer.append(play_dict[o][1][1])                return answer",
+        
+        "url": "/cs/algorithm/2021/05/31/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-10-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%95%A8%EB%B2%94.html"
+      }
+      ,
+    
+      "cs-algorithm-2021-05-31-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-09-eb-b6-88-eb-9f-89-ec-82-ac-ec-9a-a9-ec-9e-90-html": {
+        "title": "09: 불량 사용자",
+        "tags": "프로그래머스, 알고리즘",
+        "date": "May 31, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "풀이순열로 해결했다. n이 작아서 가능했다. 순열로 가능한 순서의 모든 banned를 나열하고, 각각에 대해 가능한지 확인하여 문제를 해결했다.Codefrom itertools import permutationsdef check(users, banned):    for u, b in zip(users, banned):        if len(u) != len(b):            return False        for i in range(len(u)):            if b[i] == \"*\": continue            if u[i] != b[i]:                return False    return Truedef solution(user_id, banned_id):    # banned_id 개수 만큼의 가능한 순열 모두 생성    # banned_id 하나씩 돌면서 되는 것 체크    # 모두 가능하면 answer + 1    answer = []    permutations_list = permutations(user_id, len(banned_id))        for c in permutations_list:        if check(c, banned_id):            answer.append(c)    ans = []    for a in list(map(sorted, answer)):        ans.append(\"\".join(a))    return len(set(ans))",
+        
+        "url": "/cs/algorithm/2021/05/31/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-09-%EB%B6%88%EB%9F%89-%EC%82%AC%EC%9A%A9%EC%9E%90.html"
+      }
+      ,
+    
+      "cs-algorithm-2021-05-31-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-08-eb-8b-a4-eb-8b-a8-ea-b3-84-ec-b9-ab-ec-86-94-ed-8c-90-eb-a7-a4-html": {
+        "title": "08: 다단계 칫솔 판매",
+        "tags": "프로그래머스, 알고리즘",
+        "date": "May 31, 2021",
+        "author": "",
+        "category": "CS/Algorithm",
+        "content": "풀이정말 미쳐버리겠다. 왜 구현을 못하지. 왜 while문으로 구현을 못하는 걸까. 푸는 방법 다 알아놓고. 미쳐버리겠다. 진짜Codeimport syssys.setrecursionlimit(1000000)def cal(name, price, money, head):    if name == '-' or price &lt;= 0:        return    # 돈계산    give = int(price*0.1)    take = price - give        # 돈 넣기    money[name] += take        # 다음 녀석 계산    next_name = head[name]    cal(next_name, give, money, head)    def solution(enroll, referral, seller, amount):    # 이름 : 번돈 해시    # 이름 : 윗대가리 해시        money = dict([(e, 0) for e in enroll])    head = dict([(e, r) for e, r in zip(enroll, referral)])        for name, m in zip(seller, amount):        price = 100 * m        cal(name, price, money, head)        return list(money.values())그리고 여기서 price가 0보다 작을 경우 조건을 안 걸어주면 시간초과난다. 런타임 에러가 뜰 경우 재귀 호출의 문제가 있을 수 있고, 재귀를 해제하더라도 시간초과가 난다는 것은 depth가 너무들어갔다는 얘기. 그렇다면 이를 중간에 가지치기 할 수 있다.Code2    def solution(enroll, referral, seller, amount):    # 이름 : 번돈 해시    # 이름 : 윗대가리 해시        money = dict([(e, 0) for e in enroll])    head = dict([(e, r) for e, r in zip(enroll, referral)])        for name, m in zip(seller, amount):        price = 100 * m                while True:            if name == \"-\" or price &lt;= 0:                break            next_money = int(price * 0.1)            money[name] += price - next_money                        name = head[name]            price = next_money                # cal(name, price, money, head)        return list(money.values())아니 이 간단할걸 왜 1시간동안 붙잡고 있냐고. 괜히 쫄아서 그래. 할 수 있는데 쫄아서. 쫄지마. 왠만한거 다 풀 수 있다.",
+        
+        "url": "/cs/algorithm/2021/05/31/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-08-%EB%8B%A4%EB%8B%A8%EA%B3%84-%EC%B9%AB%EC%86%94-%ED%8C%90%EB%A7%A4.html"
+      }
+      ,
+    
       "cs-algorithm-2021-05-20-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-07-ec-98-88-ec-83-81-eb-8c-80-ec-a7-84-ed-91-9c-html": {
         "title": "07: 예상 대진표",
         "tags": "프로그래머스, 알고리즘",
@@ -699,18 +762,6 @@
         "content": "실버2 : 정렬 문제이다.풀이이전에 upper bound, lower bound가 잘 명확히 이해가 안되어서 다시 파이썬으로 풀어보자하고 도전했다.lower bound  원하는 값보다 큰 값의 시작 index일단 먼저 알아둬야 하는 것은, lower bound나 upper bound나 오른쪽 index로 답을 내려는 가정이 깔려있다는 사실이다. 그게 가장 중요하다. 그리고 나서 중앙값을 제안했을 때 문제의 목적에 맞게 후보가 되는지만 판단해주면 된다. 두 알고리즘이 공통적으로 가정하는 것을 정리해보자.  right index로 답안을 낼 것이다.  나중에 while문을 통과하기 위해 양쪽 index(left, right)를 업데이트 할 때는 left한쪽으로만 이동한다.          즉 이말은 right index는 업데이트 시 mid를 그대로 두고, left만 mid+1로 기존 값을 검사하지 않아 최종적으로 while (left &lt; right) 문을 통과하기 위함이다.      def lower_bound(a, v): # v이하 최대 인덱스  left = 0  right = len(a)  print(\"left right mid value action\")  while left &lt; right:    temp = []    mid = (left+right)//2    temp.extend(list(map(str, [left, right, mid, v])))        if a[mid] &lt; v:      left = mid + 1      temp.append(f'update left to {mid+1}')    else:      right = mid      temp.append(f'update right to {mid}')    print(\"     \".join(temp))  return rightindex 0 1 2 3 4 5 6 7 8list  2 4 5 5 5 7 9 9 9find 5위와 같은 문제가 주어졌다고 생각해보자.left right mid value action0     9     4     5     update right to 40     4     2     5     update right to 20     2     1     5     update left to 22자 0과 8을 보고 중간값인 4가 채택된다. 리스트에서 해당되는 값은 5, 원하는 값과 같다. 그런데 우리가 하고싶은게 무엇인가? 이 5가 처음으로 등장하는 곳을 알고 싶은 것이다. 그럼 이녀석은 답이 될 수 있는 후보 이다. 그런데 이 5보다 작은 곳에서 답이 나오면 어떡하지? 그러니까 right 인덱스에 얘를 붙잡아두고 그 사이의 값을 다시 탐색한다. 이 작업의 결과가 두번째 라인이다. 두번쨰에서도 우리는 5를 찾았다. 여전히 새로운 후보이니 붙잡아 둔다. 그런데 그 다음으로 가보니 값이 4가 나왔다. 얘는 후보가 될 수 없다. 그리고 이 4보다 큰쪽에서 5라는 값을 찾아야 하니까 +1하여 left를 업데이트 한다. 이제 right와 left가 값이 2로 같아졌기 때문에 반복문을 탈출하고, 끝난다.여기서 핵심은, 같은 것이 나왔을 때 어떻게 처리해야 하느냐에의 판단이다. 같은 값이 나오게 되었을 때, lower bound의 경우 왼쪽을 탐색해야 한다.(더 작은 곳에 후보가 있는지) 그렇기 때문에 right를 땡겨오는 것.upper bound  원하는 값보다 큰 (초과) 첫번째 indexdef upper_bound(a, v): # v이하 최대 인덱스  left = 0  right = len(a)  print(\"left right mid value action\")  while left &lt; right:    temp = []    mid = (left+right)//2    temp.extend(list(map(str, [left, right, mid, v])))        if a[mid] &lt;= v:      left = mid + 1      temp.append(f'update left to {mid+1}')    else:      right = mid      temp.append(f'update right to {mid}')    print(\"     \".join(temp))  return rightindex 0 1 2 3 4 5 6 7 8list  2 4 5 5 5 7 9 9 9find 5가장 중요한 것은 뭐다? 같았을 때 어디를 탐색해야 하는지이다. 같을 경우, 이번에는 오른쪽을 탐색해야 한다. 왜냐하면 일단 5가 나왔다. 그럼 얘보다 일단 큰 부분에서 답이 나올거아닌가? 그러니 mid+1로 left를 업데이트 한다. 만약에 그 다음 스텝에서 조사한 값이 내가 원하는 값보다 크면, 그럼 답은 더 작은 곳에 있으니 이녀석을 붙잡아 두고(답이 될 수 있는 후보이다.) 다음으로 넘어간다.left right mid value action0     9     4     5     update left to 55     9     7     5     update right to 75     7     6     5     update right to 65     6     5     5     update right to 55Codedef lower_bound(a, v): # v이하 최대 인덱스  left = 0  right = len(a)  print(\"left right mid value action\")  while left &lt; right:    temp = []    mid = (left+right)//2    temp.extend(list(map(str, [left, right, mid, v])))        if a[mid] &lt; v:      left = mid + 1      temp.append(f'update left to {mid+1}')    else:      right = mid      temp.append(f'update right to {mid}')    print(\"     \".join(temp))  return rightdef upper_bound(a, v): # v이하 최대 인덱스  left = 0  right = len(a)  print(\"left right mid value action\")  while left &lt; right:    temp = []    mid = (left+right)//2    temp.extend(list(map(str, [left, right, mid, v])))        if a[mid] &lt;= v:      left = mid + 1      temp.append(f'update left to {mid+1}')    else:      right = mid      temp.append(f'update right to {mid}')    print(\"     \".join(temp))  return righta = [2,4,5,5,5,7,9,9,9]lower_bound(a, 5)upper_bound(a, 5)문제 풀이 CodeReference백준(10816번) - 숫자 카드2",
         
         "url": "/cs/algorithm/2021/05/19/%EB%B0%B1%EC%A4%80-%EC%88%AB%EC%9E%90-%EC%B9%B4%EB%93%9C2.html"
-      }
-      ,
-    
-      "book-sm-2021-05-19-eb-a9-b4-ec-a0-91-ec-a4-80-eb-b9-84-html": {
-        "title": "면접 준비",
-        "tags": "면접 준비",
-        "date": "May 19, 2021",
-        "author": "",
-        "category": "Book/SM",
-        "content": "어쩐지 오늘은공통 질문  왜 해당 직군으로 지원했나요?          왜 저희 회사에 지원하셨나요?해당 직군의 매력이 무엇이라고 생각하나요?해당 직군에서 본인의 장점은?해당 직군을 하면서 이루고자 하는 목표는?해당 직군을 하기 위해 어떤 노력을 했나요?왜 저희가 지원자를 뽑아야 하나요?지원자의 단점은 무엇인가요?      프로젝트데이터를 어떻게 구했나요?해당 프로젝트에서 왜 이 알고리즘을 사용했나요?그 알고리즘과 유사한 알고리즘이 존재하지 않나요?해당 알고리즘의 단점은?해당 프로젝트에서 지원자는 어떤 일을 했나요?해당 프로젝트에서 지원자가 느낀 점은?해당 프로젝트를 다시 진행한다고 하면 어떻게 할 것인가요?Kaggle에서 수상을 하면 데이터 분석을 잘 할까요?통계 및 수학고유값(eigen value)와 고유벡터(eigen vector)에 대해 설명해주세요. 그리고 왜 중요할까요?샘플링(Sampling)과 리샘플링(Resampling)에 대해 설명해주세요. 리샘플링은 무슨 장점이 있을까요?확률 모형과 확률 변수는 무엇일까요?누적 분포 함수와 확률 밀도 함수는 무엇일까요? 수식과 함께 표현해주세요베르누이 분포 / 이항 분포 / 카테고리 분포 / 다항 분포 / 가우시안 정규 분포 / t 분포 / 카이제곱 분포 / F 분포 / 베타 분포 / 감마 분포 / 디리클레 분포에 대해 설명해주세요. 혹시 연관된 분포가 있다면 연관 관계를 설명해주세요조건부 확률은 무엇일까요?공분산과 상관계수는 무엇일까요? 수식과 함께 표현해주세요신뢰 구간의 정의는 무엇인가요?p-value를 고객에게는 뭐라고 설명하는게 이해하기 편할까요?p-value는 요즘 시대에도 여전히 유효할까요? 언제 p-value가 실제를 호도하는 경향이 있을까요?A/B Test 등 현상 분석 및 실험 설계 상 통계적으로 유의미함의 여부를 결정하기 위한 방법에는 어떤 것이 있을까요?R square의 의미는 무엇인가요?평균(mean)과 중앙값(median)중에 어떤 케이스에서 뭐를 써야할까요?중심극한정리는 왜 유용한걸까요?엔트로피(entropy)에 대해 설명해주세요. 가능하면 Information Gain도요.요즘같은 빅데이터(?)시대에는 정규성 테스트가 의미 없다는 주장이 있습니다. 맞을까요?어떨 때 모수적 방법론을 쓸 수 있고, 어떨 때 비모수적 방법론을 쓸 수 있나요?“likelihood”와 “probability”의 차이는 무엇일까요?통계에서 사용되는 bootstrap의 의미는 무엇인가요.모수가 매우 적은 (수십개 이하) 케이스의 경우 어떤 방식으로 예측 모델을 수립할 수 있을까요?베이지안과 프리퀀티스트간의 입장차이를 설명해주실 수 있나요?검정력(statistical power)은 무엇일까요?missing value가 있을 경우 채워야 할까요? 그 이유는 무엇인가요?아웃라이어의 판단하는 기준은 무엇인가요?콜센터 통화 지속 시간에 대한 데이터가 존재합니다. 이 데이터를 코드화하고 분석하는 방법에 대한 계획을 세워주세요. 이 기간의 분포가 어떻게 보일지에 대한 시나리오를 설명해주세요출장을 위해 비행기를 타려고 합니다. 당신은 우산을 가져가야 하는지 알고 싶어 출장지에 사는 친구 3명에게 무작위로 전화를 하고 비가 오는 경우를 독립적으로 질문해주세요. 각 친구는 2/3로 진실을 말하고 1/3으로 거짓을 말합니다. 3명의 친구가 모두 “그렇습니다. 비가 내리고 있습니다”라고 말했습니다. 실제로 비가 내릴 확률은 얼마입니까?필요한 표본의 크기를 어떻게 계산합니까?Bias를 통제하는 방법은 무엇입니까?로그 함수는 어떤 경우 유용합니까? 사례를 들어 설명해주세요분석 일반좋은 feature란 무엇인가요. 이 feature의 성능을 판단하기 위한 방법에는 어떤 것이 있나요?“상관관계는 인과관계를 의미하지 않는다”라는 말이 있습니다. 설명해주실 수 있나요?A/B 테스트의 장점과 단점, 그리고 단점의 경우 이를 해결하기 위한 방안에는 어떤 것이 있나요?각 고객의 웹 행동에 대하여 실시간으로 상호작용이 가능하다고 할 때에, 이에 적용 가능한 고객 행동 및 모델에 관한 이론을 알아봅시다.고객이 원하는 예측모형을 두가지 종류로 만들었다. 하나는 예측력이 뛰어나지만 왜 그렇게 예측했는지를 설명하기 어려운 random forest 모형이고, 또다른 하나는 예측력은 다소 떨어지나 명확하게 왜 그런지를 설명할 수 있는 sequential bayesian 모형입니다.고객에게 어떤 모형을 추천하겠습니까?고객이 내일 어떤 상품을 구매할지 예측하는 모형을 만들어야 한다면 어떤 기법(예: SVM, Random Forest, logistic regression 등)을 사용할 것인지 정하고 이를 통계와 기계학습 지식이 전무한 실무자에게 설명해봅시다.나만의 feature selection 방식을 설명해봅시다.데이터 간의 유사도를 계산할 때, feature의 수가 많다면(예: 100개 이상), 이러한 high-dimensional clustering을 어떻게 풀어야할까요?머신러닝Cross Validation은 무엇이고 어떻게 해야하나요?회귀 / 분류시 알맞은 metric은 무엇일까요?알고 있는 metric에 대해 설명해주세요(ex. RMSE, MAE, recall, precision …)정규화를 왜 해야할까요? 정규화의 방법은 무엇이 있나요?Local Minima와 Global Minima에 대해 설명해주세요.차원의 저주에 대해 설명해주세요dimension reduction기법으로 보통 어떤 것들이 있나요?PCA는 차원 축소 기법이면서, 데이터 압축 기법이기도 하고, 노이즈 제거기법이기도 합니다. 왜 그런지 설명해주실 수 있나요?LSA, LDA, SVD 등의 약자들이 어떤 뜻이고 서로 어떤 관계를 가지는지 설명할 수 있나요?Markov Chain을 고등학생에게 설명하려면 어떤 방식이 제일 좋을까요?텍스트 더미에서 주제를 추출해야 합니다. 어떤 방식으로 접근해 나가시겠나요?SVM은 왜 반대로 차원을 확장시키는 방식으로 동작할까요? 거기서 어떤 장점이 발생했나요?다른 좋은 머신 러닝 대비, 오래된 기법인 나이브 베이즈(naive bayes)의 장점을 옹호해보세요.Association Rule의 Support, Confidence, Lift에 대해 설명해주세요.최적화 기법중 Newton’s Method와 Gradient Descent 방법에 대해 알고 있나요?머신러닝(machine)적 접근방법과 통계(statistics)적 접근방법의 둘간에 차이에 대한 견해가 있나요?인공신경망(deep learning이전의 전통적인)이 가지는 일반적인 문제점은 무엇일까요?지금 나오고 있는 deep learning 계열의 혁신의 근간은 무엇이라고 생각하시나요?ROC 커브에 대해 설명해주실 수 있으신가요?여러분이 서버를 100대 가지고 있습니다. 이때 인공신경망보다 Random Forest를 써야하는 이유는 뭘까요?K-means의 대표적 의미론적 단점은 무엇인가요? (계산량 많다는것 말고)L1, L2 정규화에 대해 설명해주세요XGBoost을 아시나요? 왜 이 모델이 캐글에서 유명할까요?앙상블 방법엔 어떤 것들이 있나요?SVM은 왜 좋을까요?feature vector란 무엇일까요?좋은 모델의 정의는 무엇일까요?50개의 작은 의사결정 나무는 큰 의사결정 나무보다 괜찮을까요? 왜 그렇게 생각하나요?스팸 필터에 로지스틱 리그레션을 많이 사용하는 이유는 무엇일까요?OLS(ordinary least squre) regression의 공식은 무엇인가요?딥러닝은 무엇인가요? 딥러닝과 머신러닝의 차이는?왜 갑자기 딥러닝이 부흥했을까요?마지막으로 읽은 논문은 무엇인가요? 설명해주세요Cost Function과 Activation Function은 무엇인가요?Tensorflow, Keras, PyTorch, Caffe, Mxnet 중 선호하는 프레임워크와 그 이유는 무엇인가요?Data Normalization은 무엇이고 왜 필요한가요?알고있는 Activation Function에 대해 알려주세요. (Sigmoid, ReLU, LeakyReLU, Tanh 등)오버피팅일 경우 어떻게 대처해야 할까요?하이퍼 파라미터는 무엇인가요?Weight Initialization 방법에 대해 말해주세요. 그리고 무엇을 많이 사용하나요?볼츠만 머신은 무엇인가요?요즘 Sigmoid 보다 ReLU를 많이 쓰는데 그 이유는?Non-Linearity라는 말의 의미와 그 필요성은?ReLU로 어떻게 곡선 함수를 근사하나?ReLU의 문제점은?Bias는 왜 있는걸까?Gradient Descent에 대해서 쉽게 설명한다면?왜 꼭 Gradient를 써야 할까? 그 그래프에서 가로축과 세로축 각각은 무엇인가? 실제 상황에서는 그 그래프가 어떻게 그려질까?GD 중에 때때로 Loss가 증가하는 이유는?중학생이 이해할 수 있게 더 쉽게 설명 한다면?Back Propagation에 대해서 쉽게 설명 한다면?Local Minima 문제에도 불구하고 딥러닝이 잘 되는 이유는?GD가 Local Minima 문제를 피하는 방법은?찾은 해가 Global Minimum인지 아닌지 알 수 있는 방법은?Training 세트와 Test 세트를 분리하는 이유는?Validation 세트가 따로 있는 이유는?Test 세트가 오염되었다는 말의 뜻은?Regularization이란 무엇인가?Batch Normalization의 효과는?Dropout의 효과는?BN 적용해서 학습 이후 실제 사용시에 주의할 점은? 코드로는?GAN에서 Generator 쪽에도 BN을 적용해도 될까?SGD, RMSprop, Adam에 대해서 아는대로 설명한다면?SGD에서 Stochastic의 의미는?미니배치를 작게 할때의 장단점은?모멘텀의 수식을 적어 본다면?간단한 MNIST 분류기를 MLP+CPU 버전으로 numpy로 만든다면 몇줄일까?어느 정도 돌아가는 녀석을 작성하기까지 몇시간 정도 걸릴까?Back Propagation은 몇줄인가?CNN으로 바꾼다면 얼마나 추가될까?간단한 MNIST 분류기를 TF, Keras, PyTorch 등으로 작성하는데 몇시간이 필요한가?CNN이 아닌 MLP로 해도 잘 될까?마지막 레이어 부분에 대해서 설명 한다면?학습은 BCE loss로 하되 상황을 MSE loss로 보고 싶다면?만약 한글 (인쇄물) OCR을 만든다면 데이터 수집은 어떻게 할 수 있을까?딥러닝할 때 GPU를 쓰면 좋은 이유는?학습 중인데 GPU를 100% 사용하지 않고 있다. 이유는?GPU를 두개 다 쓰고 싶다. 방법은?학습시 필요한 GPU 메모리는 어떻게 계산하는가?TF, Keras, PyTorch 등을 사용할 때 디버깅 노하우는?뉴럴넷의 가장 큰 단점은 무엇인가? 이를 위해 나온 One-Shot Learning은 무엇인가?컴퓨터 비전OpenCV 라이브러리만을 사용해서 이미지 뷰어(Crop, 흑백화, Zoom 등의 기능 포함)를 만들어주세요Fatser R-CNN의 장점과 단점은 무엇인가요?dlib은 무엇인가요?YOLO의 장점과 단점은 무엇인가요?제일 좋아하는 Object Detection 알고리즘에 대해 설명하고 그 알고리즘의 장단점에 대해 알려주세요그 이후에 나온 더 좋은 알고리즘은 무엇인가요?Average Pooling과 Max Pooling의 차이점은?Deep한 네트워크가 좋은 것일까요? 언제까지 좋을까요?Residual Network는 왜 잘될까요? Ensemble과 관련되어 있을까요?CAM(Class Activation Map)은 무엇인가요?Localization은 무엇일까요?자율주행 자동차의 원리는 무엇일까요?Semantic Segmentation은 무엇인가요?Visual Q&amp;A는 무엇인가요?Image Captioning은 무엇인가요?Fully Connected Layer의 기능은 무엇인가요?Neural Style은 어떻게 진행될까요?CNN에 대해서 아는대로 얘기하라CNN이 MLP보다 좋은 이유는?어떤 CNN의 파라미터 개수를 계산해 본다면?주어진 CNN과 똑같은 MLP를 만들 수 있나?풀링시에 만약 Max를 사용한다면 그 이유는?시퀀스 데이터에 CNN을 적용하는 것이 가능할까?최근 고민하고 있는 프로젝트는?",
-        
-        "url": "/book/sm/2021/05/19/%EB%A9%B4%EC%A0%91-%EC%A4%80%EB%B9%84.html"
       }
       ,
     
@@ -783,6 +834,18 @@
         "content": "풀이시뮬레이션 문제이다. 시뮬레이션 문제는 순서를 명확하게 이해하고 이를 지켜주는 것이 매우 중요하다. 항상 집중해서 이부분은 확인할 것Codefrom collections import dequedef solution(bridge_length, weight, truck_weights):    answer = 0    t = 0    bridge_in = 0    truck = deque(truck_weights)    bridge = deque()        while truck or bridge: # 트럭이 남아 있으면        t += 1        # 다리에서 내리기        if bridge: # 다리에 타있으면 먼저 내려            a = bridge.popleft()            bridge_in -= a[0]            if t - a[1] &lt; bridge_length: #들어온 시간이 아직 덜됐으면 다시 태우기                bridge.appendleft(a)                bridge_in += a[0]                                            # 태우기        if truck:            tr = truck.popleft()            if bridge_in+tr &lt;= weight: # 이미 타있는 것과 지금꺼 추가해서 탈 수 있으면                bridge.append((tr, t)) # 다리 탑승                bridge_in += tr            else: # 탈수 없으면                truck.appendleft(tr) # 원상 복귀                        answer = t    return answerReference",
         
         "url": "/cs/algorithm/2021/05/16/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-01-%EB%8B%A4%EB%A6%AC%EB%A5%BC-%EC%A7%80%EB%82%98%EB%8A%94-%ED%8A%B8%EB%9F%AD.html"
+      }
+      ,
+    
+      "cv-projects-2021-05-10-face-detection-and-tracking-with-ssd-network-12-contribution-html": {
+        "title": "12: 중간 정리",
+        "tags": "project, CV",
+        "date": "May 10, 2021",
+        "author": "",
+        "category": "CV/Projects",
+        "content": "",
+        
+        "url": "/cv/projects/2021/05/10/Face-Detection-and-tracking-with-ssd-network-12-Contribution.html"
       }
       ,
     
