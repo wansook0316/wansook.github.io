@@ -415,6 +415,8 @@
                 
                 
                 
+                
+                
 -->
       <!-- Social icons from Font Awesome, if enabled  -->
       <!--                
@@ -627,11 +629,11 @@
         <li class="category-dv-li"><a href="/DV/Server">Server</a></li>
         <li class="category-dv-li"><a href="/DV/Linux">Linux</a></li>
         <li class="category-dv-li"><a href="/DV/Python">Python</a></li>
-        <li class="category-dv-li"><a href="/DV/C++">C++</a></li>
+        <!-- <li class="category-dv-li"><a href="/DV/C++">C++</a></li> -->
         <li class="category-dv-li"><a href="/DV/Javascript">Javascript</a></li>
         <li class="category-dv-li"><a href="/DV/HTML-CSS">HTML/CSS</a></li>
         <li class="category-dv-li"><a href="/DV/Concept">Concept</a></li>
-        <li class="category-dv-li"><a href="/DV/Django">Django</a></li>
+        <!-- <li class="category-dv-li"><a href="/DV/Django">Django</a></li> -->
         <li class="category-dv-li"><a href="/DV/Docker">Docker</a></li>
         <li class="category-dv-li"><a href="/DV/Git">Git</a></li>
         <li class="category-dv-li"><a href="/DV/Trouble-Shooting">Trouble Shooting</a></li>
@@ -680,6 +682,78 @@
 
 <script>
   window.store = {
+    
+      "book-think-2021-06-13-log-02-210613-html": {
+        "title": "02: 210613",
+        "tags": "챌린지, 일기",
+        "date": "June 13, 2021",
+        "author": "",
+        "category": "Book/Think",
+        "content": "목표  ~방 옮기기~  iOS 강의 1강 전체  log 작성, 배운 내용 글로 작성  1일 1commit  시험 공부 계획 및 실행  자소서 수정  가벼운 운동Logs",
+        
+        "url": "/book/think/2021/06/13/log-02-210613.html"
+      }
+      ,
+    
+      "dv-concept-2021-06-12-ec-a0-95-ea-b7-9c-ed-91-9c-ed-98-84-ec-8b-9d-ec-a0-95-eb-a6-ac-html": {
+        "title": "자주쓰이는 정규표현식 초급 정리 - 1",
+        "tags": "Concept, 정규표현식, sub, subn",
+        "date": "June 12, 2021",
+        "author": "",
+        "category": "DV/Concept",
+        "content": "컴파일 버전은 생략하고 실전 지향적으로 간다.순서  import re  패턴 입력  텍스트 준비 (r””) 사용  검색 (match, search, findall, finditer)  각각의 메서드에 맞는 메서드 호출기본 골자import re #일단 importpattern = r\"ca\" # 패턴 입력text = \"bbbbbbcaabsacasca\" # 텍스트검색 메서드match  문자열의 시작 부분부터 매칭이 되는지 검색  group() : 매칭된 문자열 반환  start() : 시작 위치  end() : 종료 위치  span() : 시작과 종료위치를 튜플로 반환기본 객체가 MatchOB이다. 그래서 얘도 알고는 있어야 함search  문자열에 패턴과 매칭되는 곳이 있는지 검색match와의 차이점을 알아야 하는데, 시작 부분 아니어도 검색한다. 하지만 검색되면 시작 부분을 반환한다.            text      aaa      aaaB      Baaa      BBB                  re.match(r’aaa’, text)      O      O      X      X              re.search(r’aaa’, text)      O      O      O      X      import re #일단 importpattern = r\"ca\" # 패턴 입력text = \"bbbbbbcaabsacasca\" # 텍스트matchOB = re.search(pattern, text)if matchOB:\tprint (matchOB)\tprint (matchOB.group()) # 매칭된 문자열 # ca\tprint (matchOB.start())# 매칭된 문자열 시작 위치 # 0\tprint (matchOB.end())   # 매칭된 문자열 종료 위치 # 2\tprint (matchOB.span())  # 매칭된 문자열 시작,종료 위치 # (0, 2)findall  정규식과 매치되는 모든 문자열을 리스트로 반환pattern = r\"ca\"text = \"caabsacasca\"# 매칭된 값은 리스트로 모두 반환matchedList = re.findall(pattern,text)if matchedList:\tprint(matchedList) # ['ca', 'ca', 'ca']subre.sub('\\d{4}', 'XXXX', '010-1234-5678') # 010-XXXX-XXXX정규 표현식에 맞는 표현을 변환할 수 있다. 복잡할수록 좋겠지? 그리고 {}는 범위 혹은 개수를 나타낸다.text = 'Gorio, Gorio, Gorio keep a straight face.'re.sub('Gorio', 'Ryan', count=2, text)# Ryan, Ryan, Gorio keep a straight face.개수까지 지정할 수 있다.문자열사실 sub는 문자열을 제거하는 용도로 많이 사용한다.pattern = r'[^0-9a-zA-Z]+'text = \"\"\"&lt;html lang=\"ko\" xml:lang=\"ko\" xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;head&gt;  &lt;meta charset=\"utf-8\"&gt;  &lt;meta property=\"og:url\" content=\"https://www.kakaocorp.com\"/&gt;&lt;/head&gt;  &lt;body&gt;con%    muzI92apeach&amp;2&lt;a href=\"https://hashcode.co.kr/tos\"&gt;&lt;/a&gt;    ^&lt;/body&gt;&lt;/html&gt;\"\"\"matchedList = re.findall(pattern, text)matchedList이렇게 하면 모든 문자를 찾을 수 있다. 그런데 여기서 이렇게 변경하면,pattern = r'[^0-9a-zA-Z]+'text = \"\"\"&lt;html lang=\"ko\" xml:lang=\"ko\" xmlns=\"http://www.w3.org/1999/xhtml\"&gt;&lt;head&gt;  &lt;meta charset=\"utf-8\"&gt;  &lt;meta property=\"og:url\" content=\"https://www.kakaocorp.com\"/&gt;&lt;/head&gt;  &lt;body&gt;con%    muzI92apeach&amp;2&lt;a href=\"https://hashcode.co.kr/tos\"&gt;&lt;/a&gt;    ^&lt;/body&gt;&lt;/html&gt;\"\"\"matched = re.sub(pattern, \" \", text)matched html lang ko xml lang ko xmlns http www w3 org 1999 xhtml head meta charset utf 8 meta property og url content https www kakaocorp com head body con muzI92apeach 2 a href https hashcode co kr tos a body html 이와 같이 숫자, 알파벳이 아닌 모든 요소에 대해 값을 제거할 수 있다.subntext = 'Gorio, Gorio, Gorio keep a straight face.'re.subn('Gorio', 'Ryan', count=2, text)# ('Ryan, Ryan, Gorio keep a straight face.', 2)값을 튜플로 리턴해준다.정규 표현식 패턴            표현식      설명                         ^      문자열의 시작                     $      문자열의 종료                     .      임의의 한 문자                     *      앞문자가 없을 수도 무한정 많을 수도 있음                     +      앞 문자가 하나 이상                     ?      앞 문자가 없거나 하나 있음                     []      문자의 집합이나 범위를 나타냄, 두 문자사이는 -로 범위를 나타냄                     {}      횟수 또는 범위를 나타냄                     ()      소괄호 안의 문자를 하나의 문자로 인식                     &lt;p&gt;      &lt;/p&gt;      패턴안에서 or 연산을 수행              \\s      공백문자                     \\S      공백문자가 아닌 나머지 문자                     \\w      알파벳이나 숫자                     \\W      알파벳이나 숫자를 제외한 문자                     \\d      숫자 [0-9]와 동일                     \\D      숫자를 제외한 모든 문자                     | 정규표현식 역슬래시는 확장 문자                            (?!)      앞 부분에 (?!)를 넣어 대소문자 구분하지 않음             ",
+        
+        "url": "/dv/concept/2021/06/12/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A0%95%EB%A6%AC.html"
+      }
+      ,
+    
+      "book-think-2021-06-12-log-01-210612-html": {
+        "title": "01: 210612",
+        "tags": "챌린지, 일기",
+        "date": "June 12, 2021",
+        "author": "",
+        "category": "Book/Think",
+        "content": "목표  ~가벼운 운동~  ~1일 1commit = 블로그로 하다니..~  ~log 작성, 배운 내용 글로 작성~  iOS 강의 1강 전체 -&gt; 실패  ~프로그래머스 2단계 2문제 다시 풀기, 3단계 1문제, 완전히 이해했을 때 글적기~  ~컴투스 시험~  ~블로그 자기소개 변경~  시험 공부 계획 -&gt; 내일로 미룬다.Logs  정규표현식을 배웠다. 맨날 미루다가 해봤는데 이거 정말 좋다. 너무 좋다. 매일 관련 문제를 푸는 것을 목표로 한다.  알고리즘은 여전히 어렵다. 다른 사람의 코드를 꼭 리뷰하는 습관을 가져야 겠다. 그리고 2단계 문제를 반복적으로 풀어서 어떤 코드가 가장 좋은지, 사고방식을 좀 배워야 겠다. 근데 사고방식이 그냥 따라하자에 가까워서 3단계를 꼭 풀어봐야 할듯..  SQL 문제와 CS, ML문제가 나오더라. ML은 이제 그렇다 쳐도 SQL, CS 정도는 제대로 잡아둬야 할 것 같다. SQL 문제 역시 계속해서 풀어줘야 할 것 같다.  운동을 오늘도 못했다. 어떻게 해야 의지가 생길까?  이렇게 하자. 내가 보기에 운동이랑 씻고 그런 것을 못하는 이유는 오늘 할일을 다 끝내야한다는 생각이 있기 때문이다. 우선순위에서 밀리는 거지. 그러면 그걸 다하고 하도록 하자. 우선순위에서 아웃이다.잡담판교뚜벅초 너무 재밌다..",
+        
+        "url": "/book/think/2021/06/12/log-01-210612.html"
+      }
+      ,
+    
+      "dv-swift-2021-06-11-ios-boostcourse-01-ec-9d-8c-ec-9b-90-ec-9e-ac-ec-83-9d-ea-b8-b0-html": {
+        "title": "01: 음원 재생기",
+        "tags": "Swift, Intermediate",
+        "date": "June 11, 2021",
+        "author": "",
+        "category": "DV/Swift",
+        "content": "{. center}project sample배울 내용  Xcode 사용법          프로젝트 생성 및 코드작성      인터페이스 빌더를 활용한 UI 구성      유용한 단축키        UIKit 요소          UILabel      UIButton      UISlider        프레임워크          UIKit      AVFoundation        기술요소          Auto Layout        Design Pattern          Model-View-Controller Pattern        기타 개념          IBOutlet, IBAction      Assets      Bundle        Timer단축키  command + 0 : 네비게이터 영역 접기  option + command + 0 : 유틸리티 영역 접기  command 1~9 : 네이게이터 바의 영역 이동  option click : 도움말  command + shift + o : 빠르게 파일 찾아서 열기  option 키 누르고 선택 : 새창 열기Target{. center}하나의 프로젝트에 다수의 타겟이 있을 수 있다.여기서 대상(Target)이란 iOS, macOS, tvOS, watchOS를 위한 애플리케이션과 같이 빌드할 제품을 말한다.Scheme앱을 구동하기 전에, 어떤 타겟에 대한 환경을 설정할 것인지 정해줘야 한다. 위에서 말했듯 하나의 프롲게트에는 여러개의 Target이 존재할 수 있기 때문에, 각각의 target은 다른 환경 설정을 가질 수 있다. 그렇기 때문에 실제 앱이 구동되는 것을 보기 위해서는 내가 원하는 타겟과, 그에 맞는 설정파일(Scheme)을 선택해주어야 한다.{. center-verysmall}{. center-verysmall}Scheme과 Target simulator이렇게 실행할 기기를 선택할 수 있다. 시뮬레이터를 사용하면 무료이지만, 기기에서 테스트를 무료로 하려면 일주일에 한번 빌드해줘야 한다. 유료는 그런 걱정이 없다.WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 있다.{. center-small}에셋 카탈로그{. center}Assets description용어를 잘 알아두도록 하자. 카탈로그라는 말이 어색하다.{. center}Asset variations위에서 App icon을 눌렀을 떄 나오는 화면이다. 각각의 device간에 들어갈 asset이 달라진다.{. center}Asset 카탈로그의 컨텐츠에셋 카탈로그의 콘텐츠는 3가지 타입이다.  Folders : 에셋 카탈로그 폴더아래에 그룹 폴더나 에셋 폴더를 가질 수 있다. 보통은 확장자가 폴더에 붙지 않지만 에셋 카탈로그 폴더의 경우 위와 같이 특정 에셋 타입의 확장자가 자동으로 붙는다.  Json files : 속성에 대한 정보를 갖는다.  contents files : 콘텐츠 파일은 리소스 파일을 말한다.아직 이해가 어려우니 나중에 실습을 하면서 이해하자.{. center}에셋 카탈로그의 구조구조는 다음과 같다.  에셋 카탈로그 폴더 : 에셋 카탈로그 폴더 안에 모든 폴더와 파일을 가지고 있다.  그룹 폴더 : 그룹 폴더는 다른 그룹 폴더나 에셋 폴더를 갖고 있다.  에셋 폴더 : 리소스 파일을 가지고 있다.에셋 카탈로그의 타입            폴더 타입      확장자      설명                                App Icon Type      .appiconset      애플리케이션의 아이콘 입니다.              Catalog Type      .xcassets      에셋 카탈로그의 최상위 폴더입니다.                     Image Set Type      .imageset      객체들이 사용하는 이미지입니다.                     Data Set Type      .dataset      애플리케이션에서 사용되는 데이터 파일입니다.                     Launch Image Type      .launchimage      애플리케이션의 실행화면 이미지입니다.             App Thinning  애플리케이션이 디바이스에 설치될 때, 앱스토어와 운영체제가 그 디바이스의 특성에 맞게 설치하도록 하는 설치 최적화 기술을 의미한다.  설치 용량 최소화, 다운로드 속도 향상  이 기술의 구성 요소는 슬라이싱, 비트코드, On demand resource가 있다.Slicing{. center}slicing 매커니즘  애플리케이션이 지원하는 다양한 디바이스에 대한 여러 조각의 애플리케이션 번들을 생성하고, 디바이스에 알맞는 조각을 전달하는 기술이다.  개발자가 애플리케이션 전체 버전을 ITunes Connect에 업로드하면, 앱스토어에서 각 디바이스 특성에 맞는 다양한 버전의 조각들을 생성한다.  사용자가 이제 애플리케이션을 설치할 때, 이 슬라이싱 된 조각들중 디바이스에 가장 적합한 조각을 다운로드한다.IBOutlet 변수 이름 바꾸기  해당 변수 클릭  오른쪽 클릭  Refactor  RenameIBAction 이해  UIKit          UIControl                  UIButton          UISwitch          UIStepper          etc                    이렇게 다양한 UIControl 객체를 상속받은 클래스들이 있다. 이 컨트롤 객체에서 발생한 이벤트를 내가 정의한 함수를 콜하게 할 수 있다. 즉 컨트롤 객체에서 이벤트가 발생할 경우, 내가 지정해둔 액션을 호출할 수 있게 할 수 있다는 것.이벤트의 종류외울 수는 없지만 한번씩 읽어보자. 나중에 찾아보고.touchDown컨트롤을 터치했을 때 발생하는 이벤트UIControl.Event.touchDowntouchDownRepeat컨트롤을 연속 터치 할 때 발생하는 이벤트UIControl.Event.touchDownRepeattouchDragInside컨트롤 범위 내에서 터치한 영역을 드래그 할 때 발생하는 이벤트UIControl.Event.touchDragInsidetouchDragOutside터치 영역이 컨트롤의 바깥쪽에서 드래그 할 때 발생하는 이벤트UIControl.Event.touchDragOutsidetouchDragEnter터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔다가 다시 들어왔을 때 발생하는 이벤트UIControl.Event.touchDragEntertouchDragExit터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔을 때 발생하는 이벤트UIControl.Event.touchDragExittouchUpInside컨트롤 영역 안쪽에서 터치 후 뗐을때 발생하는 이벤트UIControl.Event.touchUpInsidetouchUpOutside컨트롤 영역 안쪽에서 터치 후 컨트롤 밖에서 뗐을때 이벤트UIControl.Event.touchUpOutsidetouchCancel터치를 취소하는 이벤트 (touchUp 이벤트가 발생되지 않음)UIControl.Event.touchCancelvalueChanged터치를 드래그 및 다른 방법으로 조작하여 값이 변경되었을때 발생하는 이벤트UIControl.Event.valueChangedprimaryActionTriggered버튼이 눌릴때 발생하는 이벤트 (iOS보다는 tvOS에서 사용)UIControl.Event.primaryActionTriggerededitingDidBeginUITextField에서 편집이 시작될 때 호출되는 이벤트UIControl.Event.editingDidBegineditingChangedUITextField에서 값이 바뀔 때마다 호출되는 이벤트UIControl.Event.editingChangededitingDidEndUITextField에서 외부객체와의 상호작용으로 인해 편집이 종료되었을 때 발생하는 이벤트UIControl.Event.editingDidEndeditingDidEndOnExitUITextField의 편집상태에서 키보드의 return 키를 터치했을 때 발생하는 이벤트UIControl.Event.editingDidEndOnExitallTouchEvents모든 터치 이벤트UIControl.Event.allTouchEventsallEditingEventsUITextField에서 편집작업의 이벤트UIControl.Event.allEditingEventsapplicationReserved각각의 애플리케이션에서 프로그래머가 임의로 지정할 수 있는 이벤트 값의 범위UIControl.Event.applicationReservedsystemReserved프레임워크 내에서 사용하는 예약된 이벤트 값의 범위UIControl.Event.systemReservedallEvents시스템 이벤트를 포함한 모든 이벤트UIControl.Event.allEvents",
+        
+        "url": "/dv/swift/2021/06/11/iOS-BoostCourse-01-%EC%9D%8C%EC%9B%90%EC%9E%AC%EC%83%9D%EA%B8%B0.html"
+      }
+      ,
+    
+      "dv-swift-2021-06-11-ios-boostcourse-01-ec-9d-8c-ec-9b-90-ec-9e-ac-ec-83-9d-ea-b8-b0-copy-html": {
+        "title": "01: 음원 재생기",
+        "tags": "Swift, Intermediate",
+        "date": "June 11, 2021",
+        "author": "",
+        "category": "DV/Swift",
+        "content": "{. center}project sample배울 내용  Xcode 사용법          프로젝트 생성 및 코드작성      인터페이스 빌더를 활용한 UI 구성      유용한 단축키        UIKit 요소          UILabel      UIButton      UISlider        프레임워크          UIKit      AVFoundation        기술요소          Auto Layout        Design Pattern          Model-View-Controller Pattern        기타 개념          IBOutlet, IBAction      Assets      Bundle        Timer단축키  command + 0 : 네비게이터 영역 접기  option + command + 0 : 유틸리티 영역 접기  command 1~9 : 네이게이터 바의 영역 이동  option click : 도움말  command + shift + o : 빠르게 파일 찾아서 열기  option 키 누르고 선택 : 새창 열기Target{. center}하나의 프로젝트에 다수의 타겟이 있을 수 있다.여기서 대상(Target)이란 iOS, macOS, tvOS, watchOS를 위한 애플리케이션과 같이 빌드할 제품을 말한다.Scheme앱을 구동하기 전에, 어떤 타겟에 대한 환경을 설정할 것인지 정해줘야 한다. 위에서 말했듯 하나의 프롲게트에는 여러개의 Target이 존재할 수 있기 때문에, 각각의 target은 다른 환경 설정을 가질 수 있다. 그렇기 때문에 실제 앱이 구동되는 것을 보기 위해서는 내가 원하는 타겟과, 그에 맞는 설정파일(Scheme)을 선택해주어야 한다.{. center-verysmall}{. center-verysmall}Scheme과 Target simulator이렇게 실행할 기기를 선택할 수 있다. 시뮬레이터를 사용하면 무료이지만, 기기에서 테스트를 무료로 하려면 일주일에 한번 빌드해줘야 한다. 유료는 그런 걱정이 없다.WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 있다.{. center-small}에셋 카탈로그{. center}Assets description용어를 잘 알아두도록 하자. 카탈로그라는 말이 어색하다.{. center}Asset variations위에서 App icon을 눌렀을 떄 나오는 화면이다. 각각의 device간에 들어갈 asset이 달라진다.{. center}Asset 카탈로그의 컨텐츠에셋 카탈로그의 콘텐츠는 3가지 타입이다.  Folders : 에셋 카탈로그 폴더아래에 그룹 폴더나 에셋 폴더를 가질 수 있다. 보통은 확장자가 폴더에 붙지 않지만 에셋 카탈로그 폴더의 경우 위와 같이 특정 에셋 타입의 확장자가 자동으로 붙는다.  Json files : 속성에 대한 정보를 갖는다.  contents files : 콘텐츠 파일은 리소스 파일을 말한다.아직 이해가 어려우니 나중에 실습을 하면서 이해하자.{. center}에셋 카탈로그의 구조구조는 다음과 같다.  에셋 카탈로그 폴더 : 에셋 카탈로그 폴더 안에 모든 폴더와 파일을 가지고 있다.  그룹 폴더 : 그룹 폴더는 다른 그룹 폴더나 에셋 폴더를 갖고 있다.  에셋 폴더 : 리소스 파일을 가지고 있다.에셋 카탈로그의 타입            폴더 타입      확장자      설명                                App Icon Type      .appiconset      애플리케이션의 아이콘 입니다.              Catalog Type      .xcassets      에셋 카탈로그의 최상위 폴더입니다.                     Image Set Type      .imageset      객체들이 사용하는 이미지입니다.                     Data Set Type      .dataset      애플리케이션에서 사용되는 데이터 파일입니다.                     Launch Image Type      .launchimage      애플리케이션의 실행화면 이미지입니다.             App Thinning  애플리케이션이 디바이스에 설치될 때, 앱스토어와 운영체제가 그 디바이스의 특성에 맞게 설치하도록 하는 설치 최적화 기술을 의미한다.  설치 용량 최소화, 다운로드 속도 향상  이 기술의 구성 요소는 슬라이싱, 비트코드, On demand resource가 있다.Slicing{. center}slicing 매커니즘  애플리케이션이 지원하는 다양한 디바이스에 대한 여러 조각의 애플리케이션 번들을 생성하고, 디바이스에 알맞는 조각을 전달하는 기술이다.  개발자가 애플리케이션 전체 버전을 ITunes Connect에 업로드하면, 앱스토어에서 각 디바이스 특성에 맞는 다양한 버전의 조각들을 생성한다.  사용자가 이제 애플리케이션을 설치할 때, 이 슬라이싱 된 조각들중 디바이스에 가장 적합한 조각을 다운로드한다.IBOutlet 변수 이름 바꾸기  해당 변수 클릭  오른쪽 클릭  Refactor  RenameIBAction 이해  UIKit          UIControl                  UIButton          UISwitch          UIStepper          etc                    이렇게 다양한 UIControl 객체를 상속받은 클래스들이 있다. 이 컨트롤 객체에서 발생한 이벤트를 내가 정의한 함수를 콜하게 할 수 있다. 즉 컨트롤 객체에서 이벤트가 발생할 경우, 내가 지정해둔 액션을 호출할 수 있게 할 수 있다는 것.이벤트의 종류외울 수는 없지만 한번씩 읽어보자. 나중에 찾아보고.touchDown컨트롤을 터치했을 때 발생하는 이벤트UIControl.Event.touchDowntouchDownRepeat컨트롤을 연속 터치 할 때 발생하는 이벤트UIControl.Event.touchDownRepeattouchDragInside컨트롤 범위 내에서 터치한 영역을 드래그 할 때 발생하는 이벤트UIControl.Event.touchDragInsidetouchDragOutside터치 영역이 컨트롤의 바깥쪽에서 드래그 할 때 발생하는 이벤트UIControl.Event.touchDragOutsidetouchDragEnter터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔다가 다시 들어왔을 때 발생하는 이벤트UIControl.Event.touchDragEntertouchDragExit터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔을 때 발생하는 이벤트UIControl.Event.touchDragExittouchUpInside컨트롤 영역 안쪽에서 터치 후 뗐을때 발생하는 이벤트UIControl.Event.touchUpInsidetouchUpOutside컨트롤 영역 안쪽에서 터치 후 컨트롤 밖에서 뗐을때 이벤트UIControl.Event.touchUpOutsidetouchCancel터치를 취소하는 이벤트 (touchUp 이벤트가 발생되지 않음)UIControl.Event.touchCancelvalueChanged터치를 드래그 및 다른 방법으로 조작하여 값이 변경되었을때 발생하는 이벤트UIControl.Event.valueChangedprimaryActionTriggered버튼이 눌릴때 발생하는 이벤트 (iOS보다는 tvOS에서 사용)UIControl.Event.primaryActionTriggerededitingDidBeginUITextField에서 편집이 시작될 때 호출되는 이벤트UIControl.Event.editingDidBegineditingChangedUITextField에서 값이 바뀔 때마다 호출되는 이벤트UIControl.Event.editingChangededitingDidEndUITextField에서 외부객체와의 상호작용으로 인해 편집이 종료되었을 때 발생하는 이벤트UIControl.Event.editingDidEndeditingDidEndOnExitUITextField의 편집상태에서 키보드의 return 키를 터치했을 때 발생하는 이벤트UIControl.Event.editingDidEndOnExitallTouchEvents모든 터치 이벤트UIControl.Event.allTouchEventsallEditingEventsUITextField에서 편집작업의 이벤트UIControl.Event.allEditingEventsapplicationReserved각각의 애플리케이션에서 프로그래머가 임의로 지정할 수 있는 이벤트 값의 범위UIControl.Event.applicationReservedsystemReserved프레임워크 내에서 사용하는 예약된 이벤트 값의 범위UIControl.Event.systemReservedallEvents시스템 이벤트를 포함한 모든 이벤트UIControl.Event.allEvents",
+        
+        "url": "/dv/swift/2021/06/11/iOS-BoostCourse-01-%EC%9D%8C%EC%9B%90%EC%9E%AC%EC%83%9D%EA%B8%B0-copy.html"
+      }
+      ,
+    
+      "dv-swift-2021-06-04-swift-01-ec-96-b8-ec-96-b4-ec-9d-b4-ed-95-b4-html": {
+        "title": "01: 언어 이해",
+        "tags": "Swift, Intermediate",
+        "date": "June 4, 2021",
+        "author": "",
+        "category": "DV/Swift",
+        "content": "Style Guideraywenderlich.com 공식 Swift 스타일 가이드Swift Naming GuideReferenceSmileHan",
+        
+        "url": "/dv/swift/2021/06/04/swift-01-%EC%96%B8%EC%96%B4-%EC%9D%B4%ED%95%B4.html"
+      }
+      ,
     
       "cs-algorithm-2021-06-04-ed-94-84-eb-a1-9c-ea-b7-b8-eb-9e-98-eb-a8-b8-ec-8a-a4-12-ec-8a-a4-ed-83-80-ec-88-98-ec-97-b4-html": {
         "title": "12: 스타 수열",

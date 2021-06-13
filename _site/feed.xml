@@ -6,9 +6,982 @@
     <author>wansook0316@gmail.com</author>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 04 Jun 2021 14:36:02 +0900</pubDate>
-    <lastBuildDate>Fri, 04 Jun 2021 14:36:02 +0900</lastBuildDate>
+    <pubDate>Sun, 13 Jun 2021 16:22:28 +0900</pubDate>
+    <lastBuildDate>Sun, 13 Jun 2021 16:22:28 +0900</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title> [6개월 iOS 개발자 챌린지] 02: 210613</title>
+        <description> 210613 일요일의 기록 : &lt;h1 id=&quot;목표&quot;&gt;목표&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;~&lt;del&gt;방 옮기기&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;iOS 강의 1강 전체&lt;/li&gt;
+  &lt;li&gt;log 작성, 배운 내용 글로 작성&lt;/li&gt;
+  &lt;li&gt;1일 1commit&lt;/li&gt;
+  &lt;li&gt;시험 공부 계획 및 실행&lt;/li&gt;
+  &lt;li&gt;자소서 수정&lt;/li&gt;
+  &lt;li&gt;가벼운 운동&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;logs&quot;&gt;Logs&lt;/h1&gt;
+</description>
+        <pubDate>Sun, 13 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/book/think/2021/06/13/log-02-210613.html</link>
+        <guid isPermaLink="true">http://localhost:4000/book/think/2021/06/13/log-02-210613.html</guid>
+        
+        <category>챌린지</category>
+        
+        <category>일기</category>
+        
+        
+        <category>Book/Think</category>
+        
+      </item>
+    
+      <item>
+        <title> [Regular Expression] 자주쓰이는 정규표현식 초급 정리 - 1</title>
+        <description> 문제 풀이할 때 사용할 정규표현식을 정리한다. : &lt;p&gt;컴파일 버전은 생략하고 실전 지향적으로 간다.&lt;/p&gt;
+
+&lt;h1 id=&quot;순서&quot;&gt;순서&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;import re&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;패턴 입력&lt;/li&gt;
+  &lt;li&gt;텍스트 준비 (r””) 사용&lt;/li&gt;
+  &lt;li&gt;검색 (match, search, findall, finditer)&lt;/li&gt;
+  &lt;li&gt;각각의 메서드에 맞는 메서드 호출&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;기본-골자&quot;&gt;기본 골자&lt;/h1&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#일단 import
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ca&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 패턴 입력
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;bbbbbbcaabsacasca&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 텍스트
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;검색-메서드&quot;&gt;검색 메서드&lt;/h1&gt;
+
+&lt;h2 id=&quot;match&quot;&gt;match&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;문자열의 &lt;strong&gt;시작 부분&lt;/strong&gt;부터 매칭이 되는지 검색&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;group() : 매칭된 문자열 반환&lt;/li&gt;
+  &lt;li&gt;start() : 시작 위치&lt;/li&gt;
+  &lt;li&gt;end() : 종료 위치&lt;/li&gt;
+  &lt;li&gt;span() : 시작과 종료위치를 튜플로 반환&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;기본 객체가 MatchOB이다. 그래서 얘도 알고는 있어야 함&lt;/p&gt;
+
+&lt;h2 id=&quot;search&quot;&gt;search&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;문자열에 패턴과 매칭되는 곳이 있는지 검색&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;match와의 차이점을 알아야 하는데, 시작 부분 아니어도 검색한다. 하지만 검색되면 시작 부분을 반환한다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;text&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;aaa&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;aaaB&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Baaa&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;BBB&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;re.match(r’aaa’, text)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;O&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;O&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;X&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;re.search(r’aaa’, text)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;O&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;O&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;O&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;X&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#일단 import
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ca&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 패턴 입력
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;bbbbbbcaabsacasca&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 텍스트
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 매칭된 문자열 # ca
+&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# 매칭된 문자열 시작 위치 # 0
+&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# 매칭된 문자열 종료 위치 # 2
+&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchOB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 매칭된 문자열 시작,종료 위치 # (0, 2)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;findall&quot;&gt;findall&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;정규식과 매치되는 모든 문자열을 리스트로 반환&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ca&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;caabsacasca&quot;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 매칭된 값은 리스트로 모두 반환
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchedList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matchedList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matchedList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# ['ca', 'ca', 'ca']
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;sub&quot;&gt;sub&lt;/h2&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'\d{4}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'XXXX'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'010-1234-5678'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 010-XXXX-XXXX
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정규 표현식에 맞는 표현을 변환할 수 있다. 복잡할수록 좋겠지? 그리고 {}는 범위 혹은 개수를 나타낸다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Gorio, Gorio, Gorio keep a straight face.'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Gorio'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Ryan'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Ryan, Ryan, Gorio keep a straight face.
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;개수까지 지정할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;문자열&quot;&gt;문자열&lt;/h3&gt;
+&lt;p&gt;사실 sub는 문자열을 제거하는 용도로 많이 사용한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[^0-9a-zA-Z]+'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;&amp;lt;html lang=&quot;ko&quot; xml:lang=&quot;ko&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+  &amp;lt;meta property=&quot;og:url&quot; content=&quot;https://www.kakaocorp.com&quot;/&amp;gt;
+&amp;lt;/head&amp;gt;  
+&amp;lt;body&amp;gt;
+con%    muzI92apeach&amp;amp;2&amp;lt;a href=&quot;https://hashcode.co.kr/tos&quot;&amp;gt;&amp;lt;/a&amp;gt;
+
+    ^
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;matchedList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;matchedList&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;이렇게 하면 모든 문자를 찾을 수 있다. 그런데 여기서 이렇게 변경하면,&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[^0-9a-zA-Z]+'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;&amp;lt;html lang=&quot;ko&quot; xml:lang=&quot;ko&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+  &amp;lt;meta property=&quot;og:url&quot; content=&quot;https://www.kakaocorp.com&quot;/&amp;gt;
+&amp;lt;/head&amp;gt;  
+&amp;lt;body&amp;gt;
+con%    muzI92apeach&amp;amp;2&amp;lt;a href=&quot;https://hashcode.co.kr/tos&quot;&amp;gt;&amp;lt;/a&amp;gt;
+
+    ^
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&quot;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;matched&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;matched&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; html lang ko xml lang ko xmlns http www w3 org 1999 xhtml head meta charset utf 8 meta property og url content https www kakaocorp com head body con muzI92apeach 2 a href https hashcode co kr tos a body html 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이와 같이 숫자, 알파벳이 아닌 모든 요소에 대해 값을 제거할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;subn&quot;&gt;subn&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Gorio, Gorio, Gorio keep a straight face.'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Gorio'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Ryan'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# ('Ryan, Ryan, Gorio keep a straight face.', 2)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;값을 튜플로 리턴해준다.&lt;/p&gt;
+
+&lt;h1 id=&quot;정규-표현식-패턴&quot;&gt;정규 표현식 패턴&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;표현식&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;^&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 시작&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;$&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자열의 종료&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;임의의 한 문자&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;*&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;앞문자가 없을 수도 무한정 많을 수도 있음&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;+&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;앞 문자가 하나 이상&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;?&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;앞 문자가 없거나 하나 있음&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;[]&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;문자의 집합이나 범위를 나타냄, 두 문자사이는 -로 범위를 나타냄&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;{}&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;횟수 또는 범위를 나타냄&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;소괄호 안의 문자를 하나의 문자로 인식&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&amp;lt;p&amp;gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&amp;lt;/p&amp;gt;&lt;/td&gt;
+      &lt;td&gt;패턴안에서 or 연산을 수행&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;공백문자&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\S&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;공백문자가 아닌 나머지 문자&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\w&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;알파벳이나 숫자&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\W&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;알파벳이나 숫자를 제외한 문자&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\d&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;숫자 [0-9]와 동일&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;\D&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;숫자를 제외한 모든 문자&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;| 정규표현식 역슬래시는 확장 문자&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;(?!)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;앞 부분에 (?!)를 넣어 대소문자 구분하지 않음&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+</description>
+        <pubDate>Sat, 12 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/concept/2021/06/12/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A0%95%EB%A6%AC.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/concept/2021/06/12/%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D-%EC%A0%95%EB%A6%AC.html</guid>
+        
+        <category>Concept</category>
+        
+        <category>정규표현식</category>
+        
+        <category>sub</category>
+        
+        <category>subn</category>
+        
+        
+        <category>DV/Concept</category>
+        
+      </item>
+    
+      <item>
+        <title> [6개월 iOS 개발자 챌린지] 01: 210612</title>
+        <description> 210612 토요일의 기록 : &lt;h1 id=&quot;목표&quot;&gt;목표&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;~&lt;del&gt;가벼운 운동&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;~&lt;del&gt;1일 1commit = 블로그로 하다니..&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;~&lt;del&gt;log 작성, 배운 내용 글로 작성&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;iOS 강의 1강 전체 -&amp;gt; 실패&lt;/li&gt;
+  &lt;li&gt;~&lt;del&gt;프로그래머스 2단계 2문제 다시 풀기, 3단계 1문제, 완전히 이해했을 때 글적기&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;~&lt;del&gt;컴투스 시험&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;~&lt;del&gt;블로그 자기소개 변경&lt;/del&gt;~&lt;/li&gt;
+  &lt;li&gt;시험 공부 계획 -&amp;gt; 내일로 미룬다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;logs&quot;&gt;Logs&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;정규표현식을 배웠다. 맨날 미루다가 해봤는데 이거 정말 좋다. 너무 좋다. 매일 관련 문제를 푸는 것을 목표로 한다.&lt;/li&gt;
+  &lt;li&gt;알고리즘은 여전히 어렵다. 다른 사람의 코드를 꼭 리뷰하는 습관을 가져야 겠다. 그리고 2단계 문제를 반복적으로 풀어서 어떤 코드가 가장 좋은지, 사고방식을 좀 배워야 겠다. 근데 사고방식이 그냥 따라하자에 가까워서 3단계를 꼭 풀어봐야 할듯..&lt;/li&gt;
+  &lt;li&gt;SQL 문제와 CS, ML문제가 나오더라. ML은 이제 그렇다 쳐도 SQL, CS 정도는 제대로 잡아둬야 할 것 같다. SQL 문제 역시 계속해서 풀어줘야 할 것 같다.&lt;/li&gt;
+  &lt;li&gt;운동을 오늘도 못했다. 어떻게 해야 의지가 생길까?&lt;/li&gt;
+  &lt;li&gt;이렇게 하자. 내가 보기에 운동이랑 씻고 그런 것을 못하는 이유는 오늘 할일을 다 끝내야한다는 생각이 있기 때문이다. 우선순위에서 밀리는 거지. 그러면 그걸 다하고 하도록 하자. 우선순위에서 아웃이다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;잡담&quot;&gt;잡담&lt;/h1&gt;
+
+&lt;p&gt;판교뚜벅초 너무 재밌다..&lt;/p&gt;
+</description>
+        <pubDate>Sat, 12 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/book/think/2021/06/12/log-01-210612.html</link>
+        <guid isPermaLink="true">http://localhost:4000/book/think/2021/06/12/log-01-210612.html</guid>
+        
+        <category>챌린지</category>
+        
+        <category>일기</category>
+        
+        
+        <category>Book/Think</category>
+        
+      </item>
+    
+      <item>
+        <title> [iOS BoostCourse] 01: 음원 재생기</title>
+        <description> 음원 재생기를 제작해보자. : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121643239-8e089b80-cacc-11eb-922e-1b16fd4663b4.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;project sample&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;배울-내용&quot;&gt;배울 내용&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Xcode 사용법
+    &lt;ul&gt;
+      &lt;li&gt;프로젝트 생성 및 코드작성&lt;/li&gt;
+      &lt;li&gt;인터페이스 빌더를 활용한 UI 구성&lt;/li&gt;
+      &lt;li&gt;유용한 단축키&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;UIKit 요소
+    &lt;ul&gt;
+      &lt;li&gt;UILabel&lt;/li&gt;
+      &lt;li&gt;UIButton&lt;/li&gt;
+      &lt;li&gt;UISlider&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;프레임워크
+    &lt;ul&gt;
+      &lt;li&gt;UIKit&lt;/li&gt;
+      &lt;li&gt;AVFoundation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;기술요소
+    &lt;ul&gt;
+      &lt;li&gt;Auto Layout&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Design Pattern
+    &lt;ul&gt;
+      &lt;li&gt;Model-View-Controller Pattern&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;기타 개념
+    &lt;ul&gt;
+      &lt;li&gt;IBOutlet, IBAction&lt;/li&gt;
+      &lt;li&gt;Assets&lt;/li&gt;
+      &lt;li&gt;Bundle&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Timer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;단축키&quot;&gt;단축키&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;command + 0 : 네비게이터 영역 접기&lt;/li&gt;
+  &lt;li&gt;option + command + 0 : 유틸리티 영역 접기&lt;/li&gt;
+  &lt;li&gt;command 1~9 : 네이게이터 바의 영역 이동&lt;/li&gt;
+  &lt;li&gt;option click : 도움말&lt;/li&gt;
+  &lt;li&gt;command + shift + o : 빠르게 파일 찾아서 열기&lt;/li&gt;
+  &lt;li&gt;option 키 누르고 선택 : 새창 열기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;target&quot;&gt;Target&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121644954-9d88e400-cace-11eb-95e3-77743eb9d872.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;하나의 프로젝트에 다수의 타겟이 있을 수 있다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 대상(Target)이란 iOS, macOS, tvOS, watchOS를 위한 애플리케이션과 같이 빌드할 제품을 말한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;scheme&quot;&gt;Scheme&lt;/h1&gt;
+
+&lt;p&gt;앱을 구동하기 전에, 어떤 타겟에 대한 환경을 설정할 것인지 정해줘야 한다. 위에서 말했듯 하나의 프롲게트에는 여러개의 Target이 존재할 수 있기 때문에, 각각의 target은 다른 환경 설정을 가질 수 있다. 그렇기 때문에 실제 앱이 구동되는 것을 보기 위해서는 내가 원하는 타겟과, 그에 맞는 설정파일(Scheme)을 선택해주어야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121645245-ee004180-cace-11eb-901b-0ae4b542c511.png&quot; alt=&quot;image&quot; /&gt;{. center-verysmall}
+&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121645530-433c5300-cacf-11eb-86f9-43131bec6fc6.png&quot; alt=&quot;image&quot; /&gt;{. center-verysmall}&lt;em&gt;Scheme과 Target simulator&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 실행할 기기를 선택할 수 있다. 시뮬레이터를 사용하면 무료이지만, 기기에서 테스트를 무료로 하려면 일주일에 한번 빌드해줘야 한다. 유료는 그런 걱정이 없다.&lt;/p&gt;
+
+&lt;p&gt;WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121645930-b8a82380-cacf-11eb-87d8-3e6747a78c60.png&quot; alt=&quot;image&quot; /&gt;{. center-small}&lt;/p&gt;
+
+&lt;h1 id=&quot;에셋-카탈로그&quot;&gt;에셋 카탈로그&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121771979-971d6980-cbad-11eb-90bd-965ff52ef280.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;Assets description&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;용어를 잘 알아두도록 하자. 카탈로그라는 말이 어색하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121772301-866df300-cbaf-11eb-8428-f129cec9d87e.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;Asset variations&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위에서 App icon을 눌렀을 떄 나오는 화면이다. 각각의 device간에 들어갈 asset이 달라진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121797497-85929b00-cc5b-11eb-8091-20a1b1ac6807.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;Asset 카탈로그의 컨텐츠&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;에셋 카탈로그의 &lt;strong&gt;콘텐츠&lt;/strong&gt;는 3가지 타입이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Folders : 에셋 카탈로그 폴더아래에 그룹 폴더나 에셋 폴더를 가질 수 있다. 보통은 확장자가 폴더에 붙지 않지만 에셋 카탈로그 폴더의 경우 위와 같이 특정 에셋 타입의 확장자가 자동으로 붙는다.&lt;/li&gt;
+  &lt;li&gt;Json files : 속성에 대한 정보를 갖는다.&lt;/li&gt;
+  &lt;li&gt;contents files : 콘텐츠 파일은 리소스 파일을 말한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아직 이해가 어려우니 나중에 실습을 하면서 이해하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121797574-005bb600-cc5c-11eb-8f7f-6aa17f129599.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;에셋 카탈로그의 구조&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;구조는 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;에셋 카탈로그 폴더 : 에셋 카탈로그 폴더 안에 모든 폴더와 파일을 가지고 있다.&lt;/li&gt;
+  &lt;li&gt;그룹 폴더 : 그룹 폴더는 다른 그룹 폴더나 에셋 폴더를 갖고 있다.&lt;/li&gt;
+  &lt;li&gt;에셋 폴더 : 리소스 파일을 가지고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;에셋-카탈로그의-타입&quot;&gt;에셋 카탈로그의 타입&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;폴더 타입&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;확장자&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;App Icon Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.appiconset&lt;/td&gt;
+      &lt;td&gt;애플리케이션의 아이콘 입니다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Catalog Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.xcassets&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;에셋 카탈로그의 최상위 폴더입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Image Set Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.imageset&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;객체들이 사용하는 이미지입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Data Set Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.dataset&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;애플리케이션에서 사용되는 데이터 파일입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Launch Image Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.launchimage&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;애플리케이션의 실행화면 이미지입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;app-thinning&quot;&gt;App Thinning&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;애플리케이션이 디바이스에 설치될 때, 앱스토어와 운영체제가 그 디바이스의 특성에 맞게 설치하도록 하는 설치 최적화 기술을 의미한다.&lt;/li&gt;
+  &lt;li&gt;설치 용량 최소화, 다운로드 속도 향상&lt;/li&gt;
+  &lt;li&gt;이 기술의 구성 요소는 슬라이싱, 비트코드, On demand resource가 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;slicing&quot;&gt;Slicing&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121797722-043c0800-cc5d-11eb-96fb-2a4c04fbf195.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;slicing 매커니즘&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;애플리케이션이 지원하는 다양한 디바이스에 대한 여러 조각의 애플리케이션 번들을 생성하고, 디바이스에 알맞는 조각을 전달하는 기술이다.&lt;/li&gt;
+  &lt;li&gt;개발자가 애플리케이션 전체 버전을 ITunes Connect에 업로드하면, 앱스토어에서 각 디바이스 특성에 맞는 다양한 버전의 조각들을 생성한다.&lt;/li&gt;
+  &lt;li&gt;사용자가 이제 애플리케이션을 설치할 때, 이 슬라이싱 된 조각들중 디바이스에 가장 적합한 조각을 다운로드한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;iboutlet-변수-이름-바꾸기&quot;&gt;IBOutlet 변수 이름 바꾸기&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;해당 변수 클릭&lt;/li&gt;
+  &lt;li&gt;오른쪽 클릭&lt;/li&gt;
+  &lt;li&gt;Refactor&lt;/li&gt;
+  &lt;li&gt;Rename&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;ibaction-이해&quot;&gt;IBAction 이해&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UIKit
+    &lt;ul&gt;
+      &lt;li&gt;UIControl
+        &lt;ul&gt;
+          &lt;li&gt;UIButton&lt;/li&gt;
+          &lt;li&gt;UISwitch&lt;/li&gt;
+          &lt;li&gt;UIStepper&lt;/li&gt;
+          &lt;li&gt;etc&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이렇게 다양한 UIControl 객체를 상속받은 클래스들이 있다. 이 컨트롤 객체에서 발생한 이벤트를 내가 정의한 함수를 콜하게 할 수 있다. 즉 컨트롤 객체에서 이벤트가 발생할 경우, 내가 지정해둔 액션을 호출할 수 있게 할 수 있다는 것.&lt;/p&gt;
+
+&lt;h2 id=&quot;이벤트의-종류&quot;&gt;이벤트의 종류&lt;/h2&gt;
+
+&lt;p&gt;외울 수는 없지만 한번씩 읽어보자. 나중에 찾아보고.&lt;/p&gt;
+
+&lt;p&gt;touchDown
+컨트롤을 터치했을 때 발생하는 이벤트
+UIControl.Event.touchDown&lt;/p&gt;
+
+&lt;p&gt;touchDownRepeat
+컨트롤을 연속 터치 할 때 발생하는 이벤트
+UIControl.Event.touchDownRepeat&lt;/p&gt;
+
+&lt;p&gt;touchDragInside
+컨트롤 범위 내에서 터치한 영역을 드래그 할 때 발생하는 이벤트
+UIControl.Event.touchDragInside&lt;/p&gt;
+
+&lt;p&gt;touchDragOutside
+터치 영역이 컨트롤의 바깥쪽에서 드래그 할 때 발생하는 이벤트
+UIControl.Event.touchDragOutside&lt;/p&gt;
+
+&lt;p&gt;touchDragEnter
+터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔다가 다시 들어왔을 때 발생하는 이벤트
+UIControl.Event.touchDragEnter&lt;/p&gt;
+
+&lt;p&gt;touchDragExit
+터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔을 때 발생하는 이벤트
+UIControl.Event.touchDragExit&lt;/p&gt;
+
+&lt;p&gt;touchUpInside
+컨트롤 영역 안쪽에서 터치 후 뗐을때 발생하는 이벤트
+UIControl.Event.touchUpInside&lt;/p&gt;
+
+&lt;p&gt;touchUpOutside
+컨트롤 영역 안쪽에서 터치 후 컨트롤 밖에서 뗐을때 이벤트
+UIControl.Event.touchUpOutside&lt;/p&gt;
+
+&lt;p&gt;touchCancel
+터치를 취소하는 이벤트 (touchUp 이벤트가 발생되지 않음)
+UIControl.Event.touchCancel&lt;/p&gt;
+
+&lt;p&gt;valueChanged
+터치를 드래그 및 다른 방법으로 조작하여 값이 변경되었을때 발생하는 이벤트
+UIControl.Event.valueChanged&lt;/p&gt;
+
+&lt;p&gt;primaryActionTriggered
+버튼이 눌릴때 발생하는 이벤트 (iOS보다는 tvOS에서 사용)
+UIControl.Event.primaryActionTriggered&lt;/p&gt;
+
+&lt;p&gt;editingDidBegin
+UITextField에서 편집이 시작될 때 호출되는 이벤트
+UIControl.Event.editingDidBegin&lt;/p&gt;
+
+&lt;p&gt;editingChanged
+UITextField에서 값이 바뀔 때마다 호출되는 이벤트
+UIControl.Event.editingChanged&lt;/p&gt;
+
+&lt;p&gt;editingDidEnd
+UITextField에서 외부객체와의 상호작용으로 인해 편집이 종료되었을 때 발생하는 이벤트
+UIControl.Event.editingDidEnd&lt;/p&gt;
+
+&lt;p&gt;editingDidEndOnExit
+UITextField의 편집상태에서 키보드의 return 키를 터치했을 때 발생하는 이벤트
+UIControl.Event.editingDidEndOnExit&lt;/p&gt;
+
+&lt;p&gt;allTouchEvents
+모든 터치 이벤트
+UIControl.Event.allTouchEvents&lt;/p&gt;
+
+&lt;p&gt;allEditingEvents
+UITextField에서 편집작업의 이벤트
+UIControl.Event.allEditingEvents&lt;/p&gt;
+
+&lt;p&gt;applicationReserved
+각각의 애플리케이션에서 프로그래머가 임의로 지정할 수 있는 이벤트 값의 범위
+UIControl.Event.applicationReserved&lt;/p&gt;
+
+&lt;p&gt;systemReserved
+프레임워크 내에서 사용하는 예약된 이벤트 값의 범위
+UIControl.Event.systemReserved&lt;/p&gt;
+
+&lt;p&gt;allEvents
+시스템 이벤트를 포함한 모든 이벤트
+UIControl.Event.allEvents&lt;/p&gt;
+</description>
+        <pubDate>Fri, 11 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/swift/2021/06/11/iOS-BoostCourse-01-%EC%9D%8C%EC%9B%90%EC%9E%AC%EC%83%9D%EA%B8%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/swift/2021/06/11/iOS-BoostCourse-01-%EC%9D%8C%EC%9B%90%EC%9E%AC%EC%83%9D%EA%B8%B0.html</guid>
+        
+        <category>Swift</category>
+        
+        <category>Intermediate</category>
+        
+        
+        <category>DV/Swift</category>
+        
+      </item>
+    
+      <item>
+        <title> [iOS BoostCourse] 01: 음원 재생기</title>
+        <description> 음원 재생기를 제작해보자. : &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121643239-8e089b80-cacc-11eb-922e-1b16fd4663b4.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;project sample&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;배울-내용&quot;&gt;배울 내용&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Xcode 사용법
+    &lt;ul&gt;
+      &lt;li&gt;프로젝트 생성 및 코드작성&lt;/li&gt;
+      &lt;li&gt;인터페이스 빌더를 활용한 UI 구성&lt;/li&gt;
+      &lt;li&gt;유용한 단축키&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;UIKit 요소
+    &lt;ul&gt;
+      &lt;li&gt;UILabel&lt;/li&gt;
+      &lt;li&gt;UIButton&lt;/li&gt;
+      &lt;li&gt;UISlider&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;프레임워크
+    &lt;ul&gt;
+      &lt;li&gt;UIKit&lt;/li&gt;
+      &lt;li&gt;AVFoundation&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;기술요소
+    &lt;ul&gt;
+      &lt;li&gt;Auto Layout&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Design Pattern
+    &lt;ul&gt;
+      &lt;li&gt;Model-View-Controller Pattern&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;기타 개념
+    &lt;ul&gt;
+      &lt;li&gt;IBOutlet, IBAction&lt;/li&gt;
+      &lt;li&gt;Assets&lt;/li&gt;
+      &lt;li&gt;Bundle&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Timer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;단축키&quot;&gt;단축키&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;command + 0 : 네비게이터 영역 접기&lt;/li&gt;
+  &lt;li&gt;option + command + 0 : 유틸리티 영역 접기&lt;/li&gt;
+  &lt;li&gt;command 1~9 : 네이게이터 바의 영역 이동&lt;/li&gt;
+  &lt;li&gt;option click : 도움말&lt;/li&gt;
+  &lt;li&gt;command + shift + o : 빠르게 파일 찾아서 열기&lt;/li&gt;
+  &lt;li&gt;option 키 누르고 선택 : 새창 열기&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;target&quot;&gt;Target&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121644954-9d88e400-cace-11eb-95e3-77743eb9d872.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;하나의 프로젝트에 다수의 타겟이 있을 수 있다.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 대상(Target)이란 iOS, macOS, tvOS, watchOS를 위한 애플리케이션과 같이 빌드할 제품을 말한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;scheme&quot;&gt;Scheme&lt;/h1&gt;
+
+&lt;p&gt;앱을 구동하기 전에, 어떤 타겟에 대한 환경을 설정할 것인지 정해줘야 한다. 위에서 말했듯 하나의 프롲게트에는 여러개의 Target이 존재할 수 있기 때문에, 각각의 target은 다른 환경 설정을 가질 수 있다. 그렇기 때문에 실제 앱이 구동되는 것을 보기 위해서는 내가 원하는 타겟과, 그에 맞는 설정파일(Scheme)을 선택해주어야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121645245-ee004180-cace-11eb-901b-0ae4b542c511.png&quot; alt=&quot;image&quot; /&gt;{. center-verysmall}
+&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121645530-433c5300-cacf-11eb-86f9-43131bec6fc6.png&quot; alt=&quot;image&quot; /&gt;{. center-verysmall}&lt;em&gt;Scheme과 Target simulator&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 실행할 기기를 선택할 수 있다. 시뮬레이터를 사용하면 무료이지만, 기기에서 테스트를 무료로 하려면 일주일에 한번 빌드해줘야 한다. 유료는 그런 걱정이 없다.&lt;/p&gt;
+
+&lt;p&gt;WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121645930-b8a82380-cacf-11eb-87d8-3e6747a78c60.png&quot; alt=&quot;image&quot; /&gt;{. center-small}&lt;/p&gt;
+
+&lt;h1 id=&quot;에셋-카탈로그&quot;&gt;에셋 카탈로그&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121771979-971d6980-cbad-11eb-90bd-965ff52ef280.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;Assets description&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;용어를 잘 알아두도록 하자. 카탈로그라는 말이 어색하다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121772301-866df300-cbaf-11eb-8428-f129cec9d87e.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;Asset variations&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;위에서 App icon을 눌렀을 떄 나오는 화면이다. 각각의 device간에 들어갈 asset이 달라진다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121797497-85929b00-cc5b-11eb-8091-20a1b1ac6807.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;Asset 카탈로그의 컨텐츠&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;에셋 카탈로그의 &lt;strong&gt;콘텐츠&lt;/strong&gt;는 3가지 타입이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Folders : 에셋 카탈로그 폴더아래에 그룹 폴더나 에셋 폴더를 가질 수 있다. 보통은 확장자가 폴더에 붙지 않지만 에셋 카탈로그 폴더의 경우 위와 같이 특정 에셋 타입의 확장자가 자동으로 붙는다.&lt;/li&gt;
+  &lt;li&gt;Json files : 속성에 대한 정보를 갖는다.&lt;/li&gt;
+  &lt;li&gt;contents files : 콘텐츠 파일은 리소스 파일을 말한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;아직 이해가 어려우니 나중에 실습을 하면서 이해하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121797574-005bb600-cc5c-11eb-8f7f-6aa17f129599.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;에셋 카탈로그의 구조&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;구조는 다음과 같다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;에셋 카탈로그 폴더 : 에셋 카탈로그 폴더 안에 모든 폴더와 파일을 가지고 있다.&lt;/li&gt;
+  &lt;li&gt;그룹 폴더 : 그룹 폴더는 다른 그룹 폴더나 에셋 폴더를 갖고 있다.&lt;/li&gt;
+  &lt;li&gt;에셋 폴더 : 리소스 파일을 가지고 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;에셋-카탈로그의-타입&quot;&gt;에셋 카탈로그의 타입&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;폴더 타입&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;확장자&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;설명&lt;/th&gt;
+      &lt;th&gt; &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;App Icon Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.appiconset&lt;/td&gt;
+      &lt;td&gt;애플리케이션의 아이콘 입니다.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Catalog Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.xcassets&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;에셋 카탈로그의 최상위 폴더입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Image Set Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.imageset&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;객체들이 사용하는 이미지입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Data Set Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.dataset&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;애플리케이션에서 사용되는 데이터 파일입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Launch Image Type&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;.launchimage&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;애플리케이션의 실행화면 이미지입니다.&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;app-thinning&quot;&gt;App Thinning&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;애플리케이션이 디바이스에 설치될 때, 앱스토어와 운영체제가 그 디바이스의 특성에 맞게 설치하도록 하는 설치 최적화 기술을 의미한다.&lt;/li&gt;
+  &lt;li&gt;설치 용량 최소화, 다운로드 속도 향상&lt;/li&gt;
+  &lt;li&gt;이 기술의 구성 요소는 슬라이싱, 비트코드, On demand resource가 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;slicing&quot;&gt;Slicing&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/121797722-043c0800-cc5d-11eb-96fb-2a4c04fbf195.png&quot; alt=&quot;image&quot; /&gt;{. center}&lt;em&gt;slicing 매커니즘&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;애플리케이션이 지원하는 다양한 디바이스에 대한 여러 조각의 애플리케이션 번들을 생성하고, 디바이스에 알맞는 조각을 전달하는 기술이다.&lt;/li&gt;
+  &lt;li&gt;개발자가 애플리케이션 전체 버전을 ITunes Connect에 업로드하면, 앱스토어에서 각 디바이스 특성에 맞는 다양한 버전의 조각들을 생성한다.&lt;/li&gt;
+  &lt;li&gt;사용자가 이제 애플리케이션을 설치할 때, 이 슬라이싱 된 조각들중 디바이스에 가장 적합한 조각을 다운로드한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;iboutlet-변수-이름-바꾸기&quot;&gt;IBOutlet 변수 이름 바꾸기&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;해당 변수 클릭&lt;/li&gt;
+  &lt;li&gt;오른쪽 클릭&lt;/li&gt;
+  &lt;li&gt;Refactor&lt;/li&gt;
+  &lt;li&gt;Rename&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;ibaction-이해&quot;&gt;IBAction 이해&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UIKit
+    &lt;ul&gt;
+      &lt;li&gt;UIControl
+        &lt;ul&gt;
+          &lt;li&gt;UIButton&lt;/li&gt;
+          &lt;li&gt;UISwitch&lt;/li&gt;
+          &lt;li&gt;UIStepper&lt;/li&gt;
+          &lt;li&gt;etc&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이렇게 다양한 UIControl 객체를 상속받은 클래스들이 있다. 이 컨트롤 객체에서 발생한 이벤트를 내가 정의한 함수를 콜하게 할 수 있다. 즉 컨트롤 객체에서 이벤트가 발생할 경우, 내가 지정해둔 액션을 호출할 수 있게 할 수 있다는 것.&lt;/p&gt;
+
+&lt;h2 id=&quot;이벤트의-종류&quot;&gt;이벤트의 종류&lt;/h2&gt;
+
+&lt;p&gt;외울 수는 없지만 한번씩 읽어보자. 나중에 찾아보고.&lt;/p&gt;
+
+&lt;p&gt;touchDown
+컨트롤을 터치했을 때 발생하는 이벤트
+UIControl.Event.touchDown&lt;/p&gt;
+
+&lt;p&gt;touchDownRepeat
+컨트롤을 연속 터치 할 때 발생하는 이벤트
+UIControl.Event.touchDownRepeat&lt;/p&gt;
+
+&lt;p&gt;touchDragInside
+컨트롤 범위 내에서 터치한 영역을 드래그 할 때 발생하는 이벤트
+UIControl.Event.touchDragInside&lt;/p&gt;
+
+&lt;p&gt;touchDragOutside
+터치 영역이 컨트롤의 바깥쪽에서 드래그 할 때 발생하는 이벤트
+UIControl.Event.touchDragOutside&lt;/p&gt;
+
+&lt;p&gt;touchDragEnter
+터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔다가 다시 들어왔을 때 발생하는 이벤트
+UIControl.Event.touchDragEnter&lt;/p&gt;
+
+&lt;p&gt;touchDragExit
+터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔을 때 발생하는 이벤트
+UIControl.Event.touchDragExit&lt;/p&gt;
+
+&lt;p&gt;touchUpInside
+컨트롤 영역 안쪽에서 터치 후 뗐을때 발생하는 이벤트
+UIControl.Event.touchUpInside&lt;/p&gt;
+
+&lt;p&gt;touchUpOutside
+컨트롤 영역 안쪽에서 터치 후 컨트롤 밖에서 뗐을때 이벤트
+UIControl.Event.touchUpOutside&lt;/p&gt;
+
+&lt;p&gt;touchCancel
+터치를 취소하는 이벤트 (touchUp 이벤트가 발생되지 않음)
+UIControl.Event.touchCancel&lt;/p&gt;
+
+&lt;p&gt;valueChanged
+터치를 드래그 및 다른 방법으로 조작하여 값이 변경되었을때 발생하는 이벤트
+UIControl.Event.valueChanged&lt;/p&gt;
+
+&lt;p&gt;primaryActionTriggered
+버튼이 눌릴때 발생하는 이벤트 (iOS보다는 tvOS에서 사용)
+UIControl.Event.primaryActionTriggered&lt;/p&gt;
+
+&lt;p&gt;editingDidBegin
+UITextField에서 편집이 시작될 때 호출되는 이벤트
+UIControl.Event.editingDidBegin&lt;/p&gt;
+
+&lt;p&gt;editingChanged
+UITextField에서 값이 바뀔 때마다 호출되는 이벤트
+UIControl.Event.editingChanged&lt;/p&gt;
+
+&lt;p&gt;editingDidEnd
+UITextField에서 외부객체와의 상호작용으로 인해 편집이 종료되었을 때 발생하는 이벤트
+UIControl.Event.editingDidEnd&lt;/p&gt;
+
+&lt;p&gt;editingDidEndOnExit
+UITextField의 편집상태에서 키보드의 return 키를 터치했을 때 발생하는 이벤트
+UIControl.Event.editingDidEndOnExit&lt;/p&gt;
+
+&lt;p&gt;allTouchEvents
+모든 터치 이벤트
+UIControl.Event.allTouchEvents&lt;/p&gt;
+
+&lt;p&gt;allEditingEvents
+UITextField에서 편집작업의 이벤트
+UIControl.Event.allEditingEvents&lt;/p&gt;
+
+&lt;p&gt;applicationReserved
+각각의 애플리케이션에서 프로그래머가 임의로 지정할 수 있는 이벤트 값의 범위
+UIControl.Event.applicationReserved&lt;/p&gt;
+
+&lt;p&gt;systemReserved
+프레임워크 내에서 사용하는 예약된 이벤트 값의 범위
+UIControl.Event.systemReserved&lt;/p&gt;
+
+&lt;p&gt;allEvents
+시스템 이벤트를 포함한 모든 이벤트
+UIControl.Event.allEvents&lt;/p&gt;
+</description>
+        <pubDate>Fri, 11 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/swift/2021/06/11/iOS-BoostCourse-01-%EC%9D%8C%EC%9B%90%EC%9E%AC%EC%83%9D%EA%B8%B0-copy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/swift/2021/06/11/iOS-BoostCourse-01-%EC%9D%8C%EC%9B%90%EC%9E%AC%EC%83%9D%EA%B8%B0-copy.html</guid>
+        
+        <category>Swift</category>
+        
+        <category>Intermediate</category>
+        
+        
+        <category>DV/Swift</category>
+        
+      </item>
+    
+      <item>
+        <title> [Swift And iOS] 01: 언어 이해</title>
+        <description> 언어에 대해 이해해보자. : &lt;h1 id=&quot;style-guide&quot;&gt;Style Guide&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/swift-kr/swift-style-guide-raywenderlich/blob/master/ko_style_guide.md&quot;&gt;raywenderlich.com 공식 Swift 스타일 가이드&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://swift.org/documentation/api-design-guidelines/#naming&quot;&gt;Swift Naming Guide&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/channel/UCM8wseo6DkA-D7yGlCrcrwA&quot;&gt;SmileHan&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 04 Jun 2021 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/dv/swift/2021/06/04/swift-01-%EC%96%B8%EC%96%B4-%EC%9D%B4%ED%95%B4.html</link>
+        <guid isPermaLink="true">http://localhost:4000/dv/swift/2021/06/04/swift-01-%EC%96%B8%EC%96%B4-%EC%9D%B4%ED%95%B4.html</guid>
+        
+        <category>Swift</category>
+        
+        <category>Intermediate</category>
+        
+        
+        <category>DV/Swift</category>
+        
+      </item>
     
       <item>
         <title> [프로그래머스] 12: 스타 수열</title>
@@ -2804,901 +3777,6 @@ stack 현재 상태
         
         
         <category>DV/Concept</category>
-        
-      </item>
-    
-      <item>
-        <title> [Development Method] 03: Design Approach</title>
-        <description> 문제 정의, 사용 도구를 정했다면 이제 어떤식으로 진행할지 설계해보자. : &lt;h1 id=&quot;소프트웨어-개발-방법&quot;&gt;소프트웨어 개발 방법&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;과거 - Software
-    &lt;ul&gt;
-      &lt;li&gt;소프트웨어 자체가 목적
-        &lt;ul&gt;
-          &lt;li&gt;Office&lt;/li&gt;
-          &lt;li&gt;한글&lt;/li&gt;
-          &lt;li&gt;Photoshop&lt;/li&gt;
-          &lt;li&gt;Game(CD)&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;긴 개발 과정&lt;/li&gt;
-      &lt;li&gt;많은 인력, 돈&lt;/li&gt;
-      &lt;li&gt;데드라인이 중요&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;현재 - Service
-    &lt;ul&gt;
-      &lt;li&gt;서비스가 목적
-        &lt;ul&gt;
-          &lt;li&gt;Search Service&lt;/li&gt;
-          &lt;li&gt;Free Game with Pay items&lt;/li&gt;
-          &lt;li&gt;카카오 실시간 메신저&lt;/li&gt;
-          &lt;li&gt;Ad based Free Services&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;가능한한 빨리 (일간, 주간 월간)
-        &lt;ul&gt;
-          &lt;li&gt;경쟁 심화&lt;/li&gt;
-          &lt;li&gt;제한된 인력과 돈&lt;/li&gt;
-          &lt;li&gt;시장의 요구사항을 맞춰야 함&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;waterfall&quot;&gt;Waterfall&lt;/h2&gt;
-
-&lt;p&gt;&lt;img width=&quot;513&quot; alt=&quot;스크린샷 2021-04-30 오전 12 26 18&quot; src=&quot;https://user-images.githubusercontent.com/37871541/116576645-b25c4e80-a94a-11eb-8e6a-bb573b576194.png&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;요구사항 분석&lt;/li&gt;
-  &lt;li&gt;디자인&lt;/li&gt;
-  &lt;li&gt;개발&lt;/li&gt;
-  &lt;li&gt;테스팅&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;유지/보수&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;장점
-    &lt;ul&gt;
-      &lt;li&gt;코딩하기 전에 많은 고민&lt;/li&gt;
-      &lt;li&gt;많은 문서가 발생&lt;/li&gt;
-      &lt;li&gt;이를 통해 개발이 편리&lt;/li&gt;
-      &lt;li&gt;새로운 팀원이 와도 업무 인수인계 가능&lt;/li&gt;
-      &lt;li&gt;서로와의 이해가 힘든 문제도 해소 가능&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;단점
-    &lt;ul&gt;
-      &lt;li&gt;문서 너무 많아&lt;/li&gt;
-      &lt;li&gt;고민 모두 하는 것 불가능함&lt;/li&gt;
-      &lt;li&gt;빠른 속도 불가능&lt;/li&gt;
-      &lt;li&gt;계속해서 바꿔야 하는 경우가 비일비&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;agile&quot;&gt;Agile&lt;/h1&gt;
-
-&lt;p&gt;Agile이라는 단어는 많이 쓰지만 정작 제대로된 이해는 부족한 경우가 많다. Agile의 핵심은 원리, 가치, 원칙에 더 가깝다. 프로젝트에 참가하는 팀이 어떠한 신념을 가지고 일을 진행시키겠냐는 약속에 가까운 것이다. 프로젝트를 진행하게되면 의사 결정의 순간에 팀만의 가치 우선순위가 없을 경우 일을 진행시키는 것이 매우 어렵다. 이러한 부분에서 Agile 원칙이 한가지 예로 존재하는 것. 아래에 서술할 Agile 개발 방법론으로부터 이 개념은 파생되어, 무언가 좋은 제품을 만드는데 있어서 빠르고, 낭비없이 만드는 원칙과 같은 관용어로 사용하게 되었다.&lt;/p&gt;
-
-&lt;h2 id=&quot;agile의-전제&quot;&gt;Agile의 전제&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;세상에 확실한 것은 아무것도 없다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;고객도 자신이 원하는 바를 정확히 모른다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;agile-menifesto&quot;&gt;Agile menifesto&lt;/h2&gt;
-
-&lt;p&gt;우리는 소프트웨어를 개발하고, 또 다른 사람의 개발을 도와주면서 소프트웨어 개발의 더 나은 방법들을 찾아가고 있다.&lt;/p&gt;
-
-&lt;p&gt;이 작업을 통해 우리는 다음을 가치있게 여기게 되었다:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;공정과 도구보다 &lt;strong&gt;개인과 상호작용&lt;/strong&gt;을&lt;/li&gt;
-  &lt;li&gt;포괄적인 문서보다 &lt;strong&gt;작동하는 소프트웨어&lt;/strong&gt;를&lt;/li&gt;
-  &lt;li&gt;계약 협상보다 &lt;strong&gt;고객과의 협력&lt;/strong&gt;을&lt;/li&gt;
-  &lt;li&gt;계획을 따르기보다 &lt;strong&gt;변화에 대응하기&lt;/strong&gt;를&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;가치있게 여긴다. 이 말은, 왼쪽에 있는 것들도 가치가 있지만, 우리는 오른쪽에 있는 것들에 더 높은 가치를 둔다는 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;agile-principles&quot;&gt;Agile Principles&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;우리의 최우선 순위는 귀중한 소프트웨어를 &lt;strong&gt;조기에 지속적으로 제공하여 고객을 만족&lt;/strong&gt;시키는 것입니다.&lt;/li&gt;
-  &lt;li&gt;개발 후반에도 &lt;strong&gt;변화하는 요구 사항을 환영&lt;/strong&gt;합니다. 애자일 프로세스는 고객의 경쟁 우위를 위해 변화를 활용합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;짧은 기간을 선호&lt;/strong&gt;하여 2 주에서 2 개월까지 작업 소프트웨어를 자주 제공합니다.&lt;/li&gt;
-  &lt;li&gt;비즈니스맨과 개발자는 프로젝트 전체에서 &lt;strong&gt;매일 함께 작업&lt;/strong&gt;해야합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;동기 부여 된 개인을 중심으로 프로젝트를 구축&lt;/strong&gt;하십시오. 그들에게 필요한 환경과 지원을 제공하고 그들이 일을 완수 할 수 있도록 신뢰하십시오.&lt;/li&gt;
-  &lt;li&gt;개발 팀과 정보를 전달하는 가장 효율적이고 효과적인 방법은 &lt;strong&gt;대면 대화&lt;/strong&gt;입니다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;작업 소프트웨어&lt;/strong&gt;는 진행 상황의 주요 척도입니다.&lt;/li&gt;
-  &lt;li&gt;애자일 프로세스는 &lt;strong&gt;지속 가능한 개발을 촉진&lt;/strong&gt;합니다. 스폰서, 개발자 및 사용자는 무한정 일정한 속도를 유지할 수 있어야합니다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;기술적 우수성과 우수한 디자인&lt;/strong&gt;에 대한 지속적인 관심은 민첩성을 향상시킵니다.&lt;/li&gt;
-  &lt;li&gt;단순성 (완료하지 않은 작업량을 극대화하는 기술)은 필수적입니다.&lt;/li&gt;
-  &lt;li&gt;최상의 아키텍처, 요구 사항 및 디자인은 자체 구성 팀에서 나옵니다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;정기적&lt;/strong&gt;으로 팀은 더 효과적인 방법을 고려한 다음 그에 따라 &lt;strong&gt;행동을 조정&lt;/strong&gt;하고 적용합니다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;왜-사용하는가&quot;&gt;왜 사용하는가?&lt;/h2&gt;
-
-&lt;p&gt;agile 방법론의 태동은 기존의 소프트웨어 방법론에서 발생한 문제점으로 부터 시사되었다. 계획에 의존하는 경우는 형식에 얽매이게 되고, 빠르게 방향을 변경하는 것이 어렵다. 그와 반대로 계획이 없는 경우 앞으로의 일을 예측하기 힘들고 효율적이지 못하다. 이러한 두가지 방법론 사이에서 타협을 찾았다고 볼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;가장 큰 변화는 &lt;strong&gt;documentation보다 code를 기반&lt;/strong&gt;하도록 변경된 것이다. 일정한 주기를 가지고 프로젝트의 생명 주기가 끝나기 전까지 그때 그때 고객과의 소통을 통해 요구를 더하고 수정하여 하나의 커다란 소프트웨어를 개발하는 방법이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;scrum이란&quot;&gt;Scrum이란?&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/112299235-f4a2c800-8cda-11eb-9aab-5d4132f16ab7.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;em&gt;Football Scrum&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;스크럼은 럭비에서 진형을 갖추고 있는 모습을 말한다. 이 그림을 보면 팀단위로 똘똘뭉쳐서 하나의 목표를 달성하기 위해 진형이 구축되어 있다. 스크럼 개발 방식은 이 주도적인 팀 수행이 핵심이다.&lt;/p&gt;
-
-&lt;p&gt;Agile 가치를 기반으로 실행할 수 있는 Framework중 하나이다. 가치를 말하는 Agile을 이러한 틀을 기반으로 진행시키면 쉽게 할 수 있다를 제안한다. 사실 이 방법이 매력적인 이유는 보통 소규모 프로젝트를 진행했을 때 팀단위가 3~10명 사이이기 때문이다. 쉽게 회의를 진행할 수 있고, 그렇기 때문에 의사소통이 편하다.&lt;/p&gt;
-
-&lt;h1 id=&quot;agile-tools&quot;&gt;Agile Tools&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;포스트잇&lt;/li&gt;
-  &lt;li&gt;칸반 보드&lt;/li&gt;
-  &lt;li&gt;open project&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;devops&quot;&gt;DevOps&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;개발 팀과 운영 팀으로 나뉨&lt;/li&gt;
-  &lt;li&gt;개발 팀
-    &lt;ul&gt;
-      &lt;li&gt;하이 테크를 기반으로 개발하는데 집중&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;운영 팀
-    &lt;ul&gt;
-      &lt;li&gt;가장 안정적으로 서비스를 제공&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Scrum 개발 방법론에서 개발이 빠르게 진행된다면 운영 팀 입장에서는 좋아할 수 만은 없는 일&lt;/li&gt;
-  &lt;li&gt;검증을 해야한다.&lt;/li&gt;
-  &lt;li&gt;안정적인 것도 맞되, 먼저가 되어야 하는 것은 서비스 사용자가 원하는 것&lt;/li&gt;
-  &lt;li&gt;사실 철학에 보다 가까운 것.&lt;/li&gt;
-  &lt;li&gt;서비스 빌드, 테스팅 - 빌드를 자동화&lt;/li&gt;
-  &lt;li&gt;많은 도구들의 등장&lt;/li&gt;
-  &lt;li&gt;DevOps는 연봉 높다.&lt;/li&gt;
-  &lt;li&gt;개발, QA(품질관리), Operations이 모두를 관장하는 위치&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116580502-64494a00-a94e-11eb-99c8-6f0c1f8bae25.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116581432-492b0a00-a94f-11eb-9bdd-8e99612db0a4.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 29 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/dv/concept/2021/04/29/Development-Method-03-Design-Approach.html</link>
-        <guid isPermaLink="true">http://localhost:4000/dv/concept/2021/04/29/Development-Method-03-Design-Approach.html</guid>
-        
-        <category>Concept</category>
-        
-        <category>Development Method</category>
-        
-        
-        <category>DV/Concept</category>
-        
-      </item>
-    
-      <item>
-        <title> [Development Method] 02: Select Right Language and IDE</title>
-        <description> 언어가 먼저가 아니다. 문제를 정하고 언어를 정하는 방법을 알자. : &lt;h1 id=&quot;언어-선택&quot;&gt;언어 선택&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;배워두면 좋은 언어가 뭐지? X 이럴거면 하지마라&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;문제를 정의&lt;/strong&gt;해라. 그리고 그거에 최적화된 도구를 찾는다.&lt;/li&gt;
-  &lt;li&gt;언어를 골랐다면, 프레임워크가 있는지 확인해본다. - 소프트웨어가 좋아 언어를 선택하는 경우도 있다.&lt;/li&gt;
-  &lt;li&gt;시간, 팀원, 돈, 성능등을 모두 고려하여 선택한다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;cc&quot;&gt;C/C++&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;물리 메모리 관리, IO 기능
-    &lt;ul&gt;
-      &lt;li&gt;다른 언어는 불가. 운영체제가 가상 메모리 주소를 리턴&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;비트 단위 연산
-    &lt;ul&gt;
-      &lt;li&gt;하드웨어를 다룬다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Pointer&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;c&quot;&gt;C&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;데니스 리치&lt;/li&gt;
-  &lt;li&gt;절차 지향&lt;/li&gt;
-  &lt;li&gt;컴퓨터 메모리 직접 접근 가능&lt;/li&gt;
-  &lt;li&gt;이전의 기계어 접근 안해도된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;c-1&quot;&gt;C++&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Bjarne Stroustrup&lt;/li&gt;
-  &lt;li&gt;클래스 - 너무 방대했음
-    &lt;ul&gt;
-      &lt;li&gt;재사용 유리&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;언어가 너무 어려웠음&lt;/li&gt;
-  &lt;li&gt;하지만 여전히 많이 사용됨.&lt;/li&gt;
-  &lt;li&gt;모바일, 웹 테크에 따라가지 못함&lt;/li&gt;
-  &lt;li&gt;실행 파일 판매 방식 - 예전에 유행
-    &lt;ul&gt;
-      &lt;li&gt;요즘은 웹 - 인터프리터 방식으로 전환&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;C#으로 부족한 것 보완 - MS&lt;/li&gt;
-  &lt;li&gt;다시 춘추 전국 시대로 넘어간 시대&lt;/li&gt;
-  &lt;li&gt;C++도 이제는 진화하고 있다.
-    &lt;ul&gt;
-      &lt;li&gt;C++ 14부터 모던 c++으로 불린다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;domain에-따라-언어를-선택하자&quot;&gt;Domain에 따라 언어를 선택하자.&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;웹서버&lt;/li&gt;
-  &lt;li&gt;데이터 분석&lt;/li&gt;
-  &lt;li&gt;클라우드 컴퓨팅&lt;/li&gt;
-  &lt;li&gt;데이터 센터 프로그래밍&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;웹서버&quot;&gt;웹서버&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Javascript
-    &lt;ul&gt;
-      &lt;li&gt;1995.12.04&lt;/li&gt;
-      &lt;li&gt;그냥 동적인 브라우저 만들려고 했다.&lt;/li&gt;
-      &lt;li&gt;그 안에 엔진을 뗀 것이 Node.js - 서버 사이드 개발 가능&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Apache&lt;/li&gt;
-  &lt;li&gt;Nginx&lt;/li&gt;
-  &lt;li&gt;wordpress&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;데이터-분석&quot;&gt;데이터 분석&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Python
-    &lt;ul&gt;
-      &lt;li&gt;쉽게 공유, 배우게&lt;/li&gt;
-      &lt;li&gt;Natural language processing에 유리&lt;/li&gt;
-      &lt;li&gt;쉬우니까 과학자들이 코드 공유&lt;/li&gt;
-      &lt;li&gt;시간이 지나면서 지식이 쌓임&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;R
-    &lt;ul&gt;
-      &lt;li&gt;거의 수학 공식을 그대로 가져온 형태&lt;/li&gt;
-      &lt;li&gt;수학하려고 만든 언어&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;클라우드-컴퓨팅&quot;&gt;클라우드 컴퓨팅&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;10년 동안의 오래된 기술&lt;/li&gt;
-  &lt;li&gt;OpenStack
-    &lt;ul&gt;
-      &lt;li&gt;2010&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;Python으로 개발&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;NASA가 개발&lt;/li&gt;
-      &lt;li&gt;데이터 분석하는데 사용하면서 급성장&lt;/li&gt;
-      &lt;li&gt;서버 프로그래밍, 병렬 처리하는데서 요구가 많음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;데이터-센터-프로그래밍&quot;&gt;데이터 센터 프로그래밍&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;수많은 CPU, 네트워크 장비등이 들어가 있는 건물&lt;/li&gt;
-  &lt;li&gt;전기, 전자 모든게 다 있는 곳&lt;/li&gt;
-  &lt;li&gt;이런 곳을 위한 프로그래밍이 필요함&lt;/li&gt;
-  &lt;li&gt;이런 것을 위해 태어난 언어 “GO” - 미래의 서버 언어&lt;/li&gt;
-  &lt;li&gt;Simple, 병렬 처리, c++ 닮은 언어, 하드웨어 다룰 수 있음, 서버 특화&lt;/li&gt;
-  &lt;li&gt;Docker라는 프로그램이 나오면서 급성장&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116570767-78d51480-a945-11eb-8115-5e400bae934b.png&quot; alt=&quot;image&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;개발-플랫폼&quot;&gt;개발 플랫폼&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;OS dependant
-    &lt;ul&gt;
-      &lt;li&gt;정해져 있음&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;OS independant
-    &lt;ul&gt;
-      &lt;li&gt;VS Code
-        &lt;ul&gt;
-          &lt;li&gt;플러그인&lt;/li&gt;
-          &lt;li&gt;확장성&lt;/li&gt;
-          &lt;li&gt;OS independant! OS, window, linux&lt;/li&gt;
-          &lt;li&gt;debug도 잘돼&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Atom
-        &lt;ul&gt;
-          &lt;li&gt;github가 만듦&lt;/li&gt;
-          &lt;li&gt;웹 프로그래머&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Eclipse
-        &lt;ul&gt;
-          &lt;li&gt;자바&lt;/li&gt;
-          &lt;li&gt;무거움&lt;/li&gt;
-          &lt;li&gt;설치 많음&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;근데도-뭘할지-모르겠다면&quot;&gt;근데도 뭘할지 모르겠다면..&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Tiobe index
-    &lt;ul&gt;
-      &lt;li&gt;언어 순위 발표&lt;/li&gt;
-      &lt;li&gt;검색 순위로 판단하는 것임&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;github statistics
-    &lt;ul&gt;
-      &lt;li&gt;project 언어 사용기준&lt;/li&gt;
-      &lt;li&gt;337개 사용중&lt;/li&gt;
-      &lt;li&gt;javascript 제일 많아&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;돈 많이 버는 걸로..&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;책추천&quot;&gt;책추천&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Masterminds of Programming&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 29 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/dv/concept/2021/04/29/Development-Method-02-Select-right-Language-and-IDE.html</link>
-        <guid isPermaLink="true">http://localhost:4000/dv/concept/2021/04/29/Development-Method-02-Select-right-Language-and-IDE.html</guid>
-        
-        <category>Concept</category>
-        
-        <category>Development Method</category>
-        
-        
-        <category>DV/Concept</category>
-        
-      </item>
-    
-      <item>
-        <title> [Development Method] 01: Problem Definition</title>
-        <description> 언어, 프레임워크는 도구다. 가장 중요한 문제 정의하는 방법을 알아보자. : &lt;blockquote&gt;
-  &lt;p&gt;꾸준히 공부하지 않으면 망해버리는 분야.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;각오를 단단히 잡고 해야한다.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&quot;문제의-분류&quot;&gt;문제의 분류&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;문제를 푸는 동기?
-    &lt;ul&gt;
-      &lt;li&gt;시켜서&lt;/li&gt;
-      &lt;li&gt;자발적으로&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;어떤 방식으로 구현할 거야?
-    &lt;ul&gt;
-      &lt;li&gt;생코딩 (from scratch)&lt;/li&gt;
-      &lt;li&gt;플랫폼 위에서 (open source)&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;하드웨어 의존성 - 소프트웨어 방향성을 알려줌
-    &lt;ul&gt;
-      &lt;li&gt;있다. - 개발 환경이 정해진다.
-        &lt;ul&gt;
-          &lt;li&gt;Arduino - ATmega, C, Sketch IDE&lt;/li&gt;
-          &lt;li&gt;RAspberryPi ARM Processor, GPIO, USB&lt;/li&gt;
-          &lt;li&gt;CUDA - NVIDIA GPU, C/C++/Fortran&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;없다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;기한은 언제까지인가?
-    &lt;ul&gt;
-      &lt;li&gt;졸업 논문&lt;/li&gt;
-      &lt;li&gt;공모전&lt;/li&gt;
-      &lt;li&gt;서비스 배포 시기&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;필요한 성능은 얼마인가? -&amp;gt; Key poerformance Indexes (KPI) 지표가 필요함.
-    &lt;ul&gt;
-      &lt;li&gt;인명 피해가 발생할 수 있는 경우&lt;/li&gt;
-      &lt;li&gt;응답 시간&lt;/li&gt;
-      &lt;li&gt;수용성&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Case Study
-    &lt;ul&gt;
-      &lt;li&gt;웹 서버 개발
-        &lt;ul&gt;
-          &lt;li&gt;C++ &amp;amp; Proxygen (platform dependant : 해당 플랫폼이 있어야 함)
-            &lt;ul&gt;
-              &lt;li&gt;Facebook이 만듦&lt;/li&gt;
-              &lt;li&gt;장점 : 어떤 것보다 빠르다. 10배 이상 빠를 수도 있다.&lt;/li&gt;
-              &lt;li&gt;단점 : 어렵다.&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;Python &amp;amp; Django (platform independant : 없어도 웹서버 가능, http 내장)&lt;/li&gt;
-          &lt;li&gt;Javascript &amp;amp; Node.js (platform independant)
-            &lt;ul&gt;
-              &lt;li&gt;웹 클라이언트를 위해 만든 언어, 이제는 서버 프로그래밍까지.&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;Apache/Nginx (tools, non-programming)
-            &lt;ul&gt;
-              &lt;li&gt;개발을 하지 않고도 만들 수 있다. 웹 서버를 그냥 설치해&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;실제 직장이라면?
-        &lt;ul&gt;
-          &lt;li&gt;Due date? : 내가 익숙한 것, 혹은 내 능력에 맞춰 당장할 수 있는 것&lt;/li&gt;
-          &lt;li&gt;성능? : 고민, 정량적으로 평가 (KPI)&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;각각의 평가 방법에 따라 순위가 변경된다. 언어는 사용하는 분야에 따라 달라진다는 것을 알 수 있다. 근데 아무리 생각해도 파이썬은 너무 느리다.
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116561553-6525b000-a93d-11eb-9b07-88a0f6dd5e75.png&quot; alt=&quot;image&quot; class=&quot;center-small&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116561658-7a9ada00-a93d-11eb-9ed2-aaf246ba6385.png&quot; alt=&quot;image&quot; class=&quot;center-small&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116562007-c5b4ed00-a93d-11eb-867e-9e84d879868e.png&quot; alt=&quot;image&quot; class=&quot;center-small&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;모바일 개발은 어떻게 할까?
-    &lt;ul&gt;
-      &lt;li&gt;Native (iOS, Android)
-        &lt;ul&gt;
-          &lt;li&gt;성능 보장&lt;/li&gt;
-          &lt;li&gt;두개 이상 플랫폼? 고민&lt;/li&gt;
-          &lt;li&gt;iOS
-            &lt;ul&gt;
-              &lt;li&gt;매킨토시, xcode&lt;/li&gt;
-              &lt;li&gt;배포 개복잡..&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;Android
-            &lt;ul&gt;
-              &lt;li&gt;material design&lt;/li&gt;
-              &lt;li&gt;kotlin, java&lt;/li&gt;
-              &lt;li&gt;그냥 apk 배포&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;Cross Platform (HTML/CSS/Javascript)
-        &lt;ul&gt;
-          &lt;li&gt;개발 속도, 인력 감축&lt;/li&gt;
-          &lt;li&gt;성능 약화&lt;/li&gt;
-          &lt;li&gt;Electron - 데스크톱 앱&lt;/li&gt;
-          &lt;li&gt;Cordova - 앱개발&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;아니 그래서 어떻게 판단해야 하지? -&amp;gt; KPI 기반 검증
-    &lt;ul&gt;
-      &lt;li&gt;Due&lt;/li&gt;
-      &lt;li&gt;Performance&lt;/li&gt;
-      &lt;li&gt;Cost&lt;/li&gt;
-      &lt;li&gt;Man-Power&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116563651-2db80300-a93f-11eb-9522-b0517b49ee79.png&quot; alt=&quot;image&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 23 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/dv/concept/2021/04/23/Development-Method-01-Problem-Definition.html</link>
-        <guid isPermaLink="true">http://localhost:4000/dv/concept/2021/04/23/Development-Method-01-Problem-Definition.html</guid>
-        
-        <category>Concept</category>
-        
-        <category>Development Method</category>
-        
-        
-        <category>DV/Concept</category>
-        
-      </item>
-    
-      <item>
-        <title> [Algorithm Problem Solving] 백준(3190번): 벽 부수고 이동하기</title>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;골드4&lt;/em&gt;&lt;/strong&gt; : bfs 문제이다.&lt;/p&gt;
-
-&lt;h1 id=&quot;풀이&quot;&gt;풀이&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;bfs는 가중치가 없는 그래프의 최단 거리 문제를 풀 때 사용하는 방법이다.&lt;/li&gt;
-  &lt;li&gt;이 문제는 최단 거리 문제이므로 이 풀이를 선택하는 것은 맞다.&lt;/li&gt;
-  &lt;li&gt;그런데 생각해보면, 이번에는 해당 칸에 방문했는가를 기준으로 다음 노드를 탐색하는 것으로는 부족하다.&lt;/li&gt;
-  &lt;li&gt;특정 칸에 방문할 수 있는 방법은 그냥 도착한다, 벽을 부수고 도착한다. 두가지로 나뉜다.&lt;/li&gt;
-  &lt;li&gt;그리고 그 상황에서 다음 칸을 이동할 때에도 도착한 상태에 따라 다음칸을 갈 수 있는지 없는지로 나뉜다.&lt;/li&gt;
-  &lt;li&gt;즉, 특정칸에 방문했을 때, 상태가 두가지로 나뉜다는 것이다.&lt;/li&gt;
-  &lt;li&gt;종료는 bfs 특성상, 같은 너비인 상태에서(경로 cost가 같은 상태에서) 진행되기 때문에 목표 위치까지 도착하는 순간이 최단 거리이다.&lt;/li&gt;
-  &lt;li&gt;그렇다면 q에 넣는 노드의 정보에, 지금 벽을 뚫었는지 여부가 중요하게 된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//  main.cpp&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//  algorithm_prac&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//  Created by 최완식 on 2021/04/05.&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;queue&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//void PPP(){&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//    cout &amp;lt;&amp;lt; &quot;=====graph======&quot; &amp;lt;&amp;lt; '\n';&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//    for (int i = 1; i &amp;lt;= N; i++) {&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//        for (int j = 1; j &amp;lt;= M; j++) {&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//            cout &amp;lt;&amp;lt; graph[i][j] &amp;lt;&amp;lt; &quot; &quot;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//        }cout &amp;lt;&amp;lt; '\n';&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//    }&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//    cout &amp;lt;&amp;lt; &quot;=====visited======&quot; &amp;lt;&amp;lt; '\n';&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//    for (int i = 1; i &amp;lt;= N; i++) {&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//        for (int j = 1; j &amp;lt;= M; j++) {&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//            cout &amp;lt;&amp;lt; visited[i][j][0] &amp;lt;&amp;lt; &quot; &quot;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//        }cout &amp;lt;&amp;lt; &quot;  &quot;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//        for (int j = 1; j &amp;lt;= M; j++) {&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//            cout &amp;lt;&amp;lt; visited[i][j][1] &amp;lt;&amp;lt; &quot; &quot;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//        }cout &amp;lt;&amp;lt; '\n';&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//    }&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-        
-    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    
-    
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        
-        
-        &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        
-&lt;span class=&quot;c1&quot;&gt;//        PPP();&lt;/span&gt;
-        
-        &lt;span class=&quot;c1&quot;&gt;// 탐색하다가 (N,M)에 가장 먼저 도착하면 그때의 이동거리가 최단거리이다.&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        
-        
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-            &lt;span class=&quot;c1&quot;&gt;// map안에 있는가?&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isIn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;// 다음으로 갈수 있고 방문하지 않았다면 -&amp;gt; 내 blocknum 상태&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;// 다음으로 갈수 없지만 아직 벽을 뚫지 않았다면&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blockNum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-                &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;// 나머지 경우는 탐색할 필요가 없다.&lt;/span&gt;
-                    &lt;span class=&quot;c1&quot;&gt;// 다음으로 갈수 있지만 방문했다면 -&amp;gt; 방문한 녀석은 볼필요 없다.&lt;/span&gt;
-                    &lt;span class=&quot;c1&quot;&gt;// 다음으로 갈수 없지만 벽을이미 뚫었다 -&amp;gt; 방문 불가능&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//7 8&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//01000100&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//01010100&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//01010100&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//01010100&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//01010100&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//01010100&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//00010100&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/3190&quot; target=&quot;\_blank&quot;&gt;백준(3190번) - 벽 부수고 이동하기&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 21 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/algorithm/2021/04/21/%EB%B0%B1%EC%A4%80-%EB%B2%BD%EB%B6%80%EC%88%98%EA%B3%A0-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/algorithm/2021/04/21/%EB%B0%B1%EC%A4%80-%EB%B2%BD%EB%B6%80%EC%88%98%EA%B3%A0-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0.html</guid>
-        
-        <category>백준</category>
-        
-        <category>알고리즘</category>
-        
-        <category>bfs</category>
-        
-        
-        <category>CS/Algorithm</category>
-        
-      </item>
-    
-      <item>
-        <title> [Algorithm Problem Solving] 백준(3190번): 뱀</title>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;실버1&lt;/em&gt;&lt;/strong&gt; : 구현 문제이다.&lt;/p&gt;
-
-&lt;p&gt;너무 짜증난다. 문제 제대로 읽어. 제발제발젭라..&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;뱀이 지나가는 경로를 잡아줄 자료구조
-    &lt;ol&gt;
-      &lt;li&gt;map에 표시해서 갈 수 있는지 없는지 알아야 한다.&lt;/li&gt;
-      &lt;li&gt;tail의 위치를 tracking할 수 있어야 한다. -&amp;gt; queue&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;시간&lt;/li&gt;
-  &lt;li&gt;현재 보고 있는 방향&lt;/li&gt;
-  &lt;li&gt;방향에 따른 우회전 좌회전&lt;/li&gt;
-  &lt;li&gt;action을 알려줄 방향&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;code&quot;&gt;Code&lt;/h1&gt;
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//  main.cpp&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//  algorithm_prac&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//  Created by 최완식 on 2021/04/05.&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
-
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;vector&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;'('&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        
-        &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;')'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;reference&quot;&gt;Reference&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/3190&quot; target=&quot;\_blank&quot;&gt;백준(3190번) - 뱀&lt;/a&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 20 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cs/algorithm/2021/04/20/%EB%B0%B1%EC%A4%80-%EB%B1%80.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cs/algorithm/2021/04/20/%EB%B0%B1%EC%A4%80-%EB%B1%80.html</guid>
-        
-        <category>백준</category>
-        
-        <category>알고리즘</category>
-        
-        <category>구현</category>
-        
-        
-        <category>CS/Algorithm</category>
-        
-      </item>
-    
-      <item>
-        <title> [Face Detection and Tracking with SSD Network] 08: 중간 보고서</title>
-        <description> 프로젝트 중간 점검과 진행 방향을 결정한다. : &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
-
-&lt;p&gt;얼굴 탐지 및 추적은 AR, VR등 뿐만 아니라 CCTV, 온라인 광고 판의 마케팅 지표로 사용될 만큼 중요하게 여겨지는 연구 주제이다. 하지만 여러 사람이 한 프레임 안에서 활동하고 있을 때, 가려짐을 해소할 수 없다는 문제가 여전히 남아있다. 또한 저가형 카메라와 같은 장비에서 위와 같은 기능을 하기 위해서 GPU를 사용할 수 없다는 단점이 존재한다. 따라서 아래의 연구에서는 CPU만을 통한 Object detection의 최적화를 통해 Face Tracking을 구현하는데 그 목적을 둔다.&lt;/p&gt;
-
-&lt;h1 id=&quot;논문-조사&quot;&gt;논문 조사&lt;/h1&gt;
-
-&lt;h2 id=&quot;sortsimple-online-and-realtime-tracking&quot;&gt;SORT(Simple Online and Realtime Tracking)&lt;/h2&gt;
-
-&lt;p&gt;SORT(Simple Online and Realtime Tracking)은 매우 알고리즘이 간단함에도 불구하고 효과적이고 실용적인 다중 대상 추적 알고리즘이다. IOU를 기반으로 추적된 물체에 대해 association(할당)을 진행하기 때문에 매우 빠르다. 하지만 Id Switching(원래의 타겟을 잡지 못하고 다른 id를 배정하는 문제)가 여전히 많이 발생한다는 문제가 있다. 그 원인으로는 아래의 요인이 있다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;물체가 빠르게 움직였을 경우 IoU는 작게 판단될 수 있다.&lt;/li&gt;
-  &lt;li&gt;Occulusion(가려짐)이 발생했을 때 Detector가 Box를 작게 탐지했다면 IoU가 작게 나와 결과가 무시될 수 있다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/111637945-3942e500-883d-11eb-962d-23aaadf57d6a.jpg&quot; alt=&quot;Untitled Diagram&quot; class=&quot;center&quot; /&gt;&lt;em&gt;SORT flowchart&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;deepsortsimple-online-and-realtime-tracking-with-a-deep-association-metric&quot;&gt;DeepSort(Simple Online and Realtime Tracking with A Deep association metric)&lt;/h2&gt;
-
-&lt;p&gt;DeepSort는 이러한 SORT의 단점을 개선한 알고리즘으로 Cascade Matching 전략을 통해 이를 해결한다. 보행자 추적을 위해 구현된 이 알고리즘은 IoU이외에도 보행자를 기반으로 한 Feature Discriptor를 제작하여 정확도를 높혔다. 칼만 필터로 예측한 Track에 담겨 있는 이전 프레임의 외형 정보(128dim feature)를 기반으로 현재 탐지된 객체와의 유사도를 검증한다. 이 때 두 객체의유사도를 판단하는데 있어 Cosine similarity를 사용하며, 최종 매칭은 헝가리안 알고리즘을 사용한다. Track 객체를 삭제하는데 있어서 생애주기라는 개념을 도입한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/111668333-fee74100-8858-11eb-93cc-586040420bc1.jpg&quot; alt=&quot;DEEPSORT (2)&quot; class=&quot;center&quot; /&gt;&lt;em&gt;DeepSort flowchart&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;arcface&quot;&gt;ArcFace&lt;/h2&gt;
-
-&lt;p&gt;ArcFace는 Face Recognition에 있어 triplet loss기반을 사용한 방법이다. Open set(얼굴에 대해 지도학습을 한 것이 아닌 embeding vector를 학습하기 위한 방법)으로, 데이터가 추가되더라도 reconition이 가능하다는 특징이 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116079880-550a9800-a6d3-11eb-8b42-c293810aacb6.png&quot; alt=&quot;image&quot; /&gt;{ .center }&lt;em&gt;Arcface architecture&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;mtcnn&quot;&gt;MTCNN&lt;/h2&gt;
-
-&lt;p&gt;MTCNN은 CNN을 활용하여 얼굴 검출 분야에서 정확도와 성능을 끌어올린 논문이다. Face Detection, Face Alignment, Bounding box regression 세가지 테스크를 동시에 학습시켜 각각의 시너지를 발휘하는 방법이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116232735-79c74400-a795-11eb-8655-3646863c6b5f.png&quot; alt=&quot;image&quot; /&gt;{ .center }&lt;em&gt;MTCNN architecture&lt;/em&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;연구-방향&quot;&gt;연구 방향&lt;/h1&gt;
-
-&lt;p&gt;실시간 Face Detector를 구현하기 위해서 필요한 것은 다음과 같다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Face Detector&lt;/li&gt;
-  &lt;li&gt;Feature Extractor&lt;/li&gt;
-  &lt;li&gt;Deepsort 재구현 및 기여 방안&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;face-detector&quot;&gt;Face Detector&lt;/h2&gt;
-
-&lt;iframe width=&quot;660&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/GZ2p2hj2H5k&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;CPU 기반 성능을 담보하기 위해 다양한 알고리즘을 검토한 결과 SSD network를 사용하였다. 하지만, 영상에서 보듯 속도는 빠르지만 Detection 성능에 있어서 깜빡깜빡하는 양상을 보인다. Deepsort 연구진들은 Detection 성능에 따라 Tracking 성능이 좌우된다고 말한바 있다. 따라서 이 부분에서 MTCNN으로 방향을 변경하였다.&lt;/p&gt;
-
-&lt;p&gt;하지만 MTCNN의 경우 사진 한장당 Inference time이 0.5초로 python으로 구현된 경우 상당히 느려 사용할 수 없었다. 이에 MTCNN을 C++ 구현을 통해 빌드하고, CPython을 사용하여 C++ 확장하여 Python에서 이를 호출하는 방식으로 구현 방향을 잡았다.&lt;/p&gt;
-
-&lt;h2 id=&quot;feature-extractor&quot;&gt;Feature Extractor&lt;/h2&gt;
-
-&lt;p&gt;Deepsort 논문에서 IoU 매칭의 대안으로 내놓은 Appearance Descriptor는 5개의 CNN 아키텍쳐를 기반으로 해당 patch(Detection이 된 객체)를 128차원의 Feature 공간으로 Embedding하는 것을 의미한다. 기존의 방법으로 Face Tracking을 해본 결과, image 공간이 제대로 추출되지 않아 쉬운 상황임에도 같은 Track 물체가 잡힘을 확인할 수 있었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116656908-75cf3800-a9c8-11eb-8f4f-03738054662d.png&quot; alt=&quot;KakaoTalk_Photo_2021-04-30-15-20-11&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116656916-7962bf00-a9c8-11eb-9504-036446a5c57e.png&quot; alt=&quot;KakaoTalk_Photo_2021-04-30-15-20-06&quot; class=&quot;center&quot; /&gt;
-&lt;img src=&quot;https://user-images.githubusercontent.com/37871541/116656919-7a93ec00-a9c8-11eb-8ab7-6f7365496817.png&quot; alt=&quot;KakaoTalk_Photo_2021-04-30-15-20-01&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;기존의 Sort 방법과 달리, 마할라노비스 거리를 Metric으로 사용하지 않았기 때문에(SORT 알고리즘에서 매칭을 할 때 사용한 Metric. Deepsort에서는 Appearance Descriptor만을 사용해도 결과가 잘 나와 값을 0으로 줌)이 Feature 가 굉장히 중요하다.&lt;/p&gt;
-
-&lt;p&gt;이 부분에서 기존의 Face Recognition에서 사용하는 SOT 방법인 Arcface의 Model을 feature extraction에 사용한다. Arcface는 Open set에 대해 Face Recognition을 진행하는 방법으로 기본적으로 Metric Learning을 지향하는 방법이다. 저자들은 Additive Angular Margin Loss를 사용하여 기존의 Loss function보다 정확도를 높힘과 동시에 negligible computational overhead를 달성했다.&lt;/p&gt;
-
-&lt;h2 id=&quot;deepsort-재구현-및-기여-방안&quot;&gt;Deepsort 재구현 및 기여 방안&lt;/h2&gt;
-
-&lt;h3 id=&quot;생애주기-변경&quot;&gt;생애주기 변경&lt;/h3&gt;
-
-&lt;p&gt;기존 Deepsort에서 물체를 탐지하지 못한 경우 30Frame이 지날 경우 삭제하고 새로운 id를 부여했다. 하지만 이 주기가 너무 짧아 얼굴이 등장하는 영상에서 지속적으로 탐색을 실패하는 경향을 보였다. 하지만 생애주기를 지나치게 길게 잡을 경우, 하나의 Detection에 대해 여러개의 Track객체가 형성될 수 있어 공간적, 의미론적으로 옳지 않은 결과가 도출된다. 따라서 이 생애주기의 최적점을 선정하고, Track이 지나치게 많아지지 않는 방법을 반영한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;내부-구조-변화&quot;&gt;내부 구조 변화&lt;/h3&gt;
-&lt;p&gt;현재 Deepsort는 정적 파일에 대해 Tracking을 진행하는 방식이다. 이를 실시간으로 변용하기 위해서는 기존의 파일을 변경해야 한다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Opencv를 통한 Frame by Frame Load&lt;/li&gt;
-  &lt;li&gt;MTCNN을 통한 Detection&lt;/li&gt;
-  &lt;li&gt;Patching 후 Arcface Network를 통한 Feature Extraction&lt;/li&gt;
-  &lt;li&gt;2, 3의 결과를 묶은 numpy 배열 전달&lt;/li&gt;
-  &lt;li&gt;Track 객체 생성 및 매칭&lt;/li&gt;
-  &lt;li&gt;실시간 화면 표시 및 fps 모니터링&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;최종-제안-방향&quot;&gt;최종 제안 방향&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=zi-62z-3c4U&quot;&gt;실시간 구현&lt;/a&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Skip frame 방법과 Face Metric Learning을 통한 Realtime Face Tracker 제작&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;최종적으로 본 연구에서는 Skip frame 방법을 통해 실시간 Face Tracking 방법을 제안하며, 이 때 SOT의 Face Recognition Network인 Arcface를 통해 학습된 weight를 통해 Feature extration을 진행한다.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 19 Apr 2021 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-08-middle-term-report.html</link>
-        <guid isPermaLink="true">http://localhost:4000/cv/projects/2021/04/19/Face-Detection-and-tracking-with-ssd-network-08-middle-term-report.html</guid>
-        
-        <category>project</category>
-        
-        <category>CV</category>
-        
-        
-        <category>CV/Projects</category>
         
       </item>
     
