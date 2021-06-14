@@ -11,7 +11,7 @@ series: "iOS BoostCourse"
 summary: "음원 재생기를 제작해보자."
 ---
 
-![image](https://user-images.githubusercontent.com/37871541/121643239-8e089b80-cacc-11eb-922e-1b16fd4663b4.png){. center}_project sample_
+![image](https://user-images.githubusercontent.com/37871541/121643239-8e089b80-cacc-11eb-922e-1b16fd4663b4.png){: .center}_project sample_
 
 
 # 배울 내용
@@ -50,7 +50,7 @@ summary: "음원 재생기를 제작해보자."
 
 # Target
 
-![image](https://user-images.githubusercontent.com/37871541/121644954-9d88e400-cace-11eb-95e3-77743eb9d872.png){. center}_하나의 프로젝트에 다수의 타겟이 있을 수 있다._
+![image](https://user-images.githubusercontent.com/37871541/121644954-9d88e400-cace-11eb-95e3-77743eb9d872.png){: .center}_하나의 프로젝트에 다수의 타겟이 있을 수 있다._
 
 여기서 대상(Target)이란 iOS, macOS, tvOS, watchOS를 위한 애플리케이션과 같이 빌드할 제품을 말한다.
 
@@ -61,32 +61,32 @@ summary: "음원 재생기를 제작해보자."
 
 앱을 구동하기 전에, 어떤 타겟에 대한 환경을 설정할 것인지 정해줘야 한다. 위에서 말했듯 하나의 프롲게트에는 여러개의 Target이 존재할 수 있기 때문에, 각각의 target은 다른 환경 설정을 가질 수 있다. 그렇기 때문에 실제 앱이 구동되는 것을 보기 위해서는 내가 원하는 타겟과, 그에 맞는 설정파일(Scheme)을 선택해주어야 한다.
 
-![image](https://user-images.githubusercontent.com/37871541/121645245-ee004180-cace-11eb-901b-0ae4b542c511.png){. center-verysmall}
-![image](https://user-images.githubusercontent.com/37871541/121645530-433c5300-cacf-11eb-86f9-43131bec6fc6.png){. center-verysmall}_Scheme과 Target simulator_
+![image](https://user-images.githubusercontent.com/37871541/121645245-ee004180-cace-11eb-901b-0ae4b542c511.png){: .center-verysmall}
+![image](https://user-images.githubusercontent.com/37871541/121645530-433c5300-cacf-11eb-86f9-43131bec6fc6.png){: .center-verysmall}_Scheme과 Target simulator_
 
 이렇게 실행할 기기를 선택할 수 있다. 시뮬레이터를 사용하면 무료이지만, 기기에서 테스트를 무료로 하려면 일주일에 한번 빌드해줘야 한다. 유료는 그런 걱정이 없다.
 
 WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 있다.
 
-![image](https://user-images.githubusercontent.com/37871541/121645930-b8a82380-cacf-11eb-87d8-3e6747a78c60.png){. center-small}
+![image](https://user-images.githubusercontent.com/37871541/121645930-b8a82380-cacf-11eb-87d8-3e6747a78c60.png){: .center-small}
 
 
 
 # 에셋 카탈로그
 
 
-![image](https://user-images.githubusercontent.com/37871541/121771979-971d6980-cbad-11eb-90bd-965ff52ef280.png){. center}_Assets description_
+![image](https://user-images.githubusercontent.com/37871541/121771979-971d6980-cbad-11eb-90bd-965ff52ef280.png){: .center}_Assets description_
 
 
 용어를 잘 알아두도록 하자. 카탈로그라는 말이 어색하다.
 
 
 
-![image](https://user-images.githubusercontent.com/37871541/121772301-866df300-cbaf-11eb-8428-f129cec9d87e.png){. center}_Asset variations_
+![image](https://user-images.githubusercontent.com/37871541/121772301-866df300-cbaf-11eb-8428-f129cec9d87e.png){: .center}_Asset variations_
 
 위에서 App icon을 눌렀을 떄 나오는 화면이다. 각각의 device간에 들어갈 asset이 달라진다.
 
-![image](https://user-images.githubusercontent.com/37871541/121797497-85929b00-cc5b-11eb-8091-20a1b1ac6807.png){. center}_Asset 카탈로그의 컨텐츠_
+![image](https://user-images.githubusercontent.com/37871541/121797497-85929b00-cc5b-11eb-8091-20a1b1ac6807.png){: .center}_Asset 카탈로그의 컨텐츠_
 
 에셋 카탈로그의 **콘텐츠**는 3가지 타입이다.
 
@@ -96,7 +96,7 @@ WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 
 
 아직 이해가 어려우니 나중에 실습을 하면서 이해하자.
 
-![image](https://user-images.githubusercontent.com/37871541/121797574-005bb600-cc5c-11eb-8f7f-6aa17f129599.png){. center}_에셋 카탈로그의 구조_
+![image](https://user-images.githubusercontent.com/37871541/121797574-005bb600-cc5c-11eb-8f7f-6aa17f129599.png){: .center}_에셋 카탈로그의 구조_
 
 구조는 다음과 같다.
 
@@ -109,7 +109,7 @@ WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 
 
 |폴더 타입 | 확장자 | 설명
 |:-:|:-:|:-:|
-||App Icon Type|.appiconset|애플리케이션의 아이콘 입니다.|
+|App Icon Type|.appiconset|애플리케이션의 아이콘 입니다.|
 |Catalog Type|.xcassets|에셋 카탈로그의 최상위 폴더입니다.|
 |Image Set Type|.imageset|객체들이 사용하는 이미지입니다.|
 |Data Set Type|.dataset|애플리케이션에서 사용되는 데이터 파일입니다.|
@@ -125,7 +125,7 @@ WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 
 
 # Slicing
 
-![image](https://user-images.githubusercontent.com/37871541/121797722-043c0800-cc5d-11eb-96fb-2a4c04fbf195.png){. center}_slicing 매커니즘_
+![image](https://user-images.githubusercontent.com/37871541/121797722-043c0800-cc5d-11eb-96fb-2a4c04fbf195.png){: .center}_slicing 매커니즘_
 
 * 애플리케이션이 지원하는 다양한 디바이스에 대한 여러 조각의 애플리케이션 번들을 생성하고, 디바이스에 알맞는 조각을 전달하는 기술이다.
 * 개발자가 애플리케이션 전체 버전을 ITunes Connect에 업로드하면, 앱스토어에서 각 디바이스 특성에 맞는 다양한 버전의 조각들을 생성한다.
@@ -158,119 +158,82 @@ WatchOS를 사용했다면 동시에 뜨는 시뮬레이터를 실행시킬 수 
 
 외울 수는 없지만 한번씩 읽어보자. 나중에 찾아보고.
 
-touchDown
-컨트롤을 터치했을 때 발생하는 이벤트
-UIControl.Event.touchDown
+* touchDown  
+* 컨트롤을 터치했을 때 발생하는 이벤트
+* UIControl.Event.touchDown* 
 
+* touchDownRepeat
+* 컨트롤을 연속 터치 할 때 발생하는 이벤트
+* UIControl.Event.touchDownRepeat* 
 
-touchDownRepeat
-컨트롤을 연속 터치 할 때 발생하는 이벤트
-UIControl.Event.touchDownRepeat
+* touchDragInside
+* 컨트롤 범위 내에서 터치한 영역을 드래그 할 때 발생하는 이벤트
+* UIControl.Event.touchDragInside* 
 
- 
+* touchDragOutside
+* 터치 영역이 컨트롤의 바깥쪽에서 드래그 할 때 발생하는 이벤트
+* UIControl.Event.touchDragOutside* 
 
-touchDragInside
-컨트롤 범위 내에서 터치한 영역을 드래그 할 때 발생하는 이벤트
-UIControl.Event.touchDragInside
+* touchDragEnter
+* 터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔다가 다시 들어왔을 때 발생하는 이벤트
+* UIControl.Event.touchDragEnter* 
 
- 
+* touchDragExit
+* 터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔을 때 발생하는 이벤트
+* UIControl.Event.touchDragExit* 
 
-touchDragOutside
-터치 영역이 컨트롤의 바깥쪽에서 드래그 할 때 발생하는 이벤트
-UIControl.Event.touchDragOutside
+* touchUpInside
+* 컨트롤 영역 안쪽에서 터치 후 뗐을때 발생하는 이벤트
+* UIControl.Event.touchUpInside* 
 
- 
+* touchUpOutside
+* 컨트롤 영역 안쪽에서 터치 후 컨트롤 밖에서 뗐을때 이벤트
+* UIControl.Event.touchUpOutside* 
 
-touchDragEnter
-터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔다가 다시 들어왔을 때 발생하는 이벤트
-UIControl.Event.touchDragEnter
+* touchCancel
+* 터치를 취소하는 이벤트 (touchUp 이벤트가 발생되지 않음)
+* UIControl.Event.touchCancel* 
 
- 
+* valueChanged
+* 터치를 드래그 및 다른 방법으로 조작하여 값이 변경되었을때 발생하는 이벤트
+* UIControl.Event.valueChanged* 
 
-touchDragExit
-터치 영역이 컨트롤의 일정 영역 바깥쪽으로 나갔을 때 발생하는 이벤트
-UIControl.Event.touchDragExit
+* primaryActionTriggered
+* 버튼이 눌릴때 발생하는 이벤트 (iOS보다는 tvOS에서 사용)
+* UIControl.Event.primaryActionTriggered* 
 
- 
+* editingDidBegin
+* UITextField에서 편집이 시작될 때 호출되는 이벤트
+* UIControl.Event.editingDidBegin* 
 
-touchUpInside
-컨트롤 영역 안쪽에서 터치 후 뗐을때 발생하는 이벤트
-UIControl.Event.touchUpInside
+* editingChanged
+* UITextField에서 값이 바뀔 때마다 호출되는 이벤트
+* UIControl.Event.editingChanged* 
 
- 
+* editingDidEnd
+* UITextField에서 외부객체와의 상호작용으로 인해 편집이 종료되었을 때 발생하는 이벤트
+* UIControl.Event.editingDidEnd* 
 
-touchUpOutside
-컨트롤 영역 안쪽에서 터치 후 컨트롤 밖에서 뗐을때 이벤트
-UIControl.Event.touchUpOutside
+* editingDidEndOnExit
+* UITextField의 편집상태에서 키보드의 return 키를 터치했을 때 발생하는 이벤트
+* UIControl.Event.editingDidEndOnExit* 
 
- 
+* allTouchEvents
+* 모든 터치 이벤트
+* UIControl.Event.allTouchEvents* 
 
-touchCancel
-터치를 취소하는 이벤트 (touchUp 이벤트가 발생되지 않음)
-UIControl.Event.touchCancel
+* allEditingEvents
+* UITextField에서 편집작업의 이벤트
+* UIControl.Event.allEditingEvents* 
 
- 
+* applicationReserved
+* 각각의 애플리케이션에서 프로그래머가 임의로 지정할 수 있는 이벤트 값의 범위
+* UIControl.Event.applicationReserved* 
 
-valueChanged
-터치를 드래그 및 다른 방법으로 조작하여 값이 변경되었을때 발생하는 이벤트
-UIControl.Event.valueChanged
+* systemReserved
+* 프레임워크 내에서 사용하는 예약된 이벤트 값의 범위
+* UIControl.Event.systemReserved* 
 
- 
-
-primaryActionTriggered
-버튼이 눌릴때 발생하는 이벤트 (iOS보다는 tvOS에서 사용)
-UIControl.Event.primaryActionTriggered
-
- 
-
-editingDidBegin
-UITextField에서 편집이 시작될 때 호출되는 이벤트
-UIControl.Event.editingDidBegin
-
- 
-
-editingChanged
-UITextField에서 값이 바뀔 때마다 호출되는 이벤트
-UIControl.Event.editingChanged
-
- 
-
-editingDidEnd
-UITextField에서 외부객체와의 상호작용으로 인해 편집이 종료되었을 때 발생하는 이벤트
-UIControl.Event.editingDidEnd
-
- 
-
-editingDidEndOnExit
-UITextField의 편집상태에서 키보드의 return 키를 터치했을 때 발생하는 이벤트
-UIControl.Event.editingDidEndOnExit
-
- 
-
-allTouchEvents
-모든 터치 이벤트
-UIControl.Event.allTouchEvents
-
- 
-
-allEditingEvents
-UITextField에서 편집작업의 이벤트
-UIControl.Event.allEditingEvents
-
- 
-
-applicationReserved
-각각의 애플리케이션에서 프로그래머가 임의로 지정할 수 있는 이벤트 값의 범위
-UIControl.Event.applicationReserved
-
- 
-
-systemReserved
-프레임워크 내에서 사용하는 예약된 이벤트 값의 범위
-UIControl.Event.systemReserved
-
- 
-
-allEvents
-시스템 이벤트를 포함한 모든 이벤트
-UIControl.Event.allEvents
+* allEvents
+* 시스템 이벤트를 포함한 모든 이벤트
+* UIControl.Event.allEvents
