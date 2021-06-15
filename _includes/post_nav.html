@@ -1,0 +1,50 @@
+<div id="post-nav">
+  {% if page.series %} {% assign count = '0' %} {% assign idx = '0' %} {% assign
+  sortedPosts = site.posts | sort: 'title' %} {% for post in sortedPosts %} {%
+  if post.series == page.series %} {% capture count %}{{ count | plus: '1' }}{%
+  endcapture %} {% if post.url == page.url %} {% capture idx %}{{count}}{%
+  endcapture %} {% endif %} {% endif %} {% endfor %} {% assign prev = 0 %} {%
+  assign next = 0 %} {% capture prev %}{{ idx | minus: '1' }}{% endcapture %} {%
+  capture next %}{{ idx | plus: '1' }}{% endcapture %} {% assign count = '0' %}
+  {% assign sortedPosts = site.posts | sort: 'title' %} {% for post in
+  sortedPosts %} {% if post.series == page.series %} {% capture count %}{{ count
+  | plus: '1' }}{% endcapture %} {% if count == prev %}
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='{{ site.baseurl }}{{ post.url }}';"
+  >
+    <p>PREVIOUS SERIES</p>
+    <p>{{ post.title }}</p>
+  </div>
+  {% elsif count == next %}
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='{{ site.baseurl }}{{ post.url }}';"
+  >
+    <p>NEXT SERIES</p>
+    <p>{{ post.title }}</p>
+  </div>
+  {% endif %} {% endif %} {% endfor %} {% else %} {% if page.previous.url %}
+  <div
+    id="previous-post"
+    class="post-nav-post"
+    onclick="location.href='{{ site.baseurl }}{{ page.previous.url }}';"
+  >
+    <p>{{ site.theme_settings.str_previous_post }}</p>
+    <a href="{{ site.baseurl }}{{ page.previous.url }}">
+      {{ page.previous.title }}
+    </a>
+  </div>
+  {% endif %} {% if page.next.url %}
+  <div
+    id="next-post"
+    class="post-nav-post"
+    onclick="location.href='{{ site.baseurl }}{{ page.next.url }}';"
+  >
+    <p>{{ site.theme_settings.str_next_post }}</p>
+    <a href="{{ site.baseurl }}{{ page.next.url }}"> {{ page.next.title }} </a>
+  </div>
+  {% endif %} {% endif %}
+</div>
