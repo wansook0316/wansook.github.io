@@ -20,7 +20,7 @@ summary: "소프트웨어 유지보수 방법을 알아보자."
 
 * 마일스톤 별로 관리가 되어야 한다.
 
-![image](https://user-images.githubusercontent.com/37871541/121829328-28e7bc80-ccfd-11eb-92e5-dae8afc142d7.png){. center}_중앙집중형, 분산형_
+![image](https://user-images.githubusercontent.com/37871541/121829328-28e7bc80-ccfd-11eb-92e5-dae8afc142d7.png){: .center}_중앙집중형, 분산형_
 
 * 중앙집중형
   * 장점
@@ -32,9 +32,9 @@ summary: "소프트웨어 유지보수 방법을 알아보자."
   * 고립형으로 할 수도 있음
   * 중앙서버는 저장용으로 관리
 
-![image](https://user-images.githubusercontent.com/37871541/121829592-f7232580-ccfd-11eb-97c2-c6acca443a06.png){. center-small}_version control_
+![image](https://user-images.githubusercontent.com/37871541/121829592-f7232580-ccfd-11eb-97c2-c6acca443a06.png){: .center-small}_version control_
 
-![image](https://user-images.githubusercontent.com/37871541/121840888-30688f00-cd18-11eb-8f66-616ff2f6766d.png){. center-verysmall}_example_
+![image](https://user-images.githubusercontent.com/37871541/121840888-30688f00-cd18-11eb-8f66-616ff2f6766d.png){: .center-verysmall}_example_
 
 * master
   * 중간에 가다가 tag를 닮. 의미가 있을 때 단다.
@@ -45,7 +45,7 @@ summary: "소프트웨어 유지보수 방법을 알아보자."
 * release branches
   * 안정화 중심으로 작업 후 master에 포함
 
-![image](https://user-images.githubusercontent.com/37871541/121841048-82111980-cd18-11eb-9b3c-2687d65602b9.png){. center-verysmall}_example2_
+![image](https://user-images.githubusercontent.com/37871541/121841048-82111980-cd18-11eb-9b3c-2687d65602b9.png){: .center-verysmall}_example2_
 
 
 * feature branches
