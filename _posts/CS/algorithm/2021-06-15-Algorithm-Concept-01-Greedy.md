@@ -3,7 +3,7 @@ layout: post
 title: "01: Greedy"
 category: "CS/Algorithm"
 comments: true
-tags: [알고리즘, "알고리즘 개념잡기"]
+tags: [알고리즘, "알고리즘 개념잡기", "그래프", "프림알고리즘", "다익스트라", "배낭 채우기 문제", "유니온파인드", "그리디"]
 feature-img: "assets/img/71.jpg"
 feature-title:
 use_math: true
