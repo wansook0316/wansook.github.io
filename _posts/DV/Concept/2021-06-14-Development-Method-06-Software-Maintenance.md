@@ -17,7 +17,6 @@ summary: "소프트웨어 유지보수 방법을 알아보자."
 * 비교 기능
 * 복원 기능
 * 병합 기능
-
 * 마일스톤 별로 관리가 되어야 한다.
 
 ![image](https://user-images.githubusercontent.com/37871541/121829328-28e7bc80-ccfd-11eb-92e5-dae8afc142d7.png){: .center}_중앙집중형, 분산형_
@@ -54,7 +53,7 @@ summary: "소프트웨어 유지보수 방법을 알아보자."
 * hotfixes
 * master
 
-[Version Control Wikipedia](https://en.wikipedia.org/wiki/Version_control)
+[Version Control Wikipedia 참고](https://en.wikipedia.org/wiki/Version_control)
 
 * branch(분기)
 * change
@@ -126,7 +125,7 @@ Fork를 떠야함
 
 
 
-![image](https://user-images.githubusercontent.com/37871541/121855986-ef2fa980-cd2e-11eb-893b-3210348971f3.png){. :center}_github workflow_
+![image](https://user-images.githubusercontent.com/37871541/121855986-ef2fa980-cd2e-11eb-893b-3210348971f3.png){: . center}_github workflow_
 
 ![image](https://user-images.githubusercontent.com/37871541/121856830-e8556680-cd2f-11eb-9aa8-d423890f6522.png){: .center}_github summary_
 
