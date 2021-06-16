@@ -8,7 +8,7 @@ feature-img: "assets/img/71.jpg"
 feature-title:
 use_math: true
 series: "Algorithm Concept"
-summary: ""
+summary: "가지를 끊어버리는 백 트래킹에 대해 알아보자."
 ---
 
 # 트리 방문

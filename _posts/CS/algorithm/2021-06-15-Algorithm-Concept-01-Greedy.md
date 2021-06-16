@@ -8,7 +8,7 @@ feature-img: "assets/img/71.jpg"
 feature-title:
 use_math: true
 series: "Algorithm Concept"
-summary: ""
+summary: "완전 탐색이 아닌 특정 방법으로 문제를 해결하자."
 ---
 
 # 그래프 용어

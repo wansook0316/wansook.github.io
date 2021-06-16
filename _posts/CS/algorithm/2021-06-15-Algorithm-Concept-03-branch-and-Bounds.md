@@ -8,7 +8,7 @@ feature-img: "assets/img/71.jpg"
 feature-title:
 use_math: true
 series: "Algorithm Concept"
-summary: ""
+summary: "분기 한정법에 대해 알아보자."
 ---
 
 # 분기 한정법
