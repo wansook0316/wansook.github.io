@@ -3,7 +3,7 @@ layout: post
 title: "05: Searching"
 category: "CS/Algorithm"
 comments: true
-tags: [알고리즘, "알고리즘 개념잡기"]
+tags: [알고리즘, "알고리즘 개념잡기", "이진 검색", "보간 검색", "이진 트리 검색", "AVL 트리", "B Tree", "Red Black 트리", "Hash", "선택 문제", "최대키 찾기", "최소키 찾기", "차대키 찾기", "k번째 수 찾기"]
 feature-img: "assets/img/71.jpg"
 feature-title:
 use_math: true

@@ -3,7 +3,7 @@ layout: post
 title: "04: Sorting"
 category: "CS/Algorithm"
 comments: true
-tags: [알고리즘, "알고리즘 개념잡기"]
+tags: [알고리즘, "알고리즘 개념잡기", "삽입 정렬", "선택 정렬", "교환 정렬", "버블 정렬", "병합 정렬", "퀵 정렬", "힙 정렬", "Radix 정렬", "위상 정렬"]
 feature-img: "assets/img/71.jpg"
 feature-title:
 use_math: true
@@ -21,7 +21,7 @@ summary: "정렬에 대해 깊게 공부해보자."
 # 삽입 정렬
 
 
-![image](https://user-images.githubusercontent.com/37871541/122244388-d0344180-ceff-11eb-9197-9ab1e761dc96.png){: .center-verysmall}_삽입 정렬_
+![image](https://user-images.githubusercontent.com/37871541/122244388-d0344180-ceff-11eb-9197-9ab1e761dc96.png){: .center-small}_삽입 정렬_
 
 * 항목을 끼워 넣는다고 생각해!!!
 * 어디에? : 앞에
@@ -57,7 +57,7 @@ def insertsort(a):
 
 # 선택 정렬
 
-![image](https://user-images.githubusercontent.com/37871541/122248764-47b7a000-cf03-11eb-9ad1-fb7767d3a289.png){: .center-verysmall}_선택 정렬_
+![image](https://user-images.githubusercontent.com/37871541/122248764-47b7a000-cf03-11eb-9ad1-fb7767d3a289.png){: .center-small}_선택 정렬_
 
 * 뒤에서 부터 제일 작을 놈을 선택해서 넣어버린다.
 * 불안정 정렬
@@ -106,7 +106,7 @@ def exchangesort(a):
 
 # 거품 정렬
 
-![image](https://user-images.githubusercontent.com/37871541/122253423-1d67e180-cf07-11eb-8083-9ab04eec9bef.png){: .center-verysmall}_거품 정렬_
+![image](https://user-images.githubusercontent.com/37871541/122253423-1d67e180-cf07-11eb-8083-9ab04eec9bef.png){: .center-small}_거품 정렬_
 
 * 얘는 뒤에서부터 시작해서 작은 값이 거품처럼 올라온다고 거품 정렬이다.
 
