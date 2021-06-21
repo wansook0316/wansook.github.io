@@ -3,7 +3,7 @@ layout: post
 title: "01: 음원 재생기 - 01"
 category: "DV/Swift"
 comments: true
-tags: [iOS]
+tags: [iOS, "단축키", "Asset", "App thinning"]
 feature-img: "assets/img/79.jpg"
 feature-title: ""
 use_math: true
