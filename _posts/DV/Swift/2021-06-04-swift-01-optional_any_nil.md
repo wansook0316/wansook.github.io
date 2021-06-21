@@ -8,7 +8,7 @@ feature-img: "assets/img/79.jpg"
 feature-title: ""
 use_math: true
 series: "Swift"
-summary: "언어에 대해 이해해보자."
+summary: "헷갈리는 문법 위주의 공부, optional, any, nil"
 ---
 
 
