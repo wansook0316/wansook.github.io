@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "01: 음원 재생기 - 01"
+title: "01: Asset, App thinning"
 category: "DV/Swift"
 comments: true
 tags: [iOS, "단축키", "Asset", "App thinning"]
