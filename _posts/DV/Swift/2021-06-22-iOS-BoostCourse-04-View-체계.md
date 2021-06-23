@@ -121,7 +121,66 @@ class ViewController: UIViewController {
 * Bounds
   * 자신의 좌표계를 기준으로 크기와 위치를 나타냄
 
+```swift
+import UIKit
 
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        print("viewDidLoad")
+        let viewRect = CGRect(x: 100, y: 100, width: 200, height: 200)
+        let subView = UIView(frame: viewRect)
+        subView.backgroundColor = UIColor.green
+        
+        print("서브뷰의 프레임 CGRect : \(subView.frame)")
+        print("서브뷰의 바운드 CGRect : \(subView.bounds)")
+        print("서브뷰의 프레임 Origin : \(subView.frame.origin)")
+        print("서브뷰의 바운드 Origin : \(subView.bounds.origin)")
+        
+        self.view.addSubview(subView)
+    }
+}
+```
+
+```
+서브뷰의 프레임 CGRect : (100.0, 100.0, 200.0, 200.0)
+서브뷰의 바운드 CGRect : (0.0, 0.0, 200.0, 200.0)
+서브뷰의 프레임 Origin : (100.0, 100.0)
+서브뷰의 바운드 Origin : (0.0, 0.0)
+```
+
+* Frame은 부모뷰의 입장에서 알아야하는 정보
+* Bounds는 자신의 입장에서 알아야하는 정보라 할 수 있다.
+
+
+![image](https://user-images.githubusercontent.com/37871541/122960457-6368ed80-d3be-11eb-9d0c-284514ce31a4.png){: .center-small}_View의 사각형 정의위해 필요한 요소_
+
+* View의 사각형을 정의하기 위해서는 위치, 크기가 필요하다.
+* 위치를 나타내는 것은 origin
+* 크기를 나타내는 것은 size이다.
+* 각각의 origin과 size는 CGPoint, CGSize라는 구조체를 사용해서 나타낼 수 있다.
+* 이 CGPoint, CGSize는 CGFloat라는 타입으로 나타내어진다.
+* 또 이 두개의 구조체를 묶어서 CGRect이라는 구조체를 정의하는데, 이 구조체를 UIView의 인자로 바로 넣을 수 있다.
+
+
+### Frame, Bounds 왜 필요한가?
+
+* Frame
+  * 부모뷰와 비교해서 뷰를 배치하는 경우
+  * 즉 부모뷰에 대해서 현재 뷰의 위치를 결정해야 하는 경우
+* Bounds
+  * 나 자신의 좌표를 나타내는 것
+  * 즉 Frame의 origin은 부모에 대해 뷰의 시작 위치를 나타내는 것이고
+  * bounds의 origin은 그 절대 위치는 고정한 상태로, 해당 뷰에서의 나자신의 시작 위치를 결정짓는 것
+  * 그렇기 때문에 A의 자식뷰인 B의 bounds의 origin을 (0, 0)에서 (30, 40)으로 이동했다면
+  * B 내부에서 시작 위치가 0, 0에서 30, 40으로 변경되는 것
+  * 만약 B의 이미지 크기가 기기 화면을 넘어가는 경우, 이렇게 bounds의 origin을 변경하게 되면
+  * 이미지를 **스크롤**한 효과를 줄 수 있다.
+  * 따라서 Bounds는 스크롤 뷰와 같은 기능을 구현할 때 필수적이라 할 수 있다.
+  * 자세한 내용은 [여기](https://zeddios.tistory.com/203)를 참조하다.
 
 # Reference
-[View 이해 연습하기](https://www.boostcourse.org/mo326/lecture/16874/?isDesc=false)
+[View 이해 연습하기](https://www.boostcourse.org/mo326/lecture/16874/?isDesc=false)  
+[iOS ) Frame과 Bounds의 차이 (1/2)](https://zeddios.tistory.com/203)
