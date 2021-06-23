@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "03: Auto Layout"
+title: "04: View 체계"
 category: "DV/Swift"
 comments: true
 tags: [iOS, "View hierarchy", "뷰 계층", "SuperView", "SubView", "Interface builder", "Frame", "Bounds"]
