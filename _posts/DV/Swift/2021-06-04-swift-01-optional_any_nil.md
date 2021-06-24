@@ -298,6 +298,10 @@ printName(yourName)// nil 값이 전달되기 때문에 런타임 오류발생
   * 느낌표는 정말 값이 있다는 것이 확실할 때 사용하는 언래핑 방법
   * 찜찜하다면 옵셔널 바인딩을 하는 것이 안전한 코딩을 하는 방법
   * Any, AnyObject에는 nil을 할당할 수 없음
+
+
+
+
 # Reference
 
 [SmileHan](https://www.youtube.com/channel/UCM8wseo6DkA-D7yGlCrcrwA)
