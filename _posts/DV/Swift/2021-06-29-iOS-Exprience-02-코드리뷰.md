@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "02: 코드리뷰"
+title: "02: 코드리뷰 Part 1"
 category: "DV/Swift"
 comments: true
 tags: [iOS, "코드리뷰"]
-feature-img: "assets/img/79.jpg"
+feature-img: "assets/img/80.jpg"
 feature-title: ""
 use_math: true
 series: "iOS Experience"
-summary: "코드리뷰 정리"
+summary: "코드리뷰 정리 첫번째"
 ---
 
 # PR/commit 방법

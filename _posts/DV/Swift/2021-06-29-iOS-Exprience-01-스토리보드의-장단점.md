@@ -4,7 +4,7 @@ title: "01: 스토리보드의 장단점"
 category: "DV/Swift"
 comments: true
 tags: [iOS, "Storyboard"]
-feature-img: "assets/img/79.jpg"
+feature-img: "assets/img/80.jpg"
 feature-title: ""
 use_math: true
 series: "iOS Experience"
