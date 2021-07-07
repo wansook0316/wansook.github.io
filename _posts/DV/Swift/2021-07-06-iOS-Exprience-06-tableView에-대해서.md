@@ -115,6 +115,8 @@ extension ViewController: UITableViewDataSource {
 
 
 
+
+
 # Empty Cell을 return 해야 하는 경우
 
 * Json을 파싱해서 데이터를 뿌려주고 싶은 상황이다.
@@ -223,3 +225,60 @@ extension UITableView {
 * UITableView를 확장하고, 빈 셀을 리턴할 때마다, Dequeue해서 반환해주는 것.
 * 이 때, 기존의 Dequeue 같은 경우는 화면을 벗어날 경우 자동으로 Dequeue로 들어갔지만, 이번에는 이러한 등록과정을 거쳐주어야 한다.
 * 새롭게 빈 셀을 요청할 때마다, 해당 Cell을 등록하고, Dequeue하여 넘겨준다.
+
+
+
+# 인스턴스 생성후 넘겼을 때 소멸자 호출
+
+* 그러면 실제로 뷰에서 넘어간 경우, 인스턴스가 메모리에 남아있을까?
+* 정말 위의 방법대로 해야되는지 궁금했다.
+
+```swift
+class CustomUITableViewCell: UITableViewCell {
+    
+    deinit {
+        print("TestTableViewCell deinit")
+    }
+}
+
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+//        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell: CustomUITableViewCell = CustomUITableViewCell()
+        
+        let text: String = indexPath.section == 0 ? korean[indexPath.row] : english[indexPath.row]
+        
+        if indexPath.row == 1 {
+            cell.backgroundColor = UIColor.red
+        }
+        cell.textLabel?.text = text
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? "한글" : "영어"
+    }
+}
+```
+
+* 이렇게 기본 UITableview 를 상속하여 소멸자에 print를 추가하고 실행시켜보았다.
+
+```
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+TestTableViewCell deinit
+```
+
+* 스크롤을 함에 따라, 소멸자가 호출되는 것을 알 수 있었다.
+* 결국.. 사실 dequeue를 쓰나 안쓰나, 뷰에 보이는 셀에 대해 유한개의 인스턴스만 유지된다는 것을 알 수 있다.
+* 하지만 Dequeue를 썼을 때, 해당 인스턴스를 생성하고 소멸하지 않으므로
+* 이러한 부하에 있어서 이를 줄일 수 있다.
+* 생성자, 소멸자 호출은 Cost가 비싼 작업이기 때문이다.
+* Dequeue를 쓰는 경우, 실제로 해당 셀 인스턴스를 초기화하는 작업을 진행하기 때문에 보다 싸다고 할 수 있다.

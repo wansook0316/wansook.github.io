@@ -13,7 +13,6 @@ summary: "IBOutlet은 왜 기본 선언이 암시적 옵셔널인가?"
 
 
 
-
 # IBOutlet에서의 Optional
 
 * 암시적 옵셔널 `!`은 nil인 상태를 가질 수 있으나, 바인딩을 하지않고 접근이 가능하다.
