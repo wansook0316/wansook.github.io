@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Git 사용 개념"
-category: "DV/Git"
+title: "Git Tutorial"
+category: "DV/Concept"
 comments: true
-tags: [Concept, "Development Method"]
+tags: [Concept, git, github]
 feature-img: "assets/img/78.jpg"
 feature-title: ""
 use_math: true
-series: "Git 사용법 정리"
-summary: "내것으로 이해해서 만들어 보자."
+series: "Git & Github"
+summary: "정리하는 겸 해보기!"
 ---
 
 
@@ -21,15 +21,16 @@ summary: "내것으로 이해해서 만들어 보자."
 
 1. clone : 기존 레포 복사떠서 가져오기
 2. pull : 수정사항 있으면 fetch+merge 수행
-3. push : 올리는 것
+3. push : 원격 저장소에 올리는 것
 4. add : staging area에 올리기
 5. commit : 로컬 저장소에 반영 (해시값으로 되어 있음)
 6. reset : 뒤에 hash 값주면 돌아감 (hard, soft, mixed)
-7. branch : 뭐 개발할거면 항상 따서 하기
-8. merge : master 기준으로 merge 한다.
-9. conflict : 소스코드 선정하고 다시 commit후 반영
-10. log : 현재까지의 상황 파악 가능
-11. remote : 원격 저장소에 관한 것
+7. rebase : 브랜치 따서 쭉 작업하다보면 가지 길이 달라지고 난리가 남. 이런 경우 정리하고 싶다! 할때 사용하는 방법
+8. branch : 뭐 개발할거면 항상 따서 하기
+9. merge : master 기준으로 merge 한다.
+10. conflict : 소스코드 선정하고 다시 commit후 반영
+11. log : 현재까지의 상황 파악 가능
+12. remote : 원격 저장소에 관한 것
     1.  원격 저장소는 여러개가될 수 있음
     2.  그리고 별명을 달아둘 수 있음
     3.  `git remote show [별명] ` 이렇게 사용하면 내가 지금 선정한 원격저장소에 관한 내용알 수 있음
@@ -51,3 +52,19 @@ summary: "내것으로 이해해서 만들어 보자."
 8. branch 따기
 9.  내 레포에 commit
 10. 원본 repo에 반영됨!! 야호!
+
+
+# 다시 원론적으로 접근
+
+* 시간 여행, 평행 우주를 만든다고 생각 
+
+
+
+
+
+
+# fork, Pull Request
+
+
+
+# 브랜치 전략

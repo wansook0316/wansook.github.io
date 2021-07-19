@@ -3,10 +3,11 @@ layout: post
 title: "Commit message rules"
 category: "DV/Concept"
 comments: true
-tags: [Git, "commit"]
+tags: [Git, git, github, commit]
 feature-img: "assets/img/7.jpg"
 feature-title: ""
 use_math: true
+series: "Git & Github"
 summary: "Commit 메시지 규칙을 배우고 처음에 사용하는 동사를 어느정도 규정해보자."
 ---
 
