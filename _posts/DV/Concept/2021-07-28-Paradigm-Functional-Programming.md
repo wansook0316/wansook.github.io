@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Functional Programming"
+title: "Functional Programming, Functor, Nonad"
 category: "DV/Concept"
 comments: true
-tags: [Concept, Paradigm, "Functional Programming"]
+tags: [Concept, Paradigm, "Functional Programming", "Functor", "Nonad"]
 feature-img: "assets/img/78.jpg"
 feature-title: ""
 use_math: true
@@ -11,6 +11,7 @@ series: "Paradigm"
 summary: "함수형 프로그래밍의 주요 특징에 대해 알아본다."
 ---
 
+# 개요
 
 - 함수 중심 프로그래밍
     - 함수의 계산으로 데이터를 처리
@@ -53,3 +54,10 @@ summary: "함수형 프로그래밍의 주요 특징에 대해 알아본다."
     - 타입 시스템(타입 추론)
         - 이거 안해주면 컴파일러가 힘든 것
         - 명시적으로 적어주는게 더 나을 수도
+
+
+# Functor
+
+
+
+# Nonad
