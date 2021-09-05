@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "03: Design"
+title: "04: Design"
 category: "DV/Concept"
 comments: true
 tags: [Concept, "Convention","Design"]
@@ -32,7 +32,24 @@ summary: "설계할 때 꼭 들어가야 하는 요소를 정리하자."
 2. 테스트를 위한 함수도 만들지 않는다.
 3. 명사형으로 끝나는 경우는 Computed Property를 사용한다.
 4. 상위 모듈에서는 하위 모듈에게 일을 시키는 방향으로 코드를 구성한다. (호출 레벨이 동등해야 한다.)
-5. 
+5. 클래스 내부 프로퍼티는 기본이 `private` 이다.
+   * IBOutlet, IBAction 역시 마찬가지이다.
+6. 해당 기능이 클래스에 종속되지 않거나, 자주 사용될 경우 Util과 같은 곳으로 분리한다. (라이브러리 형식으로 사용)
+7. 프로토콜 추상화는 method만 하는 것을 추천한다.
+8. 함수하나를 짤 때도, 능동인지 수동인지 생각하면서 짠다.
+9. 네이밍은 물흐르듯 읽을 수 있도록 해야 한다.
 
 
 
+# Tip
+
+* extension을 잘 활용하면 코드의 길이가 줄어들 수 있다. 중복 코드 제거
+  * NSObject extension을 활용해서
+  ```swift
+  class var className: String {
+      String(describing: self)
+  }
+  ```
+  * 이렇게 적어두면 모든 클래스에서 사용이 가능하다.
+* 기본타입을 사용하는 것을 지양하고, 통제, 제한 하는 방식으로 구현한다.
+* 
