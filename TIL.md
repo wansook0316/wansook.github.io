@@ -21,7 +21,7 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 
 
 # Computer Structure
-* [컴퓨터 구조]()
+* [컴퓨터 구조](http://wansook0316.github.io/cs/structure/2020/03/21/%EC%BB%B4%ED%93%A8%ED%84%B0%EA%B5%AC%EC%A1%B0-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC.html)
 * [컴퓨터 아키텍쳐 발전 역사 - 튜링, 폰노이만, 하버드](http://wansook0316.github.io/dv/concept/2021/08/20/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.html)
 * [컴파일러 원리](https://wansook0316.github.io/dv/concept/2021/08/08/%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC%EC%9D%98%EC%9D%B4%ED%95%B4.html)
 
@@ -29,6 +29,7 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 
 * [함수형 프로그래밍](https://wansook0316.github.io/dv/concept/2021/08/08/%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC%EC%9D%98%EC%9D%B4%ED%95%B4.html)
 * [객체 지향 프로그래밍]()
+* [SOLID 5분 설명]()
 * [PubSub Pattern, Observer Pattern]()
 
 # Network
@@ -44,8 +45,21 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 
 # Algorithm
 - [Permutation, Combination Swift 구현](http://wansook0316.github.io/dv/concept/2021/08/20/%EC%BB%B4%ED%93%A8%ED%84%B0%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90.html)
+- [Hash map 구현, LRU 캐시 구현]()
+- [Linked List 구현]()
+- [Trie 구현]()
+
+
+# OS
+- [메모리 구조, stack, heap 작동 방식]()
+- [프로세스 스케쥴링]()
 
 # iOS
+
+## Framework
+
+* [Foundation]()
+* https://developer.apple.com/documentation/foundation
 
 ## Human Interface Guideline
 
@@ -64,7 +78,10 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 
 ## UIKit
 * [Custom View 만들기]()
-
+* [캐시 사용하기]()
+* [Notification Center]()
+* [ViewController - 공식 읽기]()
+* [Scene, UIScene, UIWindowScene]()
 ## UI
 
 * [ToastUI는 좋은 UI인가?]()
