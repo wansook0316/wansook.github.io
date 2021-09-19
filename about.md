@@ -7,10 +7,10 @@ feature-img: "assets/img/about.jpg"
 introduce: "안녕하세요. 최완식입니다."
 ---
 
-- [Portfolio](https://wansook0316.notion.site/17d8c2678e364fffa621f986f7a71764)
+
 
 <h1 style="margin-top:0;">About me 🙋🏻</h1>
-
+- [Portfolio](https://wansook0316.notion.site/17d8c2678e364fffa621f986f7a71764)
 - 📌 뚜렷한 목표와 계획, 그리고 실천의 힘을 믿습니다.
 - 📌 협업을 위해 배려하며, 성장하기 위해 노력합니다.
 - 📌 함께 무언가를 이루는 행위자체를 즐기며, 도움이 될 때 행복합니다.

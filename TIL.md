@@ -9,15 +9,16 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 
 # 원칙
 * 기술에 대해서 이해하고, 장단점 파악하기
+* 생각보다 원리는 별 것 없다. 말랑말랑한 상태에서 쉽다고 생각하고 읽자.
 
 # Conventions
 
-* [PR Convention]()
-* [Commit Convention]()
-* [Readme Convention]()
-* [Design Convention]()
-* [Test Convention]()
-* [Work Convention]()
+* [PR Convention](https://wansook0316.github.io/dv/concept/2021/09/02/Convention-01-Pull-Request.html)
+* [Commit Convention](https://wansook0316.github.io/dv/concept/2021/09/02/Convention-02-Commit.html)
+* [Readme Convention](https://wansook0316.github.io/dv/concept/2021/09/02/Convention-03-ReadMe.html)
+* [Design Convention](https://wansook0316.github.io/dv/concept/2021/09/02/Convention-04-Design.html)
+* [Test Convention](https://wansook0316.github.io/dv/concept/2021/09/02/Convention-05-Test.html)
+* [Work Convention](https://wansook0316.github.io/dv/concept/2021/09/02/Convention-06-Work.html)
 
 
 # Computer Structure
@@ -63,7 +64,6 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 
 ## Human Interface Guideline
 
-
 ## Swift
 * [Lazy를 잘 안쓰는 이유](https://wansook0316.github.io/dv/ios/2021/08/08/iOS-Exprience-10-Lazy%EB%A5%BC-%EC%95%88%EC%93%B0%EB%8A%94-%EC%9D%B4%EC%9C%A0.html)
 * [비동기 처리 이해]()
@@ -73,15 +73,15 @@ introduce: "배운 내용을 한눈에 보고, 나름의 철학을 정리하는 
 * [Enum Pattern matching]()
 
 ## XCTest
-* [XCTest 잡다 정리들]()
+* [XCTest 잡다 정리들](https://wansook0316.github.io/dv/ios/2021/09/02/iOS-Exprience-13-iOS-XCTest.html)
 
 
 ## UIKit
 * [Custom View 만들기]()
 * [캐시 사용하기]()
 * [Notification Center]()
-* [ViewController - 공식 읽기]()
+* [ViewController - 공식 문서 읽기]()
 * [Scene, UIScene, UIWindowScene]()
-## UI
+## UI/UX
 
-* [ToastUI는 좋은 UI인가?]()
+* [ToastUI는 좋은 UI인가?](https://wansook0316.github.io/dv/ios/2021/09/02/iOS-Exprience-12-iOS-Toast-UI.html)
