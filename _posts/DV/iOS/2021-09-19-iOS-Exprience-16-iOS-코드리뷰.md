@@ -26,6 +26,7 @@ summary: "코드리뷰를 통해 배운점 정리"
   2. 해당 객체를 사용하는 쪽에서 역시 명시적으로 해당 객체 타입을 선언하지 않고 프로토콜을 타입으로 사용하여 interface로 사용하여 결합도를 낮출 수 있다.
 
 
-![0001](https://user-images.githubusercontent.com/37871541/133929087-d6842649-8710-4452-acae-06355228e56b.jpg){: .center}
-![0002](https://user-images.githubusercontent.com/37871541/133929091-d44d31dc-d597-4370-aa90-d5ac195b7b90.jpg){: .center}
-![0003](https://user-images.githubusercontent.com/37871541/133929094-fbb6be5f-d87f-4ac5-b712-ce8ec756449e.jpg){: .center}
+![0001](https://user-images.githubusercontent.com/37871541/133929453-10b0ebc0-eee3-4be1-8c69-b41263477f8b.jpg){: .center}
+![0002](https://user-images.githubusercontent.com/37871541/133929454-77f75bda-a8e1-4edc-b0b2-55c233d8d5c1.jpg){: .center}
+![0003](https://user-images.githubusercontent.com/37871541/133929456-e75b04d1-fff3-40d9-aaaf-b60ed66960e6.jpg){: .center}
+
