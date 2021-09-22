@@ -3,7 +3,7 @@ layout: post
 title: "07: 코드리뷰 Part 3"
 category: "DV/iOS"
 comments: true
-tags: [iOS, ]
+tags: [iOS, "코드리뷰"]
 feature-img: "assets/img/80.jpg"
 feature-title: ""
 use_math: true
