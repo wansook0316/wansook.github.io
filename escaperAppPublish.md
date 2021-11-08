@@ -15,7 +15,7 @@ introduce: "Escaper App Publish"
 </head>
 <body>
 <ul>
-<li><a href="itms-services://?action=download-manifest&url=https://dl.dropboxusercontent.com/s/kn7d8tlqm1fm226/manifest.plist">다운로드</a></li>
+<li><a href="itms-services://?action=download-manifest&url=https://dl.dropboxusercontent.com/s/1mr6h2sgg8v5bmm/manifest.plist">v0.1 다운로드</a></li>
 </ul>
 </body>
 </html>
