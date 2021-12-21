@@ -3,12 +3,12 @@ layout: post
 title: "18: VIPER"
 category: "DV/iOS"
 comments: true
-tags: [iOS, "코드리뷰"]
+tags: [iOS, "Architecture", "VIPER", "RIBs"]
 feature-img: "assets/img/80.jpg"
 feature-title: ""
 use_math: true
 series: "iOS Experience"
-summary: "디자인 패턴 중 VIPER에 대해서 알아보자."
+summary: "아키텍쳐 중 VIPER와 RIBs에 대해서 알아보자."
 ---
 
 # 좋은 아키텍쳐의 조건
