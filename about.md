@@ -100,6 +100,7 @@ introduce: "안녕하세요. 최완식입니다."
 
 # Publications
 - [J Kim, DH Jang, Sj Jang, Wc Lee, JK Lee. DS4C Patient Policy Province Dataset: a Comprehensive COVID-19 Dataset for Causal and Epidemiological Analysis, 2020](https://wansook0316.github.io/cv/publications/2020/12/15/DS4C-NeuralPS-COVID19-policy-dataset.html) (**NeualPS**)
+- [개선된 DeepSORT를 이용한 실시간 다중 얼굴 추적](https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE11036064) (한국정보과학회)
 
 # Patents
 - [식수 인원 예측과 그 서버의 동작 방법](https://wansook0316.github.io/cv/patents/2020/12/02/식수-인원-예측-서버-동작-특허.html)
